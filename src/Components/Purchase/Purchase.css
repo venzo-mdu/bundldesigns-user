@@ -1,0 +1,410 @@
+.bundl-detail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 2% 0 0% 0;
+    text-align: center;
+}
+
+.bundl-detail h2 {
+    color: #000000;
+    font-size: 40px;
+    font-weight: 700;
+}
+
+.bundl-amount {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.bundl-amount p {
+    color: #0BA6C4;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.bundl-desc-title {
+    color: #000000;
+    font-size: 20px;
+    font-weight: 700;
+    width: 100%;
+    text-align: center;
+}
+
+.bundl-desc {
+    font-size: 20px;
+    color: #000000;
+    font-weight: 400;
+    width: 43%;
+    margin: auto;
+    text-align: center;
+}
+
+.one-minor {
+    font-size: 20px;
+    font-weight: 700;
+    color: #000000;
+}
+
+.bundl-section {
+    display: flex;
+    width: 100%;
+}
+
+.brand-details {
+    width: 70%;
+    padding: 2% 3%;
+    border-right: 1px solid #000000;
+    text-align: left;
+}
+
+.brand-input {
+    width: 800px;
+    height: 52px;
+}
+
+.bundl-summary {
+    width: 30%;
+    padding: 2% 0%;
+    text-align: left;
+}
+
+.brand-identity {
+    text-align: left;
+}
+
+.logo-design {
+    width: 55%;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.languages {
+    width: 45%;
+}
+
+.languages p {
+    margin: 0 0 0 15%;
+}
+
+.commerce-collateral {
+    text-align: left;
+    margin: 0 0 8% 0;
+}
+
+.collateral-text {
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.commerce-sections {
+    display: flex;
+    border-bottom: 1px solid #000000;
+    width: 100%;
+}
+
+.commerce-sections p {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.minimum {
+    font-size: 20px;
+    color: #0BA6C4;
+    font-weight: 500;
+    width: 50%;
+}
+
+.quantity {
+    display: flex;
+    border: 1px solid #000000;
+    height: 35px;
+}
+
+.quantity button {
+    color: #000000;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    width: 38px;
+    height: 35px;
+    text-align: center;
+    /* border-bottom: 1px solid #000000; */
+    background-color: transparent;
+}
+
+.input-box {
+    width: 38px;
+    height: 34px;
+    text-align: center;
+    padding: 8px 10px;
+    font-size: 16px;
+    outline: none;
+    border-bottom: 1px solid #000000;
+    border-left: 1px solid #000000;
+    border-right: 1px solid #000000;
+    border-top: 0;
+}
+
+.input-box::-webkit-inner-spin-button,
+.input-box::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.tab-buttons {
+    width: 100%;
+    display: flex;
+}
+
+.tab-buttons .accordian-button {
+    width: 250px;
+    height: 40px;
+    border: 1px solid #0BA6C4;
+    color: #0BA6C4;
+    outline: none;
+    background-color: transparent;
+}
+
+.tab-buttons .active-button {
+    background-color: #0BA6C4;
+    color: #FFFFFF;
+    outline: none;
+    width: 250px;
+    height: 40px;
+    border: 1px solid #0BA6C4;
+}
+
+.dropdowns {
+    height: inherit;
+}
+
+.menu {
+    display: flex;
+    margin: 2% 0 0 0;
+}
+
+.bundl-name {
+    padding: 1% 5%;
+}
+
+.one-heading {
+    font-size: 20px;
+    font-weight: 500;
+    border-bottom: 1px solid grey;
+    padding: 1% 5%;
+}
+
+.one-brand-identity {
+    padding: 1% 5%;
+    color: #0BA6C4;
+    font-size: 20px;
+    font-weight: 700;
+    border-bottom: 1px solid grey;
+}
+
+.bundl-checkout {
+    padding: 1% 5%;
+}
+
+.total p {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.proceed {
+    height: 50px;
+    width: 450px;
+    background-color: #0BA6C4;
+    color: #FFFFFF;
+    font-size: 20px;
+    font-weight: 500;
+    outline: none;
+    border: 0;
+}
+
+.proceed-checkout {
+    padding: 2% 5%;
+}
+
+.proceed-text {
+    font-size: 15px;
+    font-weight: 500;
+    color: #0BA6C4;
+    margin: 5% 0 0 0;
+    text-align: center;
+}
+
+.css-1808mag-MuiPaper-root-MuiAccordion-root {
+    box-shadow: none !important;
+    border-bottom: 1px solid #000000;
+}
+
+.css-1808mag-MuiPaper-root-MuiAccordion-root::before {
+    background-color: transparent !important;
+}
+
+.bundl-accordian {
+    margin: 0 0 5% 0;
+}
+
+.accordian-heading {
+    font-size: 32px;
+    font-weight: 700;
+}
+
+
+@media screen and (max-width:1705px) and (min-width:1024px) {
+    .logo-design {
+        width: 45%;
+    }
+
+    .languages {
+        width: 55%;
+    }
+
+    .languages p {
+        margin: 0 0 0 12%;
+    }
+
+    .commerce-sections p {
+        font-size: 20px;
+    }
+
+    .tab-buttons .accordian-button {
+        font-size: 16px;
+    }
+
+    .tab-buttons .active-button {
+        font-size: 16px;
+    }
+
+    .proceed {
+        width: 350px;
+    }
+
+    .bundl-desc {
+        width: 55%;
+    }
+}
+
+@media screen and (max-width:1024px) and (min-width:768px) {
+    .bundl-desc {
+        width: 79%;
+    }
+
+    .proceed {
+        width: 250px;
+    }
+
+    .brand-input {
+        width: 600px;
+        height: 35px;
+    }
+
+    .commerce-sections p {
+        font-size: 16px;
+    }
+
+    .languages p {
+        margin: 0 0 0 6%;
+    }
+
+    .tab-buttons .accordian-button {
+        font-size: 13px;
+    }
+
+    .tab-buttons .active-button {
+        font-size: 13px;
+    }
+}
+
+
+@media screen and (max-width:768px) and (min-width:475px) {
+    .bundl-section {
+        flex-direction: column;
+    }
+
+    .brand-details {
+        width: 100%;
+        border-right: 0;
+    }
+
+    .bundl-summary {
+        width: 100%;
+    }
+
+    .proceed {
+        width: 650px;
+    }
+
+    .logo-design {
+        width: 45%;
+    }
+
+    .languages {
+        width: 55%;
+    }
+
+    .languages p {
+        margin: 0 0 0 8%;
+    }
+}
+
+@media screen and (max-width:425px) {
+
+    .bundl-section {
+        flex-direction: column;
+    }
+    .brand-details {
+        width: 100%;
+        border-right: 0;
+    }
+    .bundl-summary {
+        width: 100%;
+    }
+    .brand-input {
+        width: 300px;
+        height: 25px;
+    }
+    .bundl-desc{
+        width: 100%;
+        font-size: 20px;
+        line-height: 1.5;
+        padding: 1% 1%;
+    }
+    .languages{
+        width: 100%;
+    }
+    .languages p{
+        margin: 0 0 0 2%;
+    }
+    .commerce-sections p {
+        font-size: 14px;
+    }
+    .accordian-heading{
+        font-size: 24px;
+    }
+    .tab-buttons{
+        flex-direction: column;
+    }
+    .tab-buttons .accordian-button {
+        font-size: 13px;
+        width: 100%;
+     }
+     .tab-buttons .active-button{
+        font-size: 13px;
+        width: 100%;
+    }
+    .proceed{
+        width: 350px;
+    }
+}
+
+@media screen and (max-width:375px) {
+  .proceed{
+    width: 300px;
+  }
+}
