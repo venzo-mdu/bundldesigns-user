@@ -6,6 +6,7 @@ import { Signup } from "./Components/Auth/Signup/Signup";
 import { BundlDetail } from "./Components/Purchase/BundlDetail";
 import { MyCart } from "./Components/Purchase/MyCart";
 import { CustomBundl } from "./Components/Purchase/CustomBundl";
+import { AboutUs } from "./Components/Pages/AboutUs";
 // ----------------------------------------------------------------------
 
 export default function AppRouter() {
@@ -36,6 +37,10 @@ export default function AppRouter() {
     {
       path:"/mycart",
       element:<MyCart/>
+    },
+    {
+      path:"/aboutus",
+      element:<AboutUs/>
     }
   ]);
 }
