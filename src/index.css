@@ -18,9 +18,28 @@ code {
 
 @font-face {
   font-family: "Helvetica";   /*Can be any text*/
-  src: local("AirbnbCerealLight"),
-    url("./Fonts/helvetica-neue-5/HelveticaNeueMedium.otf") format("truetype");
+  src:  url("./Fonts/helvetica-neue-5/HelveticaNeueMedium.otf") format("opentype");
+  font-weight: 600;
 }
+
+@font-face {
+  font-family: "Helvetica";   /*Can be any text*/
+  src:  url("./Fonts/helvetica-neue-5/HelveticaNeueLight.otf") format("opentype");
+  font-weight: 300;
+}
+@font-face {
+  font-family: "Helvetica";   /*Can be any text*/
+  src: url("./Fonts/helvetica-neue-5/HelveticaNeueBold.otf") format("opentype");
+  font-weight: 800
+}
+@font-face {
+  font-family: "Helvetica";   /*Can be any text*/
+  src: 
+    url("./Fonts/helvetica-neue-5/Helvetica-Normal\ Regular.ttf") format('truetype');
+  font-weight: 400; /* Regular weight */
+  font-style: normal;
+}
+
 p{
   font-family: Helvetica;
 }
