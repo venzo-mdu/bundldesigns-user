@@ -1379,7 +1379,7 @@ small {
   line-height: normal;
   text-transform: uppercase;
   position: relative;
-  margin: 0 0 0 20%;
+  /* margin: 0 0 0 20%; */
 }
 
 .our-bundles {
@@ -1728,7 +1728,7 @@ small {
   left: -200px;
 }
 
-.bg_color {
+.bg_color1 {
   position: absolute;
   inset: 0;
   width: 0%;
@@ -1843,7 +1843,7 @@ small {
   stroke: #fff;
 }
 
-#newbie_no1:checked~.bg_color {
+#newbie_no1:checked~.bg_color1 {
   width: 100%;
 }
 
@@ -4309,7 +4309,7 @@ position: relative;
 
 @media screen and (max-width:1705px) and (min-width:1024px) {
   .header-section .col-lg-6{
-    width: 38%;
+    width: 40%;
   }
   .header-section .col-lg-3{
     width: 30%;

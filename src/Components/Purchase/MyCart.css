@@ -72,3 +72,33 @@ form{
 .MuiTableRow-root:last-child .MuiTableCell-root {
     border-bottom: none !important;
 }
+
+@media screen and (max-width:768px) and (min-width:425px) {
+    .mycart{
+        flex-direction: column;
+    }
+    .cart{
+        width: 100%;
+        padding: 2% 3%;
+        border-bottom: 1px solid #000000;
+    }
+    .billing{
+        width: 100%;
+        padding: 2% 3%;
+    }
+}
+
+@media screen and (max-width:425px) {
+    .mycart{
+        flex-direction: column;
+    }
+    .cart{
+        width: 100%;
+        padding: 2% 3%;
+        border-bottom: 1px solid #000000;
+    }
+    .billing{
+        width: 100%;
+        padding: 2% 3%;
+    }
+}

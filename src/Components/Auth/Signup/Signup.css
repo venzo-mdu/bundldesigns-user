@@ -10,6 +10,7 @@
     padding: 1% 2%;
     outline:none;
 }
+
 .terms-policy p{
     font-size: 12px;
     margin: 3% 0 0 1%;
@@ -21,6 +22,13 @@
     width: 100%;
     color: #F3B7CE;
 }
+.error {
+    color: rgb(240, 76, 76);
+    font-size: 12px;
+    font-weight: 400;
+    margin: 0;
+  }
+  
 
 @media screen and (max-width:1705px) and (min-width:1024px) {
     .signup-content{

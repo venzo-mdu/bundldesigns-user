@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect , useState } from 'react'
 import '../Purchase/Purchase.css'
 import { Navbar } from '../Common/Navbar/Navbar'
 import { Footer } from '../Common/Footer/Footer'
@@ -17,6 +17,8 @@ import { NavLink, useLocation } from 'react-router-dom'
 export const CustomBundl = () => {
 
   const location = useLocation();
+  const [addonPayLoads, setAddonPayLoads] = useState({});
+
 
   useEffect(()=>{
     document.documentElement.scrollTo({
@@ -86,6 +88,7 @@ export const CustomBundl = () => {
             <div style={{ margin: '5% 0 0 0' }}>
               <Accordian
                 accordianTitle={'Custom Your Bundl!'}
+                addOnPayload={setAddonPayLoads}
               />
             </div>
 
@@ -123,6 +126,18 @@ export const CustomBundl = () => {
                 <p style={{ fontSize: '20px', fontWeight: '700', width: '40%' }}><img src={Dollor}></img> 180 sar</p>
               </div>
             </div>
+            <div className='bundl-name'>
+              <p style={{ fontSize: '24px', fontWeight: '700', padding: '2% 0%' }}>Add ons</p>
+              </div>
+            {addonPayLoads?.item_list?.map((addon, idx) => (
+              <div key={idx} className='one-brand-identity'>
+                <p style={{ color: '#000000', fontSize: '20px', fontWeight: '700', width: '60%' }}>{addon.qty} {addon.addon_name}</p>
+                <div style={{ display: 'flex' }}>
+                  <p style={{ fontSize: '20px', fontWeight: '700', width: '60%' }}>+ {addon.unit_time * addon.qty} Days</p>
+                  <p style={{ fontSize: '20px', fontWeight: '700', width: '40%' }}>+ {addon.unit_price * addon.qty} SAR</p>
+                </div>
+              </div>
+            ))}
             {/* <p className='one-heading'>3 GIF posts</p> */}
             <div className='bundl-checkout'>
               <div className='total' style={{ display: 'flex' }}>

@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 import '../Purchase/MyCart.css'
 import { Navbar } from '../Common/Navbar/Navbar'
 import { Footer } from '../Common/Footer/Footer'
+import { Popup } from '../Common/Popup/Popup'
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -12,19 +14,80 @@ import Paper from '@mui/material/Paper';
 
 import DeleteIcon from '../../Images/BundlDetail/deleteicon.svg'
 import BlackDollor from '../../Images/BundlDetail/blackdollor.svg'
-import BlackTime from '../../Images/BundlDetail/blacktime.svg' 
+import BlackTime from '../../Images/BundlDetail/blacktime.svg'
+import { base_url } from '../Auth/BackendAPIUrl';
+import { useLocation, useNavigate } from 'react-router-dom'
+import { Config } from '../Auth/ConfigToken'
 
 export const MyCart = () => {
-    function createData(name, calories, fat, carbs) {
-        return { name, calories, fat, carbs };
-    }
-    const rows = [
-        createData('Boutiquer Bundl', 1, 7640, DeleteIcon, 4.0),
-        createData('Boutiquer Bundl', 1, 7640, DeleteIcon, 4.0),
-        createData('Boutiquer Bundl', 1, 7640, DeleteIcon, 4.0),
-        createData('Boutiquer Bundl', 1, 7640, DeleteIcon, 4.0),
-        createData('Boutiquer Bundl', 1, 7640, DeleteIcon, 4.0),
-    ]
+
+    const location = useLocation();
+    const navigate = useNavigate();
+    const [cartDetails, setCartDetails] = useState([]);
+    const [openPopup , setOpenPopup] = useState(false);
+    const [billingInfo, setBillingInfo] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phoneNumber: '',
+        country: '',
+        city: '',
+        postalCode: '',
+        promoCode: '',
+    });
+
+    useEffect(() => {
+        getCartData();
+    }, []);
+
+    const getCartData = async () => {
+        // const response = await axios.get(`${base_url}/api/order/${location.state.orderData.id}/`);
+        const response = await axios.get(`${base_url}/api/order/cart/`,Config);
+        console.log(response)
+        if(response.data){
+            setCartDetails(response.data);
+        }
+        if(response.status === 206){ 
+           setOpenPopup(true)
+        }
+    };
+
+    const removeItem = (itemId, itemType) => {
+        console.log(itemId,cartDetails)
+        setCartDetails((prevCartDetails) => {
+            const updatedItemDetails = { ...prevCartDetails.item_details };
+            if (itemType === 'bundle') {
+                updatedItemDetails.bundle_items = updatedItemDetails.bundle_items.filter(item => item.id !== itemId);
+            } else if (itemType === 'addon') {
+                updatedItemDetails.addon_items = updatedItemDetails.addon_items.filter(item => item.id !== itemId);
+            }
+
+            return {
+                ...prevCartDetails,
+                item_details: updatedItemDetails
+            };
+        });
+    };
+
+    const handlePayment = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post(`${base_url}/api/order/payment`, {
+                order_id: location.state.orderData.id,
+                billingInfo,
+            },Config);
+            console.log("Payment successful:", response.data);
+        } catch (error) {
+            console.error("Payment error:", error);
+        }
+    };
+
+    const handleBillingChange = (e) => {
+        const { name, value } = e.target;
+        setBillingInfo({ ...billingInfo, [name]: value });
+    };
+
+
     return (
         <div>
             <Navbar />
@@ -42,90 +105,122 @@ export const MyCart = () => {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {rows.map((row) => (
+                                {cartDetails?.item_details?.bundle_items?.map((row) => (
                                     <TableRow
-                                        key={row.name}
+                                        key={row.item_name}
                                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                     >
                                         <TableCell scope="row">
-                                            {row.name}
+                                            {row.item_name}
                                         </TableCell>
-                                        <TableCell align="center">{row.calories}</TableCell>
-                                        <TableCell align="center">{row.fat}</TableCell>
+                                        <TableCell align="center">{row.qty}</TableCell>
+                                        <TableCell align="center">{row.unit_price}</TableCell>
                                         {/* <TableCell align="center"><img style={{width:'23px'}} src={row.DeleteIcon}></img></TableCell> */}
                                         <TableCell align="center">
-                                            <img style={{ cursor:'pointer' }} src={DeleteIcon} alt="Delete Icon" />
+                                            <img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'bundle')}/>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                                {cartDetails?.item_details?.addon_items?.map((row) => (
+                                    <TableRow
+                                        key={row.item_name}
+                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                    >
+                                        <TableCell scope="row">
+                                            {row.item_name}
+                                        </TableCell>
+                                        <TableCell align="center">{row.qty}</TableCell>
+                                        <TableCell align="center">{row.unit_price}</TableCell>
+                                        {/* <TableCell align="center"><img style={{width:'23px'}} src={row.DeleteIcon}></img></TableCell> */}
+                                        <TableCell align="center">
+                                            <img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'addon')}/>
                                         </TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
                         </Table>
                     </TableContainer>
-                    <div style={{float:'right',margin:'4% 0 0 0',width:'30%'}}>
-                       <div  className='total' style={{ display: 'flex' }}>
-                        <p style={{width:'50%'}}>Price:</p>
-                        <p style={{width:'50%'}}>8000 sar</p>
-                       </div>
-                       <div  className='total' style={{ display: 'flex' }}>
-                        <p  style={{width:'53%'}}>VAT:</p>
-                        <p  style={{width:'40%'}}>400 sar</p>
-                       </div>
-                       <div>
-                        <div   style={{ display: 'flex' }}>
-                        <p style={{ width: '50%' }}><img src={BlackDollor}></img>Total Price</p>
-                        <p style={{ width: '40%' }}>8000 sar</p>
+                    <div style={window.innerWidth <= 441 ? { float: 'left', margin: '4% 0 0 0', width: '100%' } : { float: 'right', margin: '4% 0 0 0', width: '30%' }}>
+                        <div className='total' style={{ display: 'flex' }}>
+                            <p style={{ width: '50%' }}>Price:</p>
+                            <p style={{ width: '50%' }}>{Math.round(cartDetails.total_amount)} sar</p>
                         </div>
-                        <div  style={{ display: 'flex' }}>
-                            <p style={{ width: '55%' }}><img src={BlackTime}></img>Total Duration</p>
-                            <p style={{ width: '45%' }}>45 Days</p>
+                        <div className='total' style={{ display: 'flex' }}>
+                            <p style={{ width: '53%' }}>VAT:</p>
+                            <p style={{ width: '40%' }}>{Math.round(cartDetails.tax)} sar</p>
                         </div>
-                       </div>
+                        <div>
+                            <div style={{ display: 'flex' }}>
+                                <p style={{ width: '50%' }}><img src={BlackDollor}></img>Total Price</p>
+                                <p style={{ width: '40%' }}>{Math.round(cartDetails.grand_total)} sar</p>
+                            </div>
+                            <div style={{ display: 'flex' }}>
+                                <p style={{ width: '55%' }}><img src={BlackTime}></img>Total Duration</p>
+                                <p style={{ width: '45%' }}>{Math.round(cartDetails.total_time)} Days</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div className='billing'>
                     <p>Billing Address</p>
-                    <form>
-                        <div className='user-name'>
+                    <form onSubmit={handlePayment}>
+                        <div className="user-name">
                             <div>
                                 <label>First Name</label>
-                                <input></input>
+                                <input name="firstName" value={billingInfo.firstName} onChange={handleBillingChange} />
                             </div>
                             <div style={{ margin: '2% 0 0 2%' }}>
                                 <label>Last Name</label>
-                                <input></input>
+                                <input name="lastName" value={billingInfo.lastName} onChange={handleBillingChange} />
                             </div>
                         </div>
-                        <div className='email'>
+                        <div className="email">
                             <label>Email</label>
-                            <input></input>
+                            <input name="email" value={billingInfo.email} onChange={handleBillingChange} />
                         </div>
-                        <div className='phonenumber'>
-                            <label>Phonenumber</label>
-                            <input></input>
+                        <div className="phonenumber">
+                            <label>Phone Number</label>
+                            <input name="phoneNumber" value={billingInfo.phoneNumber} onChange={handleBillingChange} />
                         </div>
-                        <div className='country'>
+                        <div className="country">
                             <div>
                                 <label>Country</label>
-                                <input></input>
+                                <input name="country" value={billingInfo.country} onChange={handleBillingChange} />
                             </div>
                             <div style={{ margin: '2% 0 0 2%' }}>
                                 <label>City</label>
-                                <input></input>
+                                <input name="city" value={billingInfo.city} onChange={handleBillingChange} />
                             </div>
                         </div>
-                        <div className='postal-code'>
+                        <div className="postal-code">
                             <label>Postal Code</label>
-                            <input></input>
+                            <input name="postalCode" value={billingInfo.postalCode} onChange={handleBillingChange} />
                         </div>
-                        <div className='promo-code'>
+                        <div className="promo-code">
                             <label>Promo Code</label>
-                            <input></input>
+                            <input name="promoCode" value={billingInfo.promoCode} onChange={handleBillingChange} />
                         </div>
-                        <button className='payment'>Make Payment</button>
+                        <button className="payment">Make Payment</button>
                     </form>
                 </div>
             </div>
             <Footer />
+            {
+                openPopup && <Popup
+                openpopup={openPopup}
+                isCancel={true}
+                setPopup={setOpenPopup} 
+                title={'Your Cart was empty'} 
+                // subTitle={'Are you sure, you want to empty the cart.'}
+                onClick={()=>navigate('/')}
+                save={'Continue to Dashboard'}
+                // cancel={'Cancel'}
+                />
+           }
         </div>
+        
     )
 }
+
+
+

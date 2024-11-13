@@ -21,7 +21,9 @@ export const Navbar = () => {
         <div className='profile'>
           <input className='profile-input'></input>
           <img className='search-icon' src={Search}></img>
+          <NavLink to="/mycart">
           <img className='cart-icon' src={Cart}></img>
+          </NavLink>
           <img className='user-icon' src={User}></img>
           <div className='profile-name'>HS</div>
         </div>
