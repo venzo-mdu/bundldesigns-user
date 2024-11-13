@@ -1,0 +1,16 @@
+{
+  "projects": {
+    "default": "bundldesigns",
+    "dev": "bundldesigns"
+  },
+  "targets": {
+    "bundldesigns": {
+      "hosting": {
+        "bundldesigns": [
+          "bundldesigns"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

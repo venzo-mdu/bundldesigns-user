@@ -1,0 +1,104 @@
+.mycart{
+   display: flex;
+   width: 100%;
+}
+.billing input{
+    outline: none;
+    padding: 1% 2%;
+}
+form div{
+    margin: 2% 0 0 0 ;
+}
+.cart{
+    width: 70%;
+    padding: 2% 3%;
+    border-right: 1px solid #000000;
+}
+.billing{
+    width: 30%;
+    padding: 2% 3%;
+}
+.cart p{
+    font-size: 24px;
+    font-weight: 700;
+}
+.billing p{
+    font-size: 24px;
+    font-weight: 700;
+}
+form{
+    width: 100%;
+}
+.user-name,.country{
+    display: flex;
+}
+.user-name div , .country div{
+    width: 50%;
+}
+.user-name input , .country input{
+    width: 100%;
+}
+.email input,.phonenumber input,.postal-code input , .promo-code input{
+    width: 100%;
+}
+.payment{
+    background-color: #0BA6C4;
+    height: 40px;
+    width: 100%;
+    color: #FFFFFF;
+    margin: 5% 0 0 0;
+    outline: none;
+    border: 0;
+}
+.css-6phqnb-MuiTableRow-root td{
+    font-size: 20px !important;
+    font-weight: 700 !important;
+}
+.css-1xtozoh-MuiTableRow-root th{
+    font-size:20px  !important;
+    font-weight: 400 !important;
+    opacity: 50%;
+}
+.total p {
+    font-size: 20px;
+    font-weight: 400;
+}
+.css-y2ff7i-MuiPaper-root-MuiTableContainer-root{
+    box-shadow: none !important;
+}
+.css-1dc80h3-MuiTableCell-root,.css-14y13q2-MuiTableCell-root {
+    border-bottom: 1px solid black !important;
+}
+.MuiTableRow-root:last-child .MuiTableCell-root {
+    border-bottom: none !important;
+}
+
+@media screen and (max-width:768px) and (min-width:425px) {
+    .mycart{
+        flex-direction: column;
+    }
+    .cart{
+        width: 100%;
+        padding: 2% 3%;
+        border-bottom: 1px solid #000000;
+    }
+    .billing{
+        width: 100%;
+        padding: 2% 3%;
+    }
+}
+
+@media screen and (max-width:425px) {
+    .mycart{
+        flex-direction: column;
+    }
+    .cart{
+        width: 100%;
+        padding: 2% 3%;
+        border-bottom: 1px solid #000000;
+    }
+    .billing{
+        width: 100%;
+        padding: 2% 3%;
+    }
+}

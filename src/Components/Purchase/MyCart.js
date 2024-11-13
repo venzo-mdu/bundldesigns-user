@@ -1,0 +1,226 @@
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
+import '../Purchase/MyCart.css'
+import { Navbar } from '../Common/Navbar/Navbar'
+import { Footer } from '../Common/Footer/Footer'
+import { Popup } from '../Common/Popup/Popup'
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+
+import DeleteIcon from '../../Images/BundlDetail/deleteicon.svg'
+import BlackDollor from '../../Images/BundlDetail/blackdollor.svg'
+import BlackTime from '../../Images/BundlDetail/blacktime.svg'
+import { base_url } from '../Auth/BackendAPIUrl';
+import { useLocation, useNavigate } from 'react-router-dom'
+import { Config } from '../Auth/ConfigToken'
+
+export const MyCart = () => {
+
+    const location = useLocation();
+    const navigate = useNavigate();
+    const [cartDetails, setCartDetails] = useState([]);
+    const [openPopup , setOpenPopup] = useState(false);
+    const [billingInfo, setBillingInfo] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phoneNumber: '',
+        country: '',
+        city: '',
+        postalCode: '',
+        promoCode: '',
+    });
+
+    useEffect(() => {
+        getCartData();
+    }, []);
+
+    const getCartData = async () => {
+        // const response = await axios.get(`${base_url}/api/order/${location.state.orderData.id}/`);
+        const response = await axios.get(`${base_url}/api/order/cart/`,Config);
+        console.log(response)
+        if(response.data){
+            setCartDetails(response.data);
+        }
+        if(response.status === 206){ 
+           setOpenPopup(true)
+        }
+    };
+
+    const removeItem = (itemId, itemType) => {
+        console.log(itemId,cartDetails)
+        setCartDetails((prevCartDetails) => {
+            const updatedItemDetails = { ...prevCartDetails.item_details };
+            if (itemType === 'bundle') {
+                updatedItemDetails.bundle_items = updatedItemDetails.bundle_items.filter(item => item.id !== itemId);
+            } else if (itemType === 'addon') {
+                updatedItemDetails.addon_items = updatedItemDetails.addon_items.filter(item => item.id !== itemId);
+            }
+
+            return {
+                ...prevCartDetails,
+                item_details: updatedItemDetails
+            };
+        });
+    };
+
+    const handlePayment = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post(`${base_url}/api/order/payment`, {
+                order_id: location.state.orderData.id,
+                billingInfo,
+            },Config);
+            console.log("Payment successful:", response.data);
+        } catch (error) {
+            console.error("Payment error:", error);
+        }
+    };
+
+    const handleBillingChange = (e) => {
+        const { name, value } = e.target;
+        setBillingInfo({ ...billingInfo, [name]: value });
+    };
+
+
+    return (
+        <div>
+            <Navbar />
+            <div className='mycart'>
+                <div className='cart'>
+                    <p>Your Cart</p>
+                    <TableContainer component={Paper}>
+                        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>Item</TableCell>
+                                    <TableCell align="center">Quantity</TableCell>
+                                    <TableCell align="center">Price</TableCell>
+                                    <TableCell align="center">Action</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {cartDetails?.item_details?.bundle_items?.map((row) => (
+                                    <TableRow
+                                        key={row.item_name}
+                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                    >
+                                        <TableCell scope="row">
+                                            {row.item_name}
+                                        </TableCell>
+                                        <TableCell align="center">{row.qty}</TableCell>
+                                        <TableCell align="center">{row.unit_price}</TableCell>
+                                        {/* <TableCell align="center"><img style={{width:'23px'}} src={row.DeleteIcon}></img></TableCell> */}
+                                        <TableCell align="center">
+                                            <img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'bundle')}/>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                                {cartDetails?.item_details?.addon_items?.map((row) => (
+                                    <TableRow
+                                        key={row.item_name}
+                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                    >
+                                        <TableCell scope="row">
+                                            {row.item_name}
+                                        </TableCell>
+                                        <TableCell align="center">{row.qty}</TableCell>
+                                        <TableCell align="center">{row.unit_price}</TableCell>
+                                        {/* <TableCell align="center"><img style={{width:'23px'}} src={row.DeleteIcon}></img></TableCell> */}
+                                        <TableCell align="center">
+                                            <img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'addon')}/>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                    <div style={window.innerWidth <= 441 ? { float: 'left', margin: '4% 0 0 0', width: '100%' } : { float: 'right', margin: '4% 0 0 0', width: '30%' }}>
+                        <div className='total' style={{ display: 'flex' }}>
+                            <p style={{ width: '50%' }}>Price:</p>
+                            <p style={{ width: '50%' }}>{Math.round(cartDetails.total_amount)} sar</p>
+                        </div>
+                        <div className='total' style={{ display: 'flex' }}>
+                            <p style={{ width: '53%' }}>VAT:</p>
+                            <p style={{ width: '40%' }}>{Math.round(cartDetails.tax)} sar</p>
+                        </div>
+                        <div>
+                            <div style={{ display: 'flex' }}>
+                                <p style={{ width: '50%' }}><img src={BlackDollor}></img>Total Price</p>
+                                <p style={{ width: '40%' }}>{Math.round(cartDetails.grand_total)} sar</p>
+                            </div>
+                            <div style={{ display: 'flex' }}>
+                                <p style={{ width: '55%' }}><img src={BlackTime}></img>Total Duration</p>
+                                <p style={{ width: '45%' }}>{Math.round(cartDetails.total_time)} Days</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className='billing'>
+                    <p>Billing Address</p>
+                    <form onSubmit={handlePayment}>
+                        <div className="user-name">
+                            <div>
+                                <label>First Name</label>
+                                <input name="firstName" value={billingInfo.firstName} onChange={handleBillingChange} />
+                            </div>
+                            <div style={{ margin: '2% 0 0 2%' }}>
+                                <label>Last Name</label>
+                                <input name="lastName" value={billingInfo.lastName} onChange={handleBillingChange} />
+                            </div>
+                        </div>
+                        <div className="email">
+                            <label>Email</label>
+                            <input name="email" value={billingInfo.email} onChange={handleBillingChange} />
+                        </div>
+                        <div className="phonenumber">
+                            <label>Phone Number</label>
+                            <input name="phoneNumber" value={billingInfo.phoneNumber} onChange={handleBillingChange} />
+                        </div>
+                        <div className="country">
+                            <div>
+                                <label>Country</label>
+                                <input name="country" value={billingInfo.country} onChange={handleBillingChange} />
+                            </div>
+                            <div style={{ margin: '2% 0 0 2%' }}>
+                                <label>City</label>
+                                <input name="city" value={billingInfo.city} onChange={handleBillingChange} />
+                            </div>
+                        </div>
+                        <div className="postal-code">
+                            <label>Postal Code</label>
+                            <input name="postalCode" value={billingInfo.postalCode} onChange={handleBillingChange} />
+                        </div>
+                        <div className="promo-code">
+                            <label>Promo Code</label>
+                            <input name="promoCode" value={billingInfo.promoCode} onChange={handleBillingChange} />
+                        </div>
+                        <button className="payment">Make Payment</button>
+                    </form>
+                </div>
+            </div>
+            <Footer />
+            {
+                openPopup && <Popup
+                openpopup={openPopup}
+                isCancel={true}
+                setPopup={setOpenPopup} 
+                title={'Your Cart was empty'} 
+                // subTitle={'Are you sure, you want to empty the cart.'}
+                onClick={()=>navigate('/')}
+                save={'Continue to Dashboard'}
+                // cancel={'Cancel'}
+                />
+           }
+        </div>
+        
+    )
+}
+
+
+

@@ -1,0 +1,80 @@
+.signup-content{
+    position: relative;
+    height: 700px;
+    width: 700px;
+    padding: 2% 4%;
+}
+.signup-content input{
+    width: 525px;
+    height: 50px;
+    padding: 1% 2%;
+    outline:none;
+}
+
+.terms-policy p{
+    font-size: 12px;
+    margin: 3% 0 0 1%;
+}
+.terms-policy input{
+    width: 15px;
+}
+.bundle-designs{
+    width: 100%;
+    color: #F3B7CE;
+}
+.error {
+    color: rgb(240, 76, 76);
+    font-size: 12px;
+    font-weight: 400;
+    margin: 0;
+  }
+  
+
+@media screen and (max-width:1705px) and (min-width:1024px) {
+    .signup-content{
+        height: 700px;
+    }
+}
+
+@media screen and (max-width:1024px) and (min-width:768px) {
+    .signup-content{
+        height: 700px;
+    }
+    .signup-content input{
+        width: 525px;
+    }
+    .terms-policy input{
+        width: 15px;
+    }
+    .terms-policy p{
+        margin: 2.5% 0 0 1%;
+    }
+}
+@media screen and (max-width:768px) and (min-width:425px) {
+    .signup-content input{
+        width: 550px;
+    }
+    .terms-policy input{
+        width: 15px;
+    }
+}
+@media screen and (max-width:425px) {
+    .signup-content input{
+        width: 375px;
+    }
+    .terms-policy input{
+        width: 15px;
+    }
+}
+@media screen and (max-width:375px) {
+    .signup-content{
+        width: 100%;
+        padding: 2% 3%;
+    }
+    .signup-content input{
+        width: 350px;
+    }
+    .terms-policy input{
+        width: 15px;
+    }
+}
