@@ -5,16 +5,15 @@ import { Signup } from "./Components/Auth/Signup/Signup";
 import { BundlDetail } from "./Components/Purchase/BundlDetail";
 import { MyCart } from "./Components/Purchase/MyCart";
 import { CustomBundl } from "./Components/Purchase/CustomBundl";
-import { Popup } from "./Components/Common/Popup/Popup";
+import { QuestionnaireLayout } from "./Components/Questionnarie/QuestionnaireLayout";
+import { Thankyoucard } from "./Components/Questionnarie/Thankyoucard";
 
-// Helper function to get cookie value by name
 const getCookie = (name) => {
   const value = `; ${document.cookie}`;
   const parts = value.split(`; ${name}=`);
   return parts.length === 2 ? parts.pop().split(';').shift() : null;
 };
 
-// ProtectedRoute component to handle authentication-based routing
 const ProtectedRoute = ({ element }) => {
   const token = getCookie("token");
   return token ? element : <Navigate to="/login" />;
@@ -49,8 +48,17 @@ export default function AppRouter() {
       element: <ProtectedRoute element={<MyCart />} />,
     },
     {
+      path:"/questionnaire/:pageno",
+      element:<ProtectedRoute element={<QuestionnaireLayout/>} />
+    },
+    {
+      path:"/thankyou",
+      element:<ProtectedRoute element={<Thankyoucard/>} />
+    },
+    {
       path: "*",
       element: <Navigate to={token ? "/" : "/login"} />,
     },
   ]);
 }
+ 
