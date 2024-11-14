@@ -8,6 +8,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { loginAction } from '../../../Redux/Action';
 import axios from 'axios';
+import { GoogleLogin } from '@react-oauth/google';
 
 export const Login = () => {
   const dispatch = useDispatch();
@@ -116,7 +117,15 @@ export const Login = () => {
             </button>
             <p className='or' style={{ margin: '2% 0 0 0' }}>Or</p>
             <p className='signinwithgoogle'>
-              <img src={Googleicon} alt='google-icon' /> Sign in with Google
+              {/* <img src={Googleicon} alt='google-icon' /> Sign in with Google */}
+              <GoogleLogin
+                onSuccess={credentialResponse => {
+                  console.log(credentialResponse);
+                }}
+                onError={() => {
+                  console.log('Login Failed');
+                }}
+              />
             </p>
             <p className='dont'>
               Don't have an account? <span><NavLink className='signup' to={'/signup'}>&nbsp;Signup</NavLink></span>

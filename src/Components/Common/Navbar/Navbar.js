@@ -9,7 +9,7 @@ export const Navbar = () => {
   return (
     <div className='common-navbar'>
         <div className='nav-logo'>
-        <img src={NavLogo}></img>
+        <NavLink style={{color:'#000000'}} to="/"><img src={NavLogo}></img></NavLink>
         </div>
 
         <div className='nav-items'>
