@@ -13,7 +13,7 @@ import fileUploadIcon from '../../Images/fileUploadIcon.svg'
 export default function Career() {
   const  [vacancies,setVacancies] =  useState([])
   const [expandedVacancies, setExpandedVacancies] = useState({});
-
+  const base_url = process.env.REACT_APP_BACKEND_URL
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -79,7 +79,7 @@ export default function Career() {
 
     const getVacancy = async()=>{
         console.log(base_url)
-        const response = await axios.get(`https://bundldesigns-ag7c3.ondigitalocean.app/api/content?section=careers`,Config);
+        const response = await axios.get(`${base_url}/api/content?section=careers`,Config);
         if(response.data){
             console.log(response.data)
             setVacancies(response.data);
@@ -97,14 +97,14 @@ export default function Career() {
             <h1 className='text-[40px]'> Careers </h1>
             <p className='text-[20px] text-[#00000080]'>Where we answer all your questions!</p>
         </div>
-        <div className='p-20 sm:p-3 border-b border-black'>
-            {vacancies.map((vacancy)=> {
-                return <div className='border-b border-black mb-6 px-6 '>
+        <div className='md:p-20 sm:p-3  border-b border-black'>
+            {vacancies.map((vacancy,index)=> {
+                return <div className={`${index+1 != vacancies.length && 'border-b'} border-black mb-6 px-6 `}>
                     <p> <img width='45px' height='45px' src={vacancy.image}></img></p>
                     <h2 className='text-[32px] flex items-center'>{vacancy.vacancy_english}
                     <button
             onClick={() => toggleDescription(vacancy.id)}
-            className="text-blue-500 underline cursor-pointer"
+            className="text-blue-500 cursor-pointer"
           >
             <img src={expandedVacancies[vacancy.id] ? upArrow: downArrow}></img>
           </button>
@@ -118,7 +118,7 @@ export default function Career() {
               dangerouslySetInnerHTML={{ __html: vacancy.description_english }}
             />
             <p className='font-bold'>
-            Qualification discerption:
+            Qualification discription:
             </p>
                  <div
               id="description"
@@ -135,7 +135,7 @@ export default function Career() {
         <div className='mt-12 mb-10'>
             <h2 className='text-[32px] mb-2 text-center'>See something you like? send us your CV & Recent Work</h2>
             <h3 className='text-[24px] mb-2 text-center text-[#1BA56F]'>Join Us!</h3>
-        <form onSubmit={handleSubmit} className="p-6 sm:max-w-[90vw] max-w-[50vw] mx-auto space-y-4">
+        <form onSubmit={handleSubmit} className="p-6 sm:max-w-[90vw] md:max-w-[50vw] mx-auto space-y-4">
       {/* Name Field */}
       <div>
         <input

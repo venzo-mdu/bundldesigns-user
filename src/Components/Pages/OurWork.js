@@ -11,10 +11,10 @@ export default function OurWork() {
   const [projects, setProjects] = useState([])
   const [currentTab, setCurrentTab] = useState('All');
   const categories = ['All', 'Social Media', 'Packaging', 'Websites', 'Brand Identity']
-
+  const base_url = process.env.REACT_APP_BACKEND_URL
   const getprojects = async () => {
     console.log(base_url)
-    const response = await axios.get(`https://bundldesigns-ag7c3.ondigitalocean.app/api/content?section=projects`, Config);
+    const response = await axios.get(`${base_url}/api/content?section=projects`, Config);
     if (response.data) {
       console.log(response.data)
       setProjects(response.data);

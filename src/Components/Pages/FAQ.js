@@ -16,6 +16,7 @@ export default function FAQ() {
     const  [faqs,setFaqs] =  useState({'data':[],
         'categories':[]
     })
+    const base_url = process.env.REACT_APP_BACKEND_URL
     const [currentTab, setCurrentTab] = useState('');
   
     const [formData, setFormData] = useState({
@@ -72,11 +73,9 @@ export default function FAQ() {
       }
     };
   
-  
-  
       const getFaqs = async()=>{
           console.log(base_url)
-          const response = await axios.get(`https://bundldesigns-ag7c3.ondigitalocean.app/api/content?section=faq`,Config);
+          const response = await axios.get(`${base_url}/api/content?section=faq`,Config);
           if(response.data){
               console.log(response.data)
               setFaqs(response.data);
