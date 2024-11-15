@@ -6,16 +6,13 @@ import { BundlDetail } from "./Components/Purchase/BundlDetail";
 import { MyCart } from "./Components/Purchase/MyCart";
 import { CustomBundl } from "./Components/Purchase/CustomBundl";
 import { Popup } from "./Components/Common/Popup/Popup";
-<<<<<<< HEAD
 import { AboutUs } from "./Components/Pages/AboutUS";
 import FAQ from "./Components/Pages/FAQ";
 import Career from "./Components/Pages/Career";
 import OurWork from "./Components/Pages/OurWork";
-import WebsterForm from "./Components/Pages/WebsterForm";
+import WebsterForm from "./Components/Pages/websterForm";
 import PremiumForm from "./Components/Pages/PremiumForm";
-=======
 
->>>>>>> 5578614 (Api Integration for purchase)
 // Helper function to get cookie value by name
 const getCookie = (name) => {
   const value = `; ${document.cookie}`;
@@ -28,11 +25,8 @@ const ProtectedRoute = ({ element }) => {
   const token = getCookie("token");
   return token ? element : <Navigate to="/login" />;
 };
-<<<<<<< HEAD
 
 // ----------------------------------------------------------------------
-=======
->>>>>>> 5578614 (Api Integration for purchase)
 
 export default function AppRouter() {
   const token = getCookie("token");
@@ -66,7 +60,6 @@ export default function AppRouter() {
       path: "*",
       element: <Navigate to={token ? "/" : "/login"} />,
     },
-<<<<<<< HEAD
     {
       path:"/mycart",
       element:<MyCart/>
@@ -95,7 +88,5 @@ export default function AppRouter() {
       path: '/webster-form',
       element: < WebsterForm />
     },
-=======
->>>>>>> 5578614 (Api Integration for purchase)
   ]);
 }
