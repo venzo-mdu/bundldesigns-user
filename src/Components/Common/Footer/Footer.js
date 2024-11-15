@@ -52,7 +52,7 @@ export const Footer = () => {
                         <div className='platform'>
                             <p>Platform</p>
                             <ul>
-                                <li>Our Work</li>
+                                <li> <a  className='text-white' href='/our-work'>Our Work</a> </li>
                                 <li>Bundl</li>
                                 <li>Dashboard</li>
                             </ul>
@@ -60,9 +60,9 @@ export const Footer = () => {
                         <div className='information'>
                             <p>Information</p>
                             <ul>
-                                <li>About us</li>
-                                <li>FAQ's</li>
-                                <li>Careers</li>
+                                <li><a className='text-white' href='/aboutus'>About us</a> </li>
+                                <li > <a  className='text-white' href='/faq'>FAQ's</a></li>
+                                <li> <a  className='text-white' href='/career'>Careers</a> </li>
                             </ul>
                         </div>
                         <div className='contact-us'>

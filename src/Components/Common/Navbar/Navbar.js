@@ -14,8 +14,8 @@ export const Navbar = () => {
 
         <div className='nav-items'>
            <p><NavLink style={{color:'#000000'}} to="/">Home</NavLink></p>
-           <p>About</p>
-           <p>Work</p>
+           <p> <a  className='text-black' href='/aboutus'> About </a> </p>
+           <p> <a  className='text-black' href='/our-work'>Work</a> </p>
            <p>Bundls</p>
         </div>
         <div className='profile'>

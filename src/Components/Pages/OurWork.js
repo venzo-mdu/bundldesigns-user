@@ -5,6 +5,7 @@ import { base_url } from '../Auth/BackendAPIUrl';
 import { Footer } from '../Common/Footer/Footer'
 import { Navbar } from '../Common/Navbar/Navbar'
 import loaderSticker from '../../Images/Background/loadsticker.svg'
+import paperPlane from '../../Images/paperPlaneRose.svg'
 import paperplane from '../../Images/our-work.gif'
 export default function OurWork() {
 
@@ -33,10 +34,10 @@ export default function OurWork() {
           <h1 className='text-[40px]'> Our Work </h1>
           <p className='text-[20px] text-[#00000080]'>Where we answer all your questions!</p>
         </div>
-        <div className='p-20 sm:p-3 border-b !px-[10%] border-black'>
-          <div className='flex justify-center'>
+        <div className=' sm:p-3 border-b px-[3%] border-black'>
+          <div className='flex py-4 justify-center'>
             {categories.map((category, index) => {
-              return <button className={`px-[20px] ${currentTab == category ? 'text-white bg-[#1BA56F] ' : 'text-[#1BA56F] bg-white '}py-[5px] border-r border-t border-b
+              return <button className={`px-[20px] ${currentTab == category ? 'text-white bg-[#1BA56F] ' : 'text-[#1BA56F] bg-white '}py-[5px] text-[20px] border-r border-t border-b
                            ${index == 0 && 'border-l'} ${index == categories.length && 'border-l-0 border-r'}
                    !border-[#1BA56F]`}
                 onClick={() => setCurrentTab(category)}>{category}</button>
@@ -46,7 +47,7 @@ export default function OurWork() {
             {
               projects.map((project,index) => {
                 if (project.category == currentTab || currentTab == 'All') {
-                  return <div className={`flex w-full ${index+1 != projects.length && 'border-b'} mt-2 !border-black items-start mb-2 p-2`}>
+                  return <div className={`flex w-full ${index+1 != projects.length && 'border-b'} mt-2 !border-black items-start mb-2 pb-4 p-2`}>
 
                     <div className='basis-1/2 w-full'>
                       <h2 className='text-[28px]'> {project.name_english} </h2>
@@ -54,9 +55,10 @@ export default function OurWork() {
                    !border-[#1BA56F]`}
                       >{project.category}</button> </div>
                       <div id="description"
-                        className=" text-gray-700"
+                        className=" text-gray-700 w-[70%]"
                         dangerouslySetInnerHTML={{ __html: project.description_english }}
                       />
+                      <button className='lg:w-[80%] xl:w-[60%] text-[20px]  bg-black py-1 text-white'>Follow Our Instagram</button>
                     </div>
                     <div className='flex flex-wrap basis-1/2 w-full'>
                       {project.project_images.map(img => <img className='width-[30%]' width='200px' src={img}></img>)}
@@ -69,15 +71,14 @@ export default function OurWork() {
             }
           </div>
         </div>
-        <div className='flex'>
-          <div className='text-center m-auto basis-1/3'> <img width='150px'  src={paperplane}></img></div>
-          <div className='w-[35%] basis-1/3 text-center m-auto'>
-          <p className='flex justify-center'> <img  className='animate-rotate-animation ml-[25vw]' width='100px' height='100px' src={loaderSticker}></img></p>
+        <div className='relative py-10'>
+          <img className='absolute left-12' width='160px' style={{ transform: 'rotate(0deg)'}}  src={paperPlane}></img>
+          <div className='w-[45%] text-center mx-auto'>
+          <p className='flex justify-center'> <img  className='animate-rotate-animation' width='110px' height='110px' src={loaderSticker}></img></p>
           <h2>Inspired to start your journey to launch your next big thing ?</h2>
-          <p> <button className='bg-[#000] text-white py-[5px] px-[18px]'>Get started!</button> </p>
+          <p> <button className='bg-[#000] mt-4 text-[20px] text-white py-[5px] px-[18px]'>Get started!</button> </p>
           </div>
-
-          <div className='basis-1/3 text-center m-auto '> <img width='150px' style={{ transform: 'rotate(332deg)'}}  src={paperplane}></img></div>
+  <img width='210px' className='absolute top-[8%] right-[8%]' style={{ transform: 'rotate(320deg)'}}  src={paperPlane}></img>
         </div> 
       </div>
       <Footer />

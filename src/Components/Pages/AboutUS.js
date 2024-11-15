@@ -48,15 +48,15 @@ export const AboutUs = () => {
         <div className='flex justify-between text-center '>
           <div className='basis-[50%] border-t border-r border-l relative py-4 !border-black'>
             <h1 className='px-28 text-[32px] md:text-[28px]'>Mission</h1>
-            <p className='xl:px-48 md:!px-20 xl:text-[20px] md:text-[18px]'>{aboutUs.mission}</p>
-            <img className='absolute md:top-[200px] left-6 xl:top-[70px] xl:w-[260px] md:w-[160px]' src={paperPlane}></img>
+            <p className='xl:px-48 md:px-20 xl:text-[20px] md:text-[18px]'>{aboutUs.mission}</p>
+            <img className='absolute md:top-[130px] left-6 xl:top-[70px] xl:w-[260px] md:w-[160px]' src={paperPlane}></img>
 
           </div>
           <div className='!z-10 basis-[50%] border-t border-r  py-4   relative !border-black'>
 
             <h1 className='px-[8%] md:text-[28px] xl:text-[32px]'>Vision</h1>
-            <p className=' xl:px-[220px] md:!px-20 md:text-[18px] xl:text-[20px]'>{aboutUs.vission}</p>
-            <img className='absolute md:!bottom-[110px] xl:!bottom-[-60px] right-0 xl:w-[240px] md:w-[160px]' src={glass}></img>
+            <p className=' xl:px-[200px] md:px-20 md:text-[18px] xl:text-[20px]'>{aboutUs.vission}</p>
+            <img className='absolute md:bottom-[50px] xl:bottom-[-25px]  right-0 xl:w-[240px] md:w-[160px]' src={glass}></img>
 
           </div>
 
@@ -64,27 +64,38 @@ export const AboutUs = () => {
 
       </div>
 
-      <div style={{
-        backgroundImage: `url(${gray_bg})`,
-        backgroundSize:'cover' ,
-        backgroundPosition: '80% 70%',
-      }} className='border-b border-black'>
+      <div className="bg-cover bg-no-repeat border-b border-black"
+style={{
+  // backgroundImage: `linear-gradient(to bottom,#e9eaec, #d8d6d7), url(${gray_bg})`,
+  background:`url(${gray_bg})`,
+  backgroundPosition: 'center',
+  backgroundSize:'cover',
+  backgroundBlendMode: 'overlay', // Optional: blends the gradient and image
+}}
+
+// style={{
+//   backgroundImage: `linear-gradient(to bottom,#e9eaec, #d8d6d7), url(${gray_bg})`,
+//   backgroundPosition: 'center',
+//   backgroundSize:'cover',
+//   backgroundBlendMode: 'overlay', // Optional: blends the gradient and image
+// }}
+ >
               <div className='text-center border py-4 px-3 z-0 !border-black'>
           <h1 className='text-[32px] md:text-[28px]'>Our Values</h1>
           <p className='text-[20px] md:text-[18px]'>{aboutUs.our_values}</p>
         </div>
-        <div className='text-center text-Helvetica xl:pt-[3%]'>
+        <div className='text-center text-Helvetica md:pt-[5%] lg:pt-[3%]'>
           <h2 className='pb-[2%] md:text-[28px]'> The Founders</h2>
-          <p className='xl:w-[42vw] md:text-[18px] mx-auto leading-[28px] text-[20px]'> {aboutUs.founders} </p>
+          <p className='xl:w-[38vw] md:w-[57vw] md:text-[18px] mx-auto leading-[28px] text-[20px]'> {aboutUs.founders} </p>
         </div>
-        <div className='text-center text-Helvetica xl:pt-[3%] pb-[3%]'>
+        <div className='text-center text-Helvetica md:pt-[4%] lg:pt-[3%] pb-[4%]'>
           <h2 className='pb-[2%] md:text-[28px]'> Our Talents</h2>
-          <p className='xl:w-[43vw] md:text-[18px] mx-auto leading-[28px] text-[20px]'>{aboutUs.our_talents}</p>
+          <p className='xl:w-[38vw] md:w-[56vw] md:text-[18px] mx-auto leading-[28px] text-[20px]'>{aboutUs.our_talents}</p>
         </div>
       </div>
 
       <div className='text-center relative border-black leading-[40px] py-[3%] border-b'>
-        <img className='absolute top-[-100px] left-[12vw]' width='200px' height='140px' src={blueSticker} />
+        <img className='absolute md:top-[-72px] lg:top-[-100px] left-[12vw] md:w-[150px] ' width='200px' height='140px' src={blueSticker} />
         <h2 className=' text-[32px] font-bold pb-[30px]'>What we do</h2>
         <p className='underline text-[24px] font-bold'>Brand Identity</p>
         <p className='underline text-[24px] font-bold'>Packaging</p>
@@ -92,7 +103,7 @@ export const AboutUs = () => {
         <p className='underline text-[24px] font-bold'>Shopify Websites</p>
       </div>
 
-      <div className='text-center py-10 border-b relative min-h-[60vh] '>
+      <div className='text-center py-10 border-b border-black relative min-h-[60vh] '>
         <p className='text-center flex justify-center'>   
            <img src={letterIcon}></img></p>
     
@@ -139,6 +150,10 @@ export const AboutUs = () => {
         <p className='text-[16px] font-bold'>{testimonials.length ? testimonials[0].customer_english : ''}</p>
         </div>
 
+      </div>
+      <div className='text-center py-12 '>
+      <h2 className='w-[35vw] text-[32px] mx-auto'>Inspired to start your journey to launch your next big thing ?</h2>
+      <p className='text-center'> <button className='py-1 px-3  mt-4 bg-black text-white'>Get started!</button> </p>
       </div>
 
       <Footer />

@@ -14,12 +14,22 @@ export default function Career() {
   const  [vacancies,setVacancies] =  useState([])
   const [expandedVacancies, setExpandedVacancies] = useState({});
   const base_url = process.env.REACT_APP_BACKEND_URL
+  const getCookie = (name) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2){
+      return parts.pop().split(';').shift()
+    } ;
+    return null;
+  };
+
+
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
     email: '',
-    description: '',
-    category: '',
+    message: '',
+    vacancy: '',
     file: null,
   });
 
@@ -50,9 +60,9 @@ export default function Career() {
     if (!formData.email) newErrors.email = 'Email is required';
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = 'Email is invalid';
 
-    if (!formData.description) newErrors.description = 'Description is required';
+    if (!formData.message) newErrors.message = 'Description is required';
 
-    if (!formData.category) newErrors.category = 'Please select a category';
+    if (!formData.vacancy) newErrors.vacancy = 'Please select a vacancy';
 
     if (!formData.file) newErrors.file = 'Please upload a file';
     else if (formData.file.size > 5 * 1024 * 1024) newErrors.file = 'File must be smaller than 5MB';
@@ -65,7 +75,23 @@ export default function Career() {
   const handleSubmit = async(e) => {
     e.preventDefault();
     if (validate()) {
-      const response = await axios.post(`http://127.0.0.1:8000/api/application/create`,formData,Config);
+      const data = new FormData();
+      data.append('name', formData.name);
+      data.append('phone', formData.phone);
+      data.append('email', formData.email);
+      data.append('message', formData.message);
+      data.append('vacancy', formData.vacancy);
+      if (formData.file) {
+        data.append('file', formData.file); // Append the file if it exists
+      }
+
+      const response = await axios.post(`${base_url}/api/application/create`,
+        data, {
+        headers: {
+          "Authorization": 'Token ' + getCookie('token')
+        }
+      }
+    );
       if(response.data){
           console.log(response.data)
           // setSuccessMsg('submitted successfully')
@@ -183,27 +209,27 @@ export default function Career() {
       {/* Description Field */}
       <div>
         <textarea
-          name="description"
+          name="message"
           placeholder='Tell us your Thoughts'
-          value={formData.description}
+          value={formData.message}
           onChange={handleChange}
           className="w-full border  p-2"
         />
-        {errors.description && <p className="text-red-500 text-sm">{errors.description}</p>}
+        {errors.message && <p className="text-red-500 text-sm">{errors.message}</p>}
       </div>
 
       {/* Select Field */}
       <div>
         <select
-          name="category"
-          value={formData.category}
+          name="vacancy"
+          value={formData.vacancy}
           onChange={handleChange}
           className="w-full border p-2"
         >
             <option  disabled value={''} selected> Choose the vacancy </option>
-        {vacancies.map(vacancy => <option value={vacancy.vacancy_english}>{vacancy.vacancy_english}</option>)}
+        {vacancies.map(vacancy => <option value={vacancy.id}>{vacancy.vacancy_english}</option>)}
         </select>
-        {errors.category && <p className="text-red-500 text-sm">{errors.category}</p>}
+        {errors.vacancy && <p className="text-red-500 text-sm">{errors.vacancy}</p>}
       </div>
 
       {/* File Upload Field */}
