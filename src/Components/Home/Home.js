@@ -861,8 +861,8 @@ export const Home = () => {
                                             <h3>Customer Care</h3>
                                             <ul>
                                                 <li><a href="#">Contact us</a></li>
-                                                <li><a href="#">FAQs</a></li>
-                                                <li><a href="#">Careers</a></li>
+                                                <li><a href="/faq">FAQs</a></li>
+                                                <li><a href="/career">Careers</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -880,7 +880,7 @@ export const Home = () => {
                                         <div className="footer_inner text-white">
                                             <h3>Information</h3>
                                             <ul>
-                                                <li><a href="#">About Us</a></li>
+                                                <li><a href="/aboutus">About Us</a></li>
                                                 <li><a href="#">Legal</a></li>
                                                 <li><a href="#">Privacy Policy</a></li>
                                                 <li><a href="#">Terms & Conditions</a></li>

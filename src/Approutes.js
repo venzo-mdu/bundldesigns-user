@@ -10,7 +10,7 @@ import { AboutUs } from "./Components/Pages/AboutUS";
 import FAQ from "./Components/Pages/FAQ";
 import Career from "./Components/Pages/Career";
 import OurWork from "./Components/Pages/OurWork";
-import WebsterForm from "./Components/Pages/websterForm";
+import WebsterForm from "./Components/Pages/WebsterForm";
 import PremiumForm from "./Components/Pages/PremiumForm";
 
 // Helper function to get cookie value by name

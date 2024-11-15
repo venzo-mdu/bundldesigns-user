@@ -13,6 +13,7 @@ import fileUploadIcon from '../../Images/fileUploadIcon.svg'
 export default function Career() {
   const  [vacancies,setVacancies] =  useState([])
   const [expandedVacancies, setExpandedVacancies] = useState({});
+  const [successMsg,setSuccessMsg] = useState('')
   const base_url = process.env.REACT_APP_BACKEND_URL
   const getCookie = (name) => {
     const value = `; ${document.cookie}`;
@@ -94,7 +95,7 @@ export default function Career() {
     );
       if(response.data){
           console.log(response.data)
-          // setSuccessMsg('submitted successfully')
+          setSuccessMsg('Application Submitted Successfully')
       }
     }
   };
@@ -266,7 +267,7 @@ export default function Career() {
             <p className='text-center flex items-center justify-center font-bold'> <img src={emailicon}></img> info@bundldesigns.com</p>
             <p className='text-center flex items-center justify-center font-bold'> <img src={whatsappicon}></img>+(966) 547754124 </p>
 
-
+            {successMsg && <p className='bg-green-600 py-1 px-2 rounded text-white'>{successMsg}</p>}
     </form>
         </div >
     </div>
