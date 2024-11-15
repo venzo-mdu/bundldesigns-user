@@ -19,7 +19,7 @@ export const AboutUs = () => {
   const base_url = process.env.REACT_APP_BACKEND_URL
   const getTestimonials = async () => {
     console.log(base_url)
-    const response = await axios.get(`${base_url}/api/content?section=testimonials`, Config);
+    const response = await axios.get(`${base_url}/api/content?section=testimonials`);
     if (response.data) {
       setTestimonials(response.data);
     }

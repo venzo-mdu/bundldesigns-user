@@ -87,11 +87,7 @@ export default function Career() {
       }
 
       const response = await axios.post(`${base_url}/api/application/create`,
-        data, {
-        headers: {
-          "Authorization": 'Token ' + getCookie('token')
-        }
-      }
+        data
     );
       if(response.data){
           console.log(response.data)

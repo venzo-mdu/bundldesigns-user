@@ -64,7 +64,7 @@ export default function PremiumForm() {
           e.preventDefault();
           if (validate()) {
 
-            const response = await axios.post(`${base_url}/api/send-mail?form_type=premium`,formData,Config);
+            const response = await axios.post(`${base_url}/api/send-mail?form_type=premium`,formData);
             if(response.data){
                 console.log(response.data)
                 setSuccessMsg('submitted successfully')

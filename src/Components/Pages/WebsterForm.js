@@ -62,7 +62,7 @@ export default function WebsterForm() {
         const handleSubmit = async(e) => {
           e.preventDefault();
           if (validate()) {
-            const response = await axios.post(`${base_url}/api/send-mail?form_type=webster`,formData,Config);
+            const response = await axios.post(`${base_url}/api/send-mail?form_type=webster`,formData);
             if(response.data){
                 console.log(response.data)
                 setSuccessMsg('submitted successfully')

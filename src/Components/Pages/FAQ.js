@@ -62,7 +62,7 @@ export default function FAQ() {
     const handleSubmit = async(e) => {
       e.preventDefault();
       if (validate()) {
-        const response = await axios.post(`${base_url}/api/send-mail?form_type=contactus`,formData,Config);
+        const response = await axios.post(`${base_url}/api/send-mail?form_type=contactus`,formData);
         if(response.data){
             console.log(response.data)
             setSuccessMsg('submitted successfully')
@@ -72,7 +72,7 @@ export default function FAQ() {
   
       const getFaqs = async()=>{
           console.log(base_url)
-          const response = await axios.get(`${base_url}/api/content?section=faq`,Config);
+          const response = await axios.get(`${base_url}/api/content?section=faq`);
           if(response.data){
               console.log(response.data)
               setFaqs(response.data);

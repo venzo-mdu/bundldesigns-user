@@ -15,7 +15,7 @@ export default function OurWork() {
   const base_url = process.env.REACT_APP_BACKEND_URL
   const getprojects = async () => {
     console.log(base_url)
-    const response = await axios.get(`${base_url}/api/content?section=projects`, Config);
+    const response = await axios.get(`${base_url}/api/content?section=projects`);
     if (response.data) {
       console.log(response.data)
       setProjects(response.data);
@@ -47,7 +47,7 @@ export default function OurWork() {
             {
               projects.map((project,index) => {
                 if (project.category == currentTab || currentTab == 'All') {
-                  return <div className={`flex w-full ${index+1 != projects.length && 'border-b'} mt-2 !border-black items-start mb-2 pb-4 p-2`}>
+                  return <div className={`flex w-full ${index+1 != projects.length && 'border-b'} mt-2 !border-black items-start mb-2 pb-4 p-2 px-4`}>
 
                     <div className='basis-1/2 w-full'>
                       <h2 className='text-[28px]'> {project.name_english} </h2>
@@ -58,7 +58,7 @@ export default function OurWork() {
                         className=" text-gray-700 w-[70%]"
                         dangerouslySetInnerHTML={{ __html: project.description_english }}
                       />
-                      <button className='lg:w-[80%] xl:w-[60%] text-[20px]  bg-black py-1 text-white'>Follow Our Instagram</button>
+                      <button className='lg:w-[80%] xl:w-[60%] text-[20px] px-1  bg-black py-1 text-white'>Follow Our Instagram</button>
                     </div>
                     <div className='flex flex-wrap basis-1/2 w-full'>
                       {project.project_images.map(img => <img className='width-[30%]' width='200px' src={img}></img>)}
