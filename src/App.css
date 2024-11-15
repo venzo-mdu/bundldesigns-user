@@ -41,7 +41,6 @@ input:focus{
   outline: none;
 }
 
-
 input:-webkit-autofill:focus {
   background-color: transparent!important; /* Change to your desired color */
   color: #000 !important;              /* Ensure text color is appropriate */
