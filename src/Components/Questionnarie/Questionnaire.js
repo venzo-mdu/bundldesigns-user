@@ -9,7 +9,8 @@ export const Questionnaire = ({
   bgTitle,
   navigationPage,
   activePage,
-  pageNo
+  pageNo,
+  questions
 }) => {
 
   const navigate = useNavigate();
@@ -22,7 +23,18 @@ export const Questionnaire = ({
           <p className='title-questionnaire'>{bgTitle}</p>
         </div>
         </div>
-
+            {/* {
+              questions.map((question,index)=>{
+                return(
+                  <>
+                  <p key={index} className='questions-title'>{question.question}<span><sup>*</sup></span></p>
+                  <input className='question-input'></input>    
+                  </>
+                )
+              })
+            } */}
+            {questions}
+          
         </div>
         <div className='questonnaire-actions'>
             {pageNo > 1 && (

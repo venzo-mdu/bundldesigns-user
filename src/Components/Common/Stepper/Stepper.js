@@ -138,7 +138,7 @@ export const Stepper = ({ pageNo }) => {
                         className="content_section"
                         style={{ transition: '1s', opacity: isActiveProcess[index] ? 1 : 0.3 }}
                     >
-                        {process.title.split(" ").map((word, i) => (
+                        {process.title.split("  ").map((word, i) => (
                             <span key={i}>{word}</span>
                         ))}
                     </div>
