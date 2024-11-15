@@ -779,6 +779,7 @@ small {
 .scroll-button li span img {
   width: 25px;
   height: auto;
+  margin: 30% 0 0 0;
 }
 
 .hover-animation {
@@ -2508,9 +2509,11 @@ small {
   z-index: 99;
 }
 
-/* .mySlides {
-  display: none;
-} */
+.mySlides {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .slideshow-container img {
   width: 155px;

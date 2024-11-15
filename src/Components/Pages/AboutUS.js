@@ -95,7 +95,7 @@ style={{
       </div>
 
       <div className='text-center relative border-black leading-[40px] py-[3%] border-b'>
-        <img className='absolute md:top-[-72px] lg:top-[-100px] left-[12vw] md:w-[150px] ' width='200px' height='140px' src={blueSticker} />
+        <img className='absolute md:top-[-72px] lg:top-[-100px] xl:top-[-80px] lg:w-[150px] xl:w-[150px] left-[12vw] md:w-[150px] ' width='200px' height='140px' src={blueSticker} />
         <h2 className=' text-[32px] font-bold pb-[30px]'>What we do</h2>
         <p className='underline text-[24px] font-bold'>Brand Identity</p>
         <p className='underline text-[24px] font-bold'>Packaging</p>

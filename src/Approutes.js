@@ -61,10 +61,6 @@ export default function AppRouter() {
       element: <Navigate to={token ? "/" : "/login"} />,
     },
     {
-      path:"/mycart",
-      element:<MyCart/>
-    },
-    {
       path:"/aboutus",
       element:<AboutUs/>
     },

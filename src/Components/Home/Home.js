@@ -170,7 +170,7 @@ export const Home = () => {
                                         </div>
                                         <div className="col-1 col-md-1 col-lg-6">
                                             <div className="navbar navbar-expand-lg justify-content-end">
-                                                <div className="collapse navbar-collapse" id="mainNav">
+                                                <div className=" navbar-collapse" id="mainNav">
                                                     <ul className="navbar-nav mx-auto align-items-center ">
                                                         <li className="nav-item">
                                                             <a className="nav-link" href="#">About</a>
@@ -241,44 +241,44 @@ export const Home = () => {
                             <div className="nav-sider mt-20">
                                 <div className="scroller bg-grey">
                                     <ul className="tag-list scroller__inner">
-                                        <li className="slidee bg-red-500"><img src={CarMarquee} className="img-fluid"></img></li>
-                                        <li className="slidee bg-purple-500"><span>BRAND identity</span></li>
-                                        <li className="slidee bg-blue-500"><img src={LemonMarquee} alt="" className="img-fluid"></img></li>
-                                        <li className="slidee bg-green-500"><span>web design</span></li>
-                                        <li className="slidee bg-pink-500"><img src={MouthMarquee} alt="" className="img-fluid"></img></li>
-                                        <li className="slidee bg-red-500"><span>graphic design</span></li>
-                                        <li className="slidee bg-purple-500"><img src={RocketMarquee} alt="" className="img-fluid"></img></li>
-                                        <li className="slidee bg-blue-500"><span>BRAND identity</span></li>
-                                        <li className="slidee bg-green-500"><img src={EyeMarquee} alt="" className="img-fluid"></img></li>
-                                        <li className="slidee bg-pink-500"><span>web design</span></li>
-                                        <li className="slidee bg-red-500"><img src={PaintMarquee} alt="" className="img-fluid"></img></li>
-                                        <li className="slidee bg-purple-500"><span>graphic design</span></li>
+                                        <li className="slidee "><img src={CarMarquee} className="img-fluid"></img></li>
+                                        <li className="slidee "><span>BRAND identity</span></li>
+                                        <li className="slidee "><img src={LemonMarquee} alt="" className="img-fluid"></img></li>
+                                        <li className="slidee "><span>web design</span></li>
+                                        <li className="slidee "><img src={MouthMarquee} alt="" className="img-fluid"></img></li>
+                                        <li className="slidee "><span>graphic design</span></li>
+                                        <li className="slidee "><img src={RocketMarquee} alt="" className="img-fluid"></img></li>
+                                        <li className="slidee "><span>BRAND identity</span></li>
+                                        <li className="slidee "><img src={EyeMarquee} alt="" className="img-fluid"></img></li>
+                                        <li className="slidee "><span>web design</span></li>
+                                        <li className="slidee "><img src={PaintMarquee} alt="" className="img-fluid"></img></li>
+                                        <li className="slidee "><span>graphic design</span></li>
 
-                                        <li className="slidee bg-red-500"><img src={CarMarquee} className="img-fluid"></img></li>
-                                        <li className="slidee bg-purple"><span>BRAND identity</span></li>
-                                        <li className="slidee bg-blue-500"><img src={LemonMarquee} alt="" className="img-fluid"></img></li>
-                                        <li className="slidee bg-green-500"><span>web design</span></li>
-                                        <li className="slidee bg-pink-500"><img src={MouthMarquee} alt="" className="img-fluid"></img></li>
-                                        <li className="slidee bg-red-500"><span>graphic design</span></li>
-                                        <li className="slidee bg-purple-500"><img src={RocketMarquee} alt="" className="img-fluid"></img></li>
-                                        <li className="slidee bg-blue-500"><span>BRAND identity</span></li>
-                                        <li className="slidee bg-green-500"><img src={EyeMarquee} alt="" className="img-fluid"></img></li>
-                                        <li className="slidee bg-pink-500"><span>web design</span></li>
-                                        <li className="slidee bg-red-500"><img src={PaintMarquee} alt="" className="img-fluid"></img></li>
-                                        <li className="slidee bg-purple-500"><span>graphic design</span></li>
+                                        <li className="slidee "><img src={CarMarquee} className="img-fluid"></img></li>
+                                        <li className="slidee "><span>BRAND identity</span></li>
+                                        <li className="slidee "><img src={LemonMarquee} alt="" className="img-fluid"></img></li>
+                                        <li className="slidee "><span>web design</span></li>
+                                        <li className="slidee "><img src={MouthMarquee} alt="" className="img-fluid"></img></li>
+                                        <li className="slidee "><span>graphic design</span></li>
+                                        <li className="slidee "><img src={RocketMarquee} alt="" className="img-fluid"></img></li>
+                                        <li className="slidee "><span>BRAND identity</span></li>
+                                        <li className="slidee "><img src={EyeMarquee} alt="" className="img-fluid"></img></li>
+                                        <li className="slidee "><span>web design</span></li>
+                                        <li className="slidee "><img src={PaintMarquee} alt="" className="img-fluid"></img></li>
+                                        <li className="slidee "><span>graphic design</span></li>
 
-                                        <li className="slidee bg-red-500"><img src={CarMarquee} className="img-fluid"></img></li>
-                                        <li className="slidee bg-purple"><span>BRAND identity</span></li>
-                                        <li className="slidee bg-blue-500"><img src={LemonMarquee} alt="" className="img-fluid"></img></li>
-                                        <li className="slidee bg-green-500"><span>web design</span></li>
-                                        <li className="slidee bg-pink-500"><img src={MouthMarquee} alt="" className="img-fluid"></img></li>
-                                        <li className="slidee bg-red-500"><span>graphic design</span></li>
-                                        <li className="slidee bg-purple-500"><img src={RocketMarquee} alt="" className="img-fluid"></img></li>
-                                        <li className="slidee bg-blue-500"><span>BRAND identity</span></li>
-                                        <li className="slidee bg-green-500"><img src={EyeMarquee} alt="" className="img-fluid"></img></li>
-                                        <li className="slidee bg-pink-500"><span>web design</span></li>
-                                        <li className="slidee bg-red-500"><img src={PaintMarquee} alt="" className="img-fluid"></img></li>
-                                        <li className="slidee bg-purple-500"><span>graphic design</span></li>
+                                        <li className="slidee "><img src={CarMarquee} className="img-fluid"></img></li>
+                                        <li className="slidee "><span>BRAND identity</span></li>
+                                        <li className="slidee "><img src={LemonMarquee} alt="" className="img-fluid"></img></li>
+                                        <li className="slidee "><span>web design</span></li>
+                                        <li className="slidee "><img src={MouthMarquee} alt="" className="img-fluid"></img></li>
+                                        <li className="slidee "><span>graphic design</span></li>
+                                        <li className="slidee "><img src={RocketMarquee} alt="" className="img-fluid"></img></li>
+                                        <li className="slidee "><span>BRAND identity</span></li>
+                                        <li className="slidee "><img src={EyeMarquee} alt="" className="img-fluid"></img></li>
+                                        <li className="slidee "><span>web design</span></li>
+                                        <li className="slidee "><img src={PaintMarquee} alt="" className="img-fluid"></img></li>
+                                        <li className="slidee "><span>graphic design</span></li>
                                     </ul>
                                 </div>
                                 <div className="img-rotate">
@@ -745,7 +745,7 @@ export const Home = () => {
                                         <div className="desc">
                                             Prefer a one-on-one design experience?
                                         </div>
-                                        <a href="#" className="btn bundl-btn bt-1">Send us a message</a>
+                                        <a href="/premium-form" className="btn bundl-btn bt-1">Send us a message</a>
                                     </div>
                                 </div>
                                 <div className="col-md-6 text-center">
@@ -759,7 +759,7 @@ export const Home = () => {
                                         <div className="desc">
                                             Dreaming of a perfect website?
                                         </div>
-                                        <a href="#" className="btn bundl-btn bt-1">Send us a message</a>
+                                        <a href="/webster-form" className="btn bundl-btn bt-1">Send us a message</a>
                                     </div>
                                 </div>
                             </div>
