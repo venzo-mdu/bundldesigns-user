@@ -18,14 +18,13 @@ export default function FAQ() {
     })
     const base_url = process.env.REACT_APP_BACKEND_URL
     const [currentTab, setCurrentTab] = useState('');
-  
+    const [successMsg , setSuccessMsg] = useState('') 
+    
     const [formData, setFormData] = useState({
       name: '',
       phone: '',
       email: '',
-      description: '',
-      category: '',
-      file: null,
+      thoughts: '',
     });
   
     // Error state
@@ -33,10 +32,10 @@ export default function FAQ() {
   
     // Handle form field changes
     const handleChange = (e) => {
-      const { name, value, type, files } = e.target;
+      const { name, value } = e.target;
       setFormData({
         ...formData,
-        [name]: type === 'file' ? files[0] : value,
+        [name]: value,
       });
     };
   
@@ -53,23 +52,21 @@ export default function FAQ() {
       if (!formData.email) newErrors.email = 'Email is required';
       else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = 'Email is invalid';
   
-      if (!formData.description) newErrors.description = 'Description is required';
-  
-      if (!formData.category) newErrors.category = 'Please select a category';
-  
-      if (!formData.file) newErrors.file = 'Please upload a file';
-      else if (formData.file.size > 5 * 1024 * 1024) newErrors.file = 'File must be smaller than 5MB';
+      if (!formData.thoughts) newErrors.description = 'Description is required';
   
       setErrors(newErrors);
       return Object.keys(newErrors).length === 0;
     };
   
     // Handle form submission
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
       e.preventDefault();
       if (validate()) {
-        console.log('Form submitted successfully:', formData);
-        // Process form data (e.g., send to server)
+        const response = await axios.post(`${base_url}/api/send-mail?form_type=contactus`,formData,Config);
+        if(response.data){
+            console.log(response.data)
+            setSuccessMsg('submitted successfully')
+        }
       }
     };
   
@@ -170,13 +167,13 @@ export default function FAQ() {
       {/* Description Field */}
       <div>
         <textarea
-          name="description"
+          name="thoughts"
           placeholder='Tell us your Thoughts'
-          value={formData.description}
+          value={formData.thoughts}
           onChange={handleChange}
           className="w-full border  p-2"
         />
-        {errors.description && <p className="text-red-500 text-sm">{errors.description}</p>}
+        {errors.thoughts && <p className="text-red-500 text-sm">{errors.thoughts}</p>}
       </div>
 
 
@@ -187,11 +184,14 @@ export default function FAQ() {
       >
         Send Message
       </button></p>
+      
             <p className='text-center flex items-center justify-center font-bold'> <img src={emailicon}></img> <span className='pl-1'>info@bundldesigns.com</span> </p>
             <p className='text-center flex items-center justify-center font-bold'> <img src={whatsappicon}></img> <span className='pl-1'>+(966) 547754124</span>  </p>
-
-
+  {successMsg && <p className='bg-green-600 py-1 px-2 rounded text-white'>{successMsg}</p>}
     </form>
+
+
+
         </div >
     </div>
     <Footer />

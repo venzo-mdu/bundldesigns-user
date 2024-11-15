@@ -10,7 +10,8 @@ import { AboutUs } from "./Components/Pages/AboutUS";
 import FAQ from "./Components/Pages/FAQ";
 import Career from "./Components/Pages/Career";
 import OurWork from "./Components/Pages/OurWork";
-
+import WebsterForm from "./Components/Pages/WebsterForm";
+import PremiumForm from "./Components/Pages/PremiumForm";
 // Helper function to get cookie value by name
 const getCookie = (name) => {
   const value = `; ${document.cookie}`;
@@ -77,6 +78,14 @@ export default function AppRouter() {
     {
       path:'/our-work',
       element: <OurWork />
-    }
+    },
+    {
+      path: '/premium-form',
+      element: < PremiumForm />
+    },
+    {
+      path: '/webster-form',
+      element: < WebsterForm />
+    },
   ]);
 }

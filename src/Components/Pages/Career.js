@@ -33,7 +33,9 @@ export default function Career() {
       ...formData,
       [name]: type === 'file' ? files[0] : value,
     });
+
   };
+  console.log(formData,'form')
 
   // Validation function
   const validate = () => {
@@ -60,11 +62,14 @@ export default function Career() {
   };
 
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     if (validate()) {
-      console.log('Form submitted successfully:', formData);
-      // Process form data (e.g., send to server)
+      const response = await axios.post(`http://127.0.0.1:8000/api/application/create`,formData,Config);
+      if(response.data){
+          console.log(response.data)
+          // setSuccessMsg('submitted successfully')
+      }
     }
   };
 
