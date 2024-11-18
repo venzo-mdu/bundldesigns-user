@@ -1,44 +1,3 @@
-// import React,{useEffect , useState} from 'react'
-// import axios from 'axios'
-// import { Questionnaire } from './Questionnaire'
-// import { base_url } from '../Auth/BackendAPIUrl'
-
-// export const Questionnaire1 = () => {
-
-//   const [questions, setQuestions] = useState([]);
-
-//     const fetchQuestions = async () => {
-//         const response = await axios.get(`${base_url}/api/content?section=brand_questions`);
-//         console.log(response)
-//         setQuestions(response.data); 
-//       return (
-//         <div className='questions'>
-//               {
-//                 response.data.map((question,index)=>{
-//                   return(
-//                     <>
-//                     <p key={index} className='questions-title'>{question.question}<span><sup>*</sup></span></p>
-//                     <input className='question-input'></input>    
-//                     </>
-//                   )
-//                 })
-//               }
-//             </div>
-//        )
-//     }
-    
-//   return (
-//     <div>
-//       <Questionnaire 
-//         pageNo={1}
-//         questions={fetchQuestions()}
-//         bgTitle={'About your business'}
-//       />
-//     </div>
-//   )
-// }
-
-
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Questionnaire } from './Questionnaire';
@@ -72,7 +31,7 @@ export const Questionnaire1 = () => {
     <div>
       <Questionnaire 
         pageNo={1}
-        questions={questions} // Pass the JSX-rendered questions
+        questions={questions} 
         bgTitle={'About your business'}
       />
     </div>

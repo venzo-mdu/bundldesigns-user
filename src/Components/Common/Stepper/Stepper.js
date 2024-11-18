@@ -71,7 +71,7 @@ import '../Stepper/Stepper.css';
 export const Stepper = ({ pageNo }) => {
     const [activeProcess, setActiveProcess] = useState(0);
     const [isActiveProcess, setIsActiveProcess] = useState([false, false, false, false, false]);
-    const [lineWidth, setLineWidth] = useState(195); // default for large screens
+    const [lineWidth, setLineWidth] = useState(365); // default for large screens
 
     // Calculate translateX based on activeProcess
     const translateX = activeProcess * (window.innerWidth <= 475 ? 85 : window.innerWidth <= 768 ? 150 : lineWidth);
@@ -93,7 +93,7 @@ export const Stepper = ({ pageNo }) => {
         } else if (window.innerWidth <= 1705) {
             setLineWidth(170); // Adjusted width for screens up to 1705px
         } else {
-            setLineWidth(195); // Default width for larger screens
+            setLineWidth(365); // Default width for larger screens
         }
     };
 
@@ -127,7 +127,7 @@ export const Stepper = ({ pageNo }) => {
                     </svg>
                     {index === 4 ? '' : (
                         <svg
-                            style={{ opacity: isActiveProcess[index + 1] ? 1 : 0.3 }}
+                            style={{ opacity: isActiveProcess[index + 1] ? 1 : 0.3 ,margin:'1% 0 0 0' }} 
                             className="dotted-line" width={lineWidth} height="3" viewBox={`0 0 ${lineWidth} 3`}
                             fill="black" xmlns="http://www.w3.org/2000/svg"
                         >

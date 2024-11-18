@@ -86,6 +86,85 @@
     text-align: center;
     padding: 1%;
 }
+.ideal-customers {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap; /* Allows content to wrap on smaller screens */
+    gap: 10px; /* Adds spacing between rows on smaller screens */
+}
+.customer-text{
+    font-size: 40px;
+    font-weight: 700;
+    color: #000000;
+    margin: 2% 0 0 0;
+}
+.male,.female{
+    width: 150px; /* Prevents buttons from becoming too large on larger screens */
+    height: 40px;
+    background-color: transparent;
+    color: #000000;
+    border: 1px solid #000000;
+    text-align: center;
+}
+.male:hover,.female:hover , .male-active , .female-active{
+    width: 150px; /* Prevents buttons from becoming too large on larger screens */
+    height: 40px;
+    background-color: #000000;
+    color: #ffffff;
+    border: 1px solid #000000;
+    text-align: center;
+}
+
+.male-buttons, .female-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.male-btn, .female-btn {
+    flex-grow: 1; /* Allows buttons to grow evenly across available space */
+    max-width: 200px; /* Prevents buttons from becoming too large on larger screens */
+    height: 30px;
+    background-color: transparent;
+    color: #000000;
+    border: 1px solid #000000;
+    text-align: center;
+}
+
+.male-btn:hover, .female-btn:hover {
+    background-color: #000000;
+    color: #ffffff;
+    border: 1px solid #000000;
+}
+ 
+.male-btn:disabled{
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+.female-btn:disabled{
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+.female-image , .male-image{
+    cursor: pointer;
+    width: 75%;
+    margin: 0 0 0 10%;
+}
+.male-image-disable , .female-image-disable{
+    cursor: not-allowed;
+    opacity: 0.5;
+    width: 75%;
+    margin: 0 0 0 10%;
+}
+
+.male-btn.active, .female-btn.active {
+    background-color: #000000; /* Active background color */
+    color: #ffffff; /* Active text color */
+    border: 1px solid #000000; /* Active border color */
+  }
+  
 /* THANKYOU CARD*/
 .thankyou-card{
     display: flex;
