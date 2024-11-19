@@ -35,7 +35,7 @@ export default function AppRouter() {
   return useRoutes([
     {
       path: "/login",
-      element: token ? <Navigate to="/" /> : <Login />,
+      element:<Login />,
     },
     {
       path: "/signup",
