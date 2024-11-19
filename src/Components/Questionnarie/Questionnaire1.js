@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Questionnaire } from './Questionnaire';
 import { base_url } from '../Auth/BackendAPIUrl';
+import Load from '../../Images/Bundles/load_sticker.webp'
+import { useNavigate } from 'react-router-dom';
 
 export const Questionnaire1 = () => {
   const [questions, setQuestions] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -17,6 +20,13 @@ export const Questionnaire1 = () => {
               <span><sup>*</sup></span>
             </p>
             <input className='question-input' />
+            {
+              index === 0 ? 
+              <div className='img-rotate-qf'>
+                <img className='rotating-image' src={Load}></img>
+              </div>
+            :''
+            }
           </div>
         ));
         setQuestions(questionsJSX);
@@ -27,12 +37,16 @@ export const Questionnaire1 = () => {
     fetchQuestions();
   }, []);
 
+  const onClick = () =>{
+    navigate(`/questionnaire/${2}`);
+  }
   return (
     <div>
       <Questionnaire 
         pageNo={1}
         questions={questions} 
         bgTitle={'About your business'}
+        onNextClick={onClick}
       />
     </div>
   );

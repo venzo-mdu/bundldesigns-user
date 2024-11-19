@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Navigate, useRoutes } from "react-router-dom";
 import { Home } from '../src/Components/Home/Home';
 import { Login } from '../src/Components/Auth/Login/Login';
@@ -9,6 +10,10 @@ import { QuestionnaireLayout } from "./Components/Questionnarie/QuestionnaireLay
 import { Thankyoucard } from "./Components/Questionnarie/Thankyoucard";
 
 const getCookie = (name) => {
+
+
+
+
   const value = `; ${document.cookie}`;
   const parts = value.split(`; ${name}=`);
   return parts.length === 2 ? parts.pop().split(';').shift() : null;
@@ -20,6 +25,14 @@ const ProtectedRoute = ({ element }) => {
 };
 
 export default function AppRouter() {
+
+  useEffect(()=>{
+    document.documentElement.scrollTo({
+      top: 0,
+      left: 0
+    })
+  },[]);
+  
   const token = getCookie("token");
 
   return useRoutes([

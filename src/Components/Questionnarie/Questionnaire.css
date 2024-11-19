@@ -4,7 +4,18 @@
     background: url('../../Images/Questionnaire/questionnairebackground.png');
     background-repeat: no-repeat;
     background-size: cover;
+    animation:marquee 6s linear infinite;
 }
+/* @keyframes marquee {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+} */
+
 .title-questionnaire{
     text-align: center;
     font-size: 80px;
@@ -16,6 +27,10 @@
     align-items: center;
     justify-content: center;
     margin: auto;
+    position: relative;
+}
+.eyespoon{
+    position: absolute;
 }
 .questonnaire-actions{
     display: flex;
@@ -27,7 +42,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 2% 0 4% 0;
+    /* margin: 2% 0 10% 0; */
+}
+.questonnaire-actions-height{
+    height: 350px;
 }
 .back{
     background-color: transparent;
@@ -73,9 +91,10 @@
     font-weight: 700;
     color: #000000;
     margin: 2% 0 0% 0;
+    text-align: center;
 }
 .question-input{
-    width: 90%;
+    width: 100%;
     border-bottom: 1px solid #000000;
     outline: none;
     border-right: 0;
@@ -85,6 +104,7 @@
     font-weight: 500;
     text-align: center;
     padding: 1%;
+    background-color: transparent;
 }
 .ideal-customers {
     width: 100%;
@@ -150,21 +170,178 @@
 .female-image , .male-image{
     cursor: pointer;
     width: 75%;
-    margin: 0 0 0 10%;
+    margin: 0 0 0 5%;
 }
 .male-image-disable , .female-image-disable{
     cursor: not-allowed;
     opacity: 0.5;
     width: 75%;
-    margin: 0 0 0 10%;
+    margin: 0 0 0 5%;
 }
 
 .male-btn.active, .female-btn.active {
     background-color: #000000; /* Active background color */
     color: #ffffff; /* Active text color */
     border: 1px solid #000000; /* Active border color */
-  }
-  
+}
+.specific-color{
+    height: 45px;
+    width: 125px;
+    cursor: pointer;
+}
+ .enter-colors{
+    font-size: 32px;
+    font-weight: 700;
+ } 
+ .not-sure{
+    font-size: 24px;
+    font-weight: 400;
+    text-align: center;
+    margin: 2% 0 1% 0;
+ }
+.surprise{
+    background-color: #FFFFFF;
+    width: 400px;
+    height: 60px;
+    text-transform: uppercase;
+    font-size: 24px;
+    font-weight: 500;
+    outline: none;
+    border: 1px solid #000000;
+}
+.surprise:hover{
+    background-color: #000000;
+    width: 400px;
+    height: 60px;
+    text-transform: uppercase;
+    font-size: 24px;
+    font-weight: 500;
+    color: #ffffff;
+}
+.font-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin: 2% 0 0 0;
+    gap:20px;
+}
+.font-background {
+    height: 163px;
+    width: 350px;
+    border: 1px solid #000000;
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+    align-items: center; 
+    /* position: relative;  */
+}
+.font-buttons {
+    background-color: transparent;
+    border-top: 1px solid #000000; 
+    border-right: 0;
+    border-left: 0;
+    border-bottom: 0;
+    height: 50px;
+    width: 100%; 
+    text-transform: uppercase;
+    font-size: 22px;
+    font-weight: 500;
+    margin: 0;
+    bottom: 0;
+    left: 0;
+    transition: background-color 0.3s ease, color 0.3s ease; 
+}
+
+.font-buttons:hover {
+    background-color: #000000;
+    color: #ffffff;
+}
+.font-buttons-active {
+    background-color: #000000; /* Active background */
+    color: #ffffff; /* Active text color */
+}
+.question-progress{
+    width: 1000px;
+    background-color: #000000;
+    cursor: pointer;
+}
+.progress-text{
+    font-size: 200;
+    font-size: 16px;
+    font-style: italic;
+    width: 10%;
+}
+.shade-background{
+    height: 600px;
+    width: 100%;
+    padding: 5% 5%;
+}
+.shade-buttons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.shade-btn{
+    width: 350px;
+    height: 50px;
+    background-color: #FFFFFF;
+    font-size: 25px;
+    font-weight: 500;
+    border: 1px solid #000000;
+    outline: none;
+}
+.shade-btn-active{
+    width: 350px;
+    height: 50px;
+    font-size: 25px;
+    font-weight: 500;
+    border: 1px solid #000000; 
+    color: #FFFFFF;
+    background-color: #000000;
+    outline: none;
+}
+.shade-btn:hover{
+    color: #FFFFFF;
+    background-color: #000000;
+    font-size: 25px;
+}
+.button-shade-group{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-direction: column; 
+}
+.shade-bundl-text{
+    font-size: 96px;
+    font-weight: 700;
+    margin: 3% 0 0 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* THANKYOU CARD*/
 .thankyou-card{
     display: flex;
@@ -194,3 +371,631 @@
 }
 /* THANKYOU CARD*/
 
+/*ANiMATION*/
+
+/* _________________ TAB + ROCKET SECTION __________________
+-------------------------------------------/
+
+        body{
+            /* cursor : url("./asset/images/vector.png"), auto; /
+            height: 100vh;
+            background: white;
+            position:relative;
+        }
+
+/* _________________ TAB + ROCKET SECTION __________________
+-------------------------------------------*/
+
+        .rocket-container > div{
+            border:2px solid black;
+        }
+        .rocket-layer{
+            padding: 1.5rem 0 .1rem 0;
+        }
+        .rocket-content{
+            font-weight: 700;
+            font-size: 14px;
+            color: #000000;
+            padding: 1rem 0;
+        }
+        .rocket1{
+            flex:1;
+            position: relative;
+            cursor: pointer;
+        }
+        .dotted-line{
+            position: absolute;
+            top:15%;
+            /* left: 45%; */
+            width:100%;
+            transform: translateX(50%);
+        } 
+        .rocket{
+            position: absolute;
+            display: inline;
+            transition: 1s;
+            margin-top: 20px;
+        }
+        .tab-section{
+            display: none;
+            padding-bottom: 150px;
+        }
+        .tab-active{
+            display: block;
+        }
+        .qst-footer-btn {
+            display: flex;
+            margin-top: 10px;
+        }
+/* _________________ HEADER SECTION __________________
+-------------------------------------------*/
+
+        /* .header1{
+            height: 210px;
+            width: 100%;
+            background-image:url("asset/images/cloud1stoff.webp");
+            background-size:cover;
+            background-repeat:no-repeat;
+        }    */
+        .header1{
+            padding:1rem 4rem 0rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .header-bottom-line{
+            border-bottom: 9px solid black; position:relative; padding-top: 10px; margin-top: 20px; z-index:1;
+        }
+        .pic-container{
+            width: 100%;
+            overflow: hidden;
+        }
+      
+        .gag > img{
+            flex:1;
+            margin-left:0 !important;
+        } 
+
+        .js-marquee{
+            margin-right:0 !important;
+        }
+        .header-title{
+            position:absolute;
+            inset:0;
+            width:100%;
+            display:flex;
+            flex-flow: column;
+            align-items:center;
+            justify-content: center;
+            font-size: 72px;
+            font-weight: 700;
+            line-height: 100%;
+            text-align:center;
+        }  
+        .inner-tab-content {background-color: #ffffff; padding: 1rem 4rem;}
+/* _________________ EYESPOON ANIMATION ___________________
+------------------------------------------------------------ */
+
+        .eyespoon{
+            position: absolute;
+            top:-2%;
+            right:5%;
+            animation: move 8s ease-in-out infinite forwards;
+        }
+        .eyespoon2{
+            position: absolute;
+            top: 70%;
+            left: -10%;
+            transform: translateY(-50%) rotate(280deg);
+            animation: move 8s ease-in-out infinite forwards;
+            z-index: 1;
+        }
+        .eyespoon2 img{
+            transform: scaleX(-1);
+        }
+        @keyframes move{
+            0%{
+                transform: rotate(0);
+            }
+            50%{
+                transform: rotate(10deg);
+            }
+            100%{
+                transform: rotate(0);
+            }
+        }
+
+/* _________________ MOUTH ANIMATION ___________________
+------------------------------------------------------------ */
+        .miclady{
+            position: absolute;
+            right: 5%;
+            top: 19%;
+        }
+        .mouth{
+            bottom:3%;
+            right:3%;
+        }
+        .mouth > div > img{
+            max-width: 80%;
+        }
+        .lips{
+            width: 8%;
+            right: 7%;
+            top: 19%;
+            animation: lip 4s ease-in-out infinite forwards;
+        }
+
+        @keyframes lip{
+            0%{
+                transform: rotate(0) scale(0.98);
+            }
+            50%{
+                transform: rotate(-10deg) scale(1.05);
+            }
+            100%{
+                transform: rotate(0) scale(0.98);
+            }
+        }
+
+/* _________________ MIRROR ANIMATION ___________________
+------------------------------------------------------------ */
+
+        .mirror{
+            transform: translate(28%, 3%);
+            opacity: 1;
+            animation-duration: 3s;
+            animation: mirror 8s ease-in-out infinite forwards;
+            position: absolute;
+            left: 0;
+            top: 37%;
+            z-index: 1;
+        }
+
+        @keyframes mirror{
+            0%{
+                transform: translate(28%, 3%);
+                opacity:0;
+            }
+            40%{
+                animation-duration: 5s;
+                transform: translate(28%, -80%);
+                opacity: 0;
+            }
+            98%{
+                transform: translate(28%, -80%);
+                opacity: 1;
+            }
+            100%{
+                transform: translate(28%, -80%);
+                opacity:0;
+            }
+        }
+
+/* _________________ EYEBALL ANIMATION ___________________
+------------------------------------------------------------ */
+
+        .eyeball{
+            width:100%;
+            inset:0;
+            padding: 0 12rem;
+            top:0;
+            display: flex;
+            flex-flow: row;
+            justify-content:space-between;
+        }
+
+        .verticalmove{ 
+            animation-name: verticalmove;
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: infinite;
+            transform: translate(0, -100%) rotate(0deg); 
+        }
+
+        .animate{
+            animation-duration: 6s;
+        }
+
+        .animate--delay{
+            animation-delay:3s;
+        }
+
+        .animation-delay-slow{
+            animation-delay:4s;
+        }
+
+        @keyframes verticalmove{
+            0%{
+                transform: translate(0, -100%) rotate(0deg);
+            }
+            100%{
+                transform: translate(0, 140%) rotate(-10deg);
+            }
+        }
+
+/* _________________ CANDY ROCKET ANIMATION ___________________
+------------------------------------------------------------ */
+
+        .candy-rocket{
+            top:0;
+            left:-10%;
+            transform: rotate(0deg);
+            animation: candy 25s ease-in-out infinite forwards;
+        }
+
+        @keyframes candy{
+            0%, 10%{
+                top: 0;
+                left: -10%;
+                transform: rotate(0deg);
+            }
+            20%{
+                top:60%;
+                left: 15%;
+                transform: rotate(0deg);
+            }
+            30%{
+                top:60%;
+                left: 15%;
+                transform: rotate(0deg);
+            }
+            40%{
+                top:60%;
+                left: 15%;
+                transform: rotate(0deg);
+            }
+            50%{
+                top:60%;
+                left: 15%;
+                transform: rotate(0deg);
+            }
+            60%{
+                top:60%;
+                left: 15%;
+                transform: rotate(0deg);
+            }
+            
+            70%{
+                top:-6%;
+                left: 57%;
+                transform: rotate(-10deg);
+            }
+            80%{
+                top:-6%;
+                left: 57%;
+                transform: rotate(-10deg);
+            }
+            90%{
+                top:-6%;
+                left: 57%;
+                transform: rotate(-10deg);
+            }
+            100%{
+                top: 60%;
+                left: 75%;
+                transform: rotate(12deg);
+            }
+        }
+        .require-star{vertical-align: super;}
+        .radio-btn input[type="radio"] {
+            display: none;
+        }
+        .radio-btn span {
+            display: inline-block;
+            padding: 10px 20px;
+            border: 2px solid #000;
+            /* transition: background-color 0.3s, color 0.3s; */
+            cursor: pointer;
+        }
+        .radio-btn input[type="radio"]:checked + span {
+            background-color: #000;
+            color: #fff;
+        }
+        .valid-error {
+            display: none;
+        }
+        
+        .checkbox input[type="checkbox"]{display: none;}
+        .age-selector label {
+            filter: grayscale(100%);
+            cursor: not-allowed;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .age-selector input[type="checkbox"]:enabled + label {
+            filter: none;
+            cursor: pointer;
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .checkbox input[type="checkbox"]:checked + label  span {
+            background-color: black;
+            color: white; /* Optional: Change text color for better contrast */
+        }
+
+        @media screen and (max-width:768px){
+            .inner-tab-content{padding: 20px 25px;}
+            .header1{
+                padding: 0px;
+            }
+            .header-title{
+                font-size: 34px;
+            }
+            
+            .rocket-content{font-size: 10px;}            
+            .rocket1 svg{width: 17px;}
+            .eyespoon{top:-79px}
+            .eyespoon img{width: 200px; height: 200px;}
+            .form-group label{font-size: 16px;}
+            .rotating-image{width: 60px;}
+            .eyespoon2 img{width: 150px; height: 150px;}
+            .eyespoon2{left: -13%;}
+            .form-group .checkbox{width: auto;}
+            .form-group .checkbox label span{padding: 18px; font-size: 16px;}
+            .btn-outline, .btn-outline-pink, .btn-d, .btn-outline-green, .btn-outline-blue, .btn-outline-white{
+                padding: 7px 30px;
+                font-size: 18px;
+            }
+            .btn-save-later{font-size: 18px;}
+            .mouth{width: 125px;}
+            .mouth lip{left:14px !important; top: -15px !important; width: 75px;}
+            .form-group label span{font-size: 16px;}
+            .age-selector ul{justify-content: center;}
+            .w-300{min-width: 135px;}
+            .progress-slider .bar span{font-size: 9px;}
+            .range-slider{width: 46%;}
+            .radio-btn-img li.radio{width: 100%;}
+            figure.image-container img{width: 100%;}
+            .h-list-check {flex-wrap: wrap;}
+            .radio-btn-img li.radio{width: 100% !important; }
+            .radio-btn-img .radio label .button-text{font-size: 16px; line-height: 1.4; padding: 10px;}
+            .radio-btn-img .radio label .image-container{padding: 15px;}
+            .color-container-out{flex-wrap: wrap;}
+        }
+/*ANiMATION*/
+    
+
+@media screen and (max-width:1705px) and (min-width:1024px) {
+    .title-questionnaire{
+        font-size: 50px;
+    }
+}
+
+@media screen and (max-width:1024px) and (min-width:768px) {
+    .questions-title{
+        font-size: 24px;
+    }
+    .questionnaire{
+        padding: 10% 5%;
+    }
+    .title-questionnaire{
+        font-size: 45px;
+        line-height: 40px;
+    }
+    .customer-text{
+        font-size: 18px;
+    }
+    .back,.next{
+        width: 300px;
+        height: 40px;
+        font-size:16px ;
+    }
+    .question-progress{
+        width: 500px;
+    }
+    .questonnaire-actions-height{
+        height: 250px;
+    }
+    .font-grid{
+        grid-template-columns: repeat(2,1fr);
+    }
+    .shade-background{
+        height: 75%;
+        margin: 5% 0 0 0;
+    }
+    .shade-buttons{
+        flex-direction: column;
+    }
+    .specific-color{
+        height: 50px;
+        width: 60px;
+    }
+}
+
+@media screen and (max-width:768px) and (min-width:425px) {
+    .questionnaire{
+        padding: 10% 5%;
+    }
+    .title-questionnaire{
+        font-size: 45px;
+        line-height: 40px;
+    }
+    .questions-title{
+        font-size: 18px;
+    }
+    .customer-text{
+        font-size: 18px;
+    }
+    .back,.next{
+        width: 300px;
+        height: 40px;
+        font-size:16px ;
+    }
+    .question-progress{
+        width: 500px;
+    }
+    .questonnaire-actions-height{
+        height: 250px;
+    }
+    .font-grid{
+        grid-template-columns: repeat(2,1fr);
+    }
+    .shade-background{
+        height: 75%;
+        margin: 5% 0 0 0;
+    }
+    .shade-buttons{
+        flex-direction: column;
+    }
+    .specific-color{
+        height: 50px;
+        width: 60px;
+    }
+    .thank-you-desc{
+        font-size: 35px;
+        line-height: 32px;
+        text-align: center;
+        margin: 0 0 5% 0;
+    }
+}
+
+
+@media screen and (max-width:425px) {
+    .questionnaire{
+        padding: 15% 5%;
+    }
+    .title-questionnaire{
+        font-size: 25px;
+        line-height: 30px;
+    }
+    .questions-title{
+        font-size: 12px;
+    }
+    .customer-text{
+        font-size: 12px;
+    }
+    .back,.next{
+        width: 150px;
+        height: 40px;
+        font-size:16px ;
+    }
+    .male-btn,.female-btn{
+        font-size: 10px;
+    }
+    .question-input{
+        font-size: 14px;
+    }
+    .font-grid{
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        margin: 2% 0 0 0;
+        gap:20px;
+    }
+    .shade-buttons{
+        flex-direction: column;
+    }
+    .surprise{
+        font-size: 18px;
+        width: 325px;
+    }
+    .shade-background{
+        height: 700px;
+        margin: 5% 0 0 0;
+    }
+    .shade-btn{
+        font-size: 18px;
+    }
+    .shade-btn-active{
+        font-size: 18px;
+    }
+    .specific-color{
+        height: 25px;
+        width: 30px;
+    }
+    .enter-colors{
+        font-size: 18px;
+    }
+    .questonnaire-actions-height{
+        height: 250px;
+    }
+    .question-progress{
+        width: 300px;
+    }
+    .progress-text{
+        font-size: 12px;
+    }
+    .thank-you-text{
+        font-size: 24px;
+    }
+    .thank-you-desc{
+        font-size: 20px;
+    }
+    .back-to-home{
+        width: 250px;
+        font-size: 18px;
+    }
+}
+@media screen and (max-width:375px) {
+    .questionnaire{
+        padding: 15% 5%;
+    }
+    .title-questionnaire{
+        font-size: 25px;
+        line-height: 30px;
+    }
+    .questions-title{
+        font-size: 12px;
+    }
+    .customer-text{
+        font-size: 12px;
+    }
+    .back,.next{
+        width: 150px;
+        height: 40px;
+        font-size:16px ;
+    }
+    .male-btn,.female-btn{
+        font-size: 10px;
+    }
+    .question-input{
+        font-size: 14px;
+    }
+    .font-grid{
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        margin: 2% 0 0 0;
+        gap:20px;
+    }
+    .shade-buttons{
+        flex-direction: column;
+    }
+    .surprise{
+        font-size: 18px;
+        width: 295px;
+        height: 45px;
+    }
+    .shade-background{
+        height: 700px;
+        margin: 5% 0 0 0;
+    }
+    .shade-btn{
+        font-size: 18px;
+        width: 250px;
+    }
+    .shade-btn-active{
+        font-size: 18px;
+        width: 250px;
+
+    }
+    .specific-color{
+        height: 25px;
+        width: 30px;
+    }
+    .enter-colors{
+        font-size: 18px;
+    }
+    .questonnaire-actions-height{
+        height: 250px;
+    }
+    .question-progress{
+        width: 200px;
+    }
+    .progress-text{
+        font-size: 12px;
+    }
+    .thank-you-desc{
+        font-size: 20px;
+        text-align: center;
+    }
+}

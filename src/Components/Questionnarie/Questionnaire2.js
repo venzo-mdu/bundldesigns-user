@@ -16,8 +16,12 @@ import Female3 from '../../Images/Questionnaire/female3.png';
 import Female4 from '../../Images/Questionnaire/female4.png';
 import Female5 from '../../Images/Questionnaire/female5.png';
 import Female6 from '../../Images/Questionnaire/female6.png';
+import { useNavigate } from 'react-router-dom';
 
 export const Questionnaire2 = () => {
+ 
+  const navigate = useNavigate();
+
   const [questions, setQuestions] = useState([]);
   const [selectedGender, setSelectedGender] = useState('');
   const [activeButtons, setActiveButtons] = useState([]); // Tracks active buttons
@@ -29,7 +33,7 @@ export const Questionnaire2 = () => {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const response = await axios.get(`${base_url}/api/content?section=brand_questions`);
+        const response = await axios.get(`${base_url}/api/content?section=brand_questions&page=2`);
         const questionsJSX = response.data.map((question, index) => (
           <div className="questions" key={index}>
             <p className="questions-title">
@@ -79,10 +83,18 @@ export const Questionnaire2 = () => {
     );
   };
 
+  const onBackClick = () =>{
+    navigate(`/questionnaire/${1}`);
+  }
+  const onNextClick = () =>{
+    navigate(`/questionnaire/${3}`);
+  }
   return (
     <div>
       <Questionnaire
         pageNo={2}
+        onBackClick={onBackClick}
+        onNextClick={onNextClick}
         questions={
           <>
             {questions}

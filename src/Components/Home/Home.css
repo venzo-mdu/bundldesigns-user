@@ -713,8 +713,8 @@ small {
 }
 .img-rotate-qf {
   position: absolute;
-  bottom: -50%;
-  right: 5%;
+  bottom: 28%;
+  right: 10%;
   transform: translateY(-20%);
 }
 .rotating-image {
@@ -3342,7 +3342,7 @@ text-align: center;
   .mini-slide {
     overflow: hidden;
   }
-
+  
   .navigation-auto {
     gap: .2rem;
   }
@@ -4360,7 +4360,7 @@ position: relative;
     width: 45%;
   }
   .h-list{
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
   }
   .navbar-toggle{
     width: 35px;
@@ -4392,6 +4392,7 @@ position: relative;
   .menu{
     display: block;
   }
+
   .navbar-toggle{
     margin-top: -15px;
   }
