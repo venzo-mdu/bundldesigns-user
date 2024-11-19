@@ -10,8 +10,14 @@ import paperplane from '../../Images/our-work.gif'
 export default function OurWork() {
 
   const [projects, setProjects] = useState([])
-  const [currentTab, setCurrentTab] = useState('All');
-  const categories = ['All', 'Social Media', 'Packaging', 'Websites', 'Brand Identity']
+  const [currentTab, setCurrentTab] = useState('all');
+  const categories = {
+    all: 'All',
+    social_media:'Social Media',
+    packaging :'Packaging',
+    websites :'Websites',
+    brand_identity:'Brand Identity'
+  }
   const base_url = process.env.REACT_APP_BACKEND_URL
   const getprojects = async () => {
     console.log(base_url)
@@ -36,39 +42,59 @@ export default function OurWork() {
         </div>
         <div className=' sm:p-3 border-b px-[3%] border-black'>
           <div className='flex py-4 justify-center'>
-            {categories.map((category, index) => {
-              return <button className={`px-[20px] ${currentTab == category ? 'text-white bg-[#1BA56F] ' : 'text-[#1BA56F] bg-white '}py-[5px] text-[20px] border-r border-t border-b
+            {Object.keys(categories).map((key, index) => {
+              return <button className={`px-[20px] ${currentTab == key ? 'text-white bg-[#1BA56F] ' : 'text-[#1BA56F] bg-white '}py-[5px] text-[20px] border-r border-t border-b
                            ${index == 0 && 'border-l'} ${index == categories.length && 'border-l-0 border-r'}
                    !border-[#1BA56F]`}
-                onClick={() => setCurrentTab(category)}>{category}</button>
+                onClick={() => setCurrentTab(key)}>{categories[key]}</button>
             })}
           </div>
           <div className='mt-8 text-[32px]'>
-            {
-              projects.map((project,index) => {
-                if (project.category == currentTab || currentTab == 'All') {
-                  return <div className={`flex w-full ${index+1 != projects.length && 'border-b'} mt-2 !border-black items-start mb-2 pb-4 p-2 px-4`}>
+          {projects
+  .filter(
+    (project) => project.category === currentTab || currentTab === 'all'
+  )
+  .map((project, index,filteredProjects) => (
+    <div
+      key={index}
+      className={`flex w-full ${
+        index !== filteredProjects.length - 1 ? 'border-b' : ''
+      } mt-2 !border-black items-start mb-2 pb-4 p-2 px-4`}
+    >
+      {/* Left Column */}
+      <div className="basis-1/2 w-full">
+        <h2 className="text-[28px]">{project.name_english}</h2>
+        <div className="mb-2">
+          <button
+            className="px-[20px] text-[18px] text-white bg-[#1BA56F] py-[5px] !border-[#1BA56F]"
+          >
+            {categories[project.category]}
+          </button>
+        </div>
+        <div
+          id="description"
+          className="text-gray-700 w-[70%]"
+          dangerouslySetInnerHTML={{ __html: project.description_english }}
+        />
+        <button className="lg:w-[80%] xl:w-[60%] text-[20px] px-1 bg-black py-1 text-white">
+          Follow Our Instagram
+        </button>
+      </div>
 
-                    <div className='basis-1/2 w-full'>
-                      <h2 className='text-[28px]'> {project.name_english} </h2>
-                      <div className='mb-2'> <button className={`px-[20px] text-[18px] text-white bg-[#1BA56F] py-[5px]             
-                   !border-[#1BA56F]`}
-                      >{project.category}</button> </div>
-                      <div id="description"
-                        className=" text-gray-700 w-[70%]"
-                        dangerouslySetInnerHTML={{ __html: project.description_english }}
-                      />
-                      <button className='lg:w-[80%] xl:w-[60%] text-[20px] px-1  bg-black py-1 text-white'>Follow Our Instagram</button>
-                    </div>
-                    <div className='flex flex-wrap basis-1/2 w-full'>
-                      {project.project_images.map(img => <img className='width-[30%]' width='200px' src={img}></img>)}
-                    </div>
-
-
-                  </div>
-                }
-              })
-            }
+      {/* Right Column */}
+      <div className="flex flex-wrap basis-1/2 w-full">
+        {project.project_images.map((img, imgIndex) => (
+          <img
+            key={imgIndex}
+            className="width-[30%]"
+            width="200px"
+            src={img}
+            alt={`Project ${index} Image ${imgIndex}`}
+          />
+        ))}
+      </div>
+    </div>
+  ))}
           </div>
         </div>
         <div className='relative py-10'>

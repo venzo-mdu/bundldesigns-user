@@ -92,10 +92,10 @@ export default function FAQ() {
             <h1 className='text-[40px]'> FAQs </h1>
             <p className='text-[20px] text-[#00000080]'>Where we answer all your questions!</p>
         </div>
-        <div className='p-20 sm:p-3 border-b !px-[10%] border-black'>
+        <div className='lg:p-20 md:p-10  sm:p-3 border-b !px-[10%] border-black'>
                 <div className='flex justify-center'>
                     {faqs.categories.map((category,index)=>{
-                        return <button className={`px-[20px] ${currentTab ==category.name_english? 'text-white bg-[#1BA56F] ': 'text-[#1BA56F] bg-white ' }py-[5px] border-r border-t border-b
+                        return <button className={`lg:px-[20px] md:px-[10px] md:py-[3px] md:text-[16px] lg:py-[5px]  ${currentTab ==category.name_english? 'text-white bg-[#1BA56F] ': 'text-[#1BA56F] bg-white ' } border-r border-t border-b
                            ${index == 0 && 'border-l'} ${index==faqs.categories.length && 'border-l-0 border-r'}
                    !border-[#1BA56F]`} 
                             onClick={()=>setCurrentTab(category.name_english)}>{category.name_english}</button>
@@ -108,10 +108,10 @@ export default function FAQ() {
                             if(faq.category_english == currentTab){
                                 return <div className='flex border-none items-start mb-1'>
                                 <img className='mt-1' src={msgIcon}></img>  <div className='pl-6'> 
-                                  <p className='text-[24px] font-bold'>{faq.question_english}</p>
+                                  <p className='lg:text-[24px] font-bold md:text-[18px]'>{faq.question_english}</p>
                                   <div
               id="description"
-              className=" text-gray-700"
+              className=" text-gray-700 md:text-[16px]"
               dangerouslySetInnerHTML={{ __html: faq.answer_english }}
             />
                                 </div> </div>

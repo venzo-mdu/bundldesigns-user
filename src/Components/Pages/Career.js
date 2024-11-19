@@ -107,7 +107,7 @@ export default function Career() {
 
     const getVacancy = async()=>{
         console.log(base_url)
-        const response = await axios.get(`${base_url}/api/content?section=careers`,Config);
+        const response = await axios.get(`${base_url}/api/content?section=careers`);
         if(response.data){
             console.log(response.data)
             setVacancies(response.data);
