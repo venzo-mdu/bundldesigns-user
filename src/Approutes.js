@@ -12,6 +12,7 @@ import Career from "./Components/Pages/Career";
 import OurWork from "./Components/Pages/OurWork";
 import WebsterForm from "./Components/Pages/WebsterForm";
 import PremiumForm from "./Components/Pages/PremiumForm";
+import Dashboard from "./Components/Pages/Dashboard";
 
 // Helper function to get cookie value by name
 const getCookie = (name) => {
@@ -55,6 +56,10 @@ export default function AppRouter() {
     {
       path: "/mycart",
       element: <ProtectedRoute element={<MyCart />} />,
+    },
+    {
+      path:'/dashboard',
+      element:<ProtectedRoute element={<Dashboard />} />
     },
     {
       path: "*",
