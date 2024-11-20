@@ -3,4 +3,11 @@ export const loginAction = (payload) => {
       type: "login",
       payload,
     };
+};
+
+export const questionnaireAction1 = (payload) => {
+  return {
+    type: "questionnaire1",
+    payload,
   };
+};

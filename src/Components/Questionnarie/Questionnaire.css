@@ -78,7 +78,7 @@
     border: 0;
     outline: none;
     text-decoration: underline;
-    margin: auto 0 0 2%;
+    margin: 2% 0 0 2%;
 }
 .questions{
     display: flex;
@@ -105,6 +105,26 @@
     text-align: center;
     padding: 1%;
     background-color: transparent;
+}
+.product-btn , .service-btn{
+    width: 150px; 
+    height: 40px;
+    background-color: #FFFFFF;
+    color: #000000;
+    border: 1px solid #000000;
+    text-align: center;
+    font-size: 18px;
+    text-transform: uppercase;
+}
+.product-btn:hover , .service-btn:hover{
+    width: 150px; 
+    height: 40px;
+    background-color: #000000;
+    border: 1px solid #000000;
+    text-align: center;
+    font-size: 18px;
+    text-transform: uppercase;
+    color: #FFFFFF;
 }
 .ideal-customers {
     width: 100%;
@@ -414,7 +434,7 @@
             position: absolute;
             display: inline;
             transition: 1s;
-            margin-top: 20px;
+            /* margin-top: 20px; */
         }
         .tab-section{
             display: none;

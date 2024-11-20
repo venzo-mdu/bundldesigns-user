@@ -17,10 +17,13 @@ import Female4 from '../../Images/Questionnaire/female4.png';
 import Female5 from '../../Images/Questionnaire/female5.png';
 import Female6 from '../../Images/Questionnaire/female6.png';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
 
 export const Questionnaire2 = () => {
  
   const navigate = useNavigate();
+  const answers = useSelector((state) => state.questionnaire1);
 
   const [questions, setQuestions] = useState([]);
   const [selectedGender, setSelectedGender] = useState('');
@@ -84,7 +87,7 @@ export const Questionnaire2 = () => {
   };
 
   const onBackClick = () =>{
-    navigate(`/questionnaire/${1}`);
+    navigate(`/questionnaire/${1}`,{state:{questionnaireData1:answers}});
   }
   const onNextClick = () =>{
     navigate(`/questionnaire/${3}`);

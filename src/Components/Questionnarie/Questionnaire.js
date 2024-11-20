@@ -135,7 +135,7 @@ export const Questionnaire = ({
             pageNo === 2 ?
             <div>
               <img className='miclady' src={Announcement}></img>
-              <img className='lips' src={Mouth}></img>
+              <img  className='lips position-absolute' src={Mouth}></img>
             </div> :''
           }
           {
@@ -144,14 +144,14 @@ export const Questionnaire = ({
               <img src={Buy}></img>
             </div> :''
           }
-          {
+          {/* {
             pageNo === 4 ?
             <div className='eyeball'>
               <img className='animate verticalmove' src={Eye}></img>
               <img className='animate verticalmove animation-delay-slow' src={Eye}></img>
               <img className='animate verticalmove animate--delay' src={Eye}></img>
             </div>:''
-          }
+          } */}
         </div>
         </div>
             {questions}

@@ -760,7 +760,7 @@ small {
   list-style: none;
   animation: scroll var(--_animation-duration, 1s) var(--_animation-direction, forwards) linear infinite;
 }
-.scroll-ani {animation: scroll var(--_animation-duration, 25s) var(--_animation-direction, reverse) linear infinite;}
+.scroll-ani {animation: scroll var(--_animation-duration, 25s) var(--_animation-direction, forwards) linear infinite;}
 
 .scroll-button li {
   padding: 0 .3rem;
@@ -4028,6 +4028,7 @@ small {
   .container-sm {
       max-width: 960px
   }
+ 
 }
 
 @media (min-width:1200px) {
@@ -4308,11 +4309,20 @@ position: relative;
 }
 
 @media screen and (max-width:1705px) and (min-width:1024px) {
+  .img-rotate-qf{
+    bottom: 3%;
+  }
+  .col-lg-6{
+    width: 40%;
+  }
+  .col-lg-3{
+    width: 29%;
+  }
   .header-section .col-lg-6{
     width: 40%;
   }
   .header-section .col-lg-3{
-    width: 30%;
+    width: 29%;
   }
   /* .header-section{
     height: 800px;
@@ -4339,6 +4349,7 @@ position: relative;
   .hover-txt { opacity: 0;}
 }
 @media screen and (max-width:1024px) and (min-width:768px) {
+  
   .header-section{
     height: 80vh;
   }

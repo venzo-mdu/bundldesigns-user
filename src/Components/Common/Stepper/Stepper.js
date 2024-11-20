@@ -9,9 +9,7 @@ export const Stepper = ({ pageNo }) => {
     const [activeProcess, setActiveProcess] = useState(0);
     const [isActiveProcess, setIsActiveProcess] = useState([false, false, false, false, false]);
     const [lineWidth, setLineWidth] = useState(365); // default for large screens
-
-    // Calculate translateX based on activeProcess
-    const translateX = activeProcess * (window.innerWidth <= 4441 ? 85 : window.innerWidth <= 768 ? 150 : lineWidth);
+    const [translateX, setTranslateX] = useState();
 
     const processData = [
         { title: "ABOUT YOUR BUSINESS", fill: '#4FA472', color: '#000' },
@@ -23,14 +21,95 @@ export const Stepper = ({ pageNo }) => {
 
     // Adjust the dotted line width based on screen size
     const adjustLineWidth = () => {
-        if (window.innerWidth <= 441) {
+        if (window.innerWidth <= 600) {
             setLineWidth(85);
-        } else if (window.innerWidth <= 768) {
+            if (activeProcess === 0) {
+                setTranslateX(15)
+            }
+            if (activeProcess === 1) {
+                setTranslateX(100)
+            }
+            if (activeProcess === 2) {
+                setTranslateX(190)
+            }
+            if (activeProcess === 3) {
+                setTranslateX(270)
+            }
+            if (activeProcess === 4) {
+                setTranslateX(340)
+            }
+        }
+        else if (window.innerWidth <= 768) {
             setLineWidth(150);
-        } else if (window.innerWidth <= 1705) {
-            setLineWidth(170); // Adjusted width for screens up to 1705px
-        } else {
-            setLineWidth(365); // Default width for larger screens
+            if (activeProcess === 0) {
+                setTranslateX(0)
+            }
+            if (activeProcess === 1) {
+                setTranslateX(160)
+            }
+            if (activeProcess === 2) {
+                setTranslateX(300)
+            }
+            if (activeProcess === 3) {
+                setTranslateX(450)
+            }
+            if (activeProcess === 4) {
+                setTranslateX(600)
+            }
+        }
+        else if (window.innerWidth <= 1024) {
+            setLineWidth(170);
+            if (activeProcess === 0) {
+                setTranslateX(0)
+            }
+            if (activeProcess === 1) {
+                setTranslateX(190)
+            }
+            if (activeProcess === 2) {
+                setTranslateX(395)
+            }
+            if (activeProcess === 3) {
+                setTranslateX(575)
+            }
+            if (activeProcess === 4) {
+                setTranslateX(780)
+            }
+        }
+        else if (window.innerWidth <= 1705) {
+            setLineWidth(250);
+            if (activeProcess === 0) {
+                setTranslateX(-150)
+            }
+            if (activeProcess === 1) {
+                setTranslateX(120)
+            }
+            if (activeProcess === 2) {
+                setTranslateX(395)
+            }
+            if (activeProcess === 3) {
+                setTranslateX(660)
+            }
+            if (activeProcess === 4) {
+                setTranslateX(930)
+            }
+        }
+        else {
+            setLineWidth(365);
+            if (activeProcess === 0) {
+                setTranslateX(-325)
+            }
+            if (activeProcess === 1) {
+                setTranslateX(35)
+            }
+            if (activeProcess === 2) {
+                setTranslateX(395)
+            }
+            if (activeProcess === 3) {
+                setTranslateX(760)
+            }
+            if (activeProcess === 4) {
+                setTranslateX(1115)
+            }
         }
     };
 
@@ -38,27 +117,25 @@ export const Stepper = ({ pageNo }) => {
         setActiveProcess(pageNo - 1);
         updateActiveProcess(pageNo - 1);
         adjustLineWidth();
-        // window.addEventListener('resize', adjustLineWidth);
-        // return () => window.removeEventListener('resize', adjustLineWidth);
-    }, [pageNo]);
+    }, [pageNo, activeProcess]);
 
     const updateActiveProcess = (index) => {
         const updatedActiveProcess = isActiveProcess.map((_, i) => i <= index);
         setIsActiveProcess(updatedActiveProcess);
     };
 
-    const handleRoute = (page) =>{
-        navigate(`/questionnaire/${page+1}`)
+    const handleRoute = (page) => {
+        navigate(`/questionnaire/${page + 1}`)
     }
 
     return (
         <div className="stepper">
             {processData.map((process, index) => (
                 <div
-                    onClick={()=>navigate(`/questionnaire/${index+1}`)}
+                    onClick={() => navigate(`/questionnaire/${index + 1}`)}
                     key={index}
                     className={`flower ${activeProcess === index ? "active-flower" : ""}`}
-                    style={{ display: "flex", flexDirection: "column", alignItems: "center",cursor:'pointer' }}
+                    style={{ display: "flex", flexDirection: "column", alignItems: "center", cursor: 'pointer' }}
                 >
                     <svg
                         style={{ fill: 'rgb(0,0,0)' }}
@@ -69,7 +146,7 @@ export const Stepper = ({ pageNo }) => {
                     </svg>
                     {index === 4 ? '' : (
                         <svg
-                            style={{ opacity: isActiveProcess[index + 1] ? 1 : 0.3 ,margin:'1% 0 0 0' }} 
+                            style={{ opacity: isActiveProcess[index + 1] ? 1 : 0.3, margin: '1% 0 0 0' }}
                             className="dotted-line" width={lineWidth} height="3" viewBox={`0 0 ${lineWidth} 3`}
                             fill="black" xmlns="http://www.w3.org/2000/svg"
                         >
@@ -81,14 +158,14 @@ export const Stepper = ({ pageNo }) => {
                         style={{ transition: '1s', opacity: isActiveProcess[index] ? 1 : 0.3 }}
                     >
                         {process.title.split("  ").map((word, i) => (
-                            <span style={{cursor:'pointer'}} onClick={()=>handleRoute(i)} key={i}>{word}</span>
+                            <span style={{ cursor: 'pointer' }} onClick={() => handleRoute(i)} key={i}>{word}</span>
                         ))}
                     </div>
                 </div>
             ))}
             <svg
                 className="rocket overlay"
-                style={{ transform: `translateX(${translateX}px)`, margin: '1% 0 0 0' }}
+                style={{ transform: activeProcess === 0 ? `translateX(${translateX}px)` : `translateX(${translateX}px)`, margin: '1% 0 0 0' }}
                 width="103" height="51" viewBox="0 0 103 51" fill="none"
                 xmlns="http://www.w3.org/2000/svg"
             >

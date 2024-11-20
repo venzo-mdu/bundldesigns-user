@@ -16,6 +16,7 @@ import X from '../../Images/Questionnaire/x icon.png'
 import Color1 from '../../Images/Questionnaire/img1.png'
 import Color2 from '../../Images/Questionnaire/img2.png'
 import Color3 from '../../Images/Questionnaire/img3.png'
+import Link from '../../Images/Questionnaire/icons8-link-26.png'
 import { useNavigate } from 'react-router-dom';
 
 export const Questionnaire4 = () => {
@@ -172,14 +173,39 @@ export const Questionnaire4 = () => {
                 columnGap:'10px'
               }}
             >
-              {displayedColors.map((color, index) => (
+              {/* {displayedColors.map((color, index) => (
                 <div
                   key={index}
                   className="specific-color"
                   style={{ backgroundColor: `${colorCodes[index]}` }}
                   onClick={() => handleColorClick(color)}
                 ></div>
-              ))}
+              ))} */}
+              {displayedColors.map((color, index) => {
+
+                  const isTopRow = index < 9; 
+                  const isBottomRow = index >= displayedColors.length - 9; 
+
+                  const borderRadiusStyle = {
+                    borderTopLeftRadius: isTopRow ? "8px" : "0", // Top-left corner
+                    borderTopRightRadius: isTopRow  ? "8px" : "0", // Top-right corner
+                    borderBottomLeftRadius: isBottomRow ? "8px" : "0", // Bottom-left corner
+                    borderBottomRightRadius: isBottomRow  ? "8px" : "0", // Bottom-right corner
+                  };
+
+                  return (
+                    <div
+                      key={index}
+                      className="specific-color"
+                      style={{
+                        backgroundColor: `${colorCodes[index]}`,
+                        ...borderRadiusStyle, 
+                      }}
+                      onClick={() => handleColorClick(color)}
+                    ></div>
+                  );
+              })}
+
             </div>
             <div
               className="selected-colors"
@@ -427,6 +453,45 @@ export const Questionnaire4 = () => {
                     </div>
                 </>
               )
+            }
+            {
+              question.id === 21 ?
+              <div
+              className="color-input"
+              style={{
+                marginTop: '20px',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '10px',
+                position: 'relative'
+              }}
+            >
+              <input
+                type="text"
+                value={inputValue}
+                onChange={handleInputChange}
+                style={{
+                  padding: '8px',
+                  border: '1px solid #ccc',
+                  outline: 'none',
+                  width: window.innerWidth<=441 ? '200px':'400px'
+                }}
+              />
+              <button
+                onClick={handleAddColor}
+                style={{
+                  padding: '8px 16px',
+                  backgroundColor: 'transparent',
+                  color: '#fff',
+                  border: 'none',
+                  cursor: 'pointer',
+                  margin: '-55px 0px 0px 53.5%'
+                }}
+              >
+                <img src={Link}></img>
+              </button>
+            </div> :''
             }
             <input className="question-input" />
           </div>
