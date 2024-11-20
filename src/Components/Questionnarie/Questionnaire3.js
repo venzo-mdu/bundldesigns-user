@@ -142,11 +142,13 @@ import axios from 'axios';
 import { base_url } from '../Auth/BackendAPIUrl';
 import { Questionnaire } from './Questionnaire';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 export const Questionnaire3 = () => {
   
   const navigate = useNavigate();
-
+  const answers = useSelector((state) => state.questionnaire2);
+  console.log(answers)
   const [questions, setQuestions] = useState([]);
   const [sliderValues, setSliderValues] = useState({}); // Store slider values by question ID or index
 
@@ -232,7 +234,7 @@ export const Questionnaire3 = () => {
   };
 
   const onBackClick = () =>{
-    navigate(`/questionnaire/${2}`);
+    navigate(`/questionnaire/${2}`,{state:{questionnaireData2:answers}});
   }
   const onNextClick = () =>{
     navigate(`/questionnaire/${4}`);

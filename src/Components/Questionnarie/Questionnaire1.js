@@ -68,11 +68,9 @@ export const Questionnaire1 = () => {
   const [questions, setQuestions] = useState([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [formData, setFormData] = useState(
-    location.state?.questionnaireData1
-  );
+  const [formData, setFormData] = useState(location.state?.questionnaireData1);
 
-  console.log(location.state?.questionnaireData1,formData,'fff')
+ 
 
   useEffect(() => {
     const fetchQuestions = async () => {

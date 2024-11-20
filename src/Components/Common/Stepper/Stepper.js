@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../Stepper/Stepper.css';
 import { useNavigate } from 'react-router-dom';
 
-export const Stepper = ({ pageNo }) => {
+export const Stepper = ({ pageNo , answers }) => {
 
     const navigate = useNavigate();
 
@@ -125,8 +125,13 @@ export const Stepper = ({ pageNo }) => {
     };
 
     const handleRoute = (page) => {
-        navigate(`/questionnaire/${page + 1}`)
-    }
+        navigate(`/questionnaire/${page + 1}`, {
+            state: {
+                [`questionnaireAction${pageNo}`]: answers, // Use computed property name
+            },
+        });
+    };
+    
 
     return (
         <div className="stepper">

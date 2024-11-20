@@ -24,7 +24,8 @@ export const Questionnaire = ({
   pageNo,
   questions,
   onBackClick,
-  onNextClick
+  onNextClick,
+  storeAnswers
 }) => {
 
   const navigate = useNavigate();
@@ -172,7 +173,7 @@ export const Questionnaire = ({
         </div>
         </div>
         <div style={{position:'fixed',bottom:'0'}}>
-        <Stepper pageNo={pageNo}/>
+        <Stepper pageNo={pageNo} answers={storeAnswers}/>
         </div>
         {/* <Footer/> */}
     </div>

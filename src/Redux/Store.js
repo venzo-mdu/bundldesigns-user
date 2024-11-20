@@ -3,7 +3,8 @@ import reducer from "./Reducer";
 
 const initialState = {
   userInfo: {},
-  questionnaire1 :[]
+  questionnaire1 :[],
+  questionnaire2:[]
 };
 function configureStore(state = initialState) {
   return createStore(reducer, state);

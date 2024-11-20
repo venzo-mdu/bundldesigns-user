@@ -16,39 +16,32 @@ import Female3 from '../../Images/Questionnaire/female3.png';
 import Female4 from '../../Images/Questionnaire/female4.png';
 import Female5 from '../../Images/Questionnaire/female5.png';
 import Female6 from '../../Images/Questionnaire/female6.png';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { questionnaireAction2 } from '../../Redux/Action';
 
 
 export const Questionnaire2 = () => {
  
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const location = useLocation();
   const answers = useSelector((state) => state.questionnaire1);
 
   const [questions, setQuestions] = useState([]);
   const [selectedGender, setSelectedGender] = useState('');
-  const [activeButtons, setActiveButtons] = useState([]); // Tracks active buttons
+  const [activeButtons, setActiveButtons] = useState([]);
+  const [formData, setFormData] = useState(location.state?.questionnaireData2);
 
   const femaleImages = [Female1, Female2, Female3, Female4, Female5, Female6];
   const MaleImages = [Male1, Male2, Male3, Male4, Male5, Male6];
-
 
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
         const response = await axios.get(`${base_url}/api/content?section=brand_questions&page=2`);
-        const questionsJSX = response.data.map((question, index) => (
-          <div className="questions" key={index}>
-            <p className="questions-title">
-              {question.question}
-              <span>
-                <sup>*</sup>
-              </span>
-            </p>
-            <input className="question-input" />
-          </div>
-        ));
-        setQuestions(questionsJSX);
+       
+        setQuestions(response.data);
       } catch (error) {
         console.error("Error fetching questions:", error);
       }
@@ -86,10 +79,19 @@ export const Questionnaire2 = () => {
     );
   };
 
+  const handleChange = (questionId , value) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [questionId]: value, // Update the corresponding key
+    }));
+  };
+
+
   const onBackClick = () =>{
     navigate(`/questionnaire/${1}`,{state:{questionnaireData1:answers}});
   }
   const onNextClick = () =>{
+    dispatch(questionnaireAction2(formData))
     navigate(`/questionnaire/${3}`);
   }
   return (
@@ -98,11 +100,23 @@ export const Questionnaire2 = () => {
         pageNo={2}
         onBackClick={onBackClick}
         onNextClick={onNextClick}
+        storeAnswers={answers}
         questions={
           <>
-            {questions}
-            <div className="ideal-customers">
-              <p className='customer-text'>Who is your ideal customer?</p>
+          {
+          questions.map((question, index) => (
+          <div className="questions" key={index}>
+            <p className="questions-title">
+              {question.question}
+              <span>
+                <sup>*</sup>
+              </span>
+            </p>
+            {
+              question.answer_type === "age-data" && (
+                <>
+                 <div className="ideal-customers">
+              {/* <p className='customer-text'>Who is your ideal customer?</p> */}
               <div style={{ display: 'flex', gap: '10px' }}>
                 <button className={selectedGender === 'female' || selectedGender === 'both' ? 'female-active' : 'female'} value="female" onClick={() => handleGenderChange('female')}>Female</button>
                 <button className={selectedGender === 'male' || selectedGender === 'both' ? 'male-active' : 'male'} value={'male'} onClick={() => handleGenderChange('male')}>Male</button>
@@ -203,6 +217,13 @@ export const Questionnaire2 = () => {
                 </div>
               )}
             </div>
+                </>
+              )
+            }
+            <input className="question-input" value={formData?.[index]} onChange={(e)=>handleChange(index,e.target.value)}/>
+          </div>
+        ))
+      }
           </>
         }
         bgTitle={'AUDIENCE & COMPETITION'}
