@@ -169,7 +169,7 @@ export const Stepper = ({ pageNo , answersData }) => {
                     </div>
                 </div>
             ))}
-            <svg
+            <svg 
                 className="rocket overlay"
                 style={{ transform: activeProcess === 0 ? `translateX(${translateX}px)` : `translateX(${translateX}px)`, margin: '1% 0 0 0' }}
                 width="103" height="51" viewBox="0 0 103 51" fill="none"
