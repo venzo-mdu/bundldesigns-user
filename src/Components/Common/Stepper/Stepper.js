@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import '../Stepper/Stepper.css';
 import { useNavigate } from 'react-router-dom';
 
-export const Stepper = ({ pageNo , answers }) => {
+export const Stepper = ({ pageNo , answersData }) => {
+
 
     const navigate = useNavigate();
 
@@ -125,9 +126,9 @@ export const Stepper = ({ pageNo , answers }) => {
     };
 
     const handleRoute = (page) => {
-        navigate(`/questionnaire/${page + 1}`, {
+        navigate(`/questionnaire/${page}`, {
             state: {
-                [`questionnaireAction${pageNo}`]: answers, // Use computed property name
+                [`questionnaireData${page}`]: answersData, // Use computed property name
             },
         });
     };
@@ -137,7 +138,7 @@ export const Stepper = ({ pageNo , answers }) => {
         <div className="stepper">
             {processData.map((process, index) => (
                 <div
-                    onClick={() => navigate(`/questionnaire/${index + 1}`)}
+                    onClick={()=>handleRoute(index+1)}
                     key={index}
                     className={`flower ${activeProcess === index ? "active-flower" : ""}`}
                     style={{ display: "flex", flexDirection: "column", alignItems: "center", cursor: 'pointer' }}
@@ -163,7 +164,7 @@ export const Stepper = ({ pageNo , answers }) => {
                         style={{ transition: '1s', opacity: isActiveProcess[index] ? 1 : 0.3 }}
                     >
                         {process.title.split("  ").map((word, i) => (
-                            <span style={{ cursor: 'pointer' }} onClick={() => handleRoute(i)} key={i}>{word}</span>
+                            <span style={{ cursor: 'pointer' }} onClick={()=>handleRoute(index+1)} key={i}>{word}</span>
                         ))}
                     </div>
                 </div>

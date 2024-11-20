@@ -173,7 +173,7 @@ export const Questionnaire = ({
         </div>
         </div>
         <div style={{position:'fixed',bottom:'0'}}>
-        <Stepper pageNo={pageNo} answers={storeAnswers}/>
+        <Stepper pageNo={pageNo} answersData={storeAnswers}/>
         </div>
         {/* <Footer/> */}
     </div>

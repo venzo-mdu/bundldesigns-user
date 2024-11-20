@@ -103,6 +103,7 @@ export const Questionnaire1 = () => {
     <div>
       <Questionnaire
         pageNo={1}
+        storeAnswers={location.state?.questionnaireData1}
         bgTitle={'About your business'}
         onNextClick={onNextClick}
         questions={questions.map((question, index) => (
