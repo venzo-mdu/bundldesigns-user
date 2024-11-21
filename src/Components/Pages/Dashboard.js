@@ -37,10 +37,9 @@ export default function Dashboard() {
     }
     const getOrderDetails = async (orderId)=>{
         setCurrentTab(orderId)
-        const response = await axios.get(`${base_url}/api/order/${orderId}/`, Config);
+        const response = await axios.get(`http://127.0.0.1:8000/api/order/${orderId}/`, Config);
         if (response.data) {
             setOrder(response.data);
-            setProcessIndex(ProcessIndexDict[response.data.order_status])
         }
     }
     useEffect(() => {
@@ -84,7 +83,27 @@ export default function Dashboard() {
                                 }
                         })}
                         </div>
+                    <div>
+
+                    </div>
+                        {'item_details' in order && Object.keys(order.item_details.bundle_items).map((key)=>{
+                         return  <><p className='text-[22px] font-bold my-2'>{key}</p>
+                            {order.item_details.bundle_items[key].map((item)=>{
+                                return <p className='font-medium text-[18px]'>{item.item_name}</p>
+                            })}
+                            </>
+                        })}
+
+                        {'item_details' in order && 'addon_items' in order.item_details && <><p className='text-[22px] font-bold my-2'>Add Ons</p>
+                        
+                        {order.item_details.addon_items.map((item)=>{
+                                return <p className='font-medium text-[18px] mx-1 my-2 py-1 border-b border-[#00000080]'>{item.item_name}</p>
+                            })}
+                        </>  }
                     
+                       
+
+                        
                     </div>
 
                 </div>
