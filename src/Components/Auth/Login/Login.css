@@ -32,8 +32,8 @@
 }
 .loginlogo{
     position: absolute;
-    top: -2%;
-    left: 3%;
+    top: -5%;
+    left: 8%;
 }
 
 .login-content input{
@@ -95,8 +95,8 @@
         right: 10%;
     }
     .loginlogo{
-        top: -4%;
-        left: 0%;
+        top: -10%;
+        left: 25%;
     }
 }
 
@@ -133,7 +133,7 @@
         margin: 0% 0 0 0;
     }
     .loginlogo{
-        top: -10%;
+        top: -8%;
         width: 25%;
     }
     .signin{
