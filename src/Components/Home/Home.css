@@ -606,7 +606,7 @@ small {
 
 .navbar-toggle {width: 40px; padding: 0; border: 0; border-radius: 0; background: transparent; margin-top: 10px; margin-left: 5px; outline: none !important;}
 .navbar-toggle span {height: 5px; width: 100%; background: #000000; display: block; position: relative; transition: all 0.3s ease 0s;}
-.navbar-toggle span:not(:last-child) {margin-bottom: 6px;}
+.navbar-toggle span:not(:last-child) {margin-bottom: 8px;}
 
 
 .navbar-toggle.active span:first-child {transform: rotate(45deg); top: 13px;}

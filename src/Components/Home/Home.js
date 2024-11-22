@@ -703,11 +703,11 @@ export const Home = () => {
                                     </div>
                                     <div className="sar d-flex align-items-center">
                                         <img src={Money} alt="" className="img-fluid"></img>
-                                        <span className="sar_text">8000 SAR</span>
+                                        <span className="sar_text"><span>Starting from</span> 8000 SAR</span>
                                     </div>
                                     <div className="work_time d-flex align-items-center">
                                         <img src={Time} alt="" className="ing-fluid"></img>
-                                        <span className="working_days">40 WORKING DAYS</span>
+                                        <span className="working_days"><span>Starting from</span> 40 WORKING DAYS</span>
                                     </div>
                                 </div>
                             </div>
