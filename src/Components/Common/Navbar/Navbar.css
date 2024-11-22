@@ -141,52 +141,52 @@
 
  
  
-.common-navbar {
+.common-navbar{
     height: 65px;
-    border-bottom: 1px solid yellow;
+    border-bottom: 1px solid darkblue;
     padding: 0.5% 2%;
     display: flex;
     width: 100%;
 }
-.nav-logo {
-    width: 35%;
-}
-.nav-items {
+.nav-logo{
     width: 30%;
+}
+.nav-items{
+    width: 40%;
     display: flex;
-    margin-left: 20%;
+    margin: 0.5% 0 0 20%;
 }
-.nav-items p {
-    margin-left: 10%;
+.nav-items p{
+    margin: 0 0 0 10%;
 }
-.profile {
+.profile{
     width: 30%;
     display: flex;
     position: relative;
-    margin-left: 5%;
+    margin: 0 0 0 5%;
 }
-.profile-input {
+.profile-input{
     width: 195px;
     border-radius: 20px;
-    border: none;
-    background-color: #f3f3f3;
-    padding: 2% 10%;
-    height: 25px;
     outline: none;
+    border: 0;
+    background-color: #F3F3F3;
+    padding: 2% 10%;
+    height: 30px;
     margin: auto;
 }
-.search-icon {
+.search-icon{
     position: absolute;
     width: 20px;
-    top: 15%;
+    margin: 1%;
     left: 15%;
+    top: 15%;
 }
-.cart-icon,
-.user-icon {
-    margin-left: 4%;
+.cart-icon,.user-icon{
+    margin: 0 0 0 3%;
     width: 40px;
 }
-.profile-name {
+.profile-name{
     background-color: pink;
     border-radius: 50%;
     height: 40px;
@@ -194,88 +194,90 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid #000;
+    border: 1px solid #000000;
 }
 
-/* Media Queries */
-@media screen and (max-width: 1705px) and (min-width: 1024px) {
-    .profile {
-        margin-left: 0;
+
+@media screen and (max-width:1705px) and (min-width:1024px) {
+    .profile{
+        margin: 0 0 0 0%;
     }
-    .profile-name {
-        margin-top: 1%;
-        margin-left: 1%;
+    .profile-name{
+        margin: 1% 0 0 1%;
     }
-    .search-icon {
+    .search-icon{
         left: 3%;
         top: 20%;
     }
 }
 
-@media screen and (max-width: 1024px) and (min-width: 765px) {
-    .search-icon {
+
+@media screen and (max-width:1024px) and (min-width:765px) {
+    .search-icon{
         left: 8%;
     }
-    .profile {
+    .profile{
         width: 40%;
     }
-    .nav-items {
-        margin-left: 2%;
+    .nav-items{
+        margin: 1% 0 0 2%;
     }
 }
 
-@media screen and (max-width: 768px) and (min-width: 425px) {
-    .nav-items {
-        display: none;
+@media screen and (max-width:768px) and (min-width:425px) {
+    .nav-items{
+       display: none;
     }
-    .profile {
+    .profile{
         width: 75%;
     }
-    .profile-name {
-        margin-top: 1%;
-        margin-left: 2%;
+    .profile-name{
+        margin: 1% 0 0 2%;
     }
-    .search-icon {
+    .search-icon{
         left: 18%;
         top: 20%;
     }
 }
 
-@media screen and (max-width: 425px) {
-    .search-icon,
-    .profile-input {
-        display: none;
-    }
-    .profile {
-        width: 40%;
-    }
-    .nav-logo {
-        width: 60%;
-        margin-top: 2%;
-        margin-left: 5%;
-    }
-    .profile-name {
-        margin-top: 5%;
-        margin-left: 3%;
-    }
+
+@media screen and (max-width:425px)  {
+   .search-icon{
+    display: none;
+   }
+   .profile-input{
+    display: none;
+   }
+   .profile{
+    width: 40%;
+   }
+   .nav-logo{
+    width: 60%;
+    margin: 2% 0 0 5%;
+   }
+   .profile-name{
+    margin: 5% 0 0 3%;
+   }
 }
 
-@media screen and (max-width: 375px) {
-    .search-icon,
-    .profile-input,
-    .nav-items {
+@media screen and (max-width:375px)  {
+    .search-icon{
+     display: none;
+    }
+    .profile-input{
+     display: none;
+    }
+    .profile{
+     width: 40%;
+    }
+    .nav-logo{
+     width: 60%;
+     margin: 2% 0 0 5%;
+    }
+    .profile-name{
+     margin: 5% 0 0 3%;
+    }
+    .nav-items{
         display: none;
-    }
-    .profile {
-        width: 40%;
-    }
-    .nav-logo {
-        width: 60%;
-        margin-top: 2%;
-        margin-left: 5%;
-    }
-    .profile-name {
-        margin-top: 5%;
-        margin-left: 3%;
     }
 }
