@@ -604,7 +604,7 @@ small {
   color: #000000;
 }
 
-.navbar-toggle {width: 40px; padding: 0; border: 0; border-radius: 0; background: transparent; margin-top: 15px; margin-left: 10px; outline: none !important;}
+.navbar-toggle {width: 40px; padding: 0; border: 0; border-radius: 0; background: transparent; margin-top: 10px; margin-left: 5px; outline: none !important;}
 .navbar-toggle span {height: 5px; width: 100%; background: #000000; display: block; position: relative; transition: all 0.3s ease 0s;}
 .navbar-toggle span:not(:last-child) {margin-bottom: 6px;}
 
@@ -1222,9 +1222,9 @@ small {
 .rocket {
   position: absolute;
   transition: 1s;
-  z-index: 2;
+  z-index: 1;
   left: 27%;
-  top: 0%;
+  top:5%;
   width: 102.041px;
   height: 40.43px;
 }
@@ -4366,7 +4366,7 @@ position: relative;
     flex-wrap: nowrap;
   }
   .navbar-toggle{
-    width: 35px;
+    width:35px;
   }
   .text-animation{
     font-size: 45px;
@@ -4386,7 +4386,7 @@ position: relative;
     margin: 0 0 0 10%;
   }
   .rocket {
-    left: 8%;
+    left: 6%;
     top: 0%;
   }
   .hover-txt { opacity: 0;}
