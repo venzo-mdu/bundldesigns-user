@@ -23,7 +23,7 @@
     margin: 0 0 0 5%;
 }
 .profile-input{
-    width: 195px;
+    width: 185px;
     border-radius: 20px;
     outline: none;
     border: 0;
@@ -86,7 +86,7 @@
        display: none;
     }
     .profile{
-        width: 75%;
+        width: 40%;
     }
     .profile-name{
         margin: 1% 0 0 2%;
