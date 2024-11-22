@@ -1,4 +1,4 @@
-.common-navbar{
+/*.common-navbar{
     height: 65px;
     border-bottom: 1px solid black;
     padding: 0.5% 2%;
@@ -137,4 +137,145 @@
     .nav-items{
         display: none;
     }
- }
+ }*/
+
+ 
+ 
+.common-navbar {
+    height: 65px;
+    border-bottom: 1px solid yellow;
+    padding: 0.5% 2%;
+    display: flex;
+    width: 100%;
+}
+.nav-logo {
+    width: 35%;
+}
+.nav-items {
+    width: 30%;
+    display: flex;
+    margin-left: 20%;
+}
+.nav-items p {
+    margin-left: 10%;
+}
+.profile {
+    width: 30%;
+    display: flex;
+    position: relative;
+    margin-left: 5%;
+}
+.profile-input {
+    width: 195px;
+    border-radius: 20px;
+    border: none;
+    background-color: #f3f3f3;
+    padding: 2% 10%;
+    height: 25px;
+    outline: none;
+    margin: auto;
+}
+.search-icon {
+    position: absolute;
+    width: 20px;
+    top: 15%;
+    left: 15%;
+}
+.cart-icon,
+.user-icon {
+    margin-left: 4%;
+    width: 40px;
+}
+.profile-name {
+    background-color: pink;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #000;
+}
+
+/* Media Queries */
+@media screen and (max-width: 1705px) and (min-width: 1024px) {
+    .profile {
+        margin-left: 0;
+    }
+    .profile-name {
+        margin-top: 1%;
+        margin-left: 1%;
+    }
+    .search-icon {
+        left: 3%;
+        top: 20%;
+    }
+}
+
+@media screen and (max-width: 1024px) and (min-width: 765px) {
+    .search-icon {
+        left: 8%;
+    }
+    .profile {
+        width: 40%;
+    }
+    .nav-items {
+        margin-left: 2%;
+    }
+}
+
+@media screen and (max-width: 768px) and (min-width: 425px) {
+    .nav-items {
+        display: none;
+    }
+    .profile {
+        width: 75%;
+    }
+    .profile-name {
+        margin-top: 1%;
+        margin-left: 2%;
+    }
+    .search-icon {
+        left: 18%;
+        top: 20%;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .search-icon,
+    .profile-input {
+        display: none;
+    }
+    .profile {
+        width: 40%;
+    }
+    .nav-logo {
+        width: 60%;
+        margin-top: 2%;
+        margin-left: 5%;
+    }
+    .profile-name {
+        margin-top: 5%;
+        margin-left: 3%;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .search-icon,
+    .profile-input,
+    .nav-items {
+        display: none;
+    }
+    .profile {
+        width: 40%;
+    }
+    .nav-logo {
+        width: 60%;
+        margin-top: 2%;
+        margin-left: 5%;
+    }
+    .profile-name {
+        margin-top: 5%;
+        margin-left: 3%;
+    }
+}
