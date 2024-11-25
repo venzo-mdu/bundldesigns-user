@@ -261,7 +261,7 @@ export const BundlDetail = () => {
       bundle.design_list.map((design, idx) => {
         const quantity = quantities[design.name_english] || 1;
         return {
-          design_id: idx + 1,
+          design_id: design.id,
           unit_price: design.price.toString(),
           unit_time: design.time.toString(),
           qty: quantity.toString(),

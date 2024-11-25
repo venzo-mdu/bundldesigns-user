@@ -37,6 +37,7 @@ export const MyCart = () => {
     });
 
     useEffect(() => {
+        document.documentElement.scrollTo({ top: 0, left: 0 });
         getCartData();
     }, []);
 
@@ -52,22 +53,53 @@ export const MyCart = () => {
         }
     };
 
+    // const removeItem = (itemId, itemType) => {
+    //     console.log(itemId,cartDetails)
+    //     setCartDetails((prevCartDetails) => {
+    //         const updatedItemDetails = { ...prevCartDetails.item_details };
+    //         if (itemType === 'bundle') {
+    //             updatedItemDetails.bundle_items = updatedItemDetails.bundle_items.filter(item => item.id !== itemId);
+    //         } else if (itemType === 'addon') {
+    //             updatedItemDetails.addon_items = updatedItemDetails.addon_items.filter(item => item.id !== itemId);
+    //         }
+
+    //         return {
+    //             ...prevCartDetails,
+    //             item_details: updatedItemDetails
+    //         };
+    //     });
+    // };
+
     const removeItem = (itemId, itemType) => {
-        console.log(itemId,cartDetails)
         setCartDetails((prevCartDetails) => {
             const updatedItemDetails = { ...prevCartDetails.item_details };
+            let updatedTotalAmount = prevCartDetails.total_amount;
+    
+            // Handle removal based on item type
             if (itemType === 'bundle') {
+                const removedItem = updatedItemDetails.bundle_items.find(item => item.id === itemId);
+                updatedTotalAmount -= removedItem?.unit_price * removedItem?.qty || 0;
                 updatedItemDetails.bundle_items = updatedItemDetails.bundle_items.filter(item => item.id !== itemId);
             } else if (itemType === 'addon') {
+                const removedItem = updatedItemDetails.addon_items.find(item => item.id === itemId);
+                updatedTotalAmount -= removedItem?.unit_price * removedItem?.qty || 0;
                 updatedItemDetails.addon_items = updatedItemDetails.addon_items.filter(item => item.id !== itemId);
             }
-
+    
+            // Recalculate the totals
+            const updatedTax = updatedTotalAmount * 0.15; // Assuming VAT is 15%
+            const updatedGrandTotal = updatedTotalAmount + updatedTax;
+    
             return {
                 ...prevCartDetails,
-                item_details: updatedItemDetails
+                item_details: updatedItemDetails,
+                total_amount: updatedTotalAmount,
+                tax: updatedTax,
+                grand_total: updatedGrandTotal,
             };
         });
     };
+    
 
     const handlePayment = async (e) => {
         e.preventDefault();
@@ -140,7 +172,7 @@ export const MyCart = () => {
                             </TableBody>
                         </Table>
                     </TableContainer>
-                    <div style={window.innerWidth <= 441 ? { float: 'left', margin: '4% 0 0 0', width: '100%' } : { float: 'right', margin: '4% 0 0 0', width: '30%' }}>
+                    <div className='cart-total-container'>
                         <div className='total' style={{ display: 'flex' }}>
                             <p style={{ width: '50%' }}>Price:</p>
                             <p style={{ width: '50%' }}>{Math.round(cartDetails.total_amount)} sar</p>
@@ -206,15 +238,16 @@ export const MyCart = () => {
             </div>
             <Footer />
             {
-                openPopup && <Popup
-                openpopup={openPopup}
-                isCancel={true}
-                setPopup={setOpenPopup} 
-                title={'Your Cart was empty'} 
-                // subTitle={'Are you sure, you want to empty the cart.'}
-                onClick={()=>navigate('/')}
-                save={'Continue to Dashboard'}
-                // cancel={'Cancel'}
+                openPopup && 
+                <Popup
+                    openpopup={openPopup}
+                    isCancel={true}
+                    setPopup={setOpenPopup} 
+                    title={'Your Cart was empty'} 
+                    // subTitle={'Are you sure, you want to empty the cart.'}
+                    onClick={()=>navigate('/')}
+                    save={'Continue to Dashboard'}
+                    // cancel={'Cancel'}
                 />
            }
         </div>

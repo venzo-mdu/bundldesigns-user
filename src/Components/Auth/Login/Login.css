@@ -38,8 +38,8 @@
 }
 .loginlogo{
     position: absolute;
-    top: -2%;
-    left: 3%;
+    top: -5%;
+    left: 0%;
 }
 
 .login-content input{
@@ -47,6 +47,7 @@
     height: 50px;
     padding: 1% 2%;
     outline:none;
+    border: 1px solid #D9D9D9;
 }
 .signin{
     background-color: #F3B7CE;
@@ -92,6 +93,22 @@
     color: #F3B7CE;
 }
 
+@media screen and (max-width:1705px) and (min-width:1024px) {
+    .anchor{
+        left:10%;
+        width:6%;
+    }
+    .anchor1{
+        right: 15%;
+    }
+    .loginlogo{
+        top: -4%;
+        left: 0%;
+    }
+    .login-content{
+        padding: 2% 6%;
+    }
+}
 @media screen and (max-width:1024px) and (min-width:768px) {
     .anchor{
         left:10%;

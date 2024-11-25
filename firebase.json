@@ -1,6 +1,7 @@
 {
   "hosting": {
     "public": "build",
+    "target": "bundldesigns-web-main",
     "ignore": [
       "firebase.json",
       "**/.*",

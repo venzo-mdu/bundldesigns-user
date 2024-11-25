@@ -199,7 +199,7 @@
 
 .menu {
     display: flex;
-    margin: 2% 0 0 0;
+    /* margin: -5% 0 0 0; */
 }
 
 .bundl-name {
@@ -373,8 +373,10 @@
     }
 }
 
-@media screen and (max-width:425px) {
-
+@media screen and (max-width:441px) {
+    .menu{
+        margin: -30% 0 0 0;
+    }
     .bundl-section {
         flex-direction: column;
     }

@@ -115,7 +115,7 @@ export const Questionnaire = ({
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+        </div>
         <div style={{padding:'1% 5%'}}>
         <div style={{padding:'2% 0%',borderBottom:'5px solid #000000'}}>
         <div className='questionnaire'>

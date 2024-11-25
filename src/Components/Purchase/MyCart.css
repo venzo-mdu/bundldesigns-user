@@ -72,7 +72,16 @@ form{
 .MuiTableRow-root:last-child .MuiTableCell-root {
     border-bottom: none !important;
 }
-
+.cart-total-container{
+    float: right;
+    margin: 4% 0 0 0;
+    width: 30%;
+}
+@media screen and (max-width:1705px) and (min-width:1024px){
+   .cart-total-container{
+    width: 40%;
+   }
+}
 @media screen and (max-width:768px) and (min-width:425px) {
     .mycart{
         flex-direction: column;
@@ -100,5 +109,10 @@ form{
     .billing{
         width: 100%;
         padding: 2% 3%;
+    }
+    .cart-total-container{
+        float: right;
+        margin: 4% 0 0 0;
+        width: 100%;
     }
 }

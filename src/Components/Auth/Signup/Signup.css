@@ -9,6 +9,7 @@
     height: 50px;
     padding: 1% 2%;
     outline:none;
+    border: 1px solid #D9D9D9;
 }
 
 .terms-policy p{
@@ -33,6 +34,7 @@
 @media screen and (max-width:1705px) and (min-width:1024px) {
     .signup-content{
         height: 700px;
+        padding: 2% 6%;
     }
 }
 

@@ -44,12 +44,12 @@ import Instagram from '../../Images/Bundles/instagram-icon.png'
 import X from '../../Images/Bundles/X-icon.png'
 import Facbook from '../../Images/Bundles/facebook-icon.png'
 import { NavLink, useNavigate } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import { loginAction } from '../../Redux/Action'
+import CartIcon from '../../Images/Home/Carticon.svg'
 import axios from 'axios'
 import { base_url } from '../Auth/BackendAPIUrl'
 import { Config } from '../Auth/ConfigToken'
 import {Popup} from '../Common/Popup/Popup'
+import {Footer} from '../Common/Footer/Footer'
 
 export const Home = () => {
 
@@ -63,6 +63,7 @@ export const Home = () => {
     const [isActiveProcess, setIsActiveProcess] = useState([false, false, false, false, false]);
     const [bundlData, setBundlData] = useState([]);
     const translateX = activeProcess * (window.innerWidth <= 475 ? 85 : window.innerWidth <= 768 ? 150 : 195);
+    const bundlImages = [QubeIcon , Diamond,Eye,Food, Money   ]
     const processData = [
         {
             title: "BUY A BUNDL",
@@ -157,7 +158,7 @@ export const Home = () => {
 
                         <section className="container-fluid header-section" style={{ overflow: "hidden" }}>
                             <div className="nav-section">
-                                <div className="container">
+                                <div style={{padding:'0% 2%'}} className="">
                                     <div className="row align-items-center">
                                         <div className="col-4 col-md-3 col-lg-3 justify-content-between">
                                             <div className="navbar navbar-expand-lg justify-content-between">
@@ -195,7 +196,7 @@ export const Home = () => {
                                                         <a className="nav-link" href="#"><img src={Search} alt="" className="img-fluid nav-icon"></img></a>
                                                     </li>
                                                     <li className="nav-item">
-                                                        <NavLink to='/login'><a className="nav-link" href="#"><img src={User} alt="" className="img-fluid nav-icon"></img></a></NavLink>
+                                                        <NavLink to='/login'><a className="nav-link" href="/login"><img src={User} alt="" className="img-fluid nav-icon"></img></a></NavLink>
                                                     </li>
                                                     <li className="nav-item">
                                                         <a className="nav-link" href="/mycart"><img src={Cart} alt="" className="img-fluid nav-icon"></img></a>
@@ -531,7 +532,7 @@ export const Home = () => {
                         <div className="container">
                             <div className="row justify-content-center bundl-pack-head">
                                 <div className="col-md-11 col-lg-9">
-                                    <h4 style={{ margin: '5% 0 0 0' }} className="sub-headeing  text-center">Our Bundls</h4>
+                                    <h4 style={{ margin: '10% 0 0 0' }} className="sub-headeing  text-center">Our Bundls</h4>
                                     <div className="our-bundles text-center">
                                         <div className="text-animation">
                                             WE <div className="bunl"><img src={BundlSticker} width={200} alt="bundl-sticker" className="img-fluie"></img></div>  DESIGN TO MAKE YOUR BRAND
@@ -564,13 +565,14 @@ export const Home = () => {
                                                 <div className={`icon_section${index+1}`}>
                                                     <div className={`subzero${index+1}`}>
                                                    
-                                                        <span className= {`buiscut_layer${index+1}`}>
-                                                            <NavLink onClick={()=>addToCart(bundles)} style={{ color: 'white' }}> ADD  <br />
-                                                                TO CART
+                                                        <span onClick={()=>addToCart(bundles)} className= {`buiscut_layer${index+1}`}>
+                                                            <img style={{width:'30%'}} src={CartIcon} alt='cart-icon'></img>
+                                                            <NavLink  style={{ color: 'white',margin:'2% 0 0 0' }}> ADD  <br />
+                                                                TO CART !
                                                             </NavLink>
 
                                                         </span>
-                                                        <div className={`main_inside${index+1}`}></div>
+                                                        <div style={{cursor:"pointer"}} onClick={()=>addToCart(bundles)} className={`main_inside${index+1}`}></div>
                                                     </div>
                                                 </div>
 
@@ -585,7 +587,7 @@ export const Home = () => {
                                                 </div>
                                                 <div className="newbie_section">
                                                     <div className="change_brand">
-                                                        <div className="table_icon"><img src={QubeIcon} alt="" className="img-fluid"></img></div>
+                                                        <div className="table_icon"><img src={bundlImages[index]} alt="" className="img-fluid"></img></div>
                                                         <div className="newbie">{bundles.name_english}</div>
                                                         <div className="pkg-sub-title">Just to get started</div>
                                                     </div>
@@ -853,7 +855,7 @@ export const Home = () => {
                             </div>
                         </section>
 
-                        <section className="container-fluid footer primary-black">
+                        {/* <section className="container-fluid footer primary-black">
                             <div style={{ padding: '2% 2%' }} className="container">
                                 <div className="row p-2">
                                     <div className="col-4 col-md-3">
@@ -892,7 +894,8 @@ export const Home = () => {
                                     <h6 className="copy-txt text-white">2024 BundlDesigns, &copy; All rights reserved.</h6>
                                 </div>
                             </div>
-                        </section>
+                        </section> */}
+                        <Footer/>
                     </div>
 
                   

@@ -427,7 +427,7 @@
             position: absolute;
             top:15%;
             /* left: 45%; */
-            width:100%;
+            /* width:100%; */
             transform: translateX(50%);
         } 
         .rocket{
@@ -748,7 +748,7 @@
             .eyespoon{top:-79px}
             .eyespoon img{width: 200px; height: 200px;}
             .form-group label{font-size: 16px;}
-            .rotating-image{width: 60px;}
+            .rotating-image{width: 100px;}
             .eyespoon2 img{width: 150px; height: 150px;}
             .eyespoon2{left: -13%;}
             .form-group .checkbox{width: auto;}
@@ -944,6 +944,9 @@
     .back-to-home{
         width: 250px;
         font-size: 18px;
+    }
+    .rotating-image{
+        width: 100px;
     }
 }
 @media screen and (max-width:375px) {

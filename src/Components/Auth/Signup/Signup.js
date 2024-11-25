@@ -113,7 +113,7 @@ export const Signup = () => {
         <img className='anchor' src={Anchor} alt='login-anchor' />
         <div className='signup-content'>
           <p className='welcometext'>
-            Welcome to <span className='bundle-designs'>Bundle Designs</span>
+            Welcome to <span className='bundle-designs'>Bundl Designs</span>
           </p>
           <img className='loginlogo' src={Loginlogo} alt='login' />
           <form onSubmit={signUp}>

@@ -1,3 +1,4 @@
+
 {
   "name": "bundle",
   "version": "0.1.0",
@@ -30,7 +31,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "pretty": "prettier --write \"./**/*.{js,jsx,ts,tsx,json}\"",
-    "deploy": "firebase deploy --only hosting:bundldesigns"
+    "deploy": "firebase deploy --only hosting:bundldesigns-web-main"
   },
   "eslintConfig": {
     "extends": [

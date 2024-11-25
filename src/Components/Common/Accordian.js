@@ -375,7 +375,7 @@ export const Accordian = ({ accordianTitle, addOnPayload }) => {
       total_time += design.time * quantity;
   
       return {
-        design_id: index + 1,
+        design_id: design.id,
         addon_name:design.name_english,
         unit_price: design.price.toString(),
         unit_time: design.time.toString(),
