@@ -15,11 +15,16 @@ import paperPlane from '../../Images/paper plane.svg'
 import greenStarIcon from '../../Images/greenStar.svg'
 import { isBefore, addDays, parseISO, differenceInSeconds, addSeconds } from 'date-fns';
 import downloadIcon from '../../Images/downloadIcon.svg'
+import ItemWaitingIcon from '../../Images/orderItemWaiting.svg'
+import ItemProgressIcon from '../../Images/orderItemProgress.svg'
+import ItemFinishedIcon from '../../Images/orderItemFinished.svg'
+
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import { Popup } from '../Common/Popup/Popup';
 
 const style = {
   position: 'absolute',
@@ -36,6 +41,8 @@ const style = {
 export default function Dashboard() {
 
     const [projects, setProjects] = useState([])
+    const [reOrderId,setReOrderId] = useState()
+    const [openPopup,setOpenPopup] = useState(false)
     const [currentTab, setCurrentTab] = useState('');
     const [brandFile, setBrandFile] = useState({})
     const [showPdf, setShowPdf] = useState(false)
@@ -96,6 +103,25 @@ export default function Dashboard() {
         orderdetail.order_status = 'in_progress'
         const index = ProcessIndexDict.indexOf(ProcessIndexDict.find((key) => key == orderdetail.order_status))
         setProcessIndex(index)
+    }
+    const CheckCart = async(id) =>{
+        const response = await axios.get(`${base_url}/api/order/cart/`,Config);
+        console.log(response)
+        if(response.status === 206){ 
+            reOrder(id)
+        }else{
+            setReOrderId(id)
+            setOpenPopup(true)
+        }
+    }
+    const approveBrand = async()=>{
+        const json = {'status':'add_ons'}
+        const response = await axios.post(`${base_url}api/order_update/${order.id}/`,json,Config);
+        getOrderDetails()
+    }
+    const reOrder = async(id) =>{
+        const response = await axios.get(`${base_url}/api/reorder/${id}/`,Config);
+        window.location.href = '/mycart'
     }
 
     const renderContent = () => {
@@ -168,7 +194,7 @@ export default function Dashboard() {
                                 {dashboardJson.process_content.request_edit}
                             </button>
                             <button
-                                onClick={() => fillQuestionaire()}
+                                onClick={() => approveBrand()}
                                 className="bg-[#1BA56F] px-2 py-1 text-[#fff] text-[16px] mt-2"
                             >
                                 {dashboardJson.process_content.approve_brand}
@@ -299,6 +325,18 @@ export default function Dashboard() {
     return (
         <>
             <Navbar />
+            {
+                openPopup && <Popup
+                openpopup={openPopup}
+                isCancel={false}
+                setPopup={setOpenPopup} 
+                title={'empty your Cart'} 
+                // subTitle={'Are you sure, you want to empty the cart.'}
+                onClick={()=>reOrder(reOrderId)}
+                save={'Yes'}
+                cancel={'Cancel'}
+                />
+           }
             <div className='font-Helvetica'>
                 <div className='text-center py-2 border-b border-black'>
                     <h1 className='lg:text-[40px] md:text-[32px]'> {dashboardJson.main_title} </h1>
@@ -332,7 +370,11 @@ export default function Dashboard() {
                                 <p className={`text-[22px] font-bold my-2 ${processIndex < 2 && isEdit == false ? 'text-[#00000080]' : 'text-black'}`}>Brand & Visual Identity <span className='text-[#1BA56F] text-[18px] font-semibold'> -
                                     {processIndex < 2 && isEdit == false ? 'ON HOLD' : processIndex >= 4 ? 'COMPLETE' : 'IN PROGRESS'}</span> </p>
                                 <p className='font-medium text-[18px]'>{order?.brand_identity?.item_name}</p>
-                                <p className='text-[22px] font-bold my-2'>Add Ons </p>
+                                <p className='text-[22px] font-bold my-2'>Add Ons 
+
+                                <span className='text-[#1BA56F] text-[18px] font-semibold'> -
+                                {processIndex < 4 ? 'ON HOLD' : processIndex == ProcessIndexDict.length ? 'COMPLETE' : 'IN PROGRESS'}</span>
+                                </p>
 
                                 {order?.item_details?.map((item, index) => {
                                     return <p className={`font-medium text-[18px] mx-1 my-2 py-1 ${index != (order?.item_details.length - 1) && 'border-b'} border-[#00000080]`}>{item.item_name}</p>
@@ -361,7 +403,7 @@ export default function Dashboard() {
                                     <td className={`lg:text-[20px] font-medium md:text-[16px] pb-2 ${index != projects.length - 1 ? 'border-b !border-[#00000080]' : ''}`}>{project.project_name}</td>
                                     <td className={`lg:text-[20px] font-medium md:text-[16px] pb-2 ${index != projects.length - 1 ? 'border-b !border-[#00000080]' : ''}`}>{project.grand_total}</td>
                                     <td className={`lg:text-[20px] font-medium md:text-[16px] pb-2 ${index != projects.length - 1 ? 'border-b !border-[#00000080]' : ''} text-[#1BA56F]`}>Completed</td>
-                                    <td className={`lg:text-[20px] font-medium md:text-[16px] pb-2 ${index != projects.length - 1 ? 'border-b !border-[#00000080]' : ''}`}><img className='lg:w-[30px] md:w-[20px]' src={reload}></img></td>
+                                    <td onClick={()=>CheckCart(project.id)} className={`lg:text-[20px] font-medium md:text-[16px] pb-2 ${index != projects.length - 1 ? 'border-b !border-[#00000080]' : ''}`}><img className='lg:w-[30px] md:w-[20px]' src={reload}></img></td>
                                     <td className={`lg:text-[20px] font-medium md:text-[16px] pb-2 ${index != projects.length - 1 ? 'border-b !border-[#00000080]' : ''}`}>{format(new Date(project.purchase_date), "dd/MM/yy")}</td>
                                 </tr>
                             })}

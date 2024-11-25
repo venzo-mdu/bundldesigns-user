@@ -13,20 +13,23 @@ import BlackDollor from '../../Images/BundlDetail/blackdollor.svg'
 import BlackTime from '../../Images/BundlDetail/blacktime.svg'
 import downArrow from '../../Images/down-arrow.svg'
 import upArrow from '../../Images/up-arrow.svg'
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+import ClearIcon from '@mui/icons-material/Clear';
+import EditIcon from '../../Images/editIcon.svg'
 
 export default function Adjustments() {
     const { orderId } = useParams();
-    const [order, setOrder] = useState(null)
+    const [order,setOrder] = useState()
     const [adjustments, setAdjustments] = useState([])
     const [adjustmenTab, setAdjustmentTab] = useState(0)
     const [expantedTabs, setExpantedTabs] = useState([])
     const [designListTab, setDesignListTab] = useState('Branding')
-    const location = useLocation();
-    const navigate = useNavigate();
     const [bundlAddons, setBundlAddons] = useState([]);
-    const [quantities, setQuantities] = useState({});
-    const [addonPayLoads, setAddonPayLoads] = useState({});
-    const [brandInput, setBrandInput] = useState('');
+    const [itemsList,setItemList] = useState({})
+    const [totalPrice,setTotalPrice] = useState(0)
+    const [totalTime,setTotalTime] = useState(0)
+    const [adjustmentData,setAdjustmentsData] = useState({})
 
 
     useEffect(() => {
@@ -40,6 +43,7 @@ export default function Adjustments() {
             [id]: !prevState[id] // Toggle the state for the clicked vacancy
         }));
     };
+
 
 
     const getOrderDetails = async () => {
@@ -68,6 +72,63 @@ export default function Adjustments() {
     }
 
 
+    console.log(adjustmentData,'adjusrrrr')
+    
+
+    const remove_item = (id) => {
+        if (itemsList[id]) {
+            itemsList[id].qty -= 1;
+            if (itemsList[id].qty <= 0) {
+                delete itemsList[id]; // Remove item completely if quantity is zero
+            }
+            const { price: total_price, time: total_time } = calculateTotals(itemsList);
+            setTotalPrice(total_price);
+            setTotalTime(total_time);
+        }
+    }
+    const calculateTotals = (items, adjustments) => {
+        return {
+            price: Object.values(items).reduce((acc, item) => acc + item.price * item.qty, 0) +
+                   Object.values(adjustments).reduce((acc, item) => acc + parseFloat(item.price || 0), 0),
+            time: Object.values(items).reduce((acc, item) => acc + item.time * item.qty, 0) +
+                  Object.values(adjustments).reduce((acc, item) => acc + parseFloat(item.time_limit || 0), 0),
+        };
+    };
+    
+    const updateTotals = (items, adjustments) => {
+        const { price, time } = calculateTotals(items, adjustments);
+        setTotalPrice(price);
+        setTotalTime(time);
+    };
+    
+    const addData = (id, index) => {
+        const elementValue = document.getElementById(`${id}_content`).value;
+        setAdjustmentsData(prev => {
+            const updatedData = {
+                ...prev,
+                [id]: {
+                    ...prev[id],
+                    textbox: elementValue,
+                    ...(prev[id] ? {} : adjustments[index]),
+                },
+            };
+            updateTotals(itemsList, updatedData);
+            return updatedData;
+        });
+    };
+    
+    const addItem = (index, key, id) => {
+        setItemList(prev => {
+            const updatedList = {
+                ...prev,
+                [id]: prev[id]
+                    ? { ...prev[id], qty: prev[id].qty + 1 }
+                    : { ...bundlAddons[key].design_list[index], qty: 1 },
+            };
+            updateTotals(updatedList, adjustmentData);
+            return updatedList;
+        });
+    };
     return (
         <>
             <Navbar />
@@ -85,7 +146,7 @@ export default function Adjustments() {
                    !border-[#1BA56F]`}
                                     onClick={() => setAdjustmentTab(adjustment.english_adjustment_name)}>{adjustment.english_adjustment_name}</button>
                             })}
-                            {adjustments.map((adjustment) => {
+                            {adjustments.map((adjustment,index) => {
                                 if (adjustment.english_adjustment_name == adjustmenTab) {
                                     return <div className='my-6'>
                                         <div className='flex justify-between my-1'> <span className='font-bold'>{adjustment.english_adjustment_name}</span>
@@ -95,7 +156,7 @@ export default function Adjustments() {
                                             </p>
                                         </div>
                                         <p className='font-medium text-[18px]'>What would you like to change?</p>
-                                        <p ><input placeholder='Tell us your thoughts...' className='border px-2 py-1 border-[#000000A0]  w-[80%]'></input><button className='w-[20%] py-1 bg-[#1BA56F] text-white '>Submit Edit</button></p>
+                                        <p ><input id={`${adjustment.id}_content`} placeholder='Tell us your thoughts...' className='border px-2 py-1 border-[#000000A0]  w-[80%]'></input><button onClick={()=>addData(adjustment.id,index)} className='w-[20%] py-1 bg-[#1BA56F] text-white '>Submit Edit</button></p>
                                         <p className='font-medium text-[18px]'>Have something to show us?</p>
                                         <p
                                             className="border-b-2 w-[150px] !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer"
@@ -128,67 +189,96 @@ export default function Adjustments() {
                             <div className='mt-10'>
                                 {Object.keys(bundlAddons).map((category, index) => {
                                     return <div className='' id={`${category.replaceAll(' ', '_')}_list`}>
-                                        <p className={`flex justify-between font-semibold text-[18px] pb-2  ${expantedTabs[category] ?'':'border-b' } border-[#00000080]`}> {category}      <button
+                                        <p className={`flex justify-between font-semibold text-[18px] pb-2  ${expantedTabs[category] ? '' : 'border-b'} border-[#00000080]`}> {category}      <button
                                             onClick={() => toggleDescription(category)}
                                             className="text-blue-500 cursor-pointer"
                                         >
                                             <img className='w-10' src={expantedTabs[category] ? upArrow : downArrow}></img>
                                         </button></p>
                                         {expantedTabs[category] && <div className='my-3'>
-                                        {category in bundlAddons && bundlAddons[category].design_list.map(item=>{
-                                            return <div className='flex justify-between font-semibold text-[18px] py-2 border-b !border-[#1BA56F]'>
-                                                <span className='font-semibold text-[#1BA56F]'>{item.name_english}</span>
-
-                                            </div>
-                                        })}
+                                            {category in bundlAddons && bundlAddons[category].design_list.map((item,index) => {
+                                                return <div id={`${item.id}_design_list`} className='flex  justify-between font-semibold text-[18px] py-2 border-b !border-[#1BA56F]'>
+                                                    <span className='font-semibold basis-[40%] text-[#1BA56F]'>{item.name_english}</span>
+                                                    <p className='flex mb-0 basis-[40%]'>
+                                                        <span className='flex items-center mr-2'><img src={BlackDollor}></img> {item.price} SAR </span>
+                                                        <span className='flex'><AccessTimeIcon style={{ marginRight: '5px' }} /> {item.time} Days</span>
+                                                    </p>
+                                                    <p className='mb-0 basis-[10%] flex items-center text-[#1BA56F] border !border-[#1BA56F]'>
+                                                        <button onClick={()=>remove_item(item.id)} className='border-r !border-[#1BA56F] flex items-center'><RemoveIcon /></button>
+                                                        <span className='border-r px-2 !border-[#1BA56F]'> {item.id in itemsList ?itemsList[item.id]['qty']: 0}</span>
+                                                        <button onClick={()=>addItem(index,category,item.id)} className='flex items-center'><AddIcon /></button>
+                                                    </p>
+                                                </div>
+                                            })}
                                         </div>}
-                       
+
                                     </div>
                                 })}
                             </div>
                         </div>
                     </div>
                 </div>
-                {/* <div className='basis-1/4 px-4'>
+                <div className='basis-1/4 px-3 py-2'>
               <p className='text-[18px] font-semibold'>Summary of Edits</p>
- 
-            {selectedItems?.map((item, idx) => (
-              <div key={idx} className='one-brand-identity'>
-                <p style={{ color: '#000000', fontSize: '20px', fontWeight: '700', width: '60%' }}>{item.quantity} {item.name_english}</p>
-                <div style={{ display: 'flex' }}>
-                  <p style={{ fontSize: '20px', fontWeight: '700', width: '60%' }}>+ {item.total_time} Days</p>
-                  <p style={{ fontSize: '20px', fontWeight: '700', width: '40%' }}>+ {item.total_price} SAR</p>
-                </div>
-              </div>
-            ))}
-             <div className='bundl-name'>
-             <p style={{ fontSize: '24px', fontWeight: '700', padding: '2% 0%' }}>Add ons</p>
+            
+            <div className='my-2'>
+                {Object.values(itemsList).map(item=>{
+                    return <div className='flex items-start'>
+                        <p className='mb-0 flex items-center'> <img src={EditIcon}></img> <ClearIcon /></p>
+                       <div className=''>
+                        <p className='font-bold'> {item.name_english}</p>
+                       <div className='flex text-[#1BA56F]'> 
+                        <p className='flex'>
+                        <AccessTimeIcon style={{marginRight:'2px'}}/> 
+                        <span>{item.time * item.qty} Days</span>  
+                        </p>
+                        <p className='flex'>
+                        <img src={dollorIcon}></img>
+                        <span>{item.price * item.qty} SAR</span>  
+                        </p>
+                        </div>
+                       </div> 
+
+                    </div>
+                })}
+                {Object.values(adjustmentData).map(item=>{
+                    return <div className='flex items-start'>
+                        <p className='mb-0 flex items-center'> <img src={EditIcon}></img> <ClearIcon /></p>
+                       <div className=''>
+                        <p className='font-bold'> {item.english_adjustment_name}</p>
+                       <div className='flex text-[#1BA56F]'> 
+                        <p className='flex'>
+                        <AccessTimeIcon style={{marginRight:'2px'}}/> 
+                        <span>{item.time_limit} Days</span>  
+                        </p>
+                        <p className='flex'>
+                        <img src={dollorIcon}></img>
+                        <span>{item.price} SAR</span>  
+                        </p>
+                        </div>
+                       </div> 
+
+                    </div>
+                })}
             </div>
-            {addonPayLoads?.item_list?.map((addon, idx) => (
-              <div key={idx} className='one-brand-identity'>
-                <p style={{ color: '#000000', fontSize: '20px', fontWeight: '700', width: '60%' }}>{addon.qty} {addon.addon_name}</p>
-                <div style={{ display: 'flex' }}>
-                  <p style={{ fontSize: '20px', fontWeight: '700', width: '60%' }}>+ {addon.unit_time * addon.qty} Days</p>
-                  <p style={{ fontSize: '20px', fontWeight: '700', width: '40%' }}>+ {addon.unit_price * addon.qty} SAR</p>
-                </div>
-              </div>
-            ))}
+       
             <div className='bundl-checkout'>
-              <div className='total flex' >
-                <p className='basis-3/5'><img src={BlackDollor} alt="Total Price" />Total Price</p>
-                <p className='basis-2/5'>{totalCost + addonPayLoads.total_price } SAR</p>
+              <div className=' flex items-center mb-1' >
+                <img src={BlackDollor} className='mr-2' alt="Total Price" />
+                <p className='basis-3/5 font-bold text-[18px] mb-0'>Total Price</p>
+                <p className='basis-2/5 font-bold text-[18px]  mb-0'>{totalPrice } SAR</p>
               </div>
-              <div className='total flex'>
-                <p className='basis-3/5'><img src={BlackTime} alt="Total Duration" />Total Duration</p>
-                <p className='basis-2/5'>{totalDuration + addonPayLoads.total_time} Days</p>
+              <div className=' flex'>
+              <img className='mr-2' src={BlackTime} alt="Total Duration" />
+                <p className='basis-3/5 text-[18px] mb-0'>Total Duration</p>
+                <p className='basis-2/5 text-[18px] mb-0'>{totalTime} Days</p>
               </div>
 
-              <div className='proceed-checkout'>
-                <button onClick={createPayload} className='proceed'>Proceed Checkout</button>
+              <div >
+                <button  className=' w-[90%] m-auto py-1 mt-2 text-[18px] text-white bg-[#1BA56F]'>Proceed Checkout</button>
               </div>
-              <p className='proceed-text'>Your minimum total should be above 700 SAR</p>
             </div>
-                </div> */}
+                </div>
             </div>
             <Footer />
 
