@@ -14,6 +14,7 @@ import WebsterForm from "./Components/Pages/WebsterForm";
 import PremiumForm from "./Components/Pages/PremiumForm";
 import Dashboard from "./Components/Pages/Dashboard";
 import UploadContent from "./Components/Pages/UploadContent";
+import Adjustments from "./Components/Pages/Adjustments";
 
 // Helper function to get cookie value by name
 const getCookie = (name) => {
@@ -65,6 +66,10 @@ export default function AppRouter() {
     {
       path:'/dashboard',
       element:<ProtectedRoute element={<Dashboard />} />
+    },
+    {
+      path:'/adjustment/:orderId',
+      element:<ProtectedRoute element={<Adjustments />} />
     },
     {
       path: "*",

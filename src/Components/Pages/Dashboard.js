@@ -162,7 +162,7 @@ export default function Dashboard() {
                         </p>
                         <p>
                             <button
-                                onClick={() => fillQuestionaire()}
+                                onClick={() => {window.location.href = `/adjustment/${order.id}`}}
                                 className="px-2 py-1 text-[#1BA56F] border border-[#1BA56F] text-[16px] mt-2"
                             >
                                 {dashboardJson.process_content.request_edit}
@@ -257,12 +257,11 @@ export default function Dashboard() {
 
             if (isCurrentProcess) {
                 iconSrc = paperPlane;
-                lineClasses = ''; // No line for current process
             } else if (isPreviousProcess) {
                 iconSrc = greenStarIcon;
                 lineBorderClass = '!border-[#1BA56F]'; // Green line for previous process
             }
-
+            console.log(isLast)
             return (
                 <div className={containerClasses} key={index}>
                     <img className='m-0' src={iconSrc} alt={`Process Icon ${index}`} />
@@ -295,30 +294,6 @@ export default function Dashboard() {
         return () => clearInterval(timer); // Cleanup on component unmount
     }, [counter]);
 
-    async function downloadPDF(url, fileName = "document.pdf") {
-        try {
-            const response = await fetch(url);
-            if (!response.ok) {
-                throw new Error("Network response was not ok");
-            }
-    
-            const blob = await response.blob();
-            const blobUrl = window.URL.createObjectURL(blob);
-    
-            // Create a temporary anchor to download the file
-            const anchor = document.createElement("a");
-            anchor.href = blobUrl;
-            anchor.download = fileName;
-            document.body.appendChild(anchor);
-            anchor.click();
-    
-            // Clean up
-            document.body.removeChild(anchor);
-            window.URL.revokeObjectURL(blobUrl);
-        } catch (error) {
-            console.error("Error downloading the file:", error);
-        }
-    }
     
 
     return (
