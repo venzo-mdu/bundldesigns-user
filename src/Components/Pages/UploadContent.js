@@ -53,13 +53,13 @@ export default function UploadContent() {
     }
 
     const saveContent = async(itemId) => {
-        const formData = {answers:{[itemId]: uploadContent[itemId]},orderId:order.id}
+        const formData = {answers:{[itemId]: uploadContent[itemId]},orderId:order.id,status:'save_later'}
         const response = await axios.post(`${base_url}api/upload_content/`, formData, Config);
         getOrderDetails()
     }
 
-    const saveAllContent = async()=>{
-        const formData = {answers:uploadContent,orderId:order.id}
+    const saveAllContent = async(status)=>{
+        const formData = {answers:uploadContent,orderId:order.id,status:status}
         const response = await axios.post(`${base_url}api/upload_content/`, formData, Config);
         window.location.href = '/dashboard'
     }
@@ -284,8 +284,8 @@ export default function UploadContent() {
                         </>
                     }
 
-                    <p className='flex justify-center mt-4 mb-2 text-[#00000080]'> <button onClick={()=>saveAllContent()} className='text-[16px] px-4 border !border-[#00000080] font-medium'>  Submit content </button> </p>
-                    <p className='flex justify-center text-[#1BA56F]'> <button onClick={()=>saveAllContent()} className='text-[16px] px-6 border !border-[#1BA56F] font-medium'> Save for Later </button> </p>
+                    <p className='flex justify-center mt-4 mb-2 text-[#00000080]'> <button onClick={()=>saveAllContent('submit')} className='text-[16px] px-4 border !border-[#00000080] font-medium'>  Submit content </button> </p>
+                    <p className='flex justify-center text-[#1BA56F]'> <button onClick={()=>saveAllContent('save_later')} className='text-[16px] px-6 border !border-[#1BA56F] font-medium'> Save for Later </button> </p>
 
                 </div>
             </div>

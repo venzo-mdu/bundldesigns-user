@@ -17,9 +17,22 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import ClearIcon from '@mui/icons-material/Clear';
 import EditIcon from '../../Images/editIcon.svg'
+import { Popup } from '../Common/Popup/Popup';
+
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+
+import DeleteIcon from '../../Images/BundlDetail/deleteicon.svg'
 
 export default function Adjustments() {
     const { orderId } = useParams();
+    const [page,setPage] = useState('adjustment')
+    const [openPopup, setOpenPopup] = useState(false)
     const [order,setOrder] = useState()
     const [adjustments, setAdjustments] = useState([])
     const [adjustmenTab, setAdjustmentTab] = useState(0)
@@ -30,12 +43,27 @@ export default function Adjustments() {
     const [totalPrice,setTotalPrice] = useState(0)
     const [totalTime,setTotalTime] = useState(0)
     const [adjustmentData,setAdjustmentsData] = useState({})
-
+    const [billingInfo, setBillingInfo] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phoneNumber: '',
+        country: '',
+        city: '',
+        postalCode: '',
+        promoCode: '',
+    });
 
     useEffect(() => {
         getOrderDetails()
         getBundlData()
     }, [])
+
+    
+    const handleBillingChange = (e) => {
+        const { name, value } = e.target;
+        setBillingInfo({ ...billingInfo, [name]: value });
+    };
 
     const toggleDescription = (id) => {
         setExpantedTabs((prevState) => ({
@@ -129,9 +157,44 @@ export default function Adjustments() {
             return updatedList;
         });
     };
+    const CheckCart = async (id) => {
+        setPage('cart')
+    }
+
+    const removeItem= (id,type) =>{
+        if(type == 'adjustment'){
+            delete adjustmentData[id]
+        }else{
+            delete itemsList[id]
+        }
+        updateTotals(itemsList, adjustmentData);
+    }
+
+    const createAdjustmentOrder = async() =>{
+        const formData = {item_list : itemsList,adjustmentList:adjustmentData,total_price:totalPrice,total_time:totalTime}
+        const res = await axios.post(`${base_url}api/adjustment_create/${orderId}/`,formData,Config)
+        if (res){
+            window.location.href = '/dashboard'
+        }
+    }
     return (
         <>
             <Navbar />
+
+            {page == 'adjustment'?
+                <>
+                            {
+                openPopup && <Popup
+                    openpopup={openPopup}
+                    isCancel={false}
+                    setPopup={setOpenPopup}
+                    title={'empty your Cart'}
+                    // subTitle={'Are you sure, you want to empty the cart.'}
+                    onClick={() => createAdjustmentOrder()}
+                    save={'Yes'}
+                    cancel={'Cancel'}
+                />
+            }
             <div className='font-Helvetica p-2 flex'>
                 <div className='basis-3/4 px-8 py-4 border-r'>
                     <p className='flex text-[18px] items-center pb-2 text-black' onClick={() => { window.location.href = '/dashboard' }}> <ArrowBackIcon style={{ width: '25px', marginRight: '10px' }} /> Back to dashboard </p>
@@ -275,11 +338,120 @@ export default function Adjustments() {
               </div>
 
               <div >
-                <button  className=' w-[90%] m-auto py-1 mt-2 text-[18px] text-white bg-[#1BA56F]'>Proceed Checkout</button>
+                <button onClick={()=>CheckCart()} className=' w-[90%] m-auto py-1 mt-2 text-[18px] text-white bg-[#1BA56F]'>Proceed Checkout</button>
               </div>
             </div>
                 </div>
             </div>
+                </>:
+                <>
+                         <div className='mycart'>
+                <div className='cart'>
+                    <p>Your Cart</p>
+                    <TableContainer component={Paper}>
+                        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>Item</TableCell>
+                                    <TableCell align="center">Quantity</TableCell>
+                                    <TableCell align="center">Price</TableCell>
+                                    <TableCell align="center">Action</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {Object.values(adjustmentData)?.map((row) => (
+                                    <TableRow
+                                        key={row.item_name}
+                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                    >
+                                        <TableCell scope="row">
+                                            {row.english_adjustment_name}
+                                        </TableCell>
+                                        <TableCell align="center">1</TableCell>
+                                        <TableCell align="center">{row.price}</TableCell>
+                                        {/* <TableCell align="center"><img style={{width:'23px'}} src={row.DeleteIcon}></img></TableCell> */}
+                                        <TableCell align="center">
+                                            <img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'adjustment')}/>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                                {(Object.values(itemsList))?.map((row) => (
+                                    <TableRow
+                                        key={row.name_english}
+                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                    >
+                                        <TableCell scope="row">
+                                            {row.name_english}
+                                        </TableCell>
+                                        <TableCell align="center">{row.qty}</TableCell>
+                                        <TableCell align="center">{row.price}</TableCell>
+                                        {/* <TableCell align="center"><img style={{width:'23px'}} src={row.DeleteIcon}></img></TableCell> */}
+                                        <TableCell align="center">
+                                            <img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'addon')}/>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                <div className='!text-[20px] float-right w-[50%]'>
+                    <p className='ml-8 mb-1 !text-[20px] !font-normal flex justify-between'><span>Price</span> <span>{totalPrice} sar</span></p>
+                    <p className='ml-8 mb-1 !text-[20px] !font-normal  flex justify-between'><span>VAT</span> <span>0 sar</span></p>
+                    <p className='!text-[20px] flex justify-between mb-1'>
+                        <span className='flex items-center'><img className='mr-2' src={BlackDollor}></img> Total Price</span>
+                        <span>{totalPrice} sar</span>
+                    </p>
+                    <p className='ml-1 !text-[20px] flex justify-between mb-1'>
+                    <span className='flex items-center'><AccessTimeIcon style={{marginRight:'4px'}} /> Total Duration</span>
+                    <span>{totalTime} Days</span>
+                    </p>
+                </div>
+                </div>
+                <div className='billing'>
+                    <p>Billing Address</p>
+                        <div className="user-name">
+                            <div>
+                                <label>First Name</label>
+                                <input  className='border ' name="firstName" value={billingInfo.firstName} onChange={handleBillingChange} />
+                            </div>
+                            <div style={{ margin: '2% 0 0 2%' }}>
+                                <label>Last Name</label>
+                                <input  className='border ' name="lastName" value={billingInfo.lastName} onChange={handleBillingChange} />
+                            </div>
+                        </div>
+                        <div className="email">
+                            <label>Email</label>
+                            <input  className='border ' name="email" value={billingInfo.email} onChange={handleBillingChange} />
+                        </div>
+                        <div className="phonenumber">
+                            <label>Phone Number</label>
+                            <input className='border ' name="phoneNumber" value={billingInfo.phoneNumber} onChange={handleBillingChange} />
+                        </div>
+                        <div className="country">
+                            <div>
+                                <label>Country</label>
+                                <input  className='border ' name="country" value={billingInfo.country} onChange={handleBillingChange} />
+                            </div>
+                            <div style={{ margin: '2% 0 0 2%' }}>
+                                <label>City</label>
+                                <input  className='border ' name="city" value={billingInfo.city} onChange={handleBillingChange} />
+                            </div>
+                        </div>
+                        <div className="postal-code">
+                            <label>Postal Code</label>
+                            <input  className='border ' name="postalCode" value={billingInfo.postalCode} onChange={handleBillingChange} />
+                        </div>
+                        <div className="promo-code">
+                            <label>Promo Code</label>
+                            <input  className='border ' name="promoCode" value={billingInfo.promoCode} onChange={handleBillingChange} />
+                        </div>
+                        <button onClick={()=>createAdjustmentOrder()} className="payment">Make Payment</button>
+    
+                </div>
+            </div>
+                </>
+            }
+
             <Footer />
 
         </>
