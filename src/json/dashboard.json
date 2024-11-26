@@ -1,0 +1,61 @@
+{
+    "english":{
+        "main_title": "Welcome  to your dashboard, Hala!",
+        "title_content":"Here you’ll find all that you need about your bundles and much more.",
+        "second_title":"My Bundls",
+        "project_process": ["Purchase bundl", "Fill Questionnaire","Desiging Brand",
+        "Adjustment & Brand Approval","Add Ons" ,"Receive Designs"],
+        "process_content":{
+            "questionnaire":"Fill out questionnaire to continue the design process!",
+            "questionnaire_fill":"Fill Questionnaire",
+            "questionnaire_edit": "You have {} to edit your questionnaire",
+            "questionnaire_edit_content":"If not edited, we will start designing your brand immediately.",
+            "questionnaire_edit_action":"Edit Questionnaire",
+            "design_brand":"We are now working on your unique brand!",
+            "expected_date":"Expected date of finsih:",
+            "request_edit":"Request Edits",
+            "approve_brand":"Approve Brand",
+            "approve_brand_content":"We’ve finished working on your stunning brand!",
+            "addons":"We’re almost done! Enter the content of your applications.",
+            "upload_content":"Upload Content",
+            "receive_designs":"We’ve recived your content and working on finishing your brand!",
+            "file_send":"We’ve sent you your brand files and content!",
+            "mark_complete":"Mark as complete"
+        },
+        "third_title":"Purchasing History",
+        "table_heads":{"id":"Order ID","project_name":"Prject Name","price":"Price",
+        "payment_status":"Payment Status","action":"Action","purchase_date":"Date Purchased"},
+        "rate_us":"How would you rate us ?",
+        "rate_us_content":"We care about your satisfaction, let us know your thoughts!",
+        "review_google":"Review us on Google"
+    },
+    "arabic":{ 
+        "main_title": "Welcome  to your dashboard, Hala!",
+        "title_content":"Here you’ll find all that you need about your bundles and much more.",
+        "second_title":"My Bundls",
+        "project_process": ["Purchase bundl", "Fill Questionnaire","DDesiging Brand",
+        "Adjustment & Brand Approval","Add Ons" ,"Receive Designs"],
+        "process_content":{
+            "questionnaire":"Fill out questionnaire to continue the design process!",
+            "questionnaire_fill":"Fill Questionnaire",
+            "questionnaire_edit": "You have {} to edit your questionnaire",
+            "questionnaire_edit_content":"If not edited, we will start designing your brand immediately.",
+            "questionnaire_edit_action":"Edit Questionnaire",
+            "design_brand":"We are now working on your unique brand!",
+            "expected_date":"Expected date of finsih:",
+            "request_edit":"Request Edits",
+            "approve_brand":"Approve Brand",
+            "addons":"We’re almost done! Enter the content of your applications.",
+            "upload_content":"Upload Content",
+            "receive_designs":"We’ve recived your content and working on finishing your brand!",
+            "file_send":"We’ve sent you your brand files and content!",
+            "mark_complete":"Mark as complete"
+        },
+        "third_title":"Purchasing History",
+        "table_heads":{"id":"Order ID","project_name":"Prject Name","price":"Price",
+        "payment_status":"Payment Status","action":"Action","purchase_date":"Date Purchased"},
+        "rate_us":"How would you rate us ?",
+        "rate_us_content":"We care about your satisfaction, let us know your thoughts!",
+        "review_google":"Review us on Google"
+    }
+}

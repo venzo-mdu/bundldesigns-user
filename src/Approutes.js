@@ -12,6 +12,9 @@ import Career from "./Components/Pages/Career";
 import OurWork from "./Components/Pages/OurWork";
 import WebsterForm from "./Components/Pages/WebsterForm";
 import PremiumForm from "./Components/Pages/PremiumForm";
+import Dashboard from "./Components/Pages/Dashboard";
+import UploadContent from "./Components/Pages/UploadContent";
+import Adjustments from "./Components/Pages/Adjustments";
 
 // Helper function to get cookie value by name
 const getCookie = (name) => {
@@ -34,7 +37,7 @@ export default function AppRouter() {
   return useRoutes([
     {
       path: "/login",
-      element: token ? <Navigate to="/" /> : <Login />,
+      element:<Login />,
     },
     {
       path: "/signup",
@@ -55,6 +58,18 @@ export default function AppRouter() {
     {
       path: "/mycart",
       element: <ProtectedRoute element={<MyCart />} />,
+    },
+    {
+      path :"/upload-content/:orderId",
+      element:<ProtectedRoute element={<UploadContent />} />
+    },
+    {
+      path:'/dashboard',
+      element:<ProtectedRoute element={<Dashboard />} />
+    },
+    {
+      path:'/adjustment/:orderId',
+      element:<ProtectedRoute element={<Adjustments />} />
     },
     {
       path: "*",
