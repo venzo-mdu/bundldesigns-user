@@ -59,7 +59,7 @@ export const Stepper = ({ pageNo , answersData }) => {
             }
         }
         else if (window.innerWidth <= 1024) {
-            setLineWidth(170);
+            setLineWidth(180);
             if (activeProcess === 0) {
                 setTranslateX(0)
             }

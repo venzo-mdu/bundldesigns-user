@@ -18,3 +18,18 @@ export const questionnaireAction2 = (payload) => {
     payload,
   };
 };
+
+export const questionnaireAction3 = (payload) => {
+  return {
+    type: "questionnaire3",
+    payload,
+  };
+};
+
+
+export const questionnaireAction4 = (payload) => {
+  return {
+    type: "questionnaire4",
+    payload,
+  };
+};

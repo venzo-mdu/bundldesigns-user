@@ -319,7 +319,7 @@ export const BundlDetail = () => {
         <div style={{ borderBottom: '1px solid #000000',width:'100%' }}>
           <h2>{location.state?.bundlDetail?.name_english}</h2>
           <div className='bundl-amount'>
-            <p><img src={Dollor} alt="Dollar icon" /> {location.state?.bundlDetail?.price || "3750 SAR"} SAR</p>
+            <p><img src={Dollor} alt="Dollar icon" /> {Math.round(location.state?.bundlDetail?.price) || "3750 SAR"} SAR</p>
             <p><img src={Time} alt="Time icon" /> {location.state?.bundlDetail?.time || "30 Days"} Days</p>
           </div>
           <p className='bundl-desc-title'>Main outcomes: Brand Identity, Commerce Collateral, Social Media Starter Kit.</p>

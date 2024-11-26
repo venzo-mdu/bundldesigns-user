@@ -3,11 +3,12 @@ import axios from 'axios';
 import { base_url } from '../Auth/BackendAPIUrl';
 import { Questionnaire } from './Questionnaire'
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 export const Questionnaire5 = () => {
 
   const navigate = useNavigate();
-
+  const answers = useSelector((state) => state.questionnaire4);
   const [questions , setQuestions] = useState([]);
 
   useEffect(() => {
@@ -33,14 +34,16 @@ export const Questionnaire5 = () => {
     fetchQuestions();
   }, []);
 
+
   const onBackClick = () =>{
-    navigate(`/questionnaire/${4}`);
+    navigate(`/questionnaire/${4}`,{state:{questionnaireData4:answers}});
   }
-  
+
   return (
     <div>
       <Questionnaire 
         pageNo={5}
+        storeAnswers={answers}
         onBackClick={onBackClick}
         questions={questions}
         bgTitle={'Final Thoughts'}

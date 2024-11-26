@@ -630,7 +630,7 @@ export const Home = () => {
                                                     </div>
                                                     <div className="sar d-flex align-items-center">
                                                         <img src={Money} alt="" className="img-fluid"></img>
-                                                        <span className="sar_text px-2"><span>Starting from</span> {bundles.min_order_amount} SAR</span>
+                                                        <span className="sar_text px-2"><span>Starting from</span> {Math.round(bundles.min_order_amount)} SAR</span>
                                                     </div>
                                                     <div className="work_time d-flex align-items-center">
                                                         <img src={Time} alt="" className="ing-fluid"></img>

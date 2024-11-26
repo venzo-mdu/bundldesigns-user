@@ -587,6 +587,9 @@ small {
 .nav-section {
   padding-left: 20px;
   padding-right: 20px;
+  /* z-index: 1;
+  width: 100%;
+  position: fixed; */
 }
 
 .nav-section .nav-link {
@@ -713,7 +716,7 @@ small {
 }
 .img-rotate-qf {
   position: absolute;
-  bottom: 28%;
+  bottom: 31%;
   right: 10%;
   transform: translateY(-20%);
 }
@@ -791,6 +794,9 @@ small {
 }
 .hover-txt {text-transform: uppercase}
 .hover-txt:hover{
+  opacity: 1;
+}
+.btn-blank-hover:hover .hover-txt{
   opacity: 1;
 }
 .button-container:hover .scroll-button,
@@ -4098,6 +4104,10 @@ position: relative;
 .nav-section {
   padding-left: 20px;
   padding-right: 20px;
+  /* background-color: #FFFFFF; */
+  /* z-index: 1;
+  width: 100%;
+  position: fixed; */
 }
 .nav-section .nav-link {
     padding: 5px 25px ;

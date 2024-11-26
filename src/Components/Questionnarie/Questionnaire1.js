@@ -60,6 +60,8 @@ import Load from '../../Images/Bundles/load_sticker.webp';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { questionnaireAction1 } from '../../Redux/Action';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const Questionnaire1 = () => {
 
@@ -84,6 +86,12 @@ export const Questionnaire1 = () => {
     fetchQuestions();
   }, []);
 
+  const showToastMessage = () => {
+    toast.error("The Value is required!", {
+      position: toast?.POSITION?.TOP_RIGHT,
+    });
+  };
+
   const handleInputChange = (questionId, value) => {
     setFormData((prev) => ({
       ...prev,
@@ -93,6 +101,7 @@ export const Questionnaire1 = () => {
 
   
   const onNextClick = () => {
+    // showToastMessage();
     dispatch(questionnaireAction1(formData));
     navigate(`/questionnaire/${2}`);
   };
@@ -101,6 +110,7 @@ export const Questionnaire1 = () => {
 
   return (
     <div>
+      <ToastContainer />
       <Questionnaire
         pageNo={1}
         storeAnswers={location.state?.questionnaireData1}

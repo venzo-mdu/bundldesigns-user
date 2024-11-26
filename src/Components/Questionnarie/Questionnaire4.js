@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { base_url } from '../Auth/BackendAPIUrl';
 import { Questionnaire } from './Questionnaire';
+import { useDispatch, useSelector } from 'react-redux';
+import { questionnaireAction4 } from '../../Redux/Action'
 import { colorCodes } from '../../json/QuestionnaireColorCodes';
 import { textStyle } from '../../json/QuestionnaireColorCodes';
 import { textureImages1 } from '../../json/QuestionnaireColorCodes';
@@ -22,7 +24,9 @@ import { useNavigate } from 'react-router-dom';
 export const Questionnaire4 = () => {
 
   const navigate = useNavigate();
-  
+  const dispatch = useDispatch();
+  const answers = useSelector((state) => state.questionnaire3);
+
   const [questions, setQuestions] = useState([]);
   const [selectedColors, setSelectedColors] = useState([]); // To store selected color codes
   const [inputValue, setInputValue] = useState(''); // For input field
@@ -31,6 +35,7 @@ export const Questionnaire4 = () => {
   const [shadeColor, setshadeColor] = useState('rgb(0, 0, 0)'); 
 
 
+  console.log(answers,'q3')
 
 
   useEffect(() => {
@@ -89,9 +94,11 @@ export const Questionnaire4 = () => {
   };
 
   const onBackClick = () =>{
-    navigate(`/questionnaire/${3}`);
+    navigate(`/questionnaire/${3}`,{state:{questionnaireData3:answers}});
   }
+
   const onNextClick = () =>{
+    dispatch(questionnaireAction4('hi'))
     navigate(`/questionnaire/${5}`);
   }
 
@@ -99,6 +106,7 @@ export const Questionnaire4 = () => {
     <div>
       <Questionnaire
         pageNo={4}
+        storeAnswers={answers}
         onBackClick={onBackClick}
         onNextClick={onNextClick}
         questions={
@@ -306,11 +314,6 @@ export const Questionnaire4 = () => {
                                           )
                                         })
                                       }
-                                        {/* <img src="assets_user/images/visual-elements/patterns-2.png" alt="Clean"></img>
-                                        <img src="assets_user/images/visual-elements/patterns-3.png" alt="Clean"></img>
-                                        <img src="assets_user/images/visual-elements/patterns-4.png" alt="Clean"></img>
-                                        <img src="assets_user/images/visual-elements/patterns-5.png" alt="Clean"></img>
-                                        <img src="assets_user/images/visual-elements/patterns-6.png" alt="Clean"></img> */}
                                     </figure>
                                     <span className="button-text">Patterns</span>
                                 </label>
@@ -328,12 +331,6 @@ export const Questionnaire4 = () => {
                                           )
                                         })
                                       }
-                                        {/* <img src="assets_user/images/visual-elements/textures-1.png" alt="Clean"></img>
-                                        <img src="assets_user/images/visual-elements/textures-2.png" alt="Clean"></img>
-                                        <img src="assets_user/images/visual-elements/textures-3.png" alt="Clean"></img>
-                                        <img src="assets_user/images/visual-elements/textures-4.png" alt="Clean"></img>
-                                        <img src="assets_user/images/visual-elements/textures-5.png" alt="Clean"></img>
-                                        <img src="assets_user/images/visual-elements/textures-6.png" alt="Clean"></img> */}
                                     </figure>
                                     <span className="button-text">Textures</span>
                                 </label>
@@ -351,12 +348,6 @@ export const Questionnaire4 = () => {
                                           )
                                         })
                                       }
-                                        {/* <img src="assets_user/images/visual-elements/collages-1.png" alt="Clean"></img>
-                                        <img src="assets_user/images/visual-elements/collages-2.png" alt="Clean"></img>
-                                        <img src="assets_user/images/visual-elements/collages-3.png" alt="Clean"></img>
-                                        <img src="assets_user/images/visual-elements/collages-4.png" alt="Clean"></img>
-                                        <img src="assets_user/images/visual-elements/collages-5.png" alt="Clean"></img>
-                                        <img src="assets_user/images/visual-elements/collages-6.png" alt="Clean"></img> */}
                                     </figure>
                                     <span className="button-text">
                                         Collages
@@ -376,12 +367,6 @@ export const Questionnaire4 = () => {
                                           )
                                         })
                                       }
-                                        {/* <img src="assets_user/images/visual-elements/clean-1.png" alt="Clean"></img>
-                                        <img src="assets_user/images/visual-elements/clean-2.png" alt="Clean"></img>
-                                        <img src="assets_user/images/visual-elements/clean-3.png" alt="Clean"></img>
-                                        <img src="assets_user/images/visual-elements/clean-4.png" alt="Clean"></img>
-                                        <img src="assets_user/images/visual-elements/clean-5.png" alt="Clean"></img>
-                                        <img src="assets_user/images/visual-elements/clean-6.png" alt="Clean"></img> */}
                                     </figure>
                                     <span className="button-text">
                                         Clean
@@ -401,12 +386,6 @@ export const Questionnaire4 = () => {
                                           )
                                         })
                                       }
-                                        {/* <img src="assets_user/images/visual-elements/illustrations-1.png" alt="Clean"></img>
-                                        <img src="assets_user/images/visual-elements/illustrations-2.png" alt="Clean"></img>
-                                        <img src="assets_user/images/visual-elements/illustrations-3.png" alt="Clean"></img>
-                                        <img src="assets_user/images/visual-elements/illustrations-4.png" alt="Clean"></img>
-                                        <img src="assets_user/images/visual-elements/illustrations-5.png" alt="Clean"></img>
-                                        <img src="assets_user/images/visual-elements/illustrations-6.png" alt="Clean"></img> */}
                                     </figure>
                                     <span className="button-text">
                                         Illustrations
@@ -426,12 +405,6 @@ export const Questionnaire4 = () => {
                                           )
                                         })
                                       }
-                                        {/* <img src="assets_user/images/visual-elements/frames-1.png" alt="Clean"></img>
-                                        <img src="assets_user/images/visual-elements/frames-2.png" alt="Clean"></img>
-                                        <img src="assets_user/images/visual-elements/frames-3.png" alt="Clean"></img>
-                                        <img src="assets_user/images/visual-elements/frames-4.png" alt="Clean"></img>
-                                        <img src="assets_user/images/visual-elements/frames-1.png" alt="Clean"></img>
-                                        <img src="assets_user/images/visual-elements/frames-3.png" alt="Clean"></img> */}
                                     </figure>
                                     <span className="button-text">
                                         Frames
