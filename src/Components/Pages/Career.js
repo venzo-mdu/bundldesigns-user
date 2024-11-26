@@ -9,6 +9,7 @@ import upArrow from '../../Images/up-arrow.svg'
 import whatsappicon from '../../Images/whatsappIcon.svg'
 import emailicon from '../../Images/mailIcon.svg'
 import fileUploadIcon from '../../Images/fileUploadIcon.svg'
+import frame from '../../Images/frame.svg'
 
 export default function Career() {
   const  [vacancies,setVacancies] =  useState([])
@@ -127,8 +128,14 @@ export default function Career() {
         </div>
         <div className='md:p-20 sm:p-3  border-b border-black'>
             {vacancies.map((vacancy,index)=> {
-                return <div className={`${index+1 != vacancies.length && 'border-b'} border-black mb-6 px-6 `}>
-                    <p> <img width='45px' height='45px' src={vacancy.image}></img></p>
+                return <div className={`${index+1 !== vacancies.length && 'border-b'} border-black mb-6 px-6 `}>
+                
+                <p> 
+                    <img width='45px' height='45px' src={vacancy.image ? vacancy.image : frame}>
+                    </img>
+                </p>
+                    
+
                     <h2 className='text-[32px] flex items-center'>{vacancy.vacancy_english}
                     <button
             onClick={() => toggleDescription(vacancy.id)}
