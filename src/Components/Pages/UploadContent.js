@@ -22,7 +22,7 @@ export default function UploadContent() {
     
     const [order, setOrder] = useState(null)
     const getOrderDetails = async () => {
-        const response = await axios.get(`http://127.0.0.1:8000/api/order/${orderId}/`, Config);
+        const response = await axios.get(`${base_url}api/order/${orderId}/`, Config);
         if (response.data) {
             setOrder(response.data.data);
             setDesignQuestions(response.data.design_question)

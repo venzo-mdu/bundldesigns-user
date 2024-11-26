@@ -73,7 +73,7 @@ export default function Dashboard() {
     }
     const getOrderDetails = async (orderId) => {
         setCurrentTab(orderId)
-        const response = await axios.get(`http://127.0.0.1:8000/api/order/${orderId}/`, Config);
+        const response = await axios.get(`${base_url}api/order/${orderId}/`, Config);
         const orderData = response.data.data
         if (orderData) {
 
