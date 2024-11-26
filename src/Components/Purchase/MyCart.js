@@ -149,7 +149,7 @@ export const MyCart = () => {
                                         <TableCell align="center">{row.unit_price}</TableCell>
                                         {/* <TableCell align="center"><img style={{width:'23px'}} src={row.DeleteIcon}></img></TableCell> */}
                                         <TableCell align="center">
-                                            <p><img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'bundle')}/></p>
+                                            <p className='flex items-center justify-center'><img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'bundle')}/></p>
                                         </TableCell>
                                     </TableRow>
                                 ))}
@@ -165,7 +165,8 @@ export const MyCart = () => {
                                         <TableCell align="center">{row.unit_price}</TableCell>
                                         {/* <TableCell align="center"><img style={{width:'23px'}} src={row.DeleteIcon}></img></TableCell> */}
                                         <TableCell align="center">
-                                            <img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'addon')}/>
+                                            {/* <img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'addon')}/> */}
+                                            <p className='flex items-center justify-center'><img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'addon')}/></p>
                                         </TableCell>
                                     </TableRow>
                                 ))}
