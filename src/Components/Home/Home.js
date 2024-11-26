@@ -42,7 +42,7 @@ import FiveStar from '../../Images/Bundles/5-star-rating.svg'
 import Linkedin from '../../Images/Bundles/linkedin-icon.png'
 import Instagram from '../../Images/Bundles/instagram-icon.png'
 import X from '../../Images/Bundles/X-icon.png'
-import Facbook from '../../Images/Bundles/facebook-icon.png'
+import Facebook from '../../Images/Bundles/facebook-icon.png'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { loginAction } from '../../Redux/Action'
@@ -703,6 +703,7 @@ export const Home = () => {
                                     </div>
                                     <div className="sar d-flex align-items-center">
                                         <img src={Money} alt="" className="img-fluid"></img>
+                                        
                                         <span className="sar_text">8000 SAR</span>
                                     </div>
                                     <div className="work_time d-flex align-items-center">
@@ -842,14 +843,15 @@ export const Home = () => {
                                     <h2 className="sub-headeing text-upper text-center mb-3">HAVE A QUESTION OR IDEA ?</h2>
                                     <h4 className="h3 text-upper text-center mb-4">let’s discuss</h4>
                                 </div>
-                                <div className="social-link  align-items-center">
+                               <div className="social-link  align-items-center">
                                     <ul className="d-flex justify-content-center">
                                         <li className="social-item"><a href=""><img src={Linkedin} alt="" className="img-fluid social-icon"></img></a></li>
                                         <li className="social-item"><a href=""><img src={Instagram} alt="" className="img-fluid social-icon"></img></a></li>
                                         <li className="social-item"><a href=""><img src={X} alt="" className="img-fluid social-icon"></img></a></li>
-                                        <li className="social-item"><a href=""><img src={Facbook} alt="" className="img-fluid social-icon"></img></a></li>
+                                        <li className="social-item"><a href=""><img src={Facebook} alt="" className="img-fluid social-icon"></img></a></li>
                                     </ul>
                                 </div>
+                               
                             </div>
                         </section>
 
@@ -912,3 +914,4 @@ export const Home = () => {
         </>
     )
 }
+

@@ -140,7 +140,6 @@
  }*/
 
  
- 
 .common-navbar{
     height: 65px;
     border-bottom: 1px solid darkblue;
@@ -149,7 +148,7 @@
     width: 100%;
 }
 .nav-logo{
-    width: 30%;
+    width: 20%;
 }
 .nav-items{
     width: 40%;
@@ -280,4 +279,6 @@
     .nav-items{
         display: none;
     }
-}
+ } 
+
+ 
