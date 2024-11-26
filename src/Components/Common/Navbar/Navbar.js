@@ -44,7 +44,7 @@ export const Navbar = () => {
           </div>
           <div className="col-1 col-md-1 col-lg-6">
             <div className="navbar navbar-expand-lg justify-content-end">
-              <div className="collapse navbar-collapse" id="mainNav">
+              <div className=" navbar-collapse" id="mainNav">
                 <ul className="navbar-nav mx-auto align-items-center ">
                   <li className="nav-item">
                     <a className="nav-link" >About</a>

@@ -149,7 +149,7 @@ export const MyCart = () => {
                                         <TableCell align="center">{row.unit_price}</TableCell>
                                         {/* <TableCell align="center"><img style={{width:'23px'}} src={row.DeleteIcon}></img></TableCell> */}
                                         <TableCell align="center">
-                                            <img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'bundle')}/>
+                                            <p><img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'bundle')}/></p>
                                         </TableCell>
                                     </TableRow>
                                 ))}

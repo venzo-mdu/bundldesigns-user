@@ -174,13 +174,13 @@ export const Popup = ({ title, subTitle, popupType = 'default', onChange, save, 
                     <div className="container">
                         <div className="row justify-content-center">
                             <div className="home-img-rotation">
-                                <p className='rotating-text'>
+                                <p className="flex items-center justify-center m-auto">
                                     <img src={Create} style={{ maxWidth:isSmallScreen ? '45%' : '35%' }} alt="" className="img-fluid" />
                                 </p>
                                 <div className="mySlides">
                                     <img
                                         className="slideImages"
-                                        style={{ width:'20%', margin:isSmallScreen ? '-60% 0 0 0' : '-40% 0 0 0' }}
+                                        style={{ width:'20%', margin:isSmallScreen ? '-60% 0 0 0' : '-30% 0 0 0' }}
                                         src={Mouth}
                                         alt="Image 1"
                                     />

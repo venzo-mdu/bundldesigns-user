@@ -8,12 +8,17 @@ import { MyCart } from "./Components/Purchase/MyCart";
 import { CustomBundl } from "./Components/Purchase/CustomBundl";
 import { QuestionnaireLayout } from "./Components/Questionnarie/QuestionnaireLayout";
 import { Thankyoucard } from "./Components/Questionnarie/Thankyoucard";
+import { AboutUs } from "./Components/Pages/AboutUS";
+import FAQ from "./Components/Pages/FAQ";
+import Career from "./Components/Pages/Career";
+import OurWork from "./Components/Pages/OurWork";
+import WebsterForm from "./Components/Pages/WebsterForm";
+import PremiumForm from "./Components/Pages/PremiumForm";
+import Dashboard from "./Components/Pages/Dashboard";
+import UploadContent from "./Components/Pages/UploadContent";
+import Adjustments from "./Components/Pages/Adjustments";
 
 const getCookie = (name) => {
-
-
-
-
   const value = `; ${document.cookie}`;
   const parts = value.split(`; ${name}=`);
   return parts.length === 2 ? parts.pop().split(';').shift() : null;
@@ -67,6 +72,42 @@ export default function AppRouter() {
     {
       path:"/thankyou",
       element:<ProtectedRoute element={<Thankyoucard/>} />
+    },
+    {
+      path :"/upload-content/:orderId",
+      element:<ProtectedRoute element={<UploadContent />} />
+    },
+    {
+      path:'/dashboard',
+      element:<ProtectedRoute element={<Dashboard />} />
+    },
+    {
+      path:'/adjustment/:orderId',
+      element:<ProtectedRoute element={<Adjustments />} />
+    },
+    {
+      path:"/aboutus",
+      element:<AboutUs/>
+    },
+    {
+      path:'/career',
+      element: <Career/>
+    },
+    {
+      path:'/faq',
+      element:<FAQ />
+    },
+    {
+      path:'/our-work',
+      element: <OurWork />
+    },
+    {
+      path: '/premium-form',
+      element: < PremiumForm />
+    },
+    {
+      path: '/webster-form',
+      element: < WebsterForm />
     },
     {
       path: "*",
