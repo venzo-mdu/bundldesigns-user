@@ -89,13 +89,13 @@ export default function FAQ() {
     <Navbar />
     <div className='font-Helvetica'>
         <div className='text-center py-2 border-b border-black'>
-            <h1 className='text-[40px]'> FAQs </h1>
-            <p className='text-[20px] text-[#00000080]'>Where we answer all your questions!</p>
+            <h1 className='md:text-[40px] sm:text-[32px]'> FAQs </h1>
+            <p className='md:text-[20px] sm:text-[18px] text-[#00000080]'>Where we answer all your questions!</p>
         </div>
-        <div className='lg:p-20 md:p-10  sm:p-3 border-b !px-[10%] border-black'>
-                <div className='flex justify-center'>
+        <div className='lg:p-20 md:p-10  xs:p-5 border-b !px-[10%] border-black'>
+                <div className='flex justify-center overflow-x-auto'>
                     {faqs.categories.map((category,index)=>{
-                        return <button className={`lg:px-[20px] md:px-[10px] md:py-[3px] md:text-[16px] lg:py-[5px]  ${currentTab ==category.name_english? 'text-white bg-[#1BA56F] ': 'text-[#1BA56F] bg-white ' } border-r border-t border-b
+                        return <button className={`lg:px-[20px] md:px-[10px] md:py-[3px] sm:p-[10px] md:text-[16px] sm:text-[16px] lg:py-[5px] font-Helvetica ${currentTab ==category.name_english? 'text-white bg-[#1BA56F] ': 'text-[#1BA56F] bg-white ' } border-r border-t border-b
                            ${index == 0 && 'border-l'} ${index==faqs.categories.length && 'border-l-0 border-r'}
                    !border-[#1BA56F]`} 
                             onClick={()=>setCurrentTab(category.name_english)}>{category.name_english}</button>

@@ -73,7 +73,7 @@ export default function Dashboard() {
     }
     const getOrderDetails = async (orderId) => {
         setCurrentTab(orderId)
-        const response = await axios.get(`${base_url}api/order/${orderId}/`, Config);
+        const response = await axios.get(`${base_url}/api/order/${orderId}/`, Config);
         const orderData = response.data.data
         if (orderData) {
 
@@ -121,12 +121,12 @@ export default function Dashboard() {
     }
     const approveBrand = async () => {
         const json = { 'status': 'add_ons' }
-        const response = await axios.post(`${base_url}api/order_update/${order.id}/`, json, Config);
+        const response = await axios.post(`${base_url}/api/order_update/${order.id}/`, json, Config);
         getOrderDetails(order.id)
     }
     const completeOrder = async () => {
         const json = { 'status': 'completed' }
-        const response = await axios.post(`${base_url}api/order_update/${order.id}/`, json, Config);
+        const response = await axios.post(`${base_url}/api/order_update/${order.id}/`, json, Config);
         setCompletePopup(true)
         getprojects()
     }
@@ -464,14 +464,14 @@ export default function Dashboard() {
             >
                 <Box sx={style}>
                     <iframe
-                        src={`${base_url}api/view_pdf?file=${brandFile}#toolbar=0`}
+                        src={`${base_url}/api/view_pdf?file=${brandFile}#toolbar=0`}
                         title="PDF Viewer"
                         className="flex-grow w-full h-full border-none m-0 p-0"
                     ></iframe>
                             <p className='absolute right-[-30px]'>
                             < ClearIcon onClick={()=>{setShowPdf(false)}} style={{color:'white',fontSize:'30px',cursor:'pointer'}}/>
     <a 
-      href={`${base_url}api/download/${brandFile}`} 
+      href={`${base_url}/api/download/${brandFile}`} 
       download 
       target="_blank" 
       rel="noopener noreferrer"

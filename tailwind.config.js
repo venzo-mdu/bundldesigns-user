@@ -16,7 +16,9 @@ module.exports = {
       }, screens: {
         xl: '1800px', // Set the xl breakpoint to 1440px instead of 1280px
         lg:'1400px',
-        md:'1024px'
+        md:'1024px',
+        sm:'700px',
+        xs: '300px'
       },
       keyframes: {
         'rotate-animation': {

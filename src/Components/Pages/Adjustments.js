@@ -76,7 +76,7 @@ export default function Adjustments() {
 
     const getOrderDetails = async () => {
         console.log(orderId, 'order')
-        const response = await axios.get(`${base_url}api/order/${orderId}/`, Config);
+        const response = await axios.get(`${base_url}/api/order/${orderId}/`, Config);
         if (response.data) {
             setOrder(response.data.data);
             console.log(response.data.data)
@@ -84,7 +84,7 @@ export default function Adjustments() {
         }
     }
     const getAdjustments = async (designId) => {
-        const response = await axios.get(`${base_url}api/adjustments/${designId}/`, Config);
+        const response = await axios.get(`${base_url}/api/adjustments/${designId}/`, Config);
         if (response.data) {
             setAdjustments(response.data.data)
             response.data.data.length && setAdjustmentTab(response.data.data[0].english_adjustment_name)
