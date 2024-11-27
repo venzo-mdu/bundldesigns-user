@@ -7,7 +7,7 @@
     "bundldesigns": {
       "hosting": {
         "bundldesigns-web-main": [
-          "bundldesigns-web-main"
+          "bundldesigns"
         ]
       }
     }
