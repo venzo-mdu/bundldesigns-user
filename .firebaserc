@@ -6,7 +6,7 @@
   "targets": {
     "bundldesigns": {
       "hosting": {
-        "bundldesigns-web-main": [
+        "bundldesigns": [
           "bundldesigns"
         ]
       }

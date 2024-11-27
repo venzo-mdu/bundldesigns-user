@@ -130,13 +130,13 @@ export const Navbar = () => {
                                                 <div className=" navbar-collapse" id="mainNav">
                                                     <ul className="navbar-nav mx-auto align-items-center ">
                                                         <li className="nav-item">
-                                                            <a className="nav-link" href="#">About</a>
+                                                            <a className="nav-link" href="/aboutus">About</a>
                                                         </li>
                                                         <li className="nav-item">
-                                                            <a className="nav-link" href="#">Bundls</a>
+                                                            <a className="nav-link" href="/">Bundls</a>
                                                         </li>
                                                         <li className="nav-item">
-                                                            <a className="nav-link" href="#">Work</a>
+                                                            <a className="nav-link" href="/our-work">Work</a>
                                                         </li>
                                                         <li className="nav-item">
                                                             <a className="nav-link" href="#">Contact Us</a>
@@ -172,14 +172,14 @@ export const Navbar = () => {
                                                     <ul className="navbar">
                                                         <li>
                                                             {/* <!-- <a href="">Bundls</a> --> */}
-                                                            <a href="#" previewlistener="true">Bundl Offers</a>
+                                                            <a href="/" previewlistener="true">Bundl Offers</a>
                                                         </li>
                                                         <li>
                                                             {/* <!-- <a href="">Our Work</a> --> */}
-                                                            <a href="#" previewlistener="true">Our Work</a>
+                                                            <a href="/our-work" previewlistener="true">Our Work</a>
                                                         </li>
                                                         <li>
-                                                            <a href="#" previewlistener="true">About Us</a>
+                                                            <a href="/aboutus" previewlistener="true">About Us</a>
 
                                                         </li>
                                                         <li>

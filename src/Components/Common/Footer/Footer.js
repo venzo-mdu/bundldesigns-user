@@ -54,17 +54,18 @@ export const Footer = () => {
                         <div className='platform'>
                             <p>Platform</p>
                             <ul>
-                                <li>Our Work</li>
-                                <li>Bundl</li>
-                                <li>Dashboard</li>
+                                <li>
+                                    <a href='/our-work' className='text-white'> Our Work</a></li>
+                                <li>   <a href='/' className='text-white'> Bundl</a></li>
+                                <li>   <a href='/dashboard' className='text-white'> Dashboard</a></li>
                             </ul>
                         </div>
                         <div className='information'>
                             <p>Information</p>
-                            <ul>
-                                <li>About us</li>
-                                <li>FAQ's</li>
-                                <li>Careers</li>
+                            <ul> 
+                                <li>  <a href='/aboutus' className='text-white'> About us</a></li>
+                                <li>  <a href='/faqs' className='text-white'> FAQ's</a></li>
+                                <li>  <a href='/career' className='text-white'> Careers</a></li>
                             </ul>
                         </div>
                         <div className='contact-us'>

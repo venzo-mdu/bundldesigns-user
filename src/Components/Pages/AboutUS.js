@@ -35,7 +35,7 @@ export const AboutUs = () => {
       <div style={{
         backgroundImage: `url(${cloud_bg})`,
         backgroundSize: 'cover',
-        backgroundPosition: '100% 9%',
+        backgroundPosition: '100% 6%',
       }} className='font-Helvetica'>
         < Navbar />
 
@@ -49,14 +49,14 @@ export const AboutUs = () => {
           <div className='basis-[50%] border-t border-r border-l relative py-4 !border-black'>
             <h1 className='px-28 text-[32px] md:text-[28px]'>Mission</h1>
             <p className='xl:px-48 md:px-20 xl:text-[20px] md:text-[18px]'>{aboutUs.mission}</p>
-            <img className='absolute md:top-[130px] left-6 xl:top-[70px] xl:w-[260px] md:w-[160px]' src={paperPlane}></img>
+            <img className='absolute md:top-[150px] left-6 xl:top-[70px] xl:w-[260px] md:w-[160px]' src={paperPlane}></img>
 
           </div>
           <div className='!z-10 basis-[50%] border-t border-r  py-4   relative !border-black'>
 
             <h1 className='px-[8%] md:text-[28px] xl:text-[32px]'>Vision</h1>
             <p className=' xl:px-[200px] md:px-20 md:text-[18px] xl:text-[20px]'>{aboutUs.vission}</p>
-            <img className='absolute md:bottom-[50px] xl:bottom-[-25px]  right-0 xl:w-[240px] md:w-[160px]' src={glass}></img>
+            <img className='absolute md:bottom-[80px] xl:bottom-[-25px]  right-0 xl:w-[240px] md:w-[160px]' src={glass}></img>
 
           </div>
 

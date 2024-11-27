@@ -174,13 +174,13 @@ export const Home = () => {
                                                 <div className=" navbar-collapse" id="mainNav">
                                                     <ul className="navbar-nav mx-auto align-items-center ">
                                                         <li className="nav-item">
-                                                            <a className="nav-link" href="#">About</a>
+                                                            <a className="nav-link" href="/aboutus">About</a>
                                                         </li>
                                                         <li className="nav-item">
-                                                            <a className="nav-link" href="#">Bundls</a>
+                                                            <a className="nav-link" href="/">Bundls</a>
                                                         </li>
                                                         <li className="nav-item">
-                                                            <a className="nav-link" href="#">Work</a>
+                                                            <a className="nav-link" href="/our-work">Work</a>
                                                         </li>
                                                         <li className="nav-item">
                                                             <a className="nav-link" href="#">Contact Us</a>
@@ -747,7 +747,7 @@ export const Home = () => {
                                         <div className="desc">
                                             Prefer a one-on-one design experience?
                                         </div>
-                                        <a href="#" className="btn bundl-btn bt-1">Send us a message</a>
+                                        <a href="/premium-form" className="btn bundl-btn bt-1">Send us a message</a>
                                     </div>
                                 </div>
                                 <div className="col-md-6 text-center">
@@ -761,7 +761,7 @@ export const Home = () => {
                                         <div className="desc">
                                             Dreaming of a perfect website?
                                         </div>
-                                        <a href="#" className="btn bundl-btn bt-1">Send us a message</a>
+                                        <a href="/webster-form" className="btn bundl-btn bt-1">Send us a message</a>
                                     </div>
                                 </div>
                             </div>
