@@ -25,7 +25,7 @@ export const Navbar = () => {
           <img className='cart-icon' src={Cart}></img>
           </NavLink>
           <img className='user-icon' src={User}></img>
-          <div className='profile-name'>HS</div>
+          <div className='profile-name'>AD</div>
         </div>
     </div>
   )
