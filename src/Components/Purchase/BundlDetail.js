@@ -369,7 +369,7 @@ export const BundlDetail = () => {
                 </div>
               ))}
             </div>
-            <Accordian accordianTitle={'Something feels missing ?'} addOnPayload={setAddonPayLoads} />
+            <Accordian accordianTitle={'Something feels missing ?'} addOnPayload={setAddonPayLoads} bundlePackageId={location.state.bundlDetail?.id}/>
           </div>
 
           <div className='bundl-summary'>
@@ -378,7 +378,7 @@ export const BundlDetail = () => {
             </div>
             <div style={{ display: 'flex', padding: '1% 5%' }}>
               <p style={{ fontSize: '20px', fontWeight: '700', width: '60%' }}>{location.state?.bundlDetail?.name_english}</p>
-              <p style={{ fontSize: '20px', fontWeight: '700', width: '40%' }}>{location.state?.bundlDetail?.price} SAR</p>
+              <p style={{ fontSize: '20px', fontWeight: '700', width: '40%' }}>{Math.round(location.state?.bundlDetail?.price)} SAR</p>
             </div>
             {selectedItems?.map((item, idx) => (
               <div key={idx} className='one-brand-identity'>
@@ -401,13 +401,13 @@ export const BundlDetail = () => {
                 </div>
               </div>
             ))}
-            <div className='bundl-checkout'>
+            <div className='bundl-checkout mt-3'>
               <div className='total' style={{ display: 'flex' }}>
-                <p style={{ width: '60%' }}><img src={BlackDollor} alt="Total Price" className="inline-block"/>Total Price</p>
+                <p style={{ width: '60%' }}><img src={BlackDollor} alt="Total Price" className="inline-block"/><span className='ml-3'>Total Price</span></p>
                 <p style={{ width: '40%' }} >{totalCost + addonPayLoads.total_price } SAR</p>
               </div>
               <div className='total' style={{ display: 'flex' }}>
-                <p style={{ width: '60%' }}><img src={BlackTime} alt="Total Duration" className="inline-block"/>Total Duration</p>
+                <p style={{ width: '60%' }}><img src={BlackTime} alt="Total Duration" className="inline-block"/><span className='ml-3'>Total Duration</span></p>
                 <p style={{ width: '40%' }}>{totalDuration + addonPayLoads.total_time} Days</p>
               </div>
 

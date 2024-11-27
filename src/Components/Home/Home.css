@@ -4061,7 +4061,7 @@ background-position: top center;
 background-repeat: no-repeat;
 background-size: cover;
 position: relative;
-height: 75vh;
+/* height: 75vh; */
 }
 /* .header-section::before{
 content: "";
@@ -4341,9 +4341,9 @@ font-size: 20px;
 .header-section .col-lg-3{
   width: 29%;
 }
-.header-section{
+/* .header-section{
   height: 95vh;
-}
+} */
 .bundl-btn-border{
   width: 45%;
 }
@@ -4370,9 +4370,9 @@ font-size: 20px;
 }
 @media screen and (max-width:1024px) and (min-width:768px) {
 
-.header-section{
+/* .header-section{
   height: 80vh;
-}
+} */
 .hero-text h1 {
   font-size: 40px;
   font-weight: 400;

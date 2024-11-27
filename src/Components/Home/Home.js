@@ -533,7 +533,7 @@ export const Home = () => {
                             <div className="row justify-content-center bundl-pack-head">
                                 <div className="col-md-11 col-lg-9">
                                     <h4 style={{ margin: '10% 0 0 0' }} className="sub-headeing  text-center">Our Bundls</h4>
-                                    <div className="our-bundles text-center">
+                                    {/* <div className="our-bundles text-center">
                                         <div className="text-animation">
                                             WE <div className="bunl"><img src={BundlSticker} width={200} alt="bundl-sticker" className="img-fluie"></img></div>  DESIGN TO MAKE YOUR BRAND
                                             <span className="second_text text-start">
@@ -544,9 +544,9 @@ export const Home = () => {
                                                 <i className="bundl_animate">BREATHTAKING</i>
                                             </span>
                                         </div>
-                                    </div>
+                                    </div> */}
                                 </div>
-                            </div>
+                            </div>  
                         </div>
 
 
@@ -624,18 +624,25 @@ export const Home = () => {
                                                             Add-Ons To Your Bundl
                                                         </div>
                                                         <div className="change_brand_name">
-                                                            <div className="second_section_image"><img src={QubeIcon} alt="" className="img-fluid"></img></div>
+                                                            <div className="second_section_image"><img src={bundlImages[index]} alt="" className="img-fluid"></img></div>
                                                             <div className="second_section_text" style={{ paddingTop: "10px" }}>{bundles.name_english}</div>
                                                         </div>
                                                     </div>
-                                                    <div className="sar d-flex align-items-center">
-                                                        <img src={Money} alt="" className="img-fluid"></img>
-                                                        <span className="sar_text px-2"><span>Starting from</span> {Math.round(bundles.min_order_amount)} SAR</span>
-                                                    </div>
-                                                    <div className="work_time d-flex align-items-center">
-                                                        <img src={Time} alt="" className="ing-fluid"></img>
-                                                        <span className="working_days px-2"><span>Starting from</span> {bundles.time} WORKING DAYS</span>
-                                                    </div>
+                                                    {
+                                                        bundles.name_english === "The Newbie" && (
+                                                            <>
+                                                            <div className="sar d-flex align-items-center">
+                                                                <img src={Money} alt="" className="img-fluid"></img>
+                                                                <span className="sar_text px-2"><span>Starting from</span> {Math.round(bundles.min_order_amount)} SAR</span>
+                                                            </div>
+                                                            <div className="work_time d-flex align-items-center">
+                                                                <img src={Time} alt="" className="ing-fluid"></img>
+                                                                <span className="working_days px-2"><span>Starting from</span> {bundles.time} WORKING DAYS</span>
+                                                            </div>
+                                                        </>
+                                                        )
+                                                    }
+                                                   
                                                 </div>
                                             </div>
                                         </>
@@ -703,14 +710,14 @@ export const Home = () => {
                                             <div className="second_section_text" style={{ paddingTop: "10px" }}>Customized</div>
                                         </div>
                                     </div>
-                                    <div className="sar d-flex align-items-center">
+                                    {/* <div className="sar d-flex align-items-center">
                                         <img src={Money} alt="" className="img-fluid"></img>
                                         <span className="sar_text">8000 SAR</span>
                                     </div>
                                     <div className="work_time d-flex align-items-center">
                                         <img src={Time} alt="" className="ing-fluid"></img>
                                         <span className="working_days">40 WORKING DAYS</span>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                         </div>
