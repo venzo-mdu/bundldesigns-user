@@ -62,18 +62,18 @@ export default function Dashboard() {
     const getprojects = async () => {
         const response = await axios.get(`${base_url}/api/order/`, Config);
         if (response.data) {
-            const resProjects = response.data.data.filter(item=> item.order_status!='completed' && item.order_status!='in cart')
+            const resProjects = response.data.data.filter(item=> item.order_status!='completed' && item.order_status!='in_cart')
             console.log(resProjects,'red')
             setProjects(resProjects);
-            setPurchases(response.data.data)
-            if (response.data.data.length) {
-                getOrderDetails(response.data.data[0].id)
+            setPurchases(response.data.data.filter(item=>item.order_status != 'in_cart'))
+            if (resProjects.length) {
+                getOrderDetails(resProjects[0].id)
             }
         }
     }
     const getOrderDetails = async (orderId) => {
         setCurrentTab(orderId)
-        const response = await axios.get(`${base_url}api/order/${orderId}/`, Config);
+        const response = await axios.get(`${base_url}/api/order/${orderId}/`, Config);
         const orderData = response.data.data
         if (orderData) {
 
@@ -121,12 +121,12 @@ export default function Dashboard() {
     }
     const approveBrand = async () => {
         const json = { 'status': 'add_ons' }
-        const response = await axios.post(`${base_url}api/order_update/${order.id}/`, json, Config);
+        const response = await axios.post(`${base_url}/api/order_update/${order.id}/`, json, Config);
         getOrderDetails(order.id)
     }
     const completeOrder = async () => {
         const json = { 'status': 'completed' }
-        const response = await axios.post(`${base_url}api/order_update/${order.id}/`, json, Config);
+        const response = await axios.post(`${base_url}/api/order_update/${order.id}/`, json, Config);
         setCompletePopup(true)
         getprojects()
     }
@@ -366,62 +366,70 @@ export default function Dashboard() {
                     <p className='lg:text-[20px] md:text-[16px] text-[#00000080]'>{dashboardJson.title_content} </p>
                 </div>
 
-                <div className=' border-black py-16 px-14'>
-                    <h1 className='lg:text-[32px] md:text-[24px] flex mb-4'>  <span className='mr-2'>{dashboardJson.second_title}</span> <img className='mr-2' src={ltIcon}></img>  <img src={gtIcon}></img> </h1>
+{
+    projects.length?      <div className=' border-black py-16 px-14'>
+    <h1 className='lg:text-[32px] md:text-[24px] flex mb-4'>  <span className='mr-2'>{dashboardJson.second_title}</span> <img className='mr-2' src={ltIcon}></img>  <img src={gtIcon}></img> </h1>
 
-                    <p className='flex mb-0'>
-                        {projects.map(project => <button onClick={(e) => getOrderDetails(project.id)}
-                            className={`py-1 px-4 border !border-[#1BA56F] ${project.id == currentTab ? 'bg-[#1BA56F] text-white' : 'bg-white text-[#1BA56F]'}
-                         flex justify-around items-center`}>
-                            {project.project_name}{project.id == currentTab && <img width='15px' className='ml-2' src={editIcon}></img>}</button>)}
-                        <button onClick={()=>{window.location.href='/'}} className='py-2 flex bg-black text-white items-center lg:text-[32px] md:text-[24px] leading-[0px] px-2'>+</button>
-                    </p>
+    <p className='flex mb-0'>
+        {projects.map(project => <button onClick={(e) => getOrderDetails(project.id)}
+            className={`py-1 px-4 border !border-[#1BA56F] ${project.id == currentTab ? 'bg-[#1BA56F] text-white' : 'bg-white text-[#1BA56F]'}
+         flex justify-around items-center`}>
+            {project.project_name}{project.id == currentTab && <img width='15px' className='ml-2' src={editIcon}></img>}</button>)}
+        <button onClick={()=>{window.location.href='/'}} className='py-2 flex bg-black text-white items-center lg:text-[32px] md:text-[24px] leading-[0px] px-2'>+</button>
+    </p>
 
-                    <div className='border mt-0 !border-black py-2 px-6'>
-                        <div className='flex items-center w-[80%] mx-auto mt-10 px-20'>{renderProcessData()}</div>
-                        <div className='flex mb-12 w-[80%] m-auto'>
-                            {dashboardJson.project_process.map((item, index) => {
-                                return <div className='basis-1/5 text-center text-[16px]'>  <p className={`pb-0 mb-0 ${index == processIndex && 'font-bold'}`}> {item} </p>
-                                    {index == processIndex && <p className='text-[#1BA56F]'>You’re now Here!</p>}
-                                </div>
-                            })}
-                        </div>
-                        <div className='my-4'>{renderContent()}</div>
-                        <div className='w-[80%] mx-auto'>
-
-                            {order && order.item_details && Array.isArray(order.item_details) && <>
-                                <p className={`text-[22px] font-bold my-2 ${processIndex < 2 && isEdit == false ? 'text-[#00000080]' : 'text-black'}`}>Brand & Visual Identity <span className='text-[#1BA56F] text-[18px] font-semibold'> -
-                                    {processIndex < 2 && isEdit == false ? 'ON HOLD' : processIndex >= 4 ? 'COMPLETE' : 'IN PROGRESS'}</span> </p>
-                                <p className='font-medium text-[18px]'>{order?.brand_identity?.item_name}</p>
-                                <p className='text-[22px] font-bold my-2'>Add Ons
-
-                                    <span className='text-[#1BA56F] text-[18px] font-semibold'> -
-                                        {processIndex < 4 ? 'ON HOLD' : processIndex == ProcessIndexDict.length ? 'COMPLETE' : 'IN PROGRESS'}</span>
-                                </p>
-
-                                {order?.item_details?.map((item, index) => {
-                                    return <p className={`font-medium text-[18px] mx-1 my-2 py-1 
-                                        ${index != (order?.item_details.length - 1) &&
-                                        'border-b'} border-[#00000080] flex justify-between`}><span>{item.item_name}</span>
-                                        <span className='flex items-center text-[#00000080] text-[14px]'>{processIndex >= 4 ? <>
-                                            {item.status == 'questionnaire required' ? <>
-                                                <span className='mr-2'>Waiting content</span>
-                                                <img src={ItemWaitingIcon}></img>
-                                            </> : item.status == 'content_uploaded' ? <>
-                                                <span className='mr-2'>In Progress</span>
-                                                <img src={ItemProgressIcon}></img>
-                                            </> : <>
-                                                <span className='mr-2 font-bold text-[#1BA56F]'>Finished</span>
-                                                <img src={ItemFinishedIcon}></img>
-                                            </>}
-                                        </> : ''}</span>
-                                    </p>
-                                })}
-                            </>}
-                        </div>
-                    </div>
-
+    <div className='border mt-0 !border-black py-2 px-6'>
+        <div className='flex items-center w-[80%] mx-auto mt-10 px-20'>{renderProcessData()}</div>
+        <div className='flex mb-12 w-[80%] m-auto'>
+            {dashboardJson.project_process.map((item, index) => {
+                return <div className='basis-1/5 text-center text-[16px]'>  <p className={`pb-0 mb-0 ${index == processIndex && 'font-bold'}`}> {item} </p>
+                    {index == processIndex && <p className='text-[#1BA56F]'>You’re now Here!</p>}
                 </div>
+            })}
+        </div>
+        <div className='my-4'>{renderContent()}</div>
+        <div className='w-[80%] mx-auto'>
+
+            {order && order.item_details && Array.isArray(order.item_details) && <>
+                <p className={`text-[22px] font-bold my-2 ${processIndex < 2 && isEdit == false ? 'text-[#00000080]' : 'text-black'}`}>Brand & Visual Identity <span className='text-[#1BA56F] text-[18px] font-semibold'> -
+                    {processIndex < 2 && isEdit == false ? 'ON HOLD' : processIndex >= 4 ? 'COMPLETE' : 'IN PROGRESS'}</span> </p>
+                <p className='font-medium text-[18px]'>{order?.brand_identity?.item_name}</p>
+                <p className='text-[22px] font-bold my-2'>Add Ons
+
+                    <span className='text-[#1BA56F] text-[18px] font-semibold'> -
+                        {processIndex < 4 ? 'ON HOLD' : processIndex == ProcessIndexDict.length ? 'COMPLETE' : 'IN PROGRESS'}</span>
+                </p>
+
+                {order?.item_details?.map((item, index) => {
+                    return <p className={`font-medium text-[18px] mx-1 my-2 py-1 
+                        ${index != (order?.item_details.length - 1) &&
+                        'border-b'} border-[#00000080] flex justify-between`}><span>{item.item_name}</span>
+                        <span className='flex items-center text-[#00000080] text-[14px]'>{processIndex >= 4 ? <>
+                            {item.status == 'questionnaire required' ? <>
+                                <span className='mr-2'>Waiting content</span>
+                                <img src={ItemWaitingIcon}></img>
+                            </> : item.status == 'content_uploaded' ? <>
+                                <span className='mr-2'>In Progress</span>
+                                <img src={ItemProgressIcon}></img>
+                            </> : <>
+                                <span className='mr-2 font-bold text-[#1BA56F]'>Finished</span>
+                                <img src={ItemFinishedIcon}></img>
+                            </>}
+                        </> : ''}</span>
+                    </p>
+                })}
+            </>}
+        </div>
+    </div>
+
+</div>:
+
+<div className="text-center p-10"> 
+    <h1 className="text-[#00000080]">No Orders</h1>
+    <a href="/" className="text-blue-500 hover:underline">Make Some Orders</a>
+</div>
+}
+           
 
 {
     purchases.length ? <div className='px-14'>
@@ -467,14 +475,14 @@ export default function Dashboard() {
             >
                 <Box sx={style}>
                     <iframe
-                        src={`${base_url}api/view_pdf?file=${brandFile}#toolbar=0`}
+                        src={`${base_url}/api/view_pdf?file=${brandFile}#toolbar=0`}
                         title="PDF Viewer"
                         className="flex-grow w-full h-full border-none m-0 p-0"
                     ></iframe>
                             <p className='absolute right-[-30px]'>
                             < ClearIcon onClick={()=>{setShowPdf(false)}} style={{color:'white',fontSize:'30px',cursor:'pointer'}}/>
     <a 
-      href={`${base_url}api/download/${brandFile}`} 
+      href={`${base_url}/api/download/${brandFile}`} 
       download 
       target="_blank" 
       rel="noopener noreferrer"
