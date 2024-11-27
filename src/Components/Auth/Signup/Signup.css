@@ -52,7 +52,7 @@
         margin: 2.5% 0 0 1%;
     }
 }
-@media screen and (max-width:768px) and (min-width:425px) {
+@media screen and (max-width:768px) and (min-width:441px) {
     .signup-content input{
         width: 550px;
     }
@@ -60,7 +60,7 @@
         width: 15px;
     }
 }
-@media screen and (max-width:425px) {
+@media screen and (max-width:441px) {
     .signup-content input{
         width: 375px;
     }

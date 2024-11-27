@@ -163,10 +163,10 @@ export const Home = () => {
                                         <div className="col-4 col-md-3 col-lg-3 justify-content-between">
                                             <div className="navbar navbar-expand-lg justify-content-between">
                                                 <a className="navbar-brand" href="index.html"><img src={HomeLogo} alt="home-logo" className="img-fluid"></img></a>
-                                                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                                                {/* <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
                                                     aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation" id="navbutton">
                                                     <span className="navbar-toggler-icon"></span>
-                                                </button>
+                                                </button> */}
                                             </div>
                                         </div>
                                         <div className="col-1 col-md-1 col-lg-6">
@@ -191,7 +191,7 @@ export const Home = () => {
                                         </div>
                                         <div className="col-7 col-md-8 col-lg-3 text-end">
                                             <div className="navbar navbar-expand-lg justify-content-end ">
-                                                <ul className="navbar-nav mr-auto h-list align-items-center">
+                                                <ul className="navbar-nav  h-list align-items-center">
                                                     <li className="nav-item">
                                                         <a className="nav-link" href="#"><img src={Search} alt="" className="img-fluid nav-icon"></img></a>
                                                     </li>

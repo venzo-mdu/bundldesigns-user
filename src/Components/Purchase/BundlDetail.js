@@ -319,8 +319,8 @@ export const BundlDetail = () => {
         <div style={{ borderBottom: '1px solid #000000',width:'100%' }}>
           <h2>{location.state?.bundlDetail?.name_english}</h2>
           <div className='bundl-amount'>
-            <p><img src={Dollor} alt="Dollar icon" /> {Math.round(location.state?.bundlDetail?.price) || "3750 SAR"} SAR</p>
-            <p><img src={Time} alt="Time icon" /> {location.state?.bundlDetail?.time || "30 Days"} Days</p>
+            <p><img src={Dollor} alt="Dollar icon" className="inline-block"/><span>{Math.round(location.state?.bundlDetail?.price) || "3750 SAR"} SAR</span></p>
+            <p><img src={Time} alt="Time icon" className="inline-block"/><span> {location.state?.bundlDetail?.time || "30 Days"} Days</span></p>
           </div>
           <p className='bundl-desc-title'>Main outcomes: Brand Identity, Commerce Collateral, Social Media Starter Kit.</p>
           <p className='bundl-desc'>{location.state?.bundlDetail?.description_english}</p>
@@ -337,7 +337,18 @@ export const BundlDetail = () => {
                 <div key={index} className='bundle-section' style={{ margin: '3% 0 0 0' }}>
                   <p className='collateral-text'>{bundle.name_english}</p>
                   <p style={{ opacity: '50%' }}>This includes bla bla</p>
-
+                  {
+                    bundle.name_english === "Brand Identity" && (
+                      <div style={window.innerWidth < 441 ? { display: 'block', width: '100%' } : { display: 'flex', width: '100%' }}>
+                    <p className='logo-design'>Logo design</p>
+                    <div className='languages' style={{ display: 'flex' }}>
+                      <p><input type='radio'></input> English</p>
+                      <p><input type='radio'></input> Arabic</p>
+                      <p><input type='radio'></input> Both (+2000SAR)</p>
+                    </div>
+                  </div>
+                    )
+                  }
                   {bundle.design_list.map((design, idx) => {
                     const isSingleItem = bundle.design_list.length === 1;
                     const isLastIndex = idx === bundle.design_list.length - 1;
@@ -345,8 +356,8 @@ export const BundlDetail = () => {
                     return (
                       <div key={idx} className={sectionClassName}>
                         <p style={{ width: '60%' }}>{design.name_english}</p>
-                        <p style={window.innerWidth<=441 ? {width: '50%'}:{ width: '20%' }}><img src={BlackDollor} alt="Price icon" />{design.price} SAR</p>
-                        <p style={window.innerWidth<=441 ? {width: '50%'}:{ width: '20%' }}><img src={BlackTime} alt="Time icon" />{design.time} Days</p>
+                        <p style={window.innerWidth<=441 ? {width: '50%'}:{ width: '20%' }}><img src={BlackDollor} alt="Price icon" className="inline-block"/>{design.price} SAR</p>
+                        <p style={window.innerWidth<=441 ? {width: '50%'}:{ width: '20%' }}><img src={BlackTime} alt="Time icon" className="inline-block"/>{design.time} Days</p>
                         <div className="quantity">
                           <button className="minus" onClick={() => handleQuantityChange(design.name_english, -1)}>&minus;</button>
                           <input type="number" className="input-box" value={quantities[design.name_english] || 1} readOnly />
@@ -392,11 +403,11 @@ export const BundlDetail = () => {
             ))}
             <div className='bundl-checkout'>
               <div className='total' style={{ display: 'flex' }}>
-                <p style={{ width: '60%' }}><img src={BlackDollor} alt="Total Price" />Total Price</p>
-                <p style={{ width: '40%' }}>{totalCost + addonPayLoads.total_price } SAR</p>
+                <p style={{ width: '60%' }}><img src={BlackDollor} alt="Total Price" className="inline-block"/>Total Price</p>
+                <p style={{ width: '40%' }} >{totalCost + addonPayLoads.total_price } SAR</p>
               </div>
               <div className='total' style={{ display: 'flex' }}>
-                <p style={{ width: '60%' }}><img src={BlackTime} alt="Total Duration" />Total Duration</p>
+                <p style={{ width: '60%' }}><img src={BlackTime} alt="Total Duration" className="inline-block"/>Total Duration</p>
                 <p style={{ width: '40%' }}>{totalDuration + addonPayLoads.total_time} Days</p>
               </div>
 

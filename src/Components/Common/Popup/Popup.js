@@ -129,7 +129,7 @@ import Pinkpaint from '../../../Images/Bundles/pink-paint.webp'
 import { Box, Button, Input, Typography, useMediaQuery } from "@mui/material";
 
 export const Popup = ({ title, subTitle, popupType = 'default', onChange, save, cancel, openpopup, textArea, saveBtnBg, setPopup, onClick, sx, values, isCancel }) => {
-    const isSmallScreen = useMediaQuery('(max-width:425px)');
+    const isSmallScreen = useMediaQuery('(max-width:441px)');
 
     const style = {
         position: 'absolute',

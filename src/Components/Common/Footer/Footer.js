@@ -40,11 +40,13 @@ export const Footer = () => {
                     <div className='left-content'>
                         <img className='bundl-logo-footer' src={Bundllogo} alt='footer-logo'></img>
                         <p className='footer-text-left'>Elevating Brands & Shaping Legacies.</p>
-                        <div>
+                        <div >
                             <p className='join-text'>Join our newsletter!</p>
                             {/* <p className='message-text'> Enter your email</p> */}
+                            <div style={{position:'relative'}}>
                             <input className='footer-input' placeholder='Enter your email'></input>
                             <img className='input-message' src={Message} alt='message'></img>
+                            </div>
                         </div>
                         <button className='subscribe'>Subscribe</button>
                     </div>
@@ -67,8 +69,8 @@ export const Footer = () => {
                         </div>
                         <div className='contact-us'>
                             <p>Contact Us</p>
-                            <p><img src={Message} alt='message'></img> info@bundldesigns.com</p>
-                            <p><img src={Whatsapp} alt='whatsapp'></img> +(966) 547754124</p>
+                            <p><img src={Message} alt='message' className="inline-block"/><span> info@bundldesigns.com</span></p>
+                            <p><img src={Whatsapp} alt='whatsapp' className="inline-block"></img><span> +(966) 547754124</span></p>
                             <div style={{display:'flex',width:'100%'}}>
                                 {
                                     socialIcons.map((item, index) => {

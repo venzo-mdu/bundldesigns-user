@@ -41,8 +41,9 @@
 }
 .input-message{
     position: absolute;
-    left: 3%;
-    margin: 0.5% 0 0 0;
+    /* left: 3%; */
+    /* margin: 0.5% 0 0 0; */
+    top: 10%;
 }
 
 .join-text{
@@ -145,7 +146,7 @@ hr{
    }
 }
 
-@media screen and (max-width:768px) and (min-width:425px) {
+@media screen and (max-width:768px) and (min-width:441px) {
     .footer-section{
         /* height: 545px; */
         width: 100%;
@@ -181,9 +182,12 @@ hr{
         width:50px
     }
  }
-@media screen and (max-width:425px){
+@media screen and (max-width:441px){
     .footer{
         flex-direction: column-reverse;
+    }
+    .footer-input{
+        padding: 1% 10%;
     }
    .footer-section{
     width: 100%;
@@ -219,8 +223,7 @@ hr{
     margin: 0 0 0 3%;
    }
    .input-message{
-    left: 5%;
-    margin:2% 0 0 0
+    top: 15%;
    }
 }
 

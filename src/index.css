@@ -20,6 +20,9 @@ code {
   src: local("AirbnbCerealLight"),
     url("./Fonts/helvetica-neue-5/HelveticaNeueMedium.otf") format("truetype");
 }
-p{
+/* p{
   font-family: Helvetica;
+} */
+input{
+  border: 1px solid #000000 ;
 }

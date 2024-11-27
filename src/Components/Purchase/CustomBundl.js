@@ -38,8 +38,8 @@ export const CustomBundl = () => {
         <div style={{ borderBottom: '1px solid #000000', width: '100%' }}>
           <h2>{location?.state?.title || 'Custom Bundl!' }</h2>
           <div className='bundl-amount'>
-            <p><img src={Dollor}></img>3750 SAR</p>
-            <p><img src={Time}></img>30 Days</p>
+            <p><img src={Dollor} className="inline-block"></img><span>3750 SAR</span></p>
+            <p><img src={Time} className="inline-block"></img><span>30 Days</span></p>
           </div>
           {/* <p className='bundl-desc-title'>Main outcomes: Brand Identity, Commerce Collateral, Social Media Starter Kit.</p> */}
           <p className='bundl-desc'>In this bundl, you have the freedom to mix and match from different add-ons that have been carefully curated to guarantee you find all the items needed for the success of your project.</p>
@@ -108,26 +108,26 @@ export const CustomBundl = () => {
             </div>
             {/* <p className='one-heading'>1 Brand Identity</p> */}
             <div className='one-brand-identity'>
-              <p style={{ fontSize: '20px', fontWeight: '700', width: '60%', color: '#000000' }}><img src={Edit}></img> <img src={Xmark}></img> Typography</p>
+              <p style={{ fontSize: '20px', fontWeight: '700', width: '60%', color: '#000000' }}><img src={Edit} className="inline-block"></img> <img src={Xmark}></img> Typography</p>
               <div style={{ display: 'flex' }}>
-                <p style={{ fontSize: '20px', fontWeight: '700', width: '60%' }}><img src={Time}></img> 5 Days</p>
-                <p style={{ fontSize: '20px', fontWeight: '700', width: '40%' }}><img src={Dollor}></img> 180 sar</p>
+                <p style={{ fontSize: '20px', fontWeight: '700', width: '60%' }}><img src={Time} className="inline-block"></img> 5 Days</p>
+                <p style={{ fontSize: '20px', fontWeight: '700', width: '40%' }}><img src={Dollor} className="inline-block"></img> 180 sar</p>
               </div>
             </div>
             {/* <p className='one-heading'>1 Box</p> */}
             {/* <p className='one-heading'>1 Business Card</p> */}
             <div className='one-brand-identity'>
-              <p style={{ fontSize: '20px', fontWeight: '700', width: '60%', color: '#000000' }}><img src={Edit}></img> <img src={Xmark}></img> Logo Option</p>
+              <p style={{ fontSize: '20px', fontWeight: '700', width: '60%', color: '#000000' }}><img src={Edit}></img> <img src={Xmark} className="inline-block"></img> Logo Option</p>
               <div style={{ display: 'flex' }}>
-                <p style={{ fontSize: '20px', fontWeight: '700', width: '60%' }}><img src={Time}></img> 5 Days</p>
-                <p style={{ fontSize: '20px', fontWeight: '700', width: '40%' }}><img src={Dollor}></img> 180 sar</p>
+                <p style={{ fontSize: '20px', fontWeight: '700', width: '60%' }}><img src={Time} className="inline-block"></img> 5 Days</p>
+                <p style={{ fontSize: '20px', fontWeight: '700', width: '40%' }}><img src={Dollor} className="inline-block"></img> 180 sar</p>
               </div>
             </div>
             <div className='one-brand-identity'>
-              <p style={{ fontSize: '20px', fontWeight: '700', width: '60%', color: '#000000' }}><img src={Edit}></img> <img src={Xmark}></img> Logo Option</p>
+              <p style={{ fontSize: '20px', fontWeight: '700', width: '60%', color: '#000000' }}><img src={Edit} className="inline-block"></img> <img src={Xmark}></img> Logo Option</p>
               <div style={{ display: 'flex' }}>
-                <p style={{ fontSize: '20px', fontWeight: '700', width: '60%' }}><img src={Time}></img> 5 Days</p>
-                <p style={{ fontSize: '20px', fontWeight: '700', width: '40%' }}><img src={Dollor}></img> 180 sar</p>
+                <p style={{ fontSize: '20px', fontWeight: '700', width: '60%' }}><img src={Time} className="inline-block"></img> 5 Days</p>
+                <p style={{ fontSize: '20px', fontWeight: '700', width: '40%' }}><img src={Dollor} className="inline-block"></img> 180 sar</p>
               </div>
             </div>
             <div className='bundl-name'>
@@ -145,11 +145,11 @@ export const CustomBundl = () => {
             {/* <p className='one-heading'>3 GIF posts</p> */}
             <div className='bundl-checkout'>
               <div className='total' style={{ display: 'flex' }}>
-                <p style={{ width: '60%' }}><img src={BlackDollor}></img>Total Price</p>
+                <p style={{ width: '60%' }}><img src={BlackDollor} className="inline-block"></img>Total Price</p>
                 <p style={{ width: '40%' }}>8000 sar</p>
               </div>
               <div className='total' style={{ display: 'flex' }}>
-                <p style={{ width: '60%' }}><img src={BlackTime}></img>Total Duration</p>
+                <p style={{ width: '60%' }}><img src={BlackTime} className="inline-block"></img>Total Duration</p>
                 <p style={{ width: '40%' }}>45 Days</p>
               </div>
               <div className='proceed-checkout'>
