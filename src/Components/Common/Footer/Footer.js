@@ -18,6 +18,11 @@ export const Footer = () => {
     {
       icon: Facebook,
       path: "https://www.facebook.com/bundldesigns/",
+
+
+
+
+      
     },
     {
       icon: X,

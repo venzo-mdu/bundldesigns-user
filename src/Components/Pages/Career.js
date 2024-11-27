@@ -172,10 +172,11 @@ export default function Career() {
           value={formData.name}
           placeholder='Name'
           onChange={handleChange}
-          className="w-full border  p-2"
+          className="w-full border-2 border-black p-2"
         />
         {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
       </div>
+
 
       {/* Phone Field */}
       <div>
@@ -185,7 +186,7 @@ export default function Career() {
           placeholder='Phone'
           value={formData.phone}
           onChange={handleChange}
-          className="w-full border  p-2"
+          className="w-full border-2 border-black p-2"
         />
         {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
       </div>
@@ -198,7 +199,7 @@ export default function Career() {
           placeholder='Email'
           value={formData.email}
           onChange={handleChange}
-          className="w-full border  p-2"
+          className="w-full border-2 border-black p-2"
         />
         {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
       </div>
@@ -210,7 +211,7 @@ export default function Career() {
           placeholder='Tell us your Thoughts'
           value={formData.message}
           onChange={handleChange}
-          className="w-full border  p-2"
+          className="w-full border-2 border-black p-2"
         />
         {errors.message && <p className="text-red-500 text-sm">{errors.message}</p>}
       </div>
@@ -221,13 +222,14 @@ export default function Career() {
           name="vacancy"
           value={formData.vacancy}
           onChange={handleChange}
-          className="w-full border p-2"
+          className="w-full border-2 border-black p-2"
         >
             <option  disabled value={''} selected> Choose the vacancy </option>
         {vacancies.map(vacancy => <option value={vacancy.id}>{vacancy.vacancy_english}</option>)}
         </select>
         {errors.vacancy && <p className="text-red-500 text-sm">{errors.vacancy}</p>}
       </div>
+      
 
       {/* File Upload Field */}
       <div>
@@ -241,12 +243,12 @@ export default function Career() {
       />
 
       {/* Custom label as trigger */}
-      <label htmlFor="file" className="cursor-pointer border !border-dashed p-3 flex flex-col items-center">
+      <label htmlFor="file" className="cursor-pointer border-3 !border-dashed p-3 flex flex-col items-center space-x-10">
         <p>
-          <img src={fileUploadIcon} alt="Upload Icon" width="50" height="50" />
+          <img src={fileUploadIcon} alt="Upload Icon" width="24" height="24" />
         </p>
-        <p className='text-[20px] text-[#000000]'>Drop your files here</p>
-        {formData.file && <p className="text-gray-600 text-sm mt-2">Selected: {formData.file.name}</p>}
+        <p className='text-[20px] text-[#808080]'>Drop your files here</p>
+        {formData.file && <p className="text-grey-600 text-sm mt-2">Selected: {formData.file.name}</p>}
       </label>
 
       {/* Display validation error */}
