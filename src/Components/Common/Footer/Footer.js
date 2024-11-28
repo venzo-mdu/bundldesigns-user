@@ -67,7 +67,7 @@ export const Footer = () => {
                         </div>
                         <div className='contact-us'>
                             <p>Contact Us</p>
-                            <p><img src={Message} alt='message'></img> info@bundldesigns.com</p>
+                            <p><img src={Message} alt='message'></img>info@bundldesigns.com</p>
                             <p><img src={Whatsapp} alt='whatsapp'></img> +(966) 547754124</p>
                             <div style={{display:'flex',width:'100%'}}>
                                 {
