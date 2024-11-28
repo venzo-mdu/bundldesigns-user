@@ -203,7 +203,7 @@ import BlackDollor from '../../Images/BundlDetail/blackdollor.svg'
 import BlackTime from '../../Images/BundlDetail/blacktime.svg'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { base_url } from '../Auth/BackendAPIUrl'
-import { Config } from '../Auth/ConfigToken'
+import { ConfigToken } from '../Auth/ConfigToken'
 
 export const BundlDetail = () => {
 
@@ -220,7 +220,7 @@ export const BundlDetail = () => {
   }, []);
 
   const getBundlData = async () => {
-    const response = await axios.get(`${base_url}/api/package/?bundle_id=${location.state.bundlDetail?.id}`,Config);
+    const response = await axios.get(`${base_url}/api/package/?bundle_id=${location.state.bundlDetail?.id}`,ConfigToken());
     setBundlAddons(response.data);
   }
 
@@ -286,7 +286,7 @@ export const BundlDetail = () => {
       const response = await axios.post(
         `${base_url}/api/order/create/`, 
         payload,   // Ensure 'payload' is an object with the data you need to send
-        Config     // 'Config' should be an object containing headers or other Axios options
+        ConfigToken()     // 'Config' should be an object containing headers or other Axios options
       );
       console.log(response.data); 
       if (response.status === 201) {
@@ -369,7 +369,7 @@ export const BundlDetail = () => {
                 </div>
               ))}
             </div>
-            <Accordian accordianTitle={'Something feels missing ?'} addOnPayload={setAddonPayLoads} />
+            <Accordian accordianTitle={'Something feels missing ?'} addOnPayload={setAddonPayLoads} bundlePackageId={location.state.bundlDetail?.id}/>
           </div>
 
           <div className='bundl-summary'>
@@ -378,7 +378,7 @@ export const BundlDetail = () => {
             </div>
             <div style={{ display: 'flex', padding: '1% 5%' }}>
               <p style={{ fontSize: '20px', fontWeight: '700', width: '60%' }}>{location.state?.bundlDetail?.name_english}</p>
-              <p style={{ fontSize: '20px', fontWeight: '700', width: '40%' }}>{location.state?.bundlDetail?.price} SAR</p>
+              <p style={{ fontSize: '20px', fontWeight: '700', width: '40%' }}>{Math.round(location.state?.bundlDetail?.price)} SAR</p>
             </div>
             {selectedItems?.map((item, idx) => (
               <div key={idx} className='one-brand-identity'>
@@ -401,13 +401,13 @@ export const BundlDetail = () => {
                 </div>
               </div>
             ))}
-            <div className='bundl-checkout'>
+            <div className='bundl-checkout mt-3'>
               <div className='total' style={{ display: 'flex' }}>
-                <p style={{ width: '60%' }}><img src={BlackDollor} alt="Total Price" className="inline-block"/>Total Price</p>
+                <p style={{ width: '60%' }}><img src={BlackDollor} alt="Total Price" className="inline-block"/><span className='ml-3'>Total Price</span></p>
                 <p style={{ width: '40%' }} >{totalCost + addonPayLoads.total_price } SAR</p>
               </div>
               <div className='total' style={{ display: 'flex' }}>
-                <p style={{ width: '60%' }}><img src={BlackTime} alt="Total Duration" className="inline-block"/>Total Duration</p>
+                <p style={{ width: '60%' }}><img src={BlackTime} alt="Total Duration" className="inline-block"/><span className='ml-3'>Total Duration</span></p>
                 <p style={{ width: '40%' }}>{totalDuration + addonPayLoads.total_time} Days</p>
               </div>
 

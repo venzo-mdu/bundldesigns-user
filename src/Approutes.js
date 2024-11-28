@@ -26,19 +26,20 @@ const getCookie = (name) => {
 
 const ProtectedRoute = ({ element }) => {
   const token = getCookie("token");
-  return token ? element : <Navigate to="/login" />;
+  return token != null ? element : <Navigate to="/login" />;
 };
 
 export default function AppRouter() {
+
+  const token = getCookie("token");
 
   useEffect(()=>{
     document.documentElement.scrollTo({
       top: 0,
       left: 0
     })
-  },[]);
+  },[token]);
   
-  const token = getCookie("token");
 
   return useRoutes([
     {

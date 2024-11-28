@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { Config } from '../Auth/ConfigToken'
+import { ConfigToken } from '../Auth/ConfigToken'
 import { base_url } from '../Auth/BackendAPIUrl';
 import { Footer } from '../Common/Footer/Footer'
 import { Navbar } from '../Common/Navbar/Navbar'
@@ -60,7 +60,7 @@ export default function Dashboard() {
     const ProcessIndexDict = ['purchase', 'questionnaire_required', 'in_progress', 'send_for_approval', 'add_ons', 'content_uploaded']
     const base_url = process.env.REACT_APP_BACKEND_URL
     const getprojects = async () => {
-        const response = await axios.get(`${base_url}/api/order/`, Config);
+        const response = await axios.get(`${base_url}/api/order/`, ConfigToken());
         if (response.data) {
             const resProjects = response.data.data.filter(item=> item.order_status!='completed' && item.order_status!='in_cart')
             console.log(resProjects,'red')
@@ -73,7 +73,7 @@ export default function Dashboard() {
     }
     const getOrderDetails = async (orderId) => {
         setCurrentTab(orderId)
-        const response = await axios.get(`${base_url}/api/order/${orderId}/`, Config);
+        const response = await axios.get(`${base_url}api/order/${orderId}/`, ConfigToken());
         const orderData = response.data.data
         if (orderData) {
 
@@ -110,7 +110,7 @@ export default function Dashboard() {
         window.location.href =`/questionnaire/${order.id}`
     }
     const CheckCart = async (id) => {
-        const response = await axios.get(`${base_url}/api/order/cart/`, Config);
+        const response = await axios.get(`${base_url}/api/order/cart/`, ConfigToken());
         console.log(response)
         if (response.status === 206) {
             reOrder(id)
@@ -121,18 +121,18 @@ export default function Dashboard() {
     }
     const approveBrand = async () => {
         const json = { 'status': 'add_ons' }
-        const response = await axios.post(`${base_url}/api/order_update/${order.id}/`, json, Config);
+        const response = await axios.post(`${base_url}api/order_update/${order.id}/`, json, ConfigToken());
         getOrderDetails(order.id)
     }
     const completeOrder = async () => {
         const json = { 'status': 'completed' }
-        const response = await axios.post(`${base_url}/api/order_update/${order.id}/`, json, Config);
+        const response = await axios.post(`${base_url}api/order_update/${order.id}/`, json, ConfigToken());
         setCompletePopup(true)
         getprojects()
     }
 
     const reOrder = async (id) => {
-        const response = await axios.get(`${base_url}/api/reorder/${id}/`, Config);
+        const response = await axios.get(`${base_url}/api/reorder/${id}/`, ConfigToken());
         window.location.href = '/mycart'
     }
 

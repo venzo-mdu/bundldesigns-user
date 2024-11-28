@@ -17,7 +17,7 @@ import BlackDollor from '../../Images/BundlDetail/blackdollor.svg'
 import BlackTime from '../../Images/BundlDetail/blacktime.svg'
 import { base_url } from '../Auth/BackendAPIUrl';
 import { useLocation, useNavigate } from 'react-router-dom'
-import { Config } from '../Auth/ConfigToken'
+import { ConfigToken } from '../Auth/ConfigToken'
 
 export const MyCart = () => {
 
@@ -43,8 +43,7 @@ export const MyCart = () => {
 
     const getCartData = async () => {
         // const response = await axios.get(`${base_url}/api/order/${location.state.orderData.id}/`);
-        const response = await axios.get(`${base_url}/api/order/cart/`,Config);
-        console.log(response)
+        const response = await axios.get(`${base_url}/api/order/cart/`,ConfigToken());
         if(response.data){
             setCartDetails(response.data);
         }
@@ -80,10 +79,12 @@ export const MyCart = () => {
                 const removedItem = updatedItemDetails.bundle_items.find(item => item.id === itemId);
                 updatedTotalAmount -= removedItem?.unit_price * removedItem?.qty || 0;
                 updatedItemDetails.bundle_items = updatedItemDetails.bundle_items.filter(item => item.id !== itemId);
+                console.log(removedItem,updatedTotalAmount,updatedItemDetails)
             } else if (itemType === 'addon') {
                 const removedItem = updatedItemDetails.addon_items.find(item => item.id === itemId);
                 updatedTotalAmount -= removedItem?.unit_price * removedItem?.qty || 0;
                 updatedItemDetails.addon_items = updatedItemDetails.addon_items.filter(item => item.id !== itemId);
+                console.log(removedItem,updatedTotalAmount,updatedItemDetails)
             }
     
             // Recalculate the totals
@@ -107,7 +108,7 @@ export const MyCart = () => {
             const response = await axios.post(`${base_url}/api/order/payment`, {
                 order_id: location.state.orderData.id,
                 billingInfo,
-            },Config);
+            },ConfigToken());
             console.log("Payment successful:", response.data);
         } catch (error) {
             console.error("Payment error:", error);
@@ -125,7 +126,7 @@ export const MyCart = () => {
             <Navbar />
             <div className='mycart'>
                 <div className='cart'>
-                    <p>Your Cart</p>
+                    <p>Your Cart - {cartDetails?.bundl_english}</p>
                     <TableContainer component={Paper}>
                         <Table sx={{ minWidth: 650 }} aria-label="simple table">
                             <TableHead>
@@ -184,11 +185,11 @@ export const MyCart = () => {
                         </div>
                         <div>
                             <div style={{ display: 'flex' }}>
-                                <p style={{ width: '50%' }}><img src={BlackDollor}></img>Total Price</p>
+                                <p style={{ width: '50%' }}><img src={BlackDollor} className='inline-block'></img>Total Price</p>
                                 <p style={{ width: '40%' }}>{Math.round(cartDetails.grand_total)} sar</p>
                             </div>
                             <div style={{ display: 'flex' }}>
-                                <p style={{ width: '55%' }}><img src={BlackTime}></img>Total Duration</p>
+                                <p style={{ width: '55%' }}><img src={BlackTime} className='inline-block'></img>Total Duration</p>
                                 <p style={{ width: '45%' }}>{Math.round(cartDetails.total_time)} Days</p>
                             </div>
                         </div>

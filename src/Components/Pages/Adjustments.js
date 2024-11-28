@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { Config } from '../Auth/ConfigToken'
+import { ConfigToken } from '../Auth/ConfigToken'
 import { base_url } from '../Auth/BackendAPIUrl';
 import { Footer } from '../Common/Footer/Footer'
 import { Navbar } from '../Common/Navbar/Navbar'
@@ -76,7 +76,7 @@ export default function Adjustments() {
 
     const getOrderDetails = async () => {
         console.log(orderId, 'order')
-        const response = await axios.get(`${base_url}/api/order/${orderId}/`, Config);
+        const response = await axios.get(`${base_url}api/order/${orderId}/`, ConfigToken());
         if (response.data) {
             setOrder(response.data.data);
             console.log(response.data.data)
@@ -84,7 +84,7 @@ export default function Adjustments() {
         }
     }
     const getAdjustments = async (designId) => {
-        const response = await axios.get(`${base_url}/api/adjustments/${designId}/`, Config);
+        const response = await axios.get(`${base_url}api/adjustments/${designId}/`, ConfigToken());
         if (response.data) {
             setAdjustments(response.data.data)
             response.data.data.length && setAdjustmentTab(response.data.data[0].english_adjustment_name)
@@ -94,7 +94,7 @@ export default function Adjustments() {
     console.log(bundlAddons, 'bundl')
 
     const getBundlData = async () => {
-        const response = await axios.get(`${base_url}/api/package/`, Config);
+        const response = await axios.get(`${base_url}/api/package/`, ConfigToken());
         setBundlAddons(response.data.designs_details);
         setDesignListTab(Object.keys(response.data.designs_details)[0])
     }
@@ -172,7 +172,7 @@ export default function Adjustments() {
 
     const createAdjustmentOrder = async() =>{
         const formData = {item_list : itemsList,adjustmentList:adjustmentData,total_price:totalPrice,total_time:totalTime}
-        const res = await axios.post(`${base_url}/api/adjustment_create/${orderId}/`,formData,Config)
+        const res = await axios.post(`${base_url}api/adjustment_create/${orderId}/`,formData,ConfigToken)()
         if (res){
             window.location.href = '/dashboard'
         }

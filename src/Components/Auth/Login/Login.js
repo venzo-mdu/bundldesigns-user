@@ -69,7 +69,6 @@ export const Login = () => {
       
       if (response.status === 200) {
         document.cookie = `token=${response?.data?.data.token || ""}; path=/; SameSite=None; Secure`;
-        console.log(response.data)
         dispatch(loginAction(response.data.user));
         navigate('/');
       }
