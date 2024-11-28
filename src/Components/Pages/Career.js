@@ -162,7 +162,7 @@ export default function Career() {
 
         <div className='mt-12 mb-10'>
             <h2 className='text-[32px] mb-2 text-center'>See something you like? send us your CV & Recent Work</h2>
-            <h3 className='text-[24px] mb-2 text-center text-[#1BA56F]'>Join Us!</h3>
+            <h3 className='text-[24px] mb-2 text-center text-[#1BA56F] relative top-10'>Join Us!</h3>
         <form onSubmit={handleSubmit} className="p-6 sm:max-w-[90vw] md:max-w-[50vw] mx-auto space-y-4">
       {/* Name Field */}
       <div>
@@ -222,9 +222,9 @@ export default function Career() {
           name="vacancy"
           value={formData.vacancy}
           onChange={handleChange}
-          className="w-full border-2 border-black p-2"
+          className="w-full border-2 border-black p-2 text-gray-500"
         >
-            <option  disabled value={''} selected> Choose the vacancy </option>
+            <option  disabled value={''} selected > Choose the vacancy </option>
         {vacancies.map(vacancy => <option value={vacancy.id}>{vacancy.vacancy_english}</option>)}
         </select>
         {errors.vacancy && <p className="text-red-500 text-sm">{errors.vacancy}</p>}
@@ -243,10 +243,19 @@ export default function Career() {
       />
 
       {/* Custom label as trigger */}
-      <label htmlFor="file" className="cursor-pointer border-3 !border-dashed p-3 flex flex-col items-center space-x-10">
-        <p>
-          <img src={fileUploadIcon} alt="Upload Icon" width="24" height="24" />
-        </p>
+      <label htmlFor="file" className="cursor-pointer border-2 !border-dashed border-black p-3 flex flex-col items-center space-x-10">
+      <div className="pt-2">
+
+  <img 
+    src={fileUploadIcon} 
+    alt="Upload Icon" 
+    width="24" 
+    height="24"
+  />
+</div>
+  
+          
+        
         <p className='text-[20px] text-[#808080]'>Drop your files here</p>
         {formData.file && <p className="text-grey-600 text-sm mt-2">Selected: {formData.file.name}</p>}
       </label>
