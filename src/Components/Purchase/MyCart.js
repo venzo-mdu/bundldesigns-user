@@ -17,7 +17,7 @@ import BlackDollor from '../../Images/BundlDetail/blackdollor.svg'
 import BlackTime from '../../Images/BundlDetail/blacktime.svg'
 import { base_url } from '../Auth/BackendAPIUrl';
 import { useLocation, useNavigate } from 'react-router-dom'
-import { Config } from '../Auth/ConfigToken'
+import { ConfigToken } from '../Auth/ConfigToken'
 
 export const MyCart = () => {
 
@@ -43,7 +43,7 @@ export const MyCart = () => {
 
     const getCartData = async () => {
         // const response = await axios.get(`${base_url}/api/order/${location.state.orderData.id}/`);
-        const response = await axios.get(`${base_url}/api/order/cart/`,Config);
+        const response = await axios.get(`${base_url}/api/order/cart/`,ConfigToken());
         if(response.data){
             setCartDetails(response.data);
         }
@@ -108,7 +108,7 @@ export const MyCart = () => {
             const response = await axios.post(`${base_url}/api/order/payment`, {
                 order_id: location.state.orderData.id,
                 billingInfo,
-            },Config);
+            },ConfigToken());
             console.log("Payment successful:", response.data);
         } catch (error) {
             console.error("Payment error:", error);

@@ -9,7 +9,7 @@ import { base_url } from '../Auth/BackendAPIUrl';
 
 import BlackDollor from '../../Images/BundlDetail/blackdollor.svg';
 import BlackTime from '../../Images/BundlDetail/blacktime.svg';
-import { Config } from '../Auth/ConfigToken';
+import { ConfigToken } from '../Auth/ConfigToken';
 
 export const Accordian = ({ accordianTitle, addOnPayload, bundlePackageId }) => {
   const [isDropdown, setIsDropdown] = useState([false, false, false, false, false, false, false]);
@@ -39,11 +39,10 @@ export const Accordian = ({ accordianTitle, addOnPayload, bundlePackageId }) => 
     addOnPayload(addOnPayloads());
   }, [addOnData, quantities]);
 
-  console.log(addOnData, 'add')
 
   const getAddons = async () => {
     try {
-      const response = await axios.get(`${base_url}/api/package/?bundle_id=${bundlePackageId}`, Config);
+      const response = await axios.get(`${base_url}/api/package/?bundle_id=${bundlePackageId}`, ConfigToken());
       setAddonData(response.data);
     } catch (error) {
       console.error("Error fetching addons data:", error);

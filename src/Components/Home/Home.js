@@ -47,12 +47,11 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import CartIcon from '../../Images/Home/Carticon.svg'
 import axios from 'axios'
 import { base_url } from '../Auth/BackendAPIUrl'
-import { Config } from '../Auth/ConfigToken'
+import { ConfigToken } from '../Auth/ConfigToken'
 import {Popup} from '../Common/Popup/Popup'
 import {Footer} from '../Common/Footer/Footer'
 
 export const Home = () => {
-
     const navigate = useNavigate();
     const imageArray = [Car, Lemon, Mouth, Rocket, Pinkpaint];
     const [loading, setLoading] = useState(false);
@@ -127,20 +126,39 @@ export const Home = () => {
         setBundlData(response.data)
     }
 
-    const addToCart = async(bundleData) =>{
-        const response = await axios.get(`${base_url}/api/order/cart/`,Config);
-        if(response.data.order_status === 'in_cart'){
-             setOpenPopup(true);
-           
-        }
-        else{
-           navigate('/bundldetail', { state: { bundlDetail: bundleData } });
-        }
+    // const addToCart = async(bundleData) =>{
+    //     const response = await axios.get(`${base_url}/api/order/cart/`,Config);
+    //     console.log(response)
+    //     if(response.status === 401 && response.data.detail === "Invalid token."){
+    //         console.log('ddd')
+    //         navigate("/login")
+    //        }
+    //     if(response.data.order_status === 'in_cart'){
+    //          setOpenPopup(true);
+    //     }
+    //     else{
+    //        navigate('/bundldetail', { state: { bundlDetail: bundleData } });
+    //     }
     
-    }
+    // }
+
+    const addToCart = async (bundleData) => {
+        try {
+            const response = await axios.get(`${base_url}/api/order/cart/`, ConfigToken());
+            if (response.data.order_status === 'in_cart') {
+                setOpenPopup(true);
+            } else {
+                navigate('/bundldetail', { state: { bundlDetail: bundleData } });
+            }
+        } catch (error) {
+            console.error('An error occurred:', error);
+            navigate("/login");
+        }
+    };
+    
 
     const emptyCart = async() =>{
-       await axios.delete(`${base_url}/api/order/cart/`,Config); 
+       await axios.delete(`${base_url}/api/order/cart/`,ConfigToken()); 
        setOpenPopup(false)
     }
 

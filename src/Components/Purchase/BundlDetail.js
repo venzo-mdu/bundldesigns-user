@@ -203,7 +203,7 @@ import BlackDollor from '../../Images/BundlDetail/blackdollor.svg'
 import BlackTime from '../../Images/BundlDetail/blacktime.svg'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { base_url } from '../Auth/BackendAPIUrl'
-import { Config } from '../Auth/ConfigToken'
+import { ConfigToken } from '../Auth/ConfigToken'
 
 export const BundlDetail = () => {
 
@@ -220,7 +220,7 @@ export const BundlDetail = () => {
   }, []);
 
   const getBundlData = async () => {
-    const response = await axios.get(`${base_url}/api/package/?bundle_id=${location.state.bundlDetail?.id}`,Config);
+    const response = await axios.get(`${base_url}/api/package/?bundle_id=${location.state.bundlDetail?.id}`,ConfigToken());
     setBundlAddons(response.data);
   }
 
@@ -286,7 +286,7 @@ export const BundlDetail = () => {
       const response = await axios.post(
         `${base_url}/api/order/create/`, 
         payload,   // Ensure 'payload' is an object with the data you need to send
-        Config     // 'Config' should be an object containing headers or other Axios options
+        ConfigToken()     // 'Config' should be an object containing headers or other Axios options
       );
       console.log(response.data); 
       if (response.status === 201) {

@@ -9,15 +9,10 @@ export const ConfigToken = () => {
       } ;
       return null;
     };
-
+   
     return   {
      headers: {
       "authorization": 'Token ' + getCookie('token')
      }
   }
 }
-
-
-
-
-export const Config = ConfigToken()
