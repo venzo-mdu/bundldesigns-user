@@ -100,7 +100,7 @@ export default function OurWork() {
         <div className='relative py-10'>
           <img className='absolute left-12' width='160px' style={{ transform: 'rotate(0deg)'}}  src={paperPlane}></img>
           <div className='w-[45%] text-center mx-auto'>
-          <p className='flex justify-center'> <img  className='animate-rotate-animation' width='110px' height='110px' src={loaderSticker}></img></p>
+          <p className='flex justify-center mb-1'> <img  className='animate-rotate-animation' width='200px' height='200px' src={loaderSticker}></img></p>
           <h2>Inspired to start your journey to launch your next big thing ?</h2>
           <p> <button className='bg-[#000] mt-4 text-[20px] text-white py-[5px] px-[18px]'>Get started!</button> </p>
           </div>
