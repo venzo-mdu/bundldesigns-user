@@ -13,9 +13,11 @@ import { Footer } from '../Common/Footer/Footer'
 import { Navbar } from '../Common/Navbar/Navbar'
 import axios from 'axios'
 import { Config } from '../Auth/ConfigToken'
+import { Bgloader } from '../Common/Background/Bgloader'
 
 export const AboutUs = () => {
   const [testimonials, setTestimonials] = useState([])
+  const [loading,setLoading] = useState(true)
   const base_url = process.env.REACT_APP_BACKEND_URL
   const getTestimonials = async () => {
     console.log(base_url)
@@ -23,6 +25,7 @@ export const AboutUs = () => {
     if (response.data) {
       setTestimonials(response.data);
     }
+    setLoading(false)
   }
   useEffect(() => {
     getTestimonials()
@@ -31,6 +34,8 @@ export const AboutUs = () => {
 
   console.log(aboutUs)
   return (
+    loading ?
+    <Bgloader />:
     <>
       <div style={{
         backgroundImage: `url(${cloud_bg})`,

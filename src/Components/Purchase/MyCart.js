@@ -25,6 +25,7 @@ export const MyCart = () => {
     const navigate = useNavigate();
     const [cartDetails, setCartDetails] = useState([]);
     const [openPopup , setOpenPopup] = useState(false);
+    const [removedItems,setRemovedItems] = useState([])
     const [billingInfo, setBillingInfo] = useState({
         firstName: '',
         lastName: '',
@@ -73,7 +74,7 @@ export const MyCart = () => {
         setCartDetails((prevCartDetails) => {
             const updatedItemDetails = { ...prevCartDetails.item_details };
             let updatedTotalAmount = prevCartDetails.total_amount;
-    
+            setRemovedItems(itemId)
             // Handle removal based on item type
             if (itemType === 'bundle') {
                 const removedItem = updatedItemDetails.bundle_items.find(item => item.id === itemId);
@@ -105,10 +106,17 @@ export const MyCart = () => {
     const handlePayment = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`${base_url}/api/order/payment`, {
-                order_id: location.state.orderData.id,
-                billingInfo,
-            },ConfigToken());
+            const formData = {...billingInfo,
+                user_name : billingInfo.firstName + billingInfo.lastName,
+                phone :billingInfo.phoneNumber,
+                promo_code:billingInfo.promoCode,
+                total_amount:cartDetails.total_amount,
+                total_time:cartDetails.total_time,
+                grand_total:cartDetails.grand_total,
+                items_to_delete:removedItems
+            }
+            const response = await axios.put(`${base_url}/api/order/cart/`, formData,ConfigToken());
+            navigate('/dashboard', { state: { reDirect: true} });
             console.log("Payment successful:", response.data);
         } catch (error) {
             console.error("Payment error:", error);

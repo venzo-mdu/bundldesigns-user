@@ -11,10 +11,12 @@ import backIcon from "../../Images/backIcon.svg"
 import uploadIcon from "../../Images/uploadIcon.svg"
 import { useParams } from "react-router-dom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { Bgloader } from '../Common/Background/Bgloader';
 
 export default function UploadContent() {
 
     const { orderId } = useParams();
+    const [loading,setLoading] = useState(true)
     const [uploadContent, setUploadContent] = useState({})
     const [designQuestions, setDesignQuestions] = useState([])
     const [skipId, setSkipId] = useState([])
@@ -80,6 +82,8 @@ export default function UploadContent() {
 
 
     return (
+        loading ?
+        <Bgloader />:
         <>
             <Navbar />
             <div className='font-Helvetica px-6 py-2 flex'>

@@ -44,7 +44,7 @@ export const Footer = () => {
                             <p className='join-text'>Join our newsletter!</p>
                             {/* <p className='message-text'> Enter your email</p> */}
                             <div style={{position:'relative'}}>
-                            <input className='footer-input' placeholder='Enter your email'></input>
+                            <input className='footer-input ml-1 placeholder-white' placeholder='Enter your email'></input>
                             <img className='input-message' src={Message} alt='message'></img>
                             </div>
                         </div>
@@ -52,24 +52,24 @@ export const Footer = () => {
                     </div>
                     <div className='right-content'>
                         <div className='platform'>
-                            <p>Platform</p>
+                            <p className='font-bold text-[20px] mb-1 text-[#ECEAEB]'>Platform</p>
                             <ul>
                                 <li>
-                                    <a href='/our-work' className='text-white'> Our Work</a></li>
-                                <li>   <a href='/' className='text-white'> Bundl</a></li>
-                                <li>   <a href='/dashboard' className='text-white'> Dashboard</a></li>
+                                    <a href='/our-work' className='text-[#ECEAEB]'> Our Work</a></li>
+                                <li>   <a href='/' className='text-[#ECEAEB]'> Bundls</a></li>
+                                <li>   <a href='/dashboard' className='text-[#ECEAEB]'> Dashboard</a></li>
                             </ul>
                         </div>
                         <div className='information'>
-                            <p>Information</p>
+                            <p className='font-bold text-[20px] mb-1 text-[#ECEAEB]'>Information</p>
                             <ul> 
-                                <li>  <a href='/aboutus' className='text-white'> About us</a></li>
-                                <li>  <a href='/faqs' className='text-white'> FAQ's</a></li>
-                                <li>  <a href='/career' className='text-white'> Careers</a></li>
+                                <li>  <a href='/aboutus' className='text-[#ECEAEB]'> About us</a></li>
+                                <li>  <a href='/faq' className='text-[#ECEAEB]'> FAQ's</a></li>
+                                <li>  <a href='/career' className='text-[#ECEAEB]'> Careers</a></li>
                             </ul>
                         </div>
                         <div className='contact-us'>
-                            <p>Contact Us</p>
+                            <p className='font-bold text-[20px] mb-1 text-[#ECEAEB]'>Contact Us</p>
                             <p><img src={Message} alt='message' className="inline-block"/><span> info@bundldesigns.com</span></p>
                             <p><img src={Whatsapp} alt='whatsapp' className="inline-block"></img><span> +(966) 547754124</span></p>
                             <div style={{display:'flex',width:'100%'}}>

@@ -7,8 +7,9 @@ import { Navbar } from '../Common/Navbar/Navbar'
 import loaderSticker from '../../Images/Background/loadsticker.svg'
 import paperPlane from '../../Images/paperPlaneRose.svg'
 import paperplane from '../../Images/our-work.gif'
+import { Bgloader } from '../Common/Background/Bgloader';
 export default function OurWork() {
-
+  const [loading,setLoading] = useState(true)
   const [projects, setProjects] = useState([])
   const [currentTab, setCurrentTab] = useState('all');
   const categories = {
@@ -20,12 +21,12 @@ export default function OurWork() {
   }
   const base_url = process.env.REACT_APP_BACKEND_URL
   const getprojects = async () => {
-    console.log(base_url)
+    setLoading(true)
     const response = await axios.get(`${base_url}/api/content?section=projects`);
     if (response.data) {
-      console.log(response.data)
       setProjects(response.data);
     }
+    setLoading(false)
   }
   useEffect(() => {
     getprojects()
@@ -33,6 +34,8 @@ export default function OurWork() {
 
 
   return (
+    loading ? 
+    <Bgloader /> :
     <>
       <Navbar />
       <div className='font-Helvetica'>

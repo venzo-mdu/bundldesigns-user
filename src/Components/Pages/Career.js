@@ -6,12 +6,14 @@ import { Footer } from '../Common/Footer/Footer'
 import { Navbar } from '../Common/Navbar/Navbar'
 import downArrow from '../../Images/down-arrow.svg'
 import upArrow from '../../Images/up-arrow.svg'
-import whatsappicon from '../../Images/whatsappIcon.svg'
-import emailicon from '../../Images/mailIcon.svg'
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import fileUploadIcon from '../../Images/fileUploadIcon.svg'
+import { Bgloader } from '../Common/Background/Bgloader';
 
 export default function Career() {
   const  [vacancies,setVacancies] =  useState([])
+  const [loading,setLoading] = useState(true)
   const [expandedVacancies, setExpandedVacancies] = useState({});
   const [successMsg,setSuccessMsg] = useState('')
   const base_url = process.env.REACT_APP_BACKEND_URL
@@ -76,6 +78,7 @@ export default function Career() {
   const handleSubmit = async(e) => {
     e.preventDefault();
     if (validate()) {
+      setLoading(true)
       const data = new FormData();
       data.append('name', formData.name);
       data.append('phone', formData.phone);
@@ -90,10 +93,20 @@ export default function Career() {
         data
     );
       if(response.data){
-          console.log(response.data)
           setSuccessMsg('Application Submitted Successfully')
       }
+      setErrors({})
+      setFormData({
+        name: '',
+        phone: '',
+        email: '',
+        message: '',
+        vacancy: '',
+        file: null,
+      })
     }
+    setLoading(false)
+
   };
 
 
@@ -109,15 +122,18 @@ export default function Career() {
         console.log(base_url)
         const response = await axios.get(`${base_url}/api/content?section=careers`);
         if(response.data){
-            console.log(response.data)
             setVacancies(response.data);
         }
+        setLoading(false)
+
     }
   useEffect(()=>{
     getVacancy()
   },[])
 
   return (
+    loading ?
+    <Bgloader /> :
     <>
     <Navbar />
     <div className='font-Helvetica'>
@@ -260,8 +276,8 @@ export default function Career() {
       >
         Apply
       </button></p>
-            <p className='text-center flex items-center justify-center font-bold'> <img src={emailicon}></img> info@bundldesigns.com</p>
-            <p className='text-center flex items-center justify-center font-bold'> <img src={whatsappicon}></img>+(966) 547754124 </p>
+            <p className='text-center flex items-center justify-center font-bold'> <MailOutlineIcon style={{marginRight:'2px'}} /> info@bundldesigns.com</p>
+            <p className='text-center flex items-center justify-center font-bold'> <WhatsAppIcon style={{marginRight:'2px'}} /> +(966) 547754124 </p>
 
             {successMsg && <p className='bg-green-600 py-1 px-2 rounded text-white'>{successMsg}</p>}
     </form>
