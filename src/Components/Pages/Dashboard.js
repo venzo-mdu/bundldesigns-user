@@ -28,6 +28,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { Popup } from '../Common/Popup/Popup';
+import { redirect, useLocation } from 'react-router-dom';
 
 const style = {
     position: 'absolute',
@@ -59,6 +60,9 @@ export default function Dashboard() {
     const [dashboardJson, setDashboardJson] = useState(dashboard.english)
     const ProcessIndexDict = ['purchase', 'questionnaire_required', 'in_progress', 'send_for_approval', 'add_ons', 'content_uploaded']
     const base_url = process.env.REACT_APP_BACKEND_URL
+    const location = useLocation();
+    const { reDirect } = location.state || {};
+    const [purchasePopUp,setPurchasePopUp] = useState(reDirect)
     const getprojects = async () => {
         const response = await axios.get(`${base_url}/api/order/`, ConfigToken());
         if (response.data) {
@@ -73,7 +77,7 @@ export default function Dashboard() {
     }
     const getOrderDetails = async (orderId) => {
         setCurrentTab(orderId)
-        const response = await axios.get(`${base_url}api/order/${orderId}/`, ConfigToken());
+        const response = await axios.get(`${base_url}/api/order/${orderId}/`, ConfigToken());
         const orderData = response.data.data
         if (orderData) {
 
@@ -121,12 +125,12 @@ export default function Dashboard() {
     }
     const approveBrand = async () => {
         const json = { 'status': 'add_ons' }
-        const response = await axios.post(`${base_url}api/order_update/${order.id}/`, json, ConfigToken());
+        const response = await axios.post(`${base_url}/api/order_update/${order.id}/`, json, ConfigToken());
         getOrderDetails(order.id)
     }
     const completeOrder = async () => {
         const json = { 'status': 'completed' }
-        const response = await axios.post(`${base_url}api/order_update/${order.id}/`, json, ConfigToken());
+        const response = await axios.post(`${base_url}/api/order_update/${order.id}/`, json, ConfigToken());
         setCompletePopup(true)
         getprojects()
     }
@@ -347,6 +351,18 @@ export default function Dashboard() {
                     onClick={() => reOrder(reOrderId)}
                     save={'Yes'}
                     cancel={'Cancel'}
+                />
+            }
+              {
+                purchasePopUp && <Popup
+                    openpopup={purchasePopUp}
+                    isCancel={false}
+                    setPopup={setPurchasePopUp}
+                    title={'Thank you for your purchase'}
+                    subTitle={"We're so happy you're here! Let's create something amazing together."}
+                    onClick={() => {setPurchasePopUp(false)}}
+                    save={'Continue to Dashboard'}
+                    // cancel={'Cancel'}
                 />
             }
                {

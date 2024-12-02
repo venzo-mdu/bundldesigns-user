@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 import { loginAction } from '../../../Redux/Action';
 import axios from 'axios';
 import { GoogleLogin } from '@react-oauth/google';
+import { base_url } from '../BackendAPIUrl';
 
 export const Login = () => {
   const dispatch = useDispatch();
@@ -65,7 +66,7 @@ export const Login = () => {
     if (!validateForm()) return;
 
     try {
-      const response = await axios.post('https://bundldesigns-ag7c3.ondigitalocean.app/api/login/', loginData);
+      const response = await axios.post(`${base_url}/api/login/`, loginData);
       
       if (response.status === 200) {
         document.cookie = `token=${response?.data?.data.token || ""}; path=/; SameSite=None; Secure`;

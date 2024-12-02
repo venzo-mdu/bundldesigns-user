@@ -8,6 +8,7 @@ import { Footer } from '../../Common/Footer/Footer';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { GoogleLogin } from '@react-oauth/google';
+import { base_url } from '../BackendAPIUrl';
 
 
 export const Signup = () => {
@@ -97,7 +98,7 @@ export const Signup = () => {
     if (!validateForm()) return;
 
     try {
-      const response = await axios.post('https://bundldesigns-ag7c3.ondigitalocean.app/api/register/', registerData);
+      const response = await axios.post(`${base_url}/api/register/`, registerData);
       if (response.status === 201) {
         console.log('Signup successfully');
         navigate('/login')

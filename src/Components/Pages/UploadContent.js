@@ -11,10 +11,12 @@ import backIcon from "../../Images/backIcon.svg"
 import uploadIcon from "../../Images/uploadIcon.svg"
 import { useParams } from "react-router-dom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { Bgloader } from '../Common/Background/Bgloader';
 
 export default function UploadContent() {
 
     const { orderId } = useParams();
+    const [loading,setLoading] = useState(true)
     const [uploadContent, setUploadContent] = useState({})
     const [designQuestions, setDesignQuestions] = useState([])
     const [skipId, setSkipId] = useState([])
@@ -22,7 +24,7 @@ export default function UploadContent() {
     
     const [order, setOrder] = useState(null)
     const getOrderDetails = async () => {
-        const response = await axios.get(`${base_url}api/order/${orderId}/`, ConfigToken());
+        const response = await axios.get(`${base_url}/api/order/${orderId}/`, ConfigToken());
         if (response.data) {
             setOrder(response.data.data);
             setDesignQuestions(response.data.design_question)
@@ -39,7 +41,7 @@ export default function UploadContent() {
             const formData = new FormData()
             formData.append('file',e.target.files[0])
             formData.append('file_name',e.target.files[0]?.name)
-            const response = await axios.post(`${base_url}api/upload_file/`, formData, ConfigToken());
+            const response = await axios.post(`${base_url}/api/upload_file/`, formData, ConfigToken());
             console.log(response.data,'res');
             setUploadContent((prev) => ({
                 ...prev,
@@ -54,13 +56,13 @@ export default function UploadContent() {
 
     const saveContent = async(itemId) => {
         const formData = {answers:{[itemId]: uploadContent[itemId]},orderId:order.id,status:'save_later'}
-        const response = await axios.post(`${base_url}api/upload_content/`, formData, ConfigToken());
+        const response = await axios.post(`${base_url}/api/upload_content/`, formData, ConfigToken());
         getOrderDetails()
     }
 
     const saveAllContent = async(status)=>{
         const formData = {answers:uploadContent,orderId:order.id,status:status}
-        const response = await axios.post(`${base_url}api/upload_content/`, formData, ConfigToken());
+        const response = await axios.post(`${base_url}/api/upload_content/`, formData, ConfigToken());
         window.location.href = '/dashboard'
     }
     
@@ -80,6 +82,8 @@ export default function UploadContent() {
 
 
     return (
+        loading ?
+        <Bgloader />:
         <>
             <Navbar />
             <div className='font-Helvetica px-6 py-2 flex'>
