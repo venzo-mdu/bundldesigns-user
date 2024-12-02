@@ -136,6 +136,13 @@ export const Questionnaire1 = () => {
   }
    try{
     const response = await axios.post(`${base_url}/api/questionnaire/create`,data,ConfigToken());
+    if(response.status === 200){
+      navigate('/questionnaire/2',{
+        state:{
+          orderId:location.state?.orderId
+        }
+      })
+    }
    }
    catch(e){
     console.log(e)

@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { base_url } from '../Auth/BackendAPIUrl';
 import { Questionnaire } from './Questionnaire';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { ConfigToken } from '../Auth/ConfigToken';
 import { questionnaireAction5, questionnaireAnswers } from '../../Redux/Action';
 
 export const Questionnaire5 = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useDispatch();
   const answers1 = useSelector((state) => state.questionnaire1);
   const answers2 = useSelector((state) => state.questionnaire2);
@@ -91,7 +92,7 @@ export const Questionnaire5 = () => {
       let data = {
         formData,
         status:'not submitted',
-        orderId:43
+        orderId:location.state.orderId
       };
       const response = await axios.post(
         `${base_url}/api/questionnaire/create`,
