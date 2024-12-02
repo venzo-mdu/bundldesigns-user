@@ -125,12 +125,12 @@ export default function Dashboard() {
     }
     const approveBrand = async () => {
         const json = { 'status': 'add_ons' }
-        const response = await axios.post(`${base_url}api/order_update/${order.id}/`, json, ConfigToken());
+        const response = await axios.post(`${base_url}/api/order_update/${order.id}/`, json, ConfigToken());
         getOrderDetails(order.id)
     }
     const completeOrder = async () => {
         const json = { 'status': 'completed' }
-        const response = await axios.post(`${base_url}api/order_update/${order.id}/`, json, ConfigToken());
+        const response = await axios.post(`${base_url}/api/order_update/${order.id}/`, json, ConfigToken());
         setCompletePopup(true)
         getprojects()
     }

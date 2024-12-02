@@ -38,7 +38,6 @@ export default function WebsterForm() {
                 'phone': e,
               });
         }
-        console.log(formData)
         // Validation function
         const validate = () => {
           const newErrors = {};
@@ -80,7 +79,6 @@ export default function WebsterForm() {
             }
             setLoading(false)
           }
-
           
         }
       

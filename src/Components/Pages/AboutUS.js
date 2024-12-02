@@ -12,12 +12,9 @@ import blueSticker from '../../Images/Sticker_blue.svg'
 import { Footer } from '../Common/Footer/Footer'
 import { Navbar } from '../Common/Navbar/Navbar'
 import axios from 'axios'
-import { Config } from '../Auth/ConfigToken'
-import { Bgloader } from '../Common/Background/Bgloader'
 
 export const AboutUs = () => {
   const [testimonials, setTestimonials] = useState([])
-  const [loading,setLoading] = useState(true)
   const base_url = process.env.REACT_APP_BACKEND_URL
   const getTestimonials = async () => {
     console.log(base_url)
@@ -25,7 +22,6 @@ export const AboutUs = () => {
     if (response.data) {
       setTestimonials(response.data);
     }
-    setLoading(false)
   }
   useEffect(() => {
     getTestimonials()
@@ -34,18 +30,15 @@ export const AboutUs = () => {
 
   console.log(aboutUs)
   return (
-    loading ?
-    <Bgloader />:
     <>
-      <div style={{
+      <div className={`bg-cover  md:bg-[100%_3%] lg:bg-[100%_7%] xs:[100%_8%] font-Helvetica`} 
+       style={{
         backgroundImage: `url(${cloud_bg})`,
-        backgroundSize: 'cover',
-        backgroundPosition: '100% 6%',
-      }} className='font-Helvetica'>
+      }}>
         < Navbar />
 
-        <div className='xl:h-[56vh] lg:h-[56vh] md:h-[75vh] relative'>
-          <h1 className='font-Helvetica md:w-[60vw] lg:text-[38px] md:text-[36px] xl:w-[50vw] xl:text-[45px] mx-auto py-[8%] my-[2%] text-center'>{aboutUs.main_content} </h1>
+        <div className='xl:h-[56vh]  lg:h-[56vh] md:h-[80vh] xs:h-[30vh] relative'>
+          <h1 className='font-Helvetica md:w-[60vw] lg:text-[38px] xs:text-[22px] md:text-[36px] xl:w-[50vw] xl:text-[45px] mx-auto py-[8%] my-[2%] text-center'>{aboutUs.main_content} </h1>
           <img className='animate-rotate-animation absolute xl:top-[73%]  lg:top-[57%] lg:ml-[25vw] md:ml-[25vw] md:top-[55%] xl:ml-[26vw]' width='100px' height='100px' src={loaderSticker}></img>
         </div >
 
@@ -54,14 +47,14 @@ export const AboutUs = () => {
           <div className='basis-[50%] border-t border-r border-l relative py-4 !border-black'>
             <h1 className='px-28 text-[32px] md:text-[28px]'>Mission</h1>
             <p className='xl:px-48 md:px-20 xl:text-[20px] md:text-[18px]'>{aboutUs.mission}</p>
-            <img className='absolute md:top-[150px] left-6 xl:top-[70px] xl:w-[260px] md:w-[160px]' src={paperPlane}></img>
+            <img className='absolute md:top-[130px] left-0 xl:top-[70px] xl:w-[260px] md:w-[160px]' src={paperPlane}></img>
 
           </div>
           <div className='!z-10 basis-[50%] border-t border-r  py-4   relative !border-black'>
 
             <h1 className='px-[8%] md:text-[28px] xl:text-[32px]'>Vision</h1>
             <p className=' xl:px-[200px] md:px-20 md:text-[18px] xl:text-[20px]'>{aboutUs.vission}</p>
-            <img className='absolute md:bottom-[80px] xl:bottom-[-25px]  right-0 xl:w-[240px] md:w-[160px]' src={glass}></img>
+            <img className='absolute md:bottom-[50px] xl:bottom-[-25px]  right-[10px] xl:w-[240px] md:w-[160px]' src={glass}></img>
 
           </div>
 
@@ -152,13 +145,18 @@ style={{
             </svg>
           </div>
           </div>
-        <p className='text-[16px] font-bold'>{testimonials.length ? testimonials[0].customer_english : ''}</p>
+          <div
+              id="description"
+              className="text-[16px] font-bold"
+              dangerouslySetInnerHTML={{ __html: testimonials.length ? testimonials[0].customer_english : ''}}
+            />
+        {/* <p className='text-[16px] font-bold'>{testimonials.length ? testimonials[0].customer_english : ''}</p> */}
         </div>
 
       </div>
-      <div className='text-center py-12 '>
-      <h2 className='w-[35vw] text-[32px] mx-auto'>Inspired to start your journey to launch your next big thing ?</h2>
-      <p className='text-center'> <button className='py-1 px-3  mt-4 bg-black text-white'>Get started!</button> </p>
+      <div className='text-center py-14 '>
+      <h2 className='w-[50vw] text-[32px] mx-auto'>Inspired to start your journey to launch your next big thing ?</h2>
+      <p className='text-center'> <button onClick={()=> {window.location.href = '/'}} className='py-1 px-3  mt-8 bg-black text-white'>Get started!</button> </p>
       </div>
 
       <Footer />

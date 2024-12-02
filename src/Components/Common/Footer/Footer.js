@@ -52,7 +52,7 @@ export const Footer = () => {
                     </div>
                     <div className='right-content'>
                         <div className='platform'>
-                            <p className='font-bold text-[20px] mb-1 text-[#ECEAEB]'>Platform</p>
+                            <p className='font-medium text-[20px] mb-1 text-[#ECEAEB]'>Platform</p>
                             <ul>
                                 <li>
                                     <a href='/our-work' className='text-[#ECEAEB]'> Our Work</a></li>
@@ -61,23 +61,23 @@ export const Footer = () => {
                             </ul>
                         </div>
                         <div className='information'>
-                            <p className='font-bold text-[20px] mb-1 text-[#ECEAEB]'>Information</p>
+                            <p className='font-medium text-[20px] mb-1 text-[#ECEAEB]'>Information</p>
                             <ul> 
-                                <li>  <a href='/aboutus' className='text-[#ECEAEB]'> About us</a></li>
+                                <li>  <a href='/aboutus' className='text-[#ECEAEB] font-normal'> About us</a></li>
                                 <li>  <a href='/faq' className='text-[#ECEAEB]'> FAQ's</a></li>
                                 <li>  <a href='/career' className='text-[#ECEAEB]'> Careers</a></li>
                             </ul>
                         </div>
                         <div className='contact-us'>
-                            <p className='font-bold text-[20px] mb-1 text-[#ECEAEB]'>Contact Us</p>
+                            <p className='font-medium !text-[20px] mb-1 text-[#ECEAEB]'>Contact Us</p>
                             <p><img src={Message} alt='message' className="inline-block"/><span> info@bundldesigns.com</span></p>
                             <p><img src={Whatsapp} alt='whatsapp' className="inline-block"></img><span> +(966) 547754124</span></p>
                             <div style={{display:'flex',width:'100%'}}>
                                 {
                                     socialIcons.map((item, index) => {
                                         return (
-                                            <NavLink target='_blank' to={item.path} style={index>0?{marginLeft:'5%'}:{}} className='social-icons'>
-                                                <img style={{width:'30px'}} key={index} src={item.icon} alt='social-media'></img> 
+                                            <NavLink target='_blank' to={item.path} className='!w-[32px] !h-[32px] social-icons mr-5'>
+                                                <img style={{width:'16px'}} key={index} src={item.icon} alt='social-media'></img> 
                                             </NavLink>
                                             
                                         )

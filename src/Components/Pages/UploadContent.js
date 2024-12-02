@@ -24,7 +24,7 @@ export default function UploadContent() {
     
     const [order, setOrder] = useState(null)
     const getOrderDetails = async () => {
-        const response = await axios.get(`${base_url}api/order/${orderId}/`, ConfigToken());
+        const response = await axios.get(`${base_url}/api/order/${orderId}/`, ConfigToken());
         if (response.data) {
             setOrder(response.data.data);
             setDesignQuestions(response.data.design_question)
@@ -41,7 +41,7 @@ export default function UploadContent() {
             const formData = new FormData()
             formData.append('file',e.target.files[0])
             formData.append('file_name',e.target.files[0]?.name)
-            const response = await axios.post(`${base_url}api/upload_file/`, formData, ConfigToken());
+            const response = await axios.post(`${base_url}/api/upload_file/`, formData, ConfigToken());
             console.log(response.data,'res');
             setUploadContent((prev) => ({
                 ...prev,
@@ -56,13 +56,13 @@ export default function UploadContent() {
 
     const saveContent = async(itemId) => {
         const formData = {answers:{[itemId]: uploadContent[itemId]},orderId:order.id,status:'save_later'}
-        const response = await axios.post(`${base_url}api/upload_content/`, formData, ConfigToken());
+        const response = await axios.post(`${base_url}/api/upload_content/`, formData, ConfigToken());
         getOrderDetails()
     }
 
     const saveAllContent = async(status)=>{
         const formData = {answers:uploadContent,orderId:order.id,status:status}
-        const response = await axios.post(`${base_url}api/upload_content/`, formData, ConfigToken());
+        const response = await axios.post(`${base_url}/api/upload_content/`, formData, ConfigToken());
         window.location.href = '/dashboard'
     }
     
