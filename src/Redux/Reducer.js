@@ -4,6 +4,8 @@ const initialState = {
     questionnaire2:[],
     questionnaire3:[],
     questionnaire4:[],
+    questionnaire5:[],
+    questionnaireanswers:[],
   };
 
   export default (state = initialState, action) => {
@@ -17,7 +19,11 @@ const initialState = {
       case "questionnaire3":
         return Object.assign({}, state, { questionnaire3: action.payload });
       case "questionnaire4":
-        return Object.assign({}, state, { questionnaire4: action.payload });  
+        return Object.assign({}, state, { questionnaire4: action.payload }); 
+      case "questionnaire5":
+        return Object.assign({}, state, { questionnaire5: action.payload }); 
+      case "questionnaireanswers":
+        return Object.assign({}, state, { questionnaireanswers: action.payload });    
       default:
         return state;
     }

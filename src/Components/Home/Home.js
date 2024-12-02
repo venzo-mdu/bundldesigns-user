@@ -48,21 +48,21 @@ import CartIcon from '../../Images/Home/Carticon.svg'
 import axios from 'axios'
 import { base_url } from '../Auth/BackendAPIUrl'
 import { ConfigToken } from '../Auth/ConfigToken'
-import {Popup} from '../Common/Popup/Popup'
-import {Footer} from '../Common/Footer/Footer'
+import { Popup } from '../Common/Popup/Popup'
+import { Footer } from '../Common/Footer/Footer'
 
 export const Home = () => {
     const navigate = useNavigate();
     const imageArray = [Car, Lemon, Mouth, Rocket, Pinkpaint];
     const [loading, setLoading] = useState(false);
-    const [openPopup , setOpenPopup] = useState(false);
+    const [openPopup, setOpenPopup] = useState(false);
     const [slideImage, setSlideImage] = useState(imageArray[0]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [activeProcess, setActiveProcess] = useState(0);
     const [isActiveProcess, setIsActiveProcess] = useState([false, false, false, false, false]);
     const [bundlData, setBundlData] = useState([]);
     const translateX = activeProcess * (window.innerWidth <= 475 ? 85 : window.innerWidth <= 768 ? 150 : 195);
-    const bundlImages = [QubeIcon , Diamond,Eye,Food, Money   ]
+    const bundlImages = [QubeIcon, Diamond, Eye, Food, Money]
     const processData = [
         {
             title: "BUY A BUNDL",
@@ -126,22 +126,6 @@ export const Home = () => {
         setBundlData(response.data)
     }
 
-    // const addToCart = async(bundleData) =>{
-    //     const response = await axios.get(`${base_url}/api/order/cart/`,Config);
-    //     console.log(response)
-    //     if(response.status === 401 && response.data.detail === "Invalid token."){
-    //         console.log('ddd')
-    //         navigate("/login")
-    //        }
-    //     if(response.data.order_status === 'in_cart'){
-    //          setOpenPopup(true);
-    //     }
-    //     else{
-    //        navigate('/bundldetail', { state: { bundlDetail: bundleData } });
-    //     }
-    
-    // }
-
     const addToCart = async (bundleData) => {
         try {
             const response = await axios.get(`${base_url}/api/order/cart/`, ConfigToken());
@@ -155,11 +139,11 @@ export const Home = () => {
             navigate("/login");
         }
     };
-    
 
-    const emptyCart = async() =>{
-       await axios.delete(`${base_url}/api/order/cart/`,ConfigToken()); 
-       setOpenPopup(false)
+
+    const emptyCart = async () => {
+        await axios.delete(`${base_url}/api/order/cart/`, ConfigToken());
+        setOpenPopup(false)
     }
 
     const updateActiveProcess = (index) => {
@@ -176,7 +160,7 @@ export const Home = () => {
 
                         <section className="container-fluid header-section" style={{ overflow: "hidden" }}>
                             <div className="nav-section">
-                                <div style={{padding:'0% 2%'}} className="">
+                                <div style={{ padding: '0% 2%' }} className="">
                                     <div className="row align-items-center">
                                         <div className="col-4 col-md-3 col-lg-3 justify-content-between">
                                             <div className="navbar navbar-expand-lg justify-content-between">
@@ -260,7 +244,7 @@ export const Home = () => {
                             <div className="nav-sider mt-20">
                                 <div className="scroller bg-grey">
                                     <ul className="tag-list scroller__inner">
-                                    <li className="slidee "><img src={CarMarquee} className="img-fluid"></img></li>
+                                        <li className="slidee "><img src={CarMarquee} className="img-fluid"></img></li>
                                         <li className="slidee "><span>BRAND identity</span></li>
                                         <li className="slidee "><img src={LemonMarquee} alt="" className="img-fluid"></img></li>
                                         <li className="slidee "><span>web design</span></li>
@@ -564,7 +548,7 @@ export const Home = () => {
                                         </div>
                                     </div> */}
                                 </div>
-                            </div>  
+                            </div>
                         </div>
 
 
@@ -578,26 +562,26 @@ export const Home = () => {
                                         <>
 
                                             <div key={index} className="sliding_section border-top1" style={{ display: "flex" }}>
-                                                <input type="checkbox" id={`newbie_no${index+1}`} className="button_section"></input>
+                                                <input type="checkbox" id={`newbie_no${index + 1}`} className="button_section"></input>
 
-                                                <div className={`icon_section${index+1}`}>
-                                                    <div className={`subzero${index+1}`}>
-                                                   
-                                                        <span onClick={()=>addToCart(bundles)} className= {`buiscut_layer${index+1}`}>
-                                                            <img style={{width:'30%'}} src={CartIcon} alt='cart-icon'></img>
-                                                            <NavLink  style={{ color: 'white',margin:'2% 0 0 0' }}> ADD  <br />
+                                                <div className={`icon_section${index + 1}`}>
+                                                    <div className={`subzero${index + 1}`}>
+
+                                                        <span onClick={() => addToCart(bundles)} className={`buiscut_layer${index + 1}`}>
+                                                            <img style={{ width: '30%' }} src={CartIcon} alt='cart-icon'></img>
+                                                            <NavLink style={{ color: 'white', margin: '2% 0 0 0' }}> ADD  <br />
                                                                 TO CART !
                                                             </NavLink>
 
                                                         </span>
-                                                        <div style={{cursor:"pointer"}} onClick={()=>addToCart(bundles)} className={`main_inside${index+1}`}></div>
+                                                        <div style={{ cursor: "pointer" }} onClick={() => addToCart(bundles)} className={`main_inside${index + 1}`}></div>
                                                     </div>
                                                 </div>
 
-                                                <div className={`bg_color${index+1}`}></div>
+                                                <div className={`bg_color${index + 1}`}></div>
 
-                                                <div className={`open_arrow${index+1}  position-relative`}>
-                                                    <label for={`newbie_no${index+1}`} style={{ cursor: 'pointer' }}>
+                                                <div className={`open_arrow${index + 1}  position-relative`}>
+                                                    <label for={`newbie_no${index + 1}`} style={{ cursor: 'pointer' }}>
                                                         <svg width="18" height="28" viewBox="0 0 18 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                             <path d="M2.26122 1.6006L14.4624 13.8018L2.26122 26.0029" stroke="auto" stroke-width="4" />
                                                         </svg>
@@ -646,21 +630,16 @@ export const Home = () => {
                                                             <div className="second_section_text" style={{ paddingTop: "10px" }}>{bundles.name_english}</div>
                                                         </div>
                                                     </div>
-                                                    {
-                                                        bundles.name_english === "The Newbie" && (
-                                                            <>
-                                                            <div className="sar d-flex align-items-center">
-                                                                <img src={Money} alt="" className="img-fluid"></img>
-                                                                <span className="sar_text px-2"><span>Starting from</span> {Math.round(bundles.min_order_amount)} SAR</span>
-                                                            </div>
-                                                            <div className="work_time d-flex align-items-center">
-                                                                <img src={Time} alt="" className="ing-fluid"></img>
-                                                                <span className="working_days px-2"><span>Starting from</span> {bundles.time} WORKING DAYS</span>
-                                                            </div>
-                                                        </>
-                                                        )
-                                                    }
-                                                   
+                                                    <>
+                                                        <div className="sar d-flex align-items-center">
+                                                            <img src={Money} alt="" className="img-fluid"></img>
+                                                            <span className="sar_text px-2"><span> {bundles.name_english === "The Newbie" ? 'Starting from' : ''}</span> {Math.round(bundles.min_order_amount)} SAR</span>
+                                                        </div>
+                                                        <div className="work_time d-flex align-items-center">
+                                                            <img src={Time} alt="" className="ing-fluid"></img>
+                                                            <span className="working_days px-2"><span>{bundles.name_english === "The Newbie" ? 'Starting from' : ''}</span> {bundles.time} WORKING DAYS</span>
+                                                        </div>
+                                                    </>
                                                 </div>
                                             </div>
                                         </>
@@ -920,23 +899,23 @@ export const Home = () => {
                                 </div>
                             </div>
                         </section> */}
-                        <Footer/>
+                        <Footer />
                     </div>
 
-                  
+
             }
             {
                 openPopup &&
-      <Popup
-        openpopup={openPopup}
-        setPopup={setOpenPopup} 
-        title={'Your Cart was already full'} 
-        subTitle={'Are you sure, you want to empty the cart.'}
-        onClick={emptyCart}
-        save={'Empty Cart'}
-        cancel={'Cancel'}
-        />
-    }
+                <Popup
+                    openpopup={openPopup}
+                    setPopup={setOpenPopup}
+                    title={'Your Cart was already full'}
+                    subTitle={'Are you sure, you want to empty the cart.'}
+                    onClick={emptyCart}
+                    save={'Empty Cart'}
+                    cancel={'Cancel'}
+                />
+            }
         </>
     )
 }

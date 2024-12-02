@@ -33,3 +33,17 @@ export const questionnaireAction4 = (payload) => {
     payload,
   };
 };
+
+export const questionnaireAction5 = (payload) => {
+  return {
+    type: "questionnaire5",
+    payload,
+  };
+};
+
+export const questionnaireAnswers = (payload) => {
+  return {
+    type: "questionnaireanswers",
+    payload,
+  };
+};

@@ -28,6 +28,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { Popup } from '../Common/Popup/Popup';
+import { useNavigate } from 'react-router-dom';
 
 const style = {
     position: 'absolute',
@@ -42,6 +43,8 @@ const style = {
     display:'flex',
 };
 export default function Dashboard() {
+
+    const navigate = useNavigate();
 
     const [projects, setProjects] = useState([])
     const [purchases,setPurchases] = useState([])
@@ -73,7 +76,7 @@ export default function Dashboard() {
     }
     const getOrderDetails = async (orderId) => {
         setCurrentTab(orderId)
-        const response = await axios.get(`${base_url}api/order/${orderId}/`, ConfigToken());
+        const response = await axios.get(`${base_url}/api/order/${orderId}/`, ConfigToken());
         const orderData = response.data.data
         if (orderData) {
 
@@ -107,7 +110,9 @@ export default function Dashboard() {
     }
 
     const fillQuestionaire = () => {
-        window.location.href =`/questionnaire/${order.id}`
+        navigate('/questionnaire/1',{state:{
+            orderId:order.id
+    }})
     }
     const CheckCart = async (id) => {
         const response = await axios.get(`${base_url}/api/order/cart/`, ConfigToken());
@@ -121,12 +126,12 @@ export default function Dashboard() {
     }
     const approveBrand = async () => {
         const json = { 'status': 'add_ons' }
-        const response = await axios.post(`${base_url}api/order_update/${order.id}/`, json, ConfigToken());
+        const response = await axios.post(`${base_url}/api/order_update/${order.id}/`, json, ConfigToken());
         getOrderDetails(order.id)
     }
     const completeOrder = async () => {
         const json = { 'status': 'completed' }
-        const response = await axios.post(`${base_url}api/order_update/${order.id}/`, json, ConfigToken());
+        const response = await axios.post(`${base_url}/api/order_update/${order.id}/`, json, ConfigToken());
         setCompletePopup(true)
         getprojects()
     }
