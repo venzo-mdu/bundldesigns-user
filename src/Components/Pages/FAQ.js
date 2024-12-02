@@ -45,8 +45,13 @@ export default function FAQ() {
   const validate = () => {
     const newErrors = {};
 
-    if (!formData.name) newErrors.name = 'Name is required';
-    else if (formData.name.length < 3) newErrors.name = 'Name must be at least 3 characters';
+    if (!formData.name) {
+      newErrors.name = 'Name is required';
+    } else if (formData.name.length < 3) {
+      newErrors.name = 'Name must be at least 3 characters';
+    } else if (/\d/.test(formData.name)) {
+      newErrors.name = 'Name must not contain numbers';
+    }
 
     if (!formData.phone) newErrors.phone = 'Phone number is required';
     else if (!/^\d{10}$/.test(formData.phone)) newErrors.phone = 'Phone number must be 10 digits';
@@ -99,16 +104,16 @@ export default function FAQ() {
             <h1 className='text-[40px]'> FAQs </h1>
             <p className='text-[20px] font-medium text-[#00000080]'>Where we answer all your questions!</p>
           </div>
-          <div className='lg:p-20 md:p-10  sm:p-3 border-b !px-[10%] border-black'>
-            <div className='flex justify-center'>
+          <div className='lg:p-20 md:p-10  sm:p-10 xs:p-10 border-b  border-black'>
+            <div className='flex md:justify-center overflow-x-auto'>
               {faqs.categories.map((category, index) => {
-                return <button className={`lg:px-[20px] md:px-[10px] md:py-[3px] md:text-[16px] lg:py-[5px]  ${currentTab == category.name_english ? 'text-white bg-[#1BA56F] ' : 'text-[#1BA56F] bg-white '} border-r border-t border-b
+                return <button className={`lg:px-[20px] md:px-[10px] xs:px-[5px] sm:px-[5px] md:py-[3px] md:text-[16px] lg:py-[5px]  ${currentTab == category.name_english ? 'text-white bg-[#1BA56F] ' : 'text-[#1BA56F] bg-white '} border-r border-t border-b
                            ${index == 0 && 'border-l'} ${index == faqs.categories.length && 'border-l-0 border-r'}
                    !border-[#1BA56F]`}
                   onClick={() => setCurrentTab(category.name_english)}>{category.name_english}</button>
               })}
             </div>
-            <div className='mt-8 text-[32px]'>
+            <div className='mt-8 '>
               {currentTab && <h2 className='mb-6 text-[28px]'>{currentTab}</h2>}
               {
                 faqs.data.map((faq) => {
@@ -191,7 +196,7 @@ export default function FAQ() {
               {/* Submit Button */}
               <p className='text-center'> <button
                 type="submit"
-                className="bg-[#1BA56F] text-white p-1  px-4 hover:bg-blue-600"
+                className="bg-[#1BA56F] text-white p-1  px-4 "
               >
                 Send Message
               </button></p>

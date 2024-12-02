@@ -44,8 +44,14 @@ export default function PremiumForm() {
   const validate = () => {
     const newErrors = {};
 
-    if (!formData.name) newErrors.name = 'Name is required';
-    else if (formData.name.length < 3) newErrors.name = 'Name must be at least 3 characters';
+    if (!formData.name) {
+      newErrors.name = 'Name is required';
+    } else if (formData.name.length < 3) {
+      newErrors.name = 'Name must be at least 3 characters';
+    } else if (/\d/.test(formData.name)) {
+      newErrors.name = 'Name must not contain numbers';
+    }
+
 
     if (!formData.project_name) newErrors.project_name = 'Project name is required';
     else if (formData.project_name.length < 3) newErrors.project_name = 'Project name must be at least 3 characters';

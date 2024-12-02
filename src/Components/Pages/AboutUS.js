@@ -31,30 +31,30 @@ export const AboutUs = () => {
   console.log(aboutUs)
   return (
     <>
-      <div className={`bg-cover  md:bg-[100%_3%] lg:bg-[100%_7%] xs:[100%_8%] font-Helvetica`} 
+      <div className={`bg-cover  md:bg-[100%_3%] lg:bg-[100%_7%] xs:[120%_10%] font-Helvetica`} 
        style={{
         backgroundImage: `url(${cloud_bg})`,
       }}>
         < Navbar />
 
-        <div className='xl:h-[56vh]  lg:h-[56vh] md:h-[80vh] xs:h-[30vh] relative'>
-          <h1 className='font-Helvetica md:w-[60vw] lg:text-[38px] xs:text-[22px] md:text-[36px] xl:w-[50vw] xl:text-[45px] mx-auto py-[8%] my-[2%] text-center'>{aboutUs.main_content} </h1>
+        <div className='xl:h-[56vh]  lg:h-[56vh] md:h-[80vh] xs:h-[40vh] relative'>
+          <h1 className='font-Helvetica md:w-[60vw] lg:text-[38px] xs:text-[22px] sm:text-[22px] sm:w-[70vw] xs:w-[70vw] md:text-[36px] xl:w-[50vw] xl:text-[45px] mx-auto py-[8%] my-[2%] text-center'>{aboutUs.main_content} </h1>
           <img className='animate-rotate-animation absolute xl:top-[73%]  lg:top-[57%] lg:ml-[25vw] md:ml-[25vw] md:top-[55%] xl:ml-[26vw]' width='100px' height='100px' src={loaderSticker}></img>
         </div >
 
 
-        <div className='flex justify-between text-center '>
+        <div className='flex md:flex sm:block xs:block justify-between text-center '>
           <div className='basis-[50%] border-t border-r border-l relative py-4 !border-black'>
-            <h1 className='px-28 text-[32px] md:text-[28px]'>Mission</h1>
+            <h1 className='px-28 text-[32px] sm:text-[22px] xs:text-[22px]   md:text-[28px]'>Mission</h1>
             <p className='xl:px-48 md:px-20 xl:text-[20px] md:text-[18px]'>{aboutUs.mission}</p>
-            <img className='absolute md:top-[130px] left-0 xl:top-[70px] xl:w-[260px] md:w-[160px]' src={paperPlane}></img>
+            <img className='absolute md:top-[130px] xs:w-[100px] left-0 xl:top-[70px] xl:w-[260px] md:w-[160px]' src={paperPlane}></img>
 
           </div>
           <div className='!z-10 basis-[50%] border-t border-r  py-4   relative !border-black'>
 
             <h1 className='px-[8%] md:text-[28px] xl:text-[32px]'>Vision</h1>
             <p className=' xl:px-[200px] md:px-20 md:text-[18px] xl:text-[20px]'>{aboutUs.vission}</p>
-            <img className='absolute md:bottom-[50px] xl:bottom-[-25px]  right-[10px] xl:w-[240px] md:w-[160px]' src={glass}></img>
+            <img className='absolute md:bottom-[50px] xs:w-[100px] xl:bottom-[-25px]  right-[10px] xl:w-[240px] md:w-[160px]' src={glass}></img>
 
           </div>
 
@@ -79,26 +79,26 @@ style={{
 // }}
  >
               <div className='text-center border py-4 px-3 z-0 !border-black'>
-          <h1 className='text-[32px] md:text-[28px]'>Our Values</h1>
-          <p className='text-[20px] md:text-[18px]'>{aboutUs.our_values}</p>
+          <h1 className='text-[32px] sm:text-[22px] xs:text-[22px]  md:text-[28px]'>Our Values</h1>
+          <p className='text-[20px] sm:text-[20px] xs:text-[20px]  md:text-[20px]'>{aboutUs.our_values}</p>
         </div>
         <div className='text-center text-Helvetica md:pt-[5%] lg:pt-[3%]'>
-          <h2 className='pb-[2%] md:text-[28px]'> The Founders</h2>
-          <p className='xl:w-[38vw] md:w-[57vw] md:text-[18px] mx-auto leading-[28px] text-[20px]'> {aboutUs.founders} </p>
+          <h2 className='pb-[2%] md:text-[28px] sm:text-[22px] xs:text-[22px] '> The Founders</h2>
+          <p className='xl:w-[38vw] md:w-[57vw] md:text-[20px] mx-auto leading-[28px] text-[20px]'> {aboutUs.founders} </p>
         </div>
         <div className='text-center text-Helvetica md:pt-[4%] lg:pt-[3%] pb-[4%]'>
-          <h2 className='pb-[2%] md:text-[28px]'> Our Talents</h2>
-          <p className='xl:w-[38vw] md:w-[56vw] md:text-[18px] mx-auto leading-[28px] text-[20px]'>{aboutUs.our_talents}</p>
+          <h2 className='pb-[2%] md:text-[28px] sm:text-[22px] xs:text-[22px] '> Our Talents</h2>
+          <p className='xl:w-[38vw] md:w-[56vw] md:text-[20px] mx-auto leading-[28px] text-[20px]'>{aboutUs.our_talents}</p>
         </div>
       </div>
 
       <div className='text-center relative border-black leading-[40px] py-[3%] border-b'>
-        <img className='absolute md:top-[-72px] lg:top-[-100px] xl:top-[-80px] lg:w-[150px] xl:w-[150px] left-[12vw] md:w-[150px] ' width='200px' height='140px' src={blueSticker} />
-        <h2 className=' text-[32px] font-bold pb-[30px]'>What we do</h2>
-        <p className='underline text-[24px] font-bold'>Brand Identity</p>
-        <p className='underline text-[24px] font-bold'>Packaging</p>
-        <p className='underline text-[24px] font-bold'>Social Media Designs</p>
-        <p className='underline text-[24px] font-bold'>Shopify Websites</p>
+        <img className='absolute md:top-[-72px] lg:top-[-100px] sm:w-[100px] xs:w-[100px] xs:top-[-30px] sm:top-[-52px] xl:top-[-80px] lg:w-[150px] xl:w-[150px] left-[12vw] md:w-[150px] ' width='200px' height='140px' src={blueSticker} />
+        <h2 className=' md:text-[32px] sm:text-[24px] xs:text-[24px]  font-bold pb-[30px]'>What we do</h2>
+        <p className='underline md:text-[24px] sm:text-[22px] xs:text-[22px]  font-bold'>Brand Identity</p>
+        <p className='underline md:text-[24px] sm:text-[22px] xs:text-[22px]  font-bold'>Packaging</p>
+        <p className='underline md:text-[24px] sm:text-[22px] xs:text-[22px]  font-bold'>Social Media Designs</p>
+        <p className='underline md:text-[24px] sm:text-[22px] xs:text-[22px]  font-bold'>Shopify Websites</p>
       </div>
 
       <div className='text-center py-10 border-b border-black relative min-h-[60vh] '>
@@ -106,14 +106,14 @@ style={{
            <img src={letterIcon}></img></p>
     
         <h2 className=' text-[28px] capitalize ' > LOVE LETTERS </h2>
-        <p className='w-[29vw] mx-auto text-[16px]' > We work hard to bring your brand dreams to life. But don’t take only our word for it! Listen to what our clients have to say about us.</p>
-        <img className='absolute md:left-[20vw] top-12 left-[24vw]' width='140px' height='140px' style={{ transform: 'rotate(320deg)'}} src={paper_plane_rose}></img>
-        <img className='absolute' width='320px' height='320px'  src={paper_plane_rose}></img>
-        <img className='absolute top-16 right-[16vw] md:right-10' width='320px' height='320px' style={{ transform: 'rotate(320deg)'}}  src={paper_plane_rose}></img>
+        <p className='md:w-[29vw] xs:w-[70vw] mx-auto text-[16px]' > We work hard to bring your brand dreams to life. But don’t take only our word for it! Listen to what our clients have to say about us.</p>
+        <img className='absolute md:block md:left-[20vw] md:top-12 left-[24vw] xs:left-[0vw] xs:hidden md:w-[140px] xs:w-[80px]' width='140px' height='140px' style={{ transform: 'rotate(320deg)'}} src={paper_plane_rose}></img>
+        <img className='absolute md:block xs:hidden' width='320px' height='320px'  src={paper_plane_rose}></img>
+        <img className='absolute md:block top-16 xs:hidden right-[16vw] md:right-10' width='320px' height='320px' style={{ transform: 'rotate(320deg)'}}  src={paper_plane_rose}></img>
 
         <div>
-          <div className='text-[16px] w-[40vw] relative flex mx-auto'> 
-          <p className='text-[90px] absolute top-0 font-bold '>“</p> 
+          <div className='text-[16px] md:w-[40vw] xs:w-[80vw] relative flex mx-auto'> 
+          <p className='text-[90px] absolute top-[-34px] font-bold '>“</p> 
           <p className='px-12 pt-4 text-[20px] font-medium'>{testimonials.length ? testimonials[0].description_english : ''}</p>  
           <p className='text-[90px] right-0 absolute font-bold bottom-[-60px]'>”</p>
           </div>
@@ -155,7 +155,7 @@ style={{
 
       </div>
       <div className='text-center py-14 '>
-      <h2 className='w-[50vw] text-[32px] mx-auto'>Inspired to start your journey to launch your next big thing ?</h2>
+      <h2 className='w-[50vw] xs:w-[70vw] text-[32px] mx-auto'>Inspired to start your journey to launch your next big thing ?</h2>
       <p className='text-center'> <button onClick={()=> {window.location.href = '/'}} className='py-1 px-3  mt-8 bg-black text-white'>Get started!</button> </p>
       </div>
 

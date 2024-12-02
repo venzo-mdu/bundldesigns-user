@@ -17,7 +17,7 @@ module.exports = {
         xl: '1800px', // Set the xl breakpoint to 1440px instead of 1280px
         lg:'1400px',
         md:'1024px',
-          xs: '480px',
+          xs: '300px',
           sm:'800px'
       },
       keyframes: {

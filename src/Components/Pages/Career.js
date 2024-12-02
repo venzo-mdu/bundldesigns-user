@@ -8,6 +8,7 @@ import upArrow from '../../Images/up-arrow.svg'
 import whatsappicon from '../../Images/whatsappIcon.svg'
 import emailicon from '../../Images/mailIcon.svg'
 import fileUploadIcon from '../../Images/fileUploadIcon.svg'
+import careerImg from '../../Images/default-career-img.svg'
 
 export default function Career() {
   const  [vacancies,setVacancies] =  useState([])
@@ -51,8 +52,13 @@ export default function Career() {
   const validate = () => {
     const newErrors = {};
 
-    if (!formData.name) newErrors.name = 'Name is required';
-    else if (formData.name.length < 3) newErrors.name = 'Name must be at least 3 characters';
+    if (!formData.name) {
+      newErrors.name = 'Name is required';
+    } else if (formData.name.length < 3) {
+      newErrors.name = 'Name must be at least 3 characters';
+    } else if (/\d/.test(formData.name)) {
+      newErrors.name = 'Name must not contain numbers';
+    }
 
     if (!formData.phone) newErrors.phone = 'Phone number is required';
     else if (!/^\d{10}$/.test(formData.phone)) newErrors.phone = 'Phone number must be 10 digits';
@@ -127,7 +133,7 @@ export default function Career() {
         <div className='md:p-20 sm:p-3  border-b border-black'>
             {vacancies.map((vacancy,index)=> {
                 return <div className={`${index+1 != vacancies.length && 'border-b'} border-black mb-6 px-6 `}>
-                    <p> <img width='45px' height='45px' src={vacancy.image}></img></p>
+                    <p> <img width='45px' height='45px' src={vacancy.image?vacancy.image:careerImg}></img></p>
                     <h2 className='text-[32px] flex items-center'>{vacancy.vacancy_english}
                     <button
             onClick={() => toggleDescription(vacancy.id)}
@@ -254,7 +260,7 @@ export default function Career() {
       {/* Submit Button */}
       <p className='text-center'> <button
         type="submit"
-        className="bg-[#1BA56F] text-white py-1 my-2  px-10 hover:bg-blue-600"
+        className="bg-[#1BA56F] text-white py-1 my-2  px-10"
       >
         Apply
       </button></p>
