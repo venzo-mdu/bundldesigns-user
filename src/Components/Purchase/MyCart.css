@@ -82,6 +82,11 @@ form{
     width: 40%;
    }
 }
+@media screen and (max-width:1024px) and (min-width:768px){
+    .cart-total-container{
+        width: 60%;
+    }
+}
 @media screen and (max-width:768px) and (min-width:441px) {
     .mycart{
         flex-direction: column;
@@ -91,6 +96,7 @@ form{
         padding: 2% 3%;
         border-bottom: 1px solid #000000;
     }
+   
     .billing{
         width: 100%;
         padding: 2% 3%;

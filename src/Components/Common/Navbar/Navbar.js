@@ -4,8 +4,8 @@ import NavLogo from '../../../Images/Navbar/Navlogo.svg'
 import HomeLogo from '../../../Images/Bundles/logo-black.svg'
 import Language from '../../../Images/Bundles/icon-language.png'
 import Search from '../../../Images/Navbar/searchicon.svg'
-import Cart from '../../../Images/Navbar/cart.svg'
-import User from '../../../Images/Navbar/usericon.svg'
+import Cart from '../../../Images/Bundles/icon-cart.png'
+import User from '../../../Images/Bundles/icon-user.png'
 import { NavLink } from 'react-router-dom'
 export const Navbar = () => {
   return (
@@ -112,13 +112,14 @@ export const Navbar = () => {
     //     </div>
     //   </div>
     // </div>
+<div className='mb-[10%] nav-container'>
 
-    <div className="nav-section">
+    <div className="nav-section bg-[#FFFFFF] w-[100%] z-[1] fixed top-0" >
                                 <div style={{padding:'0% 2%'}} className="">
                                     <div className="row align-items-center">
                                         <div className="col-4 col-md-3 col-lg-3 justify-content-between">
                                             <div className="navbar navbar-expand-lg justify-content-between">
-                                                <a className="navbar-brand" href="index.html"><img src={HomeLogo} alt="home-logo" className="img-fluid"></img></a>
+                                                <a className="navbar-brand" href="/"><img src={HomeLogo} alt="home-logo" className="img-fluid"></img></a>
                                                 {/* <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
                                                     aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation" id="navbutton">
                                                     <span className="navbar-toggler-icon"></span>
@@ -195,5 +196,7 @@ export const Navbar = () => {
                                     </div>
                                 </div>
                             </div>
+</div>
+
   )
 }

@@ -28,7 +28,6 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { Popup } from '../Common/Popup/Popup';
-import { redirect, useLocation } from 'react-router-dom';
 
 const style = {
     position: 'absolute',
@@ -43,6 +42,8 @@ const style = {
     display:'flex',
 };
 export default function Dashboard() {
+
+    const navigate = useNavigate();
 
     const [projects, setProjects] = useState([])
     const [purchases,setPurchases] = useState([])
@@ -111,7 +112,9 @@ export default function Dashboard() {
     }
 
     const fillQuestionaire = () => {
-        window.location.href =`/questionnaire/${order.id}`
+        navigate('/questionnaire/1',{state:{
+            orderId:order.id
+    }})
     }
     const CheckCart = async (id) => {
         const response = await axios.get(`${base_url}/api/order/cart/`, ConfigToken());

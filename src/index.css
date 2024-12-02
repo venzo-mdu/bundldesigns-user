@@ -59,6 +59,6 @@ code {
   );
   border-radius: 8%;
 }
-p{
-  font-family: Helvetica;
+input{
+  border: 1px solid #000000 ;
 }

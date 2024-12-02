@@ -12,6 +12,8 @@ import Language from '../../Images/Bundles/icon-language.png'
 
 
 import Thankyou from '../../Images/Bundles/load_sticker.webp'
+import { useSelector } from 'react-redux'
+
 export const Thankyoucard = () => {
   return (
     <div>

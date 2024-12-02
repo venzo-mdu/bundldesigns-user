@@ -99,6 +99,9 @@
 
 
 @media screen and (max-width:441px)  {
+   .nav-container{
+     margin-bottom: 25%;
+    }
    .search-icon{
     display: none;
    }

@@ -11,16 +11,16 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-
+ 
 import DeleteIcon from '../../Images/BundlDetail/deleteicon.svg'
 import BlackDollor from '../../Images/BundlDetail/blackdollor.svg'
 import BlackTime from '../../Images/BundlDetail/blacktime.svg'
 import { base_url } from '../Auth/BackendAPIUrl';
 import { useLocation, useNavigate } from 'react-router-dom'
 import { ConfigToken } from '../Auth/ConfigToken'
-
+ 
 export const MyCart = () => {
-
+ 
     const location = useLocation();
     const navigate = useNavigate();
     const [cartDetails, setCartDetails] = useState([]);
@@ -36,40 +36,23 @@ export const MyCart = () => {
         postalCode: '',
         promoCode: '',
     });
-
+ 
     useEffect(() => {
         document.documentElement.scrollTo({ top: 0, left: 0 });
         getCartData();
     }, []);
-
+ 
     const getCartData = async () => {
         // const response = await axios.get(`${base_url}/api/order/${location.state.orderData.id}/`);
         const response = await axios.get(`${base_url}/api/order/cart/`,ConfigToken());
         if(response.data){
             setCartDetails(response.data);
         }
-        if(response.status === 206){ 
+        if(response.status === 206){
            setOpenPopup(true)
         }
     };
-
-    // const removeItem = (itemId, itemType) => {
-    //     console.log(itemId,cartDetails)
-    //     setCartDetails((prevCartDetails) => {
-    //         const updatedItemDetails = { ...prevCartDetails.item_details };
-    //         if (itemType === 'bundle') {
-    //             updatedItemDetails.bundle_items = updatedItemDetails.bundle_items.filter(item => item.id !== itemId);
-    //         } else if (itemType === 'addon') {
-    //             updatedItemDetails.addon_items = updatedItemDetails.addon_items.filter(item => item.id !== itemId);
-    //         }
-
-    //         return {
-    //             ...prevCartDetails,
-    //             item_details: updatedItemDetails
-    //         };
-    //     });
-    // };
-
+ 
     const removeItem = (itemId, itemType) => {
         setCartDetails((prevCartDetails) => {
             const updatedItemDetails = { ...prevCartDetails.item_details };
@@ -80,18 +63,16 @@ export const MyCart = () => {
                 const removedItem = updatedItemDetails.bundle_items.find(item => item.id === itemId);
                 updatedTotalAmount -= removedItem?.unit_price * removedItem?.qty || 0;
                 updatedItemDetails.bundle_items = updatedItemDetails.bundle_items.filter(item => item.id !== itemId);
-                console.log(removedItem,updatedTotalAmount,updatedItemDetails)
             } else if (itemType === 'addon') {
                 const removedItem = updatedItemDetails.addon_items.find(item => item.id === itemId);
                 updatedTotalAmount -= removedItem?.unit_price * removedItem?.qty || 0;
                 updatedItemDetails.addon_items = updatedItemDetails.addon_items.filter(item => item.id !== itemId);
-                console.log(removedItem,updatedTotalAmount,updatedItemDetails)
             }
-    
+   
             // Recalculate the totals
             const updatedTax = updatedTotalAmount * 0.15; // Assuming VAT is 15%
             const updatedGrandTotal = updatedTotalAmount + updatedTax;
-    
+   
             return {
                 ...prevCartDetails,
                 item_details: updatedItemDetails,
@@ -101,8 +82,8 @@ export const MyCart = () => {
             };
         });
     };
-    
-
+   
+ 
     const handlePayment = async (e) => {
         e.preventDefault();
         try {
@@ -122,13 +103,13 @@ export const MyCart = () => {
             console.error("Payment error:", error);
         }
     };
-
+ 
     const handleBillingChange = (e) => {
         const { name, value } = e.target;
         setBillingInfo({ ...billingInfo, [name]: value });
     };
-
-
+ 
+ 
     return (
         <div>
             <Navbar />
@@ -248,12 +229,12 @@ export const MyCart = () => {
             </div>
             <Footer />
             {
-                openPopup && 
+                openPopup &&
                 <Popup
                     openpopup={openPopup}
                     isCancel={true}
-                    setPopup={setOpenPopup} 
-                    title={'Your Cart was empty'} 
+                    setPopup={setOpenPopup}
+                    title={'Your Cart was empty'}
                     // subTitle={'Are you sure, you want to empty the cart.'}
                     onClick={()=>navigate('/')}
                     save={'Continue to Dashboard'}

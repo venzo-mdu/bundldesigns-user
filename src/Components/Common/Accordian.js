@@ -25,12 +25,6 @@ export const Accordian = ({ accordianTitle, addOnPayload, bundlePackageId }) => 
     "Special Designs"
   ];
 
-  // useEffect(() => {
-  //   console.log('calls')
-  //   getAddons();
-  //   addOnPayload(addOnPayloads());
-  // }, [quantities]);
-
   useEffect(() => {
     getAddons();
   }, []);
@@ -225,7 +219,8 @@ export const Accordian = ({ accordianTitle, addOnPayload, bundlePackageId }) => 
                       style={{
                         display: window.innerWidth <= 441 ? 'block' : 'flex',
                         borderBottom: i === addOnData.designs_details[title].design_list.length - 1 ? 'none' : '1px solid #0BA6C4',
-                        padding: '1% 0%'
+                        padding: '1% 0%',
+                        height:'60px'
                       }}
                     >
                       <Typography

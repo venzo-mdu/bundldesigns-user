@@ -62,6 +62,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { questionnaireAction1 } from '../../Redux/Action';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { ConfigToken } from '../Auth/ConfigToken'
 
 export const Questionnaire1 = () => {
 
@@ -71,6 +72,17 @@ export const Questionnaire1 = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [formData, setFormData] = useState(location.state?.questionnaireData1);
+  const [activeType, setActiveType] = useState(null);
+
+  const placeHolders =[
+    "Project Name",
+    "(ex:Fashion,Food,Services,Personal Brand,etc...)",
+    "(ex:Riyadh , Saudi Arabia)",
+    "List them here...",
+    "(ex:Only style in the market , high quality)",
+    "Type your website URL",
+    "Share your social media link"
+  ]
 
  
 
@@ -92,6 +104,16 @@ export const Questionnaire1 = () => {
     });
   };
 
+  const handleTypeClick = (type) => {
+    setActiveType((prevType) => (prevType === type ? null : type)); // Toggle state
+    let brandingType = activeType
+    setFormData((prev) => ({
+      ...prev,
+      // type: type, // Update formData accordingly
+    }));
+  };
+  
+
   const handleInputChange = (questionId, value) => {
     setFormData((prev) => ({
       ...prev,
@@ -106,7 +128,19 @@ export const Questionnaire1 = () => {
     navigate(`/questionnaire/${2}`);
   };
 
- 
+ const onSaveLaterClick = async() =>{
+  let data ={
+    answers:formData,
+    orderId:location.state?.orderId || 43,
+    status:'not submitted'
+  }
+   try{
+    const response = await axios.post(`${base_url}/api/questionnaire/create`,data,ConfigToken());
+   }
+   catch(e){
+    console.log(e)
+   }
+ }
 
   return (
     <div>
@@ -116,23 +150,38 @@ export const Questionnaire1 = () => {
         storeAnswers={location.state?.questionnaireData1}
         bgTitle={'About your business'}
         onNextClick={onNextClick}
+        onSaveLaterClick={onSaveLaterClick}
         questions={questions.map((question, index) => (
           <div className='questions' key={index}>
             <p className='questions-title'>
               {question.question}
-              <span><sup>*</sup></span>
+              {
+                question.required && (
+                  <span><sup>*</sup></span>
+                )
+              }
             </p>
-            {
-              question.answer_type === "brand" ?
-              <div style={{display:'flex',gap:'10px'}}>
-                <button className='product-btn'>Product</button>
-                <button className='service-btn'>Service</button>
-              </div> : ''
-            }
+            {question.answer_type === "brand" && (
+              <div style={{ display: 'flex', gap: '10px' }}>
+                <button
+                  className={`product-btn ${activeType === 'Product' ? 'active' : ''}`}
+                  onClick={() => handleTypeClick('Product')}
+                >
+                  Product
+                </button>
+                <button
+                  className={`service-btn ${activeType === 'Service' ? 'active' : ''}`}
+                  onClick={() => handleTypeClick('Service')}
+                >
+                  Service
+                </button>
+              </div>
+            )}
             <input
               className='question-input'
-              value={formData?.[index] || ''}
-              onChange={(e) => handleInputChange(index, e.target.value)} // Update Redux
+              placeholder={placeHolders[index]}
+              value={formData?.[question.id] || ''}
+              onChange={(e) => handleInputChange(question.id, e.target.value)} // Update Redux
             />
             {index === 0 ? (
               <div className='img-rotate-qf'>
