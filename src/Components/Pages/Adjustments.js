@@ -172,7 +172,7 @@ export default function Adjustments() {
 
     const createAdjustmentOrder = async() =>{
         const formData = {item_list : itemsList,adjustmentList:adjustmentData,total_price:totalPrice,total_time:totalTime}
-        const res = await axios.post(`${base_url}/api/adjustment_create/${orderId}/`,formData,ConfigToken)()
+        const res = await axios.post(`${base_url}/api/adjustment_create/${orderId}/`,formData,ConfigToken())
         if (res){
             window.location.href = '/dashboard'
         }
