@@ -19,12 +19,13 @@ import Color1 from '../../Images/Questionnaire/img1.png'
 import Color2 from '../../Images/Questionnaire/img2.png'
 import Color3 from '../../Images/Questionnaire/img3.png'
 import Link from '../../Images/Questionnaire/icons8-link-26.png'
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { ConfigToken } from '../Auth/ConfigToken';
 
 export const Questionnaire4 = () => {
 
   const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useDispatch();
   const answers = useSelector((state) => state.questionnaire3);
 
@@ -194,6 +195,13 @@ export const Questionnaire4 = () => {
     }
     try {
       const response = await axios.post(`${base_url}/api/questionnaire/create`, data, ConfigToken());
+      if(response.status === 200){
+        navigate('/questionnaire/5',{
+          state:{
+            orderId:location.state?.orderId
+          }
+        })
+      }
     }
     catch (e) {
       console.log(e)
