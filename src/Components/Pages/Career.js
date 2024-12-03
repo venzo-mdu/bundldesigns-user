@@ -183,7 +183,7 @@ export default function Career() {
         <input
           type="tel"
           name="phone"
-          placeholder='Phone'
+          placeholder='Phone Number'
           value={formData.phone}
           onChange={handleChange}
           className="w-full border-2 border-black p-2"
