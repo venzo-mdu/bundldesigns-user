@@ -174,11 +174,11 @@ export const MyCart = () => {
                         </div>
                         <div>
                             <div style={{ display: 'flex' }}>
-                                <p style={{ width: '50%' }}><img src={BlackDollor} className='inline-block'></img>Total Price</p>
+                                <p style={{ width: '50%' }}><img src={BlackDollor} className='inline-block'></img>Total Price:</p>
                                 <p style={{ width: '40%' }}>{Math.round(cartDetails.grand_total)} sar</p>
                             </div>
                             <div style={{ display: 'flex' }}>
-                                <p style={{ width: '55%' }}><img src={BlackTime} className='inline-block'></img>Total Duration</p>
+                                <p style={{ width: '55%' }}><img src={BlackTime} className='inline-block'></img>Total Duration:</p>
                                 <p style={{ width: '45%' }}>{Math.round(cartDetails.total_time)} Days</p>
                             </div>
                         </div>

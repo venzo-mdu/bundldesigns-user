@@ -149,7 +149,7 @@ export const Accordian = ({ accordianTitle, addOnPayload, bundlePackageId }) => 
   return (
     <div>
       <div className='bundl-accordian'>
-        <p className='accordian-heading'>{accordianTitle}</p>
+        <p className='accordian-heading mb-[2px]'>{accordianTitle}</p>
         <p style={{ opacity: '50%' }}>Add anything you want to your bundle to fit your brand!</p>
         <div className='tab-buttons'>
           {titleArr.map((title, index) => (

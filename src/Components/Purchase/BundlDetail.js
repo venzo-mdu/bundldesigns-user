@@ -141,16 +141,16 @@ export const BundlDetail = () => {
             <div className='commerce-collateral'>
               {bundlAddons.bundle_details?.map((bundle, index) => (
                 <div key={index} className='bundle-section' style={{ margin: '3% 0 0 0' }}>
-                  <p className='collateral-text'>{bundle.name_english}</p>
-                  <p style={{ opacity: '50%' }}>This includes bla bla</p>
+                  <p className='collateral-text mb-[2px]'>{bundle.name_english}</p>
+                  <p style={{ opacity: '50%' }}>This includes bla bladddd</p>
                   {
                     bundle.name_english === "Brand Identity" && (
                       <div style={window.innerWidth < 441 ? { display: 'block', width: '100%' } : { display: 'flex', width: '100%' }}>
                     <p className='logo-design'>Logo design</p>
                     <div className='languages' style={{ display: 'flex' }}>
-                      <p><input type='radio'></input> English</p>
-                      <p><input type='radio'></input> Arabic</p>
-                      <p><input type='radio'></input> Both (+2000SAR)</p>
+                      <p className='flex items-center '><input type='radio' className='mr-1'></input> English</p>
+                      <p className='flex items-center '><input type='radio'  className='mr-1'></input> Arabic</p>
+                      <p className='flex items-center '><input type='radio'  className='mr-1'></input> <span>Both (+2000SAR)</span></p>
                     </div>
                   </div>
                     )
@@ -213,11 +213,11 @@ export const BundlDetail = () => {
             ))}
             <div className='bundl-checkout mt-3'>
               <div className='total' style={{ display: 'flex' }}>
-                <p style={{ width: '60%' }}><img src={BlackDollor} alt="Total Price" className="inline-block"/><span className='ml-3'>Total Price</span></p>
+                <p style={{ width: '60%' }}><img src={BlackDollor} alt="Total Price" className="inline-block"/><span className='ml-3'>Total Price:</span></p>
                 <p style={{ width: '40%' }} >{totalCost + addonPayLoads.total_price } SAR</p>
               </div>
               <div className='total' style={{ display: 'flex' }}>
-                <p style={{ width: '60%' }}><img src={BlackTime} alt="Total Duration" className="inline-block"/><span className='ml-3'>Total Duration</span></p>
+                <p style={{ width: '60%' }}><img src={BlackTime} alt="Total Duration" className="inline-block"/><span className='ml-3'>Total Duration:</span></p>
                 <p style={{ width: '40%' }}>{totalDuration + addonPayLoads.total_time} Days</p>
               </div>
 

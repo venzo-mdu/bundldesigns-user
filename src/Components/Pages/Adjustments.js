@@ -328,12 +328,12 @@ export default function Adjustments() {
             <div className='bundl-checkout'>
               <div className=' flex items-center mb-1' >
                 <img src={BlackDollor} className='mr-2' alt="Total Price" />
-                <p className='basis-3/5 font-bold text-[18px] mb-0'>Total Price</p>
+                <p className='basis-3/5 font-bold text-[18px] mb-0'>Total Price:</p>
                 <p className='basis-2/5 font-bold text-[18px]  mb-0'>{totalPrice } SAR</p>
               </div>
               <div className=' flex'>
               <img className='mr-2' src={BlackTime} alt="Total Duration" />
-                <p className='basis-3/5 text-[18px] mb-0'>Total Duration</p>
+                <p className='basis-3/5 text-[18px] mb-0'>Total Duration:</p>
                 <p className='basis-2/5 text-[18px] mb-0'>{totalTime} Days</p>
               </div>
 
@@ -398,11 +398,11 @@ export default function Adjustments() {
                     <p className='ml-8 mb-1 !text-[20px] !font-normal flex justify-between'><span>Price</span> <span>{totalPrice} sar</span></p>
                     <p className='ml-8 mb-1 !text-[20px] !font-normal  flex justify-between'><span>VAT</span> <span>0 sar</span></p>
                     <p className='!text-[20px] flex justify-between mb-1'>
-                        <span className='flex items-center'><img className='mr-2' src={BlackDollor}></img> Total Price</span>
+                        <span className='flex items-center'><img className='mr-2' src={BlackDollor}></img> Total Price:</span>
                         <span>{totalPrice} sar</span>
                     </p>
                     <p className='ml-1 !text-[20px] flex justify-between mb-1'>
-                    <span className='flex items-center'><AccessTimeIcon style={{marginRight:'4px'}} /> Total Duration</span>
+                    <span className='flex items-center'><AccessTimeIcon style={{marginRight:'4px'}} /> Total Duration:</span>
                     <span>{totalTime} Days</span>
                     </p>
                 </div>

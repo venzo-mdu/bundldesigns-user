@@ -155,7 +155,7 @@ style={{
 
       </div>
       <div className='text-center py-14 '>
-      <h2 className='w-[50vw] xs:w-[70vw] text-[32px] mx-auto'>Inspired to start your journey to launch your next big thing ?</h2>
+      <h2 className='md:w-[50vw] xs:w-[70vw] text-[32px] mx-auto'>Inspired to start your journey to launch your next big thing ?</h2>
       <p className='text-center'> <button onClick={()=> {window.location.href = '/'}} className='py-1 px-3  mt-8 bg-black text-white'>Get started!</button> </p>
       </div>
 

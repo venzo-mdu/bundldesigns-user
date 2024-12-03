@@ -284,9 +284,9 @@ export const Home = () => {
                                         <li className="slidee "><span>graphic design</span></li>
                                     </ul>
                                 </div>
-                                <div className="img-rotate">
+                                {/* <div className="img-rotate">
                                     <img src={Loader} alt="" className="rotating-image"></img>
-                                </div>
+                                </div> */}
                             </div>
                             <div className="container">
                                 <div className="hero-text">
@@ -294,7 +294,7 @@ export const Home = () => {
                                         <div className="px-2">
 
                                         </div>
-                                        <h1><span>Elevating</span> brands & shaping legacies, one <span>extraordinary design</span> at a <i>time.</i></h1>
+                                        <h1 className='text-[#000] text-[58px] px-8'><span>Elevating</span> brands & shaping legacies, one <span>extraordinary design</span> at a <i>time.</i></h1>
                                         <div className="button-container scroller">
                                             <ul className="scroll-button scroller__inner_btn">
                                                 <li><span>Shop our Bundls</span></li>
@@ -632,11 +632,11 @@ export const Home = () => {
                                                     </div>
                                                     <>
                                                         <div className="sar d-flex align-items-center">
-                                                            <img src={Money} alt="" className="img-fluid"></img>
+                                                            {/* <img src={Money} alt="" className="img-fluid"></img> */}
                                                             <span className="sar_text px-2"><span> {bundles.name_english === "The Newbie" ? 'Starting from' : ''}</span> {Math.round(bundles.min_order_amount)} SAR</span>
                                                         </div>
                                                         <div className="work_time d-flex align-items-center">
-                                                            <img src={Time} alt="" className="ing-fluid"></img>
+                                                            {/* <img src={Time} alt="" className="ing-fluid"></img> */}
                                                             <span className="working_days px-2"><span>{bundles.name_english === "The Newbie" ? 'Starting from' : ''}</span> {bundles.time} WORKING DAYS</span>
                                                         </div>
                                                     </>

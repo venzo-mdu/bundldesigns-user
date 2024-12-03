@@ -145,11 +145,11 @@ export const CustomBundl = () => {
             {/* <p className='one-heading'>3 GIF posts</p> */}
             <div className='bundl-checkout'>
               <div className='total' style={{ display: 'flex' }}>
-                <p style={{ width: '60%' }}><img src={BlackDollor} className="inline-block"></img>Total Price</p>
+                <p style={{ width: '60%' }}><img src={BlackDollor} className="inline-block"></img>Total Price:</p>
                 <p style={{ width: '40%' }}>8000 sar</p>
               </div>
               <div className='total' style={{ display: 'flex' }}>
-                <p style={{ width: '60%' }}><img src={BlackTime} className="inline-block"></img>Total Duration</p>
+                <p style={{ width: '60%' }}><img src={BlackTime} className="inline-block"></img>Total Duration:</p>
                 <p style={{ width: '40%' }}>45 Days</p>
               </div>
               <div className='proceed-checkout'>

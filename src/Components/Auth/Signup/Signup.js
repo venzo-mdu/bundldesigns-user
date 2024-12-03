@@ -146,19 +146,21 @@ export const Signup = () => {
             />
             {errors.password && <p className="error">{errors.password}</p>}
             
-            <div style={{ display: 'flex' }} className='terms-policy'>
+            <div className='terms-policy my-2 flex items-center'>
               <input
-                className='checkbox'
+                className='checkbox mr-2'
                 type='checkbox'
+                name='agree_terms'
+                id='agree_terms'
                 checked={isAgree}
                 onChange={() => setIsAgree(!isAgree)}
               />
-              <p>I agree to the terms & policy</p>
+              <label for='agree_terms' className='text-[15px] mb-0 cursor-pointer'>I agree to the terms & policy</label>
             </div>
             <button type='submit'  className='signin'>
               Signup
             </button>
-            <p className='or' style={{ margin: '2% 0 0 0' }}>Or</p>
+            <p className='or max-w-[525px] text-left flex items-center mt-3'> <span className='border-b-2 basis-[47%] !border-[#F5F5F5]'> </span> <span className='basis-[6%] text-center font-normal'>Or</span>  <span className='border-b-2 basis-[47%] !border-[#F5F5F5]'> </span></p>
             <p className='signinwithgoogle'>
               {/* <img src={Googleicon} alt='google-icon' /> Sign in with Google */}
               <GoogleLogin
