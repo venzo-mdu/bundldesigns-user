@@ -11,6 +11,24 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+#description p{
+  font-family:'Helvetica' !important;
+}
+
+#description a{
+  font-family: 'Helvetica' !important;
+}
+
+#description span{
+  font-family: 'Helvetica' !important;
+
+}
+#description h1,#description h2,#description h3{
+  font-family: 'Helvetica' !important;
+}
+
+
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

@@ -4121,6 +4121,9 @@ position: fixed; */
   /* color: #fff; */
   text-transform: uppercase;
 }
+.nav-icon-group .nav-link{
+  padding:  5px 8px !important;
+}
 
 .nav-section a.nav-link.active {
   font-weight: 600;

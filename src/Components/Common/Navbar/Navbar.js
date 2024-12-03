@@ -148,18 +148,18 @@ export const Navbar = () => {
                                         </div>
                                         <div className="col-7 col-md-8 col-lg-3 text-end">
                                             <div className="navbar navbar-expand-lg justify-content-end ">
-                                                <ul className="navbar-nav  h-list align-items-center">
+                                                <ul className="navbar-nav nav-icon-group h-list align-items-center">
                                                     <li className="nav-item">
-                                                        <a className="nav-link" href="#"><img src={Search} alt="" className="img-fluid nav-icon"></img></a>
+                                                        <a className="nav-link !px-[10px]" href="#"><img src={Search} alt="" className="img-fluid nav-icon"></img></a>
                                                     </li>
                                                     <li className="nav-item">
-                                                        <NavLink to='/login'><a className="nav-link" href="/login"><img src={User} alt="" className="img-fluid nav-icon"></img></a></NavLink>
+                                                        <NavLink to='/login'><a className="nav-link !px-[10px]" href="/login"><img src={User} alt="" className="img-fluid nav-icon"></img></a></NavLink>
                                                     </li>
                                                     <li className="nav-item">
-                                                        <a className="nav-link" href="/mycart"><img src={Cart} alt="" className="img-fluid nav-icon"></img></a>
+                                                        <a className="nav-link !px-[10px]" href="/mycart"><img src={Cart} alt="" className="img-fluid nav-icon"></img></a>
                                                     </li>
                                                     <li className="nav-item">
-                                                        <a className="nav-link" href="#"><img src={Language} alt="" className="img-fluid nav-icon"></img></a>
+                                                        <a className="nav-link !px-[10px]" href="#"><img src={Language} alt="" className="img-fluid nav-icon"></img></a>
                                                     </li>
                                                     <li className=" menu">
                                                         <button type="button" className="navbar-toggle" id="menu-toggle">
