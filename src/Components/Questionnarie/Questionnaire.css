@@ -934,8 +934,25 @@
     .title-questionnaire{
         font-size: 20px;
         line-height: 20px;
-        margin: -12% 0 0 25%;
+        margin: -25% 0 0 25%;
         width: 45%;
+    }
+    .miclady{
+        top:20%;
+        width: 32%;
+    }
+    .lips{
+        top: 20%;
+        right: 10%;
+        width: 15%;
+    }
+    .mirror{
+        left: -10%;
+        top:30%;
+        width:35%
+    }
+    .candy-rocket{
+        width: 15%;
     }
     .questions-title{
         font-size: 12px;
@@ -952,6 +969,9 @@
         font-size:16px ;
     }
     .female,.male{
+        height: 30px;
+    }
+    .product-btn,.service-btn{
         height: 30px;
     }
     .female-active,.male-active{
@@ -1021,8 +1041,8 @@
         width: 250px;
         font-size: 18px;
     }
-    .rotating-image{
-        width: 100px;
+    .questions .rotating-image{
+        width: 50px;
     }
     .progress-section-q3{
         width: 85%;
@@ -1038,6 +1058,10 @@
     .title-questionnaire{
         font-size: 25px;
         line-height: 30px;
+        font-size: 20px;
+        line-height: 20px;
+        margin: -25% 0 0 25%;
+        width: 50%;
     }
     .questions-title{
         font-size: 12px;

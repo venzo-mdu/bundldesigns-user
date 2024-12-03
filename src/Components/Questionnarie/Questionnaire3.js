@@ -6,6 +6,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { questionnaireAction3 } from '../../Redux/Action';
 import { ConfigToken } from "../Auth/ConfigToken"
+import { ToastContainer, toast } from 'react-toastify';
 
 export const Questionnaire3 = () => {
 
@@ -16,6 +17,7 @@ export const Questionnaire3 = () => {
   const [questions, setQuestions] = useState([]);
   const [sliderValues, setSliderValues] = useState({});
   const [formData, setFormData] = useState(location.state?.questionnaireData3?.formData);
+  const [fetchQ3Answers, setFetchQ3Answers] = useState([]);
 
   const progressLabels = [
     { left: "Masculine", right: "Feminine" },
@@ -54,22 +56,34 @@ export const Questionnaire3 = () => {
         console.error("Error fetching questions:", error);
       }
     };
+    const fetchAnswers = async () => {
+      try {
+        const response = await axios.get(`${base_url}/api/questionnaire/update/${location.state.orderId}`, ConfigToken());
+        setFetchQ3Answers(response.data.data)
+      } catch (error) {
+        console.error("Error fetching questions:", error);
+      }
+    }
     fetchQuestions();
+    fetchAnswers();
   }, []);
 
-  // const handleSliderChange = (index, value) => {
-  //   setSliderValues((prevValues) => {
-  //     const newSliderValues = { ...prevValues, [index]: value };
+  const getAnswerValue = (questionId) => {
 
-  //     // Update the formData with the new slider value
-  //     setFormData((prevFormData) => ({
-  //       ...prevFormData,
-  //       [`slider-${index}`]: value, // Store the slider value in formData with the question ID as a key
-  //     }));
+    const formValue = formData?.[questionId];
+    if (formValue !== undefined) {
+      return formValue;
+    }
 
-  //     return newSliderValues;
-  //   });
-  // };
+    const fetchedAnswer = fetchQ3Answers.find((answer) => answer.question_id === questionId)?.answer;
+    if (fetchedAnswer !== undefined && formValue === undefined) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [questionId]: fetchedAnswer,
+      }));
+    }
+    return fetchedAnswer ?? '';
+  };
 
   const handleSliderChange = (index, value, questionId) => {
     const key = progressLabels[index] && value < 50 ? progressLabels[index].left : progressLabels[index].right;
@@ -93,30 +107,58 @@ export const Questionnaire3 = () => {
       [questionId]: value,
     }));
   }
+
+  const showToastMessage = () => {
+    toast.error("The Value is required!", {
+      position: toast?.POSITION?.TOP_RIGHT,
+    });
+  };
+
+  const validateFields = () => {
+    // Filter required questions that are either unanswered or contain invalid values
+    const unansweredRequiredQuestions = questions.filter((q) => {
+      return (
+        q.required && // Check if the question is marked as required
+        (!formData?.[q.id] || formData?.[q.id].trim() === "") // Check if there's no answer or only whitespace
+      );
+    });
+  
+  
+    if (unansweredRequiredQuestions.length > 0) {
+      showToastMessage(); // Display the error toast
+      return false;
+    }
+  
+    return true; // All required fields are valid
+  };
   const onBackClick = () => {
     navigate(`/questionnaire/${2}`, { state: { questionnaireData2: answers } });
   }
   const onNextClick = () => {
-    let dataQ3 = {
-      sliderValues: sliderValues,
-      formData: formData
+    if (!validateFields()) {
+      return; // Stop execution if validation fails
     }
-    dispatch(questionnaireAction3(dataQ3))
-    navigate(`/questionnaire/${4}`);
+    dispatch(questionnaireAction3(formData))
+    navigate(`/questionnaire/${4}`,{state:{
+      orderId:location.state?.orderId
+    }});
   }
 
   const onSaveLaterClick = async () => {
+    if (!validateFields()) {
+      return; // Stop execution if validation fails
+    }
     let data = {
       answers: formData,
-      orderId: 16,
+      orderId: location.state?.orderId,
       status: 'not submitted'
     }
     try {
       const response = await axios.post(`${base_url}/api/questionnaire/create`, data, ConfigToken());
-      if(response.status === 200){
-        navigate('/questionnaire/4',{
-          state:{
-            orderId:location.state?.orderId
+      if (response.status === 200) {
+        navigate('/dashboard', {
+          state: {
+            orderId: location.state?.orderId
           }
         })
       }
@@ -128,9 +170,11 @@ export const Questionnaire3 = () => {
 
   return (
     <div>
+      <ToastContainer/>
       <Questionnaire
         pageNo={3}
         storeAnswers={answers}
+        orderId={location.state?.orderId}
         onBackClick={onBackClick}
         onNextClick={onNextClick}
         onSaveLaterClick={onSaveLaterClick}
@@ -147,7 +191,7 @@ export const Questionnaire3 = () => {
               </p>
               {
                 question.answer_type === 'bar' ? '' :
-                  <input value={formData?.[question.id]} placeholder={placeHolders[index]} className="question-input" onChange={(e) => handleChange(question.id, e.target.value)} />
+                  <input value={getAnswerValue(question.id)} placeholder={placeHolders[index]} className="question-input" onChange={(e) => handleChange(question.id, e.target.value)} />
               }
               <div className=' flex items-center justify-center flex-col w-[100%] md:w-[100% xl:w-[100%] lg:w-[100%]'>
                 {question.answer_type === 'bar' && (

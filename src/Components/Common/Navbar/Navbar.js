@@ -112,8 +112,7 @@ export const Navbar = () => {
     //     </div>
     //   </div>
     // </div>
-<div className='mb-[10%] nav-container'>
-
+<div className='mb-[5%] nav-container'>
     <div className="nav-section bg-[#FFFFFF] w-[100%] z-[1] fixed top-0" >
                                 <div style={{padding:'0% 2%'}} className="">
                                     <div className="row align-items-center">

@@ -4492,6 +4492,10 @@ font-size: 20px;
 }
 }
 @media screen and (max-width:441px) {
+.scroll-ani img{
+  height: 145px;
+  width: 325px;
+}
 .tag-list li {
   height: 32px;
   font-size: 15px;
@@ -4561,6 +4565,7 @@ font-size: 20px;
 .social-link ul .social-item{
   padding: 3%;
 }
+
 }
 @media screen and (max-width:375px) {
 .hero-text h1::after {
