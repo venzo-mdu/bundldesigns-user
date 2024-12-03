@@ -6,11 +6,14 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { ConfigToken } from '../Auth/ConfigToken';
 import { questionnaireAction5, questionnaireAnswers } from '../../Redux/Action';
+import { ToastContainer, toast } from 'react-toastify';
 
 export const Questionnaire5 = () => {
+  
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
+
   const answers1 = useSelector((state) => state.questionnaire1);
   const answers2 = useSelector((state) => state.questionnaire2);
   const answers3 = useSelector((state) => state.questionnaire3);
@@ -18,7 +21,7 @@ export const Questionnaire5 = () => {
   const [questions, setQuestions] = useState([]);
   const [formData, setFormData] = useState({});
   const [selectedLanguage, setSelectedLanguage] = useState(null);
-
+  const [fetchQ5Answers, setFetchQ5Answers] = useState([]);
 
   const placeHolders = [
     "",
@@ -39,8 +42,59 @@ export const Questionnaire5 = () => {
         console.error("Error fetching questions:", error);
       }
     };
+    const fetchAnswers = async () => {
+      try {
+        const response = await axios.get(`${base_url}/api/questionnaire/update/${location.state.orderId}`, ConfigToken());
+        setFetchQ5Answers(response.data.data)
+      } catch (error) {
+        console.error("Error fetching questions:", error);
+      }
+    }
     fetchQuestions();
+    fetchAnswers();
   }, []);
+
+
+  const getAnswerValue = (questionId) => {
+
+    const formValue = formData?.[questionId];
+    if (formValue !== undefined) {
+      return formValue;
+    }
+
+    const fetchedAnswer = fetchQ5Answers.find((answer) => answer.question_id === questionId)?.answer;
+    if (fetchedAnswer !== undefined && formValue === undefined) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [questionId]: fetchedAnswer,
+      }));
+    }
+    return fetchedAnswer ?? '';
+  };
+
+  const showToastMessage = () => {
+    toast.error("The Value is required!", {
+      position: toast?.POSITION?.TOP_RIGHT,
+    });
+  };
+
+  const validateFields = () => {
+    // Filter required questions that are either unanswered or contain invalid values
+    const unansweredRequiredQuestions = questions.filter((q) => {
+      return (
+        q.required && // Check if the question is marked as required
+        (!formData?.[q.id] || formData?.[q.id].trim() === "") // Check if there's no answer or only whitespace
+      );
+    });
+  
+  
+    if (unansweredRequiredQuestions.length > 0) {
+      showToastMessage(); // Display the error toast
+      return false;
+    }
+  
+    return true; // All required fields are valid
+  };
 
   const handleChange = (id, value) => {
     setFormData((prev) => ({
@@ -63,6 +117,9 @@ export const Questionnaire5 = () => {
   };
 
   const FinishClick = async () => {
+    if (!validateFields()) {
+      return; // Stop execution if validation fails
+    }
     try {
       let finalFormData = {
         answers:{
@@ -73,7 +130,7 @@ export const Questionnaire5 = () => {
           ...formData,
         },
         status:'submit',
-        orderId:43
+        orderId:location.state?.orderId
       };
       const response = await axios.post(
         `${base_url}/api/questionnaire/create`,
@@ -88,6 +145,9 @@ export const Questionnaire5 = () => {
   };
 
   const onSaveLaterClick = async() =>{
+    if (!validateFields()) {
+      return; // Stop execution if validation fails
+    }
     try {
       let data = {
         formData,
@@ -100,7 +160,7 @@ export const Questionnaire5 = () => {
         ConfigToken()
       );
       dispatch(questionnaireAction5(formData))
-      navigate("/thankyou");
+      navigate("/dashboard");
     } catch (error) {
       console.error("Error submitting data:", error);
     }
@@ -109,9 +169,11 @@ export const Questionnaire5 = () => {
 
   return (
     <div>
+      <ToastContainer/>
       <Questionnaire
         pageNo={5}
-        storeAnswers={answers4} // Pass the local answers to the Questionnaire
+        storeAnswers={answers4}
+        orderId={location.state?.orderId}
         onBackClick={onBackClick}
         onNextClick={FinishClick}
         onSaveLaterClick={onSaveLaterClick}
@@ -142,7 +204,7 @@ export const Questionnaire5 = () => {
             <input
               placeholder={question.placeholder}
               className="question-input"
-              // value={formData[question.id] || ""}
+              value={getAnswerValue(question.id)}
               onChange={(e) => handleChange(question.id, e.target.value)}
             />
           </div>

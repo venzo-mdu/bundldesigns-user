@@ -290,7 +290,7 @@ export const Home = () => {
                             </div>
                             <div className="container">
                                 <div className="hero-text">
-                                    <div className="px-5 justify-content-cnter text-center mx-auto">
+                                    <div className="justify-content-cnter text-center mx-auto">
                                         <div className="px-2">
 
                                         </div>

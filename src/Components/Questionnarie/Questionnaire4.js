@@ -21,6 +21,7 @@ import Color3 from '../../Images/Questionnaire/img3.png'
 import Link from '../../Images/Questionnaire/icons8-link-26.png'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ConfigToken } from '../Auth/ConfigToken';
+import { ToastContainer, toast } from 'react-toastify';
 
 export const Questionnaire4 = () => {
 
@@ -28,7 +29,7 @@ export const Questionnaire4 = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const answers = useSelector((state) => state.questionnaire3);
-
+ 
   const [questions, setQuestions] = useState([]);
   const [selectedColors, setSelectedColors] = useState([]); // To store selected color codes
   const [inputValue, setInputValue] = useState(''); // For input field
@@ -37,6 +38,7 @@ export const Questionnaire4 = () => {
   const [shadeColor, setshadeColor] = useState('rgb(0, 0, 0)');
   const [shadeType, setShadeType] = useState('');
   const [formData, setFormData] = useState({});
+  const [fetchQ4Answers, setFetchQ4Answers] = useState([]);
 
   const placeHolders = [
     "BUNDL",
@@ -53,17 +55,66 @@ export const Questionnaire4 = () => {
         console.error('Error fetching questions:', error);
       }
     };
+
+    
+    const fetchAnswers = async () => {
+      try {
+        const response = await axios.get(`${base_url}/api/questionnaire/update/${location.state.orderId}`, ConfigToken());
+        setFetchQ4Answers(response.data.data)
+      } catch (error) {
+        console.error("Error fetching questions:", error);
+      }
+    }
     fetchQuestions();
+    fetchAnswers();
   }, []);
 
   const displayedColors = colorCodes.slice(0, 90);
 
-  // const handleColorClick = (color,questionId) => {
-  //   if (!selectedColors.includes(color)) {
-  //     setSelectedColors([...selectedColors, color]);
-  //   }
-  //   setFormData(...formData,{[questionId]:selectedColors})
-  // };
+  const getAnswerValue = (questionId) => {
+
+    const formValue = formData?.[questionId];
+    if (formValue !== undefined) {
+      return formValue;
+    }
+
+    const fetchedAnswer = fetchQ4Answers.find((answer) => answer.question_id === questionId)?.answer;
+    if (fetchedAnswer !== undefined && formValue === undefined) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [questionId]: fetchedAnswer,
+      }));
+    }
+    return fetchedAnswer ?? '';
+  };
+
+  const showToastMessage = () => {
+    toast.error("The Value is required!", {
+      position: toast?.POSITION?.TOP_RIGHT,
+    });
+  };
+
+  const validateFields = () => {
+    // Filter required questions that are either unanswered or contain invalid data
+    const unansweredRequiredQuestions = questions.filter((q) => {
+      const answer = formData?.[q.id];
+      if (!q.required) {
+        return false; 
+      }
+  
+      return !answer || answer.toString().trim() === "";
+    });
+  
+  
+    if (unansweredRequiredQuestions.length > 0) {
+      showToastMessage(); // Display the error toast
+      return false;
+    }
+  
+    return true; // All required fields are valid
+  };
+  
+
   const handleColorClick = (color, questionId) => {
     let updatedColors;
 
@@ -100,8 +151,12 @@ export const Questionnaire4 = () => {
     }));
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e,questionId) => {
     setInputValue(e.target.value);
+    setFormData((prevData)=>({
+      ...prevData,
+      [questionId]:e.target.value
+    }))
   };
 
   const handleAddColor = () => {
@@ -181,22 +236,30 @@ export const Questionnaire4 = () => {
   }
 
   const onNextClick = () => {
-
-    
+    if (!validateFields()) {
+      return; // Stop execution if validation fails
+    }
     dispatch(questionnaireAction4(formData))
-    navigate(`/questionnaire/${5}`);
+    navigate(`/questionnaire/${5}`,{
+      state:{
+        orderId:location.state?.orderId
+      }
+    });
   }
 
   const onSaveLaterClick = async () => {
+    if (!validateFields()) {
+      return; // Stop execution if validation fails
+    }
     let data = {
       answers: formData,
-      orderId: 16,
+      orderId: location.state?.orderId,
       status: 'not submitted'
     }
     try {
       const response = await axios.post(`${base_url}/api/questionnaire/create`, data, ConfigToken());
       if(response.status === 200){
-        navigate('/questionnaire/5',{
+        navigate('/dashboard',{
           state:{
             orderId:location.state?.orderId
           }
@@ -210,9 +273,11 @@ export const Questionnaire4 = () => {
 
   return (
     <div>
+      <ToastContainer/>
       <Questionnaire
         pageNo={4}
         storeAnswers={answers}
+        orderId={location.state?.orderId}
         onBackClick={onBackClick}
         onNextClick={onNextClick}
         onSaveLaterClick={onSaveLaterClick}
@@ -563,8 +628,8 @@ export const Questionnaire4 = () => {
                     >
                       <input
                         type="text"
-                        value={inputValue}
-                        onChange={handleInputChange}
+                        value={getAnswerValue(question.id)}
+                        onChange={(e)=>handleInputChange(e,question.id)}
                         style={{
                           padding: '8px',
                           border: '1px solid #ccc',
@@ -573,7 +638,7 @@ export const Questionnaire4 = () => {
                         }}
                       />
                       <button
-                        onClick={handleAddColor}
+                        // onClick={handleAddColor}
                         style={{
                           padding: '8px 16px',
                           backgroundColor: 'transparent',
@@ -587,7 +652,7 @@ export const Questionnaire4 = () => {
                       </button>
                     </div> : ''
                 }
-                <input placeholder={placeHolders[index]} value={formData[index]} className="question-input" onChange={(e) => handleChange(question.id, e.target.value)} />
+                <input placeholder={placeHolders[index]} value={question.id==21?'':getAnswerValue(question.id)} className="question-input" onChange={(e) => handleChange(question.id, e.target.value)} />
               </div>
             ))}
 

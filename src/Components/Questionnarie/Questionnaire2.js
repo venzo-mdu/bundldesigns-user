@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { base_url } from '../Auth/BackendAPIUrl';
 import { Questionnaire } from './Questionnaire';
+import { ToastContainer, toast } from 'react-toastify';
+
 
 import Male1 from '../../Images/Questionnaire/male1.png';
 import Male2 from '../../Images/Questionnaire/male2.png';
@@ -34,6 +36,7 @@ export const Questionnaire2 = () => {
   const [activeFemaleButtons, setActiveFemaleButtons] = useState([]);
   const [activeMaleButtons, setActiveMaleButtons] = useState([]);
   const [formData, setFormData] = useState(location.state?.questionnaireData2);
+  const [fetchQ2Answers, setFetchQ2Answers] = useState([]);
 
   const femaleImages = [Female1, Female2, Female3, Female4, Female5, Female6];
   const MaleImages = [Male1, Male2, Male3, Male4, Male5, Male6];
@@ -55,9 +58,47 @@ export const Questionnaire2 = () => {
         console.error("Error fetching questions:", error);
       }
     };
+    const fetchAnswers = async () => {
+      try {
+        const response = await axios.get(`${base_url}/api/questionnaire/update/${location.state.orderId}`, ConfigToken());
+        setFetchQ2Answers(response.data.data)
+        const ageDataQuestion = response.data.data.find(
+          (item) => item.answer_type === "age-data"
+        );
+        
+        if (ageDataQuestion?.answer?.female) {
+          setActiveFemaleButtons(ageDataQuestion.answer.female);
+          setSelectedGender("female");
+        }
+        if(ageDataQuestion?.answer?.male){
+          setActiveMaleButtons(ageDataQuestion.answer.male);
+          setSelectedGender("male");
+        }  
+      } catch (error) {
+        console.error("Error fetching questions:", error);
+      }
+    }
     fetchQuestions();
+    fetchAnswers();
   }, []);
+  
+  const getAnswerValue = (questionId) => {
 
+    const formValue = formData?.[questionId];
+    if (formValue !== undefined) {
+      return formValue;
+    }
+
+    const fetchedAnswer = fetchQ2Answers.find((answer) => answer.question_id === questionId)?.answer;
+    if (fetchedAnswer !== undefined && formValue === undefined) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [questionId]: fetchedAnswer,
+      }));
+    }
+    return fetchedAnswer ?? '';
+  };
+  
   const handleGenderChange = (selected) => {
     if (selectedGender === 'both') {
       if (selected === 'male') {
@@ -77,42 +118,56 @@ export const Questionnaire2 = () => {
     }
   };
 
+  const showToastMessage = () => {
+    toast.error("The Value is required!", {
+      position: toast?.POSITION?.TOP_RIGHT,
+    });
+  };
 
 
-  const handleButtonClick = (buttonId,gender,label) => {
-    if(gender=== 'female'){
-      setActiveFemaleButtons((prevActiveButtons) =>
-        prevActiveButtons.includes(label)
-          ? prevActiveButtons.filter((id) => id !== label) 
-          : [...prevActiveButtons,label] 
-      );
-      setFormData((prevFormData) => {
-        const updatedFemaleAgeGroups = prevFormData?.femaleAgeGroups || [];
+  const handleButtonClick = (buttonId, gender, label, questionId) => {
+    setFormData((prevFormData) => {
+      // Retrieve the current state of male and female data for the specific question
+      const currentFemaleData = activeFemaleButtons || [];
+      const currentMaleData = activeMaleButtons || [];
+      // Determine the updated data based on the gender
+      let updatedGenderData;
+      if (gender === 'female') {
+        updatedGenderData = currentFemaleData.includes(label)
+          ? currentFemaleData.filter((item) => item !== label) // Remove if already selected
+          : [...currentFemaleData, label]; // Add if not present
+  
+        setActiveFemaleButtons(updatedGenderData); // Update active female buttons
         return {
           ...prevFormData,
-          female: updatedFemaleAgeGroups.includes(label)
-            ? updatedFemaleAgeGroups.filter((age) => age !== label) // Remove if deselected
-            : [...updatedFemaleAgeGroups, label], // Add if selected
+          [questionId]: {
+            female: updatedGenderData, // Update female data
+            male: currentMaleData, // Preserve male data
+          },
         };
-      });
-    }
-    if(gender === 'male'){
-      setActiveMaleButtons((prevActiveButtons) =>
-        prevActiveButtons.includes(label)
-          ? prevActiveButtons.filter((id) => id !== label) 
-          : [...prevActiveButtons,label] 
-      );
-      setFormData((prevFormData) => {
-        const updatedMaleAgeGroups = prevFormData?.maleAgeGroups || [];
+      }
+  
+      if (gender === 'male') {
+        updatedGenderData = currentMaleData.includes(label)
+          ? currentMaleData.filter((item) => item !== label) // Remove if already selected
+          : [...currentMaleData, label]; // Add if not present
+  
+        setActiveMaleButtons(updatedGenderData); // Update active male buttons
+  
         return {
           ...prevFormData,
-          male: updatedMaleAgeGroups.includes(label)
-            ? updatedMaleAgeGroups.filter((age) => age !== label) // Remove if deselected
-            : [...updatedMaleAgeGroups, label], // Add if selected
+          [questionId]: {
+            female: currentFemaleData, // Preserve female data
+            male: updatedGenderData, // Update male data
+          },
         };
-      });
-    };
-  }
+      }
+  
+      return prevFormData; // Default case (shouldn't occur)
+    });
+  };
+  
+
   const handleChange = (questionId , value) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -124,19 +179,29 @@ export const Questionnaire2 = () => {
     navigate(`/questionnaire/${1}`,{state:{questionnaireData1:answers}});
   }
   const onNextClick = () =>{
+    // if (!validateFields()) {
+    //   return; // Stop execution if validation fails
+    // }
     dispatch(questionnaireAction2(formData))
-    navigate(`/questionnaire/${3}`);
+    navigate(`/questionnaire/${3}`,{
+      state:{
+        orderId:location.state?.orderId
+      }
+    });
   }
   const onSaveLaterClick = async() =>{
+    // if (!validateFields()) {
+    //   return; // Stop execution if validation fails
+    // }
     let data ={
       answers:formData,
-      orderId:16,
+      orderId:location.state?.orderId,
       status:'not submitted'
     }
      try{
       const response = await axios.post(`${base_url}/api/questionnaire/create`,data,ConfigToken());
       if(response.status === 200){
-        navigate('/questionnaire/3',{
+        navigate('/dashboard',{
           state:{
             orderId:location.state?.orderId
           }
@@ -149,8 +214,10 @@ export const Questionnaire2 = () => {
   }
   return (
     <div>
+      <ToastContainer />
       <Questionnaire
         pageNo={2}
+        orderId={location.state?.orderId}
         onBackClick={onBackClick}
         onNextClick={onNextClick}
         onSaveLaterClick={onSaveLaterClick}
@@ -190,12 +257,12 @@ export const Questionnaire2 = () => {
                           src={femaleImages[index]}
                           alt={`Female ${index + 1}`}
                           className="female-image"
-                          onClick={() => handleButtonClick(`female-${index}`,'female',label)}
+                          onClick={() => handleButtonClick(`female-${index}`,'female',label,question.id)}
                         />
                         <button
                           key={`female-${index}`}
-                          className={`female-btn ${activeFemaleButtons.includes(label) ? 'active' : ''}`}
-                          onClick={() => handleButtonClick(`female-${index}`,'female',label)}
+                          className={`female-btn ${activeFemaleButtons?.includes(label) ? 'active' : ''}`}
+                          onClick={() => handleButtonClick(`female-${index}`,'female',label,question.id)}
                         >
                           {label}
                         </button>
@@ -240,12 +307,12 @@ export const Questionnaire2 = () => {
                           src={MaleImages[index]}
                           alt={`Male ${index + 1}`}
                           className="male-image"
-                          onClick={() => handleButtonClick(`male-${index}`,'male',label)}
+                          onClick={() => handleButtonClick(`male-${index}`,'male',label,question.id)}
                         />
                         <button
                           key={`male-${index}`}
                           className={`male-btn ${activeMaleButtons.includes(label) ? 'active' : ''}`}
-                          onClick={() => handleButtonClick(`male-${index}`,'male',label)}
+                          onClick={() => handleButtonClick(`male-${index}`,'male',label,question.id)}
                         >
                           {label}
                         </button>
@@ -281,7 +348,7 @@ export const Questionnaire2 = () => {
                 </>
               )
             }
-            <input className="question-input" placeholder={placeHolders[index]} value={formData?.[question.id]} onChange={(e)=>handleChange(question.id,e.target.value)}/>
+            <input className="question-input" placeholder={placeHolders[index]} value={ question.answer_type === "age-data" ?'':getAnswerValue(question.id)} onChange={(e)=>handleChange(question.id,e.target.value)}/>
           </div>
         ))
       }

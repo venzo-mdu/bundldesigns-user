@@ -360,8 +360,8 @@ export default function Dashboard() {
             }
               {
                 purchasePopUp && <Popup
+                    isCancel={true}
                     openpopup={purchasePopUp}
-                    isCancel={false}
                     setPopup={setPurchasePopUp}
                     title={'Thank you for your purchase'}
                     subTitle={"We're so happy you're here! Let's create something amazing together."}
@@ -372,8 +372,8 @@ export default function Dashboard() {
             }
                {
                 completePopup && <Popup
+                    isCancel={true}
                     openpopup={completePopup}
-                    isCancel={false}
                     setPopup={setCompletePopup}
                     title={"And that's a wrap!"}
                     subTitle={"That's a wrap on the design project! It's been a fun and creative process. Enjoy the files."}
@@ -422,22 +422,25 @@ export default function Dashboard() {
                 </p>
 
                 {order?.item_details?.map((item, index) => {
-                    return <p className={`font-medium text-[18px] mx-1 my-2 py-1 
-                        ${index != (order?.item_details.length - 1) &&
-                        'border-b'} border-[#00000080] flex justify-between`}><span>{item.item_name}</span>
-                        <span className='flex items-center text-[#00000080] text-[14px]'>{processIndex >= 4 ? <>
-                            {item.status == 'questionnaire required' ? <>
-                                <span className='mr-2'>Waiting content</span>
-                                <img src={ItemWaitingIcon}></img>
-                            </> : item.status == 'content_uploaded' ? <>
-                                <span className='mr-2'>In Progress</span>
-                                <img src={ItemProgressIcon}></img>
-                            </> : <>
-                                <span className='mr-2 font-bold text-[#1BA56F]'>Finished</span>
-                                <img src={ItemFinishedIcon}></img>
-                            </>}
-                        </> : ''}</span>
-                    </p>
+                    if(item.item__category !=1 && item.type!='bundl'){
+                        return <p className={`font-medium text-[18px] mx-1 my-2 py-1 
+                            ${index != (order?.item_details.length - 1) &&
+                            'border-b'} border-[#00000080] flex justify-between`}><span>{item.item_name}</span>
+                            <span className='flex items-center text-[#00000080] text-[14px]'>{processIndex >= 4 ? <>
+                                {item.status == 'questionnaire required' ? <>
+                                    <span className='mr-2'>Waiting content</span>
+                                    <img src={ItemWaitingIcon}></img>
+                                </> : item.status == 'content_uploaded' ? <>
+                                    <span className='mr-2'>In Progress</span>
+                                    <img src={ItemProgressIcon}></img>
+                                </> : <>
+                                    <span className='mr-2 font-bold text-[#1BA56F]'>Finished</span>
+                                    <img src={ItemFinishedIcon}></img>
+                                </>}
+                            </> : ''}</span>
+                        </p>
+                    }
+                 
                 })}
             </>}
         </div>

@@ -1,58 +1,4 @@
-// import React, { useEffect, useState } from 'react';
-// import axios from 'axios';
-// import { Questionnaire } from './Questionnaire';
-// import { base_url } from '../Auth/BackendAPIUrl';
-// import Load from '../../Images/Bundles/load_sticker.webp'
-// import { useNavigate } from 'react-router-dom';
-
-// export const Questionnaire1 = () => {
-//   const [questions, setQuestions] = useState([]);
-//   const navigate = useNavigate();
-
-//   useEffect(() => {
-//     const fetchQuestions = async () => {
-//       try {
-//         const response = await axios.get(`${base_url}/api/content?section=brand_questions`);
-//         const questionsJSX = response.data.map((question, index) => (
-//           <div className='questions' key={index}>
-//             <p className='questions-title'>
-//               {question.question}
-//               <span><sup>*</sup></span>
-//             </p>
-//             <input className='question-input' />
-//             {
-//               index === 0 ? 
-//               <div className='img-rotate-qf'>
-//                 <img className='rotating-image' src={Load}></img>
-//               </div>
-//             :''
-//             }
-//           </div>
-//         ));
-//         setQuestions(questionsJSX);
-//       } catch (error) {
-//         console.error("Error fetching questions:", error);
-//       }
-//     };
-//     fetchQuestions();
-//   }, []);
-
-//   const onClick = () =>{
-//     navigate(`/questionnaire/${2}`);
-//   }
-//   return (
-//     <div>
-//       <Questionnaire 
-//         pageNo={1}
-//         questions={questions} 
-//         bgTitle={'About your business'}
-//         onNextClick={onClick}
-//       />
-//     </div>
-//   );
-// };
-
-import React, { useEffect, useState ,useCallback } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import { Questionnaire } from './Questionnaire';
 import { base_url } from '../Auth/BackendAPIUrl';
@@ -73,8 +19,10 @@ export const Questionnaire1 = () => {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState(location.state?.questionnaireData1);
   const [activeType, setActiveType] = useState(null);
+  const [fetchQ1Answers, setFetchQ1Answers] = useState([]);
+  const [requiredQuestions , setRequiredQuestions] = useState([])
 
-  const placeHolders =[
+  const placeHolders = [
     "Project Name",
     "(ex:Fashion,Food,Services,Personal Brand,etc...)",
     "(ex:Riyadh , Saudi Arabia)",
@@ -84,7 +32,7 @@ export const Questionnaire1 = () => {
     "Share your social media link"
   ]
 
- 
+
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -95,7 +43,17 @@ export const Questionnaire1 = () => {
         console.error("Error fetching questions:", error);
       }
     };
+
+    const fetchAnswers = async () => {
+      try {
+        const response = await axios.get(`${base_url}/api/questionnaire/update/${location.state.orderId}`, ConfigToken());
+        setFetchQ1Answers(response.data.data)
+      } catch (error) {
+        console.error("Error fetching questions:", error);
+      }
+    }
     fetchQuestions();
+    fetchAnswers();
   }, []);
 
   const showToastMessage = () => {
@@ -112,7 +70,7 @@ export const Questionnaire1 = () => {
       // type: type, // Update formData accordingly
     }));
   };
-  
+
 
   const handleInputChange = (questionId, value) => {
     setFormData((prev) => ({
@@ -121,33 +79,81 @@ export const Questionnaire1 = () => {
     }));
   };
 
+  const getAnswerValue = (questionId) => {
+
+    const formValue = formData?.[questionId];
+    if (formValue !== undefined) {
+      return formValue;
+    }
+
+    const fetchedAnswer = fetchQ1Answers.find((answer) => answer.question_id === questionId)?.answer;
+    if (fetchedAnswer !== undefined && formValue === undefined) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [questionId]: fetchedAnswer,
+      }));
+    }
+    return fetchedAnswer ?? '';
+  }
+
+
+  const validateFields = () => {
+    // Filter required questions that are either unanswered or contain invalid values
+    const unansweredRequiredQuestions = questions.filter((q) => {
+      return (
+        q.required && // Check if the question is marked as required
+        (!formData?.[q.id] || formData?.[q.id].trim() === "") // Check if there's no answer or only whitespace
+      );
+    });
   
+  
+    if (unansweredRequiredQuestions.length > 0) {
+      showToastMessage(); // Display the error toast
+      return false;
+    }
+  
+    return true; // All required fields are valid
+  };
+  
+
+
   const onNextClick = () => {
-    // showToastMessage();
-    dispatch(questionnaireAction1(formData));
-    navigate(`/questionnaire/${2}`);
+    if (!validateFields()) {
+      return; // Stop execution if validation fails
+    }
+    else{
+      dispatch(questionnaireAction1(formData));
+      navigate(`/questionnaire/${2}`,{state:{
+        orderId:location.state?.orderId
+      }});
+    }
   };
 
- const onSaveLaterClick = async() =>{
-  let data ={
-    answers:formData,
-    orderId:location.state?.orderId || 43,
-    status:'not submitted'
-  }
-   try{
-    const response = await axios.post(`${base_url}/api/questionnaire/create`,data,ConfigToken());
-    if(response.status === 200){
-      navigate('/questionnaire/2',{
-        state:{
-          orderId:location.state?.orderId
-        }
-      })
+  const onSaveLaterClick = async () => {
+    if (!validateFields()) {
+      return; // Stop execution if validation fails
     }
-   }
-   catch(e){
-    console.log(e)
-   }
- }
+    else{
+      let data = {
+        answers: formData,
+        orderId: location.state?.orderId,
+        status: 'not submitted'
+      }
+      try {
+        const response = await axios.post(`${base_url}/api/questionnaire/create`, data, ConfigToken());
+        if (response.status === 200) {
+          navigate('/dashboard', {
+            state: {
+              orderId: location.state?.orderId
+            }
+          })
+        }
+      }
+      catch (e) {
+        console.log(e)
+      }
+    }
+  }
 
   return (
     <div>
@@ -155,6 +161,7 @@ export const Questionnaire1 = () => {
       <Questionnaire
         pageNo={1}
         storeAnswers={location.state?.questionnaireData1}
+        orderId={location.state?.orderId}
         bgTitle={'About your business'}
         onNextClick={onNextClick}
         onSaveLaterClick={onSaveLaterClick}
@@ -187,7 +194,8 @@ export const Questionnaire1 = () => {
             <input
               className='question-input'
               placeholder={placeHolders[index]}
-              value={formData?.[question.id] || ''}
+              // value={formData?.[question.id] || fetchQ1Answers[2].answer }
+              value={getAnswerValue(question.id)}
               onChange={(e) => handleInputChange(question.id, e.target.value)} // Update Redux
             />
             {index === 0 ? (
@@ -198,7 +206,7 @@ export const Questionnaire1 = () => {
           </div>
         ))}
       >
-        
+
       </Questionnaire>
     </div>
   );
