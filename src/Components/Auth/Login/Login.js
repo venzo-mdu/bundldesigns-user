@@ -128,7 +128,7 @@ export const Login = () => {
               />
             </p>
             <p className='dont'>
-              Don't have an account? <span><NavLink className='signup' to={'/signup'}>&nbsp;Signup</NavLink></span>
+              Don't have an account? <span><NavLink className='signup' to={'/signup'}>&nbsp;Sign Up</NavLink></span>
             </p>
           </form>
         </div>

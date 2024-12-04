@@ -63,6 +63,8 @@ export const Home = () => {
     const [bundlData, setBundlData] = useState([]);
     const translateX = activeProcess * (window.innerWidth <= 475 ? 85 : window.innerWidth <= 768 ? 150 : 195);
     const bundlImages = [QubeIcon, Diamond, Eye, Food, Money]
+    const textColor = ["pink-text", "green-text", "blue-text", "pink-text"]
+    const titles = ["Just to get started","For Restaurants and Cafés","For Salons and Other Services","For Shops and Online Stores"]
     const processData = [
         {
             title: "BUY A BUNDL",
@@ -129,6 +131,7 @@ export const Home = () => {
     const addToCart = async (bundleData) => {
         try {
             const response = await axios.get(`${base_url}/api/order/cart/`, ConfigToken());
+            console.log(response, 'aa')
             if (response.data.order_status === 'in_cart') {
                 setOpenPopup(true);
             } else {
@@ -143,7 +146,7 @@ export const Home = () => {
 
     const emptyCart = async () => {
         await axios.delete(`${base_url}/api/order/cart/`, ConfigToken());
-        setOpenPopup(false)
+        setOpenPopup(false);
     }
 
     const updateActiveProcess = (index) => {
@@ -284,9 +287,9 @@ export const Home = () => {
                                         <li className="slidee "><span>graphic design</span></li>
                                     </ul>
                                 </div>
-                                <div className="img-rotate">
+                                {/* <div className="img-rotate">
                                     <img src={Loader} alt="" className="rotating-image"></img>
-                                </div>
+                                </div> */}
                             </div>
                             <div className="container">
                                 <div className="hero-text">
@@ -591,39 +594,41 @@ export const Home = () => {
                                                     <div className="change_brand">
                                                         <div className="table_icon"><img src={bundlImages[index]} alt="" className="img-fluid"></img></div>
                                                         <div className="newbie">{bundles.name_english}</div>
-                                                        <div className="pkg-sub-title">Just to get started</div>
+                                                        <div className="pkg-sub-title">{titles[index]}</div>
                                                     </div>
                                                     <div className="second_brand_section">
-                                                        <div className="box-child">
-                                                            <div className="pack-inner-title"><span>Brand Identity</span></div>
-                                                            <ul className="second_brand_list">
-                                                                <li>Brand Concept & Direction</li>
-                                                                <li>Logo Design</li>
-                                                                <li>Logo Variations</li>
-                                                                <li>Color Palette</li>
-                                                                <li>Typography</li>
-                                                                <li>Visual Identity</li>
-                                                                <li>Brand Guide</li>
-                                                            </ul>
-                                                        </div>
-                                                        <div className="box-child">
-                                                            <div className="pack-inner-title"><span>Choose Add-ons to Your Bundl</span></div>
-                                                            <ul className="second_brand_list">
-                                                                <li>Branding</li>
-                                                                <li>E-designs</li>
-                                                                <li>Products</li>
-                                                                <li>Publications</li>
-                                                                <li>Social Media</li>
-                                                                <li>Space Design</li>
-                                                                <li>Stationery</li>
-                                                            </ul>
-                                                        </div>
+                                                        {
+                                                            Object.keys(bundles.design_details).map((key, index) => (
+                                                                <div className="box-child">
+                                                                    <div className="pack-inner-title">
+                                                                        <span>{key}</span>
+                                                                        {bundles.design_details[key]?.design_list?.map((designItem, idx) => (
+                                                                            <React.Fragment key={`${index}-${idx}`}>
+
+                                                                                <ul className="second_brand_list">
+                                                                                    <li>{designItem.name_english}</li>
+                                                                                </ul>
+                                                                            </React.Fragment>
+                                                                        ))}
+                                                                    </div>
+                                                                </div>
+                                                            ))
+                                                        }
                                                     </div>
                                                 </div>
                                                 <div className="newbie_description">
                                                     <div className="third_section_toggle">
-                                                        <div className="brand_identity pink-text">Brand Identity + <br></br>
+                                                        {/* <div className="brand_identity pink-text">Brand Identity + <br></br>
                                                             Add-Ons To Your Bundl
+                                                        </div> */}
+                                                        <div className={`brand_identity ${textColor[index]}`}>
+                                                            {
+                                                                Object.keys(bundles.design_details).map((key, index) => (
+                                                                    <>
+                                                                        {key} +<br></br>
+                                                                    </>
+                                                                ))
+                                                            }
                                                         </div>
                                                         <div className="change_brand_name">
                                                             <div className="second_section_image"><img src={bundlImages[index]} alt="" className="img-fluid"></img></div>
@@ -633,7 +638,7 @@ export const Home = () => {
                                                     <>
                                                         <div className="sar d-flex align-items-center">
                                                             <img src={Money} alt="" className="img-fluid"></img>
-                                                            <span className="sar_text px-2"><span> {bundles.name_english === "The Newbie" ? 'Starting from' : ''}</span> {Math.round(bundles.min_order_amount)} SAR</span>
+                                                            <span className="sar_text px-2"><span> {bundles.name_english === "The Newbie" ? 'Starting from' : ''}</span> {Math.round(bundles.price)} SAR</span>
                                                         </div>
                                                         <div className="work_time d-flex align-items-center">
                                                             <img src={Time} alt="" className="ing-fluid"></img>

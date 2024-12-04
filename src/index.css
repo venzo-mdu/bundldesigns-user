@@ -91,3 +91,6 @@ code {
 input{
   border: 1px solid #000000 ;
 }
+button:disabled{
+  cursor: not-allowed;
+}

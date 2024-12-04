@@ -9,6 +9,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { GoogleLogin } from '@react-oauth/google';
 import { base_url } from '../BackendAPIUrl';
+import { ToastContainer, toast } from 'react-toastify';
 
 
 export const Signup = () => {
@@ -22,6 +23,12 @@ export const Signup = () => {
     email: '',
     password: ''
   });
+
+  const showToastMessage = () => {
+    toast.error("The Value is required!", {
+      position: toast?.POSITION?.TOP_RIGHT,
+    });
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -95,7 +102,7 @@ export const Signup = () => {
 
   const signUp = async (e) => {
     e.preventDefault();
-    if (!validateForm()) return;
+    if (!validateForm()) console.log('hh');
 
     try {
       const response = await axios.post(`${base_url}/api/register/`, registerData);
@@ -155,7 +162,7 @@ export const Signup = () => {
               />
               <p>I agree to the terms & policy</p>
             </div>
-            <button type='submit'  className='signin'>
+            <button type='submit' style={{margin:"0% 0 0 0"}}  className='signin'>
               Signup
             </button>
             <p className='or' style={{ margin: '2% 0 0 0' }}>Or</p>
@@ -171,7 +178,7 @@ export const Signup = () => {
               />
             </p>
             <p className='dont'>
-              Have an account? <span><NavLink className='signup' to={'/login'}>&nbsp;Signin</NavLink></span>
+              Have an account? <span><NavLink  className='signup' to={'/login'}>&nbsp;Sign In</NavLink></span>
             </p>
           </form>
         </div>
