@@ -13,6 +13,8 @@ body {
 }
 #description p{
   font-family:'Helvetica' !important;
+  font-size: 18px !important;
+
 }
 
 #description a{
@@ -21,12 +23,21 @@ body {
 
 #description span{
   font-family: 'Helvetica' !important;
+  font-size: 18px !important;
 
 }
 #description h1,#description h2,#description h3{
   font-family: 'Helvetica' !important;
 }
 
+#vacancySelect {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: url('../src/Images/down-arrow.svg') no-repeat right 16px center;
+  background-size: 30px;
+  cursor: pointer;
+}
 
 
 
