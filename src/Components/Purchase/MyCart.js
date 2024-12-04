@@ -237,7 +237,7 @@ export const MyCart = () => {
                     title={'Your Cart was empty'}
                     // subTitle={'Are you sure, you want to empty the cart.'}
                     onClick={()=>navigate('/')}
-                    save={'Continue to Dashboard'}
+                    save={'Continue to Homepage'}
                     // cancel={'Cancel'}
                 />
            }

@@ -201,7 +201,7 @@ export const Accordian = ({ accordianTitle, addOnPayload, bundlePackageId }) => 
           //   </AccordionDetails>
           // </Accordion>
 
-          <Accordion key={index} expanded={isDropdown[index]}>
+          <Accordion  key={index} expanded={isDropdown[index]}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls={`panel${index + 1}-content`}

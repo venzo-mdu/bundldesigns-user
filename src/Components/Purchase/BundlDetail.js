@@ -213,16 +213,20 @@ export const BundlDetail = () => {
             ))}
             <div className='bundl-checkout mt-3'>
               <div className='total' style={{ display: 'flex' }}>
-                <p style={{ width: '60%' }}><img src={BlackDollor} alt="Total Price" className="inline-block"/><span className='ml-3'>Total Price</span></p>
+                <p style={{ width: '60%' }}><img src={BlackDollor} alt="Total Price" className="inline-block"/><span className='ml-3'>Total Price :</span></p>
                 <p style={{ width: '40%' }} >{totalCost + addonPayLoads.total_price } SAR</p>
               </div>
               <div className='total' style={{ display: 'flex' }}>
-                <p style={{ width: '60%' }}><img src={BlackTime} alt="Total Duration" className="inline-block"/><span className='ml-3'>Total Duration</span></p>
+                <p style={{ width: '60%' }}><img src={BlackTime} alt="Total Duration" className="inline-block"/><span className='ml-3'>Total Duration :</span></p>
                 <p style={{ width: '40%' }}>{totalDuration + addonPayLoads.total_time} Days</p>
               </div>
 
               <div className='proceed-checkout'>
-                <button onClick={createPayload} className='proceed'>Proceed Checkout</button>
+                {
+                 ( totalCost + addonPayLoads.total_price ) >700 ?
+                 <button onClick={createPayload} className='proceed'>Proceed Checkout</button> :
+                 <button disabled className='proceed'>Proceed Checkout</button>
+                }
               </div>
               <p className='proceed-text'>Your minimum total should be above 700 SAR</p>
             </div>
