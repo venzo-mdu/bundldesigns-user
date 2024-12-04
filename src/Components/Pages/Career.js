@@ -134,23 +134,25 @@ export default function Career() {
             {vacancies.map((vacancy,index)=> {
                 return <div className={`${index+1 != vacancies.length && 'border-b'} border-black mb-6 px-6 `}>
                     <p> <img width='45px' height='45px' src={vacancy.image?vacancy.image:careerImg}></img></p>
-                    <h2 className='text-[32px] flex items-center'>{vacancy.vacancy_english}
+                    <h2 className='text-[32px] text-[#000] flex items-center'>{vacancy.vacancy_english}
                     <button
             onClick={() => toggleDescription(vacancy.id)}
-            className="text-blue-500 cursor-pointer"
+            className="text-blue-500 cursor-pointer ml-2"
           >
             <img src={expandedVacancies[vacancy.id] ? upArrow: downArrow}></img>
           </button>
           </h2>
           {/* Conditionally render the description */}
           {expandedVacancies[vacancy.id] && (
+
             <div id="description" className="mt-2 text-gray-700">
+            <p  className='font-bold mt-4 text-[20px]'>Vacancy Description</p>
                      <div
               id="description"
               className="mt-2 text-gray-700"
               dangerouslySetInnerHTML={{ __html: vacancy.description_english }}
             />
-            <p className='font-bold'>
+            <p className='font-bold text-[20px] mt-4'>
             Qualifications
             </p>
                  <div
@@ -165,12 +167,12 @@ export default function Career() {
             })}
         </div>
 
-        <div className='mt-12 mb-10'>
-            <h2 className='text-[32px] mb-2 text-center'>See something you like? send us your CV & Recent Work</h2>
-            <h3 className='text-[24px] mb-1 mt-3 text-center text-[#1BA56F]'>Join Us!</h3>
+        <div className='mt-24  mb-20'>
+            <h2 className='text-[32px] text-[#000]  mb-2 text-center'>See something you like? send us your CV & Recent Work</h2>
+            <h3 className='text-[24px] mb-1 mt-4 text-center text-[#1BA56F]'>Join Us!</h3>
         <form onSubmit={handleSubmit} className="px-6 pb-6 pt-1 sm:max-w-[90vw] md:max-w-[50vw] mx-auto space-y-4">
       {/* Name Field */}
-      <div>
+      <div className='mt-2 mb-3'>
         <input
           type="text"
           name="name"
@@ -183,7 +185,7 @@ export default function Career() {
       </div>
 
       {/* Phone Field */}
-      <div>
+      <div  className='mt-3 mb-3'>
         <input
           type="tel"
           name="phone"
@@ -196,7 +198,7 @@ export default function Career() {
       </div>
 
       {/* Email Field */}
-      <div>
+      <div className='mt-2 mb-3'>
         <input
           type="email"
           name="email"
@@ -209,7 +211,7 @@ export default function Career() {
       </div>
 
       {/* Description Field */}
-      <div>
+      <div  className='mt-3 mb-1'>
         <textarea
           name="message"
           placeholder='Tell us your Thoughts'
@@ -221,9 +223,10 @@ export default function Career() {
       </div>
 
       {/* Select Field */}
-      <div>
+      <div className='mt-1 mb-2'>
         <select
           name="vacancy"
+          id='vacancySelect'
           value={formData.vacancy}
           onChange={handleChange}
           className={`w-full border !border-black p-2 ${formData.vacancy?'text-black':'text-[#00000080]'}`}
@@ -235,7 +238,7 @@ export default function Career() {
       </div>
 
       {/* File Upload Field */}
-      <div>
+      <div className='my-3'>
       {/* Hidden file input */}
       <input
         type="file"
@@ -258,13 +261,13 @@ export default function Career() {
     </div>
 
       {/* Submit Button */}
-      <p className='text-center'> <button
+      <p className='text-center !mt-10'> <button
         type="submit"
-        className="bg-[#1BA56F] text-white py-1 my-2  px-10"
+        className="bg-[#1BA56F] text-white py-1 my-2   px-12"
       >
         Apply
       </button></p>
-            <p className='text-center flex items-center !mb-1 justify-center font-bold'> <img className='mr-1' src={emailicon}></img> info@bundldesigns.com</p>
+            <p className='text-center flex items-center !mb-1 mt-4 justify-center font-bold'> <img className='mr-1' src={emailicon}></img> info@bundldesigns.com</p>
             <p className='text-center flex items-center mt-1 justify-center font-bold'> <img className='mr-1' src={whatsappicon}></img>+(966) 547754124 </p>
 
             {successMsg && <p className='bg-green-600 py-1 px-4 rounded text-white'>{successMsg}</p>}

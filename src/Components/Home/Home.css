@@ -4125,6 +4125,9 @@ position: fixed; */
   /* color: #fff; */
   text-transform: uppercase;
 }
+.nav-icon-group .nav-link{
+  padding:  5px 8px !important;
+}
 
 .nav-section a.nav-link.active {
   font-weight: 600;
@@ -4578,7 +4581,6 @@ font-size: 20px;
 .social-link ul .social-item{
   padding: 3%;
 }
-
 }
 @media screen and (max-width:375px) {
 .hero-text h1::after {

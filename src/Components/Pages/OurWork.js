@@ -44,9 +44,9 @@ export default function OurWork() {
           <p className='text-[20px] text-[#00000080]'>Where we answer all your questions!</p>
         </div>
         <div className=' sm:p-3 border-b px-[3%] border-black'>
-          <div className='flex py-4 justify-center'>
+          <div className='flex py-4 justify-center w-[80%] mx-auto'>
             {Object.keys(categories).map((key, index) => {
-              return <button className={`px-[20px] ${currentTab == key ? 'text-white bg-[#1BA56F] ' : 'text-[#1BA56F] bg-white '}py-[5px] text-[20px] border-r border-t border-b
+              return <button className={`basis-1/5 ${currentTab == key ? 'text-white bg-[#1BA56F] ' : 'text-[#1BA56F] bg-white '} py-[5px] font-[500] text-[20px] border-r border-t border-b
                            ${index == 0 && 'border-l'} ${index == categories.length && 'border-l-0 border-r'}
                    !border-[#1BA56F]`}
                 onClick={() => setCurrentTab(key)}>{categories[key]}</button>
@@ -76,10 +76,10 @@ export default function OurWork() {
         </div>
         <div
           id="description"
-          className="text-gray-700 w-[70%]"
+          className="!text-[#00000080] w-[70%] text-[16px]"
           dangerouslySetInnerHTML={{ __html: project.description_english }}
         />
-        <button className="lg:w-[80%] xl:w-[60%] text-[17px] px-1 bg-black py-2 text-white">
+        <button className="lg:w-[80%] xl:w-[60%] md:w-[80%] text-[16px]  bg-black py-2 text-white">
           Follow Our Instagram
         </button>
       </div>
