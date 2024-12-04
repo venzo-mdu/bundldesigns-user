@@ -360,8 +360,8 @@ export default function Dashboard() {
             }
               {
                 purchasePopUp && <Popup
-                    isCancel={true}
                     openpopup={purchasePopUp}
+                    isCancel={false}
                     setPopup={setPurchasePopUp}
                     title={'Thank you for your purchase'}
                     subTitle={"We're so happy you're here! Let's create something amazing together."}
@@ -372,8 +372,8 @@ export default function Dashboard() {
             }
                {
                 completePopup && <Popup
-                    isCancel={true}
                     openpopup={completePopup}
+                    isCancel={false}
                     setPopup={setCompletePopup}
                     title={"And that's a wrap!"}
                     subTitle={"That's a wrap on the design project! It's been a fun and creative process. Enjoy the files."}

@@ -169,6 +169,27 @@ export default function Adjustments() {
         }
         updateTotals(itemsList, adjustmentData);
     }
+    const uploadFile = async(e, id, index) =>{
+        if(e.target.files.length){
+            const formData = new FormData()
+            formData.append('file',e.target.files[0])
+            formData.append('file_name',e.target.files[0]?.name)
+            const response = await axios.post(`${base_url}/api/upload_file/`, formData, ConfigToken());
+            setAdjustmentsData(prev => {
+                const updatedData = {
+                    ...prev,
+                    [id]: {
+                        ...prev[id],
+                        attachments: response.data.file_url,
+                        file_name :e.target.files[0]?.name || '',
+                        ...(prev[id] ? {} : adjustments[index]),
+                    },
+                };
+                updateTotals(itemsList, updatedData);
+                return updatedData;
+            });
+        }
+    }
 
     const createAdjustmentOrder = async() =>{
         const formData = {item_list : itemsList,adjustmentList:adjustmentData,total_price:totalPrice,total_time:totalTime}
@@ -230,10 +251,10 @@ export default function Adjustments() {
                                                 hidden
                                                 name="file"
                                                 id={`file-${adjustment.id}`} // Use a unique ID for each input
-                                            // onChange={(e) => uploadFile(e, adjustment.id, 'file')}
+                                            onChange={(e) => uploadFile(e, adjustment.id, index)}
                                             />
                                             <img src={uploadIcon} alt="Upload Icon" />
-                                            Upload Content
+                                          {adjustmentData[adjustment.id]?.file_name || 'Upload Content'}
                                         </p>
                                     </div>
                                 }
@@ -347,6 +368,7 @@ export default function Adjustments() {
                 <>
                          <div className='mycart'>
                 <div className='cart'>
+                <p className='flex !text-[18px] !font-normal items-center pb-2 cursor-pointer text-black' onClick={() => { setPage('adjustment') }}> <ArrowBackIcon style={{ width: '25px', marginRight: '10px' }} /> Back To Adjustments </p>
                     <p>Your Cart</p>
                     <TableContainer component={Paper}>
                         <Table sx={{ minWidth: 650 }} aria-label="simple table">
