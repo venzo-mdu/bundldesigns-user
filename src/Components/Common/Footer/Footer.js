@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import '../Footer/Footer.css'
 import Bundllogo from '../../../Images/Footer/Footerbundllogo.svg'
 import Message from '../../../Images/Footer/Messageicon.svg'
@@ -8,29 +8,43 @@ import Facebook from '../../../Images/Footer/Facebook.svg'
 import Instagram from '../../../Images/Footer/Instagram.svg'
 import X from '../../../Images/Footer/icons8-twitterx-16.svg'
 import { NavLink } from 'react-router-dom'
+import axios from 'axios'
+import { base_url } from '../../Auth/BackendAPIUrl'
 
 export const Footer = () => {
+    const [mediaUrls,setmediaUrls] = useState({
+        instagram:'',
+        facebook:'',
+        linked_in:'',
+        twitter:''
+    })
+
+    const getMediaUrls = async() =>{
+        const response = await axios.get(`${base_url}/api/content?section=settings`);
+        if (response.data) {
+            setmediaUrls(response.data)
+        }
+    }
     
-
-
-
-
+    useEffect(()=>{
+        getMediaUrls()
+    },[])
     const socialIcons = [
         {
             icon:Instagram,
-            path:'https://www.instagram.com/bundl_designs/'
+            path:mediaUrls.instagram
         },
         {
             icon:Facebook,
-            path:'https://www.facebook.com/bundldesigns/'
+            path:mediaUrls.facebook
         },
         {
             icon:X,
-            path:'https://twitter.com/BundlDesigns'
+            path:mediaUrls.twitter
         },
         {
             icon:Linkedin,
-            path:'https://www.linkedin.com/company/bundl-designs'
+            path:mediaUrls.linked_in
         },
     ]
     return (

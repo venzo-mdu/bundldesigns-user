@@ -87,14 +87,14 @@ const isCommonNavbar = commonPaths.includes(window.location.pathname);
                     <ul className="navbar">
                       <li>
                         {/* <!-- <a href="">Bundls</a> --> */}
-                        <a href="#" previewlistener="true">Bundl Offers</a>
+                        <a href="/" previewlistener="true">Bundl Offers</a>
                       </li>
                       <li>
                         {/* <!-- <a href="">Our Work</a> --> */}
-                        <a href="#" previewlistener="true">Our Work</a>
+                        <a href="/our-work" previewlistener="true">Our Work</a>
                       </li>
                       <li>
-                        <a href="#" previewlistener="true">About Us</a>
+                        <a href="/aboutus" previewlistener="true">About Us</a>
 
                       </li>
                       <li>

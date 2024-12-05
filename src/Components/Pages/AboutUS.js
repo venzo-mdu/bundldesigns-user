@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import aboutUs from '../../json/aboutUs.json'
-import cloud_bg from '../../Images/Background/cloud-bg.svg'
+import cloud_bg from '../../Images/bg-cloud.png'
 import gray_bg from '../../Images/Background/grey_cloud.svg'
 import loaderSticker from '../../Images/load sticker.svg'
 import paperPlane from '../../Images/Background/paper plane.svg'
@@ -37,9 +37,9 @@ export const AboutUs = () => {
       }}>
         < Navbar />
 
-        <div className='xl:h-[56vh]  lg:h-[56vh] md:h-[80vh] xs:h-[40vh] relative'>
-          <h1 className='font-Helvetica md:w-[60vw] lg:text-[38px] xs:text-[22px] sm:text-[22px] sm:w-[70vw] xs:w-[70vw] md:text-[36px] xl:w-[50vw] xl:text-[45px] mx-auto py-[8%] my-[2%] text-center'>{aboutUs.main_content} </h1>
-          <img className='animate-rotate-animation absolute xl:top-[73%]  lg:top-[57%] lg:ml-[25vw] md:ml-[25vw] md:top-[55%] xl:ml-[26vw]' width='100px' height='100px' src={loaderSticker}></img>
+        <div className='xl:h-[56vh]  lg:h-[60vh] md:h-[80vh] xs:h-[40vh] relative'>
+          <h1 className='font-Helvetica md:w-[60vw] lg:text-[38px] xs:text-[22px] sm:text-[22px] sm:w-[70vw] xs:w-[70vw] md:text-[36px] xl:w-[50vw] xl:text-[45px] mx-auto py-[8%] lg:py-[6%] md:py-[2%] my-[2%] text-center'>{aboutUs.main_content} </h1>
+          <img className='animate-rotate-animation absolute  xl:top-[75%] lg:ml-[25vw] md:ml-[25vw] md:top-[70%] xl:ml-[26vw]' width='100px' height='100px' src={loaderSticker}></img>
         </div >
 
 
@@ -93,7 +93,7 @@ style={{
       </div>
 
       <div className='text-center relative border-black leading-[40px] py-[3%] border-b'>
-        <img className='absolute md:top-[-72px] lg:top-[-100px] sm:w-[100px] xs:w-[100px] xs:top-[-30px] sm:top-[-52px] xl:top-[-80px] lg:w-[150px] xl:w-[150px] left-[12vw] md:w-[150px] ' width='200px' height='140px' src={blueSticker} />
+        <img className='absolute md:top-[-72px] xl:top-[-100px] sm:w-[100px] xs:w-[100px] xs:top-[-30px] sm:top-[-52px] lg:top-[-80px] md:w-[150px] xl:w-[200px] left-[12vw] ' width='200px' height='140px' src={blueSticker} />
         <h2 className=' md:text-[32px] sm:text-[24px] xs:text-[24px]  font-bold pb-[30px]'>What we do</h2>
         <p className='underline md:text-[24px] sm:text-[22px] xs:text-[22px]  font-bold'>Brand Identity</p>
         <p className='underline md:text-[24px] sm:text-[22px] xs:text-[22px]  font-bold'>Packaging</p>
