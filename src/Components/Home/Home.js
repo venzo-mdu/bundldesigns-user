@@ -188,7 +188,7 @@ export const Home = () => {
                                                             <a className="nav-link" href="/our-work">Work</a>
                                                         </li>
                                                         <li className="nav-item">
-                                                            <a className="nav-link" href="#">Contact Us</a>
+                                                            <a className="nav-link" >Contact Us</a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -658,6 +658,7 @@ export const Home = () => {
                                     <div className="subzero5">
 
                                         <span className="buiscut_layer5">
+                                        <img style={{ width: '30%' }} src={CartIcon} alt='cart-icon'></img>
                                             <NavLink style={{ color: 'white' }} to="/custombundl" state={{ title: 'Custom Bundl' }}>
                                                 ADD <br></br>TO CART
                                             </NavLink>

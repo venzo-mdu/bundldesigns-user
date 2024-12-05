@@ -93,14 +93,13 @@ export const Questionnaire3 = () => {
       [key]: value,
     }));
 
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [questionId]: sliderValues
-    }));
+    // setFormData((prevFormData) => ({
+    //   ...prevFormData,
+    //   [questionId]: sliderValues
+    // }));
   };
 
-
-
+  console.log(sliderValues, "values")
   const handleChange = (questionId, value) => {
     setFormData((formValues) => ({
       ...formValues,
@@ -122,13 +121,13 @@ export const Questionnaire3 = () => {
         (!formData?.[q.id] || formData?.[q.id].trim() === "") // Check if there's no answer or only whitespace
       );
     });
-  
-  
+
+
     if (unansweredRequiredQuestions.length > 0) {
       showToastMessage(); // Display the error toast
       return false;
     }
-  
+
     return true; // All required fields are valid
   };
   const onBackClick = () => {
@@ -139,9 +138,11 @@ export const Questionnaire3 = () => {
       return; // Stop execution if validation fails
     }
     dispatch(questionnaireAction3(formData))
-    navigate(`/questionnaire/${4}`,{state:{
-      orderId:location.state?.orderId
-    }});
+    navigate(`/questionnaire/${4}`, {
+      state: {
+        orderId: location.state?.orderId
+      }
+    });
   }
 
   const onSaveLaterClick = async () => {
@@ -168,9 +169,10 @@ export const Questionnaire3 = () => {
     }
   }
 
+
   return (
     <div>
-      <ToastContainer/>
+      <ToastContainer />
       <Questionnaire
         pageNo={3}
         storeAnswers={answers}
@@ -194,8 +196,9 @@ export const Questionnaire3 = () => {
                   <input value={getAnswerValue(question.id)} placeholder={placeHolders[index]} className="question-input" onChange={(e) => handleChange(question.id, e.target.value)} />
               }
               <div className=' flex items-center justify-center flex-col w-[100%] md:w-[100% xl:w-[100%] lg:w-[100%]'>
-                {question.answer_type === 'bar' && (
+                {/* {question.answer_type === 'bar' && (
                   progressLabels.map((data, index) => {
+                    console.log(sliderValues[data?.left]  ,"&", sliderValues[data?.right] )
                     return (
                       <>
                         <div
@@ -211,13 +214,14 @@ export const Questionnaire3 = () => {
                           <input
                             type="range"
                             // value={sliderValues[data?.left || data?.right] || 50}
-                            value={sliderValues[data?.left] < 50 ? sliderValues[data?.left] : sliderValues[data?.right]}
+                            value={sliderValues[data?.left] < 50 ? sliderValues[data?.left] : sliderValues[data?.right] > 50 ? sliderValues[data?.right]:''}
                             className="question-progress"
                             min={0}
                             max={100}
                             // value={sliderValues[index] || 50}
                             onChange={(e) => handleSliderChange(index, e.target.value, question.id)}
                           />
+                          
                           <p className="progress-text" style={{ textAlign: 'right' }}>{data?.right}</p>
                         </div>
                       </>
@@ -225,7 +229,69 @@ export const Questionnaire3 = () => {
 
                   })
 
+                )} */}
+
+
+                {question.answer_type === 'bar' && (
+                  progressLabels.map((data, index) => {
+                    const sliderValue = sliderValues[data?.right] || 50; 
+                    const leftValue =100 - sliderValue;
+                    const rightValue =sliderValue;
+
+                    const handleSliderChange = (newValue, id) => {
+                      const adjustedValue = parseInt(newValue, 10);
+
+                      setSliderValues({
+                        ...sliderValues,
+                        [data?.left]:100 - adjustedValue, 
+                        [data?.right]: adjustedValue, 
+                      });
+                      setFormData((prevFormData) => ({
+                        ...prevFormData,
+                        [id]: sliderValues
+                      }));
+                    };
+
+                    const leftTextStyle = {
+                      textAlign: "left",
+                      fontSize: leftValue > rightValue ? "18px" : "14px", 
+                    };
+                
+                    const rightTextStyle = {
+                      textAlign: "right",
+                      fontSize: rightValue > leftValue ? "18px" : "14px", 
+                    };
+
+                    return (
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                          gap: "10px",
+                        }}
+                        className="progress-section-q3"
+                        key={index}
+                      >
+                        <p className="progress-text" style={leftTextStyle}>
+                          {data?.left}
+                        </p>
+                        <input
+                          type="range"
+                          value={sliderValue}
+                          className="question-progress"
+                          min={0}
+                          max={100}
+                          onChange={(e) => handleSliderChange(e.target.value, question.id)}
+                        />
+                        <p className="progress-text" style={rightTextStyle}>
+                          {data?.right}
+                        </p>
+                      </div>
+                    );
+                  })
                 )}
+
                 {
                   question.answer_type === 'bar' && (
                     <div style={{ borderBottom: '1px solid #000000', width: '100%', margin: '2% 0 0 0' }}></div>

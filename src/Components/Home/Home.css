@@ -8,6 +8,7 @@ body,html {
   width: 100vw;
   overflow-x: hidden;
 }
+
 .impression{
   margin-top:0;
   animation: margin 8s infinite ease-in-out;

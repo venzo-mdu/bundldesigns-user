@@ -124,6 +124,24 @@ export const Questionnaire2 = () => {
     });
   };
 
+  const validateFields = () => {
+    // Filter required questions that are either unanswered or contain invalid values
+    const unansweredRequiredQuestions = questions.filter((q) => {
+      return (
+        q.required && // Check if the question is marked as required
+        (!formData?.[q.id] || formData?.[q.id].trim() === "") // Check if there's no answer or only whitespace
+      );
+    });
+  
+  
+    if (unansweredRequiredQuestions.length > 0) {
+      showToastMessage(); // Display the error toast
+      return false;
+    }
+  
+    return true; // All required fields are valid
+  };
+
 
   const handleButtonClick = (buttonId, gender, label, questionId) => {
     setFormData((prevFormData) => {
@@ -179,9 +197,9 @@ export const Questionnaire2 = () => {
     navigate(`/questionnaire/${1}`,{state:{questionnaireData1:answers}});
   }
   const onNextClick = () =>{
-    // if (!validateFields()) {
-    //   return; // Stop execution if validation fails
-    // }
+    if (!validateFields()) {
+      return; // Stop execution if validation fails
+    }
     dispatch(questionnaireAction2(formData))
     navigate(`/questionnaire/${3}`,{
       state:{
@@ -190,9 +208,9 @@ export const Questionnaire2 = () => {
     });
   }
   const onSaveLaterClick = async() =>{
-    // if (!validateFields()) {
-    //   return; // Stop execution if validation fails
-    // }
+    if (!validateFields()) {
+      return; // Stop execution if validation fails
+    }
     let data ={
       answers:formData,
       orderId:location.state?.orderId,
