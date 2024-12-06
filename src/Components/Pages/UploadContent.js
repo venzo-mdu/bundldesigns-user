@@ -16,7 +16,7 @@ import { Bgloader } from '../Common/Background/Bgloader';
 export default function UploadContent() {
 
     const { orderId } = useParams();
-    const [loading,setLoading] = useState(true)
+    const [loading,setLoading] = useState(false)
     const [uploadContent, setUploadContent] = useState({})
     const [designQuestions, setDesignQuestions] = useState([])
     const [skipId, setSkipId] = useState([])
@@ -118,10 +118,10 @@ export default function UploadContent() {
                                                 />  Arabic  </label>
                                         </p>}
 
-                                        {designQuestions[item.item__id].content && <p className='flex w-[70%]'>
+                                        {designQuestions[item.item__id]?.content && <p className='flex w-[70%]'>
                                             <input placeholder='Slogan & Number....' value={uploadContent?.[item?.id]?.content || ''} onChange={(e) => handleChange(e, item.id, 'content')} className='border !border-black py-2 px-2 ' ></input><button className='bg-black flex text-[16px] items-center px-2 py-1 text-white'> <img className='mr-2' src={starIcon}></img> Suggest  Content </button>
                                         </p>}
-                                        {designQuestions[item.item__id].measurements && <>
+                                        {designQuestions[item.item__id]?.measurements && <>
                                             <p>Measurements</p>
                                             <p>
                                                 <label className='mr-6'>
@@ -149,7 +149,7 @@ export default function UploadContent() {
                                             </p>
                                         </>}
 
-                                        {designQuestions[item.item__id].attachment && <><p>Have something to show us?</p>
+                                        {designQuestions[item.item__id]?.attachment && <><p>Have something to show us?</p>
                                             <p
                                                 className="border-b-2 w-[150px] !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer"
                                                 onClick={() => document.getElementById(`file-${item.id}`).click()} // Trigger click on hidden input

@@ -79,7 +79,7 @@ export default function OurWork() {
           className="!text-[#00000080] w-[70%] text-[16px]"
           dangerouslySetInnerHTML={{ __html: project.description_english }}
         />
-        <button className="lg:w-[80%] xl:w-[60%] md:w-[80%] text-[16px]  bg-black py-2 text-white">
+        <button className="lg:w-[70%] xl:w-[60%] md:w-[70%] text-[16px]  bg-black py-2 text-white">
           Follow Our Instagram
         </button>
       </div>
