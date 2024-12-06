@@ -64,7 +64,7 @@ export const Home = () => {
     const translateX = activeProcess * (window.innerWidth <= 475 ? 85 : window.innerWidth <= 768 ? 150 : 195);
     const bundlImages = [QubeIcon, Diamond, Eye, Food, Money]
     const textColor = ["pink-text", "green-text", "blue-text", "pink-text"]
-    const titles = ["Just to get started", "For Restaurants and Cafés", "For Salons and Other Services", "For Shops and Online Stores"]
+    const titles = ["Just to get started","For Restaurants and Cafés","For Salons and Other Services","For Shops and Online Stores"]
     const processData = [
         {
             title: "BUY A BUNDL",
@@ -110,7 +110,7 @@ export const Home = () => {
 
         const intervalId = setInterval(() => {
             setCurrentIndex((prevIndex) => (prevIndex + 1) % imageArray.length);
-        }, 500);
+        }, 1000);
 
         return () => clearInterval(intervalId);
     }, []);
@@ -125,18 +125,17 @@ export const Home = () => {
 
     const getBundl = async () => {
         const response = await axios.get(`${base_url}/api/homepage/`);
-        setBundlData(response.data);
-        console.log(response.data,"hh")
+        setBundlData(response.data)
     }
 
-    const addToCart = async (index) => {
+    const addToCart = async (bundleData) => {
         try {
             const response = await axios.get(`${base_url}/api/order/cart/`, ConfigToken());
             console.log(response, 'aa')
             if (response.data.order_status === 'in_cart') {
                 setOpenPopup(true);
             } else {
-                navigate('/bundldetail', { state: { bundlDetail: bundlData.packages[index] } });
+                navigate('/bundldetail', { state: { bundlDetail: bundleData } });
             }
         } catch (error) {
             console.error('An error occurred:', error);
@@ -161,17 +160,18 @@ export const Home = () => {
                 !loading ?
                     <Bgloader /> :
                     <div>
+
                         <section className="container-fluid header-section" style={{ overflow: "hidden" }}>
                             <div className="nav-section">
-                                <div className="">
+                                <div style={{ padding: '0% 2%' }} className="">
                                     <div className="row align-items-center">
                                         <div className="col-4 col-md-3 col-lg-3 justify-content-between">
                                             <div className="navbar navbar-expand-lg justify-content-between">
-                                                <a className="navbar-brand" href="/"><img src={HomeLogo} alt="" className="img-fluid"></img></a>
-                                                {/* <!--<button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"-->
-                            <!--    aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation" id="navbutton">-->
-                            <!--    <span className="navbar-toggler-icon"></span>-->
-                            <!--</button> */}
+                                                <a className="navbar-brand" href="/"><img src={HomeLogo} alt="home-logo" className="img-fluid"></img></a>
+                                                {/* <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                                                    aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation" id="navbutton">
+                                                    <span className="navbar-toggler-icon"></span>
+                                                </button> */}
                                             </div>
                                         </div>
                                         <div className="col-1 col-md-1 col-lg-6">
@@ -182,34 +182,34 @@ export const Home = () => {
                                                             <a className="nav-link" href="/aboutus">About</a>
                                                         </li>
                                                         <li className="nav-item">
-                                                            <a className="nav-link" href="#">Bundls</a>
+                                                            <a className="nav-link" href="/">Bundls</a>
                                                         </li>
                                                         <li className="nav-item">
-                                                            <a className="nav-link" href="#">Work</a>
+                                                            <a className="nav-link" href="/our-work">Work</a>
                                                         </li>
                                                         <li className="nav-item">
-                                                            <a className="nav-link" href="#">Contact Us</a>
+                                                            <a className="nav-link" >Contact Us</a>
                                                         </li>
                                                     </ul>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="col-7 col-md-8 col-lg-3 text-end ">
-                                            <div className="navbar navbar-expand-lg float-right">
-                                                <ul className="navbar-nav mr-auto h-list align-items-center ">
-                                                    <li >
-                                                        <a className="" href="#"><img src={Search} alt="" className="navIcons"></img></a>
+                                        <div className="col-7 col-md-8 col-lg-3 text-end">
+                                            <div className="navbar navbar-expand-lg justify-content-end ">
+                                                <ul className="navbar-nav  h-list align-items-center">
+                                                    <li className="nav-item">
+                                                        <a className="nav-link" href="#"><img src={Search} alt="" className="img-fluid nav-icon"></img></a>
                                                     </li>
-                                                    <li >
-                                                        <a className="" href="/login"><img src={User} alt="" className="navIcons"></img></a>
+                                                    <li className="nav-item">
+                                                        <NavLink to='/login'><a className="nav-link" href="/login"><img src={User} alt="" className="img-fluid nav-icon"></img></a></NavLink>
                                                     </li>
-                                                    <li >
-                                                        <a className="" href="/mycart"><img src={Cart} alt="" className="navIcons"></img></a>
+                                                    <li className="nav-item">
+                                                        <a className="nav-link" href="/mycart"><img src={Cart} alt="" className="img-fluid nav-icon"></img></a>
                                                     </li>
-                                                    <li >
-                                                        <a className="" href="#"><img src={Language} alt="" className="navIcons"></img></a>
+                                                    <li className="nav-item">
+                                                        <a className="nav-link" href="#"><img src={Language} alt="" className="img-fluid nav-icon"></img></a>
                                                     </li>
-                                                    <li className="nav-item menu mr-auto">
+                                                    <li className=" menu">
                                                         <button type="button" className="navbar-toggle" id="menu-toggle">
                                                             <span className="icon-bar"></span>
                                                             <span className="icon-bar"></span>
@@ -534,11 +534,11 @@ export const Home = () => {
                         </section>
                         {/* <div className="divider ourBundl-deivide"></div> */}
                         <div className="plus plus-deivide"></div>
-                        {/* <div className="container">
+                        <div className="container">
                             <div className="row justify-content-center bundl-pack-head">
                                 <div className="col-md-11 col-lg-9">
                                     <h4 style={{ margin: '10% 0 0 0' }} className="sub-headeing  text-center">Our Bundls</h4>
-                                    <div className="our-bundles text-center">
+                                    {/* <div className="our-bundles text-center">
                                         <div className="text-animation">
                                             WE <div className="bunl"><img src={BundlSticker} width={200} alt="bundl-sticker" className="img-fluie"></img></div>  DESIGN TO MAKE YOUR BRAND
                                             <span className="second_text text-start">
@@ -549,449 +549,181 @@ export const Home = () => {
                                                 <i className="bundl_animate">BREATHTAKING</i>
                                             </span>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> */}
-
-
-                        <section className="container-fluid our-bundl">
-                            <div className="container">
-                                <div className="row justify-content-center bundl-pack-head">
-                                    <div className="col-md-11 col-lg-9">
-                                        <h4 className="sub-headeing mb-4 text-center">Our Bundls</h4>
-                                        {/* <!-- <div className="our-bundles text-center">
-                        <div className="text-animation">
-                            WE <div className="bunl"><img src="asset/images/bundl-sticker.png" alt="" className="img-fluie"></div>DESIGN TO MAKE YOUR BRAND 
-                            <span className="second_text text-start">
-                                <i className="bundl_animate impression">IMPRESSIVE</i>
-                                <i className="bundl_animate">UNIQUE</i>
-                                <i className="bundl_animate">TOP-NOTCH</i>
-                                <i className="bundl_animate">RELIABLE</i>
-                                <i className="bundl_animate">BREATHTAKING</i>
-                            </span>
-                        </div>
-                    </div> --> */}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="bundle_design">
-                                <div className="pick_design">
-                                    {/* <!-- <div className="pick_design_content"> Pick a design bundle suited to you </div> --> */}
-                                </div>
-                                {/* <!-- table-1 --> */}
-                                <div className="sliding_section border-top1" style={{ display: "flex" }}>
-                                    <input type="checkbox" id="newbie_no1" className="button_section" />
-
-                                    {/* <!-- rotating buiscut --> */}
-                                    <div className="icon_section1">
-                                        <div className="subzero1">
-                                            <span onClick={()=>addToCart(0)} className="buiscut_layer1">Select <br></br>This<br></br> Bundl</span>
-                                            <div onClick={()=>addToCart(0)} className="main_inside1"></div>
-                                        </div>
-                                    </div>
-
-                                    {/* <!-- background color --> */}
-                                    <div className="bg_color1"></div>
-
-                                    <div className="open_arrow1 position-relative">
-                                        <label for="newbie_no1">
-                                            <svg width="18" height="28" viewBox="0 0 18 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M2.26122 1.6006L14.4624 13.8018L2.26122 26.0029" stroke="auto" stroke-width="4" />
-                                            </svg>
-                                        </label>
-                                    </div>
-                                    <div className="newbie_section">
-                                        <div className="change_brand">
-                                            <div className="table_icon"><img src={QubeIcon} alt="" className="img-fluid"></img></div>
-                                            <div className="newbie">The Newbie</div>
-                                            <div className="pkg-sub-title">Just to get started</div>
-                                        </div>
-                                        <div className="second_brand_section">
-                                            <div className="box-child">
-                                                <div className="pack-inner-title"><span>Brand Identity</span></div>
-                                                <ul className="second_brand_list">
-                                                    <li>Brand Concept & Direction</li>
-                                                    <li>Logo Design</li>
-                                                    <li>Logo Variations</li>
-                                                    <li>Color Palette</li>
-                                                    <li>Typography</li>
-                                                    <li>Visual Identity</li>
-                                                    <li>Brand Guide</li>
-                                                </ul>
-                                            </div>
-                                            <div className="box-child">
-                                                <div className="pack-inner-title"><span>Choose Add-ons to Your Bundl</span></div>
-                                                <ul className="second_brand_list">
-                                                    <li>Branding</li>
-                                                    <li>E-designs</li>
-                                                    <li>Products</li>
-                                                    <li>Publications</li>
-                                                    <li>Social Media</li>
-                                                    <li>Space Design</li>
-                                                    <li>Stationery</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="newbie_description">
-                                        <div className="third_section_toggle">
-                                            <div className="brand_identity pink-text">Brand Identity + <br />
-                                                Add-Ons To Your Bundl
-                                            </div>
-                                            <div className="change_brand_name">
-                                                <div className="second_section_image"><img src={QubeIcon} alt="" className="img-fluid"></img></div>
-                                                <div className="second_section_text" style={{ paddingTop: "10px" }}>The Newbie</div>
-                                            </div>
-                                        </div>
-                                        <div className="sar d-flex align-items-center">
-                                            {/* <!--<img src="asset/images/money-icon.webp" alt="" className="img-fluid">--> */}
-                                            <span className="sar_text px-2"><span>Starting from</span> 4700 SAR</span>
-                                        </div>
-                                        <div className="work_time d-flex align-items-center">
-                                            {/* <!--<img src="asset/images/time-icon.webp" alt="" className="ing-fluid">--> */}
-                                            <span className="working_days px-2"><span>Starting from</span> 30 WORKING DAYS</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                {/* <!-- table-2 --> */}
-                                <div className="sliding_section" style={{ display: "flex" }}>
-                                    <input type="checkbox" id="newbie_no2" className="button_section" />
-
-                                    {/* <!-- rotating buiscut --> */}
-                                    <div className="icon_section2">
-                                        <div className="subzero2">
-                                            <span onClick={()=>addToCart(1)} className="buiscut_layer2">Select <br></br>This<br></br> Bundl</span>
-                                            <div onClick={()=>addToCart(1)} className="main_inside2"></div>
-                                        </div>
-                                    </div>
-
-                                    {/* <!-- background color --> */}
-                                    <div className="bg_color2"></div>
-
-                                    <div className="open_arrow2 position-relative">
-                                        <label for="newbie_no2">
-                                            <svg width="18" height="28" viewBox="0 0 18 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M2.26122 1.6006L14.4624 13.8018L2.26122 26.0029" stroke="auto" stroke-width="4" />
-                                            </svg>
-                                        </label>
-                                    </div>
-                                    <div className="newbie_section">
-                                        <div className="change_brand">
-                                            <div className="table_icon"><img src={Food} alt="" className="img-fluid"></img></div>
-                                            <div className="newbie">The Foodie</div>
-                                            <div className="pkg-sub-title">For Restaurants and Cafés</div>
-                                        </div>
-                                        <div className="second_brand_section">
-                                            <div className="box-child">
-                                                <div className="pack-inner-title"><span>Brand Identity</span></div>
-                                                <ul className="second_brand_list">
-                                                    <li>Brand Concept & Direction</li>
-                                                    <li>Logo Design</li>
-                                                    <li>Logo Variations</li>
-                                                    <li>Color Palette</li>
-                                                    <li>Typography</li>
-                                                    <li>Visual Identity</li>
-                                                    <li>Brand Guide</li>
-                                                </ul>
-                                            </div>
-                                            <div className="box-child">
-                                                <div className="pack-inner-title"><span>F&B Collateral</span></div>
-                                                <ul className="second_brand_list">
-                                                    <li>1 Page Price List</li>
-                                                    <li>Bag</li>
-                                                    <li>Box</li>
-                                                    <li>Paper Cup</li>
-                                                    <li>Sticker</li>
-                                                    <li>Wet wipes</li>
-                                                    <li>Wrapping Paper</li>
-                                                </ul>
-                                            </div>
-                                            <div className="box-child">
-                                                <div className="pack-inner-title"><span>Social Media Starter Kit </span></div>
-                                                <ul className="second_brand_list">
-                                                    <li>GIF Post</li>
-                                                    <li>4 Highlight Cover</li>
-                                                    <li>Profile Cover</li>
-                                                    <li>3 Static Post</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="newbie_description">
-                                        <div className="third_section_toggle">
-                                            <div className="brand_identity green-text">Brand Identity + <br />
-                                                Food& Beverage Collateral + <br />
-                                                Social Media Starter Kit <br />
-                                            </div>
-                                            <div className="change_brand_name">
-                                                <div className="second_section_image"><img src={Food} alt="" className="img-fluid"></img></div>
-                                                <div className="second_section_text" style={{ paddingTop: "10px" }}>The Foodie</div>
-                                            </div>
-                                        </div>
-                                        <div className="sar d-flex align-items-center">
-                                            {/* <!--<img src="asset/images/money-icon.webp" alt="" className="img-fluid">--> */}
-                                            <span className="sar_text">8000 SAR</span>
-                                        </div>
-                                        <div className="work_time d-flex align-items-center">
-                                            {/* <!--<img src="asset/images/time-icon.webp" alt="" className="ing-fluid">--> */}
-                                            <span className="working_days">40 WORKING DAYS</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                {/* <!-- table-3 --> */}
-                                <div className="sliding_section" style={{ display: "flex" }}>
-                                    <input type="checkbox" id="newbie_no3" className="button_section" />
-
-                                    {/* <!-- rotating buiscut --> */}
-                                    <div className="icon_section3">
-                                        <div className="subzero3">
-                                            <span onClick={()=>addToCart(2)} className="buiscut_layer3">Select <br></br>This<br></br> Bundl</span>
-                                            <div onClick={()=>addToCart(2)} className="main_inside3"></div>
-                                        </div>
-                                    </div>
-
-                                    {/* <!-- background color --> */}
-                                    <div className="bg_color3"></div>
-
-                                    <div className="open_arrow3 position-relative">
-                                        <label for="newbie_no3">
-                                            <svg width="18" height="28" viewBox="0 0 18 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M2.26122 1.6006L14.4624 13.8018L2.26122 26.0029" stroke="auto" stroke-width="4" />
-                                            </svg>
-                                        </label>
-                                    </div>
-                                    <div className="newbie_section">
-                                        <div className="change_brand">
-                                            <div className="table_icon"><img src={Eye} alt="" className="img-fluid"></img></div>
-                                            <div className="newbie">The socialite</div>
-                                            <div className="pkg-sub-title">For Salons and Other Services</div>
-                                        </div>
-                                        <div className="second_brand_section">
-                                            <div className="box-child">
-                                                <div className="pack-inner-title"><span>Brand Identity</span></div>
-                                                <ul className="second_brand_list">
-                                                    <li>Brand Concept & Direction</li>
-                                                    <li>Logo Design</li>
-                                                    <li>Logo Variations</li>
-                                                    <li>Color Palette</li>
-                                                    <li>Typography</li>
-                                                    <li>Visual Identity</li>
-                                                    <li>Brand Guide</li>
-                                                </ul>
-                                            </div>
-                                            <div className="box-child">
-                                                <div className="pack-inner-title"><span>Services Collateral</span></div>
-                                                <ul className="second_brand_list">
-                                                    <li>1 Page Price List</li>
-                                                    <li>Bag</li>
-                                                    <li>Business Card</li>
-                                                    <li>Loyalty Card</li>
-                                                    <li>Paper Cup</li>
-                                                    <li>Towel</li>
-                                                </ul>
-                                            </div>
-                                            <div className="box-child">
-                                                <div className="pack-inner-title"><span>Social Media Starter Kit </span></div>
-                                                <ul className="second_brand_list">
-                                                    <li>GIF Post</li>
-                                                    <li>4 Highlight Cover</li>
-                                                    <li>Profile Cover</li>
-                                                    <li>3 Static Post</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="newbie_description">
-                                        <div className="third_section_toggle">
-                                            <div className="brand_identity blue-text">Brand Identity + <br />
-                                                Services Collateral + <br />
-                                                Social Media Starter Kit
-                                            </div>
-                                            <div className="change_brand_name">
-                                                <div className="second_section_image"><img src={Eye} alt="" className="img-fluid"></img></div>
-                                                <div className="second_section_text" style={{ paddingTop: "10px" }}>The socialite</div>
-                                            </div>
-                                        </div>
-                                        <div className="sar d-flex align-items-center">
-                                            {/* <!--<img src="asset/images/money-icon.webp" alt="" className="img-fluid">--> */}
-                                            <span className="sar_text">8000 SAR</span>
-                                        </div>
-                                        <div className="work_time d-flex align-items-center">
-                                            {/* <!--<img src="asset/images/time-icon.webp" alt="" className="ing-fluid">-->  */}
-                                            <span className="working_days">40 WORKING DAYS</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                {/* <!-- table-4 --> */}
-                                <div className="sliding_section" style={{ display: "flex" }}>
-                                    <input type="checkbox" id="newbie_no4" className="button_section" />
-
-                                    {/* <!-- rotating buiscut --> */}
-                                    <div className="icon_section4">
-                                        <div className="subzero4">
-                                            <span onClick={()=>addToCart(3)} className="buiscut_layer4">Select <br></br>This<br></br> Bundl</span>
-                                            <div onClick={()=>addToCart(3)} className="main_inside4"></div>
-                                        </div>
-                                    </div>
-
-                                    {/* <!-- background color --> */}
-                                    <div className="bg_color4"></div>
-
-                                    <div className="open_arrow4 position-relative">
-                                        <label for="newbie_no4">
-                                            <svg width="18" height="28" viewBox="0 0 18 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M2.26122 1.6006L14.4624 13.8018L2.26122 26.0029" stroke="auto" stroke-width="4" />
-                                            </svg>
-                                        </label>
-                                    </div>
-                                    <div className="newbie_section">
-                                        <div className="change_brand">
-                                            <div className="table_icon"><img src={Diamond} alt="" className="img-fluid"></img></div>
-                                            <div className="newbie">The Boutiquer</div>
-                                            <div className="pkg-sub-title">For Shops and Online Stores </div>
-                                        </div>
-                                        <div className="second_brand_section">
-                                            <div className="box-child">
-                                                <div className="pack-inner-title"><span>Brand Identity</span></div>
-                                                <ul className="second_brand_list">
-                                                    <li>Brand Concept & Direction</li>
-                                                    <li>Logo Design</li>
-                                                    <li>Logo Variations</li>
-                                                    <li>Color Palette</li>
-                                                    <li>Typography</li>
-                                                    <li>Visual Identity</li>
-                                                    <li>Brand Guide</li>
-                                                </ul>
-                                            </div>
-                                            <div className="box-child">
-                                                <div className="pack-inner-title"><span>Commerce Collateral</span></div>
-                                                <ul className="second_brand_list">
-                                                    <li>Bag</li>
-                                                    <li>Box</li>
-                                                    <li>Business Card</li>
-                                                    <li>Sticker</li>
-                                                    <li>Thank you Card</li>
-                                                    <li>Wrapping Paper</li>
-                                                </ul>
-                                            </div>
-                                            <div className="box-child">
-                                                <div className="pack-inner-title"><span>Social Media Starter Kit </span></div>
-                                                <ul className="second_brand_list">
-                                                    <li>GIF Post</li>
-                                                    <li>4 Highlight Cover</li>
-                                                    <li>Profile Cover</li>
-                                                    <li>3 Static Post</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="newbie_description">
-                                        <div className="third_section_toggle">
-                                            <div className="brand_identity pink-text">Brand Identity + <br />
-                                                Commerce Collateral + <br />
-                                                Social Media Starter Kit
-                                            </div>
-                                            <div className="change_brand_name">
-                                                <div className="second_section_image"><img src={Diamond} alt="" className="img-fluid"></img></div>
-                                                <div className="second_section_text" style={{ paddingTop: "10px" }}>The Boutiquer</div>
-                                            </div>
-                                        </div>
-                                        <div className="sar d-flex align-items-center">
-                                            {/* <!--<img src="asset/images/money-icon.webp" alt="" className="img-fluid">--> */}
-                                            <span className="sar_text">8000 SAR</span>
-                                        </div>
-                                        <div className="work_time d-flex align-items-center">
-                                            {/* <!--<img src="asset/images/time-icon.webp" alt="" className="ing-fluid">--> */}
-                                            <span className="working_days">40 WORKING DAYS</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                {/* <!-- table-5 --> */}
-                                <div className="sliding_section" style={{ display: "flex" }}>
-                                    <input type="checkbox" id="newbie_no5" className="button_section" />
-
-                                    {/* <!-- rotating buiscut --> */}
-                                    {/* <div className="icon_section5">
-                                        <div className="subzero5">
-                                            <span  className="buiscut_layer5">Select <br></br>This<br></br> Bundl</span>
-                                            <div  className="main_inside5"></div>
-                                        </div>
                                     </div> */}
+                                </div>
+                            </div>
+                        </div>
 
-                                    <div className="icon_section5">
+
+                        <div className="bundle_design">
+                            <div className="pick_design">
+                                <div className="pick_design_content"> Pick a design bundle suited to you </div>
+                            </div>
+                            {
+                                bundlData.packages?.map((bundles, index) => {
+                                    return (
+                                        <>
+
+                                            <div key={index} className="sliding_section border-top1" style={{ display: "flex" }}>
+                                                <input type="checkbox" id={`newbie_no${index + 1}`} className="button_section"></input>
+
+                                                <div className={`icon_section${index + 1}`}>
+                                                    <div className={`subzero${index + 1}`}>
+
+                                                        <span onClick={() => addToCart(bundles)} className={`buiscut_layer${index + 1}`}>
+                                                            <img style={{ width: '30%' }} src={CartIcon} alt='cart-icon'></img>
+                                                            <NavLink style={{ color: 'white', margin: '2% 0 0 0' }}> ADD  <br />
+                                                                TO CART !
+                                                            </NavLink>
+
+                                                        </span>
+                                                        <div style={{ cursor: "pointer" }} onClick={() => addToCart(bundles)} className={`main_inside${index + 1}`}></div>
+                                                    </div>
+                                                </div>
+
+                                                <div className={`bg_color${index + 1}`}></div>
+
+                                                <div className={`open_arrow${index + 1}  position-relative`}>
+                                                    <label for={`newbie_no${index + 1}`} style={{ cursor: 'pointer' }}>
+                                                        <svg width="18" height="28" viewBox="0 0 18 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M2.26122 1.6006L14.4624 13.8018L2.26122 26.0029" stroke="auto" stroke-width="4" />
+                                                        </svg>
+                                                    </label>
+                                                </div>
+                                                <div className="newbie_section">
+                                                    <div className="change_brand">
+                                                        <div className="table_icon"><img src={bundlImages[index]} alt="" className="img-fluid"></img></div>
+                                                        <div className="newbie">{bundles.name_english}</div>
+                                                        <div className="pkg-sub-title">{titles[index]}</div>
+                                                    </div>
+                                                    <div className="second_brand_section">
+                                                        {
+                                                            Object.keys(bundles.design_details).map((key, index) => (
+                                                                <div className="box-child">
+                                                                    <div className="pack-inner-title">
+                                                                        <span>{key}</span>
+                                                                        {bundles.design_details[key]?.design_list?.map((designItem, idx) => (
+                                                                            <React.Fragment key={`${index}-${idx}`}>
+
+                                                                                <ul className="second_brand_list">
+                                                                                    <li>{designItem.name_english}</li>
+                                                                                </ul>
+                                                                            </React.Fragment>
+                                                                        ))}
+                                                                    </div>
+                                                                </div>
+                                                            ))
+                                                        }
+                                                    </div>
+                                                </div>
+                                                <div className="newbie_description">
+                                                    <div className="third_section_toggle">
+                                                        {/* <div className="brand_identity pink-text">Brand Identity + <br></br>
+                                                            Add-Ons To Your Bundl
+                                                        </div> */}
+                                                        <div className={`brand_identity ${textColor[index]}`}>
+                                                            {
+                                                                Object.keys(bundles.design_details).map((key, index) => (
+                                                                    <>
+                                                                        {key} +<br></br>
+                                                                    </>
+                                                                ))
+                                                            }
+                                                        </div>
+                                                        <div className="change_brand_name">
+                                                            <div className="second_section_image"><img src={bundlImages[index]} alt="" className="img-fluid"></img></div>
+                                                            <div className="second_section_text" style={{ paddingTop: "10px" }}>{bundles.name_english}</div>
+                                                        </div>
+                                                    </div>
+                                                    <>
+                                                        <div className="sar d-flex align-items-center">
+                                                            {/* <img src={Money} alt="" className="img-fluid"></img> */}
+                                                            <span className="sar_text px-2"><span> {bundles.name_english === "The Newbie" ? 'Starting from' : ''}</span> {Math.round(bundles.price)} SAR</span>
+                                                        </div>
+                                                        <div className="work_time d-flex align-items-center">
+                                                            {/* <img src={Time} alt="" className="ing-fluid"></img> */}
+                                                            <span className="working_days px-2"><span>{bundles.name_english === "The Newbie" ? 'Starting from' : ''}</span> {bundles.time} WORKING DAYS</span>
+                                                        </div>
+                                                    </>
+                                                </div>
+                                            </div>
+                                        </>
+                                    )
+                                })
+                            }
+                            <div className="sliding_section" style={{ display: "flex" }}>
+                                <input type="checkbox" id="newbie_no5" className="button_section" ></input>
+
+                                <div className="icon_section5">
                                     <div className="subzero5">
 
                                         <span className="buiscut_layer5">
-                                        {/* <img style={{ width: '30%' }} src={CartIcon} alt='cart-icon'></img> */}
+                                        <img style={{ width: '30%' }} src={CartIcon} alt='cart-icon'></img>
                                             <NavLink style={{ color: 'white' }} to="/custombundl" state={{ title: 'Custom Bundl' }}>
-                                            Select <br></br>This<br></br> Bundl
+                                                ADD <br></br>TO CART
                                             </NavLink>
                                         </span>
                                         <div className="main_inside5"></div>
                                     </div>
                                 </div>
 
-                                    {/* <!-- background color --> */}
-                                    <div className="bg_color5"></div>
+                                <div className="bg_color5"></div>
 
-                                    <div className="open_arrow5 position-relative">
-                                        <label for="newbie_no5">
-                                            <svg width="18" height="28" viewBox="0 0 18 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M2.26122 1.6006L14.4624 13.8018L2.26122 26.0029" stroke="auto" stroke-width="4" />
-                                            </svg>
-                                        </label>
+                                <div className="open_arrow5 position-relative">
+                                    <label for="newbie_no5" style={{ cursor: 'pointer' }}>
+                                        <svg width="18" height="28" viewBox="0 0 18 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M2.26122 1.6006L14.4624 13.8018L2.26122 26.0029" stroke="auto" stroke-width="4" />
+                                        </svg>
+                                    </label>
+                                </div>
+                                <div className="newbie_section" style={{ justifyContent: "end" }}>
+                                    <div className="change_brand">
+                                        <div className="table_icon"><img src={MaginIcon} alt="" className="img-fluid" /></div>
+                                        <div className="newbie">Customized</div>
+                                        <div className="pkg-sub-title">Customize your Bundl</div>
                                     </div>
-                                    <div className="newbie_section" style={{ justifyContent: "end" }}>
-                                        <div className="change_brand">
-                                            <div className="table_icon"><img src={MaginIcon} alt="" className="img-fluid" /></div>
-                                            <div className="newbie">Customized</div>
-                                            <div className="pkg-sub-title">Customize your Bundl</div>
-                                        </div>
 
-                                        <div className="second_brand_section" style={{ height: "75%" }}>
-                                            <span className="pack-sub-title">Choose from</span>
-                                            <div className="box-child box-f-cuztomize-bundl" style={{ display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
-                                                <div className="pack-inner-title"><span>+ Branding</span></div>
-                                                <div className="pack-inner-title"><span>+ E-designs</span></div>
-                                                <div className="pack-inner-title"><span>+ Products</span></div>
-                                            </div>
-                                            <div className="box-child box-f-cuztomize-bundl" style={{ display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
-                                                <div className="pack-inner-title"><span>+ Publications</span></div>
-                                                <div className="pack-inner-title"><span>+ Social Media</span></div>
-                                                <div className="pack-inner-title"><span>+ Space Design</span></div>
-                                            </div>
-                                            <div className="box-child box-f-cuztomize-bundl" style={{ display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
-                                                <div className="pack-inner-title mobile-t-25"><span>+ Stationery</span></div>
-                                            </div>
+                                    <div className="second_brand_section" style={{ height: '75%' }}>
+                                        <span className="pack-sub-title">Choose from</span>
+                                        <div className="box-child box-f-cuztomize-bundl" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                                            <div className="pack-inner-title"><span>+ Branding</span></div>
+                                            <div className="pack-inner-title"><span>+ E-designs</span></div>
+                                            <div className="pack-inner-title"><span>+ Products</span></div>
                                         </div>
-                                    </div>
-                                    <div className="newbie_description">
-                                        <div className="third_section_toggle">
-                                            <div className="brand_identity">
-                                                <div className="block">
-                                                    <span className="newbie">Mix & Match</span>
-                                                    <div className="pkg-sub-title" style={{ opacity: 0 }}>Customize your Bundl</div>
-                                                </div>
-                                            </div>
-                                            <div className="change_brand_name">
-                                                <div className="second_section_image"><img src={MaginIcon} alt="" className="img-fluid" /></div>
-                                                <div className="second_section_text" style={{ paddingTop: "10px" }}>Customized</div>
-                                            </div>
+                                        <div className="box-child box-f-cuztomize-bundl" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                                            <div className="pack-inner-title"><span>+ Publications</span></div>
+                                            <div className="pack-inner-title"><span>+ Social Media</span></div>
+                                            <div className="pack-inner-title"><span>+ Space Design</span></div>
                                         </div>
-                                        {/* <!--<div className="sar d-flex align-items-center">
-                        <!--<img src="asset/images/money-icon.webp" alt="" className="img-fluid">->
-                        <span className="sar_text">8000 SAR</span>
-                    </div> -->
-                    <!-- <div className="work_time d-flex align-items-center">
-                        <!--<img src="asset/images/time-icon.webp" alt="" className="ing-fluid">->
-                        <span className="working_days">40 WORKING DAYS</span>
-                    </div>--> */}
+                                        <div className="box-child box-f-cuztomize-bundl" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                                            <div className="pack-inner-title mobile-t-25"><span>+ Stationery</span></div>
+                                        </div>
                                     </div>
                                 </div>
+                                <div className="newbie_description">
+                                    <div className="third_section_toggle">
+                                        <div className="brand_identity">
+                                            <div className="block">
+                                                <span className="newbie">Mix & Match</span>
+                                                <div className="pkg-sub-title" style={{ opacity: "0" }}>Customize your Bundl</div>
+                                            </div>
+                                        </div>
+                                        <div className="change_brand_name">
+                                            <div className="second_section_image"><img src={MaginIcon} alt="" className="img-fluid" /></div>
+                                            <div className="second_section_text" style={{ paddingTop: "10px" }}>Customized</div>
+                                        </div>
+                                    </div>
+                                    {/* <div className="sar d-flex align-items-center">
+                                        <img src={Money} alt="" className="img-fluid"></img>
+                                        <span className="sar_text">8000 SAR</span>
+                                    </div>
+                                    <div className="work_time d-flex align-items-center">
+                                        <img src={Time} alt="" className="ing-fluid"></img>
+                                        <span className="working_days">40 WORKING DAYS</span>
+                                    </div> */}
+                                </div>
                             </div>
-                        </section>
+                        </div>
 
                         <section style={{ margin: '5% 0%' }} className="container-fluid py-1" >
                             <div className="container">
@@ -1115,8 +847,6 @@ export const Home = () => {
                             </div>
                         </section>
 
-
-
                         <div className="bundledivider"></div>
                         <section className="container-fluid section">
                             <div className="container">
@@ -1136,8 +866,8 @@ export const Home = () => {
                         </section>
 
                         <section className="container-fluid footer primary-black">
-                            <div className="container">
-                                <div className="row p-2 justify-content-center">
+                            <div style={{ padding: '2% 2%' }} className="container">
+                                <div className="row p-2">
                                     <div className="col-4 col-md-3">
                                         <div className="footer_inner text-white">
                                             <h3>Customer Care</h3>
@@ -1154,7 +884,7 @@ export const Home = () => {
                                             <ul>
                                                 <li><a href="#">My Profile</a></li>
                                                 <li><a href="#">Feedack</a></li>
-                                                <li><a href="#">Recomend Us</a></li>
+                                                <li><a href="#">Recommend Us</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -1163,19 +893,15 @@ export const Home = () => {
                                             <h3>Information</h3>
                                             <ul>
                                                 <li><a href="#">About Us</a></li>
-                                                <li><a href="#">Terms & Conditions</a></li>
                                                 <li><a href="#">Legal</a></li>
                                                 <li><a href="#">Privacy Policy</a></li>
+                                                <li><a href="#">Terms & Conditions</a></li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="copy-right p-3">
-                                    <div className="row justify-content-center">
-                                        <div className="col-md-9">
-                                            <h6 className="copy-txt text-white">2024 BundlDesigns, &copy; All rights reserved.</h6>
-                                        </div>
-                                    </div>
+                                    <h6 className="copy-txt text-white">2024 BundlDesigns, &copy; All rights reserved.</h6>
                                 </div>
                             </div>
                         </section>

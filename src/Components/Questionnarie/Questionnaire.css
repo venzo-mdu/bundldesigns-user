@@ -52,7 +52,7 @@
     /* margin: 2% 0 10% 0; */
 }
 .questonnaire-actions-height{
-    height: 350px;
+    height: 300px;
 }
 .back{
     background-color: transparent;
@@ -98,12 +98,12 @@
     font-size: 40px;
     font-weight: 700;
     color: #000000;
-    margin: 3% 0 0% 0;
+    margin: 1% 0 0% 0;
     text-align: center;
 }
 .question-input{
     width: 100%;
-    /* border-bottom: 2px solid #000000; */
+    border-bottom: 2px solid #000000;
     outline: none;
     border-right: 0;
     border-top: 0;
@@ -167,6 +167,7 @@
     color: #000000;
     border: 1px solid #000000;
     text-align: center;
+    text-transform: uppercase;
 }
 .male:hover,.female:hover , .male-active , .female-active{
     width: 150px; /* Prevents buttons from becoming too large on larger screens */
@@ -187,7 +188,7 @@
 .male-btn, .female-btn {
     flex-grow: 1; /* Allows buttons to grow evenly across available space */
     max-width: 200px; /* Prevents buttons from becoming too large on larger screens */
-    height: 45px;
+    height: 50px;
     background-color: transparent;
     color: #000000;
     border: 1px solid #000000;
@@ -203,6 +204,7 @@
 .male-btn:disabled{
     opacity: 0.5;
     cursor: not-allowed;
+
 }
 .female-btn:disabled{
     opacity: 0.5;
@@ -323,6 +325,7 @@
     font-style: italic;
     width: 10%;
     margin: 1%;
+    height: 20px;
 }
 .shade-background{
     height: 600px;
@@ -825,6 +828,9 @@
     .progress-section-q3{
         width: 90%;
     }
+    .questions-title{
+        font-size: 36px;
+    }
 }
 
 @media screen and (max-width:1024px) and (min-width:768px) {
@@ -837,7 +843,7 @@
     .title-questionnaire{
         font-size: 45px;
         line-height: 40px;
-        margin: -15% 0 0 25%;
+        margin: -11% 0 0 25%;
     }
     .customer-text{
         font-size: 18px;
@@ -867,6 +873,13 @@
         height: 50px;
         width: 60px;
     }
+    .mirror{
+        top: 30%;
+        
+    }
+    .mirror img{
+        width: 50%;
+    }
 }
 
 @media screen and (max-width:768px) and (min-width:441px) {
@@ -874,9 +887,10 @@
         padding: 10% 5%;
     }
     .title-questionnaire{
-        font-size: 45px;
-        line-height: 40px;
-        margin: -20% 0 0 25%;
+        font-size: 35px;
+        line-height: 32px;
+        margin: -11% 0 0 25%;
+        width: 50%;
     }
     .questions-title{
         font-size: 18px;
@@ -1026,10 +1040,12 @@
         margin: 8% 0 0 0;
     }
     .question-progress{
-        width: 300px;
+        width: 200px;
     }
     .progress-text{
         font-size: 12px;
+        width: 20%;
+        height: 20px;
     }
     .thank-you-text{
         font-size: 24px;
@@ -1045,7 +1061,7 @@
         width: 50px;
     }
     .progress-section-q3{
-        width: 85%;
+        width: 100%;
     }
     .next,.save,.back{
         font-size: 18px;
@@ -1121,7 +1137,9 @@
         width: 200px;
     }
     .progress-text{
-        font-size: 12px;
+        font-size: 10px;
+        width: 20%;
+        height: 20px;
     }
     .thank-you-desc{
         font-size: 20px;

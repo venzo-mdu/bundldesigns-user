@@ -11,14 +11,18 @@ import BlackDollor from '../../Images/BundlDetail/blackdollor.svg'
 import BlackTime from '../../Images/BundlDetail/blacktime.svg'
 import Edit from '../../Images/BundlDetail/editicon.svg'
 import Xmark from '../../Images/BundlDetail/xmarkicon.svg'
+import { ConfigToken } from '../Auth/ConfigToken'
+import axios from 'axios'
+import { base_url } from '../Auth/BackendAPIUrl'
 
-import { NavLink, useLocation } from 'react-router-dom'
+import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 
 export const CustomBundl = () => {
 
+  const navigate = useNavigate();
   const location = useLocation();
   const [addonPayLoads, setAddonPayLoads] = useState({});
-
+  const [brandInput , setBrandInput] = useState('');
 
   useEffect(()=>{
     document.documentElement.scrollTo({
@@ -26,10 +30,74 @@ export const CustomBundl = () => {
       left: 0
     })
   },[]);
+  console.log(addonPayLoads,'ss')
 
-  // const getCustomBundl = async()=>{
-  //   const response = await axios.get
-  // }
+  const createPayload = async() => {
+    // if (!bundlAddons.bundle_details) {
+    //   console.warn("No bundle details available yet.");
+    //   return;
+    // }
+
+    // const total_price = Object.keys(quantities).reduce((total, designName) => {
+    //   const item = bundlAddons.bundle_details
+    //     .flatMap(bundle => bundle.design_list)
+    //     .find(design => design.name_english === designName);
+    //   const quantity = quantities[designName];
+    //   return item ? total + item.price * quantity : total;
+    // }, 0);
+
+    // const total_time = Object.keys(quantities).reduce((total, designName) => {
+    //   const item = bundlAddons.bundle_details
+    //     .flatMap(bundle => bundle.design_list)
+    //     .find(design => design.name_english === designName);
+    //   const quantity = quantities[designName];
+    //   return item ? total + item.time * quantity : total;
+    // }, 0);
+
+    // const taxRate = 18;
+    // const tax = Math.round(total_price * (taxRate / 100));
+
+    // const item_list = bundlAddons.bundle_details.flatMap((bundle, index) =>
+    //   bundle.design_list.map((design, idx) => {
+    //     const quantity = quantities[design.name_english] || 1;
+    //     return {
+    //       design_id: design.id,
+    //       unit_price: design.price.toString(),
+    //       unit_time: design.time.toString(),
+    //       qty: quantity.toString(),
+    //       item_type: "bundl"
+    //     };
+    //   })
+    // );
+
+
+    const payload = {
+      order_name:brandInput || "Addons",
+      // bundle_id: location.state.bundlDetail?.id,
+      total_time: addonPayLoads.total_time,
+      total_price:  addonPayLoads.total_price,
+      tax_treatment:  addonPayLoads.tax_treatment,
+      tax:  addonPayLoads.tax,
+      item_list: addonPayLoads.item_list,
+      addons:addonPayLoads,
+      order_status:"in_cart"
+    };
+    
+    try {
+      const response = await axios.post(
+        `${base_url}/api/order/create/`, 
+        payload,   // Ensure 'payload' is an object with the data you need to send
+        ConfigToken()     // 'Config' should be an object containing headers or other Axios options
+      );
+      if (response.status === 201) {
+        navigate('/mycart', { state: { orderData: response.data.data.data } });
+      }// Optional: Log or handle the response as needed
+    } catch (error) {
+      console.error("Error creating order:", error); // Optional: Handle errors here
+    }
+    
+    
+  };
 
   return (
     <div>
@@ -49,7 +117,7 @@ export const CustomBundl = () => {
         <div className='bundl-section'>
           <div className='brand-details'>
             <p style={window.innerWidth<=441 ? {fontSize:'24px',fontWeight: '700'}:{ textAlign: 'left', fontSize: '32px', fontWeight: '700' }}>What is the name of your brand?</p>
-            <input className='brand-input'></input>
+            <input className='brand-input' onChange={(e)=>setBrandInput(e.target.value)}/>
             {/* <div className='brand-identity'>
               <p className='collateral-text'>Brand Identity</p>
               <p>Includes bla bla</p>
@@ -98,15 +166,15 @@ export const CustomBundl = () => {
 
           </div>
 
-          <div className='bundl-summary'>
+          {/* <div className='bundl-summary'>
             <div className='bundl-name'>
               <p style={{ fontSize: '24px', fontWeight: '700', padding: '2% 0%' }}>Summary</p>
-              {/* <div style={{ display: 'flex' }}>
+              <div style={{ display: 'flex' }}>
                 <p style={{ fontSize: '20px', fontWeight: '700', width: '60%' }}>Boutique Bundl</p>
                 <p style={{ fontSize: '20px', fontWeight: '700', width: '40%' }}>6000 sar</p>
-              </div> */}
+              </div>
             </div>
-            {/* <p className='one-heading'>1 Brand Identity</p> */}
+            <p className='one-heading'>1 Brand Identity</p>
             <div className='one-brand-identity'>
               <p style={{ fontSize: '20px', fontWeight: '700', width: '60%', color: '#000000' }}><img src={Edit} className="inline-block"></img> <img src={Xmark}></img> Typography</p>
               <div style={{ display: 'flex' }}>
@@ -114,8 +182,8 @@ export const CustomBundl = () => {
                 <p style={{ fontSize: '20px', fontWeight: '700', width: '40%' }}><img src={Dollor} className="inline-block"></img> 180 sar</p>
               </div>
             </div>
-            {/* <p className='one-heading'>1 Box</p> */}
-            {/* <p className='one-heading'>1 Business Card</p> */}
+            <p className='one-heading'>1 Box</p>
+            <p className='one-heading'>1 Business Card</p>
             <div className='one-brand-identity'>
               <p style={{ fontSize: '20px', fontWeight: '700', width: '60%', color: '#000000' }}><img src={Edit}></img> <img src={Xmark} className="inline-block"></img> Logo Option</p>
               <div style={{ display: 'flex' }}>
@@ -142,7 +210,7 @@ export const CustomBundl = () => {
                 </div>
               </div>
             ))}
-            {/* <p className='one-heading'>3 GIF posts</p> */}
+            <p className='one-heading'>3 GIF posts</p>
             <div className='bundl-checkout'>
               <div className='total' style={{ display: 'flex' }}>
                 <p style={{ width: '60%' }}><img src={BlackDollor} className="inline-block"></img>Total Price</p>
@@ -155,7 +223,58 @@ export const CustomBundl = () => {
               <div className='proceed-checkout'>
                 <NavLink to="/mycart"> <button className='proceed'>Proceed Checkout</button></NavLink>
               </div>
-              {/* <p className='proceed-text'>Your minimum total should be above 700 SAR</p> */}
+              <p className='proceed-text'>Your minimum total should be above 700 SAR</p>
+            </div>
+          </div> */}
+
+         
+          <div className='bundl-summary'>
+            <div className='bundl-name'>
+              <p style={{ fontSize: '24px', fontWeight: '700', padding: '2% 0%' }}>Summary</p>
+            </div>
+            {/* <div style={{ display: 'flex', padding: '1% 5%' }}>
+              <p style={{ fontSize: '20px', fontWeight: '700', width: '60%' }}>{location.state?.bundlDetail?.name_english}</p>
+              <p style={{ fontSize: '20px', fontWeight: '700', width: '40%' }}>{Math.round(location.state?.bundlDetail?.price)} SAR</p>
+            </div>
+            {selectedItems?.map((item, idx) => (
+              <div key={idx} className='one-brand-identity'>
+                <p style={{ color: '#000000', fontSize: '20px', fontWeight: '700', width: '60%' }}>{item.quantity} {item.name_english}</p>
+                <div style={{ display: 'flex' }}>
+                  <p style={{ fontSize: '20px', fontWeight: '700', width: '60%' }}>+ {item.total_time} Days</p>
+                  <p style={{ fontSize: '20px', fontWeight: '700', width: '40%' }}>+ {item.total_price} SAR</p>
+                </div>
+              </div>
+            ))} */}
+             <div className='bundl-name'>
+              {
+                addonPayLoads?.length > 0 && (
+                  <p style={{ fontSize: '24px', fontWeight: '700', padding: '2% 0%' }}>Add ons</p>
+                )
+              }
+            </div>
+            {addonPayLoads?.item_list?.map((addon, idx) => (
+              <div key={idx} className='one-brand-identity'>
+                <p style={{ color: '#000000', fontSize: '20px', fontWeight: '700', width: '60%' }}>{addon.qty} {addon.addon_name}</p>
+                <div style={{ display: 'flex' }}>
+                  <p style={{ fontSize: '20px', fontWeight: '700', width: '60%' }}>+ {addon.unit_time * addon.qty} Days</p>
+                  <p style={{ fontSize: '20px', fontWeight: '700', width: '40%' }}>+ {addon.unit_price * addon.qty} SAR</p>
+                </div>
+              </div>
+            ))}
+            <div className='bundl-checkout mt-3'>
+              <div className='total' style={{ display: 'flex' }}>
+                <p style={{ width: '60%' }}><img src={BlackDollor} alt="Total Price" className="inline-block"/><span className='ml-3'>Total Price :</span></p>
+                <p style={{ width: '40%' }} >{ addonPayLoads.total_price } SAR</p>
+              </div>
+              <div className='total' style={{ display: 'flex' }}>
+                <p style={{ width: '60%' }}><img src={BlackTime} alt="Total Duration" className="inline-block"/><span className='ml-3'>Total Duration :</span></p>
+                <p style={{ width: '40%' }}>{ addonPayLoads.total_time} Days</p>
+              </div>
+
+              <div className='proceed-checkout'>
+                 <button onClick={createPayload} className='proceed'>Proceed Checkout</button> 
+              </div>
+              <p className='proceed-text'>Your minimum total should be above 700 SAR</p>
             </div>
           </div>
         </div>

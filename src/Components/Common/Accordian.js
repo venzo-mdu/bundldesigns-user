@@ -22,7 +22,7 @@ export const Accordian = ({ accordianTitle, addOnPayload, bundlePackageId }) => 
     "Products",
     "Documents",
     "E-designs",
-    "Special Designs"
+    "Space Design"
   ];
 
   useEffect(() => {
@@ -36,9 +36,13 @@ export const Accordian = ({ accordianTitle, addOnPayload, bundlePackageId }) => 
 
   const getAddons = async () => {
     try {
-      const response = await axios.get(`${base_url}/api/package/?bundle_id=${bundlePackageId}`, ConfigToken());
+      const url = window.location.pathname === "/custombundl"
+          ? `${base_url}/api/package/`
+          : `${base_url}/api/package/?bundle_id=${bundlePackageId}`;
+      
+      const response = await axios.get(url, ConfigToken());
       setAddonData(response.data);
-    } catch (error) {
+  }  catch (error) {
       console.error("Error fetching addons data:", error);
     }
   };

@@ -79,6 +79,9 @@
     .nav-items{
         margin: 1% 0 0 2%;
     }
+    .nav-container{
+        margin-bottom: 8%;
+    }
 }
 
 @media screen and (max-width:768px) and (min-width:441px) {
