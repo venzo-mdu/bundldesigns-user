@@ -64,13 +64,13 @@ export default function Dashboard() {
     const ProcessIndexDict = ['purchase', 'questionnaire_required', 'in_progress', 'send_for_approval', 'add_ons', 'content_uploaded']
     const base_url = process.env.REACT_APP_BACKEND_URL
     const location = useLocation();
-    const { reDirect } = location.state || {};
+    const queryParams = new URLSearchParams(location.search);
+    const reDirect = queryParams.get('reDirect',null);
     const [purchasePopUp,setPurchasePopUp] = useState(reDirect)
     const getprojects = async () => {
         const response = await axios.get(`${base_url}/api/order/`, ConfigToken());
         if (response.data) {
             const resProjects = response.data.data.filter(item=> item.order_status!='completed' && item.order_status!='in_cart')
-            console.log(resProjects,'red')
             setProjects(resProjects);
             setPurchases(response.data.data.filter(item=>item.order_status != 'in_cart'))
             if (resProjects.length) {
@@ -83,21 +83,18 @@ export default function Dashboard() {
         const response = await axios.get(`${base_url}/api/order/${orderId}/`, ConfigToken());
         const orderData = response.data.data
         if (orderData) {
-
             orderData.item_details = orderData.item_details = [
                 ...(orderData.item_details.bundle_items || []),
                 ...(orderData.item_details.addon_items || [])
             ];
             setOrder(orderData)
             const index = ProcessIndexDict.indexOf(ProcessIndexDict.find((key) => key == orderData.order_status))
-
             if (orderData.order_status == 'in_review') {
                 setProcessIndex(ProcessIndexDict.length - 1)
             } else {
                 setProcessIndex(index)
             }
             if (orderData.content_uploaded_date) {
-
                 const uploadedDateObj = parseISO(orderData.content_uploaded_date)
                 const oneDayLater = addDays(uploadedDateObj, 1);
                 console.log(oneDayLater)

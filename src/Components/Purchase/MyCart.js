@@ -16,7 +16,7 @@ import DeleteIcon from '../../Images/BundlDetail/deleteicon.svg'
 import BlackDollor from '../../Images/BundlDetail/blackdollor.svg'
 import BlackTime from '../../Images/BundlDetail/blacktime.svg'
 import { base_url } from '../Auth/BackendAPIUrl';
-import { useLocation, useNavigate } from 'react-router-dom'
+import { redirect, useLocation, useNavigate } from 'react-router-dom'
 import { ConfigToken } from '../Auth/ConfigToken'
  
 export const MyCart = () => {
@@ -96,8 +96,12 @@ export const MyCart = () => {
                 grand_total:cartDetails.grand_total,
                 items_to_delete:removedItems
             }
-            const response = await axios.put(`${base_url}/api/order/cart/`, formData,ConfigToken());
-            navigate('/dashboard', { state: { reDirect: true} });
+            const response = await axios.put(`${base_url}/api/order/cart/?initiate=True`, formData,ConfigToken());
+            console.log(response,'reeeeee')
+            if(response.data){
+               window.location.href = response.data.data.redirect_url
+            }
+            // navigate('/dashboard', { state: { reDirect: true} });
             console.log("Payment successful:", response.data);
         } catch (error) {
             console.error("Payment error:", error);

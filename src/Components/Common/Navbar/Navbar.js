@@ -45,13 +45,13 @@ const isCommonNavbar = commonPaths.includes(window.location.pathname);
                   <div className=" navbar-collapse" id="mainNav">
                     <ul className="navbar-nav mx-auto align-items-center ">
                       <li className="nav-item">
-                        <a className="nav-link" >About</a>
+                        <a className="nav-link"  href='/aboutus'>About</a>
                       </li>
                       <li className="nav-item">
-                        <a className="nav-link" >Bundls</a>
+                        <a className="nav-link" href='/'>Bundls</a>
                       </li>
                       <li className="nav-item">
-                        <a className="nav-link" >Work</a>
+                        <a className="nav-link" href='/our-work' >Work</a>
                       </li>
                       <li className="nav-item">
                         <a className="nav-link" >Contact Us</a>
