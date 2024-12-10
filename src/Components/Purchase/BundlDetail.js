@@ -22,6 +22,11 @@ export const BundlDetail = () => {
   const [quantities, setQuantities] = useState({});
   const [addonPayLoads, setAddonPayLoads] = useState({});
   const [brandInput , setBrandInput] = useState('');
+  const [selectedLanguage, setSelectedLanguage] = useState('English');
+
+  const handleRadioChange = (e) => {
+    setSelectedLanguage(e.target.value);
+  };
 
   useEffect(() => {
     document.documentElement.scrollTo({ top: 0, left: 0 });
@@ -163,7 +168,7 @@ export const BundlDetail = () => {
                 <div key={index} className='bundle-section' style={{ margin: '3% 0 0 0' }}>
                   <p className='collateral-text'>{bundle.name_english}</p>
                   <p style={{ opacity: '50%' }}>This includes bla bla</p>
-                  {
+                  {/* {
                     bundle.name_english === "Brand Identity" && (
                       <div style={window.innerWidth < 441 ? { display: 'block', width: '100%' } : { display: 'flex', width: '100%' }}>
                     <p className='logo-design'>Logo design</p>
@@ -174,7 +179,48 @@ export const BundlDetail = () => {
                     </div>
                   </div>
                     )
-                  }
+                  } */}
+
+
+{
+  bundle.name_english === "Brand Identity" && (
+    <div style={window.innerWidth < 441 ? { display: 'block', width: '100%' } : { display: 'flex', width: '100%' }}>
+      <p className='logo-design'>Logo design</p>
+      <div className='languages' style={{ display: 'flex' }}>
+        <p>
+          <input 
+            type='radio' 
+            name='language' 
+            value='English' 
+            checked={selectedLanguage === 'English'}
+            onChange={handleRadioChange} 
+          />
+          English
+        </p>
+        <p>
+          <input 
+            type='radio' 
+            name='language' 
+            value='Arabic' 
+            checked={selectedLanguage === 'Arabic'}
+            onChange={handleRadioChange} 
+          />
+          Arabic
+        </p>
+        <p>
+          <input 
+            type='radio' 
+            name='language' 
+            value='Both' 
+            checked={selectedLanguage === 'Both'}
+            onChange={handleRadioChange} 
+          />
+          Both (+2000SAR)
+        </p>
+      </div>
+    </div>
+  )
+}
                   {bundle.design_list.map((design, idx) => {
                     const isSingleItem = bundle.design_list.length === 1;
                     const isLastIndex = idx === bundle.design_list.length - 1;
