@@ -88,7 +88,7 @@ export const MyCart = () => {
         e.preventDefault();
         try {
             const formData = {...billingInfo,
-                user_name : billingInfo.firstName + billingInfo.lastName,
+                user_name : billingInfo.firstName+' ' + billingInfo.lastName,
                 phone :billingInfo.phoneNumber,
                 promo_code:billingInfo.promoCode,
                 total_amount:cartDetails.total_amount,
@@ -97,7 +97,6 @@ export const MyCart = () => {
                 items_to_delete:removedItems
             }
             const response = await axios.put(`${base_url}/api/order/cart/?initiate=True`, formData,ConfigToken());
-            console.log(response,'reeeeee')
             if(response.data){
                window.location.href = response.data.data.redirect_url
             }

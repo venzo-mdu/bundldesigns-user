@@ -28,7 +28,8 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { Popup } from '../Common/Popup/Popup';
-import { useNavigate } from 'react-router-dom';
+import { DashboardPopup } from '../Common/Popup/DashboardPopup';
+import { redirect, useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 
 const style = {
@@ -66,7 +67,7 @@ export default function Dashboard() {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const reDirect = queryParams.get('reDirect',null);
-    const [purchasePopUp,setPurchasePopUp] = useState(reDirect)
+    const [purchasePopUp,setPurchasePopUp] = useState(true)
     const getprojects = async () => {
         const response = await axios.get(`${base_url}/api/order/`, ConfigToken());
         if (response.data) {
@@ -96,12 +97,16 @@ export default function Dashboard() {
             }
             if (orderData.content_uploaded_date) {
                 const uploadedDateObj = parseISO(orderData.content_uploaded_date)
+                console.log(uploadedDateObj,'dateee')
                 const oneDayLater = addDays(uploadedDateObj, 1);
-                console.log(oneDayLater)
+                console.log(oneDayLater,new Date())
                 if (isBefore(new Date(), oneDayLater)) {
                     setIsEdit(true)
+                    console.log(differenceInSeconds(oneDayLater, new Date()),'dateeeeee')
                     setCounter(differenceInSeconds(oneDayLater, new Date()))
                 }
+                if(orderData.order_status=='in_progress')
+                     setProcessIndex(1)
             }
             if (orderData.order_status == 'send_for_approval' || orderData.order_status =='add_ons' || orderData.order_status =='in_review' ) {
                 const parts = response.data.brand_item_management?.delivery_files[0].split('/');
@@ -144,7 +149,12 @@ export default function Dashboard() {
 
     const renderContent = () => {
         const expectedDate = order.content_uploaded_date ? format(addDays(new Date(order.content_uploaded_date), order.total_time), 'dd/MM/yy') : null
-        const formattedCounter = counter > 0 ? format(addSeconds(new Date(0), counter), 'HH:mm:ss') : '00:00:00';
+        const hours = Math.floor(counter / 3600);
+        const minutes = Math.floor((counter % 3600) / 60);
+        const seconds = counter % 60;
+        
+        // Format into HH:mm:ss
+        const formattedCounter = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
         switch (order.order_status) {
             case 'questionnaire_required':
                 return (
@@ -167,7 +177,7 @@ export default function Dashboard() {
                     return (
                         <div className="text-center">
                             <h2 className="text-[22px] text-[#000000]">
-                                You have {formattedCounter} to edit your questionnaire
+                                You have <span className='text-[#1BA56F]'>{formattedCounter}</span> to edit your questionnaire
                             </h2>
                             <p className="text-[18px] text-[#1BA56F] font-medium">
                                 {dashboardJson.process_content.questionnaire_edit_content}
@@ -207,13 +217,13 @@ export default function Dashboard() {
                         <p>
                             <button
                                 onClick={() => { window.location.href = `/adjustment/${order.id}` }}
-                                className="px-2 py-1 text-[#1BA56F] border border-[#1BA56F] text-[16px] mt-2"
+                                className="px-2 py-1 text-[#1BA56F] font-[500] border !border-[#1BA56F] text-[16px] mt-2 mr-2"
                             >
                                 {dashboardJson.process_content.request_edit}
                             </button>
                             <button
                                 onClick={() => approveBrand()}
-                                className="bg-[#1BA56F] px-2 py-1 text-[#fff] text-[16px] mt-2"
+                                className="bg-[#1BA56F] px-2 py-1 font-[500] text-[#fff] text-[16px] mt-2"
                             >
                                 {dashboardJson.process_content.approve_brand}
                             </button>
@@ -227,8 +237,8 @@ export default function Dashboard() {
                         <h2 className="text-[22px] text-[#000000]">
                             {dashboardJson.process_content.addons}
                         </h2>
-                        <p className="flex justify-center w-full">
-                            <button onClick={() => { setShowPdf(true) }} className="border-b-2 border-[#ffffff] pb-0 font-medium text-[#1BA56F] flex items-center">
+                        <p className="flex mt-3 justify-center w-full">
+                            <button onClick={() => { setShowPdf(true) }} className="border-b-2 border-[#1BA56F] pb-0 font-medium text-[#1BA56F] flex items-center">
                                 <img className="mr-2" src={downloadIcon} alt="Download Icon" />
                                 Click Here to Download
                             </button>
@@ -305,7 +315,6 @@ export default function Dashboard() {
                 iconSrc = greenStarIcon;
                 lineBorderClass = '!border-[#1BA56F]'; // Green line for previous process
             }
-            console.log(isLast)
             return (
                 <div className={containerClasses} key={index}>
                     <img className='m-0' src={iconSrc} alt={`Process Icon ${index}`} />
@@ -344,7 +353,7 @@ export default function Dashboard() {
         <>
             <Navbar />
             {
-                openPopup && <Popup
+                openPopup && <DashboardPopup
                     openpopup={openPopup}
                     isCancel={false}
                     setPopup={setOpenPopup}
@@ -356,9 +365,9 @@ export default function Dashboard() {
                 />
             }
               {
-                purchasePopUp && <Popup
+                purchasePopUp && <DashboardPopup
                     openpopup={purchasePopUp}
-                    isCancel={false}
+                    isCancel={true}
                     setPopup={setPurchasePopUp}
                     title={'Thank you for your purchase'}
                     subTitle={"We're so happy you're here! Let's create something amazing together."}
@@ -368,9 +377,9 @@ export default function Dashboard() {
                 />
             }
                {
-                completePopup && <Popup
+                completePopup && <DashboardPopup
                     openpopup={completePopup}
-                    isCancel={false}
+                    isCancel={true}
                     setPopup={setCompletePopup}
                     title={"And that's a wrap!"}
                     subTitle={"That's a wrap on the design project! It's been a fun and creative process. Enjoy the files."}
@@ -380,28 +389,28 @@ export default function Dashboard() {
             }
             <div className='font-Helvetica'>
                 <div className='text-center py-2 border-b border-black'>
-                    <h1 className='lg:text-[40px] md:text-[32px]'> {dashboardJson.main_title} </h1>
+                    <h1 className='lg:text-[40px] text-[#000] md:text-[32px]'> {dashboardJson.main_title} </h1>
                     <p className='lg:text-[20px] md:text-[16px] text-[#00000080]'>{dashboardJson.title_content} </p>
                 </div>
 
 {
-    projects.length?      <div className=' border-black py-16 px-14'>
+    projects.length?      <div className=' border-black  py-16 px-14'>
     <h1 className='lg:text-[32px] md:text-[24px] flex mb-4'>  <span className='mr-2'>{dashboardJson.second_title}</span> <img className='mr-2' src={ltIcon}></img>  <img src={gtIcon}></img> </h1>
 
-    <p className='flex mb-0'>
+    <p className='flex overflow-auto mb-0'>
         {projects.map(project => <button onClick={(e) => getOrderDetails(project.id)}
-            className={`py-1 px-4 border !border-[#1BA56F] ${project.id == currentTab ? 'bg-[#1BA56F] text-white' : 'bg-white text-[#1BA56F]'}
-         flex justify-around items-center`}>
+            className={`py-1 px-4 min-w-[15%] max-w-[20%] border-[1.5px] !border-[#1BA56F] ${project.id == currentTab ? 'bg-[#1BA56F] text-white' : 'bg-white text-[#1BA56F]'}
+         flex justify-around items-center border-r-0`}>
             {project.project_name}{project.id == currentTab && <img width='15px' className='ml-2' src={editIcon}></img>}</button>)}
-        <button onClick={()=>{window.location.href='/'}} className='py-2 flex bg-black text-white items-center lg:text-[32px] md:text-[24px] leading-[0px] px-2'>+</button>
+        <button onClick={()=>{window.location.href='/'}} className='py-2 sticky right-0 flex bg-black text-white items-center lg:text-[32px] md:text-[24px] leading-[0px] px-2'>+</button>
     </p>
 
-    <div className='border mt-0 !border-black py-2 px-6'>
+    <div className='border-[1.5px] mt-0 !border-black py-2 px-6'>
         <div className='flex items-center w-[80%] mx-auto mt-10 px-20'>{renderProcessData()}</div>
         <div className='flex mb-12 w-[80%] m-auto'>
             {dashboardJson.project_process.map((item, index) => {
                 return <div className='basis-1/5 text-center text-[16px]'>  <p className={`pb-0 mb-0 ${index == processIndex && 'font-bold'}`}> {item} </p>
-                    {index == processIndex && <p className='text-[#1BA56F]'>You’re now Here!</p>}
+                    {index == processIndex && <p className='text-[#1BA56F] font-[500]'>You’re now Here!</p>}
                 </div>
             })}
         </div>
@@ -409,29 +418,29 @@ export default function Dashboard() {
         <div className='w-[80%] mx-auto'>
 
             {order && order.item_details && Array.isArray(order.item_details) && <>
-                <p className={`text-[22px] font-bold my-2 ${processIndex < 2 && isEdit == false ? 'text-[#00000080]' : 'text-black'}`}>Brand & Visual Identity <span className='text-[#1BA56F] text-[18px] font-semibold'> -
-                    {processIndex < 2 && isEdit == false ? 'ON HOLD' : processIndex >= 4 ? 'COMPLETE' : 'IN PROGRESS'}</span> </p>
+                <p className={`text-[22px] font-bold my-2 ${processIndex < 2 && isEdit == false ? 'text-[#00000080]' : 'text-black'}`}>Brand & Visual Identity <span className='text-[#1BA56F] text-[18px] font-[500]'> -
+                    {processIndex < 2 && isEdit == false ? ' ON HOLD' : processIndex >= 4 ? ' COMPLETE' : ' IN PROGRESS'}</span> </p>
                 <p className='font-medium text-[18px]'>{order?.brand_identity?.item_name}</p>
-                <p className='text-[22px] font-bold my-2'>Add Ons
+                <p className={`text-[22px] ${processIndex < 4 && 'text-[#00000080]'} font-bold my-2`}>Applications
 
-                    <span className='text-[#1BA56F] text-[18px] font-semibold'> -
-                        {processIndex < 4 ? 'ON HOLD' : processIndex == ProcessIndexDict.length ? 'COMPLETE' : 'IN PROGRESS'}</span>
+                    <span className='text-[#1BA56F] text-[18px] font-[500]'> -
+                        {processIndex < 4 ? ' ON HOLD' : processIndex == ProcessIndexDict.length ? ' COMPLETE' : ' IN PROGRESS'}</span>
                 </p>
 
                 {order?.item_details?.map((item, index) => {
                     if(item.item__category !=1 && item.type!='bundl'){
-                        return <p className={`font-medium text-[18px] mx-1 my-2 py-1 
+                        return <p className={`font-medium ${processIndex < 4 && 'text-[#00000080]'} text-[18px] mx-1 my-2 py-1 
                             ${index != (order?.item_details.length - 1) &&
                             'border-b'} border-[#00000080] flex justify-between`}><span>{item.item_name}</span>
                             <span className='flex items-center text-[#00000080] text-[14px]'>{processIndex >= 4 ? <>
                                 {item.status == 'questionnaire required' ? <>
-                                    <span className='mr-2'>Waiting content</span>
+                                    <span className='mr-2 font-normal'>Waiting content</span>
                                     <img src={ItemWaitingIcon}></img>
                                 </> : item.status == 'content_uploaded' ? <>
-                                    <span className='mr-2'>In Progress</span>
+                                    <span className='mr-2 font-normal'>In Progress</span>
                                     <img src={ItemProgressIcon}></img>
                                 </> : <>
-                                    <span className='mr-2 font-bold text-[#1BA56F]'>Finished</span>
+                                    <span className='mr-2 font-semibold text-[#1BA56F]'>Finished</span>
                                     <img src={ItemFinishedIcon}></img>
                                 </>}
                             </> : ''}</span>
@@ -453,10 +462,10 @@ export default function Dashboard() {
            
 
 {
-    purchases.length ? <div className='px-14'>
-    <h2 className='lg:text-[32px] md:text-[24px]'>{dashboardJson.third_title}</h2>
+    purchases.length ? <div className='px-14 mt-4 mb-4'>
+    <h2 className='lg:text-[32px] text-[#000] md:text-[24px]'>{dashboardJson.third_title}</h2>
 
-    <table className='w-full border-separate border-spacing-y-2 border-spacing-x-0'>
+    <table className='w-full !border-[#00000080] border-separate border-spacing-y-2 border-spacing-x-0'>
         <thead>
             <tr className='!mb-4'>
                 {Object.keys(dashboardJson.table_heads).map((purchase_key) => {
@@ -481,7 +490,7 @@ export default function Dashboard() {
 }
           
 
-                <div className='text-center py-16'>
+                <div className='text-center pt-20 pb-24'>
                     <h2 className='lg:text-[32px] md:text-[24px]'>{dashboardJson.rate_us}</h2>
                     <p className='lg:text-[20px] text-[#00000080] md:text-[16px]'>{dashboardJson.rate_us_content}</p>
                     <button className='px-12 py-1 lg:text-[20px] md:text-[16px] text-white bg-[#1BA56F]'>{dashboardJson.review_google}</button>
