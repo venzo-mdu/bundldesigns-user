@@ -383,7 +383,7 @@ export default function Dashboard() {
                     setPopup={setCompletePopup}
                     title={"And that's a wrap!"}
                     subTitle={"That's a wrap on the design project! It's been a fun and creative process. Enjoy the files."}
-                    onClick={() => window.location.reload}
+                    onClick={() => window.location.reload()}
                     save={'Continue to Dashboard'}
                 />
             }
