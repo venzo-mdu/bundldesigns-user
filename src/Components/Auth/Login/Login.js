@@ -67,16 +67,17 @@ export const Login = () => {
 
     try {
       const response = await axios.post(`${base_url}/api/login/`, loginData);
-      
+      console.log(response) 
       if (response.status === 200) {
         document.cookie = `token=${response?.data?.data.token || ""}; path=/; SameSite=None; Secure`;
         dispatch(loginAction(response.data.user));
         navigate('/');
       }
+      
     } catch (error) {
       console.error('Login failed:', error);
       if (error.response) {
-        setErrors({ ...errors, general: error.response.data.message || 'An error occurred. Please try again.' });
+        setErrors({ ...errors, general: error.response.data.data || 'An error occurred. Please try again.' });
       }
     }
   };

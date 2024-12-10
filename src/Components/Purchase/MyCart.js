@@ -166,8 +166,8 @@ export const MyCart = () => {
                             </TableBody>
                         </Table>
                     </TableContainer>
-                    <div className='cart-total-container'>
-                        <div className='total' style={{ display: 'flex' }}>
+                    <div className='cart-total-container '>
+                        <div className='total ' style={{ display: 'flex' }}>
                             <p style={{ width: '50%' }}>Price:</p>
                             <p style={{ width: '50%' }}>{Math.round(cartDetails.total_amount)} sar</p>
                         </div>
@@ -176,7 +176,7 @@ export const MyCart = () => {
                             <p style={{ width: '40%' }}>{Math.round(cartDetails.tax)} sar</p>
                         </div>
                         <div>
-                            <div style={{ display: 'flex' }}>
+                            <div style={{ display: 'flex'}}>
                                 <p style={{ width: '50%' }}><img src={BlackDollor} className='inline-block'></img>Total Price</p>
                                 <p style={{ width: '40%' }}>{Math.round(cartDetails.grand_total)} sar</p>
                             </div>
@@ -195,7 +195,7 @@ export const MyCart = () => {
                                 <label>First Name</label>
                                 <input name="firstName" value={billingInfo.firstName} onChange={handleBillingChange} />
                             </div>
-                            <div style={{ margin: '2% 0 0 2%' }}>
+                            <div style={{ margin: '0% 0 0 2%' }}>
                                 <label>Last Name</label>
                                 <input name="lastName" value={billingInfo.lastName} onChange={handleBillingChange} />
                             </div>
@@ -213,7 +213,7 @@ export const MyCart = () => {
                                 <label>Country</label>
                                 <input name="country" value={billingInfo.country} onChange={handleBillingChange} />
                             </div>
-                            <div style={{ margin: '2% 0 0 2%' }}>
+                            <div style={{ margin: '0% 0 0 2%' }}>
                                 <label>City</label>
                                 <input name="city" value={billingInfo.city} onChange={handleBillingChange} />
                             </div>

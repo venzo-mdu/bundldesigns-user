@@ -11,6 +11,8 @@ import BlackTime from '../../Images/BundlDetail/blacktime.svg'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { base_url } from '../Auth/BackendAPIUrl'
 import { ConfigToken } from '../Auth/ConfigToken'
+import { ToastContainer , toast } from 'react-toastify'
+import { css } from '@emotion/react'
 
 export const BundlDetail = () => {
 
@@ -26,6 +28,22 @@ export const BundlDetail = () => {
     getBundlData();
   }, []);
 
+  const validateFields = () => {
+
+    const totalAmount = totalCost + addonPayLoads.total_price;
+    const bundlePrice = Math.round(location.state?.bundlDetail?.price);
+    
+    if (totalAmount <= bundlePrice) {
+      toast.error(`Minimum order is ${bundlePrice} SAR`, {
+        position: toast?.POSITION?.TOP_RIGHT,
+      });
+      return false;
+    }
+  
+    return true;
+  };
+  
+
   const getBundlData = async () => {
     const response = await axios.get(`${base_url}/api/package/?bundle_id=${location.state.bundlDetail?.id}`,ConfigToken());
     setBundlAddons(response.data);
@@ -40,6 +58,7 @@ export const BundlDetail = () => {
   };
 
   const createPayload = async() => {
+    if(!validateFields()) return;
     if (!bundlAddons.bundle_details) {
       console.warn("No bundle details available yet.");
       return;
@@ -120,6 +139,7 @@ export const BundlDetail = () => {
 
   return (
     <div>
+      <ToastContainer />
       <Navbar />
       <div className='bundl-detail'>
         <div style={{ borderBottom: '1px solid #000000',width:'100%' }}>
