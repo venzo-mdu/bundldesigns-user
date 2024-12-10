@@ -67,7 +67,7 @@ export default function Dashboard() {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const reDirect = queryParams.get('reDirect',null);
-    const [purchasePopUp,setPurchasePopUp] = useState(true)
+    const [purchasePopUp,setPurchasePopUp] = useState(reDirect)
     const getprojects = async () => {
         const response = await axios.get(`${base_url}/api/order/`, ConfigToken());
         if (response.data) {
