@@ -23,7 +23,7 @@
             "mark_complete":"Mark as complete"
         },
         "third_title":"Purchasing History",
-        "table_heads":{"id":"Order ID","project_name":"Prject Name","price":"Price",
+        "table_heads":{"id":"Order ID","project_name":"Project Name","price":"Price",
         "payment_status":"Payment Status","action":"Action","purchase_date":"Date Purchased"},
         "rate_us":"How would you rate us ?",
         "rate_us_content":"We care about your satisfaction, let us know your thoughts!",
@@ -52,7 +52,7 @@
             "mark_complete":"Mark as complete"
         },
         "third_title":"Purchasing History",
-        "table_heads":{"id":"Order ID","project_name":"Prject Name","price":"Price",
+        "table_heads":{"id":"Order ID","project_name":"Project Name","price":"Price",
         "payment_status":"Payment Status","action":"Action","purchase_date":"Date Purchased"},
         "rate_us":"How would you rate us ?",
         "rate_us_content":"We care about your satisfaction, let us know your thoughts!",

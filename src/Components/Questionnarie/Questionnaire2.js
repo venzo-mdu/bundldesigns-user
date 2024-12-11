@@ -124,22 +124,62 @@ export const Questionnaire2 = () => {
     });
   };
 
+  // const validateFields = () => {
+  //   // Filter required questions that are either unanswered or contain invalid values
+  //   const unansweredRequiredQuestions = questions.filter((q) => {
+  //     return (
+  //       q.required && // Check if the question is marked as required
+  //       (!formData?.[q.id] || formData?.[q.id].trim() === "") // Check if there's no answer or only whitespace
+  //     );
+  //   });
+  
+  
+  //   if (unansweredRequiredQuestions.length > 0) {
+  //     showToastMessage(); // Display the error toast
+  //     return false;
+  //   }
+  
+  //   return true; // All required fields are valid
+  // };
+
   const validateFields = () => {
-    // Filter required questions that are either unanswered or contain invalid values
+
     const unansweredRequiredQuestions = questions.filter((q) => {
-      return (
-        q.required && // Check if the question is marked as required
-        (!formData?.[q.id] || formData?.[q.id].trim() === "") // Check if there's no answer or only whitespace
-      );
+      if (q.required) {
+        if (q.answer_type === "age-data") {
+          if (
+            selectedGender === "female" &&
+            (!activeFemaleButtons || activeFemaleButtons.length === 0)
+          ) {
+            return true;
+          }
+          if (
+            selectedGender === "male" &&
+            (!activeMaleButtons || activeMaleButtons.length === 0)
+          ) {
+            return true;
+          }
+          if (
+            selectedGender === "both" &&
+            ((!activeFemaleButtons || activeFemaleButtons.length === 0) ||
+              (!activeMaleButtons || activeMaleButtons.length === 0))
+          ) {
+            return true;
+          }
+          return false;
+        }
+
+        return !formData?.[q.id] || formData?.[q.id].trim() === "";
+      }
+      return false;
     });
-  
-  
+
     if (unansweredRequiredQuestions.length > 0) {
-      showToastMessage(); // Display the error toast
+      showToastMessage();
       return false;
     }
-  
-    return true; // All required fields are valid
+
+    return true;
   };
 
 
