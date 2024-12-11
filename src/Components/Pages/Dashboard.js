@@ -328,11 +328,17 @@ export default function Dashboard() {
         })
     }
 
+
     useEffect(() => {
+        // Wait for 2 seconds, then hide the loader
+        const timer = setTimeout(() => {
         getprojects()
-        // const lang = localStorage.getItem('lang')
-        // setDashboardJson(dashboard[lang])
-    }, [])
+
+        }, 2000);
+    
+        // Cleanup the timer to avoid memory leaks
+        return () => clearTimeout(timer);
+      }, []);
 
     useEffect(() => {
         if (counter <= 0) {
