@@ -122,7 +122,7 @@ export const Home = () => {
 
     useEffect(() => {
         getBundl();
-    }, [])
+    }, []);
 
     const getBundl = async () => {
         const response = await axios.get(`${base_url}/api/homepage/`);

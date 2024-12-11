@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState , useEffect} from 'react'
 import Modal from '@mui/material/Modal';
 import Create from '../../../Images/Bundles/create-captivate-elevate.webp'
 import Car from '../../../Images/Bundles/car.webp'
@@ -9,7 +9,11 @@ import Pinkpaint from '../../../Images/Bundles/pink-paint.webp'
 import { Box, Button, Input, Typography, useMediaQuery } from "@mui/material";
 
 export const Popup = ({ title, subTitle, popupType = 'default', onChange, save, cancel, openpopup, textArea, saveBtnBg, setPopup, onClick, sx, values, isCancel }) => {
+    
+    const [currentIndex, setCurrentIndex] = useState(0);
     const isSmallScreen = useMediaQuery('(max-width:441px)');
+    const imageArray = [Car, Lemon, Mouth, Rocket, Pinkpaint];
+    const [slideImage, setSlideImage] = useState(imageArray[0]);
 
     const style = {
         position: 'absolute',
@@ -26,6 +30,23 @@ export const Popup = ({ title, subTitle, popupType = 'default', onChange, save, 
         p: isSmallScreen ? 2 : 4,
         ...sx
     };
+
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            setCurrentIndex((prevIndex) => (prevIndex + 1) % imageArray.length);
+        }, 500);
+
+        return () => clearInterval(intervalId);
+    }, []);
+
+    useEffect(() => {
+        setSlideImage(imageArray[currentIndex]);
+    }, [currentIndex]);
+
+    
+
+
+
 
     const getPopupType = () => {
         if (popupType === 'player') {
@@ -53,7 +74,7 @@ export const Popup = ({ title, subTitle, popupType = 'default', onChange, save, 
                 <Box sx={style}>
                     <div className="container">
                         <div className="row justify-content-center">
-                            <div className="home-img-rotation">
+                            {/* <div className="home-img-rotation">
                                 <p className="flex items-center justify-center m-auto">
                                     <img src={Create} style={{ maxWidth:isSmallScreen ? '45%' : '35%' }} alt="" className="img-fluid" />
                                 </p>
@@ -65,7 +86,26 @@ export const Popup = ({ title, subTitle, popupType = 'default', onChange, save, 
                                         alt="Image 1"
                                     />
                                 </div>
+                            </div> */}
+
+                            <section style={{ margin: '5% 0%' }} className="container-fluid py-1" >
+                            <div className="container">
+                                <div className="row justify-content-center">
+                                    <div className="w-[75%]">
+                                        <div className="home-img-rotation">
+                                            <div className="text-container">
+                                                <p className="rotating-text"><img src={Create} alt="" className="img-fluid"></img></p>
+                                            </div>
+                                            <div className="slideshow-container">
+                                                <div className="mySlides">
+                                                    <img className='slideImages' src={slideImage} alt="Image 1"></img>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+                        </section>
                         </div>
                     </div>
 
@@ -117,6 +157,7 @@ export const Popup = ({ title, subTitle, popupType = 'default', onChange, save, 
                                     border: '#E2E8F0 1px solid',
                                     ml: 2,
                                     mt: isSmallScreen ? 2 : 0,
+                                    width:'40%' 
                                 }}
                             >
                                 {cancel}
