@@ -31,6 +31,7 @@ import { Popup } from '../Common/Popup/Popup';
 import { DashboardPopup } from '../Common/Popup/DashboardPopup';
 import { redirect, useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import { Bgloader } from '../Common/Background/Bgloader';
 
 const style = {
     position: 'absolute',
@@ -47,7 +48,7 @@ const style = {
 export default function Dashboard() {
 
     const navigate = useNavigate();
-
+    const [loading,setLoading] = useState(true)
     const [projects, setProjects] = useState([])
     const [purchases,setPurchases] = useState([])
     const [reOrderId, setReOrderId] = useState()
@@ -78,6 +79,7 @@ export default function Dashboard() {
                 getOrderDetails(resProjects[0].id)
             }
         }
+        setLoading(false)
     }
     const getOrderDetails = async (orderId) => {
         setCurrentTab(orderId)
@@ -327,12 +329,18 @@ export default function Dashboard() {
             );
         })
     }
-
     useEffect(() => {
-        getprojects()
-        // const lang = localStorage.getItem('lang')
-        // setDashboardJson(dashboard[lang])
-    }, [])
+        // Wait for 2 seconds, then hide the loader
+        if(reDirect){
+            const timer = setTimeout(() => {
+                getprojects()
+                }, 1000);    
+        return () => clearTimeout(timer);    
+        }else{
+            getprojects()
+        }
+        // Cleanup the timer to avoid memory leaks
+      }, []);
 
     useEffect(() => {
         if (counter <= 0) {
@@ -351,6 +359,10 @@ export default function Dashboard() {
 
     return (
         <>
+        {
+            loading ?
+            <Bgloader /> :
+            <>
             <Navbar />
             {
                 openPopup && <DashboardPopup
@@ -526,6 +538,8 @@ export default function Dashboard() {
             <Footer />
         </>
 
+        }
+    </>
     )
 
 }
