@@ -341,7 +341,7 @@ export const Questionnaire4 = () => {
                           return (
                             <>
                               <div className='font-background'>
-                                <img style={{ margin: '3% 0 0% 0' }} src={font.img}></img>
+                                <img style={{ margin: '6% 0 0% 0' }} src={font.img}></img>
                                 <button className={`font-buttons ${activeButtons.includes(font.fontStyle) ? 'font-buttons-active' : ''
                                   }`} onClick={() => handleButtonClick(index,question.id,font.fontStyle)}>{font.fontStyle}</button>
                               </div>
