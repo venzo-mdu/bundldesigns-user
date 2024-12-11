@@ -14,6 +14,7 @@
     "@testing-library/user-event": "^13.5.0",
     "assert": "^2.1.0",
     "axios": "^1.7.7",
+    "bootstrap": "^5.3.3",
     "date-fns": "^4.1.0",
     "dotenv": "^16.4.5",
     "firebase": "^10.14.1",
@@ -35,7 +36,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "pretty": "prettier --write \"./**/*.{js,jsx,ts,tsx,json}\"",
-   "deploy": "firebase deploy --only hosting:bundldesigns"
+    "deploy": "firebase deploy --only hosting:bundldesigns"
   },
   "eslintConfig": {
     "extends": [

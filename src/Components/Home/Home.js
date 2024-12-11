@@ -52,6 +52,13 @@ import { Popup } from '../Common/Popup/Popup'
 import { Footer } from '../Common/Footer/Footer'
 
 export const Home = () => {
+    
+        const [dropdownOpen, setDropdownOpen] = useState(false); // state for dropdown
+    
+        const toggleDropdown = () => {
+          setDropdownOpen(!dropdownOpen); // toggle dropdown visibility
+        };
+      
     const navigate = useNavigate();
     const imageArray = [Car, Lemon, Mouth, Rocket, Pinkpaint];
     const [loading, setLoading] = useState(false);
@@ -197,9 +204,31 @@ export const Home = () => {
                                                     <li className="nav-item">
                                                         <a className="nav-link" href="#"><img src={Search} alt="" className="img-fluid nav-icon"></img></a>
                                                     </li>
-                                                    <li className="nav-item">
+                                                    {/*<li className="nav-item">
                                                         <NavLink to='/login'><a className="nav-link" href="/login"><img src={User} alt="" className="img-fluid nav-icon"></img></a></NavLink>
-                                                    </li>
+                                                    </li>*/}
+                                                      <li className="nav-item">
+                                        <div className="dropdown">
+                                            <a
+                                                className="nav-link dropdown-toggle"
+                                                id="userDropdown"
+                                                data-bs-toggle="dropdown"
+                                                aria-haspopup="true"
+                                                aria-expanded={dropdownOpen}
+                                                onClick={toggleDropdown}
+                                                href="#"
+                                            >
+                                                <img src={User} alt="User Icon" className="img-fluid nav-icon"  />
+                                            </a>
+                                            <ul className={`dropdown-menu ${dropdownOpen ? 'show' : ''}`} aria-labelledby="userDropdown">
+                                                <li>
+                                                    <a className="dropdown-item" href="/login">
+                                                        Login
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
                                                     <li className="nav-item">
                                                         <a className="nav-link" href="/mycart"><img src={Cart} alt="" className="img-fluid nav-icon"></img></a>
                                                     </li>

@@ -606,6 +606,13 @@ text-transform: uppercase;
 .nav-section .nav-link .nav-icon{
 width: 26px;
 }
+.nav-icon.user-icon {
+  margin-top: 10px; 
+}
+.navbar-nav .dropdown .user-icon {
+  transform: translateY(5px);  
+}
+
 
 .nav-section a.nav-link.active {
 font-weight: 600;
