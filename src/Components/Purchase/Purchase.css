@@ -305,7 +305,9 @@
     .proceed {
         width: 350px;
     }
-
+    .proceed-checkout {
+        padding: 2% 1%;
+    }
     .bundl-desc {
         width: 55%;
     }

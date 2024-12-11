@@ -176,6 +176,7 @@
     color: #ffffff;
     border: 1px solid #000000;
     text-align: center;
+    text-transform: uppercase;
 }
 
 .male-buttons, .female-buttons {
@@ -972,7 +973,7 @@
         font-size: 12px;
     }
     .questions-title sup{
-        font-size: 16px;
+        font-size: 12px;
     }
     .customer-text{
         font-size: 12px;
@@ -985,10 +986,20 @@
     .female,.male{
         height: 30px;
     }
-    .product-btn,.service-btn{
+    .female-active,.male-active{
         height: 30px;
     }
-    .female-active,.male-active{
+    .product-btn,.service-btn{
+        height: 30px;
+        font-size: 14px;
+        width: 100px;
+    }
+    .product-btn.active,.service-btn.active {
+    height: 30px;
+    font-size: 14px;
+    width: 100px;
+}
+    .female-active,.male-active ,.male:hover,.female:hover {
         height: 30px;
     }
     .female-buttons,.male-buttons{

@@ -1159,8 +1159,16 @@ display: none;
 width: 20%;
 transition: 2s;
 margin: 3% 0 0 0;
+transform: scale(0.3);
+opacity: .3;
 }
-
+.active-slide{
+  width: 20%;
+  transition: 2s;
+  margin: 3% 0 0 0;
+  transform: scale(1);
+  opacity:1; 
+}
 .navigation-manual {
 position: absolute;
 width: 100%;
@@ -1188,7 +1196,7 @@ background: #40D3DC;
 }
 
 #radio0:checked~.first {
-transform: scale(1.5, 1.5);
+/* transform: scale(1.5, 1.5); */
 margin-left: 0;
 }
 

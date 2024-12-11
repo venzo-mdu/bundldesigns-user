@@ -50,6 +50,7 @@ import { base_url } from '../Auth/BackendAPIUrl'
 import { ConfigToken } from '../Auth/ConfigToken'
 import { Popup } from '../Common/Popup/Popup'
 import { Footer } from '../Common/Footer/Footer'
+import { Scale } from '@mui/icons-material'
 
 export const Home = () => {
     const navigate = useNavigate();
@@ -121,12 +122,12 @@ export const Home = () => {
 
     useEffect(() => {
         getBundl();
-    }, [])
+    }, []);
 
     const getBundl = async () => {
         const response = await axios.get(`${base_url}/api/homepage/`);
         setBundlData(response.data);
-        console.log(response.data,"hh")
+        console.log(response.data, "hh")
     }
 
     const addToCart = async (index) => {
@@ -453,18 +454,37 @@ export const Home = () => {
                                         {/* <p className="p-24">We, at Bundl, understand the design complexities that can trip up even the most seasoned brand. That's why we cut through the clutter and empower a smooth, collaborative journey for our clients.</p> */}
                                     </div>
                                 </div>
-                                <div className="image_slider">
-                                    <div className="slider">
-                                        <div className="slides">
-                                            {processData.map((process, index) => (
-                                                <div
-                                                    className={`slide ${activeProcess === index ? "active-slide" : ""}`}
-                                                    key={index}
-                                                >
-                                                    <img src={processData[activeProcess].imgSrc} alt={process.title} width="100%" height="100%" />
-                                                </div>
-                                            ))}
+                                <div class="image_slider">
+                                    <div class="slider">
+                                        <div class="slides">
+                                            <input type="radio" name="radio-btn" id="radio0" checked={activeProcess === 0}></input>
+                                            <input type="radio" name="radio-btn" id="radio1" checked={activeProcess === 1}></input>
+                                            <input type="radio" name="radio-btn" id="radio2" checked={activeProcess === 2}></input>
+                                            <input type="radio" name="radio-btn" id="radio3" checked={activeProcess === 3}></input>
+                                            <input type="radio" name="radio-btn" id="radio4" checked={activeProcess === 4}></input>
+                                            <div class="slide first" style={activeProcess === 0 ? { transform: 'scale(1)', opacity: 1 } : {}}>
+                                                <img src={BuyBundl} slice width="100%" height="100%"></img>
+                                            </div>
+                                            <div class="slide" style={activeProcess === 1 ? { transform: 'scale(1)', opacity: 1 } : {}}>
+                                                <img src={FillQuestionnarie} slice width="100%" height="100%"></img>
+                                            </div>
+                                            <div class="slide" style={activeProcess === 2 ? { transform: 'scale(1)', opacity: 1 } : {}}>
+                                                <img src={Approve} slice width="100%" height="100%"></img>
+                                            </div>
+                                            <div class="slide" style={activeProcess === 3 ? { transform: 'scale(1)', opacity: 1 } : {}}>
+                                                <img src={UploadContent} slice width="100%" height="100%"></img>
+                                            </div>
+                                            <div class="slide" style={activeProcess === 4 ? { transform: 'scale(1)', opacity: 1 } : {}}>
+                                                <img src={Getthedesign} slice width="100%" height="100%"></img>
+                                            </div>
                                         </div>
+                                        {/* <div class="navigation-manual">
+                                            <label for="radio0" class="manual-btn"></label>
+                                            <label for="radio1" class="manual-btn"></label>
+                                            <label for="radio2" class="manual-btn"></label>
+                                            <label for="radio3" class="manual-btn"></label>
+                                            <label for="radio4" class="manual-btn"></label>
+                                        </div> */}
                                     </div>
                                 </div>
                                 <div className="process_content_s">
@@ -587,8 +607,8 @@ export const Home = () => {
                                     {/* <!-- rotating buiscut --> */}
                                     <div className="icon_section1">
                                         <div className="subzero1">
-                                            <span onClick={()=>addToCart(0)} className="buiscut_layer1">Select <br></br>This<br></br> Bundl</span>
-                                            <div onClick={()=>addToCart(0)} className="main_inside1"></div>
+                                            <span onClick={() => addToCart(0)} className="buiscut_layer1">Select <br></br>This<br></br> Bundl</span>
+                                            <div onClick={() => addToCart(0)} className="main_inside1"></div>
                                         </div>
                                     </div>
 
@@ -662,8 +682,8 @@ export const Home = () => {
                                     {/* <!-- rotating buiscut --> */}
                                     <div className="icon_section2">
                                         <div className="subzero2">
-                                            <span onClick={()=>addToCart(1)} className="buiscut_layer2">Select <br></br>This<br></br> Bundl</span>
-                                            <div onClick={()=>addToCart(1)} className="main_inside2"></div>
+                                            <span onClick={() => addToCart(1)} className="buiscut_layer2">Select <br></br>This<br></br> Bundl</span>
+                                            <div onClick={() => addToCart(1)} className="main_inside2"></div>
                                         </div>
                                     </div>
 
@@ -747,8 +767,8 @@ export const Home = () => {
                                     {/* <!-- rotating buiscut --> */}
                                     <div className="icon_section3">
                                         <div className="subzero3">
-                                            <span onClick={()=>addToCart(2)} className="buiscut_layer3">Select <br></br>This<br></br> Bundl</span>
-                                            <div onClick={()=>addToCart(2)} className="main_inside3"></div>
+                                            <span onClick={() => addToCart(2)} className="buiscut_layer3">Select <br></br>This<br></br> Bundl</span>
+                                            <div onClick={() => addToCart(2)} className="main_inside3"></div>
                                         </div>
                                     </div>
 
@@ -831,8 +851,8 @@ export const Home = () => {
                                     {/* <!-- rotating buiscut --> */}
                                     <div className="icon_section4">
                                         <div className="subzero4">
-                                            <span onClick={()=>addToCart(3)} className="buiscut_layer4">Select <br></br>This<br></br> Bundl</span>
-                                            <div onClick={()=>addToCart(3)} className="main_inside4"></div>
+                                            <span onClick={() => addToCart(3)} className="buiscut_layer4">Select <br></br>This<br></br> Bundl</span>
+                                            <div onClick={() => addToCart(3)} className="main_inside4"></div>
                                         </div>
                                     </div>
 
@@ -921,17 +941,17 @@ export const Home = () => {
                                     </div> */}
 
                                     <div className="icon_section5">
-                                    <div className="subzero5">
+                                        <div className="subzero5">
 
-                                        <span className="buiscut_layer5">
-                                        {/* <img style={{ width: '30%' }} src={CartIcon} alt='cart-icon'></img> */}
-                                            <NavLink style={{ color: 'white' }} to="/custombundl" state={{ title: 'Custom Bundl' }}>
-                                            Select <br></br>This<br></br> Bundl
-                                            </NavLink>
-                                        </span>
-                                        <div className="main_inside5"></div>
+                                            <span className="buiscut_layer5">
+                                                {/* <img style={{ width: '30%' }} src={CartIcon} alt='cart-icon'></img> */}
+                                                <NavLink style={{ color: 'white' }} to="/custombundl" state={{ title: 'Custom Bundl' }}>
+                                                    Select <br></br>This<br></br> Bundl
+                                                </NavLink>
+                                            </span>
+                                            <div className="main_inside5"></div>
+                                        </div>
                                     </div>
-                                </div>
 
                                     {/* <!-- background color --> */}
                                     <div className="bg_color5"></div>
@@ -1087,7 +1107,7 @@ export const Home = () => {
                                 <div className="row justify-content-center">
                                     <div className="col-md-8">
                                         <div className="section-head">
-                                            <h2 className="sub-headeing text-center text-center">love letters</h2>
+                                            <h2 className="sub-headeing text-center">love letters</h2>
                                             <p className="f-20 text-center">We work hard to bring your brand dreams to life. But don’t take only our word for it! Listen to what our clients have to say about us.</p>
                                         </div>
                                     </div>

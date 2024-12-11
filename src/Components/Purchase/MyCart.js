@@ -118,7 +118,7 @@ export const MyCart = () => {
             <Navbar />
             <div className='mycart'>
                 <div className='cart'>
-                    <p>Your Cart - {cartDetails?.bundl_english}</p>
+                    <p>Your Cart</p>
                     <TableContainer component={Paper}>
                         <Table sx={{ minWidth: 650 }} aria-label="simple table">
                             <TableHead>
