@@ -182,10 +182,10 @@ export const Home = () => {
                                                             <a className="nav-link" href="/aboutus">About</a>
                                                         </li>
                                                         <li className="nav-item">
-                                                            <a className="nav-link" href="#">Bundls</a>
+                                                            <a className="nav-link" href="/">Bundls</a>
                                                         </li>
                                                         <li className="nav-item">
-                                                            <a className="nav-link" href="#">Work</a>
+                                                            <a className="nav-link" href="/our-work">Work</a>
                                                         </li>
                                                         <li className="nav-item">
                                                             <a className="nav-link" href="#">Contact Us</a>
@@ -225,10 +225,10 @@ export const Home = () => {
                                                         </li>
                                                         <li>
                                                             {/* <!-- <a href="">Our Work</a> --> */}
-                                                            <a href="#" previewlistener="true">Our Work</a>
+                                                            <a href="/our-work" previewlistener="true">Our Work</a>
                                                         </li>
                                                         <li>
-                                                            <a href="#" previewlistener="true">About Us</a>
+                                                            <a href="/aboutus" previewlistener="true">About Us</a>
 
                                                         </li>
                                                         <li>
@@ -1143,8 +1143,8 @@ export const Home = () => {
                                             <h3>Customer Care</h3>
                                             <ul>
                                                 <li><a href="#">Contact us</a></li>
-                                                <li><a href="#">FAQs</a></li>
-                                                <li><a href="#">Careers</a></li>
+                                                <li><a href="/faq">FAQs</a></li>
+                                                <li><a href="/career">Careers</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -1162,7 +1162,7 @@ export const Home = () => {
                                         <div className="footer_inner text-white">
                                             <h3>Information</h3>
                                             <ul>
-                                                <li><a href="#">About Us</a></li>
+                                                <li><a href="/aboutus">About Us</a></li>
                                                 <li><a href="#">Terms & Conditions</a></li>
                                                 <li><a href="#">Legal</a></li>
                                                 <li><a href="#">Privacy Policy</a></li>
