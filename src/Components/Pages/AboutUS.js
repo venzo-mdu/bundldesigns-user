@@ -23,7 +23,8 @@ import ClearIcon from '@mui/icons-material/Clear';
 export const AboutUs = () => {
   const [testimonials, setTestimonials] = useState([])
   const [whatwedo, setWhatwedo] = useState(null)
-  const [WWDImg,setWWDImg] = useState(null)
+  const [isHovered, setIsHovered] = useState('');
+  const [WWDImg, setWWDImg] = useState(null)
   const base_url = process.env.REACT_APP_BACKEND_URL
   const getTestimonials = async () => {
     console.log(base_url)
@@ -101,44 +102,135 @@ export const AboutUs = () => {
         </div>
       </div>
 
-      <div className={`text-center ${whatwedo ? `${aboutUs[whatwedo].bgColor} pt-[1%] pb-[3%]` :'py-[3%]'} relative border-black leading-[40px] py-[3%] border-b`}>
+      <div style={{ backgroundColor: whatwedo ? aboutUs[whatwedo].bgColor : 'inherit' }} className={`text-center py-1 relative border-black leading-[40px] border-b`}>
         <img className='absolute md:top-[-72px] xl:top-[-100px] sm:w-[100px] xs:w-[100px] 
-        xs:top-[-30px] sm:top-[-52px] lg:top-[-80px] md:w-[150px] xl:w-[200px] left-[12vw] '
+        xs:top-[-30px] z-10 sm:top-[-52px] lg:top-[-80px] md:w-[150px] xl:w-[200px] left-[12vw] '
           width='200px' height='140px' src={blueSticker} />
         {
           whatwedo ?
             <>
-            <p className='text-end pr-10'>                 <ClearIcon onClick={() => {setWhatwedo(null)
-            setWWDImg(null) }}
-            className="mr-1  cursor-pointer !w-[50px] !h-[50px] text-white" />
-            </p>
-            <div className='flex'>
-              <div className='basis-1/5'>
-                <img className='min-w-[230px]' src={WWDImg}></img>
+              <p className='text-end pr-10 pb-0'>                 
+                <ClearIcon onClick={() => {
+                setWhatwedo(null)
+                setWWDImg(null)
+                setIsHovered(null)
+              }}
+                className="mr-1  cursor-pointer !w-[50px] !h-[50px] text-white" />
+              </p>
+              <div className='flex mb-2'>
+                <div className='basis-1/5'>
+                  <img className='min-w-[230px]' src={WWDImg}></img>
+                </div>
+                <div className='basis-3/5 text-center text-white'>
+                  <h2 className='text-white text-[32px]'>{aboutUs[whatwedo].title}</h2>
+                  <p className='text-[20px] px-2 mb-4'>{aboutUs[whatwedo].content}</p>
+                  <p> <a href='/our-work' className='text-[white] font-[500] text-[20px] px-[17px] py-1 !border-white border mr-2'>View Our Work</a>
+                    <a href='/' className={`bg-white text-[${aboutUs[whatwedo].bgColor}] font-[500] border !border-white px-[17px] text-[20px] py-1 `}>Purchase Now</a> </p>
+                </div>
+
               </div>
-              <div className='basis-3/5 text-center text-white'>
-              <h2>{aboutUs[whatwedo].title}</h2>
-              <p>{aboutUs[whatwedo].content}</p>
+
+            </> :
+            <div className='flex overflow-hidden'>
+              <div className='basis-[35%] relative'>
+              <img 
+  className={`w-[320px] absolute brandIdentity transition-all transform duration-700 ease-out 
+              ${isHovered === 'socialMedia' ? 'left-[-140px] opacity-100' : 'left-[-330px] opacity-0'}`} 
+  src={socialMediaGIF} 
+/>
+
+<img 
+  className={`w-[320px] absolute z-0 transition-all transform duration-700 ease-out 
+              ${isHovered === 'packaging' ? 'bottom-[-50px] opacity-100' : 'bottom-[-330px] opacity-0'}`} 
+  src={packagingGIF} 
+/>
+
+<img 
+  className={`w-[320px] absolute z-0 transition-all transform duration-700 ease-out rotate-180 
+              ${isHovered === 'websites' ? 'top-[-10px] opacity-100' : 'top-[-330px] opacity-0'}`} 
+  src={websiteGIF} 
+/>
+
+<img 
+  className={`w-[400px] absolute z-0 transition-all transform duration-700 ease-out 
+              ${isHovered === 'brandIdentity' ? 'bottom-[-120px] opacity-100 rotate-[10deg]' : 'bottom-[-330px] opacity-0 rotate-[-15deg]'}`} 
+  src={identityImg} 
+/>
+
+              </div>
+              <div className='basis-[30%] '>
+                <h2 className=' mt-2 md:text-[32px] sm:text-[24px] xs:text-[24px]  font-bold pb-[30px]'>What we do</h2>
+                <div className='flex mb-2 flex-col'>
+                  <p
+                    onClick={() => {
+                      setWhatwedo('brandIdentity')
+                      setWWDImg(identityImg)
+                    }}
+                    onMouseEnter={() => setIsHovered('brandIdentity')}
+                    onMouseLeave={() => setIsHovered(null)}
+                    className={`cursor-pointer BIText ${isHovered ? 'no-underline' : 'underline'} hover:text-[#1BA56F]  md:text-[24px] sm:text-[22px] xs:text-[22px] font-bold`}>
+                    Brand Identity
+                  </p>
+                  <p
+                    onClick={() => {
+                      setWhatwedo('packaging')
+                      setWWDImg(packagingGIF)
+                    }}
+                    onMouseEnter={() => setIsHovered('packaging')}
+                    onMouseLeave={() => setIsHovered(null)}
+                    className={`cursor-pointer ${isHovered ? 'no-underline' : 'underline'} hover:text-[#0BA6C4] md:text-[24px] sm:text-[22px] xs:text-[22px] font-bold`}>
+                    Packaging
+                  </p>
+                  <p
+                    onClick={() => {
+                      setWhatwedo('socialMedia')
+                      setWWDImg(socialMediaGIF)
+                    }}
+                    onMouseEnter={() => setIsHovered('socialMedia')}
+                    onMouseLeave={() => setIsHovered(null)}
+                    className={`cursor-pointer ${isHovered ? 'no-underline' : 'underline'} hover:text-[#1BA56F]  md:text-[24px] sm:text-[22px] xs:text-[22px] font-bold`}>
+                    Social Media Designs
+                  </p>
+                  <p
+                    onClick={() => {
+                      setWhatwedo('websites')
+                      setWWDImg(websiteGIF)
+                    }}
+                    onMouseEnter={() => setIsHovered('websites')}
+                    onMouseLeave={() => setIsHovered(null)}
+                    className={`cursor-pointer ${isHovered ? 'no-underline' : 'underline'} hover:text-[#F3B7CE] md:text-[24px] sm:text-[22px] xs:text-[22px] font-bold`}>
+                    Shopify Websites
+                  </p>
+                </div>
+
+              </div>
+              <div className='basis-[35%] relative'>
+              <img 
+  className={`w-[320px] absolute brandIdentity transition-all transform duration-700 ease-out 
+              ${isHovered === 'socialMedia' ? 'right-[-100px] opacity-100' : 'right-[-330px] opacity-0'}`} 
+  src={socialMediaGIF} 
+/>
+
+<img 
+  className={`w-[320px] absolute z-0 transition-all transform duration-700 ease-out rotate-180 
+              ${isHovered === 'packaging' ? 'top-[-50px] opacity-100' : 'top-[-330px] opacity-0'}`} 
+  src={packagingGIF} 
+/>
+
+<img 
+  className={`w-[320px] absolute z-0 transition-all transform duration-700 ease-out 
+              ${isHovered === 'websites' ? 'bottom-[-10px] opacity-100' : 'bottom-[-330px] opacity-0'}`} 
+  src={websiteGIF} 
+/>
+
+<img 
+  className={`w-[400px] absolute z-0 transition-all transform duration-700 ease-out 
+              ${isHovered === 'brandIdentity' ? 'top-[-120px] opacity-100 rotate-[-30deg]' : 'top-[-330px] opacity-0 rotate-0'}`} 
+  src={identityImg} 
+/>
               </div>
 
             </div>
-  
-            </> :
-            <>
-              <h2 className=' md:text-[32px] sm:text-[24px] xs:text-[24px]  font-bold pb-[30px]'>What we do</h2>
-              <p onClick={() => {setWhatwedo('brandIdentity')
-                setWWDImg(identityImg)
-              }} className='underline md:text-[24px] sm:text-[22px] xs:text-[22px]  font-bold'>Brand Identity</p>
-              <p onClick={() => {setWhatwedo('packaging')
-                  setWWDImg(packagingGIF)
-              }} className='underline md:text-[24px] sm:text-[22px] xs:text-[22px]  font-bold'>Packaging</p>
-              <p onClick={() =>{ setWhatwedo('socialMedia')
-                  setWWDImg(socialMediaGIF)
-              }} className='underline md:text-[24px] sm:text-[22px] xs:text-[22px]  font-bold'>Social Media Designs</p>
-              <p onClick={() => {setWhatwedo('websites')
-                  setWWDImg(websiteGIF)
-              }} className='underline md:text-[24px] sm:text-[22px] xs:text-[22px]  font-bold'>Shopify Websites</p>
-            </>
         }
       </div>
 

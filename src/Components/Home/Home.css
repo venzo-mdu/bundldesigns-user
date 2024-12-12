@@ -4670,6 +4670,9 @@ font-size: 20px;
 
 
 
+.BIText:hover .brandIdentity{
+  left :'-100px' /* Move 100px to the left */
+}
 
 
 
