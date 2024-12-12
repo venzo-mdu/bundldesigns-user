@@ -104,7 +104,7 @@ export const AboutUs = () => {
 
       <div style={{ backgroundColor: whatwedo ? aboutUs[whatwedo].bgColor : 'inherit' }} className={`text-center py-1 relative border-black leading-[40px] border-b`}>
         <img className='absolute md:top-[-72px] xl:top-[-100px] sm:w-[100px] xs:w-[100px] 
-        xs:top-[-30px] sm:top-[-52px] lg:top-[-80px] md:w-[150px] xl:w-[200px] left-[12vw] '
+        xs:top-[-30px] z-10 sm:top-[-52px] lg:top-[-80px] md:w-[150px] xl:w-[200px] left-[12vw] '
           width='200px' height='140px' src={blueSticker} />
         {
           whatwedo ?
@@ -113,6 +113,7 @@ export const AboutUs = () => {
                 <ClearIcon onClick={() => {
                 setWhatwedo(null)
                 setWWDImg(null)
+                setIsHovered(null)
               }}
                 className="mr-1  cursor-pointer !w-[50px] !h-[50px] text-white" />
               </p>
@@ -130,9 +131,32 @@ export const AboutUs = () => {
               </div>
 
             </> :
-            <div className='flex'>
+            <div className='flex overflow-hidden'>
               <div className='basis-[35%] relative'>
-              <img className={`w-[320px] absolute brandIdentity transition-transform duration-700 ease-out ${isHovered ? 'left-[-140px]' : 'left-[-330px]'}`}  src={socialMediaGIF}></img>
+              <img 
+  className={`w-[320px] absolute brandIdentity transition-all transform duration-700 ease-out 
+              ${isHovered === 'socialMedia' ? 'left-[-140px] opacity-100' : 'left-[-330px] opacity-0'}`} 
+  src={socialMediaGIF} 
+/>
+
+<img 
+  className={`w-[320px] absolute z-0 transition-all transform duration-700 ease-out 
+              ${isHovered === 'packaging' ? 'bottom-[-50px] opacity-100' : 'bottom-[-330px] opacity-0'}`} 
+  src={packagingGIF} 
+/>
+
+<img 
+  className={`w-[320px] absolute z-0 transition-all transform duration-700 ease-out rotate-180 
+              ${isHovered === 'websites' ? 'top-[-10px] opacity-100' : 'top-[-330px] opacity-0'}`} 
+  src={websiteGIF} 
+/>
+
+<img 
+  className={`w-[400px] absolute z-0 transition-all transform duration-700 ease-out 
+              ${isHovered === 'brandIdentity' ? 'bottom-[-120px] opacity-100 rotate-[10deg]' : 'bottom-[-330px] opacity-0 rotate-[-15deg]'}`} 
+  src={identityImg} 
+/>
+
               </div>
               <div className='basis-[30%] '>
                 <h2 className=' mt-2 md:text-[32px] sm:text-[24px] xs:text-[24px]  font-bold pb-[30px]'>What we do</h2>
@@ -142,7 +166,7 @@ export const AboutUs = () => {
                       setWhatwedo('brandIdentity')
                       setWWDImg(identityImg)
                     }}
-                    onMouseEnter={() => setIsHovered(identityImg)}
+                    onMouseEnter={() => setIsHovered('brandIdentity')}
                     onMouseLeave={() => setIsHovered(null)}
                     className={`cursor-pointer BIText ${isHovered ? 'no-underline' : 'underline'} hover:text-[#1BA56F]  md:text-[24px] sm:text-[22px] xs:text-[22px] font-bold`}>
                     Brand Identity
@@ -152,7 +176,7 @@ export const AboutUs = () => {
                       setWhatwedo('packaging')
                       setWWDImg(packagingGIF)
                     }}
-                    onMouseEnter={() => setIsHovered(packagingGIF)}
+                    onMouseEnter={() => setIsHovered('packaging')}
                     onMouseLeave={() => setIsHovered(null)}
                     className={`cursor-pointer ${isHovered ? 'no-underline' : 'underline'} hover:text-[#0BA6C4] md:text-[24px] sm:text-[22px] xs:text-[22px] font-bold`}>
                     Packaging
@@ -162,7 +186,7 @@ export const AboutUs = () => {
                       setWhatwedo('socialMedia')
                       setWWDImg(socialMediaGIF)
                     }}
-                    onMouseEnter={() => setIsHovered(socialMediaGIF)}
+                    onMouseEnter={() => setIsHovered('socialMedia')}
                     onMouseLeave={() => setIsHovered(null)}
                     className={`cursor-pointer ${isHovered ? 'no-underline' : 'underline'} hover:text-[#1BA56F]  md:text-[24px] sm:text-[22px] xs:text-[22px] font-bold`}>
                     Social Media Designs
@@ -172,7 +196,7 @@ export const AboutUs = () => {
                       setWhatwedo('websites')
                       setWWDImg(websiteGIF)
                     }}
-                    onMouseEnter={() => setIsHovered(websiteGIF)}
+                    onMouseEnter={() => setIsHovered('websites')}
                     onMouseLeave={() => setIsHovered(null)}
                     className={`cursor-pointer ${isHovered ? 'no-underline' : 'underline'} hover:text-[#F3B7CE] md:text-[24px] sm:text-[22px] xs:text-[22px] font-bold`}>
                     Shopify Websites
@@ -181,7 +205,29 @@ export const AboutUs = () => {
 
               </div>
               <div className='basis-[35%] relative'>
-              {isHovered && <img className='w-[320px] absolute' src={isHovered}></img>}
+              <img 
+  className={`w-[320px] absolute brandIdentity transition-all transform duration-700 ease-out 
+              ${isHovered === 'socialMedia' ? 'right-[-100px] opacity-100' : 'right-[-330px] opacity-0'}`} 
+  src={socialMediaGIF} 
+/>
+
+<img 
+  className={`w-[320px] absolute z-0 transition-all transform duration-700 ease-out rotate-180 
+              ${isHovered === 'packaging' ? 'top-[-50px] opacity-100' : 'top-[-330px] opacity-0'}`} 
+  src={packagingGIF} 
+/>
+
+<img 
+  className={`w-[320px] absolute z-0 transition-all transform duration-700 ease-out 
+              ${isHovered === 'websites' ? 'bottom-[-10px] opacity-100' : 'bottom-[-330px] opacity-0'}`} 
+  src={websiteGIF} 
+/>
+
+<img 
+  className={`w-[400px] absolute z-0 transition-all transform duration-700 ease-out 
+              ${isHovered === 'brandIdentity' ? 'top-[-120px] opacity-100 rotate-[-30deg]' : 'top-[-330px] opacity-0 rotate-0'}`} 
+  src={identityImg} 
+/>
               </div>
 
             </div>

@@ -7,6 +7,7 @@ import Mouth from '../../../Images/Bundles/mouth.webp'
 import Rocket from '../../../Images/Bundles/rocket-blue-for-animation.webp'
 import Pinkpaint from '../../../Images/Bundles/pink-paint.webp'
 import { Box, Button, Input, Typography, useMediaQuery } from "@mui/material";
+import popupGIF from '../../../Images/popupGIF.gif'
 
 export const Popup = ({ title, subTitle, popupType = 'default', onChange, save, cancel, openpopup, textArea, saveBtnBg, setPopup, onClick, sx, values, isCancel }) => {
     
@@ -91,18 +92,9 @@ export const Popup = ({ title, subTitle, popupType = 'default', onChange, save, 
                             <section style={{ margin: '5% 0%' }} className="container-fluid py-1" >
                             <div className="container">
                                 <div className="row justify-content-center">
-                                    <div className="w-[75%]">
-                                        <div className="home-img-rotation">
-                                            <div className="text-container">
-                                                <p className="rotating-text"><img src={Create} alt="" className="img-fluid"></img></p>
-                                            </div>
-                                            <div className="slideshow-container">
-                                                <div className="mySlides">
-                                                    <img className='slideImages' src={slideImage} alt="Image 1"></img>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div className="relative flex justify-center text-center p-0 !pb-[14px]">
+                            <img className='w-[100px] ' src={popupGIF}></img>
+                            </div>
                                 </div>
                             </div>
                         </section>

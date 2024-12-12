@@ -36,7 +36,7 @@ export const MyCart = () => {
         postalCode: '',
         promoCode: '',
     });
- 
+    const [errors, setErrors] = useState({});
     useEffect(() => {
         document.documentElement.scrollTo({ top: 0, left: 0 });
         getCartData();
@@ -83,9 +83,45 @@ export const MyCart = () => {
         });
     };
    
+    const validateFields = () => {
+        const newErrors = {};
+
+        if (!billingInfo.firstName.trim()) newErrors.firstName = 'First name is required';
+        if (!billingInfo.lastName.trim()) newErrors.lastName = 'Last name is required';
+
+        if (!billingInfo.email.trim()) {
+            newErrors.email = 'Email is required';
+        } else if (!/^[\w-.]+@[\w-]+\.[a-z]{2,4}$/i.test(billingInfo.email)) {
+            newErrors.email = 'Invalid email format';
+        }
+
+        if (!billingInfo.phoneNumber.trim()) {
+            newErrors.phoneNumber = 'Phone number is required';
+        } else if (!/^[0-9]{10}$/.test(billingInfo.phoneNumber)) {
+            newErrors.phoneNumber = 'Phone number must be 10 digits';
+        }
+
+        if (!billingInfo.country.trim()) newErrors.country = 'Country is required';
+        if (!billingInfo.city.trim()) newErrors.city = 'City is required';
+
+        if (!billingInfo.postalCode.trim()) {
+            newErrors.postalCode = 'Postal code is required';
+        } else if (!/^[0-9]{5,6}$/.test(billingInfo.postalCode)) {
+            newErrors.postalCode = 'Postal code must be 5 or 6 digits';
+        }
+
+        if (!billingInfo.promoCode.trim()) newErrors.promoCode = 'Promo code is required';
+
+        setErrors(newErrors);
+
+        // Return true if there are no errors
+        return Object.keys(newErrors).length === 0;
+    };
+
  
     const handlePayment = async (e) => {
         e.preventDefault();
+        if (validateFields()) {
         try {
             const formData = {...billingInfo,
                 user_name : billingInfo.firstName+' ' + billingInfo.lastName,
@@ -105,6 +141,7 @@ export const MyCart = () => {
         } catch (error) {
             console.error("Payment error:", error);
         }
+    }
     };
  
     const handleBillingChange = (e) => {
@@ -189,45 +226,85 @@ export const MyCart = () => {
                 </div>
                 <div className='billing'>
                     <p>Billing Address</p>
-                    <form onSubmit={handlePayment}>
-                        <div className="user-name">
-                            <div>
-                                <label>First Name</label>
-                                <input name="firstName" value={billingInfo.firstName} onChange={handleBillingChange} />
-                            </div>
-                            <div style={{ margin: '0% 0 0 2%' }}>
-                                <label>Last Name</label>
-                                <input name="lastName" value={billingInfo.lastName} onChange={handleBillingChange} />
-                            </div>
-                        </div>
-                        <div className="email">
-                            <label>Email</label>
-                            <input name="email" value={billingInfo.email} onChange={handleBillingChange} />
-                        </div>
-                        <div className="phonenumber">
-                            <label>Phone Number</label>
-                            <input name="phoneNumber" value={billingInfo.phoneNumber} onChange={handleBillingChange} />
-                        </div>
-                        <div className="country">
-                            <div>
-                                <label>Country</label>
-                                <input name="country" value={billingInfo.country} onChange={handleBillingChange} />
-                            </div>
-                            <div style={{ margin: '0% 0 0 2%' }}>
-                                <label>City</label>
-                                <input name="city" value={billingInfo.city} onChange={handleBillingChange} />
-                            </div>
-                        </div>
-                        <div className="postal-code">
-                            <label>Postal Code</label>
-                            <input name="postalCode" value={billingInfo.postalCode} onChange={handleBillingChange} />
-                        </div>
-                        <div className="promo-code">
-                            <label>Promo Code</label>
-                            <input name="promoCode" value={billingInfo.promoCode} onChange={handleBillingChange} />
-                        </div>
-                        <button className="payment">Make Payment</button>
-                    </form>
+                    <form onSubmit={handlePayment} noValidate>
+            <div className="user-name">
+                <div>
+                    <label>First Name</label>
+                    <input 
+                        name="firstName" 
+                        value={billingInfo.firstName} 
+                        onChange={handleBillingChange} 
+                    />
+                    {errors.firstName && <p className="text-[16px] text-red font-normal error-message">{errors.firstName}*</p>}
+                </div>
+                <div style={{ margin: '0% 0 0 2%' }}>
+                    <label>Last Name</label>
+                    <input 
+                        name="lastName" 
+                        value={billingInfo.lastName} 
+                        onChange={handleBillingChange} 
+                    />
+                    {errors.lastName && <p className="text-[16px] text-red font-normal error-message">{errors.lastName}</p>}
+                </div>
+            </div>
+            <div className="email">
+                <label>Email</label>
+                <input 
+                    name="email" 
+                    value={billingInfo.email} 
+                    onChange={handleBillingChange} 
+                />
+                {errors.email && <p className="text-[16px] text-red font-normal error-message">{errors.email}</p>}
+            </div>
+            <div className="phonenumber">
+                <label>Phone Number</label>
+                <input 
+                    name="phoneNumber" 
+                    value={billingInfo.phoneNumber} 
+                    onChange={handleBillingChange} 
+                />
+                {errors.phoneNumber && <p className="text-[16px] text-red font-normal error-message">{errors.phoneNumber}</p>}
+            </div>
+            <div className="country">
+                <div>
+                    <label>Country</label>
+                    <input 
+                        name="country" 
+                        value={billingInfo.country} 
+                        onChange={handleBillingChange} 
+                    />
+                    {errors.country && <p className="text-[16px] text-red font-normal error-message">{errors.country}</p>}
+                </div>
+                <div style={{ margin: '0% 0 0 2%' }}>
+                    <label>City</label>
+                    <input 
+                        name="city" 
+                        value={billingInfo.city} 
+                        onChange={handleBillingChange} 
+                    />
+                    {errors.city && <p className="text-[16px] text-red font-normal error-message">{errors.city}</p>}
+                </div>
+            </div>
+            <div className="postal-code">
+                <label>Postal Code</label>
+                <input 
+                    name="postalCode" 
+                    value={billingInfo.postalCode} 
+                    onChange={handleBillingChange} 
+                />
+                {errors.postalCode && <p className="text-[16px] text-red font-normal error-message">{errors.postalCode}</p>}
+            </div>
+            <div className="promo-code">
+                <label>Promo Code</label>
+                <input 
+                    name="promoCode" 
+                    value={billingInfo.promoCode} 
+                    onChange={handleBillingChange} 
+                />
+                {errors.promoCode && <p className="text-[16px] text-red font-normal error-message">{errors.promoCode}</p>}
+            </div>
+            <button className="payment">Make Payment</button>
+        </form>
                 </div>
             </div>
             <Footer />
