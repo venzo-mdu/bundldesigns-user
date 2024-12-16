@@ -54,15 +54,7 @@ export const Footer = () => {
                     <div className='left-content'>
                         <img className='bundl-logo-footer' src={Bundllogo} alt='footer-logo'></img>
                         <p className='footer-text-left'>Elevating Brands & Shaping Legacies.</p>
-                        <div >
-                            <p className='join-text'>Join our newsletter !</p>
-                            {/* <p className='message-text'> Enter your email</p> */}
-                            <div style={{position:'relative'}}>
-                            <input className='footer-input ml-1 placeholder-white' placeholder='Enter your email'></input>
-                            <img className='input-message' src={Message} alt='message'></img>
-                            </div>
-                        </div>
-                        <button className='subscribe'>Subscribe</button>
+                    
                     </div>
                     <div className='right-content'>
                         <div className='platform'>
