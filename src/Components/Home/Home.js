@@ -50,6 +50,7 @@ import axios from 'axios'
 import { base_url } from '../Auth/BackendAPIUrl'
 import { Config } from '../Auth/ConfigToken'
 import {Popup} from '../Common/Popup/Popup'
+import { Footer } from '../Common/Footer/Footer'
 
 export const Home = () => {
 
@@ -806,7 +807,7 @@ export const Home = () => {
                             <div className="container w-75">
                                 <div className="row justify-content-center">
                                     <div className="col-md-8">
-                                        <div className="section-head">
+                                        <div className="section-head"> 
                                             <h2 className="sub-headeing text-center text-center">love letters</h2>
                                             <p className="f-20 text-center">We work hard to bring your brand dreams to life. But don’t take only our word for it! Listen to what our clients have to say about us.</p>
                                         </div>
@@ -853,7 +854,7 @@ export const Home = () => {
                             </div>
                         </section>
 
-                        <section className="container-fluid footer primary-black">
+                       {/*} <section className="container-fluid footer primary-black">
                             <div style={{ padding: '2% 2%' }} className="container">
                                 <div className="row p-2">
                                     <div className="col-4 col-md-3">
@@ -892,7 +893,7 @@ export const Home = () => {
                                     <h6 className="copy-txt text-white">2024 BundlDesigns, &copy; All rights reserved.</h6>
                                 </div>
                             </div>
-                        </section>
+                        </section>{*/}
                     </div>
 
                   
@@ -909,6 +910,7 @@ export const Home = () => {
         cancel={'Cancel'}
         />
     }
+    <Footer />
         </>
     )
 }

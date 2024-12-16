@@ -252,7 +252,8 @@ export default function Career() {
         <p>
           <img src={fileUploadIcon} alt="Upload Icon" width="24" height="24" />
         </p>
-        <p className='text-[20px] text-[#808080] ml-1'>Drop your files here</p>
+        <p className='text-[20px] text-[#808080] ml-1
+        '>Drop your files here</p>
         {formData.file && <p className="text-gray-600 text-sm mt-2">Selected: {formData.file.name}</p>}
       </label>
 
