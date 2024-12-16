@@ -10,6 +10,7 @@ import { loginAction } from '../../../Redux/Action';
 import axios from 'axios';
 import { GoogleLogin } from '@react-oauth/google';
 import { base_url } from '../BackendAPIUrl';
+import loginGIF from '../../../Images/loginGIF.gif'
 
 export const Login = () => {
   const dispatch = useDispatch();
@@ -85,7 +86,7 @@ export const Login = () => {
   return (
     <div>
       <div className='login'>
-        <img className='anchor' src={Anchor} alt='login-anchor' />
+        <img className='anchor w-[100px]' src={loginGIF} alt='login-anchor' />
         <div className='login-content'>
           <p className='welcometext'>Welcome Back Sarah  !</p>
           <img className='loginlogo' src={Loginlogo} alt='login' />
@@ -133,7 +134,7 @@ export const Login = () => {
             </p>
           </form>
         </div>
-        <img className='anchor1' src={Anchor} alt='login-anchor' />
+        <img className='anchor1 w-[160px]' src={loginGIF} alt='login-anchor' />
       </div>
       <Footer />
     </div>
