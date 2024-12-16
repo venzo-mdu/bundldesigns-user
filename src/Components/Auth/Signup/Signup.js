@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux';
 import { GoogleLogin } from '@react-oauth/google';
 import { base_url } from '../BackendAPIUrl';
 import { ToastContainer, toast } from 'react-toastify';
-
+import loginGIF from '../../../Images/loginGIF.gif'
 
 export const Signup = () => {
   const { userInfo } = useSelector((state) => state);
@@ -118,7 +118,7 @@ export const Signup = () => {
   return (
     <div>
       <div className='login'>
-        <img className='anchor' src={Anchor} alt='login-anchor' />
+        <img className='anchor' src={loginGIF} alt='login-anchor' />
         <div className='signup-content'>
           <p className='welcometext'>
             Welcome to <span className='bundle-designs'>Bundl Designs</span>
@@ -182,7 +182,7 @@ export const Signup = () => {
             </p>
           </form>
         </div>
-        <img className='anchor1' src={Anchor} alt='login-anchor' />
+        <img className='anchor1 w-[160px]' src={loginGIF} alt='login-anchor' />
       </div>
       <Footer />
     </div>

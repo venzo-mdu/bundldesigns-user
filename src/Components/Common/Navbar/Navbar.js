@@ -134,10 +134,10 @@ export const Navbar = () => {
                             <a className="nav-link" href="/aboutus">About</a>
                           </li>
                           <li className="nav-item">
-                            <a className="nav-link" href="#">Bundls</a>
+                            <a className="nav-link" href="/">Bundls</a>
                           </li>
                           <li className="nav-item">
-                            <a className="nav-link" href="#">Work</a>
+                            <a className="nav-link" href="/our-work">Work</a>
                           </li>
                           <li className="nav-item">
                             <a className="nav-link" href="#">Contact Us</a>
@@ -173,14 +173,14 @@ export const Navbar = () => {
                         <ul className="navbar">
                           <li>
                             {/* <!-- <a href="">Bundls</a> --> */}
-                            <a href="#" previewlistener="true">Bundl Offers</a>
+                            <a href="/" previewlistener="true">Bundl Offers</a>
                           </li>
                           <li>
                             {/* <!-- <a href="">Our Work</a> --> */}
-                            <a href="#" previewlistener="true">Our Work</a>
+                            <a href="/our-work" previewlistener="true">Our Work</a>
                           </li>
                           <li>
-                            <a href="#" previewlistener="true">About Us</a>
+                            <a href="/aboutus" previewlistener="true">About Us</a>
 
                           </li>
                           <li>
@@ -284,8 +284,8 @@ export const Navbar = () => {
             //           </div>
             //       </div>
             //   </div> 
-            <div className='mb-[5%] nav-container'>
-              <div className="nav-section bg-[#FFFFFF] w-[100%] z-[1] fixed top-0" >
+            <div className=' nav-container'>
+              <div className="nav-section bg-[#FFFFFF] w-[100%] z-[1] sticky top-0" >
                 <div style={{ padding: '0% 0%' }} className="">
                   <div className="row align-items-center">
                     <div className="col-4 col-md-3 col-lg-3 justify-content-between">
@@ -305,10 +305,10 @@ export const Navbar = () => {
                               <a className="nav-link" href="/aboutus">About</a>
                             </li>
                             <li className="nav-item">
-                              <a className="nav-link" href="#">Bundls</a>
+                              <a className="nav-link" href="/">Bundls</a>
                             </li>
                             <li className="nav-item">
-                              <a className="nav-link" href="#">Work</a>
+                              <a className="nav-link" href="/our-work">Work</a>
                             </li>
                             <li className="nav-item">
                               <a className="nav-link" href="#">Contact Us</a>

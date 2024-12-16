@@ -43,7 +43,6 @@ export const DashboardPopup = ({ title, subTitle, popupType = 'default', onChang
             return <Box>{/* Custom component inputs here */}</Box>;
         }
     }
-
     return (
         <div>
             <Modal
@@ -96,6 +95,7 @@ export const DashboardPopup = ({ title, subTitle, popupType = 'default', onChang
                                     color: "#fff",
                                 },
                             }}
+                            className='!rounded-none !capitalize text-[20px] font-[500]'
                         >
                             {save}
                         </Button>

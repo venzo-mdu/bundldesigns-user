@@ -642,7 +642,7 @@ export const Home = () => {
                                                         </div>
                                                         <div className="work_time d-flex align-items-center">
                                                             {/* <img src={Time} alt="" className="ing-fluid"></img> */}
-                                                            <span className="working_days px-2"><span>{bundles.name_english === "The Newbie" ? 'Starting from' : ''}</span> {bundles.time} WORKING DAYS</span>
+                                                            <span className="working_days px-2"><span>{bundles.name_english === "The Newbie" ? 'Starting from' : ''}</span> {Math.round(bundles.time)} WORKING DAYS</span>
                                                         </div>
                                                     </>
                                                 </div>
