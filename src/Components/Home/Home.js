@@ -1045,7 +1045,7 @@ export const Home = () => {
                                         <div className="desc">
                                             Prefer a one-on-one design experience?
                                         </div>
-                                        <a href="/premium-form" className="btn bundl-btn bt-1">Send us a message</a>
+                                        <a href="/form/premium" className="btn bundl-btn bt-1">Send us a message</a>
                                     </div>
                                 </div>
                                 <div className="col-md-6 text-center">
@@ -1059,7 +1059,7 @@ export const Home = () => {
                                         <div className="desc">
                                             Dreaming of a perfect website?
                                         </div>
-                                        <a href="/webster-form" className="btn bundl-btn bt-1">Send us a message</a>
+                                        <a href="/form/webster" className="btn bundl-btn bt-1">Send us a message</a>
                                     </div>
                                 </div>
                             </div>

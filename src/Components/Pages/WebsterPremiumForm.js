@@ -160,7 +160,7 @@ export default function WebsterPremiumForm() {
 
         <div className=' font-Helvetica flex sm:pt-10 xs:pt-0 pt-10 xs:block sm:flex sm:pb-24 xs:pb-2 pb-24 overflow-hidden'>
           <div className='basis-1/4 relative xs:pb-8'>
-          {form_type=="premium"?<img className='sm:!w-[200px] !w-[200px] xs:!w-[130px] top-[15%] absolute xs:relative sm:absolute ' src={ paperPlaneGif}></img>
+          {form_type=="premium"?<img className='sm:!w-[200px] !w-[200px] xs:!w-[130px] top-[15%] sm:right-[10%] xs:right-0 right-[10%] left- absolute xs:relative sm:absolute ' src={ paperPlaneGif}></img>
           :<img className='sm:!w-[200px] !w-[200px] xs:!w-[130px]  top-[15%] sm:right-[10%] xs:right-0 right-[10%] absolute xs:relative sm:absolute ' src={ websterGif}></img>}
 
           </div>
@@ -253,7 +253,7 @@ export default function WebsterPremiumForm() {
           </div>
           <div className='basis-1/4 xs:relative' >
           {form_type=="premium"?
-          <img className='sm:!w-[380px] !w-[380px] xs:!w-[150px]  right-[-18%]  bottom-[-8%] xs:ml-[50%] sm:absolute' src={ paperPlaneReverse}></img>
+          <img className='sm:!w-[380px] !w-[380px] xs:!w-[150px]  right-[-18%] sm:right-[-25%]  bottom-[-8%] xs:ml-[50%] sm:absolute' src={ paperPlaneReverse}></img>
           :<img className='sm:!w-[430px] !w-[430px] xs:!w-[200px] z-0 sm:left-[10%] left-[10%] sm:bottom-[-17vh] bottom-[-17vh] xs:left-[20%] xs:bottom-[-13px] absolute sm:absolute xs:relative' src={ websterGif}></img>}
 
           </div>
