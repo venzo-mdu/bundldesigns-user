@@ -5,9 +5,7 @@
 .billing input{
     outline: none;
     padding: 1% 2%;
-}
-form div{
-    margin: 2% 0 0 0 ;
+    border:1px solid #000000;
 }
 .cart{
     width: 70%;
@@ -37,9 +35,11 @@ form{
 }
 .user-name input , .country input{
     width: 100%;
+    border:1px solid #000000;
 }
 .email input,.phonenumber input,.postal-code input , .promo-code input{
     width: 100%;
+    border:1px solid #000000;
 }
 .payment{
     background-color: #0BA6C4;
@@ -82,6 +82,11 @@ form{
     width: 40%;
    }
 }
+@media screen and (max-width:1024px) and (min-width:768px){
+    .cart-total-container{
+        width: 60%;
+    }
+}
 @media screen and (max-width:768px) and (min-width:441px) {
     .mycart{
         flex-direction: column;
@@ -91,6 +96,7 @@ form{
         padding: 2% 3%;
         border-bottom: 1px solid #000000;
     }
+   
     .billing{
         width: 100%;
         padding: 2% 3%;

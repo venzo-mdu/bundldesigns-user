@@ -2,9 +2,20 @@
   text-align: center;
 }
 
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+select::after {
+  content: '▼'; /* Unicode for arrow */
+  font-size: 16px; /* Adjust the size */
+  color: #007bff; /* Adjust the color */
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none; /* Prevent interaction with the icon */
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -47,3 +58,29 @@ input:-webkit-autofill:focus {
   -webkit-text-fill-color: #000;       /* Text color inside the autofilled field */
   transition: background-color 5000s ease-in-out 0s; /* Prevents autofill color from flashing */
 }
+/* Hide the flag */
+/* Hide the country flag */
+.PhoneInputCountryIcon {
+  display: none !important;
+}
+
+/* Show the country code instead */
+.PhoneInputCountrySelect * {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.PhoneInputCountryIcon::before {
+  content: attr(data-country-code); /* Shows the country code */
+  font-size: 14px;
+  font-weight: bold;
+  margin-right: 5px;
+  display: block;
+  color: #333;
+}
+
+.PhoneInputCountrySelectArrow {
+  margin-left: 8px;
+}
+

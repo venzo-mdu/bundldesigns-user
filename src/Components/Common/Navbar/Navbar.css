@@ -79,6 +79,9 @@
     .nav-items{
         margin: 1% 0 0 2%;
     }
+    .nav-container{
+        margin-bottom: 8%;
+    }
 }
 
 @media screen and (max-width:768px) and (min-width:441px) {
@@ -99,12 +102,6 @@
 
 
 @media screen and (max-width:441px)  {
-   .search-icon{
-    display: none;
-   }
-   .profile-input{
-    display: none;
-   }
    .profile{
     width: 40%;
    }
@@ -118,12 +115,7 @@
 }
 
 @media screen and (max-width:375px)  {
-    .search-icon{
-     display: none;
-    }
-    .profile-input{
-     display: none;
-    }
+
     .profile{
      width: 40%;
     }

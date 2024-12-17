@@ -8,7 +8,9 @@ import { Footer } from '../../Common/Footer/Footer';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { GoogleLogin } from '@react-oauth/google';
-
+import { base_url } from '../BackendAPIUrl';
+import { ToastContainer, toast } from 'react-toastify';
+import loginGIF from '../../../Images/loginGIF.gif'
 
 export const Signup = () => {
   const { userInfo } = useSelector((state) => state);
@@ -21,6 +23,12 @@ export const Signup = () => {
     email: '',
     password: ''
   });
+
+  const showToastMessage = () => {
+    toast.error("The Value is required!", {
+      position: toast?.POSITION?.TOP_RIGHT,
+    });
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -94,10 +102,10 @@ export const Signup = () => {
 
   const signUp = async (e) => {
     e.preventDefault();
-    if (!validateForm()) return;
+    if (!validateForm()) console.log('hh');
 
     try {
-      const response = await axios.post('https://bundldesigns-ag7c3.ondigitalocean.app/api/register/', registerData);
+      const response = await axios.post(`${base_url}/api/register/`, registerData);
       if (response.status === 201) {
         console.log('Signup successfully');
         navigate('/login')
@@ -110,7 +118,7 @@ export const Signup = () => {
   return (
     <div>
       <div className='login'>
-        <img className='anchor' src={Anchor} alt='login-anchor' />
+        <img className='anchor' src={loginGIF} alt='login-anchor' />
         <div className='signup-content'>
           <p className='welcometext'>
             Welcome to <span className='bundle-designs'>Bundl Designs</span>
@@ -145,7 +153,7 @@ export const Signup = () => {
             />
             {errors.password && <p className="error">{errors.password}</p>}
             
-            <div style={{ display: 'flex' }} className='terms-policy'>
+            <div style={{ display: 'flex' }} className='terms-policy flex my-1'>
               <input
                 className='checkbox'
                 type='checkbox'
@@ -154,7 +162,7 @@ export const Signup = () => {
               />
               <p>I agree to the terms & policy</p>
             </div>
-            <button type='submit'  className='signin'>
+            <button type='submit' style={{margin:"0% 0 0 0"}}  className='signin'>
               Signup
             </button>
             <p className='or' style={{ margin: '2% 0 0 0' }}>Or</p>
@@ -170,11 +178,11 @@ export const Signup = () => {
               />
             </p>
             <p className='dont'>
-              Have an account? <span><NavLink className='signup' to={'/login'}>&nbsp;Signin</NavLink></span>
+              Have an account? <span><NavLink  className='signup !font-[500]' to={'/login'}>&nbsp;Sign In</NavLink></span>
             </p>
           </form>
         </div>
-        <img className='anchor1' src={Anchor} alt='login-anchor' />
+        <img className='anchor1 w-[160px]' src={loginGIF} alt='login-anchor' />
       </div>
       <Footer />
     </div>

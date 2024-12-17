@@ -9,6 +9,8 @@ import { useDispatch } from 'react-redux';
 import { loginAction } from '../../../Redux/Action';
 import axios from 'axios';
 import { GoogleLogin } from '@react-oauth/google';
+import { base_url } from '../BackendAPIUrl';
+import loginGIF from '../../../Images/loginGIF.gif'
 
 export const Login = () => {
   const dispatch = useDispatch();
@@ -65,18 +67,18 @@ export const Login = () => {
     if (!validateForm()) return;
 
     try {
-      const response = await axios.post('https://bundldesigns-ag7c3.ondigitalocean.app/api/login/', loginData);
-      
+      const response = await axios.post(`${base_url}/api/login/`, loginData);
+      console.log(response) 
       if (response.status === 200) {
         document.cookie = `token=${response?.data?.data.token || ""}; path=/; SameSite=None; Secure`;
-        console.log(response.data)
         dispatch(loginAction(response.data.user));
         navigate('/');
       }
+      
     } catch (error) {
       console.error('Login failed:', error);
       if (error.response) {
-        setErrors({ ...errors, general: error.response.data.message || 'An error occurred. Please try again.' });
+        setErrors({ ...errors, general: error.response.data.data || 'An error occurred. Please try again.' });
       }
     }
   };
@@ -84,7 +86,7 @@ export const Login = () => {
   return (
     <div>
       <div className='login'>
-        <img className='anchor' src={Anchor} alt='login-anchor' />
+        <img className='anchor w-[100px]' src={loginGIF} alt='login-anchor' />
         <div className='login-content'>
           <p className='welcometext'>Welcome Back Sarah  !</p>
           <img className='loginlogo' src={Loginlogo} alt='login' />
@@ -128,11 +130,11 @@ export const Login = () => {
               />
             </p>
             <p className='dont'>
-              Don't have an account? <span><NavLink className='signup' to={'/signup'}>&nbsp;Signup</NavLink></span>
+              Don't have an account? <span><NavLink className='signup' to={'/signup'}>&nbsp;Sign Up</NavLink></span>
             </p>
           </form>
         </div>
-        <img className='anchor1' src={Anchor} alt='login-anchor' />
+        <img className='anchor1 w-[160px]' src={loginGIF} alt='login-anchor' />
       </div>
       <Footer />
     </div>

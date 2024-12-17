@@ -11,20 +11,21 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-
+ 
 import DeleteIcon from '../../Images/BundlDetail/deleteicon.svg'
 import BlackDollor from '../../Images/BundlDetail/blackdollor.svg'
 import BlackTime from '../../Images/BundlDetail/blacktime.svg'
 import { base_url } from '../Auth/BackendAPIUrl';
-import { useLocation, useNavigate } from 'react-router-dom'
-import { Config } from '../Auth/ConfigToken'
-
+import { redirect, useLocation, useNavigate } from 'react-router-dom'
+import { ConfigToken } from '../Auth/ConfigToken'
+ 
 export const MyCart = () => {
-
+ 
     const location = useLocation();
     const navigate = useNavigate();
     const [cartDetails, setCartDetails] = useState([]);
     const [openPopup , setOpenPopup] = useState(false);
+    const [removedItems,setRemovedItems] = useState([])
     const [billingInfo, setBillingInfo] = useState({
         firstName: '',
         lastName: '',
@@ -35,46 +36,28 @@ export const MyCart = () => {
         postalCode: '',
         promoCode: '',
     });
-
+    const [errors, setErrors] = useState({});
     useEffect(() => {
         document.documentElement.scrollTo({ top: 0, left: 0 });
         getCartData();
     }, []);
-
+ 
     const getCartData = async () => {
         // const response = await axios.get(`${base_url}/api/order/${location.state.orderData.id}/`);
-        const response = await axios.get(`${base_url}/api/order/cart/`,Config);
-        console.log(response)
+        const response = await axios.get(`${base_url}/api/order/cart/`,ConfigToken());
         if(response.data){
             setCartDetails(response.data);
         }
-        if(response.status === 206){ 
+        if(response.status === 206){
            setOpenPopup(true)
         }
     };
-
-    // const removeItem = (itemId, itemType) => {
-    //     console.log(itemId,cartDetails)
-    //     setCartDetails((prevCartDetails) => {
-    //         const updatedItemDetails = { ...prevCartDetails.item_details };
-    //         if (itemType === 'bundle') {
-    //             updatedItemDetails.bundle_items = updatedItemDetails.bundle_items.filter(item => item.id !== itemId);
-    //         } else if (itemType === 'addon') {
-    //             updatedItemDetails.addon_items = updatedItemDetails.addon_items.filter(item => item.id !== itemId);
-    //         }
-
-    //         return {
-    //             ...prevCartDetails,
-    //             item_details: updatedItemDetails
-    //         };
-    //     });
-    // };
-
+ 
     const removeItem = (itemId, itemType) => {
         setCartDetails((prevCartDetails) => {
             const updatedItemDetails = { ...prevCartDetails.item_details };
             let updatedTotalAmount = prevCartDetails.total_amount;
-    
+            setRemovedItems(itemId)
             // Handle removal based on item type
             if (itemType === 'bundle') {
                 const removedItem = updatedItemDetails.bundle_items.find(item => item.id === itemId);
@@ -85,11 +68,11 @@ export const MyCart = () => {
                 updatedTotalAmount -= removedItem?.unit_price * removedItem?.qty || 0;
                 updatedItemDetails.addon_items = updatedItemDetails.addon_items.filter(item => item.id !== itemId);
             }
-    
+   
             // Recalculate the totals
             const updatedTax = updatedTotalAmount * 0.15; // Assuming VAT is 15%
             const updatedGrandTotal = updatedTotalAmount + updatedTax;
-    
+   
             return {
                 ...prevCartDetails,
                 item_details: updatedItemDetails,
@@ -99,27 +82,74 @@ export const MyCart = () => {
             };
         });
     };
-    
+   
+    const validateFields = () => {
+        const newErrors = {};
 
+        if (!billingInfo.firstName.trim()) newErrors.firstName = 'First name is required';
+        if (!billingInfo.lastName.trim()) newErrors.lastName = 'Last name is required';
+
+        if (!billingInfo.email.trim()) {
+            newErrors.email = 'Email is required';
+        } else if (!/^[\w-.]+@[\w-]+\.[a-z]{2,4}$/i.test(billingInfo.email)) {
+            newErrors.email = 'Invalid email format';
+        }
+
+        if (!billingInfo.phoneNumber.trim()) {
+            newErrors.phoneNumber = 'Phone number is required';
+        } else if (!/^[0-9]{10}$/.test(billingInfo.phoneNumber)) {
+            newErrors.phoneNumber = 'Phone number must be 10 digits';
+        }
+
+        if (!billingInfo.country.trim()) newErrors.country = 'Country is required';
+        if (!billingInfo.city.trim()) newErrors.city = 'City is required';
+
+        if (!billingInfo.postalCode.trim()) {
+            newErrors.postalCode = 'Postal code is required';
+        } else if (!/^[0-9]{5,6}$/.test(billingInfo.postalCode)) {
+            newErrors.postalCode = 'Postal code must be 5 or 6 digits';
+        }
+
+        if (!billingInfo.promoCode.trim()) newErrors.promoCode = 'Promo code is required';
+
+        setErrors(newErrors);
+
+        // Return true if there are no errors
+        return Object.keys(newErrors).length === 0;
+    };
+
+ 
     const handlePayment = async (e) => {
         e.preventDefault();
+        if (validateFields()) {
         try {
-            const response = await axios.post(`${base_url}/api/order/payment`, {
-                order_id: location.state.orderData.id,
-                billingInfo,
-            },Config);
+            const formData = {...billingInfo,
+                user_name : billingInfo.firstName+' ' + billingInfo.lastName,
+                phone :billingInfo.phoneNumber,
+                promo_code:billingInfo.promoCode,
+                total_amount:cartDetails.total_amount,
+                total_time:cartDetails.total_time,
+                grand_total:cartDetails.grand_total,
+                items_to_delete:removedItems
+            }
+            const response = await axios.put(`${base_url}/api/order/cart/?initiate=True`, formData,ConfigToken());
+            if(response.data){
+               window.location.href = response.data.data.redirect_url
+            }
+            // navigate('/dashboard', { state: { reDirect: true} });
             console.log("Payment successful:", response.data);
         } catch (error) {
             console.error("Payment error:", error);
         }
+    }
     };
-
+ 
     const handleBillingChange = (e) => {
         const { name, value } = e.target;
         setBillingInfo({ ...billingInfo, [name]: value });
     };
-
-
+ 
+ 
     return (
         <div>
             <Navbar />
@@ -173,8 +203,8 @@ export const MyCart = () => {
                             </TableBody>
                         </Table>
                     </TableContainer>
-                    <div className='cart-total-container'>
-                        <div className='total' style={{ display: 'flex' }}>
+                    <div className='cart-total-container '>
+                        <div className='total ' style={{ display: 'flex' }}>
                             <p style={{ width: '50%' }}>Price:</p>
                             <p style={{ width: '50%' }}>{Math.round(cartDetails.total_amount)} sar</p>
                         </div>
@@ -183,12 +213,12 @@ export const MyCart = () => {
                             <p style={{ width: '40%' }}>{Math.round(cartDetails.tax)} sar</p>
                         </div>
                         <div>
-                            <div style={{ display: 'flex' }}>
-                                <p style={{ width: '50%' }}><img src={BlackDollor}></img>Total Price</p>
+                            <div style={{ display: 'flex'}}>
+                                <p style={{ width: '50%' }}><img src={BlackDollor} className='inline-block'></img>Total Price</p>
                                 <p style={{ width: '40%' }}>{Math.round(cartDetails.grand_total)} sar</p>
                             </div>
                             <div style={{ display: 'flex' }}>
-                                <p style={{ width: '55%' }}><img src={BlackTime}></img>Total Duration</p>
+                                <p style={{ width: '55%' }}><img src={BlackTime} className='inline-block'></img>Total Duration</p>
                                 <p style={{ width: '45%' }}>{Math.round(cartDetails.total_time)} Days</p>
                             </div>
                         </div>
@@ -196,58 +226,98 @@ export const MyCart = () => {
                 </div>
                 <div className='billing'>
                     <p>Billing Address</p>
-                    <form onSubmit={handlePayment}>
-                        <div className="user-name">
-                            <div>
-                                <label>First Name</label>
-                                <input name="firstName" value={billingInfo.firstName} onChange={handleBillingChange} />
-                            </div>
-                            <div style={{ margin: '2% 0 0 2%' }}>
-                                <label>Last Name</label>
-                                <input name="lastName" value={billingInfo.lastName} onChange={handleBillingChange} />
-                            </div>
-                        </div>
-                        <div className="email">
-                            <label>Email</label>
-                            <input name="email" value={billingInfo.email} onChange={handleBillingChange} />
-                        </div>
-                        <div className="phonenumber">
-                            <label>Phone Number</label>
-                            <input name="phoneNumber" value={billingInfo.phoneNumber} onChange={handleBillingChange} />
-                        </div>
-                        <div className="country">
-                            <div>
-                                <label>Country</label>
-                                <input name="country" value={billingInfo.country} onChange={handleBillingChange} />
-                            </div>
-                            <div style={{ margin: '2% 0 0 2%' }}>
-                                <label>City</label>
-                                <input name="city" value={billingInfo.city} onChange={handleBillingChange} />
-                            </div>
-                        </div>
-                        <div className="postal-code">
-                            <label>Postal Code</label>
-                            <input name="postalCode" value={billingInfo.postalCode} onChange={handleBillingChange} />
-                        </div>
-                        <div className="promo-code">
-                            <label>Promo Code</label>
-                            <input name="promoCode" value={billingInfo.promoCode} onChange={handleBillingChange} />
-                        </div>
-                        <button className="payment">Make Payment</button>
-                    </form>
+                    <form onSubmit={handlePayment} noValidate>
+            <div className="user-name">
+                <div>
+                    <label>First Name</label>
+                    <input 
+                        name="firstName" 
+                        value={billingInfo.firstName} 
+                        onChange={handleBillingChange} 
+                    />
+                    {errors.firstName && <p className="text-[16px] text-red font-normal error-message">{errors.firstName}*</p>}
+                </div>
+                <div style={{ margin: '0% 0 0 2%' }}>
+                    <label>Last Name</label>
+                    <input 
+                        name="lastName" 
+                        value={billingInfo.lastName} 
+                        onChange={handleBillingChange} 
+                    />
+                    {errors.lastName && <p className="text-[16px] text-red font-normal error-message">{errors.lastName}</p>}
+                </div>
+            </div>
+            <div className="email">
+                <label>Email</label>
+                <input 
+                    name="email" 
+                    value={billingInfo.email} 
+                    onChange={handleBillingChange} 
+                />
+                {errors.email && <p className="text-[16px] text-red font-normal error-message">{errors.email}</p>}
+            </div>
+            <div className="phonenumber">
+                <label>Phone Number</label>
+                <input 
+                    name="phoneNumber" 
+                    value={billingInfo.phoneNumber} 
+                    onChange={handleBillingChange} 
+                />
+                {errors.phoneNumber && <p className="text-[16px] text-red font-normal error-message">{errors.phoneNumber}</p>}
+            </div>
+            <div className="country">
+                <div>
+                    <label>Country</label>
+                    <input 
+                        name="country" 
+                        value={billingInfo.country} 
+                        onChange={handleBillingChange} 
+                    />
+                    {errors.country && <p className="text-[16px] text-red font-normal error-message">{errors.country}</p>}
+                </div>
+                <div style={{ margin: '0% 0 0 2%' }}>
+                    <label>City</label>
+                    <input 
+                        name="city" 
+                        value={billingInfo.city} 
+                        onChange={handleBillingChange} 
+                    />
+                    {errors.city && <p className="text-[16px] text-red font-normal error-message">{errors.city}</p>}
+                </div>
+            </div>
+            <div className="postal-code">
+                <label>Postal Code</label>
+                <input 
+                    name="postalCode" 
+                    value={billingInfo.postalCode} 
+                    onChange={handleBillingChange} 
+                />
+                {errors.postalCode && <p className="text-[16px] text-red font-normal error-message">{errors.postalCode}</p>}
+            </div>
+            <div className="promo-code">
+                <label>Promo Code</label>
+                <input 
+                    name="promoCode" 
+                    value={billingInfo.promoCode} 
+                    onChange={handleBillingChange} 
+                />
+                {errors.promoCode && <p className="text-[16px] text-red font-normal error-message">{errors.promoCode}</p>}
+            </div>
+            <button className="payment">Make Payment</button>
+        </form>
                 </div>
             </div>
             <Footer />
             {
-                openPopup && 
+                openPopup &&
                 <Popup
                     openpopup={openPopup}
                     isCancel={true}
-                    setPopup={setOpenPopup} 
-                    title={'Your Cart was empty'} 
+                    setPopup={setOpenPopup}
+                    title={'Your Cart was empty'}
                     // subTitle={'Are you sure, you want to empty the cart.'}
                     onClick={()=>navigate('/')}
-                    save={'Continue to Dashboard'}
+                    save={'Continue to Homepage'}
                     // cancel={'Cancel'}
                 />
            }

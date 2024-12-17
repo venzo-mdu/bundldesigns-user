@@ -1,28 +1,97 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+    sans-serif; */
+    font-family: 'Helvetica';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+#description p{
+  font-family:'Helvetica' !important;
+  font-size: 18px !important;
+
+}
+
+#description a{
+  font-family: 'Helvetica' !important;
+}
+
+#description span{
+  font-family: 'Helvetica' !important;
+  font-size: 18px !important;
+
+}
+#description h1,#description h2,#description h3{
+  font-family: 'Helvetica' !important;
+}
+
+#vacancySelect {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: url('../src/Images/down-arrow.svg') no-repeat right 16px center;
+  background-size: 30px;
+  cursor: pointer;
+}
+
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
 
+#description p{
+  margin-bottom: 2px !important;
+}
+
 @font-face {
   font-family: "Helvetica";   /*Can be any text*/
-  src: local("AirbnbCerealLight"),
-    url("./Fonts/helvetica-neue-5/HelveticaNeueMedium.otf") format("truetype");
+  src:  url("./Fonts/helvetica-neue-5/HelveticaNeueMedium.otf") format("opentype");
+  font-weight: 500;
 }
-/* p{
-  font-family: Helvetica;
-} */
+
+@font-face {
+  font-family: "Helvetica";   /*Can be any text*/
+  src:  url("./Fonts/helvetica-neue-5/HelveticaNeueLight.otf") format("opentype");
+  font-weight: 300;
+}
+@font-face {
+  font-family: "Helvetica";   /*Can be any text*/
+  src: url("./Fonts/helvetica-neue-5/HelveticaNeueBold.otf") format("opentype");
+  font-weight: 800
+}
+@font-face {
+  font-family: "Helvetica";   /*Can be any text*/
+  src: 
+    url("./Fonts/helvetica-neue-5/Helvetica-Normal\ Regular.ttf") format('truetype');
+  font-weight: 400; /* Regular weight */
+  font-style: normal;
+}
+.star {
+  clip-path: polygon(
+    50% 0%, 
+    61% 35%, 
+    98% 35%, 
+    68% 57%, 
+    79% 91%, 
+    50% 70%, 
+    21% 91%, 
+    32% 57%, 
+    2% 35%, 
+    39% 35%
+  );
+  border-radius: 8%;
+}
 /* input{
   border: 1px solid #000000 ;
 } */
+button:disabled{
+  cursor: not-allowed;
+}
+

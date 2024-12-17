@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../Stepper/Stepper.css';
 import { useNavigate } from 'react-router-dom';
 
-export const Stepper = ({ pageNo , answersData }) => {
+export const Stepper = ({ pageNo , answersData , fillId }) => {
 
 
     const navigate = useNavigate();
@@ -85,13 +85,13 @@ export const Stepper = ({ pageNo , answersData }) => {
                 setTranslateX(120)
             }
             if (activeProcess === 2) {
-                setTranslateX(395)
+                setTranslateX(375)
             }
             if (activeProcess === 3) {
-                setTranslateX(660)
+                setTranslateX(625)
             }
             if (activeProcess === 4) {
-                setTranslateX(930)
+                setTranslateX(875)
             }
         }
         else {
@@ -128,7 +128,8 @@ export const Stepper = ({ pageNo , answersData }) => {
     const handleRoute = (page) => {
         navigate(`/questionnaire/${page}`, {
             state: {
-                [`questionnaireData${page}`]: answersData, // Use computed property name
+                [`questionnaireData${page}`]: answersData,
+                orderId:fillId // Use computed property name
             },
         });
     };
@@ -164,7 +165,7 @@ export const Stepper = ({ pageNo , answersData }) => {
                         style={{ transition: '1s', opacity: isActiveProcess[index] ? 1 : 0.3 }}
                     >
                         {process.title.split("  ").map((word, i) => (
-                            <span style={{ cursor: 'pointer' }} onClick={()=>handleRoute(index+1)} key={i}>{word}</span>
+                            <span className='text-[14px] font-[700]' style={{ cursor: 'pointer' }} onClick={()=>handleRoute(index+1)} key={i}>{word}</span>
                         ))}
                     </div>
                 </div>

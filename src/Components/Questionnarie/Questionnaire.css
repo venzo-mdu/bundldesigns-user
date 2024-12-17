@@ -7,6 +7,9 @@
     animation:marquee 6s linear infinite;
     overflow: hidden;
 }
+.questions-title sup{
+    font-size: 24px;
+}
 /* @keyframes marquee {
     0% {
         transform: translateX(100%);
@@ -22,7 +25,7 @@
     font-size: 80px;
     font-weight: 700;
     text-transform: uppercase;
-    width: 50%;
+    width: 40%;
     line-height: 80px;
     display: flex;
     align-items: center;
@@ -30,16 +33,17 @@
     margin: auto;
     position: absolute;
     z-index: 1;
-    margin: -11% 0 0 25%;
+    margin: -11% 0 0 30%;
 }
 .eyespoon{
     position: absolute;
+    z-index: -1;
 }
 .questonnaire-actions{
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 5% 0 0 0;
+    margin: 1% 0 0 0;
 }
 .questonnaire-actions1{
     display: flex;
@@ -48,7 +52,7 @@
     /* margin: 2% 0 10% 0; */
 }
 .questonnaire-actions-height{
-    height: 350px;
+    height: 300px;
 }
 .back{
     background-color: transparent;
@@ -88,17 +92,18 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    background-color: #FFFFFF;
 }
 .questions-title{
     font-size: 40px;
     font-weight: 700;
     color: #000000;
-    margin: 2% 0 0% 0;
+    margin: 1% 0 0% 0;
     text-align: center;
 }
 .question-input{
     width: 100%;
-    border-bottom: 1px solid #000000;
+    border-bottom: 2px solid #000000;
     outline: none;
     border-right: 0;
     border-top: 0;
@@ -111,7 +116,7 @@
 }
 .product-btn , .service-btn{
     width: 150px; 
-    height: 40px;
+    height: 45px;
     background-color: #FFFFFF;
     color: #000000;
     border: 1px solid #000000;
@@ -121,13 +126,24 @@
 }
 .product-btn:hover , .service-btn:hover{
     width: 150px; 
-    height: 40px;
+    height: 45px;
     background-color: #000000;
     border: 1px solid #000000;
     text-align: center;
     font-size: 18px;
     text-transform: uppercase;
     color: #FFFFFF;
+}
+.product-btn.active,
+.service-btn.active {
+    background-color: #000;
+    color: #fff;
+    width: 150px; 
+    height: 45px;
+    border: 1px solid #000000;
+    text-align: center;
+    font-size: 18px;
+    text-transform: uppercase;
 }
 .ideal-customers {
     width: 100%;
@@ -146,30 +162,34 @@
 }
 .male,.female{
     width: 150px; /* Prevents buttons from becoming too large on larger screens */
-    height: 40px;
+    height: 45px;
     background-color: transparent;
     color: #000000;
     border: 1px solid #000000;
     text-align: center;
+    text-transform: uppercase;
 }
 .male:hover,.female:hover , .male-active , .female-active{
     width: 150px; /* Prevents buttons from becoming too large on larger screens */
-    height: 40px;
+    height: 45px;
     background-color: #000000;
     color: #ffffff;
     border: 1px solid #000000;
     text-align: center;
+    text-transform: uppercase;
 }
 
 .male-buttons, .female-buttons {
     display: flex;
     gap: 10px;
+    padding: 0% 20%;
+    margin: 2% 0 0 0;
 }
 
 .male-btn, .female-btn {
     flex-grow: 1; /* Allows buttons to grow evenly across available space */
     max-width: 200px; /* Prevents buttons from becoming too large on larger screens */
-    height: 30px;
+    height: 50px;
     background-color: transparent;
     color: #000000;
     border: 1px solid #000000;
@@ -185,6 +205,7 @@
 .male-btn:disabled{
     opacity: 0.5;
     cursor: not-allowed;
+
 }
 .female-btn:disabled{
     opacity: 0.5;
@@ -218,26 +239,37 @@
  } 
  .not-sure{
     font-size: 24px;
-    font-weight: 400;
     text-align: center;
     margin: 2% 0 1% 0;
+    font-style: italic;
  }
 .surprise{
     background-color: #FFFFFF;
     width: 400px;
-    height: 60px;
+    height: 45px;
     text-transform: uppercase;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 500;
     outline: none;
     border: 1px solid #000000;
 }
+.surprise-active{
+    background-color: #000000;
+    width: 400px;
+    height: 45px;
+    text-transform: uppercase;
+    font-size: 20px;
+    font-weight: 500;
+    outline: none;
+    border: 1px solid #000000;
+    color: #FFFFFF;
+}
 .surprise:hover{
     background-color: #000000;
     width: 400px;
-    height: 60px;
+    height: 45px;
     text-transform: uppercase;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 500;
     color: #ffffff;
 }
@@ -294,11 +326,13 @@
     font-style: italic;
     width: 10%;
     margin: 1%;
+    height: 20px;
 }
 .shade-background{
     height: 600px;
     width: 100%;
-    padding: 5% 5%;
+    padding: 0% 5%;
+    margin: 4% 0 0 0;
 }
 .shade-buttons{
     display: flex;
@@ -374,7 +408,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: auto;
+    margin: 5% 0 0 0;
     padding: 5% 2%;
 }
 .thank-you-text{
@@ -503,8 +537,8 @@
 
         .eyespoon{
             position: absolute;
-            top:-2%;
-            right:5%;
+            top:-8%;
+            right:0%;
             animation: move 8s ease-in-out infinite forwards;
         }
         .eyespoon2{
@@ -574,7 +608,7 @@
             position: absolute;
             left: 0;
             top: 37%;
-            z-index: 1;
+            z-index: -1;
         }
 
         @keyframes mirror{
@@ -606,8 +640,10 @@
             padding: 0 12rem;
             top:0;
             display: flex;
-            flex-flow: row;
             justify-content:space-between;
+            position: absolute;
+            height: 100px;
+            z-index: -1;
         }
 
         .verticalmove{ 
@@ -619,6 +655,8 @@
 
         .animate{
             animation-duration: 6s;
+            width: 100px;
+            height: 100px;
         }
 
         .animate--delay{
@@ -655,48 +693,48 @@
                 transform: rotate(0deg);
             }
             20%{
-                top:60%;
+                top:35%;
                 left: 15%;
                 transform: rotate(0deg);
             }
             30%{
-                top:60%;
+                top:35%;
                 left: 15%;
                 transform: rotate(0deg);
             }
             40%{
-                top:60%;
+                top:35%;
                 left: 15%;
                 transform: rotate(0deg);
             }
             50%{
-                top:60%;
+                top:35%;
                 left: 15%;
                 transform: rotate(0deg);
             }
             60%{
-                top:60%;
+                top:35%;
                 left: 15%;
                 transform: rotate(0deg);
             }
             
             70%{
-                top:-6%;
+                top:5%;
                 left: 57%;
                 transform: rotate(-10deg);
             }
             80%{
-                top:-6%;
+                top:5%;
                 left: 57%;
                 transform: rotate(-10deg);
             }
             90%{
-                top:-6%;
+                top:5%;
                 left: 57%;
                 transform: rotate(-10deg);
             }
             100%{
-                top: 60%;
+                top: 35%;
                 left: 75%;
                 transform: rotate(12deg);
             }
@@ -788,6 +826,12 @@
         width: 45%;
         line-height: 50px;
     }
+    .progress-section-q3{
+        width: 90%;
+    }
+    .questions-title{
+        font-size: 36px;
+    }
 }
 
 @media screen and (max-width:1024px) and (min-width:768px) {
@@ -800,7 +844,7 @@
     .title-questionnaire{
         font-size: 45px;
         line-height: 40px;
-        margin: -15% 0 0 25%;
+        margin: -11% 0 0 25%;
     }
     .customer-text{
         font-size: 18px;
@@ -830,6 +874,13 @@
         height: 50px;
         width: 60px;
     }
+    .mirror{
+        top: 30%;
+        
+    }
+    .mirror img{
+        width: 50%;
+    }
 }
 
 @media screen and (max-width:768px) and (min-width:441px) {
@@ -837,9 +888,10 @@
         padding: 10% 5%;
     }
     .title-questionnaire{
-        font-size: 45px;
-        line-height: 40px;
-        margin: -20% 0 0 25%;
+        font-size: 35px;
+        line-height: 32px;
+        margin: -11% 0 0 25%;
+        width: 50%;
     }
     .questions-title{
         font-size: 18px;
@@ -878,6 +930,9 @@
         text-align: center;
         margin: 0 0 5% 0;
     }
+    .progress-section-q3{
+        width: 100%;
+    }
 }
 
 
@@ -885,12 +940,39 @@
     .questionnaire{
         padding: 15% 5%;
     }
+    .eyespoon{
+        top: 3%;
+    }
+    .eyeball{
+        padding: 0;
+    }
     .title-questionnaire{
-        font-size: 25px;
-        line-height: 30px;
-        margin: -35% 0 0 25%;
+        font-size: 20px;
+        line-height: 20px;
+        margin: -25% 0 0 25%;
+        width: 45%;
+    }
+    .miclady{
+        top:20%;
+        width: 32%;
+    }
+    .lips{
+        top: 20%;
+        right: 10%;
+        width: 15%;
+    }
+    .mirror{
+        left: -10%;
+        top:30%;
+        width:35%
+    }
+    .candy-rocket{
+        width: 15%;
     }
     .questions-title{
+        font-size: 12px;
+    }
+    .questions-title sup{
         font-size: 12px;
     }
     .customer-text{
@@ -901,8 +983,31 @@
         height: 40px;
         font-size:16px ;
     }
+    .female,.male{
+        height: 30px;
+    }
+    .female-active,.male-active{
+        height: 30px;
+    }
+    .product-btn,.service-btn{
+        height: 30px;
+        font-size: 14px;
+        width: 100px;
+    }
+    .product-btn.active,.service-btn.active {
+    height: 30px;
+    font-size: 14px;
+    width: 100px;
+}
+    .female-active,.male-active ,.male:hover,.female:hover {
+        height: 30px;
+    }
+    .female-buttons,.male-buttons{
+        padding: 0 0%;
+    }
     .male-btn,.female-btn{
         font-size: 10px;
+        height: 20px;
     }
     .question-input{
         font-size: 14px;
@@ -919,6 +1024,10 @@
     .surprise{
         font-size: 18px;
         width: 325px;
+    }
+    .surprise-active{
+        width: 325px;
+        font-size:18px ;
     }
     .shade-background{
         height: 700px;
@@ -939,12 +1048,15 @@
     }
     .questonnaire-actions-height{
         height: 250px;
+        margin: 8% 0 0 0;
     }
     .question-progress{
-        width: 300px;
+        width: 200px;
     }
     .progress-text{
         font-size: 12px;
+        width: 20%;
+        height: 20px;
     }
     .thank-you-text{
         font-size: 24px;
@@ -956,8 +1068,14 @@
         width: 250px;
         font-size: 18px;
     }
-    .rotating-image{
-        width: 100px;
+    .questions .rotating-image{
+        width: 50px;
+    }
+    .progress-section-q3{
+        width: 100%;
+    }
+    .next,.save,.back{
+        font-size: 18px;
     }
 }
 @media screen and (max-width:375px) {
@@ -967,6 +1085,10 @@
     .title-questionnaire{
         font-size: 25px;
         line-height: 30px;
+        font-size: 20px;
+        line-height: 20px;
+        margin: -25% 0 0 25%;
+        width: 50%;
     }
     .questions-title{
         font-size: 12px;
@@ -1026,7 +1148,9 @@
         width: 200px;
     }
     .progress-text{
-        font-size: 12px;
+        font-size: 10px;
+        width: 20%;
+        height: 20px;
     }
     .thank-you-desc{
         font-size: 20px;

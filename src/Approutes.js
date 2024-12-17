@@ -17,6 +17,7 @@ import PremiumForm from "./Components/Pages/PremiumForm";
 import Dashboard from "./Components/Pages/Dashboard";
 import UploadContent from "./Components/Pages/UploadContent";
 import Adjustments from "./Components/Pages/Adjustments";
+import WebsterPremiumForm from "./Components/Pages/WebsterPremiumForm";
 
 const getCookie = (name) => {
   const value = `; ${document.cookie}`;
@@ -26,19 +27,20 @@ const getCookie = (name) => {
 
 const ProtectedRoute = ({ element }) => {
   const token = getCookie("token");
-  return token ? element : <Navigate to="/login" />;
+  return token != null ? element : <Navigate to="/login" />;
 };
 
 export default function AppRouter() {
+
+  const token = getCookie("token");
 
   useEffect(()=>{
     document.documentElement.scrollTo({
       top: 0,
       left: 0
     })
-  },[]);
+  },[token]);
   
-  const token = getCookie("token");
 
   return useRoutes([
     {
@@ -104,6 +106,11 @@ export default function AppRouter() {
     {
       path: '/premium-form',
       element: < PremiumForm />
+    },
+    {
+      path:'/form/:form_type',
+      element:<WebsterPremiumForm />
+
     },
     {
       path: '/webster-form',

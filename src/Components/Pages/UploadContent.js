@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { Config } from '../Auth/ConfigToken'
+import { ConfigToken } from '../Auth/ConfigToken'
 import { base_url } from '../Auth/BackendAPIUrl';
 import { Footer } from '../Common/Footer/Footer'
 import { Navbar } from '../Common/Navbar/Navbar'
@@ -11,10 +11,12 @@ import backIcon from "../../Images/backIcon.svg"
 import uploadIcon from "../../Images/uploadIcon.svg"
 import { useParams } from "react-router-dom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { Bgloader } from '../Common/Background/Bgloader';
 
 export default function UploadContent() {
 
     const { orderId } = useParams();
+    const [loading,setLoading] = useState(false)
     const [uploadContent, setUploadContent] = useState({})
     const [designQuestions, setDesignQuestions] = useState([])
     const [skipId, setSkipId] = useState([])
@@ -22,7 +24,7 @@ export default function UploadContent() {
     
     const [order, setOrder] = useState(null)
     const getOrderDetails = async () => {
-        const response = await axios.get(`${base_url}/api/order/${orderId}/`, Config);
+        const response = await axios.get(`${base_url}/api/order/${orderId}/`, ConfigToken());
         if (response.data) {
             setOrder(response.data.data);
             setDesignQuestions(response.data.design_question)
@@ -39,7 +41,7 @@ export default function UploadContent() {
             const formData = new FormData()
             formData.append('file',e.target.files[0])
             formData.append('file_name',e.target.files[0]?.name)
-            const response = await axios.post(`${base_url}/api/upload_file/`, formData, Config);
+            const response = await axios.post(`${base_url}/api/upload_file/`, formData, ConfigToken());
             console.log(response.data,'res');
             setUploadContent((prev) => ({
                 ...prev,
@@ -54,13 +56,13 @@ export default function UploadContent() {
 
     const saveContent = async(itemId) => {
         const formData = {answers:{[itemId]: uploadContent[itemId]},orderId:order.id,status:'save_later'}
-        const response = await axios.post(`${base_url}/api/upload_content/`, formData, Config);
+        const response = await axios.post(`${base_url}/api/upload_content/`, formData, ConfigToken());
         getOrderDetails()
     }
 
     const saveAllContent = async(status)=>{
         const formData = {answers:uploadContent,orderId:order.id,status:status}
-        const response = await axios.post(`${base_url}/api/upload_content/`, formData, Config);
+        const response = await axios.post(`${base_url}/api/upload_content/`, formData, ConfigToken());
         window.location.href = '/dashboard'
     }
     
@@ -80,11 +82,13 @@ export default function UploadContent() {
 
 
     return (
+        loading ?
+        <Bgloader />:
         <>
             <Navbar />
             <div className='font-Helvetica px-6 py-2 flex'>
-                <div className='basis-3/4 border-r border-black'>
-                    <p onClick={()=>{window.location.href ='/dashboard'}} className='flex text-[18px] items-center text-black'> <img src={backIcon} className='mr-2' ></img> Back to dashboard </p>
+                <div className='basis-3/4  !mt-[26px] border-r border-black'>
+                    <p onClick={()=>{window.location.href ='/dashboard'}} className='flex cursor-pointer text-[18px] items-center text-black'> <img src={backIcon} className='mr-2' ></img> Back to dashboard </p>
                     <div className='mx-12'>
                         <h3 className='my-4'> Upload Content </h3>
 
@@ -114,10 +118,10 @@ export default function UploadContent() {
                                                 />  Arabic  </label>
                                         </p>}
 
-                                        {designQuestions[item.item__id].content && <p className='flex w-[70%]'>
+                                        {designQuestions[item.item__id]?.content && <p className='flex w-[70%]'>
                                             <input placeholder='Slogan & Number....' value={uploadContent?.[item?.id]?.content || ''} onChange={(e) => handleChange(e, item.id, 'content')} className='border !border-black py-2 px-2 ' ></input><button className='bg-black flex text-[16px] items-center px-2 py-1 text-white'> <img className='mr-2' src={starIcon}></img> Suggest  Content </button>
                                         </p>}
-                                        {designQuestions[item.item__id].measurements && <>
+                                        {designQuestions[item.item__id]?.measurements && <>
                                             <p>Measurements</p>
                                             <p>
                                                 <label className='mr-6'>
@@ -145,7 +149,7 @@ export default function UploadContent() {
                                             </p>
                                         </>}
 
-                                        {designQuestions[item.item__id].attachment && <><p>Have something to show us?</p>
+                                        {designQuestions[item.item__id]?.attachment && <><p>Have something to show us?</p>
                                             <p
                                                 className="border-b-2 w-[150px] !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer"
                                                 onClick={() => document.getElementById(`file-${item.id}`).click()} // Trigger click on hidden input
@@ -252,7 +256,7 @@ export default function UploadContent() {
                     </div>
 
                 </div>
-                <div className='basis-1/4 my-2 px-2'>
+                <div className='basis-1/4  !mt-[26px] my-2 px-2'>
 
                     <h3 className='text-[22px] font-bold py-2'>Checklist</h3>
 
