@@ -541,7 +541,9 @@ position: absolute;
 top: 0;
 left: 0;
 }
-
+.menu{
+ display: none;
+}
 .navbundl{
   width: 100%;
   display: flex;

@@ -199,7 +199,7 @@
 }
 
 .menu {
-    display: flex;
+    display: none;
     /* margin: -5% 0 0 0; */
 }
 
@@ -348,6 +348,12 @@
 
 
 @media screen and (max-width:768px) and (min-width:441px) {
+    .navIcons{
+        display: none;
+    }
+    .menu {
+        display: flex;
+    }
     .bundl-section {
         flex-direction: column;
     }
@@ -379,8 +385,11 @@
 }
 
 @media screen and (max-width:441px) {
-    .menu{
-        /* margin: 25% 0 0 0; */
+    .navIcons{
+        display: none;
+    }
+    .menu {
+        display: flex;
     }
     .bundl-section {
         flex-direction: column;
@@ -442,4 +451,7 @@
   .proceed{
     width: 300px;
   }
+  .menu {
+    display: flex;
+}
 }

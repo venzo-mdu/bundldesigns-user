@@ -819,7 +819,7 @@ export const Home = () => {
                                 <div className="row justify-content-center">
                                     <div className="col-md-8">
                                         <div className="section-head">
-                                            <h2 className="sub-headeing text-center text-center">love letters</h2>
+                                            <h2 className="sub-headeing text-center">love letters</h2>
                                             <p className="f-20 text-center">We work hard to bring your brand dreams to life. But don’t take only our word for it! Listen to what our clients have to say about us.</p>
                                         </div>
                                     </div>
