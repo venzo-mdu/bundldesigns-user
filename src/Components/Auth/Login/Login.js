@@ -23,6 +23,7 @@ export const Login = () => {
 
   const [errors, setErrors] = useState({
   });
+  const [loginError,setLoginError] = useState(false)
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -55,8 +56,9 @@ export const Login = () => {
 
     if (!loginData.password.trim()) {
       errorMessages.password = 'Password is required';
+    } else if (/\s/.test(loginData.password)) {
+      errorMessages.password = 'Password must not contain spaces';
     }
-
     setErrors(errorMessages);
     return Object.keys(errorMessages).length === 0;
   };
@@ -75,11 +77,8 @@ export const Login = () => {
         navigate('/');
       }
       
-    } catch (error) {
-      console.error('Login failed:', error);
-      if (error.response) {
-        setErrors({ ...errors, general: error.response.data.data || 'An error occurred. Please try again.' });
-      }
+    } catch (response) {
+      setLoginError('Invalid credentials')
     }
   };
 
@@ -105,7 +104,7 @@ export const Login = () => {
             <input
               type="password"
               name="password"
-              placeholder="Password"
+              placeholder="Password" 
               value={loginData.password}
               onChange={handleChange}
             />
@@ -113,25 +112,26 @@ export const Login = () => {
 
             {/* General error message */}
             {errors.general && <p className="error">{errors.general}</p>}
-
+            <p className='text-[red] mb-1'>{loginError}</p>
             <button className='signin' type='submit'>
               Sign In
             </button>
-            <p className='or' style={{ margin: '2% 0 0 0' }}>Or</p>
-            <p className='signinwithgoogle'>
-              {/* <img src={Googleicon} alt='google-icon' /> Sign in with Google */}
-              <GoogleLogin
-                onSuccess={credentialResponse => {
-                  console.log(credentialResponse);
-                }}
-                onError={() => {
-                  console.log('Login Failed');
-                }}
-              />
-            </p>
-            <p className='dont'>
-              Don't have an account? <span><NavLink className='signup' to={'/signup'}>&nbsp;Sign Up</NavLink></span>
-            </p>
+                <p className='or mt-[2vh] flex items-center ml-2 font-[500] text-[12px]'> <span className='border-[#F5F5F5] border-b h-[2px] basis-[40%] mr-[2%] border-[1.5px]'>
+                        </span> Or  <span className='border-[#F5F5F5] border-b h-[2px] basis-[40%] ml-[2%] border-[1.5px]'></span></p>
+                      <p className='signinwithgoogle'>
+                        {/* <img src={Googleicon} alt='google-icon' /> Sign in with Google */}
+                        <GoogleLogin
+                          onSuccess={credentialResponse => {
+                            console.log(credentialResponse);
+                          }}
+                          onError={() => {
+                            console.log('Login Failed');
+                          }}
+                        />
+                      </p>
+                      <p className='dont w-[90%]'>
+                        Have an account? <span><NavLink  className='signup !font-[500]' to={'/signup'}>&nbsp;Sign Up</NavLink></span>
+                      </p>
           </form>
         </div>
         <img className='anchor1 w-[160px]' src={loginGIF} alt='login-anchor' />

@@ -32,12 +32,12 @@ export const BundlDetail = () => {
     document.documentElement.scrollTo({ top: 0, left: 0 });
     getBundlData();
   }, []);
+  console.log(location.state?.bundlDetail, 'details')
 
   const validateFields = () => {
 
     const totalAmount = totalCost + addonPayLoads.total_price;
     const bundlePrice = Math.round(location.state?.bundlDetail?.price);
-
     if (totalAmount <= bundlePrice) {
       toast.error(`Minimum order is ${bundlePrice} SAR`, {
         position: toast?.POSITION?.TOP_RIGHT,
@@ -45,7 +45,7 @@ export const BundlDetail = () => {
       return false;
     }
 
-    if(brandInput == ''){
+    if (brandInput == '') {
       toast.error(`Name your brand`, {
         position: toast?.POSITION?.TOP_RIGHT,
       });
@@ -107,30 +107,30 @@ export const BundlDetail = () => {
         };
       })
     );
-    const payload = { 
+    const payload = {
       order_name: brandInput,
       bundle_id: location.state.bundlDetail?.id,
       total_time: totalDuration + addonPayLoads.total_time,
-      total_price:totalCost + addonPayLoads.total_price,
+      total_price: totalCost + addonPayLoads.total_price,
       tax_treatment: taxRate + addonPayLoads.tax_treatment,
       tax: tax + addonPayLoads.tax,
       item_list: item_list,
       addons: addonPayLoads,
       order_status: "in_cart",
-      language:selectedLanguage,
+      language: selectedLanguage,
     };
 
     try {
       const response = await axios.post(
         `${base_url}/api/order/create/`,
-        payload,   
-        ConfigToken()    
+        payload,
+        ConfigToken()
       );
       if (response.status === 201) {
         navigate('/mycart', { state: { orderData: response.data.data.data } });
       }
     } catch (error) {
-      console.error("Error creating order:", error); 
+      console.error("Error creating order:", error);
     }
 
 
@@ -146,11 +146,11 @@ export const BundlDetail = () => {
     }))
   );
 
-  const totalCost = selectedItems?.reduce((total, item) =>{ 
-    if(selectedLanguage === 'Both'){
+  const totalCost = selectedItems?.reduce((total, item) => {
+    if (selectedLanguage === 'Both') {
       return total + item.total_price + 2000
     }
-    else{
+    else {
       return total + item.total_price
     }
   }, 0);
@@ -178,103 +178,101 @@ export const BundlDetail = () => {
             <input className='brand-input' onChange={(e) => setBrandInput(e.target.value)} />
 
             <div className='commerce-collateral'>
-              {bundlAddons.bundle_details?.map((bundle, index) => (
-                <div key={index} className='bundle-section' style={{ margin: '3% 0 0 0' }}>
-                  <p className='collateral-text'>{bundle.name_english}</p>
-                  <p style={{ opacity: '50%' }}>This includes bla bla</p>
-                  {/* {
-                    bundle.name_english === "Brand Identity" && (
-                      <div style={window.innerWidth < 441 ? { display: 'block', width: '100%' } : { display: 'flex', width: '100%' }}>
-                    <p className='logo-design'>Logo design</p>
-                    <div className='languages' style={{ display: 'flex' }}>
-                      <p><input type='radio'></input> English</p>
-                      <p><input type='radio'></input> Arabic</p>
-                      <p><input type='radio'></input> Both (+2000SAR)</p>
-                    </div>
-                  </div>
-                    )
-                  } */}
-
-
+              {bundlAddons.bundle_details?.map((bundle, index) => {
+                return <div key={index} className='bundle-section' style={{ margin: '3% 0 0 0' }}>
+                  <p className='collateral-text mb-[2px]'>{bundle.name_english}</p>
+                  <p style={{ opacity: '50%' }}>{bundle.slogan_english}</p>
                   {
-                    bundle.name_english === "Brand Identity" && (
+                    bundle.name_english === "Brand Identity" ? (
                       <div style={window.innerWidth < 441 ? { display: 'block', width: '100%' } : { display: 'flex', width: '100%' }}>
                         <p className='logo-design'>Logo design</p>
-                        <div className='languages' style={{ display: 'flex' }}>
+                        <div className='languages font-semibold' style={{ display: 'flex' }}>
                           <p>
-                            <input
-                              type='radio'
-                              name='language'
-                              value='English'
-                              checked={selectedLanguage === 'English'}
-                              onChange={handleRadioChange}
-                            />
-                            English
+                            <label className='cursor-pointer'>
+                              <input
+                                type="radio"
+                                name="language"
+                                value="English"
+                                className="mr-2"
+                                checked={selectedLanguage === 'English'}
+                                onChange={handleRadioChange}
+                              />
+                              English
+                            </label>
                           </p>
+
                           <p>
-                            <input
-                              type='radio'
-                              name='language'
-                              value='Arabic'
-                              checked={selectedLanguage === 'Arabic'}
-                              onChange={handleRadioChange}
-                            />
-                            Arabic
+                            <label  className='cursor-pointer'>
+                              <input
+                                type="radio"
+                                name="language"
+                                value="Arabic"
+                                className="mr-2"
+                                checked={selectedLanguage === 'Arabic'}
+                                onChange={handleRadioChange}
+                              />
+                              Arabic
+                            </label>
                           </p>
+
                           <p>
-                            <input
-                              type='radio'
-                              name='language'
-                              value='Both'
-                              checked={selectedLanguage === 'Both'}
-                              onChange={handleRadioChange}
-                            />
-                            Both (+2000SAR)
+                            <label  className='cursor-pointer'>
+                              <input
+                                type="radio"
+                                name="language"
+                                value="Both"
+                                className="mr-2"
+                                checked={selectedLanguage === 'Both'}
+                                onChange={handleRadioChange}
+                              />
+                              Both (+2000 SAR)
+                            </label>
                           </p>
+
                         </div>
                       </div>
-                    )
+                    ) : bundle.design_list.map((design, idx) => {
+                      const isSingleItem = bundle.design_list.length === 1;
+                      const isLastIndex = idx === bundle.design_list.length - 1;
+                      const sectionClassName = !isSingleItem && !isLastIndex ? 'commerce-sections' : 'commerce-sections1';
+                      return (
+                        <div key={idx} className={sectionClassName}>
+                          <p style={{ width: '60%' }}>{design.name_english}</p>
+                          <p style={window.innerWidth <= 441 ? { width: '50%' } : { width: '20%' }}><img src={BlackDollor} alt="Price icon" className="inline-block" />{design.price} SAR</p>
+                          <p style={window.innerWidth <= 441 ? { width: '50%' } : { width: '20%' }}><img src={BlackTime} alt="Time icon" className="inline-block" />{design.time} Days</p>
+                          <div className="quantity">
+                            <button className="minus" onClick={() => handleQuantityChange(design.name_english, -1)}>&minus;</button>
+                            <input type="number" className="input-box" value={quantities[design.name_english] || 1} readOnly />
+                            <button className="minus" onClick={() => handleQuantityChange(design.name_english, 1)}>+</button>
+                          </div>
+                        </div>
+                      )
+                    })
                   }
-                  {bundle.design_list.map((design, idx) => {
-                    const isSingleItem = bundle.design_list.length === 1;
-                    const isLastIndex = idx === bundle.design_list.length - 1;
-                    const sectionClassName = !isSingleItem && !isLastIndex ? 'commerce-sections' : 'commerce-sections1';
-                    return (
-                      <div key={idx} className={sectionClassName}>
-                        <p style={{ width: '60%' }}>{design.name_english}</p>
-                        <p style={window.innerWidth <= 441 ? { width: '50%' } : { width: '20%' }}><img src={BlackDollor} alt="Price icon" className="inline-block" />{design.price} SAR</p>
-                        <p style={window.innerWidth <= 441 ? { width: '50%' } : { width: '20%' }}><img src={BlackTime} alt="Time icon" className="inline-block" />{design.time} Days</p>
-                        <div className="quantity">
-                          <button className="minus" onClick={() => handleQuantityChange(design.name_english, -1)}>&minus;</button>
-                          <input type="number" className="input-box" value={quantities[design.name_english] || 1} readOnly />
-                          <button className="minus" onClick={() => handleQuantityChange(design.name_english, 1)}>+</button>
-                        </div>
-                      </div>
-                    )
-                  })}
+
                 </div>
-              ))}
+              })}
             </div>
             <Accordian accordianTitle={'Something feels missing ?'} addOnPayload={setAddonPayLoads} bundlePackageId={location.state.bundlDetail?.id} />
           </div>
 
           <div className='bundl-summary'>
-            <div className='bundl-name'>
-              <p style={{ fontSize: '24px', fontWeight: '700', padding: '2% 0%' }}>Summary</p>
+            <div className='bundl-name '>
+              <p className='text-[24px] font-[700] px-0 !mb-2'  >Summary</p>
             </div>
             <div style={{ display: 'flex', padding: '1% 5%' }}>
               <p style={{ fontSize: '20px', fontWeight: '700', width: '60%' }}>{location.state?.bundlDetail?.name_english}</p>
               <p style={{ fontSize: '20px', fontWeight: '700', width: '40%' }}>{Math.round(location.state?.bundlDetail?.price)} SAR</p>
             </div>
-            {selectedItems?.map((item, idx) => (
-              <div key={idx} className='one-brand-identity'>
-                <p style={{ color: '#000000', fontSize: '20px', fontWeight: '700', width: '60%' }}>{item.quantity} &#215; {item.name_english}</p>
+            {selectedItems?.map((item, idx) => {
+             return <div key={idx} className='one-brand-identity'>
+                <p className='text-black text-[20px] font-[700] min-w-[60%] !mb-1' >{item.quantity} &#215; {item.name_english}</p>
                 <div style={{ display: 'flex' }}>
                   <p style={{ fontSize: '20px', fontWeight: '700', width: '60%' }}>+ {item.total_time} Days</p>
-                  <p style={{ fontSize: '20px', fontWeight: '700', width: '40%' }}>+ {item.total_price} SAR</p>
+{ item.id =='76' && selectedLanguage == 'Both'? <p style={{ fontSize: '20px', fontWeight: '700', width: '40%' }}>+ {item.total_price + 2000} SAR</p>:<p style={{ fontSize: '20px', fontWeight: '700', width: '40%' }}>+ {item.total_price} SAR</p>}
                 </div>
               </div>
-            ))}
+})}
             <div className='bundl-name'>
               {
                 addonPayLoads?.length > 0 && (

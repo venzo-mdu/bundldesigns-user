@@ -93,9 +93,9 @@
     width: 50%;
 }
 
-.languages p {
+/* .languages p {
     margin: 0 0 0 15%;
-}
+} */
 
 .commerce-collateral {
     text-align: left;
@@ -204,7 +204,7 @@
 }
 
 .bundl-name {
-    padding: 1% 5%;
+    padding: 0 5%;
 }
 
 .one-heading {
@@ -377,9 +377,9 @@
         width: 55%;
     }
 
-    .languages p {
+    /* .languages p {
         margin: 0 0 0 8%;
-    }
+    } */
 }
 
 @media screen and (max-width:441px) {
@@ -411,9 +411,9 @@
     .languages{
         width: 100%;
     }
-    .languages p{
+    /* .languages p{
         margin: 0 0 0 2%;
-    }
+    } */
     /* .commerce-sections,.commerce-sections1{
         display: block;
     } */
