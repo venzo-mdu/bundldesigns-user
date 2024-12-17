@@ -141,42 +141,53 @@
         display: none;
     }
  }
- /* Adjust the dropdown container */
-.navbar-nav .dropdown {
-    display: flex; /* Align elements in a row */
-    align-items: center; /* Center vertically */
-    gap: 0; /* No space between icon and dropdown arrow */
-}
-
-/* Minimize space around the dropdown toggle and user icon */
-.navbar-nav .dropdown-toggle {
-    display: flex; /* Ensures dropdown arrow aligns with the icon */
-    align-items: center; /* Vertical alignment */
-    line-height: 1; /* Standardize height */
+ 
+ 
+/* Toggle Button Styles */
+.navbar-toggle {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .navbar-toggle .icon-bar {
+    display: block;
+    width: 22px;
+    height: 2px;
+    margin: auto;
+    background-color: #000;
+  }
+  
+  /* Mobile Dropdown Menu */
+  .dropdown-menu {
+    display: block;
+    position: relative;
+    background: #fff;
+    width: 1%;
+    padding: 10px;
+    list-style: none;
     margin: 0;
-    padding: 0;
-    gap: 0; /* Removes any gap between icon and arrow */
-}
+    left: 70%;
+    
+  }
+  
+  .dropdown-item {
+    padding: 8px 10px;
+    color: #000;
+    text-decoration: none;
+    
+  }
+  
+  .dropdown-item:hover {
+    background-color: #f0f0f0;
+  }
+  @media (max-width: 768px) {
+    /* Apply styles for mobile screens */
+    body {
+      font-size: 14px;
+    }
+  }
+  .dropdown-menu show{
+    width:auto;
 
-.navbar-nav .dropdown .user-icon {
-    margin: 0; 
-    padding: 0; 
-    position: relative; 
-    top: 2px; 
-    vertical-align: middle; 
-}
-
-.navbar-nav .dropdown-menu {
-    margin: 0; 
-    padding: 5px 0;
-}
-
-
-.navbar-nav .dropdown-item {
-    padding: 4px 10px; 
-    text-align: left; 
-}
-
-.navbar-nav .dropdown-item:hover {
-    background-color: #f1f1f1; 
-}
+  }
