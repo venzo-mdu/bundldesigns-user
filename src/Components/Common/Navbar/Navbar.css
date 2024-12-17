@@ -102,12 +102,6 @@
 
 
 @media screen and (max-width:441px)  {
-   .search-icon{
-    display: none;
-   }
-   .profile-input{
-    display: none;
-   }
    .profile{
     width: 40%;
    }
@@ -121,12 +115,7 @@
 }
 
 @media screen and (max-width:375px)  {
-    .search-icon{
-     display: none;
-    }
-    .profile-input{
-     display: none;
-    }
+
     .profile{
      width: 40%;
     }

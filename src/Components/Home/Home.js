@@ -51,10 +51,18 @@ import { ConfigToken } from '../Auth/ConfigToken'
 import { Popup } from '../Common/Popup/Popup'
 import { Footer } from '../Common/Footer/Footer'
 import { Scale } from '@mui/icons-material'
+import MenuIcon from '@mui/icons-material/Menu';
+import popupGIF from '../../Images/popupGIF.gif'
+import CloseIcon from '@mui/icons-material/Close';
 
 export const Home = () => {
     const navigate = useNavigate();
     const imageArray = [Car, Lemon, Mouth, Rocket, Pinkpaint];
+    const [menuVisible, setMenuVisible] = useState(false);
+    const [profileVisible,setProfileVisible] = useState(false)
+    const toggleMenu = () => {
+      setMenuVisible(!menuVisible);
+    };
     const [loading, setLoading] = useState(false);
     const [openPopup, setOpenPopup] = useState(false);
     const [slideImage, setSlideImage] = useState(imageArray[0]);
@@ -194,14 +202,24 @@ export const Home = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="col-7 col-md-8 col-lg-3 text-end ">
+                                        <div className="col-7  col-md-8 col-lg-3 text-end ">
                                             <div className="navbar navbar-expand-lg float-right">
                                                 <ul className="navbar-nav mr-auto h-list align-items-center ">
                                                     <li className='px-[6px]' >
                                                         <a className="" href="#"><img src={Search} alt="" className="navIcons"></img></a>
                                                     </li>
-                                                    <li className='px-[6px]'>
-                                                        <a className="" href="/login"><img src={User} alt="" className="navIcons"></img></a>
+                                                    <li className='px-[6px] inner-nav'>
+                                                        <a className="" onClick={()=>{setProfileVisible(!profileVisible)}}><img src={User} alt="" className="navIcons"></img></a>
+                                                        <nav  className={`w-44 absolute top-full -right-2 text-right mt-4 bg-white p-2 transition-all duration-300 ease-in-out ${
+          profileVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
+        }`}>
+                                                    <ul >
+                                                        <li>
+                                                            <a href="/login" previewlistener="true">Login</a>
+                                                        </li>
+    
+                                                    </ul>
+                                                </nav>
                                                     </li>
                                                     <li className='px-[6px]'>
                                                         <a className="" href="/mycart"><img src={Cart} alt="" className="navIcons"></img></a>
@@ -209,37 +227,31 @@ export const Home = () => {
                                                     <li className='px-[6px]'>
                                                         <a className="" href="#"><img src={Language} alt="" className="navIcons"></img></a>
                                                     </li>
-                                                    <li className="nav-item xs:!block sm:!hidden !hidden menu mr-auto">
-                                                        <button type="button" className="navbar-toggle" id="menu-toggle">
-                                                        
-                                                            <span className="icon-bar"></span>
-                                                            <span className="icon-bar"></span>
-                                                            <span className="icon-bar"></span>
+                                                    <li className="nav-item xs:!block sm:!hidden  inner-nav text-center !hidden menu mr-auto">
+                                                        <button onClick={toggleMenu} type="button" id="menu-toggle">
+                                                       {menuVisible?<CloseIcon className='!text-[50px]' />: <MenuIcon className='!text-[50px]' />}
                                                         </button>
-                                                    </li>
-                                                </ul>
-                                                <nav className="navigation">
-                                                    <ul className="navbar">
+                                                        <nav  className={`w-44 absolute top-full -right-2 text-right mt-4 bg-white p-2 transition-all duration-300 ease-in-out ${
+          menuVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
+        }`}>
+                                                    <ul >
                                                         <li>
-                                                            {/* <!-- <a href="">Bundls</a> --> */}
-                                                            <a href="#" previewlistener="true">Bundl Offers</a>
+                                                            <a href="/" previewlistener="true">Bundl Offers</a>
                                                         </li>
                                                         <li>
-                                                            {/* <!-- <a href="">Our Work</a> --> */}
                                                             <a href="/our-work" previewlistener="true">Our Work</a>
                                                         </li>
                                                         <li>
                                                             <a href="/aboutus" previewlistener="true">About Us</a>
-
                                                         </li>
                                                         <li>
-                                                            {/* <!-- <a href="">Contact Us</a> --> */}
                                                             <a href="#" previewlistener="true">Contact Us</a>
-
                                                         </li>
-
                                                     </ul>
                                                 </nav>
+                                                    </li>
+                                                </ul>
+                                     
                                             </div>
                                         </div>
                                     </div>
@@ -292,13 +304,13 @@ export const Home = () => {
                                     <img src={Loader} alt="" className="rotating-image"></img>
                                 </div> */}
                             </div>
-                            <div className="">
+                            <div className="xs:h-[73vh] sm:h-auto">
                                 <div className="hero-text">
                                     <div className="justify-content-cnter text-center mx-auto">
                                         <div className="px-2">
 
                                         </div>
-                                        <h1 className='!text-black sm:px-[9%] xs:px-[6%] lg:px-[6%] !w-[100%] xs:!text-[28px] sm:!text-[58px] !text-[58px]'><span>Elevating</span> brands & shaping legacies, one <span>extraordinary design</span> at a <i>time.</i></h1>
+                                        <h1 className='!text-black sm:px-[9%] xs:px-[12%]  lg:px-[6%] !w-[100%] xs:!text-[32px] sm:!text-[58px] !text-[58px]'><span>Elevating</span> brands & shaping legacies, one <span>extraordinary design</span> at a <i>time.</i></h1>
                                         <div className="button-container scroller">
                                             <ul className="scroll-button scroller__inner_btn">
                                                 <li><span>Shop our Bundls</span></li>
@@ -321,136 +333,12 @@ export const Home = () => {
                             </div>
                         </section >
 
-                        {/* <div className="divider process-deivider"></div> */}
-                        {/* <section className="container-fluid our-process">
-                            <div className="container-fluid">
-                                <div className="row justify-content-center mb-4">
-                                    <div className="col-md-5 text-center">
-                                        <h2 className="sub-headeing">Our Process</h2>
-                                        <p className="p-24">We, at Bundl, understand the design complexities that can trip up even the most seasoned brand. That's why we cut through the clutter and empower a smooth, collaborative journey for our clients.</p>
-                                    </div>
-                                </div>
-                                <div className="image_slider">
-                                    <div className="slider">
-                                        <div className="slides">
-                                            <input type="radio" name="radio-btn" id="radio0"></input>
-                                            <input type="radio" name="radio-btn" id="radio1"></input>
-                                            <input type="radio" name="radio-btn" id="radio2"></input>
-                                            <input type="radio" name="radio-btn" id="radio3"></input>
-                                            <input type="radio" name="radio-btn" id="radio4"></input>
-                                            <div className="slide first">
-                                                <img src={BuyBundl} slice width="100%" height="100%"></img>
-                                            </div>
-                                            <div className="slide">
-                                                <img src={FillQuestionnarie} slice width="100%" height="100%"></img>
-                                            </div>
-                                            <div className="slide">
-                                                <img src={Approve} slice width="100%" height="100%"></img>
-                                            </div>
-                                            <div className="slide">
-                                                <img src={UploadContent} slice width="100%" height="100%"></img>
-                                            </div>
-                                            <div className="slide">
-                                                <img src={Getthedesign} slice width="100%" height="100%"></img>
-                                            </div>
-                                        </div>
-                                        <div className="navigation-manual">
-                                            <label for="radio0" className="manual-btn"></label>
-                                            <label for="radio1" className="manual-btn"></label>
-                                            <label for="radio2" className="manual-btn"></label>
-                                            <label for="radio3" className="manual-btn"></label>
-                                            <label for="radio4" className="manual-btn"></label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="process_content_s">
-                                    <div className="content_s text-center">
-                                        <div className="title-cover">
-                                            <div className="process_title title-active">BUY A BUNDL</div>
-                                            <div className="process_title">FILL A QUESTIONARE</div>
-                                            <div className="process_title">APPROVE EDIT</div>
-                                            <div className="process_title">UPLOAD CONTENT</div>
-                                            <div className="process_title">GET DESIGNS</div>
-                                        </div>
-                                        <div className="desc-cover">
-                                            <div className="process_description f-20 text-center desc-active">
-                                                Choose from our tailored Bundls, or customize your very own according to your project needs.
-                                            </div>
-                                            <div className="process_description f-20 text-center">
-                                                Tell us about your project and what you need. Not sure what you want? Our questionnaire will help you.
-                                            </div>
-                                            <div className="process_description f-20 text-center">
-                                                Your brand logo will be sent for your approval. Need something changed? Just Add-on an adjustment.
-                                            </div>
-                                            <div className="process_description f-20 text-center">
-                                                You can easily upload the contents for the items in your bundl, to be designed following your approved brand.
-                                            </div>
-                                            <div className="process_description f-20 text-center">
-                                                Your designs will be sent to your account. Need more items? some adjustments? Just Add-on to your bundl.
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="mini-slide">
-                                    <div className="navigation-auto">
-                                        <div className="auto-btn0 flower" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                                            <svg width="35" className="ash" height="35" viewBox="0 0 35 35" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M8.03907 32.2075L3.09615 27.3207L9.21812 21.2682L0.571776 21.2682L0.571778 14.3639L9.21811 14.3639L3.09614 8.31139L8.03907 3.42457L14.161 9.47706L14.161 0.928853H21.1446V9.47706L27.2666 3.42457L32.2095 8.31139L26.0875 14.3639H34.7339L34.7339 21.2682L26.0875 21.2682L32.2095 27.3207L27.2666 32.2075L21.1446 26.155L21.1446 34.7032L14.161 34.7032L14.161 26.155L8.03907 32.2075Z" fill="#000" />
-                                            </svg>
-                                            <svg className="dotted-line" width="193" height="3" viewBox="0 0 193 3" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <line x1="0.128418" y1="1.42773" x2="192.397" y2="1.42773" stroke="black" stroke-width="2" stroke-dasharray="10 10" />
-                                            </svg>
-                                            <div className="content_section" style={{ opacity: "1" }}>BUY A<br></br> BUNDLE</div>
-                                        </div>
-                                        <div className="auto-btn1 flower" style={{ display: "flex", flexDirection: "column", aligItems: "center" }}>
-                                            <svg width="35" className="ash" height="35" viewBox="0 0 35 35" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M8.03907 32.2075L3.09615 27.3207L9.21812 21.2682L0.571776 21.2682L0.571778 14.3639L9.21811 14.3639L3.09614 8.31139L8.03907 3.42457L14.161 9.47706L14.161 0.928853H21.1446V9.47706L27.2666 3.42457L32.2095 8.31139L26.0875 14.3639H34.7339L34.7339 21.2682L26.0875 21.2682L32.2095 27.3207L27.2666 32.2075L21.1446 26.155L21.1446 34.7032L14.161 34.7032L14.161 26.155L8.03907 32.2075Z" />
-                                            </svg>
-                                            <svg className="dotted-line" width="193" height="3" viewBox="0 0 193 3" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <line x1="0.128418" y1="1.42773" x2="192.397" y2="1.42773" stroke="black" stroke-width="2" stroke-dasharray="10 10" />
-                                            </svg>
-                                            <div className="content_section">FILL A<br></br> QUESTIONARE</div>
-                                        </div>
-                                        <div className="auto-btn2 flower" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                                            <svg width="35" className="ash" height="35" viewBox="0 0 35 35" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M8.03907 32.2075L3.09615 27.3207L9.21812 21.2682L0.571776 21.2682L0.571778 14.3639L9.21811 14.3639L3.09614 8.31139L8.03907 3.42457L14.161 9.47706L14.161 0.928853H21.1446V9.47706L27.2666 3.42457L32.2095 8.31139L26.0875 14.3639H34.7339L34.7339 21.2682L26.0875 21.2682L32.2095 27.3207L27.2666 32.2075L21.1446 26.155L21.1446 34.7032L14.161 34.7032L14.161 26.155L8.03907 32.2075Z" />
-                                            </svg>
-                                            <svg className="dotted-line" width="193" height="3" viewBox="0 0 193 3" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <line x1="0.128418" y1="1.42773" x2="192.397" y2="1.42773" stroke="black" stroke-width="2" stroke-dasharray="10 10" />
-                                            </svg>
-                                            <div className="content_section">APPROVE<br></br> EDIT</div>
-                                        </div>
-                                        <div className="auto-btn3 flower" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                                            <svg width="35" className="ash" height="35" viewBox="0 0 35 35" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M8.03907 32.2075L3.09615 27.3207L9.21812 21.2682L0.571776 21.2682L0.571778 14.3639L9.21811 14.3639L3.09614 8.31139L8.03907 3.42457L14.161 9.47706L14.161 0.928853H21.1446V9.47706L27.2666 3.42457L32.2095 8.31139L26.0875 14.3639H34.7339L34.7339 21.2682L26.0875 21.2682L32.2095 27.3207L27.2666 32.2075L21.1446 26.155L21.1446 34.7032L14.161 34.7032L14.161 26.155L8.03907 32.2075Z" />
-                                            </svg>
-                                            <svg className="dotted-line" width="193" height="3" viewBox="0 0 193 3" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <line x1="0.128418" y1="1.42773" x2="192.397" y2="1.42773" stroke="black" stroke-width="2" stroke-dasharray="10 10" />
-                                            </svg>
-                                            <div className="content_section">UPLOAD<br></br> CONTENT</div>
-                                        </div>
-                                        <div className="auto-btn4 flower" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                                            <svg width="35" className="ash" height="35" viewBox="0 0 35 35" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M8.03907 32.2075L3.09615 27.3207L9.21812 21.2682L0.571776 21.2682L0.571778 14.3639L9.21811 14.3639L3.09614 8.31139L8.03907 3.42457L14.161 9.47706L14.161 0.928853H21.1446V9.47706L27.2666 3.42457L32.2095 8.31139L26.0875 14.3639H34.7339L34.7339 21.2682L26.0875 21.2682L32.2095 27.3207L27.2666 32.2075L21.1446 26.155L21.1446 34.7032L14.161 34.7032L14.161 26.155L8.03907 32.2075Z" />
-                                            </svg>
-                                            <div className="content_section">GET<br></br> DESIGNS</div>
-                                            <div className="line" style={{ visibility: "hidden" }}></div>
-                                        </div>
-                                    </div>
-                                    <svg className="rocket overlay" width="103" height="51" viewBox="0 0 103 51" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <g style={{ mixBlendMode: "multiply" }}>
-                                            <path d="M17.0243 20.1751L0.10283 39.9605L20.7547 38.3386L33.3441 50.4381L52.0055 44.0664L53.6119 42.9629L58.3442 42.0547L63.9225 39.9665L76.0922 37.2171L100.775 30.1494L102.466 29.1142L102.303 27.853L101.161 27.3343L72.3146 16.0341L49.3982 6.77805L32.8747 0.593947L28.2324 6.28473L25.3511 9.71008L23.2039 11.6917L20.7801 14.6193L19.3632 15.5849L21.3765 19.2735L21.7309 21.025L17.0243 20.1751Z" fill="#00A8C8" />
-                                        </g>
-                                    </svg>
-                                </div>
-                            </div>
-                        </section> */}
                         <div className='divider '></div>
-                        <section className="container-fluid our-process xs:py-[60px] sm:py-[80px]">
+                        <section className="container-fluid our-process xs:py-[85px] sm:py-[80px]">
                             <div className="container-fluid">
                                 <div className="row justify-content-center mb-4">
                                     <div className="col-md-5 text-center">
-                                        <h2 className="sub-headeing">Our Process</h2>
+                                        <h2 className="sub-headeing text-black xs:mt-">Our Process</h2>
                                         {/* <p className="p-24">We, at Bundl, understand the design complexities that can trip up even the most seasoned brand. That's why we cut through the clutter and empower a smooth, collaborative journey for our clients.</p> */}
                                     </div>
                                 </div>
@@ -493,13 +381,13 @@ export const Home = () => {
                                             {processData.map((process, index) => (
                                                 <div
                                                     key={index}
-                                                    className={`process_title xs:text-[20px] sm:text-[30px] font-[700] ${activeProcess === index ? "title-active" : ""}`}
+                                                    className={`process_title xs:text-[30px] sm:text-[30px] font-[700] ${activeProcess === index ? "title-active" : ""}`}
                                                 >
                                                     {process.title}
                                                 </div>
                                             ))}
                                         </div>
-                                        <div className="desc-cover relative xs:h-[40px] sm:h-[80px]">
+                                        <div className="desc-cover relative xs:h-[70px] xs:mt-[20px] sm:h-[80px]">
                                             {processData.map((process, index) => (
                                                 <div
                                                     key={index}
@@ -552,28 +440,8 @@ export const Home = () => {
                                 </div>
                             </div>
                         </section>
-                        {/* <div className="divider ourBundl-deivide"></div> */}
                         <div className="plus plus-deivide"></div>
-                        {/* <div className="container">
-                            <div className="row justify-content-center bundl-pack-head">
-                                <div className="col-md-11 col-lg-9">
-                                    <h4 style={{ margin: '10% 0 0 0' }} className="sub-headeing  text-center">Our Bundls</h4>
-                                    <div className="our-bundles text-center">
-                                        <div className="text-animation">
-                                            WE <div className="bunl"><img src={BundlSticker} width={200} alt="bundl-sticker" className="img-fluie"></img></div>  DESIGN TO MAKE YOUR BRAND
-                                            <span className="second_text text-start">
-                                                <i className="bundl_animate impression">IMPRESSIVE</i>
-                                                <i className="bundl_animate">UNIQUE</i>
-                                                <i className="bundl_animate">TOP-NOTCH</i>
-                                                <i className="bundl_animate">RELIABLE</i>
-                                                <i className="bundl_animate">BREATHTAKING</i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> */}
-
+                    
 
                         <section className="container-fluid our-bundl">
                             <div className="container">
@@ -1022,20 +890,11 @@ export const Home = () => {
                             </div>
                         </section>
 
-                        <section style={{ margin: '5% 0%' }} className="container-fluid py-1" >
-                            <div className="container">
+                        <section className="container-fluid py-1" >
+                            <div className="container mb-16">
                                 <div className="row justify-content-center">
-                                    <div className="col-md-4">
-                                        <div className="home-img-rotation">
-                                            <div className="text-container">
-                                                <p className="rotating-text"><img src={Create} alt="" className="img-fluid"></img></p>
-                                            </div>
-                                            <div className="slideshow-container">
-                                                <div className="mySlides">
-                                                    <img className='slideImages' src={slideImage} alt="Image 1"></img>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div className="col-md-4 flex justify-center">
+                                            <img className='xs:w-[150px] sm:w-[200px]' src={popupGIF}></img>
                                     </div>
                                 </div>
                             </div>
@@ -1077,11 +936,11 @@ export const Home = () => {
 
                         <div className="eyeDivider ourWork-deivide"></div>
                         <section className="container-fluid our-work">
-                            <div className="container">
+                            <div className="">
                                 <div className="section-head">
                                     <div className="row justify-content-center">
                                         <div className="col-md-7">
-                                            <h2 className="sub-headeing text-center">Our Work</h2>
+                                            <h2 className="sub-headeing text-black text-center">Our Work</h2>
                                             {/* <p className="f-20 text-center">We, at Bundl, understand the design complexities that can trip up even the most seasoned brand. That's why we cut through the clutter and empower a smooth, collaborative journey for our clients.</p> */}
                                         </div>
                                     </div>

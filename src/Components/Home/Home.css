@@ -681,6 +681,7 @@ overflow: hidden;
 .scroller .scroller__inner {
 width: max-content;
 flex-wrap: nowrap;
+align-items: center;
 animation: scroll var(--_animation-duration, 40s) var(--_animation-direction,forwards) linear infinite;
 }
 .scroller[data-animated="true"] .scroller__inner_btn {
@@ -1823,7 +1824,7 @@ color: var(--white-color);
 
 .pack-inner-title {
 font-size: 1.25rem;
-font-weight: 600;
+font-weight: 500;
 line-height: 1.3;
 color: var(--white-color);
 }
@@ -3358,7 +3359,7 @@ animation-delay: 2s;
   padding-right:calc(var(--bs-gutter-x) * .2);
   padding-left:calc(var(--bs-gutter-x) * .2);
 }
-.nav-section{padding-left: 5px; padding-right: 5px;}
+.nav-section{padding-left: 5px !important; padding-right: 5px !important;}
 .nav-section .nav-link .nav-icon{
   width: 24px;
 }
@@ -3419,6 +3420,7 @@ animation-delay: 2s;
 .f-20 {
   font-size: 16px;
   line-height: 1.4;
+  padding: 0 8px;
 }
 .ml--18{margin-left: -18px;}
 
@@ -4527,7 +4529,21 @@ font-size: 20px;
     margin: 10% 0 0 0;
     width: 45px;
   }
- 
+ .inner-nav li{
+  width: 100% !important;
+  margin-top: 1%;
+  padding: 3px 10px 0px;
+  margin-bottom: 6px;
+  border-bottom: 1px solid black;
+ }
+ .inner-nav li a{
+  font-weight: 500;
+  color: #000 !important;
+ }
+  .eyeDivider::after {
+    width: 75px;
+    height: 70px;
+}
   .navIcons{
     width: 30px;
   }
@@ -4545,8 +4561,10 @@ font-size: 20px;
   line-height: 10px;
 } */
 .tag-list li {
-  height: 32px;
-  font-size: 15px;
+  /* height: 32px; */
+  font-size: 16px;
+  display: flex;
+  align-items: center;
 }
 .our-process h2{
   font-size: 32px;
@@ -4574,7 +4592,7 @@ font-size: 20px;
   font-size: 22px;
   width: 75%;
   /* margin: 0 0 0 10%; */
-  line-height: 32px;
+  line-height: 1.4;
   text-align: center;
 }
 .slideshow-container img{
@@ -4604,7 +4622,7 @@ font-size: 20px;
 .sar img{
   margin: -5% 5px 0 0;
 }
-.insta-feed,.social-cta{
+.social-cta{
   padding: 0 5%;
 }
 .testimonial-bg3{
@@ -4627,8 +4645,8 @@ font-size: 20px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 45px;
-  height: 68px;
+  width: 50px;
+  height: 50px;
   }
 .box-child{
   width:100%
@@ -4638,12 +4656,15 @@ font-size: 20px;
   .h-list li{
     width: 40px;
   }
+  .nav-item li{
+    width: 100%;
+  }
   .navbar-toggle{
     margin-top: 0px;
   }
 .hero-text h1::after {
   margin: 0 0px -40px 0;
-  width: 50px;
+  width: 0;
   background-image: url(../../Images//Bundles//bundl-pink-batch.webp);
 }
 .tag-list li{
