@@ -983,7 +983,7 @@ background-image: url(../../Images/Bundles/grey_cloud.webp);
 background-position: bottom center;
 background-repeat: no-repeat;
 background-size: cover;
-padding: 80px 0;
+/* padding: 80px 0; */
 z-index: 0;
 }
 
@@ -1340,15 +1340,10 @@ justify-content: center;
 width: 50%;
 }
 
-.title-cover{
-position: relative;
-padding: 2rem 0;
-}
 
 .process_title {
 color: var(--blsck, #000);
 text-align: center;
-font-size: 30px;
 padding: 1rem 0;
 font-style: normal;
 font-weight: 700;
@@ -1362,11 +1357,6 @@ position: absolute;
 .title-active{
 transition: 1s ease;
 opacity: 1;
-}
-
-.desc-cover{
-position: relative;
-height: 80px;
 }
 
 .process_description {
@@ -4562,10 +4552,6 @@ font-size: 20px;
   font-size: 32px;
   line-height: 15px;
 }
-.process_title{
-  font-size: 30px;
-  font-weight: 700;
-}
 .dotted-line{
   width: 100%;
 }
@@ -4587,7 +4573,7 @@ font-size: 20px;
 .hero-text h1{
   font-size: 22px;
   width: 75%;
-  margin: 0 0 0 10%;
+  /* margin: 0 0 0 10%; */
   line-height: 32px;
   text-align: center;
 }
@@ -4631,7 +4617,19 @@ font-size: 20px;
 .nav-item{
   display: none;
 }
-
+.divider::after {
+  content: "";
+  background-image: url(../../Images/Bundles/process-icon.webp);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 45px;
+  height: 68px;
+  }
 .box-child{
   width:100%
 }

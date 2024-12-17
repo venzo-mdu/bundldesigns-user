@@ -153,7 +153,7 @@ export const Signup = () => {
             />
             {errors.password && <p className="error">{errors.password}</p>}
             
-            <div style={{ display: 'flex' }} className='terms-policy'>
+            <div style={{ display: 'flex' }} className='terms-policy flex my-1'>
               <input
                 className='checkbox'
                 type='checkbox'
@@ -178,7 +178,7 @@ export const Signup = () => {
               />
             </p>
             <p className='dont'>
-              Have an account? <span><NavLink  className='signup' to={'/login'}>&nbsp;Sign In</NavLink></span>
+              Have an account? <span><NavLink  className='signup !font-[500]' to={'/login'}>&nbsp;Sign In</NavLink></span>
             </p>
           </form>
         </div>

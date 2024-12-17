@@ -197,20 +197,21 @@ export const Home = () => {
                                         <div className="col-7 col-md-8 col-lg-3 text-end ">
                                             <div className="navbar navbar-expand-lg float-right">
                                                 <ul className="navbar-nav mr-auto h-list align-items-center ">
-                                                    <li >
+                                                    <li className='px-[6px]' >
                                                         <a className="" href="#"><img src={Search} alt="" className="navIcons"></img></a>
                                                     </li>
-                                                    <li >
+                                                    <li className='px-[6px]'>
                                                         <a className="" href="/login"><img src={User} alt="" className="navIcons"></img></a>
                                                     </li>
-                                                    <li >
+                                                    <li className='px-[6px]'>
                                                         <a className="" href="/mycart"><img src={Cart} alt="" className="navIcons"></img></a>
                                                     </li>
-                                                    <li >
+                                                    <li className='px-[6px]'>
                                                         <a className="" href="#"><img src={Language} alt="" className="navIcons"></img></a>
                                                     </li>
-                                                    <li className="nav-item menu mr-auto">
+                                                    <li className="nav-item xs:!block sm:!hidden !hidden menu mr-auto">
                                                         <button type="button" className="navbar-toggle" id="menu-toggle">
+                                                        
                                                             <span className="icon-bar"></span>
                                                             <span className="icon-bar"></span>
                                                             <span className="icon-bar"></span>
@@ -291,13 +292,13 @@ export const Home = () => {
                                     <img src={Loader} alt="" className="rotating-image"></img>
                                 </div> */}
                             </div>
-                            <div className="container">
+                            <div className="">
                                 <div className="hero-text">
                                     <div className="justify-content-cnter text-center mx-auto">
                                         <div className="px-2">
 
                                         </div>
-                                        <h1><span>Elevating</span> brands & shaping legacies, one <span>extraordinary design</span> at a <i>time.</i></h1>
+                                        <h1 className='!text-black sm:px-[9%] xs:px-[6%] lg:px-[6%] !w-[100%] xs:!text-[28px] sm:!text-[58px] !text-[58px]'><span>Elevating</span> brands & shaping legacies, one <span>extraordinary design</span> at a <i>time.</i></h1>
                                         <div className="button-container scroller">
                                             <ul className="scroll-button scroller__inner_btn">
                                                 <li><span>Shop our Bundls</span></li>
@@ -445,7 +446,7 @@ export const Home = () => {
                             </div>
                         </section> */}
                         <div className='divider '></div>
-                        <section className="container-fluid our-process">
+                        <section className="container-fluid our-process xs:py-[60px] sm:py-[80px]">
                             <div className="container-fluid">
                                 <div className="row justify-content-center mb-4">
                                     <div className="col-md-5 text-center">
@@ -488,17 +489,17 @@ export const Home = () => {
                                 </div>
                                 <div className="process_content_s">
                                     <div className="content_s text-center">
-                                        <div className="title-cover">
+                                        <div className="title-cover relative xs:py-[24px] sm:py-[2rem]">
                                             {processData.map((process, index) => (
                                                 <div
                                                     key={index}
-                                                    className={`process_title ${activeProcess === index ? "title-active" : ""}`}
+                                                    className={`process_title xs:text-[20px] sm:text-[30px] font-[700] ${activeProcess === index ? "title-active" : ""}`}
                                                 >
                                                     {process.title}
                                                 </div>
                                             ))}
                                         </div>
-                                        <div className="desc-cover">
+                                        <div className="desc-cover relative xs:h-[40px] sm:h-[80px]">
                                             {processData.map((process, index) => (
                                                 <div
                                                     key={index}
@@ -1163,50 +1164,6 @@ export const Home = () => {
                             </div>
                         </section>
 
-                        {/* <section className="container-fluid footer primary-black">
-                            <div className="container">
-                                <div className="row p-2 justify-content-center">
-                                    <div className="col-4 col-md-3">
-                                        <div className="footer_inner text-white">
-                                            <h3>Customer Care</h3>
-                                            <ul>
-                                                <li><a href="#">Contact us</a></li>
-                                                <li><a href="/faq">FAQs</a></li>
-                                                <li><a href="/career">Careers</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div className="col-4 col-md-3">
-                                        <div className="footer_inner text-white">
-                                            <h3>My Dasboard</h3>
-                                            <ul>
-                                                <li><a href="#">My Profile</a></li>
-                                                <li><a href="#">Feedack</a></li>
-                                                <li><a href="#">Recomend Us</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div className="col-4 col-md-3">
-                                        <div className="footer_inner text-white">
-                                            <h3>Information</h3>
-                                            <ul>
-                                                <li><a href="/aboutus">About Us</a></li>
-                                                <li><a href="#">Terms & Conditions</a></li>
-                                                <li><a href="#">Legal</a></li>
-                                                <li><a href="#">Privacy Policy</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="copy-right p-3">
-                                    <div className="row justify-content-center">
-                                        <div className="col-md-9">
-                                            <h6 className="copy-txt text-white">2024 BundlDesigns, &copy; All rights reserved.</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section> */}
                         <Footer />
                     </div>
 
