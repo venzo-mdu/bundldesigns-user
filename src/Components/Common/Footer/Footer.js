@@ -54,7 +54,6 @@ export const Footer = () => {
                     <div className='left-content'>
                         <img className='bundl-logo-footer' src={Bundllogo} alt='footer-logo'></img>
                         <p className='footer-text-left'>Elevating Brands & Shaping Legacies.</p>
-                    
                     </div>
                     <div className='right-content'>
                         <div className='platform'>

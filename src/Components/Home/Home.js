@@ -127,7 +127,6 @@ export const Home = () => {
     const getBundl = async () => {
         const response = await axios.get(`${base_url}/api/homepage/`);
         setBundlData(response.data);
-        console.log(response.data, "hh")
     }
 
     const addToCart = async (index) => {
@@ -608,7 +607,10 @@ export const Home = () => {
                                     {/* <!-- rotating buiscut --> */}
                                     <div className="icon_section1">
                                         <div className="subzero1">
-                                            <span onClick={() => addToCart(0)} className="buiscut_layer1">Select <br></br>This<br></br> Bundl</span>
+                                           
+                                            <span onClick={() => addToCart(0)} className="buiscut_layer1">
+                                            <img style={{ width: '30%' }} src={CartIcon} alt='cart-icon'></img>
+                                                ADD TO <br></br>CART</span>
                                             <div onClick={() => addToCart(0)} className="main_inside1"></div>
                                         </div>
                                     </div>
@@ -683,7 +685,9 @@ export const Home = () => {
                                     {/* <!-- rotating buiscut --> */}
                                     <div className="icon_section2">
                                         <div className="subzero2">
-                                            <span onClick={() => addToCart(1)} className="buiscut_layer2">Select <br></br>This<br></br> Bundl</span>
+                                            <span onClick={() => addToCart(1)} className="buiscut_layer2">
+                                                <img style={{ width: '30%' }} src={CartIcon} alt='cart-icon'></img>
+                                                 ADD TO <br></br>CART</span>
                                             <div onClick={() => addToCart(1)} className="main_inside2"></div>
                                         </div>
                                     </div>
@@ -768,7 +772,9 @@ export const Home = () => {
                                     {/* <!-- rotating buiscut --> */}
                                     <div className="icon_section3">
                                         <div className="subzero3">
-                                            <span onClick={() => addToCart(2)} className="buiscut_layer3">Select <br></br>This<br></br> Bundl</span>
+                                            <span onClick={() => addToCart(2)} className="buiscut_layer3">
+                                            <img style={{ width: '30%' }} src={CartIcon} alt='cart-icon'></img>
+                                            ADD TO <br></br>CART</span>
                                             <div onClick={() => addToCart(2)} className="main_inside3"></div>
                                         </div>
                                     </div>
@@ -852,7 +858,9 @@ export const Home = () => {
                                     {/* <!-- rotating buiscut --> */}
                                     <div className="icon_section4">
                                         <div className="subzero4">
-                                            <span onClick={() => addToCart(3)} className="buiscut_layer4">Select <br></br>This<br></br> Bundl</span>
+                                            <span onClick={() => addToCart(3)} className="buiscut_layer4">
+                                            <img style={{ width: '30%' }} src={CartIcon} alt='cart-icon'></img>
+                                            ADD TO <br></br>CART</span>
                                             <div onClick={() => addToCart(3)} className="main_inside4"></div>
                                         </div>
                                     </div>
@@ -945,9 +953,9 @@ export const Home = () => {
                                         <div className="subzero5">
 
                                             <span className="buiscut_layer5">
-                                                {/* <img style={{ width: '30%' }} src={CartIcon} alt='cart-icon'></img> */}
+                                                <img style={{ width: '30%' }} src={CartIcon} alt='cart-icon'></img>
                                                 <NavLink style={{ color: 'white' }} to="/custombundl" state={{ title: 'Custom Bundl' }}>
-                                                    Select <br></br>This<br></br> Bundl
+                                                    ADD TO <br></br>CART
                                                 </NavLink>
                                             </span>
                                             <div className="main_inside5"></div>
@@ -1155,6 +1163,7 @@ export const Home = () => {
                                 </div>
                             </div>
                         </section>
+
                         <Footer />
                     </div>
 
