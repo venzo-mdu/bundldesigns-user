@@ -348,9 +348,7 @@
 
 
 @media screen and (max-width:768px) and (min-width:441px) {
-    .navIcons{
-        display: none;
-    }
+
     .menu {
         display: flex;
     }
@@ -386,7 +384,7 @@
 
 @media screen and (max-width:441px) {
     .navIcons{
-        display: none;
+        width: 24px;
     }
     .menu {
         display: flex;

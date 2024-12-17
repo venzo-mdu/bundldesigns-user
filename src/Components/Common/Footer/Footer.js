@@ -77,7 +77,7 @@ export const Footer = () => {
                             <p className='font-medium !text-[20px] mb-1 text-[#ECEAEB]'>Contact Us</p>
                             <p><img src={Message} alt='message' className="inline-block"/><span> info@bundldesigns.com</span></p>
                             <p><img src={Whatsapp} alt='whatsapp' className="inline-block"></img><span> +(966) 547754124</span></p>
-                            <div style={{display:'flex',width:'100%'}}>
+                            <div className='xs:mt-4 sm:mt-auto' style={{display:'flex',width:'100%'}}>
                                 {
                                     socialIcons.map((item, index) => {
                                         return (

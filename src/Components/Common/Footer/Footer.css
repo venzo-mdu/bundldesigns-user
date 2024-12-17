@@ -155,10 +155,10 @@ hr{
     .footer{
         flex-direction: column-reverse;
     }
-    .right-content{
+    /* .right-content{
         width: 100%;
         margin: 2% 0 0 0;
-    }
+    } */
     .policies{
         width: 50%;
     }
@@ -194,7 +194,10 @@ hr{
     /* height: 900px; */
     padding: 2% 5%;
    }
-   .platform,.information,.contact-us{
+   .platform,.information{
+    width: 50%;
+   }
+   .contact-us{
     width: 100%;
    }
    .left-content{
@@ -202,7 +205,8 @@ hr{
     margin: 5% 0 0 0;
    }
    .right-content{
-    display: block;
+    display: flex;
+    flex-wrap: wrap;
     width: 100%;
    }
    .right-content p{
@@ -228,9 +232,15 @@ hr{
 }
 
 @media screen and (max-width:375px) {
-    .platform,.information,.contact-us{
+    .platform,.information{
+        width: 50%;
+       }
+       .contact-us{
         width: 100%;
-    }
+       }
+       .contact-us p{
+        margin-bottom: 2px;
+       }
     .social-icons{
         height: 50px;
     }
