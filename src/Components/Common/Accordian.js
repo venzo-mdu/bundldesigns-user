@@ -10,6 +10,8 @@ import { base_url } from '../Auth/BackendAPIUrl';
 import BlackDollor from '../../Images/BundlDetail/blackdollor.svg';
 import BlackTime from '../../Images/BundlDetail/blacktime.svg';
 import { ConfigToken } from '../Auth/ConfigToken';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
 
 export const Accordian = ({ accordianTitle, addOnPayload, bundlePackageId }) => {
   const [isDropdown, setIsDropdown] = useState([false, false, false, false, false, false, false]);
@@ -247,29 +249,11 @@ export const Accordian = ({ accordianTitle, addOnPayload, bundlePackageId }) => 
                         <img src={BlackTime} alt="Time icon" className="inline-block" />
                         {Math.round(design.time)} Days
                       </p>
-                      <div style={{ border: '0' }} className="quantity">
-                        <button
-                          style={{ border: '1px solid #0BA6C4', color: '#0BA6C4' }}
-                          className=""
-                          onClick={() => handleQuantityChange(design.name_english, -1)}
-                        >
-                          &minus;
-                        </button>
-                        <input
-                          style={{ border: '1px solid #0BA6C4', color: '#0BA6C4', height: '35px' }}
-                          type="number"
-                          className="input-box"
-                          value={quantities[design.name_english] || 0}
-                          readOnly
-                        />
-                        <button
-                          style={{ border: '1px solid #0BA6C4', color: '#0BA6C4' }}
-                          className="minus"
-                          onClick={() => handleQuantityChange(design.name_english, 1)}
-                        >
-                          +
-                        </button>
-                      </div>
+                      <p className=' basis-[10%] flex items-center text-[#0BA6C4] border !border-[#0BA6C4]'>
+                                                                <button onClick={() => handleQuantityChange(design.name_english, -1)} className='border-r !border-[#0BA6C4] flex h-[100%] items-center'><RemoveIcon /></button>
+                                                                <span className='border-r px-2 !border-[#0BA6C4]'> {quantities[design.name_english] || 0}</span>
+                                                                <button  onClick={() => handleQuantityChange(design.name_english, 1)} className='flex items-center'><AddIcon /></button>
+                                                            </p>
                     </div>
                   ))
                 ) : (

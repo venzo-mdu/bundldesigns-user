@@ -13,6 +13,8 @@ import { base_url } from '../Auth/BackendAPIUrl'
 import { ConfigToken } from '../Auth/ConfigToken'
 import { ToastContainer, toast } from 'react-toastify'
 import { css } from '@emotion/react'
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
 
 export const BundlDetail = () => {
 
@@ -236,16 +238,18 @@ export const BundlDetail = () => {
                       const isLastIndex = idx === bundle.design_list.length - 1;
                       const sectionClassName = !isSingleItem && !isLastIndex ? 'commerce-sections' : 'commerce-sections1';
                       return (
-                        <div key={idx} className={sectionClassName}>
-                          <p style={{ width: '60%' }}>{design.name_english}</p>
-                          <p style={window.innerWidth <= 441 ? { width: '50%' } : { width: '20%' }}><img src={BlackDollor} alt="Price icon" className="inline-block" />{design.price} SAR</p>
-                          <p style={window.innerWidth <= 441 ? { width: '50%' } : { width: '20%' }}><img src={BlackTime} alt="Time icon" className="inline-block" />{design.time} Days</p>
-                          <div className="quantity">
-                            <button className="minus" onClick={() => handleQuantityChange(design.name_english, -1)}>&minus;</button>
-                            <input type="number" className="input-box" value={quantities[design.name_english] || 1} readOnly />
-                            <button className="minus" onClick={() => handleQuantityChange(design.name_english, 1)}>+</button>
-                          </div>
+                        <div key={idx} className={`flex justify-between ${sectionClassName}`}>
+                          <p >{design.name_english}</p>
+                          {/* <p style={window.innerWidth <= 441 ? { width: '50%' } : { width: '20%' }}><img src={BlackDollor} alt="Price icon" className="inline-block" />{design.price} SAR</p>
+                          <p style={window.innerWidth <= 441 ? { width: '50%' } : { width: '20%' }}><img src={BlackTime} alt="Time icon" className="inline-block" />{design.time} Days</p> */}
+                          <p className=' basis-[10%] flex items-center text-[#000000] border !border-[#000000]'>
+                                                                <button onClick={() => handleQuantityChange(design.name_english, -1)} className='border-r !border-[#000000] flex h-[100%] items-center'><RemoveIcon /></button>
+                                                                <span className='border-r px-2 !border-[#000000]'> {quantities[design.name_english] || 1}</span>
+                                                                <button  onClick={() => handleQuantityChange(design.name_english, 1)} className='flex items-center'><AddIcon /></button>
+                                                            </p>
+                                                        
                         </div>
+
                       )
                     })
                   }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo, useEffect, useState } from 'react'
 import '../Navbar/Navbar.css'
 import NavLogo from '../../../Images/Navbar/Navlogo.svg'
 import HomeLogo from '../../../Images/Bundles/logo-black.svg'
@@ -8,8 +8,15 @@ import Cart from '../../../Images/Bundles/icon-cart.png'
 import User from '../../../Images/Bundles/icon-user.png'
 import { NavLink } from 'react-router-dom'
 import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
+
 
 export const Navbar = () => {
+      const [menuVisible, setMenuVisible] = useState(false);
+      const [profileVisible, setProfileVisible] = useState(false)
+      const toggleMenu = () => {
+          setMenuVisible(!menuVisible);
+      };
   const commonPaths = [
     "/aboutus",
     "/career",
@@ -129,7 +136,7 @@ export const Navbar = () => {
                   <div className="col-1 col-md-1 col-lg-6">
                     <div className="navbar navbar-expand-lg justify-content-end">
                       <div className=" navbar-collapse" id="mainNav">
-                        <ul className="navbar-nav mx-auto align-items-center ">
+                        <ul className=" mx-auto flex align-items-center ">
                           <li className="nav-item">
                             <a className="nav-link" href="/aboutus">About</a>
                           </li>
@@ -148,24 +155,50 @@ export const Navbar = () => {
                   </div>
                   <div className="col-7 col-md-8 col-lg-3 text-end ">
                     <div className="navbar  float-right">
-                      <ul className="navbar-nav mr-auto h-list align-items-center ">
+                      <ul className=" mr-auto h-list align-items-center ">
                         <li >
                           <a className="" href="#"><img src={Search} alt="" className="navIcons"></img></a>
                         </li>
-                        <li >
-                          <a className="" href="/login"><img src={User} alt="" className="navIcons"></img></a>
-                        </li>
+                        <li className='px-[6px] inner-nav'>
+                                                        <a className="" onClick={() => { setProfileVisible(!profileVisible) }}><img src={User} alt="" className="navIcons"></img></a>
+                                                        <nav className={`w-44 absolute top-full -right-2 text-right mt-4 bg-white p-2 transition-all duration-300 ease-in-out ${profileVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
+                                                            }`}>
+                                                            <ul >
+                                                                <li>
+                                                                    <a href="/login" previewlistener="true">Login</a>
+                                                                </li>
+
+                                                            </ul>
+                                                        </nav>
+                                                    </li>
                         <li >
                           <a className="" href="/mycart"><img src={Cart} alt="" className="navIcons"></img></a>
                         </li>
                         <li >
                           <a className="" href="#"><img src={Language} alt="" className="navIcons"></img></a>
                         </li>
-                        <li className="nav-item menu mr-auto">
-                          <button type="button" className="navbar-toggle" id="menu-toggle">
-                           <MenuIcon />
-                          </button>
-                        </li>
+                        <li className="nav-item xs:!block sm:!hidden  inner-nav text-center !hidden menu mr-auto">
+                                                        <button onClick={toggleMenu} type="button" id="menu-toggle">
+                                                            {menuVisible ? <CloseIcon className='!text-[50px]' /> : <MenuIcon className='!text-[50px]' />}
+                                                        </button>
+                                                        <nav className={`w-44 absolute top-full -right-2 text-right mt-4 bg-white p-2 transition-all duration-300 ease-in-out ${menuVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
+                                                            }`}>
+                                                            <ul >
+                                                                <li>
+                                                                    <a href="/" previewlistener="true">Bundl Offers</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="/our-work" previewlistener="true">Our Work</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="/aboutus" previewlistener="true">About Us</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#" previewlistener="true">Contact Us</a>
+                                                                </li>
+                                                            </ul>
+                                                        </nav>
+                                                    </li>
                       </ul>
                       <nav className="navigation">
                         <ul className="navbar">
@@ -214,7 +247,7 @@ export const Navbar = () => {
                     <div className="col-1 col-md-1 col-lg-6">
                       <div className="navbar navbar-expand-lg justify-content-end">
                         <div className=" navbar-collapse" id="mainNav">
-                          <ul className="navbar-nav mx-auto align-items-center ">
+                          <ul className=" mx-auto align-items-center ">
                             <li className="nav-item">
                               <a className="nav-link" href="/aboutus">About</a>
                             </li>
@@ -233,24 +266,50 @@ export const Navbar = () => {
                     </div>
                     <div className="col-7 col-md-8 col-lg-3 text-end ">
                       <div className="navbar navbar-expand-lg float-right">
-                        <ul className="navbar-nav mr-auto h-list align-items-center ">
+                        <ul className=" mr-auto h-list align-items-center ">
                           <li >
                             <a className="" href="#"><img src={Search} alt="" className="navIcons"></img></a>
                           </li>
-                          <li >
-                            <a className="" href="/login"><img src={User} alt="" className="navIcons"></img></a>
-                          </li>
+                          <li className='px-[6px] inner-nav'>
+                                                        <a className="" onClick={() => { setProfileVisible(!profileVisible) }}><img src={User} alt="" className="navIcons"></img></a>
+                                                        <nav className={`w-44 absolute top-full -right-2 text-right mt-4 bg-white p-2 transition-all duration-300 ease-in-out ${profileVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
+                                                            }`}>
+                                                            <ul >
+                                                                <li>
+                                                                    <a href="/login" previewlistener="true">Login</a>
+                                                                </li>
+
+                                                            </ul>
+                                                        </nav>
+                                                    </li>
                           <li >
                             <a className="" href="/mycart"><img src={Cart} alt="" className="navIcons"></img></a>
                           </li>
                           <li >
                             <a className="" href="#"><img src={Language} alt="" className="navIcons"></img></a>
                           </li>
-                          <li className="nav-item menu mr-auto">
-                            <button type="button" className="navbar-toggle" id="menu-toggle">
-                            <MenuIcon />
-                            </button>
-                          </li>
+                          <li className="nav-item xs:!block sm:!hidden  inner-nav text-center !hidden menu mr-auto">
+                                                        <button onClick={toggleMenu} type="button" id="menu-toggle">
+                                                            {menuVisible ? <CloseIcon className='!text-[50px]' /> : <MenuIcon className='!text-[50px]' />}
+                                                        </button>
+                                                        <nav className={`w-44 absolute top-full -right-2 text-right mt-4 bg-white p-2 transition-all duration-300 ease-in-out ${menuVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
+                                                            }`}>
+                                                            <ul >
+                                                                <li>
+                                                                    <a href="/" previewlistener="true">Bundl Offers</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="/our-work" previewlistener="true">Our Work</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="/aboutus" previewlistener="true">About Us</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#" previewlistener="true">Contact Us</a>
+                                                                </li>
+                                                            </ul>
+                                                        </nav>
+                                                    </li>
                         </ul>
                         <nav className="navigation">
                           <ul className="navbar">

@@ -58,11 +58,11 @@ import CloseIcon from '@mui/icons-material/Close';
 export const Home = () => {
     const navigate = useNavigate();
     const imageArray = [Car, Lemon, Mouth, Rocket, Pinkpaint];
-    const [selectedIndex,setSelectedIndex] = useState(null)
+    const [selectedIndex, setSelectedIndex] = useState(null)
     const [menuVisible, setMenuVisible] = useState(false);
-    const [profileVisible,setProfileVisible] = useState(false)
+    const [profileVisible, setProfileVisible] = useState(false)
     const toggleMenu = () => {
-      setMenuVisible(!menuVisible);
+        setMenuVisible(!menuVisible);
     };
     const [loading, setLoading] = useState(false);
     const [openPopup, setOpenPopup] = useState(false);
@@ -112,14 +112,14 @@ export const Home = () => {
             color: '#000',
         },
     ];
-    const [mediaUrls,setmediaUrls] = useState({
-        instagram:'',
-        facebook:'',
-        linked_in:'',
-        twitter:''
+    const [mediaUrls, setmediaUrls] = useState({
+        instagram: '',
+        facebook: '',
+        linked_in: '',
+        twitter: ''
     })
 
-    const getMediaUrls = async() =>{
+    const getMediaUrls = async () => {
         const response = await axios.get(`${base_url}/api/content?section=settings`);
         if (response.data) {
             setmediaUrls(response.data)
@@ -202,7 +202,7 @@ export const Home = () => {
                                         <div className="col-1 col-md-1 col-lg-6">
                                             <div className="navbar navbar-expand-lg justify-content-end">
                                                 <div className=" navbar-collapse" id="mainNav">
-                                                    <ul className="navbar-nav mx-auto align-items-center ">
+                                                    <ul className=" mx-auto align-items-center ">
                                                         <li className="nav-item">
                                                             <a className="nav-link" href="/aboutus">About</a>
                                                         </li>
@@ -221,22 +221,21 @@ export const Home = () => {
                                         </div>
                                         <div className="col-7  col-md-8 col-lg-3 text-end ">
                                             <div className="navbar navbar-expand-lg float-right">
-                                                <ul className="navbar-nav mr-auto h-list align-items-center ">
+                                                <ul className=" mr-auto h-list align-items-center ">
                                                     <li className='px-[6px]' >
                                                         <a className="" href="#"><img src={Search} alt="" className="navIcons"></img></a>
                                                     </li>
                                                     <li className='px-[6px] inner-nav'>
-                                                        <a className="" onClick={()=>{setProfileVisible(!profileVisible)}}><img src={User} alt="" className="navIcons"></img></a>
-                                                        <nav  className={`w-44 absolute top-full -right-2 text-right mt-4 bg-white p-2 transition-all duration-300 ease-in-out ${
-          profileVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
-        }`}>
-                                                    <ul >
-                                                        <li>
-                                                            <a href="/login" previewlistener="true">Login</a>
-                                                        </li>
-    
-                                                    </ul>
-                                                </nav>
+                                                        <a className="" onClick={() => { setProfileVisible(!profileVisible) }}><img src={User} alt="" className="navIcons"></img></a>
+                                                        <nav className={`w-44 absolute top-full -right-2 text-right mt-4 bg-white p-2 transition-all duration-300 ease-in-out ${profileVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
+                                                            }`}>
+                                                            <ul >
+                                                                <li>
+                                                                    <a href="/login" previewlistener="true">Login</a>
+                                                                </li>
+
+                                                            </ul>
+                                                        </nav>
                                                     </li>
                                                     <li className='px-[6px]'>
                                                         <a className="" href="/mycart"><img src={Cart} alt="" className="navIcons"></img></a>
@@ -246,29 +245,28 @@ export const Home = () => {
                                                     </li>
                                                     <li className="nav-item xs:!block sm:!hidden  inner-nav text-center !hidden menu mr-auto">
                                                         <button onClick={toggleMenu} type="button" id="menu-toggle">
-                                                       {menuVisible?<CloseIcon className='!text-[50px]' />: <MenuIcon className='!text-[50px]' />}
+                                                            {menuVisible ? <CloseIcon className='!text-[50px]' /> : <MenuIcon className='!text-[50px]' />}
                                                         </button>
-                                                        <nav  className={`w-44 absolute top-full -right-2 text-right mt-4 bg-white p-2 transition-all duration-300 ease-in-out ${
-          menuVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
-        }`}>
-                                                    <ul >
-                                                        <li>
-                                                            <a href="/" previewlistener="true">Bundl Offers</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="/our-work" previewlistener="true">Our Work</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="/aboutus" previewlistener="true">About Us</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" previewlistener="true">Contact Us</a>
-                                                        </li>
-                                                    </ul>
-                                                </nav>
+                                                        <nav className={`w-44 absolute top-full -right-2 text-right mt-4 bg-white p-2 transition-all duration-300 ease-in-out ${menuVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
+                                                            }`}>
+                                                            <ul >
+                                                                <li>
+                                                                    <a href="/" previewlistener="true">Bundl Offers</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="/our-work" previewlistener="true">Our Work</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="/aboutus" previewlistener="true">About Us</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#" previewlistener="true">Contact Us</a>
+                                                                </li>
+                                                            </ul>
+                                                        </nav>
                                                     </li>
                                                 </ul>
-                                     
+
                                             </div>
                                         </div>
                                     </div>
@@ -458,7 +456,7 @@ export const Home = () => {
                             </div>
                         </section>
                         <div className="plus plus-deivide"></div>
-                    
+
 
                         <section className="container-fluid our-bundl">
                             <div className="container">
@@ -492,9 +490,9 @@ export const Home = () => {
                                     {/* <!-- rotating buiscut --> */}
                                     <div className="icon_section1">
                                         <div className="subzero1">
-                                           
+
                                             <span onClick={() => addToCart(0)} className="buiscut_layer1">
-                                            <img style={{ width: '30%' }} src={CartIcon} alt='cart-icon'></img>
+                                                <img style={{ width: '30%' }} src={CartIcon} alt='cart-icon'></img>
                                                 ADD TO <br></br>CART</span>
                                             <div onClick={() => addToCart(0)} className="main_inside1"></div>
                                         </div>
@@ -572,7 +570,7 @@ export const Home = () => {
                                         <div className="subzero2">
                                             <span onClick={() => addToCart(1)} className="buiscut_layer2">
                                                 <img style={{ width: '30%' }} src={CartIcon} alt='cart-icon'></img>
-                                                 ADD TO <br></br>CART</span>
+                                                ADD TO <br></br>CART</span>
                                             <div onClick={() => addToCart(1)} className="main_inside2"></div>
                                         </div>
                                     </div>
@@ -658,8 +656,8 @@ export const Home = () => {
                                     <div className="icon_section3">
                                         <div className="subzero3">
                                             <span onClick={() => addToCart(2)} className="buiscut_layer3">
-                                            <img style={{ width: '30%' }} src={CartIcon} alt='cart-icon'></img>
-                                            ADD TO <br></br>CART</span>
+                                                <img style={{ width: '30%' }} src={CartIcon} alt='cart-icon'></img>
+                                                ADD TO <br></br>CART</span>
                                             <div onClick={() => addToCart(2)} className="main_inside3"></div>
                                         </div>
                                     </div>
@@ -744,8 +742,8 @@ export const Home = () => {
                                     <div className="icon_section4">
                                         <div className="subzero4">
                                             <span onClick={() => addToCart(3)} className="buiscut_layer4">
-                                            <img style={{ width: '30%' }} src={CartIcon} alt='cart-icon'></img>
-                                            ADD TO <br></br>CART</span>
+                                                <img style={{ width: '30%' }} src={CartIcon} alt='cart-icon'></img>
+                                                ADD TO <br></br>CART</span>
                                             <div onClick={() => addToCart(3)} className="main_inside4"></div>
                                         </div>
                                     </div>
@@ -911,7 +909,7 @@ export const Home = () => {
                             <div className="container mb-16">
                                 <div className="row justify-content-center">
                                     <div className="col-md-4 flex justify-center">
-                                            <img className='xs:w-[150px] sm:w-[200px]' src={popupGIF}></img>
+                                        <img className='xs:w-[150px] sm:w-[200px]' src={popupGIF}></img>
                                     </div>
                                 </div>
                             </div>
