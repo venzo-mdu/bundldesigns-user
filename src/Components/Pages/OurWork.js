@@ -43,7 +43,7 @@ export default function OurWork() {
         <div className=' sm:p-3 border-b px-[3%] border-black'>
           <div className='flex py-4 justify-center'>
             {Object.keys(categories).map((key, index) => {
-              return <button className={`px-[20px] ${currentTab == key ? 'text-white bg-[#1BA56F] ' : 'text-[#1BA56F] bg-white '}py-[5px] text-[20px] border-r border-t border-b
+              return <button key={key} className={`px-[20px] ${currentTab == key ? 'text-white bg-[#1BA56F] ' : 'text-[#1BA56F] bg-white '}py-[5px] text-[20px] border-r border-t border-b
                            ${index == 0 && 'border-l'} ${index == categories.length && 'border-l-0 border-r'}
                    !border-[#1BA56F]`}
                 onClick={() => setCurrentTab(key)}>{categories[key]}</button>
@@ -57,40 +57,40 @@ export default function OurWork() {
   .map((project, index,filteredProjects) => (
     <div
       key={index}
-      className={`flex w-full ${
+      className={`flex flex-col sm:flex-row w-full ${
         index !== filteredProjects.length - 1 ? 'border-b' : ''
       } mt-2 !border-black items-start mb-2 pb-4 p-2 px-4`}
     >
       {/* Left Column */}
-      <div className="basis-1/2 w-full">
+      <div className="w-full sm:basis-1/2">
         <h2 className="text-[28px]">{project.name_english}</h2>
         <div className="mb-2">
           <button
-            className="px-[20px] text-[18px] text-white bg-[#1BA56F] py-[5px] !border-[#1BA56F]"
+            className="px-[20px] text-[18px] text-white bg-[#1BA56F] py-[5px]"
           >
             {categories[project.category]}
           </button>
         </div>
         <div
           id="description"
-          className="text-gray-700 w-[70%]"
+          className="text-gray-700 w-full"
           dangerouslySetInnerHTML={{ __html: project.description_english }}
         />
-        <button className="w-[90%] lg:w-[80%] xl:w-[70%] text-[20px] px-1 bg-black py-1 text-white">
+        <button className="w-full sm:w-[80%] lg:w-[70%] text-[20px] px-1 bg-black py-1 text-white mt-2">
           Follow Our Instagram
         </button>
       </div>
 
       {/* Right Column */}
-      <div className="flex flex-wrap basis-1/2 w-full">
-        {project.project_images.map((img, imgIndex) => (
-          <img
-            key={imgIndex}
-            className="width-[30%]"
-            width="200px"
+      <div className="grid grid-cols-3  mt-4 w-full">
+      {project.project_images.map((img, imgIndex) => (
+        <div key={imgIndex} className="w-full">
+        <img
+          className="w-full h-[150px] object-cover"       
             src={img}
             alt={`Project ${index} Image ${imgIndex}`}
           />
+        </div>
         ))}
       </div>
     </div>
@@ -99,7 +99,7 @@ export default function OurWork() {
         </div>
         <div className='relative py-10'>
           <img className='absolute left-12' width='160px' style={{ transform: 'rotate(0deg)'}}  src={paperPlane}></img>
-          <div className='w-[45%] text-center mx-auto'>
+          <div className='w-[90%] sm:w-[45%] text-center mx-auto'>
           <p className='flex justify-center mb-1'> <img  className='animate-rotate-animation' width='200px' height='200px' src={loaderSticker}></img></p>
           <h2>Inspired to start your journey to launch your next big thing ?</h2>
           <p> <button className='bg-[#000] mt-4 text-[20px] text-white py-[5px] px-[18px]'>Get started!</button> </p>
