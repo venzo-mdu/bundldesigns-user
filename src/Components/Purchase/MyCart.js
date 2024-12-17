@@ -153,7 +153,7 @@ export const MyCart = () => {
     return (
         <div>
             <Navbar />
-            <div className='mycart'>
+            <div className='mycart mb-[12vh]'>
                 <div className='cart'>
                     <p>Your Cart</p>
                     <TableContainer component={Paper}>
@@ -204,22 +204,22 @@ export const MyCart = () => {
                         </Table>
                     </TableContainer>
                     <div className='cart-total-container '>
-                        <div className='total ' style={{ display: 'flex' }}>
-                            <p style={{ width: '50%' }}>Price:</p>
-                            <p style={{ width: '50%' }}>{Math.round(cartDetails.total_amount)} sar</p>
+                        <div className='total justify-between pl-10  mr-4' style={{ display: 'flex' }}>
+                            <p  className='!text-[20px]' style={{ width: '50%' }}>Price:</p>
+                            <p  className='!text-[20px]  text-right' style={{ width: '50%' }}>{Math.round(cartDetails.total_amount)} sar</p>
                         </div>
-                        <div className='total' style={{ display: 'flex' }}>
-                            <p style={{ width: '53%' }}>VAT:</p>
-                            <p style={{ width: '40%' }}>{Math.round(cartDetails.tax)} sar</p>
+                        <div className='total justify-between pl-10 mr-4' style={{ display: 'flex' }}>
+                            <p  className='!text-[20px]' style={{ width: '53%' }}>VAT:</p>
+                            <p  className='!text-[20px]  text-right' style={{ width: '40%' }}>{Math.round(cartDetails.tax)} sar</p>
                         </div>
                         <div>
-                            <div style={{ display: 'flex'}}>
-                                <p style={{ width: '50%' }}><img src={BlackDollor} className='inline-block'></img>Total Price :</p>
-                                <p style={{ width: '40%' }}>{isNaN(Math.round(cartDetails.grand_total))?0:Math.round(cartDetails.grand_total)} sar</p>
+                            <div  className='justify-between mr-4'  style={{ display: 'flex'}}>
+                                <p className='!text-[20px]' style={{ width: '50%' }}><img src={BlackDollor} className='inline-block mr-3'></img>Total Price :</p>
+                                <p className='!text-[20px] text-right' style={{ width: '40%' }}>{isNaN(Math.round(cartDetails.grand_total))?0:Math.round(cartDetails.grand_total)} sar</p>
                             </div>
-                            <div style={{ display: 'flex' }}>
-                                <p style={{ width: '55%' }}><img src={BlackTime} className='inline-block'></img>Total Duration :</p>
-                                <p style={{ width: '45%' }}>{isNaN(Math.round(cartDetails.total_time))?0 :Math.round(cartDetails.total_time)} Days</p>
+                            <div  className='justify-between mr-4' style={{ display: 'flex' }}>
+                                <p className='!text-[20px]' style={{ width: '55%' }}><img src={BlackTime} className='inline-block mr-3'></img>Total Duration :</p>
+                                <p className='!text-[20px]  text-right' style={{ width: '45%' }}>{isNaN(Math.round(cartDetails.total_time))?0 :Math.round(cartDetails.total_time)} Days</p>
                             </div>
                         </div>
                     </div>
@@ -227,9 +227,9 @@ export const MyCart = () => {
                 <div className='billing'>
                     <p>Billing Address</p>
                     <form onSubmit={handlePayment} noValidate>
-            <div className="user-name">
-                <div>
-                    <label>First Name</label>
+            <div className="user-name mb-[15px]">
+                <div className='mr-[4%]'>
+                    <label className='text-[#5f5f5f]'>First Name</label>
                     <input 
                         name="firstName" 
                         value={billingInfo.firstName} 
@@ -237,8 +237,8 @@ export const MyCart = () => {
                     />
                     {errors.firstName && <p className="text-[16px] text-red font-normal error-message">{errors.firstName}*</p>}
                 </div>
-                <div style={{ margin: '0% 0 0 2%' }}>
-                    <label>Last Name</label>
+                <div className='ml-[4%]' style={{ margin: '0% 0 0 2%' }}>
+                    <label className='text-[#5f5f5f]'>Last Name</label>
                     <input 
                         name="lastName" 
                         value={billingInfo.lastName} 
@@ -247,8 +247,8 @@ export const MyCart = () => {
                     {errors.lastName && <p className="text-[16px] text-red font-normal error-message">{errors.lastName}</p>}
                 </div>
             </div>
-            <div className="email">
-                <label>Email</label>
+            <div className="email mb-[15px]">
+                <label className='text-[#5f5f5f]'>Email</label>
                 <input 
                     name="email" 
                     value={billingInfo.email} 
@@ -256,8 +256,8 @@ export const MyCart = () => {
                 />
                 {errors.email && <p className="text-[16px] text-red font-normal error-message">{errors.email}</p>}
             </div>
-            <div className="phonenumber">
-                <label>Phone Number</label>
+            <div className="phonenumber mb-[15px]">
+                <label className='text-[#5f5f5f]'>Phone Number</label>
                 <input 
                     name="phoneNumber" 
                     value={billingInfo.phoneNumber} 
@@ -265,9 +265,9 @@ export const MyCart = () => {
                 />
                 {errors.phoneNumber && <p className="text-[16px] text-red font-normal error-message">{errors.phoneNumber}</p>}
             </div>
-            <div className="country">
-                <div>
-                    <label>Country</label>
+            <div className="country mb-[15px]">
+                <div className='mr-[4%]'>
+                    <label className='text-[#5f5f5f]'>Country</label>
                     <input 
                         name="country" 
                         value={billingInfo.country} 
@@ -275,8 +275,8 @@ export const MyCart = () => {
                     />
                     {errors.country && <p className="text-[16px] text-red font-normal error-message">{errors.country}</p>}
                 </div>
-                <div style={{ margin: '0% 0 0 2%' }}>
-                    <label>City</label>
+                <div className='mr-[4%]' style={{ margin: '0% 0 0 2%' }}>
+                    <label className='text-[#5f5f5f]'>City</label>
                     <input 
                         name="city" 
                         value={billingInfo.city} 
@@ -285,8 +285,8 @@ export const MyCart = () => {
                     {errors.city && <p className="text-[16px] text-red font-normal error-message">{errors.city}</p>}
                 </div>
             </div>
-            <div className="postal-code">
-                <label>Postal Code</label>
+            <div className="postal-code mb-[15px]">
+                <label className='text-[#5f5f5f]'>Postal Code</label>
                 <input 
                     name="postalCode" 
                     value={billingInfo.postalCode} 
@@ -294,8 +294,8 @@ export const MyCart = () => {
                 />
                 {errors.postalCode && <p className="text-[16px] text-red font-normal error-message">{errors.postalCode}</p>}
             </div>
-            <div className="promo-code">
-                <label>Promo Code</label>
+            <div className="promo-code mb-[15px]">
+                <label className='text-[#5f5f5f]'>Promo Code</label>
                 <input 
                     name="promoCode" 
                     value={billingInfo.promoCode} 

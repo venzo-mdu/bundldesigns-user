@@ -4099,7 +4099,9 @@ position: absolute;
 top: 0;
 left: 0;
 } */
-
+.css-7iurs7-MuiAccordionSummary-content.Mui-expanded {
+  margin: 8px 0 !important;
+}
 .hero-text h1{
 font-size: 50px;
 font-weight: 400;

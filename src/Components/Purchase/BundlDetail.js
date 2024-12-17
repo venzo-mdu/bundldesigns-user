@@ -171,11 +171,11 @@ export const BundlDetail = () => {
           </div>
           <p className='bundl-desc-title'>Main outcomes: Brand Identity, Commerce Collateral, Social Media Starter Kit.</p>
           <p className='bundl-desc'>{location.state?.bundlDetail?.description_english}</p>
-          <p className='one-minor'>* This Bundl includes one minor revision</p>
+          <p className='one-minor my-3'>* This Bundl includes one minor revision</p>
         </div>
 
         <div className='bundl-section'>
-          <div className='brand-details'>
+          <div className='brand-details !pt-16'>
             <p style={window.innerWidth <= 441 ? { fontSize: '24px', fontWeight: '700' } : { textAlign: 'left', fontSize: '32px', fontWeight: '700' }}>What is the name of your brand?</p>
             <input className='brand-input' onChange={(e) => setBrandInput(e.target.value)} />
 
@@ -186,11 +186,10 @@ export const BundlDetail = () => {
                   <p style={{ opacity: '50%' }}>{bundle.slogan_english}</p>
                   {
                     bundle.name_english === "Brand Identity" ? (
-                      <div style={window.innerWidth < 441 ? { display: 'block', width: '100%' } : { display: 'flex', width: '100%' }}>
-                        <p className='logo-design'>Logo design</p>
-                        <div className='languages font-semibold' style={{ display: 'flex' }}>
-                          <p>
-                            <label className='cursor-pointer'>
+                      <div style={window.innerWidth < 441 ? { display: 'flex', width: '100%',flexWrap:'wrap' } : { display: 'flex', width: '100%' ,alignItems:'center',justifyContent:'space-between',flexWrap:'wrap' }}>
+                        <p className='logo-design xs:basis-[100%] sm:basis-1/4'>Logo design</p>
+                          <p className=''>
+                            <label className='cursor-pointer flex items-center mb-0'>
                               <input
                                 type="radio"
                                 name="language"
@@ -204,7 +203,7 @@ export const BundlDetail = () => {
                           </p>
 
                           <p>
-                            <label  className='cursor-pointer'>
+                            <label  className='cursor-pointer flex items-center  mb-0'>
                               <input
                                 type="radio"
                                 name="language"
@@ -218,7 +217,7 @@ export const BundlDetail = () => {
                           </p>
 
                           <p>
-                            <label  className='cursor-pointer'>
+                            <label  className='cursor-pointer flex items-center  mb-0'>
                               <input
                                 type="radio"
                                 name="language"
@@ -231,7 +230,6 @@ export const BundlDetail = () => {
                             </label>
                           </p>
 
-                        </div>
                       </div>
                     ) : bundle.design_list.map((design, idx) => {
                       const isSingleItem = bundle.design_list.length === 1;
@@ -244,7 +242,7 @@ export const BundlDetail = () => {
                           <p style={window.innerWidth <= 441 ? { width: '50%' } : { width: '20%' }}><img src={BlackTime} alt="Time icon" className="inline-block" />{design.time} Days</p> */}
                           <p className=' basis-[10%] flex items-center text-[#000000] border !border-[#000000]'>
                                                                 <button onClick={() => handleQuantityChange(design.name_english, -1)} className='border-r !border-[#000000] flex h-[100%] items-center'><RemoveIcon /></button>
-                                                                <span className='border-r px-2 !border-[#000000]'> {quantities[design.name_english] || 1}</span>
+                                                                <span className='border-r font-normal px-2 !border-[#000000]'> {quantities[design.name_english] || 1}</span>
                                                                 <button  onClick={() => handleQuantityChange(design.name_english, 1)} className='flex items-center'><AddIcon /></button>
                                                             </p>
                                                         
