@@ -200,24 +200,24 @@ export const Home = () => {
                                             </div>
                                         </div>
                                         <div className="col-1 col-md-1 col-lg-6">
-                                            <div className="navbar navbar-expand-lg justify-content-end">
-                                                <div className=" navbar-collapse" id="mainNav">
-                                                    <ul className=" mx-auto align-items-center ">
-                                                        <li className="nav-item">
-                                                            <a className="nav-link" href="/aboutus">About</a>
-                                                        </li>
-                                                        <li className="nav-item">
-                                                            <a className="nav-link" href="/">Bundls</a>
-                                                        </li>
-                                                        <li className="nav-item">
-                                                            <a className="nav-link" href="/our-work">Work</a>
-                                                        </li>
-                                                        <li className="nav-item">
-                                                            <a className="nav-link" href="#">Contact Us</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
+                                        <div className="navbar navbar-expand-lg justify-content-end">
+                      <div className=" navbar-collapse" id="mainNav">
+                        <ul className=" mx-auto flex align-items-center ">
+                          <li className="nav-item">
+                            <a className="nav-link" href="/aboutus">About</a>
+                          </li>
+                          <li className="nav-item">
+                            <a className="nav-link" href="/">Bundls</a>
+                          </li>
+                          <li className="nav-item">
+                            <a className="nav-link" href="/our-work">Work</a>
+                          </li>
+                          <li className="nav-item">
+                            <a className="nav-link" href="#">Contact Us</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
                                         </div>
                                         <div className="col-7  col-md-8 col-lg-3 text-end ">
                                             <div className="navbar navbar-expand-lg float-right">
@@ -589,7 +589,7 @@ export const Home = () => {
                                         <div className="change_brand">
                                             <div className="table_icon"><img src={Food} alt="" className="img-fluid"></img></div>
                                             <div className="newbie">The Foodie</div>
-                                            <div className="pkg-sub-title">For Restaurants and Cafés</div>
+                                            <div className="pkg-sub-title xs:!pr-8">For Restaurants and Cafés</div>
                                         </div>
                                         <div className="second_brand_section">
                                             <div className="box-child">
