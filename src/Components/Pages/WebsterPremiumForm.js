@@ -15,6 +15,7 @@ import 'react-phone-number-input/style.css';
 
 export default function WebsterPremiumForm() {
   const { form_type } = useParams();
+  const [phoneError,setPhoneError] = useState(false)
   const [formData, setFormData] = useState({
     project_name: '',
     name: '',
@@ -22,71 +23,12 @@ export default function WebsterPremiumForm() {
     email: '',
     message: ''
   });
-  const countryPhoneLengths = {
-    'BH': 8, // Bahrain
-    'KW': 8, // Kuwait
-    'OM': 8, // Oman
-    'QA': 8, // Qatar
-    'SA': 9, // Saudi Arabia
-    'AE': 9  // United Arab Emirates
-  };
-  
+
   const [loading, setLoading] = useState(false)
 
   const [successMsg, setSuccessMsg] = useState('')
   // Error state
   const [errors, setErrors] = useState({});
-  const gccCountries = ['BH', 'KW', 'OM', 'QA', 'SA', 'AE'];
-
-  const validatePhoneNumber = (number) => {
-    if (!number) {
-      return 'Phone number is required';
-    }
-
-    // Extract the country code and remaining phone number
-    const countryCodeMatch = number.match(/^\+(\d{1,3})/);
-    if (!countryCodeMatch) {
-      return 'Invalid phone number format';
-    }
-
-    const countryCode = countryCodeMatch[1]; // Example: 971 for UAE
-    const phoneWithoutCountryCode = number.replace(`+${countryCode}`, '');
-
-    let selectedCountry = null;
-
-    // Match the country based on the country code
-    switch (countryCode) {
-      case '973': selectedCountry = 'BH'; break; // Bahrain
-      case '965': selectedCountry = 'KW'; break; // Kuwait
-      case '968': selectedCountry = 'OM'; break; // Oman
-      case '974': selectedCountry = 'QA'; break; // Qatar
-      case '966': selectedCountry = 'SA'; break; // Saudi Arabia
-      case '971': selectedCountry = 'AE'; break; // UAE
-      default: 
-      return 'Country not Selected'
-    }
-
-    const requiredLength = countryPhoneLengths[selectedCountry];
-    if (phoneWithoutCountryCode.length !== requiredLength) {
-      return `Phone number for ${selectedCountry} must be ${requiredLength} digits.`;
-    }
-    return false;
-  };
-
-
-
-  const handlePhone = (value) => {
-    setFormData({
-      ...formData,
-      'phone': value,
-    });
-    if (value) {
-    const error =  validatePhoneNumber(value);
-    const newError = {...errors,phone:error}
-    setErrors(newError)
-    }
-  };
-
 
   const validate = () => {
     const newErrors = {};
@@ -204,6 +146,8 @@ export default function WebsterPremiumForm() {
         placeholder="Enter phone number"
         value={formData.phone}
         status={setFormData}
+        borderColor={'#b0b0b0'}
+        setPhoneError={setPhoneError}
         className="w-full  text-[18px]  "
       />
 

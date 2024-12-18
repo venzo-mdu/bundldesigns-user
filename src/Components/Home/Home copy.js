@@ -177,7 +177,7 @@ export const Home = () => {
                                         <div className="col-1 col-md-1 col-lg-6">
                                             <div className="navbar navbar-expand-lg justify-content-end">
                                                 <div className=" navbar-collapse" id="mainNav">
-                                                    <ul className="navbar-nav mx-auto align-items-center ">
+                                                    <ul className=" mx-auto align-items-center ">
                                                         <li className="nav-item">
                                                             <a className="nav-link" href="/aboutus">About</a>
                                                         </li>
@@ -196,7 +196,7 @@ export const Home = () => {
                                         </div>
                                         <div className="col-7 col-md-8 col-lg-3 text-end">
                                             <div className="navbar navbar-expand-lg justify-content-end ">
-                                                <ul className="navbar-nav  h-list align-items-center">
+                                                <ul className="  h-list align-items-center">
                                                     <li className="nav-item">
                                                         <a className="nav-link" href="#"><img src={Search} alt="" className="img-fluid nav-icon"></img></a>
                                                     </li>

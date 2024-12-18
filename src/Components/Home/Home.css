@@ -4099,8 +4099,8 @@ position: absolute;
 top: 0;
 left: 0;
 } */
-.hero-text {
-padding: 80px 0 100px 0;
+.css-7iurs7-MuiAccordionSummary-content.Mui-expanded {
+  margin: 8px 0 !important;
 }
 .hero-text h1{
 font-size: 50px;
@@ -4599,6 +4599,7 @@ font-size: 20px;
   margin: 3% 0 0 0;
   width: 125px;
 }
+
 .second_text {
   height: 25px;
 }
@@ -4617,7 +4618,7 @@ font-size: 20px;
   display: block;
 }
 .bunbl-box-news-section{
-  margin-bottom: 18%;
+  margin-bottom: 13%;
 }
 .sar img{
   margin: -5% 5px 0 0;
@@ -4628,6 +4629,9 @@ font-size: 20px;
 .testimonial-bg3{
   left: -10px;
   top: 2%;
+}
+.fact-section .container {
+  max-width: 100%;
 }
 .social-link ul .social-item{
   padding: 3%;
@@ -4655,6 +4659,9 @@ font-size: 20px;
 @media screen and (max-width:375px) {
   .h-list li{
     width: 40px;
+  }
+  .container {
+    max-width: 300px;
   }
   .nav-item li{
     width: 100%;

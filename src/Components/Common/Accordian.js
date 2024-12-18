@@ -10,6 +10,8 @@ import { base_url } from '../Auth/BackendAPIUrl';
 import BlackDollor from '../../Images/BundlDetail/blackdollor.svg';
 import BlackTime from '../../Images/BundlDetail/blacktime.svg';
 import { ConfigToken } from '../Auth/ConfigToken';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
 
 export const Accordian = ({ accordianTitle, addOnPayload, bundlePackageId }) => {
   const [isDropdown, setIsDropdown] = useState([false, false, false, false, false, false, false]);
@@ -153,7 +155,7 @@ export const Accordian = ({ accordianTitle, addOnPayload, bundlePackageId }) => 
   return (
     <div>
       <div className='bundl-accordian'>
-        <p className='accordian-heading'>{accordianTitle}</p>
+        <p className='accordian-heading mb-1'>{accordianTitle}</p>
         <p style={{ opacity: '50%' }}>Add anything you want to your bundle to fit your brand!</p>
         <div className='tab-buttons'>
           {titleArr.map((title, index) => (
@@ -168,50 +170,15 @@ export const Accordian = ({ accordianTitle, addOnPayload, bundlePackageId }) => 
         </div>
 
         {titleArr.map((title, index) => (
-          // <Accordion key={index} expanded={isDropdown[index]}>
-          //   <AccordionSummary
-          //     expandIcon={<ExpandMoreIcon />}
-          //     aria-controls={`panel${index + 1}-content`}
-          //     id={`panel${index + 1}-header`}
-          //   >
-          //     <Typography sx={{ color: 'text.secondary' }}>{title}</Typography>
-          //   </AccordionSummary>
-          //   <AccordionDetails>
-          //     <Typography>
-          //       {addOnData && addOnData.designs_details && addOnData.designs_details[title] &&
-          //         addOnData.designs_details[title].design_list.length > 0 ? (
-          //         addOnData.designs_details[title].design_list.map((design, i) => (
-          //           <div key={i} style={{
-          //             display:  window.innerWidth<=441 ?'block':'flex',
-          //             borderBottom: i === addOnData.designs_details[title].design_list.length - 1 ? 'none' : '1px solid #0BA6C4',
-          //             padding: '1% 0%'
-          //           }}>
-          //             <Typography sx={{ color: '#0BA6C4', display: 'block', marginRight: '10px',marginBottom:'5%', width: '60%' }}>
-          //               {design.name_english}
-          //             </Typography>
-          //             <p style={window.innerWidth<=441 ? {width: '50%'}:{ width: '20%' }}><img src={BlackDollor} alt="Price icon" className='inline-block'/>{Math.round(design.price)} SAR</p>
-          //             <p style={window.innerWidth<=441 ? {width: '50%'}:{ width: '20%' }}><img src={BlackTime} alt="Time icon" className='inline-block'/>{Math.round(design.time)} Days</p>
-          //             <div style={{border:'0'}} className="quantity">
-          //               <button style={{border:'1px solid #0BA6C4',color:'#0BA6C4'}} className="" onClick={() => handleQuantityChange(design.name_english, -1)}>&minus;</button>
-          //               <input style={{border:'1px solid #0BA6C4',color:'#0BA6C4',height:'35px'}} type="number" className="input-box" value={quantities[design.name_english] || 0} readOnly />
-          //               <button style={{border:'1px solid #0BA6C4',color:'#0BA6C4'}} className="minus" onClick={() => handleQuantityChange(design.name_english, 1)}>+</button>
-          //             </div>
-          //           </div>
-          //         ))
-          //       ) : (
-          //         'No designs available'
-          //       )}
-          //     </Typography>
-          //   </AccordionDetails>
-          // </Accordion>
 
           <Accordion  key={index} expanded={isDropdown[index]}>
             <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
+              expandIcon={<ExpandMoreIcon className='text-[#000]' />}
               aria-controls={`panel${index + 1}-content`}
               id={`panel${index + 1}-header`}
+              onClick={()=> toggleDropdown(index)}
             >
-              <Typography sx={{ color: 'text.secondary' }}>{title}</Typography>
+              <Typography className='!font-[700]'>{title}</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Typography>
@@ -246,29 +213,11 @@ export const Accordian = ({ accordianTitle, addOnPayload, bundlePackageId }) => 
                         <img src={BlackTime} alt="Time icon" className="inline-block" />
                         {Math.round(design.time)} Days
                       </p>
-                      <div style={{ border: '0' }} className="quantity">
-                        <button
-                          style={{ border: '1px solid #0BA6C4', color: '#0BA6C4' }}
-                          className=""
-                          onClick={() => handleQuantityChange(design.name_english, -1)}
-                        >
-                          &minus;
-                        </button>
-                        <input
-                          style={{ border: '1px solid #0BA6C4', color: '#0BA6C4', height: '35px' }}
-                          type="number"
-                          className="input-box"
-                          value={quantities[design.name_english] || 0}
-                          readOnly
-                        />
-                        <button
-                          style={{ border: '1px solid #0BA6C4', color: '#0BA6C4' }}
-                          className="minus"
-                          onClick={() => handleQuantityChange(design.name_english, 1)}
-                        >
-                          +
-                        </button>
-                      </div>
+                      <p className=' basis-[10%] flex items-center text-[#0BA6C4] border !border-[#0BA6C4]'>
+                                                                <button onClick={() => handleQuantityChange(design.name_english, -1)} className='border-r !border-[#0BA6C4] flex h-[100%] items-center'><RemoveIcon /></button>
+                                                                <span className='border-r px-2  !border-[#0BA6C4]'> {quantities[design.name_english] || 0}</span>
+                                                                <button  onClick={() => handleQuantityChange(design.name_english, 1)} className='flex items-center'><AddIcon /></button>
+                                                            </p>
                     </div>
                   ))
                 ) : (

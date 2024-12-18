@@ -17,6 +17,7 @@ export const Signup = () => {
   const navigate = useNavigate();
 
   const [isAgree, setIsAgree] = useState(false);
+  const [submitted,setSubmitted] = useState(false)
   const [errors, setErrors] = useState({}); 
   const [registerData, setRegisterData] = useState({
     full_name: '',
@@ -99,19 +100,27 @@ export const Signup = () => {
     setErrors(errors);
     return Object.keys(errors).length === 0;
   };
-
+console.log(errors,'errors')
   const signUp = async (e) => {
     e.preventDefault();
-    if (!validateForm()) console.log('hh');
-
+    if (!validateForm()) return;
+    if (!isAgree) {
+      setSubmitted(true)
+      return
+    }
     try {
       const response = await axios.post(`${base_url}/api/register/`, registerData);
       if (response.status === 201) {
         console.log('Signup successfully');
         navigate('/login')
       }
-    } catch (err) {
-      console.error(err);
+    } catch (response) {
+      const errors = response.response.data?.error || {};
+      const formattedErrors = Object.fromEntries(
+        Object.entries(errors).map(([key, value]) => [key, value[0]])
+      );
+      console.log(formattedErrors,response.response,'for')
+      setErrors(formattedErrors)
     }
   };
 
@@ -153,31 +162,33 @@ export const Signup = () => {
             />
             {errors.password && <p className="error">{errors.password}</p>}
             
-            <div style={{ display: 'flex' }} className='terms-policy flex my-1'>
+            <label className='terms-policy  flex items-center my-1'>
               <input
-                className='checkbox'
+                className='checkbox mr-2  cursor-pointer'
                 type='checkbox'
                 checked={isAgree}
                 onChange={() => setIsAgree(!isAgree)}
               />
-              <p>I agree to the terms & policy</p>
-            </div>
+              <span className='!text-[16px] cursor-pointer'>I agree to the terms & policy</span>
+            </label>
+            {(submitted && !isAgree ) && <p className="error">Please agree to the terms and conditions.</p>}
             <button type='submit' style={{margin:"0% 0 0 0"}}  className='signin'>
               Signup
             </button>
-            <p className='or' style={{ margin: '2% 0 0 0' }}>Or</p>
+            <p className='or mt-[2vh] flex items-center ml-2 font-[500] text-[12px]'> <span className='border-[#F5F5F5] border-b h-[2px] basis-[40%] mr-[2%] border-[1.5px]'>
+              </span> Or  <span className='border-[#F5F5F5] border-b h-[2px] basis-[40%] ml-[2%] border-[1.5px]'></span></p>
             <p className='signinwithgoogle'>
               {/* <img src={Googleicon} alt='google-icon' /> Sign in with Google */}
               <GoogleLogin
                 onSuccess={credentialResponse => {
-                  console.log(credentialResponse);
+                  console.log(credentialResponse,'credentialsss');
                 }}
                 onError={() => {
                   console.log('Login Failed');
                 }}
               />
             </p>
-            <p className='dont'>
+            <p className='dont w-[90%]'>
               Have an account? <span><NavLink  className='signup !font-[500]' to={'/login'}>&nbsp;Sign In</NavLink></span>
             </p>
           </form>

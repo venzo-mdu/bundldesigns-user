@@ -58,10 +58,11 @@ import CloseIcon from '@mui/icons-material/Close';
 export const Home = () => {
     const navigate = useNavigate();
     const imageArray = [Car, Lemon, Mouth, Rocket, Pinkpaint];
+    const [selectedIndex, setSelectedIndex] = useState(null)
     const [menuVisible, setMenuVisible] = useState(false);
-    const [profileVisible,setProfileVisible] = useState(false)
+    const [profileVisible, setProfileVisible] = useState(false)
     const toggleMenu = () => {
-      setMenuVisible(!menuVisible);
+        setMenuVisible(!menuVisible);
     };
     const [loading, setLoading] = useState(false);
     const [openPopup, setOpenPopup] = useState(false);
@@ -111,6 +112,19 @@ export const Home = () => {
             color: '#000',
         },
     ];
+    const [mediaUrls, setmediaUrls] = useState({
+        instagram: '',
+        facebook: '',
+        linked_in: '',
+        twitter: ''
+    })
+
+    const getMediaUrls = async () => {
+        const response = await axios.get(`${base_url}/api/content?section=settings`);
+        if (response.data) {
+            setmediaUrls(response.data)
+        }
+    }
 
     useEffect(() => {
         setTimeout(() => {
@@ -130,6 +144,7 @@ export const Home = () => {
 
     useEffect(() => {
         getBundl();
+        getMediaUrls()
     }, []);
 
     const getBundl = async () => {
@@ -140,10 +155,11 @@ export const Home = () => {
     const addToCart = async (index) => {
         try {
             const response = await axios.get(`${base_url}/api/order/cart/`, ConfigToken());
-            console.log(response, 'aa')
             if (response.data.order_status === 'in_cart') {
                 setOpenPopup(true);
+                setSelectedIndex(index)
             } else {
+                setSelectedIndex(null)
                 navigate('/bundldetail', { state: { bundlDetail: bundlData.packages[index] } });
             }
         } catch (error) {
@@ -155,6 +171,7 @@ export const Home = () => {
 
     const emptyCart = async () => {
         await axios.delete(`${base_url}/api/order/cart/`, ConfigToken());
+        addToCart(selectedIndex)
         setOpenPopup(false);
     }
 
@@ -183,43 +200,42 @@ export const Home = () => {
                                             </div>
                                         </div>
                                         <div className="col-1 col-md-1 col-lg-6">
-                                            <div className="navbar navbar-expand-lg justify-content-end">
-                                                <div className=" navbar-collapse" id="mainNav">
-                                                    <ul className="navbar-nav mx-auto align-items-center ">
-                                                        <li className="nav-item">
-                                                            <a className="nav-link" href="/aboutus">About</a>
-                                                        </li>
-                                                        <li className="nav-item">
-                                                            <a className="nav-link" href="/">Bundls</a>
-                                                        </li>
-                                                        <li className="nav-item">
-                                                            <a className="nav-link" href="/our-work">Work</a>
-                                                        </li>
-                                                        <li className="nav-item">
-                                                            <a className="nav-link" href="#">Contact Us</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
+                                        <div className="navbar navbar-expand-lg justify-content-end">
+                      <div className=" navbar-collapse" id="mainNav">
+                        <ul className=" mx-auto flex align-items-center ">
+                          <li className="nav-item">
+                            <a className="nav-link" href="/aboutus">About</a>
+                          </li>
+                          <li className="nav-item">
+                            <a className="nav-link" href="/">Bundls</a>
+                          </li>
+                          <li className="nav-item">
+                            <a className="nav-link" href="/our-work">Work</a>
+                          </li>
+                          <li className="nav-item">
+                            <a className="nav-link" href="#">Contact Us</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
                                         </div>
                                         <div className="col-7  col-md-8 col-lg-3 text-end ">
                                             <div className="navbar navbar-expand-lg float-right">
-                                                <ul className="navbar-nav mr-auto h-list align-items-center ">
+                                                <ul className=" mr-auto h-list align-items-center ">
                                                     <li className='px-[6px]' >
                                                         <a className="" href="#"><img src={Search} alt="" className="navIcons"></img></a>
                                                     </li>
                                                     <li className='px-[6px] inner-nav'>
-                                                        <a className="" onClick={()=>{setProfileVisible(!profileVisible)}}><img src={User} alt="" className="navIcons"></img></a>
-                                                        <nav  className={`w-44 absolute top-full -right-2 text-right mt-4 bg-white p-2 transition-all duration-300 ease-in-out ${
-          profileVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
-        }`}>
-                                                    <ul >
-                                                        <li>
-                                                            <a href="/login" previewlistener="true">Login</a>
-                                                        </li>
-    
-                                                    </ul>
-                                                </nav>
+                                                        <a className="" onClick={() => { setProfileVisible(!profileVisible) }}><img src={User} alt="" className="navIcons"></img></a>
+                                                        <nav className={`w-44 absolute top-full -right-2 text-right mt-4 bg-white p-2 transition-all duration-300 ease-in-out ${profileVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
+                                                            }`}>
+                                                            <ul >
+                                                                <li>
+                                                                    <a href="/login" previewlistener="true">Login</a>
+                                                                </li>
+
+                                                            </ul>
+                                                        </nav>
                                                     </li>
                                                     <li className='px-[6px]'>
                                                         <a className="" href="/mycart"><img src={Cart} alt="" className="navIcons"></img></a>
@@ -229,29 +245,28 @@ export const Home = () => {
                                                     </li>
                                                     <li className="nav-item xs:!block sm:!hidden  inner-nav text-center !hidden menu mr-auto">
                                                         <button onClick={toggleMenu} type="button" id="menu-toggle">
-                                                       {menuVisible?<CloseIcon className='!text-[50px]' />: <MenuIcon className='!text-[50px]' />}
+                                                            {menuVisible ? <CloseIcon className='!text-[50px]' /> : <MenuIcon className='!text-[50px]' />}
                                                         </button>
-                                                        <nav  className={`w-44 absolute top-full -right-2 text-right mt-4 bg-white p-2 transition-all duration-300 ease-in-out ${
-          menuVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
-        }`}>
-                                                    <ul >
-                                                        <li>
-                                                            <a href="/" previewlistener="true">Bundl Offers</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="/our-work" previewlistener="true">Our Work</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="/aboutus" previewlistener="true">About Us</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" previewlistener="true">Contact Us</a>
-                                                        </li>
-                                                    </ul>
-                                                </nav>
+                                                        <nav className={`w-44 absolute top-full -right-2 text-right mt-4 bg-white p-2 transition-all duration-300 ease-in-out ${menuVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
+                                                            }`}>
+                                                            <ul >
+                                                                <li>
+                                                                    <a href="/" previewlistener="true">Bundl Offers</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="/our-work" previewlistener="true">Our Work</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="/aboutus" previewlistener="true">About Us</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#" previewlistener="true">Contact Us</a>
+                                                                </li>
+                                                            </ul>
+                                                        </nav>
                                                     </li>
                                                 </ul>
-                                     
+
                                             </div>
                                         </div>
                                     </div>
@@ -304,13 +319,13 @@ export const Home = () => {
                                     <img src={Loader} alt="" className="rotating-image"></img>
                                 </div> */}
                             </div>
-                            <div className="xs:h-[73vh] sm:h-auto">
+                            <div className="xs:min-h-[73vh] sm:min-h-[73vh]">
                                 <div className="hero-text">
                                     <div className="justify-content-cnter text-center mx-auto">
                                         <div className="px-2">
 
                                         </div>
-                                        <h1 className='!text-black sm:px-[9%] xs:px-[12%]  lg:px-[6%] !w-[100%] xs:!text-[32px] sm:!text-[58px] !text-[58px]'><span>Elevating</span> brands & shaping legacies, one <span>extraordinary design</span> at a <i>time.</i></h1>
+                                        <h1 className='!text-black sm:px-[9%] xs:px-[12%]  lg:px-[10%] !w-[100%] xs:!text-[32px] sm:!text-[58px] !text-[58px]'><span>Elevating</span> brands & shaping legacies, one <span>extraordinary design</span> at a <i>time.</i></h1>
                                         <div className="button-container scroller">
                                             <ul className="scroll-button scroller__inner_btn">
                                                 <li><span>Shop our Bundls</span></li>
@@ -441,13 +456,13 @@ export const Home = () => {
                             </div>
                         </section>
                         <div className="plus plus-deivide"></div>
-                    
+
 
                         <section className="container-fluid our-bundl">
                             <div className="container">
                                 <div className="row justify-content-center bundl-pack-head">
                                     <div className="col-md-11 col-lg-9">
-                                        <h4 className="sub-headeing mb-4 text-center">Our Bundls</h4>
+                                        <h4 className="sub-headeing mb-4 text-center text-black">Our Bundls</h4>
                                         {/* <!-- <div className="our-bundles text-center">
                         <div className="text-animation">
                             WE <div className="bunl"><img src="asset/images/bundl-sticker.png" alt="" className="img-fluie"></div>DESIGN TO MAKE YOUR BRAND 
@@ -475,9 +490,9 @@ export const Home = () => {
                                     {/* <!-- rotating buiscut --> */}
                                     <div className="icon_section1">
                                         <div className="subzero1">
-                                           
+
                                             <span onClick={() => addToCart(0)} className="buiscut_layer1">
-                                            <img style={{ width: '30%' }} src={CartIcon} alt='cart-icon'></img>
+                                                <img style={{ width: '30%' }} src={CartIcon} alt='cart-icon'></img>
                                                 ADD TO <br></br>CART</span>
                                             <div onClick={() => addToCart(0)} className="main_inside1"></div>
                                         </div>
@@ -555,7 +570,7 @@ export const Home = () => {
                                         <div className="subzero2">
                                             <span onClick={() => addToCart(1)} className="buiscut_layer2">
                                                 <img style={{ width: '30%' }} src={CartIcon} alt='cart-icon'></img>
-                                                 ADD TO <br></br>CART</span>
+                                                ADD TO <br></br>CART</span>
                                             <div onClick={() => addToCart(1)} className="main_inside2"></div>
                                         </div>
                                     </div>
@@ -574,7 +589,7 @@ export const Home = () => {
                                         <div className="change_brand">
                                             <div className="table_icon"><img src={Food} alt="" className="img-fluid"></img></div>
                                             <div className="newbie">The Foodie</div>
-                                            <div className="pkg-sub-title">For Restaurants and Cafés</div>
+                                            <div className="pkg-sub-title xs:!pr-8">For Restaurants and Cafés</div>
                                         </div>
                                         <div className="second_brand_section">
                                             <div className="box-child">
@@ -641,8 +656,8 @@ export const Home = () => {
                                     <div className="icon_section3">
                                         <div className="subzero3">
                                             <span onClick={() => addToCart(2)} className="buiscut_layer3">
-                                            <img style={{ width: '30%' }} src={CartIcon} alt='cart-icon'></img>
-                                            ADD TO <br></br>CART</span>
+                                                <img style={{ width: '30%' }} src={CartIcon} alt='cart-icon'></img>
+                                                ADD TO <br></br>CART</span>
                                             <div onClick={() => addToCart(2)} className="main_inside3"></div>
                                         </div>
                                     </div>
@@ -727,8 +742,8 @@ export const Home = () => {
                                     <div className="icon_section4">
                                         <div className="subzero4">
                                             <span onClick={() => addToCart(3)} className="buiscut_layer4">
-                                            <img style={{ width: '30%' }} src={CartIcon} alt='cart-icon'></img>
-                                            ADD TO <br></br>CART</span>
+                                                <img style={{ width: '30%' }} src={CartIcon} alt='cart-icon'></img>
+                                                ADD TO <br></br>CART</span>
                                             <div onClick={() => addToCart(3)} className="main_inside4"></div>
                                         </div>
                                     </div>
@@ -894,7 +909,7 @@ export const Home = () => {
                             <div className="container mb-16">
                                 <div className="row justify-content-center">
                                     <div className="col-md-4 flex justify-center">
-                                            <img className='xs:w-[150px] sm:w-[200px]' src={popupGIF}></img>
+                                        <img className='xs:w-[150px] sm:w-[200px]' src={popupGIF}></img>
                                     </div>
                                 </div>
                             </div>
@@ -951,7 +966,7 @@ export const Home = () => {
                                             <img src={Instafeed} alt="" className="img-fluid"></img>
                                         </div>
                                         <div className="social-cta text-center">
-                                            <a href="#" className="btn bundl-btn-border text-upper mt-5">Follow us on instagram</a>
+                                            <a href={`${mediaUrls.instagram}`} className="btn bundl-btn-border text-upper mt-5">Follow us on instagram</a>
                                         </div>
                                     </div>
                                 </div>
@@ -975,7 +990,7 @@ export const Home = () => {
                                 <div className="row justify-content-center">
                                     <div className="col-md-8">
                                         <div className="section-head">
-                                            <h2 className="sub-headeing text-center">love letters</h2>
+                                            <h2 className="sub-headeing text-black text-center">love letters</h2>
                                             <p className="f-20 text-center">We work hard to bring your brand dreams to life. But don’t take only our word for it! Listen to what our clients have to say about us.</p>
                                         </div>
                                     </div>
@@ -998,7 +1013,7 @@ export const Home = () => {
                                     </div>
                                 </div>
                                 <div className="px-5 mx-auto mt-5 text-center">
-                                    <a href="#" className="btn bundl-btn-border">Leave a review</a>
+                                    <a href="https://www.google.com/search?q=bundldesigns&rlz=1C1OPNX_enIN1088IN1088&oq=bundldesigns&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQRRg8MgYIAhBFGDwyBggDEEUYPDIICAQQRRgnGDsyBggFEEUYPDIGCAYQRRg8MgYIBxBFGDzSAQgzODA5ajBqN6gCALACAA&sourceid=chrome&ie=UTF-8#lrd=0x3e2efdec17da19b7:0xb10d764716306f04,3,,,," className="btn bundl-btn-border">Leave a review</a>
                                 </div>
                             </div>
                         </section>
@@ -1009,15 +1024,15 @@ export const Home = () => {
                         <section className="container-fluid section">
                             <div className="container">
                                 <div className="quetions-container">
-                                    <h2 className="sub-headeing text-upper text-center mb-3">HAVE A QUESTION OR IDEA ?</h2>
-                                    <h4 className="h3 text-upper text-center mb-4">let’s discuss</h4>
+                                    <h2 className="sub-headeing text-upper text-black text-center mb-3">HAVE A QUESTION OR IDEA ?</h2>
+                                    <h4 className="h3 text-upper text-black text-center mb-4">let’s discuss</h4>
                                 </div>
                                 <div className="social-link  align-items-center">
                                     <ul className="d-flex justify-content-center">
-                                        <li className="social-item"><a href=""><img src={Linkedin} alt="" className="img-fluid social-icon"></img></a></li>
-                                        <li className="social-item"><a href=""><img src={Instagram} alt="" className="img-fluid social-icon"></img></a></li>
-                                        <li className="social-item"><a href=""><img src={X} alt="" className="img-fluid social-icon"></img></a></li>
-                                        <li className="social-item"><a href=""><img src={Facbook} alt="" className="img-fluid social-icon"></img></a></li>
+                                        <li className="social-item"><a href={`${mediaUrls.linked_in}`}><img src={Linkedin} alt="" className="img-fluid social-icon"></img></a></li>
+                                        <li className="social-item"><a href={`${mediaUrls.instagram}`}><img src={Instagram} alt="" className="img-fluid social-icon"></img></a></li>
+                                        <li className="social-item"><a href={`${mediaUrls.twitter}`}><img src={X} alt="" className="img-fluid social-icon"></img></a></li>
+                                        <li className="social-item"><a href={`${mediaUrls.facebook}`}><img src={Facbook} alt="" className="img-fluid social-icon"></img></a></li>
                                     </ul>
                                 </div>
                             </div>
