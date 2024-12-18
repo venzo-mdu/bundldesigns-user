@@ -11,7 +11,7 @@ const countries = [
  
 ];
 
-const PhoneNumberInput = ({ name, placeholder, value, status, className }) => {
+const PhoneNumberInput = ({ name, placeholder, value, status, className,setPhoneError,borderColor ,formErrors,setErrors}) => {
   const [selectedCountry, setSelectedCountry] = useState( { code: 'AE', name: 'UAE', countryCode: '+971', phoneLength: 9 });
   const [phoneNumber, setPhoneNumber] = useState(value || '');
   const [error, setError] = useState('');
@@ -22,6 +22,7 @@ const PhoneNumberInput = ({ name, placeholder, value, status, className }) => {
     setSelectedCountry(selectedCountry);
     setPhoneNumber(''); // Clear phone number when changing country
     setError(''); // Clear any error
+    setPhoneError(false)
     if (status) status((prevData) => ({ ...prevData, [name]: '' }));
   };
 
@@ -34,11 +35,16 @@ const PhoneNumberInput = ({ name, placeholder, value, status, className }) => {
     if (status) status((prevData) => ({ ...prevData, [name]: `${selectedCountry?.countryCode}${value}` }));
 
     // Validate phone number length
-    if (selectedCountry && value.length > selectedCountry.phoneLength) {
-      setError(`Phone number for ${selectedCountry.name} must be ${selectedCountry.phoneLength} digits.`);
+    if (selectedCountry && value.length !== selectedCountry.phoneLength) {
+      setPhoneError(true);
+      setError(`Phone number for ${selectedCountry.name} must be exactly ${selectedCountry.phoneLength} digits.`);
     } else {
+      setPhoneError(false);
       setError('');
+      delete formErrors['phone']
+      setErrors(formErrors)
     }
+ 
   };
 
   return (
@@ -49,7 +55,7 @@ const PhoneNumberInput = ({ name, placeholder, value, status, className }) => {
           value={selectedCountry ? selectedCountry.code : ''}
           onChange={handleCountryChange}
           id='vacancySelect'
-          className="border py-2 sm:px-3 !border-[#b0b0b0] text-gray-900 font-bold w-[120px]  focus:outline-none"
+          className={`border py-2 sm:px-3  text-gray-900 font-bold w-[120px]  focus:outline-none !border-[${borderColor}]`}
         >
           {countries.map((country) => (
             <option key={country.code} value={country.code}>
@@ -63,7 +69,7 @@ const PhoneNumberInput = ({ name, placeholder, value, status, className }) => {
           value={phoneNumber}
           onChange={handlePhoneNumberChange}
           placeholder={selectedCountry ? placeholder : 'Select country first'}
-          className="flex-1  p-2 border  !border-[#b0b0b0] border-l-none text-[18px] focus:outline-none"
+          className={`flex-1  p-2 border  !border-[${borderColor}] border-l-none text-[18px] focus:outline-none`}
           disabled={!selectedCountry}
         />
       </div>

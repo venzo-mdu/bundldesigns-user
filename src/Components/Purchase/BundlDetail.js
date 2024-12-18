@@ -25,6 +25,7 @@ export const BundlDetail = () => {
   const [addonPayLoads, setAddonPayLoads] = useState({});
   const [brandInput, setBrandInput] = useState('');
   const [selectedLanguage, setSelectedLanguage] = useState('English');
+  const [firstOrder,setFirstOrder] = useState(true)
 
   const handleRadioChange = (e) => {
     setSelectedLanguage(e.target.value);
@@ -33,6 +34,7 @@ export const BundlDetail = () => {
   useEffect(() => {
     document.documentElement.scrollTo({ top: 0, left: 0 });
     getBundlData();
+    getprojects()
   }, []);
   console.log(location.state?.bundlDetail, 'details')
 
@@ -40,8 +42,8 @@ export const BundlDetail = () => {
 
     const totalAmount = totalCost + addonPayLoads.total_price;
     const bundlePrice = Math.round(location.state?.bundlDetail?.price);
-    if (totalAmount <= bundlePrice) {
-      toast.error(`Minimum order is ${bundlePrice} SAR`, {
+    if (totalAmount < 4880) {
+      toast.error(`Minimum order is 4880 SAR`, {
         position: toast?.POSITION?.TOP_RIGHT,
       });
       return false;
@@ -62,7 +64,15 @@ export const BundlDetail = () => {
     const response = await axios.get(`${base_url}/api/package/?bundle_id=${location.state.bundlDetail?.id}`, ConfigToken());
     setBundlAddons(response.data);
   }
-
+  const getprojects = async () => {
+    const response = await axios.get(`${base_url}/api/order/`, ConfigToken());
+    if (response.data) {
+        const resProjects = response.data.data.filter(item=> item.order_status!='in_cart')
+        if (resProjects.length) {
+            setFirstOrder(true)
+        }
+    }
+}
 
   const handleQuantityChange = (designName, change) => {
     setQuantities(prevQuantities => ({
@@ -308,7 +318,7 @@ export const BundlDetail = () => {
                     <button disabled className='proceed'>Proceed Checkout</button>
                 }
               </div>
-              <p className='proceed-text'>Your minimum total should be above 700 SAR</p>
+             {firstOrder == false && <p className='proceed-text'>Your minimum total should be above 4880 SAR</p>}
             </div>
           </div>
         </div>
