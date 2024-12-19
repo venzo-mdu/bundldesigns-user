@@ -263,7 +263,10 @@ export const BundlDetail = () => {
                           <p style={window.innerWidth <= 441 ? { width: '50%' } : { width: '20%' }}><img src={BlackTime} alt="Time icon" className="inline-block" />{design.time} Days</p> */}
                           {
                             quantities[design.name_english] <=0 && (
-                              <div style={{color:'#0BA6C4',width:'45%',textAlign:'left'}} classname="text-[16px]">Minimum quantity text cannot be decreased</div>
+                              <div 
+                              style={window.innerWidth <=441 ?{color:'#0BA6C4',width:'45%',textAlign:'left',fontSize:'14px'} :{color:'#0BA6C4',width:'45%',textAlign:'left',fontSize:'18px'}} 
+                              >
+                              Minimum quantity text cannot be decreased</div>
                             )
                           }
                           <p className=' basis-[10%] flex items-center text-[#000000] border !border-[#000000]'>
