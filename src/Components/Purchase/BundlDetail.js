@@ -74,13 +74,24 @@ export const BundlDetail = () => {
     }
 }
 
+  // const handleQuantityChange = (designName, change) => {
+  //   setQuantities(prevQuantities => ({
+  //     ...prevQuantities,
+  //     [designName]: Math.max(1, (prevQuantities[designName] || 1) + change)
+  //   }));
+  //   console.log(quantities)
+  // };
   const handleQuantityChange = (designName, change) => {
-    setQuantities(prevQuantities => ({
-      ...prevQuantities,
-      [designName]: Math.max(1, (prevQuantities[designName] || 1) + change)
-    }));
+    setQuantities(prevQuantities => {
+      const newQuantity = (prevQuantities[designName] || 1) + change;
+      return {
+        ...prevQuantities,
+        [designName]: newQuantity
+      };
+    });
   };
 
+  console.log(quantities); // This may not reflect the updated state immediately
   const createPayload = async () => {
     if (!validateFields()) return;
     if (!bundlAddons.bundle_details) {
@@ -246,10 +257,18 @@ export const BundlDetail = () => {
                       const isLastIndex = idx === bundle.design_list.length - 1;
                       const sectionClassName = !isSingleItem && !isLastIndex ? 'commerce-sections' : 'commerce-sections1';
                       return (
-                        <div key={idx} className={`flex justify-between ${sectionClassName}`}>
-                          <p >{design.name_english}</p>
+                        <div key={idx} className={`flex justify-between ${sectionClassName} w-[100%]`}>
+                          <p className='w-[25%]'>{design.name_english}</p>
                           {/* <p style={window.innerWidth <= 441 ? { width: '50%' } : { width: '20%' }}><img src={BlackDollor} alt="Price icon" className="inline-block" />{design.price} SAR</p>
                           <p style={window.innerWidth <= 441 ? { width: '50%' } : { width: '20%' }}><img src={BlackTime} alt="Time icon" className="inline-block" />{design.time} Days</p> */}
+                          {
+                            quantities[design.name_english] <=0 && (
+                              <div 
+                              style={window.innerWidth <=441 ?{color:'#0BA6C4',width:'45%',textAlign:'left',fontSize:'14px'} :{color:'#0BA6C4',width:'45%',textAlign:'left',fontSize:'18px'}} 
+                              >
+                              Minimum quantity text cannot be decreased</div>
+                            )
+                          }
                           <p className=' basis-[10%] flex items-center text-[#000000] border !border-[#000000]'>
                                                                 <button onClick={() => handleQuantityChange(design.name_english, -1)} className='border-r !border-[#000000] px-1 flex h-[100%] items-center'><RemoveIcon /></button>
                                                                 <span className='border-r !text-[20px] font-normal px-2 !border-[#000000]'> {quantities[design.name_english] || 1}</span>
