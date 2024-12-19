@@ -60,7 +60,9 @@ export const Login = () => {
       } else if (/\s/.test(loginData.password)) {
         errorMessages.password = 'Password must not contain spaces';
       }
-  
+      else if (loginData.password.length > 16) {
+        errorMessages.password = 'Password must be at most 16 characters long';
+      }
     setErrors(errorMessages);
     return Object.keys(errorMessages).length === 0;
   };

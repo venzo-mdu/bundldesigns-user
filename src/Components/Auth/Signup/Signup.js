@@ -99,6 +99,8 @@ export const Signup = () => {
       errors.password = 'Password is required';
     } else if (registerData.password.length < 8) {
       errors.password = 'Password must be at least 8 characters';
+    } else if (registerData.password.length > 16) {
+      errors.password = 'Password must be at most 16 characters long';
     }
 
     setErrors(errors);

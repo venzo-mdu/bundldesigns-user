@@ -68,8 +68,12 @@
     margin: 2% 0 0 0;
     border: 0;
 }
-.platform,.information,.contact-us{
+.platform,.information
+{
     width: 30%;
+}
+.contact-us{
+    width: 42%;
 }
 .platform,.information,.contact-us p{
     color: #FFFFFF;
@@ -130,7 +134,7 @@ hr{
 
 @media screen and (max-width:1024px) and (min-width:768px) {
    .contact-us{
-    width: 40%;
+    width: 48%;
    }
    .copyright{
     width: 55%;

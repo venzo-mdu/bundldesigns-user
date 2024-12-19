@@ -163,56 +163,56 @@ export const MyCart = () => {
     return (
         <div>
             <Navbar />
-            <div className='mycart mb-[12vh]'>
-                <div className='cart'>
+            <div className='mycart '>
+                <div className='cart !pb-[170px]'>
                     <p>Your Cart</p>
-                    <TableContainer component={Paper}>
-                        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>Item</TableCell>
-                                    <TableCell align="center">Quantity</TableCell>
-                                    <TableCell align="center">Price</TableCell>
-                                    <TableCell align="center">Action</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {cartDetails?.item_details?.bundle_items?.map((row) => (
-                                    <TableRow
+                        <table className='w-full border-none' aria-label="simple table">
+                            <thead>
+                                <tr className=' text-[20px]'>
+                                    <td className='text-[#00000080] pb-3' >Item</td>
+                                    <td className='text-[#00000080] pb-3'  align="center">Quantity</td>
+                                    <td className='text-[#00000080] pb-3' align="center">Price</td>
+                                    <td className='text-[#00000080] pb-3'  align="center">Action</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {cartDetails?.item_details?.bundle_items?.map((row,index) => (
+                                    <tr
                                         key={row.item_name}
                                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                        className={`text-[#000] font-[700] text-[20px] ${index == (cartDetails?.item_details?.bundle_items.length-1) && cartDetails?.item_details?.addon_items.length ==0? '':'border-b border-black'} mb-2 `}
                                     >
-                                        <TableCell scope="row">
+                                        <td className=' !py-2' scope="row">
                                             {row.item_name}
-                                        </TableCell>
-                                        <TableCell align="center">{row.qty}</TableCell>
-                                        <TableCell align="center">{row.unit_price}</TableCell>
+                                        </td>
+                                        <td className=' !py-2' align="center">{row.qty}</td>
+                                        <td className=' !py-2' align="center">{row.unit_price}</td>
                                         {/* <TableCell align="center"><img style={{width:'23px'}} src={row.DeleteIcon}></img></TableCell> */}
-                                        <TableCell align="center">
-                                            <p className='flex items-center justify-center'><img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'bundle')}/></p>
-                                        </TableCell>
-                                    </TableRow>
+                                        <td className=' !py-2' align="center">
+                                            <p className='flex items-center !mb-0 justify-center'><img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'bundle')}/></p>
+                                        </td>
+                                    </tr>
                                 ))}
-                                {cartDetails?.item_details?.addon_items?.map((row) => (
-                                    <TableRow
+                                {cartDetails?.item_details?.addon_items?.map((row,index) => (
+                                    <tr
                                         key={row.item_name}
                                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                                                                className={`text-[#000] font-[700] text-[20px] ${index == cartDetails?.item_details?.addon_items.length-1 ?"": 'border-b border-black'} `}
                                     >
-                                        <TableCell scope="row">
+                                        <td className=' !py-2' scope="row">
                                             {row.item_name}
-                                        </TableCell>
-                                        <TableCell align="center">{row.qty}</TableCell>
-                                        <TableCell align="center">{row.unit_price}</TableCell>
+                                        </td>
+                                        <td className=' !py-2' align="center">{row.qty}</td>
+                                        <td className=' !py-2' align="center">{row.unit_price}</td>
                                         {/* <TableCell align="center"><img style={{width:'23px'}} src={row.DeleteIcon}></img></TableCell> */}
-                                        <TableCell align="center">
+                                        <td align="center">
                                             {/* <img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'addon')}/> */}
-                                            <p className='flex items-center justify-center'><img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'addon')}/></p>
-                                        </TableCell>
-                                    </TableRow>
+                                            <p className='flex items-center !mb-0 justify-center'><img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'addon')}/></p>
+                                        </td>
+                                    </tr>
                                 ))}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
+                            </tbody>
+                        </table>
                     <div className='cart-total-container '>
                         <div className='total justify-between pl-10  mr-4' style={{ display: 'flex' }}>
                             <p  className='!text-[20px]' style={{ width: '50%' }}>Price:</p>
@@ -224,7 +224,7 @@ export const MyCart = () => {
                         </div>
                         <div>
                             <div  className='justify-between mr-4'  style={{ display: 'flex'}}>
-                                <p className='!text-[20px] ml-[6px]' style={{ width: '50%' }}><img src={BlackDollor} className='inline-block mr-3 ml-[6px]'></img>Total Price :</p>
+                                <p className='!text-[20px] ml-[6px]' style={{ width: '50%' }}><img src={BlackDollor} className='inline-block ml-[0px] mr-[18px]'></img>Total Price :</p>
                                 <p className='!text-[20px] text-right' style={{ width: '40%' }}>{isNaN(Math.round(cartDetails.grand_total))?0:Math.round(cartDetails.grand_total)} sar</p>
                             </div>
                             <div  className='justify-between mr-4' style={{ display: 'flex' }}>
@@ -239,7 +239,7 @@ export const MyCart = () => {
                     <form onSubmit={handlePayment} noValidate>
             <div className="user-name mb-[15px]">
                 <div className='mr-[4%]'>
-                    <label className='text-[#5f5f5f]'>First Name <span className='text-[red]'>*</span></label>
+                    <label className='text-[#00000080]'>First Name <span className='text-[red]'>*</span></label>
                     <input 
                         name="firstName" 
                         value={billingInfo.firstName} 
@@ -248,7 +248,7 @@ export const MyCart = () => {
                     {errors.firstName && <p className="!text-[16px] !font-normal  text-[red] error-message">{errors.firstName}</p>}
                 </div>
                 <div className='ml-[4%]' style={{ margin: '0% 0 0 2%' }}>
-                    <label className='text-[#5f5f5f]'>Last Name <span className='text-[red]'>*</span></label>
+                    <label className='text-[#00000080]'>Last Name <span className='text-[red]'>*</span></label>
                     <input 
                         name="lastName" 
                         value={billingInfo.lastName} 
@@ -258,7 +258,7 @@ export const MyCart = () => {
                 </div>
             </div>
             <div className="email mb-[15px]">
-                <label className='text-[#5f5f5f]'>Email <span className='text-[red]'>*</span></label>
+                <label className='text-[#00000080]'>Email <span className='text-[red]'>*</span></label>
                 <input 
                     name="email" 
                     value={billingInfo.email} 
@@ -267,7 +267,7 @@ export const MyCart = () => {
                 {errors.email && <p className="!text-[16px] !font-normal  text-[red] error-message">{errors.email}</p>}
             </div>
             <div className="phonenumber mb-[15px]">
-                <label className='text-[#5f5f5f]'>Phone Number <span className='text-[red]'>*</span></label>
+                <label className='text-[#00000080]'>Phone Number <span className='text-[red]'>*</span></label>
                 <PhoneNumberInput
         name="phone"
         placeholder="Enter phone number"
@@ -283,7 +283,7 @@ export const MyCart = () => {
             </div>
             <div className="country mb-[15px]">
                 <div className='mr-[4%]'>
-                    <label className='text-[#5f5f5f]'>Country <span className='text-[red]'>*</span></label>
+                    <label className='text-[#00000080]'>Country <span className='text-[red]'>*</span></label>
                     <input 
                         name="country" 
                         value={billingInfo.country} 
@@ -292,7 +292,7 @@ export const MyCart = () => {
                     {errors.country && <p className="!text-[16px] !font-normal  text-[red] error-message">{errors.country}</p>}
                 </div>
                 <div className='mr-[4%]' style={{ margin: '0% 0 0 2%' }}>
-                    <label className='text-[#5f5f5f]'>City<span className='text-[red]'>*</span></label>
+                    <label className='text-[#00000080]'>City<span className='text-[red]'>*</span></label>
                     <input 
                         name="city" 
                         value={billingInfo.city} 
@@ -302,7 +302,7 @@ export const MyCart = () => {
                 </div>
             </div>
             <div className="postal-code mb-[15px]">
-                <label className='text-[#5f5f5f]'>Postal Code<span className='text-[red]'>*</span></label>
+                <label className='text-[#00000080]'>Postal Code<span className='text-[red]'>*</span></label>
                 <input 
                     name="postalCode" 
                     value={billingInfo.postalCode} 
@@ -311,7 +311,7 @@ export const MyCart = () => {
                 {errors.postalCode && <p className="!text-[16px] !font-normal  text-[red] error-message">{errors.postalCode}</p>}
             </div>
             <div className="promo-code mb-[15px]">
-                <label className='text-[#5f5f5f]'>Promo Code</label>
+                <label className='text-[#00000080]'>Promo Code</label>
                 <input 
                     name="promoCode" 
                     value={billingInfo.promoCode} 
