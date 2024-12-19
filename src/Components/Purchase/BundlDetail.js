@@ -264,9 +264,10 @@ export const BundlDetail = () => {
                           {
                             quantities[design.name_english] <=0 && (
                               <div 
-                              style={window.innerWidth <=441 ?{color:'#0BA6C4',width:'45%',textAlign:'left',fontSize:'14px'} :{color:'#0BA6C4',width:'45%',textAlign:'left',fontSize:'18px'}} 
+                              style={window.innerWidth <=441 ?{color:'#0BA6C4',width:'47%',textAlign:'left',fontSize:'14px'} :{color:'#0BA6C4',width:'47%',textAlign:'left',fontSize:'18px'}} 
                               >
-                              Minimum quantity text cannot be decreased</div>
+                            Minimum quantity cannot be decreased
+                            </div>
                             )
                           }
                           <p className=' basis-[10%] flex items-center text-[#000000] border !border-[#000000]'>

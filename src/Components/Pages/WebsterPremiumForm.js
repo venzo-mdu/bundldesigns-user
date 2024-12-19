@@ -72,20 +72,23 @@ export default function WebsterPremiumForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (validate()) {
-      setLoading(true)
-      const response = await axios.post(`${base_url}/api/send-mail?form_type=${form_type}`, formData);
-      if (response.data) {
-        setSuccessMsg('Submitted Successfully')
+      if(phoneError == false){
+        setLoading(true)
+        const response = await axios.post(`${base_url}/api/send-mail?form_type=${form_type}`, formData);
+        if (response.data) {
+          setSuccessMsg('Submitted Successfully')
+        }
+        setLoading(false)
+        setErrors({})
+        setFormData({
+          project_name: '',
+          name: '',
+          phone: '',
+          email: '',
+          message: ''
+        })
       }
-      setLoading(false)
-      setErrors({})
-      setFormData({
-        project_name: '',
-        name: '',
-        phone: '',
-        email: '',
-        message: ''
-      })
+  
     }
 
   }
@@ -122,61 +125,63 @@ export default function WebsterPremiumForm() {
                   name="project_name"
                   value={formData.project_name}
                   onChange={handleChange} placeholder='Enter the name of your project....'
-                  className='w-full text-[18px] focus:outline-none p-2 border !border-[#b0b0b0] mt-2'></input>
+                  className='w-full text-[16px] focus:outline-none p-2 border !border-[#b0b0b0] mt-3'></input>
                 {errors.project_name && <p className="text-red-500 text-sm">{errors.project_name}</p>}
               </div>
               <div className='my-4'>
-                <label className='font-[500] text-[18px]' for='name'> Name</label>
+                <label className='font-[500] text-[16px]' for='name'> Name</label>
               <input
                 type="text"
                 name="name"
                 value={formData.name}
-                placeholder='Name'
+                placeholder='ex: Nora Albaiz..'
                 onChange={handleChange}
-                className="w-full border text-[18px] !border-[#b0b0b0] focus:outline-none p-2"
+                className="w-full border text-[16px] !border-[#b0b0b0] focus:outline-none p-2"
               />
               {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
             </div>
 
             {/* Phone Field */}
             <div className='my-4'>
-            <label className='font-[500] text-[18px]' for='name'> Phone Number</label>
+            <label className='font-[500] text-[16px]' for='name'> Phone Number</label>
             <PhoneNumberInput
         name="phone"
-        placeholder="Enter phone number"
+        placeholder="ex: 569754639"
         value={formData.phone}
         status={setFormData}
-        borderColor={'#b0b0b0'}
+        extraInputClass={'!border-[#b0b0b0] text-[16px]'}
         setPhoneError={setPhoneError}
-        className="w-full  text-[18px]  "
+        className="w-full  text-[16px]  "
+        setErrors = {setErrors}
+        formErrors = {errors}
+        idName={'websterSelect'}
       />
-
               {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
             </div>
 
             {/* Email Field */}
             <div className='my-4'>
-            <label className='font-[500] text-[18px]' for='name'> Email Address</label>
+            <label className='font-[500] text-[16px]' for='name'> Email Address</label>
               <input
                 type="email"
                 name="email"
-                placeholder='Email'
+                placeholder='ex: Nora.m.1999@gmail.com'
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full border text-[18px] !border-[#b0b0b0] focus:outline-none p-2"
+                className="w-full border text-[16px] !border-[#b0b0b0] focus:outline-none p-2"
               />
               {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
             </div>
 
             {/* Description Field */}
             <div className='my-4'>
-            <label className='font-[500] text-[18px]' for='name'> Message</label>
+            <label className='font-[500] text-[16px]' for='name'> Message</label>
               <textarea
                 name="message"
-                placeholder='Message'
+                placeholder='Describe your needs to us...  '
                 value={formData.message}
                 onChange={handleChange}
-                className="w-full border text-[18px] !border-[#b0b0b0] focus:outline-none p-2"
+                className="w-full border text-[16px] !border-[#b0b0b0] focus:outline-none p-2"
                 rows={4}
               />
               {errors.message && <p className="text-red-500 text-sm">{errors.message}</p>}
@@ -184,7 +189,7 @@ export default function WebsterPremiumForm() {
 
 
             {/* Submit Button */}
-            <p className='text-center'> <button
+            <p className='text-center !my-8'> <button
             onClick={(e)=>handleSubmit(e)}
               className="bg-[#F3B7CE] sm:text-[24px] w-[80%] text-white py-2"
             >
@@ -198,7 +203,7 @@ export default function WebsterPremiumForm() {
           <div className='basis-1/4 xs:relative' >
           {form_type=="premium"?
           <img className='sm:!w-[380px] !w-[380px] xs:!w-[150px]  right-[-18%] sm:right-[-25%]  bottom-[-8%] xs:ml-[50%] sm:absolute' src={ paperPlaneReverse}></img>
-          :<img className='sm:!w-[430px] !w-[430px] xs:!w-[200px] z-0 sm:left-[10%] left-[10%] sm:bottom-[-17vh] bottom-[-17vh] xs:left-[20%] xs:bottom-[-13px] absolute sm:absolute xs:relative' src={ websterGif}></img>}
+          :<img className='sm:!w-[430px] !w-[430px] xs:!w-[200px] z-0 sm:left-[10%] left-[10%] md:left-[-5%] md:bottom-[-19vh] sm:bottom-[-17vh] bottom-[-17vh] xs:left-[20%] xs:bottom-[-13px] absolute sm:absolute xs:relative' src={ websterGif}></img>}
 
           </div>
 

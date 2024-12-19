@@ -273,10 +273,11 @@ export const MyCart = () => {
         placeholder="Enter phone number"
         value={billingInfo.phone}
         status={setBillingInfo}
-        borderColor={'#000000'}
+        extraInputClass={'!border-[#000000] text-[18px]'}
         setPhoneError={setPhoneError}
         setErrors = {setErrors}
         formErrors = {errors}
+        idName={'vacancySelect'}
         className="w-full  text-[18px]  "
       />
                 {errors.phone && <p className="!text-[16px] !font-normal  text-[red] error-message">{errors.phone}</p>}
