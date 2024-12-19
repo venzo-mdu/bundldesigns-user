@@ -28,7 +28,7 @@ export default function WebsterPremiumForm() {
     'OM': 8, // Oman
     'QA': 8, // Qatar
     'SA': 9, // Saudi Arabia
-    'AE': 9  // United Arab Emirates
+    'AE': 9, // United Arab Emirates
   };
   
   const [loading, setLoading] = useState(false)
@@ -63,7 +63,7 @@ export default function WebsterPremiumForm() {
       case '966': selectedCountry = 'SA'; break; // Saudi Arabia
       case '971': selectedCountry = 'AE'; break; // UAE
       default: 
-      return 'Country not Selected'
+        return 'Country not Selected'
     }
 
     const requiredLength = countryPhoneLengths[selectedCountry];
@@ -88,6 +88,9 @@ export default function WebsterPremiumForm() {
   };
 
 
+
+  
+
   const validate = () => {
     const newErrors = {};
 
@@ -105,7 +108,14 @@ export default function WebsterPremiumForm() {
     if (!formData.project_name) newErrors.project_name = 'Project name is required';
     else if (formData.project_name.length < 3) newErrors.project_name = 'Project name must be at least 3 characters';
 
-    if (!formData.phone) newErrors.phone = 'Phone number is required';
+    if (!formData.phone) {
+      newErrors.phone = 'Phone number is required';
+    }  else {
+      const phoneError = validatePhoneNumber(formData.phone);
+      if (phoneError) {
+        newErrors.phone = phoneError;
+      }
+    }
     //   else if (!/^\d{10}$/.test(formData.phone)) newErrors.phone = 'Phone number must be 10 digits';
 
     if (!formData.email) newErrors.email = 'Email is required';
@@ -129,28 +139,33 @@ export default function WebsterPremiumForm() {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validate()) {
-      setLoading(true)
-      const response = await axios.post(`${base_url}/api/send-mail?form_type=${form_type}`, formData);
-      if (response.data) {
-        setSuccessMsg('Submitted Successfully')
-      }
-      setLoading(false)
-      setErrors({})
-      setFormData({
-        project_name: '',
-        name: '',
-        phone: '',
-        email: '',
-        message: ''
-      })
+    if (!validate()) {
+      return;
     }
-
-  }
-
-
-
-
+  
+    try {
+      setLoading(true);
+      const response = await axios.post(`${base_url}/api/send-mail?form_type=${form_type}`, formData);
+  
+      if (response.data) {
+        setSuccessMsg('Submitted Successfully');
+        setFormData({
+          project_name: '',
+          name: '',
+          phone: '',
+          email: '',
+          message: '',
+        });
+        setErrors({});
+      }
+    } catch (error) {
+      console.error("Error submitting the form:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  
+  
   return (
     loading ?
       <Bgloader /> :
@@ -200,14 +215,16 @@ export default function WebsterPremiumForm() {
             <div className='my-4'>
             <label className='font-[500] text-[18px]' for='name'> Phone Number</label>
             <PhoneNumberInput
-        name="phone"
-        placeholder="Enter phone number"
-        value={formData.phone}
-        status={setFormData}
-        className="w-full  text-[18px]  "
+             name="phone"
+             placeholder="Enter phone number"
+             value={formData.phone}
+             onChange={handlePhone} 
+             status={setFormData}
+             className="w-full  text-[18px]  "
+       
       />
 
-              {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
+              {errors.phone && <p className="text-red-500 text-sm"></p>}
             </div>
 
             {/* Email Field */}
@@ -240,12 +257,17 @@ export default function WebsterPremiumForm() {
 
 
             {/* Submit Button */}
-            <p className='text-center'> <button
-            onClick={(e)=>handleSubmit(e)}
-              className="bg-[#F3B7CE] sm:text-[24px] w-[80%] text-white py-2"
-            >
-             Submit Contact Request
-            </button></p>
+            <p className="text-center">
+            <button
+            onClick={handleSubmit}
+            className={`bg-[#F3B7CE] sm:text-[24px] w-[80%] text-white py-2 ${
+              Object.keys(errors).length === 0 && !loading ? 'opacity-50 cursor-not-allowed' : ''
+            }`}
+          
+          >
+            {loading ? 'Submitting...' : 'Submit Contact Request'}
+          </button>
+        </p>
             {successMsg && <p className='bg-green-600 py-1 px-2 rounded text-white'>{successMsg}</p>}
 
             </div>
