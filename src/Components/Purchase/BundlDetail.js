@@ -176,7 +176,7 @@ export const BundlDetail = () => {
         <div style={{ borderBottom: '1px solid #000000', width: '100%' }}>
           <h2>{location.state?.bundlDetail?.name_english}</h2>
           <div className='bundl-amount'>
-            <p><img src={Dollor} alt="Dollar icon" className="inline-block" /><span>{Math.round(location.state?.bundlDetail?.price) || "3750 SAR"} SAR</span></p>
+            <p className='flex items-center'><img src={Dollor} alt="Dollar icon" className="inline-block mr-1" /><span>{Math.round(location.state?.bundlDetail?.price) || "3750 SAR"} SAR</span></p>
             <p><img src={Time} alt="Time icon" className="inline-block" /><span> {location.state?.bundlDetail?.time || "30 Days"} Days</span></p>
           </div>
           <p className='bundl-desc-title'>Main outcomes: Brand Identity, Commerce Collateral, Social Media Starter Kit.</p>
@@ -251,9 +251,9 @@ export const BundlDetail = () => {
                           {/* <p style={window.innerWidth <= 441 ? { width: '50%' } : { width: '20%' }}><img src={BlackDollor} alt="Price icon" className="inline-block" />{design.price} SAR</p>
                           <p style={window.innerWidth <= 441 ? { width: '50%' } : { width: '20%' }}><img src={BlackTime} alt="Time icon" className="inline-block" />{design.time} Days</p> */}
                           <p className=' basis-[10%] flex items-center text-[#000000] border !border-[#000000]'>
-                                                                <button onClick={() => handleQuantityChange(design.name_english, -1)} className='border-r !border-[#000000] flex h-[100%] items-center'><RemoveIcon /></button>
-                                                                <span className='border-r font-normal px-2 !border-[#000000]'> {quantities[design.name_english] || 1}</span>
-                                                                <button  onClick={() => handleQuantityChange(design.name_english, 1)} className='flex items-center'><AddIcon /></button>
+                                                                <button onClick={() => handleQuantityChange(design.name_english, -1)} className='border-r !border-[#000000] px-1 flex h-[100%] items-center'><RemoveIcon /></button>
+                                                                <span className='border-r !text-[20px] font-normal px-2 !border-[#000000]'> {quantities[design.name_english] || 1}</span>
+                                                                <button  onClick={() => handleQuantityChange(design.name_english, 1)} className='flex items-center px-1 '><AddIcon /></button>
                                                             </p>
                                                         
                         </div>
@@ -278,14 +278,15 @@ export const BundlDetail = () => {
             </div>
             {selectedItems?.map((item, idx) => {
              return <div key={idx} className='one-brand-identity'>
-                <p className='text-black text-[20px] font-[700] min-w-[60%] !mb-1' >{item.quantity} &#215; {item.name_english}</p>
+                <p className='text-black text-[20px] font-[700] min-w-[60%] !mb-1' >{item.quantity} {item.name_english}</p>
                 <div style={{ display: 'flex' }}>
-                  <p style={{ fontSize: '20px', fontWeight: '700', width: '60%' }}>+ {item.total_time} Days</p>
+                  <p style={{ fontSize: '20px', fontWeight: '700', width: '40%' }}>+ {item.total_time} Days</p>
 { item.id =='76' && selectedLanguage == 'Both'? <p style={{ fontSize: '20px', fontWeight: '700', width: '40%' }}>+ {item.total_price + 2000} SAR</p>:<p style={{ fontSize: '20px', fontWeight: '700', width: '40%' }}>+ {item.total_price} SAR</p>}
                 </div>
               </div>
 })}
-            <div className='bundl-name'>
+    
+          <div className='bundl-name'>
               {
                 addonPayLoads?.length > 0 && (
                   <p style={{ fontSize: '24px', fontWeight: '700', padding: '2% 0%' }}>Add ons</p>
@@ -296,15 +297,15 @@ export const BundlDetail = () => {
               <div key={idx} className='one-brand-identity'>
                 <p style={{ color: '#000000', fontSize: '20px', fontWeight: '700', width: '60%' }}>{addon.qty} {addon.addon_name}</p>
                 <div style={{ display: 'flex' }}>
-                  <p style={{ fontSize: '20px', fontWeight: '700', width: '60%' }}>+ {addon.unit_time * addon.qty} Days</p>
+                  <p style={{ fontSize: '20px', fontWeight: '700', width: '40%' }}>+ {addon.unit_time * addon.qty} Days</p>
                   <p style={{ fontSize: '20px', fontWeight: '700', width: '40%' }}>+ {addon.unit_price * addon.qty} SAR</p>
                 </div>
               </div>
             ))}
             <div className='bundl-checkout mt-3'>
-              <div className='total' style={{ display: 'flex' }}>
-                <p style={{ width: '60%' }}><img src={BlackDollor} alt="Total Price" className="inline-block" /><span className='ml-3'>Total Price :</span></p>
-                <p style={{ width: '40%' }} >{totalCost + addonPayLoads.total_price} SAR</p>
+              <div className='total !font-[700]' style={{ display: 'flex' }}>
+                <p style={{ width: '60%' }}><img src={BlackDollor} alt="Total Price" className="inline-block !font-[700] ml-1" /><span className='ml-3 !font-[700]'>Total Price :</span></p>
+                <p className='!font-[700]' style={{ width: '40%' }} >{totalCost + addonPayLoads.total_price} SAR</p>
               </div>
               <div className='total' style={{ display: 'flex' }}>
                 <p style={{ width: '60%' }}><img src={BlackTime} alt="Total Duration" className="inline-block" /><span className='ml-3'>Total Duration :</span></p>

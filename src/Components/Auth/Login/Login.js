@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 import { loginAction } from '../../../Redux/Action';
 import axios from 'axios';
 import { GoogleLogin } from '@react-oauth/google';
+import { jwtDecode as jwt_decode } from 'jwt-decode';
 import { base_url } from '../BackendAPIUrl';
 import loginGIF from '../../../Images/loginGIF.gif'
 
@@ -18,7 +19,8 @@ export const Login = () => {
 
   const [loginData, setLoginData] = useState({
     email: '',
-    password: ''
+    password: '',
+    google :false
   });
 
   const [errors, setErrors] = useState({
@@ -53,15 +55,30 @@ export const Login = () => {
     } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(loginData.email)) {
       errorMessages.email = 'Invalid email format';
     }
-
-    if (!loginData.password.trim()) {
-      errorMessages.password = 'Password is required';
-    } else if (/\s/.test(loginData.password)) {
-      errorMessages.password = 'Password must not contain spaces';
-    }
+      if (!loginData.password.trim()) {
+        errorMessages.password = 'Password is required';
+      } else if (/\s/.test(loginData.password)) {
+        errorMessages.password = 'Password must not contain spaces';
+      }
+  
     setErrors(errorMessages);
     return Object.keys(errorMessages).length === 0;
   };
+
+  const loginWithGoogle = async() =>{
+    
+      try {
+        const response = await axios.post(`${base_url}/api/login/`, loginData);
+        if (response.status === 200) {
+          document.cookie = `token=${response?.data?.data.token || ""}; path=/; SameSite=None; Secure`;
+          dispatch(loginAction(response.data.user));
+          navigate('/');
+        }
+        
+      } catch (response) {
+        setLoginError(response.response.data.data)
+      }  
+  }
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -78,13 +95,14 @@ export const Login = () => {
       }
       
     } catch (response) {
-      setLoginError('Invalid credentials')
+
+      setLoginError(response.response.data.data)
     }
   };
 
   return (
     <div>
-      <div className='login'>
+      <div className='login !mb-24'>
         <img className='anchor w-[100px]' src={loginGIF} alt='login-anchor' />
         <div className='login-content'>
           <p className='welcometext'>Welcome Back Sarah  !</p>
@@ -113,23 +131,35 @@ export const Login = () => {
             {/* General error message */}
             {errors.general && <p className="error">{errors.general}</p>}
             <p className='text-[red] mb-1'>{loginError}</p>
-            <button className='signin' type='submit'>
+            <button className='signin !text-[24px]' type='submit'>
               Sign In
             </button>
-                <p className='or mt-[2vh] flex items-center ml-2 font-[500] text-[12px]'> <span className='border-[#F5F5F5] border-b h-[2px] basis-[40%] mr-[2%] border-[1.5px]'>
-                        </span> Or  <span className='border-[#F5F5F5] border-b h-[2px] basis-[40%] ml-[2%] border-[1.5px]'></span></p>
-                      <p className='signinwithgoogle'>
+                <p className='or mt-[4vh] flex items-center ml-2 font-[500] text-[11px]'> <span className='border-[#F5F5F5] border-b h-[2px] basis-[41%] mr-[2%] border-[1.5px]'>
+                        </span> Or  <span className='border-[#F5F5F5] border-b h-[2px] basis-[43%] ml-[2%] border-[1.5px]'></span></p>
+                      <p className='signinwithgoogle !text-[17px] !font-bold'>
                         {/* <img src={Googleicon} alt='google-icon' /> Sign in with Google */}
-                        <GoogleLogin
-                          onSuccess={credentialResponse => {
-                            console.log(credentialResponse);
-                          }}
-                          onError={() => {
-                            console.log('Login Failed');
-                          }}
-                        />
+                         <GoogleLogin
+                                onSuccess={credentialResponse => {
+                                  const token = credentialResponse.credential;
+                                  const userDetails = jwt_decode(token);
+                                  console.log('User Details:', userDetails);
+                                  // Example of how to access user info
+                                  console.log('Name:', userDetails.name);
+                                  console.log('Email:', userDetails.email);
+                                  console.log('Profile Picture:', userDetails.picture);
+                                  setLoginData((prevData) => ({
+                                    ...prevData,
+                                    google : true
+                                  }));
+                                  loginWithGoogle()
+                                }}
+                                onError={() => {
+                                  console.log('Login Failed');
+                                }}
+                              />
+
                       </p>
-                      <p className='dont w-[90%]'>
+                      <p className='dont !mt-2 w-[90%]'>
                         Have an account? <span><NavLink  className='signup !font-[500]' to={'/signup'}>&nbsp;Sign Up</NavLink></span>
                       </p>
           </form>

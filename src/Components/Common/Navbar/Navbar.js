@@ -161,11 +161,11 @@ export const Navbar = () => {
                         </li>
                         <li className='px-[6px] inner-nav'>
                                                         <a className="" onClick={() => { setProfileVisible(!profileVisible) }}><img src={User} alt="" className="navIcons"></img></a>
-                                                        <nav className={`w-44 absolute top-full -right-2 text-right mt-4 bg-white p-2 transition-all duration-300 ease-in-out ${profileVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
+                                                        <nav className={`w-44 inner-nav-item absolute top-full -right-2 text-right bg-white p-2 transition-all duration-300 ease-in-out ${profileVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
                                                             }`}>
                                                             <ul >
-                                                                <li>
-                                                                    <a href="/login" previewlistener="true">Login</a>
+                                                                <li >
+                                                                    <a  href="/login" previewlistener="true">Login</a>
                                                                 </li>
 
                                                             </ul>
@@ -181,7 +181,7 @@ export const Navbar = () => {
                                                         <button onClick={toggleMenu} type="button" id="menu-toggle">
                                                             {menuVisible ? <CloseIcon className='!text-[50px]' /> : <MenuIcon className='!text-[50px]' />}
                                                         </button>
-                                                        <nav className={`w-44 absolute top-full -right-2 text-right mt-4 bg-white p-2 transition-all duration-300 ease-in-out ${menuVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
+                                                        <nav className={`w-44 inner-nav-item absolute top-full -right-2 text-right  bg-white p-2 transition-all duration-300 ease-in-out ${menuVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
                                                             }`}>
                                                             <ul >
                                                                 <li>
@@ -247,7 +247,7 @@ export const Navbar = () => {
                     <div className="col-1 col-md-1 col-lg-6">
                       <div className="navbar navbar-expand-lg justify-content-end">
                         <div className=" navbar-collapse" id="mainNav">
-                          <ul className=" mx-auto align-items-center ">
+                          <ul className=" mx-auto align-items-center flex ">
                             <li className="nav-item">
                               <a className="nav-link" href="/aboutus">About</a>
                             </li>
@@ -272,9 +272,9 @@ export const Navbar = () => {
                           </li>
                           <li className='px-[6px] inner-nav'>
                                                         <a className="" onClick={() => { setProfileVisible(!profileVisible) }}><img src={User} alt="" className="navIcons"></img></a>
-                                                        <nav className={`w-44 absolute top-full -right-2 text-right mt-4 bg-white p-2 transition-all duration-300 ease-in-out ${profileVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
+                                                        <nav className={`w-44  absolute top-full -right-2 text-right bg-white p-2 transition-all duration-300 ease-in-out ${profileVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
                                                             }`}>
-                                                            <ul >
+                                                            <ul  className=' inner-nav-item'>
                                                                 <li>
                                                                     <a href="/login" previewlistener="true">Login</a>
                                                                 </li>
@@ -292,9 +292,9 @@ export const Navbar = () => {
                                                         <button onClick={toggleMenu} type="button" id="menu-toggle">
                                                             {menuVisible ? <CloseIcon className='!text-[50px]' /> : <MenuIcon className='!text-[50px]' />}
                                                         </button>
-                                                        <nav className={`w-44 absolute top-full -right-2 text-right mt-4 bg-white p-2 transition-all duration-300 ease-in-out ${menuVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
+                                                        <nav className={`w-44 absolute top-full -right-2 text-right bg-white p-2 transition-all duration-300 ease-in-out ${menuVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
                                                             }`}>
-                                                            <ul >
+                                                            <ul  className=' inner-nav-item'>
                                                                 <li>
                                                                     <a href="/" previewlistener="true">Bundl Offers</a>
                                                                 </li>

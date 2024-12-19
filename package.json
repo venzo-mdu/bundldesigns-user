@@ -18,6 +18,7 @@
     "dotenv": "^16.4.5",
     "firebase": "^10.14.1",
     "firebase-admin": "^13.0.1",
+    "jwt-decode": "^4.0.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-phone-number-input": "^3.4.9",
@@ -35,7 +36,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "pretty": "prettier --write \"./**/*.{js,jsx,ts,tsx,json}\"",
-   "deploy": "firebase deploy --only hosting:bundldesigns"
+    "deploy": "firebase deploy --only hosting:bundldesigns"
   },
   "eslintConfig": {
     "extends": [

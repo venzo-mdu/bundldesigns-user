@@ -224,7 +224,7 @@ export const MyCart = () => {
                         </div>
                         <div>
                             <div  className='justify-between mr-4'  style={{ display: 'flex'}}>
-                                <p className='!text-[20px]' style={{ width: '50%' }}><img src={BlackDollor} className='inline-block mr-3'></img>Total Price :</p>
+                                <p className='!text-[20px] ml-[6px]' style={{ width: '50%' }}><img src={BlackDollor} className='inline-block mr-3 ml-[6px]'></img>Total Price :</p>
                                 <p className='!text-[20px] text-right' style={{ width: '40%' }}>{isNaN(Math.round(cartDetails.grand_total))?0:Math.round(cartDetails.grand_total)} sar</p>
                             </div>
                             <div  className='justify-between mr-4' style={{ display: 'flex' }}>

@@ -191,7 +191,7 @@ export const Accordian = ({ accordianTitle, addOnPayload, bundlePackageId }) => 
                         display: window.innerWidth <= 441 ? 'block' : 'flex',
                         borderBottom: i === addOnData.designs_details[title].design_list.length - 1 ? 'none' : '1px solid #0BA6C4',
                         padding: '1% 0%',
-                        height:'60px'
+                        height:'50px'
                       }}
                     >
                       <Typography
@@ -200,23 +200,24 @@ export const Accordian = ({ accordianTitle, addOnPayload, bundlePackageId }) => 
                           display: 'block',
                           marginRight: '10px',
                           marginBottom: '5%',
-                          width: '60%'
+                          width: '60%',
+                          fontWeight:'500'
                         }}
                       >
                         {design.name_english}
                       </Typography>
-                      <p style={window.innerWidth <= 441 ? { width: '50%' } : { width: '20%' }}>
-                        <img src={BlackDollor} alt="Price icon" className="inline-block" />
+                      <p className='flex items-center mb-1' style={window.innerWidth <= 441 ? { width: '50%' } : { width: '20%' }}>
+                        <img src={BlackDollor} alt="Price icon" className="inline-block mr-1" />
                         {Math.round(design.price)} SAR
                       </p>
-                      <p style={window.innerWidth <= 441 ? { width: '50%' } : { width: '20%' }}>
-                        <img src={BlackTime} alt="Time icon" className="inline-block" />
+                      <p className='flex items-center mb-1' style={window.innerWidth <= 441 ? { width: '50%' } : { width: '20%' }}>
+                        <img src={BlackTime} alt="Time icon" className="inline-block mr-1" />
                         {Math.round(design.time)} Days
                       </p>
-                      <p className=' basis-[10%] flex items-center text-[#0BA6C4] border !border-[#0BA6C4]'>
-                                                                <button onClick={() => handleQuantityChange(design.name_english, -1)} className='border-r !border-[#0BA6C4] flex h-[100%] items-center'><RemoveIcon /></button>
-                                                                <span className='border-r px-2  !border-[#0BA6C4]'> {quantities[design.name_english] || 0}</span>
-                                                                <button  onClick={() => handleQuantityChange(design.name_english, 1)} className='flex items-center'><AddIcon /></button>
+                      <p className=' basis-[10%] flex items-center text-[#0BA6C4] border h-[100%]  !border-[#0BA6C4]'>
+                                                                <button onClick={() => handleQuantityChange(design.name_english, -1)} className='border-r !border-[#0BA6C4] px-1 !py-1 flex h-[100%] items-center'><RemoveIcon /></button>
+                                                                <span className='border-r px-2 !text-[20px] !border-[#0BA6C4]'> {quantities[design.name_english] || 0}</span>
+                                                                <button  onClick={() => handleQuantityChange(design.name_english, 1)} className='flex items-center px-1 !py-1 '><AddIcon /></button>
                                                             </p>
                     </div>
                   ))

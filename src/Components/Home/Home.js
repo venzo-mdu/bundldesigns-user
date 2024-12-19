@@ -227,7 +227,7 @@ export const Home = () => {
                                                     </li>
                                                     <li className='px-[6px] inner-nav'>
                                                         <a className="" onClick={() => { setProfileVisible(!profileVisible) }}><img src={User} alt="" className="navIcons"></img></a>
-                                                        <nav className={`w-44 absolute top-full -right-2 text-right mt-4 bg-white p-2 transition-all duration-300 ease-in-out ${profileVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
+                                                        <nav className={`w-44 absolute top-full -right-2 text-right bg-white p-2 transition-all duration-300 ease-in-out ${profileVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
                                                             }`}>
                                                             <ul >
                                                                 <li>
@@ -247,7 +247,7 @@ export const Home = () => {
                                                         <button onClick={toggleMenu} type="button" id="menu-toggle">
                                                             {menuVisible ? <CloseIcon className='!text-[50px]' /> : <MenuIcon className='!text-[50px]' />}
                                                         </button>
-                                                        <nav className={`w-44 absolute top-full -right-2 text-right mt-4 bg-white p-2 transition-all duration-300 ease-in-out ${menuVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
+                                                        <nav className={`w-44 absolute top-full -right-2 text-right bg-white p-2 transition-all duration-300 ease-in-out ${menuVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
                                                             }`}>
                                                             <ul >
                                                                 <li>
@@ -319,7 +319,7 @@ export const Home = () => {
                                     <img src={Loader} alt="" className="rotating-image"></img>
                                 </div> */}
                             </div>
-                            <div className="xs:min-h-[73vh] sm:min-h-[73vh]">
+                            <div className="xs:min-h-[54vh] sm:min-h-[73vh]">
                                 <div className="hero-text">
                                     <div className="justify-content-cnter text-center mx-auto">
                                         <div className="px-2">
@@ -365,19 +365,19 @@ export const Home = () => {
                                             <input type="radio" name="radio-btn" id="radio2" checked={activeProcess === 2}></input>
                                             <input type="radio" name="radio-btn" id="radio3" checked={activeProcess === 3}></input>
                                             <input type="radio" name="radio-btn" id="radio4" checked={activeProcess === 4}></input>
-                                            <div class="slide first" style={activeProcess === 0 ? { transform: 'scale(1)', opacity: 1 } : {}}>
+                                            <div class="slide first" style={activeProcess === 0 ? { transform: 'scale(1.2)', opacity: 1 } : {}}>
                                                 <img src={BuyBundl} slice width="100%" height="100%"></img>
                                             </div>
-                                            <div class="slide" style={activeProcess === 1 ? { transform: 'scale(1)', opacity: 1 } : {}}>
+                                            <div class="slide" style={activeProcess === 1 ? { transform: 'scale(1.1)', opacity: 1 } : {}}>
                                                 <img src={FillQuestionnarie} slice width="100%" height="100%"></img>
                                             </div>
-                                            <div class="slide" style={activeProcess === 2 ? { transform: 'scale(1)', opacity: 1 } : {}}>
+                                            <div class="slide" style={activeProcess === 2 ? { transform: 'scale(1.1)', opacity: 1 } : {}}>
                                                 <img src={Approve} slice width="100%" height="100%"></img>
                                             </div>
-                                            <div class="slide" style={activeProcess === 3 ? { transform: 'scale(1)', opacity: 1 } : {}}>
+                                            <div class="slide" style={activeProcess === 3 ? { transform: 'scale(1.2)', opacity: 1 } : {}}>
                                                 <img src={UploadContent} slice width="100%" height="100%"></img>
                                             </div>
-                                            <div class="slide" style={activeProcess === 4 ? { transform: 'scale(1)', opacity: 1 } : {}}>
+                                            <div class="slide" style={activeProcess === 4 ? { transform: 'scale(1.2)', opacity: 1 } : {}}>
                                                 <img src={Getthedesign} slice width="100%" height="100%"></img>
                                             </div>
                                         </div>

@@ -8,13 +8,17 @@ import { Footer } from '../../Common/Footer/Footer';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { GoogleLogin } from '@react-oauth/google';
+import { jwtDecode as jwt_decode } from 'jwt-decode';
 import { base_url } from '../BackendAPIUrl';
 import { ToastContainer, toast } from 'react-toastify';
 import loginGIF from '../../../Images/loginGIF.gif'
+import { useDispatch } from 'react-redux';
+import { loginAction } from '../../../Redux/Action';
 
 export const Signup = () => {
   const { userInfo } = useSelector((state) => state);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [isAgree, setIsAgree] = useState(false);
   const [submitted,setSubmitted] = useState(false)
@@ -100,7 +104,6 @@ export const Signup = () => {
     setErrors(errors);
     return Object.keys(errors).length === 0;
   };
-console.log(errors,'errors')
   const signUp = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
@@ -112,7 +115,9 @@ console.log(errors,'errors')
       const response = await axios.post(`${base_url}/api/register/`, registerData);
       if (response.status === 201) {
         console.log('Signup successfully');
-        navigate('/login')
+
+          navigate('/login')
+
       }
     } catch (response) {
       const errors = response.response.data?.error || {};
@@ -123,10 +128,27 @@ console.log(errors,'errors')
       setErrors(formattedErrors)
     }
   };
+  const signupWithGoogle = async(data) =>{
+      try {
+        const response = await axios.post(`${base_url}/api/register/`, data);
+        if (response.status === 201) {
+            document.cookie = `token=${response?.data.token || ""}; path=/; SameSite=None; Secure`;
+            dispatch(loginAction(response.user));
+            navigate('/');
+        }
+      } catch (response) {
+        const errors = response.response.data?.error || {};
+        const formattedErrors = Object.fromEntries(
+          Object.entries(errors).map(([key, value]) => [key, value[0]])
+        );
+        console.log(formattedErrors,response.response,'for')
+        setErrors(formattedErrors)
+      }
+  }
 
   return (
     <div>
-      <div className='login'>
+      <div className='login !mb-24'>
         <img className='anchor' src={loginGIF} alt='login-anchor' />
         <div className='signup-content'>
           <p className='welcometext'>
@@ -172,25 +194,32 @@ console.log(errors,'errors')
               <span className='!text-[16px] cursor-pointer'>I agree to the terms & policy</span>
             </label>
             {(submitted && !isAgree ) && <p className="error">Please agree to the terms and conditions.</p>}
-            <button type='submit' style={{margin:"0% 0 0 0"}}  className='signin'>
+            <button type='submit' style={{margin:"0% 0 0 0"}}  className='signin !text-[24px]'>
               Signup
             </button>
-            <p className='or mt-[2vh] flex items-center ml-2 font-[500] text-[12px]'> <span className='border-[#F5F5F5] border-b h-[2px] basis-[40%] mr-[2%] border-[1.5px]'>
-              </span> Or  <span className='border-[#F5F5F5] border-b h-[2px] basis-[40%] ml-[2%] border-[1.5px]'></span></p>
+            <p className='or mt-[4vh] flex items-center ml-2 font-[500] text-[11px]'> <span className='border-[#F5F5F5] border-b h-[2px] basis-[41%] mr-[2%] border-[1.5px]'>
+            </span> Or  <span className='border-[#F5F5F5] border-b h-[2px] basis-[43%] ml-[2%] border-[1.5px]'></span></p>
             <p className='signinwithgoogle'>
               {/* <img src={Googleicon} alt='google-icon' /> Sign in with Google */}
               <GoogleLogin
-                onSuccess={credentialResponse => {
-                  console.log(credentialResponse,'credentialsss');
-                }}
-                onError={() => {
-                  console.log('Login Failed');
-                }}
-              />
+        onSuccess={credentialResponse => {
+          const token = credentialResponse.credential;
+          const userDetails = jwt_decode(token);
+          console.log('User Details:', userDetails);
+          // Example of how to access user info
+          console.log('Name:', userDetails.name);
+          console.log('Email:', userDetails.email);
+          console.log('Profile Picture:', userDetails.picture);
+          signupWithGoogle({full_name:userDetails.name,email:userDetails.email,google:true})
+        }}
+        onError={() => {
+          console.log('Login Failed');
+        }}
+      />
             </p>
-            <p className='dont w-[90%]'>
-              Have an account? <span><NavLink  className='signup !font-[500]' to={'/login'}>&nbsp;Sign In</NavLink></span>
-            </p>
+    <p className='dont !mt-2 w-[90%]'>
+                         Have an account? <span><NavLink  className='signup !font-[500]' to={'/login'}>&nbsp;Sign In</NavLink></span>
+                       </p>
           </form>
         </div>
         <img className='anchor1 w-[160px]' src={loginGIF} alt='login-anchor' />
