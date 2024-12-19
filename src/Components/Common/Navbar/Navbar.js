@@ -129,7 +129,7 @@ export const Navbar = () => {
                   <div className="col-1 col-md-1 col-lg-6">
                     <div className="navbar navbar-expand-lg justify-content-end">
                       <div className=" navbar-collapse" id="mainNav">
-                        <ul className="navbar-nav mx-auto align-items-center ">
+                        <ul className="navbar-nav  mt-[3%] mx-auto align-items-center ">
                           <li className="nav-item">
                             <a className="nav-link" href="/aboutus">About</a>
                           </li>
@@ -150,16 +150,16 @@ export const Navbar = () => {
                     <div className="navbar navbar-expand-lg float-right">
                       <ul className="navbar-nav mr-auto h-list align-items-center ">
                         <li >
-                          <a className="" href="#"><img src={Search} alt="" className="navIcons"></img></a>
+                          <a className="" href="#"><img src={Search} alt="" className="navIcons  ml-2"></img></a>
                         </li>
                         <li >
-                          <a className="" href="/login"><img src={User} alt="" className="navIcons"></img></a>
+                          <a className="" href="/login"><img src={User} alt="" className="navIcons  ml-2"></img></a>
                         </li>
                         <li >
-                          <a className="" href="/mycart"><img src={Cart} alt="" className="navIcons"></img></a>
+                          <a className="" href="/mycart"><img src={Cart} alt="" className="navIcons  ml-2"></img></a>
                         </li>
                         <li >
-                          <a className="" href="#"><img src={Language} alt="" className="navIcons"></img></a>
+                          <a className="" href="#"><img src={Language} alt="" className="navIcons  ml-2"></img></a>
                         </li>
                         <li className="nav-item menu mr-auto">
                           <button type="button" className="navbar-toggle" id="menu-toggle">
@@ -300,7 +300,7 @@ export const Navbar = () => {
                     <div className="col-1 col-md-1 col-lg-6">
                       <div className="navbar navbar-expand-lg justify-content-end">
                         <div className=" navbar-collapse" id="mainNav">
-                          <ul className="navbar-nav mx-auto align-items-center ">
+                          <ul className="navbar-nav mt-[3%] mx-auto align-items-center ">
                             <li className="nav-item">
                               <a className="nav-link" href="/aboutus">About</a>
                             </li>
@@ -324,13 +324,13 @@ export const Navbar = () => {
                             <a className="" href="#"><img src={Search} alt="" className="navIcons"></img></a>
                           </li>
                           <li >
-                            <a className="" href="/login"><img src={User} alt="" className="navIcons"></img></a>
+                            <a className="" href="/login"><img src={User} alt="" className="navIcons  ml-2"></img></a>
                           </li>
                           <li >
-                            <a className="" href="/mycart"><img src={Cart} alt="" className="navIcons"></img></a>
+                            <a className="" href="/mycart"><img src={Cart} alt="" className="navIcons  ml-2"></img></a>
                           </li>
                           <li >
-                            <a className="" href="#"><img src={Language} alt="" className="navIcons"></img></a>
+                            <a className="" href="#"><img src={Language} alt="" className="navIcons  ml-2"></img></a>
                           </li>
                           <li className="nav-item menu mr-auto">
                             <button type="button" className="navbar-toggle" id="menu-toggle">

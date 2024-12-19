@@ -165,7 +165,7 @@ export const Questionnaire4 = () => {
       setInputValue('');
     }
     else {
-      setSelectedColors([inputValue]);
+      setSelectedColors([...selectedColors,inputValue]);
       setInputValue('');
     }
   };
@@ -325,7 +325,7 @@ export const Questionnaire4 = () => {
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
                           <p className='shade-bundl-text' style={{ color: shadeColor }}>Bundl</p>
                           <b><p className='not-sure'>Not sure ? It’s okay!</p></b>
-                          <button className={shadeType === 'surprise' ? 'surprise-active' : 'surprise'} onClick={() => handleShadeButtonClick('rgb(228, 222, 216)', 'rgb(0, 0, 0)', 'surprise',question.id)}>surprise me</button>
+                          <button className={shadeType === 'surprise' ? 'surprise-active' : 'surprise'} onClick={() => handleShadeButtonClick('rgb(228, 222, 216)', 'rgb(0, 0, 0)', 'surprise',question.id)}>surprise me !</button>
                         </div>
                       </div>
                     </>
@@ -333,6 +333,7 @@ export const Questionnaire4 = () => {
                 }
                 {
                   question.answer_type === 'font' && (
+                    <>
                     <div
                       className='font-grid'
                     >
@@ -350,6 +351,11 @@ export const Questionnaire4 = () => {
                         })
                       }
                     </div>
+                    <figure className='mt-[5%]'>
+                    <b><i className='text-[28px]'>Not sure ? It's okay!</i></b>
+                  </figure>
+                  <button className='surprise'>surprise me !</button>
+                  </>
                   )
                 }
                 {
@@ -457,7 +463,8 @@ export const Questionnaire4 = () => {
                             padding: '8px',
                             border: '1px solid #ccc',
                             outline: 'none',
-                            width: window.innerWidth <= 441 ? '200px' : '400px'
+                            width: window.innerWidth <= 441 ? '200px' : '400px',
+                            height:'45px'
                           }}
                         />
                         <button
@@ -476,7 +483,7 @@ export const Questionnaire4 = () => {
                         <figure className='mt-1'>
                           <b><i className='text-[28px]'>Not sure ? It's okay!</i></b>
                         </figure>
-                        <button className='surprise'>surprise me</button>
+                        <button className='surprise'>surprise me !</button>
                       </div>
                     </>
                   )
@@ -597,18 +604,12 @@ export const Questionnaire4 = () => {
                               </span>
                             </label>
                           </li>
-                          <li className="checkbox checkbox-btn">
-                            <ul className="valid-error text-purple"></ul>
-                            <input type="checkbox" name="13" value="surprise me" id="surprisemepatter"></input>
-                            <label for="surprisemepatter" className="b-none">
-                              <figure>
-                                <i>Not sure ? It's okay!</i>
-                              </figure>
-                              <span className="button-text">Surprise me!
-                              </span>
-                            </label>
-                          </li>
+                              
                         </ul>
+                        <figure className='mt-1'>
+                          <b><i className='text-[28px]'>Not sure ? It's okay!</i></b>
+                        </figure>
+                        <button className='surprise'>surprise me !</button>
                       </div>
                     </>
                   )

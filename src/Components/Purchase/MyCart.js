@@ -43,14 +43,21 @@ export const MyCart = () => {
     }, []);
  
     const getCartData = async () => {
-        // const response = await axios.get(`${base_url}/api/order/${location.state.orderData.id}/`);
-        const response = await axios.get(`${base_url}/api/order/cart/`,ConfigToken());
-        if(response.data){
-            setCartDetails(response.data);
+        try{
+            // const response = await axios.get(`${base_url}/api/order/${location.state.orderData.id}/`);
+            const response = await axios.get(`${base_url}/api/order/cart/`,ConfigToken());
+            if(response.data){
+                setCartDetails(response.data);
+            }
+            if(response.status === 206){
+               setOpenPopup(true)
+            }
         }
-        if(response.status === 206){
-           setOpenPopup(true)
+        catch(e){
+            navigate("/login");
         }
+      
+        
     };
  
     const removeItem = (itemId, itemType) => {

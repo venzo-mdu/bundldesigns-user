@@ -188,7 +188,7 @@ export const Questionnaire5 = () => {
               )}
             </p>
             {question.id === 24 && (
-              <div className="flex items-center justify-center gap-[20px]">
+              <div className="flex items-center justify-center gap-[20px] mt-2">
                 <div>
                   <button  onClick={() => handleLanguageChange("English",question.id)}  className="font-[18px] h-[45px] w-[150px] border-[1px] border-solid border-[#000000] hover:bg-[#000000] hover:text-[#FFFFFF]">
                     English

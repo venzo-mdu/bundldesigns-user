@@ -33,7 +33,7 @@
     margin: auto;
     position: absolute;
     z-index: 1;
-    margin: -11% 0 0 30%;
+    margin: -11% 0 0 0%;
 }
 .eyespoon{
     position: absolute;
@@ -43,7 +43,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 1% 0 0 0;
+    margin: 3% 0 0 0;
 }
 .questonnaire-actions1{
     display: flex;
@@ -57,20 +57,20 @@
 .back{
     background-color: transparent;
     height: 60px;
-    width: 400px;
+    width: 300px;
     color: #000000;
     font-size: 24px;
-    font-weight: 500;
+    font-weight: 300;
     border: 1px solid #000000;
     outline: none;
 }
 .next{
     background-color: #F3B7CE;
     height: 60px;
-    width: 400px;
+    width: 300px;
     color: #000000;
     font-size: 24px;
-    font-weight: 500;
+    font-weight: 400;
     border: 1px solid #000000;
     outline: none;
     margin: 0 0 0 2%;
@@ -245,8 +245,8 @@
  }
 .surprise{
     background-color: #FFFFFF;
-    width: 400px;
-    height: 45px;
+    width: 325px;
+    height: 50px;
     text-transform: uppercase;
     font-size: 20px;
     font-weight: 500;
@@ -255,8 +255,8 @@
 }
 .surprise-active{
     background-color: #000000;
-    width: 400px;
-    height: 45px;
+    width: 325px;
+    height: 50px;
     text-transform: uppercase;
     font-size: 20px;
     font-weight: 500;
@@ -266,8 +266,8 @@
 }
 .surprise:hover{
     background-color: #000000;
-    width: 400px;
-    height: 45px;
+    width: 325px;
+    height: 50px;
     text-transform: uppercase;
     font-size: 20px;
     font-weight: 500;
@@ -543,15 +543,15 @@
         }
         .eyespoon2{
             position: absolute;
-            top: 70%;
-            left: -10%;
+            top: 66%;
+            left: -6%;
             transform: translateY(-50%) rotate(280deg);
             animation: move 8s ease-in-out infinite forwards;
-            z-index: 1;
+            z-index: 0;
         }
-        .eyespoon2 img{
+        /* .eyespoon2 img{
             transform: scaleX(-1);
-        }
+        } */
         @keyframes move{
             0%{
                 transform: rotate(0);
@@ -823,14 +823,21 @@
 @media screen and (max-width:1705px) and (min-width:1024px) {
     .title-questionnaire{
         font-size: 50px;
-        width: 45%;
+        width: 34%;
         line-height: 50px;
+        margin: -15% 0 0 0%;
     }
     .progress-section-q3{
         width: 90%;
     }
     .questions-title{
         font-size: 36px;
+        width: 86%;
+        line-height: 40px;
+    }
+    .eyespoon2 {
+        top: 73%;
+        left: -9%;
     }
 }
 
@@ -844,7 +851,8 @@
     .title-questionnaire{
         font-size: 45px;
         line-height: 40px;
-        margin: -11% 0 0 25%;
+        margin: -15% 0 0 0%;
+        width: 40%;
     }
     .customer-text{
         font-size: 18px;
@@ -890,8 +898,8 @@
     .title-questionnaire{
         font-size: 35px;
         line-height: 32px;
-        margin: -11% 0 0 25%;
-        width: 50%;
+        margin: -11% 0 0 0%;
+        width: 44%;
     }
     .questions-title{
         font-size: 18px;
@@ -949,7 +957,7 @@
     .title-questionnaire{
         font-size: 20px;
         line-height: 20px;
-        margin: -25% 0 0 25%;
+        margin: -35% 0 0 0%;
         width: 45%;
     }
     .miclady{
@@ -1004,13 +1012,16 @@
     }
     .female-buttons,.male-buttons{
         padding: 0 0%;
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
     }
     .male-btn,.female-btn{
-        font-size: 10px;
-        height: 20px;
+        font-size: 16px;
+        height: 40px;
     }
     .question-input{
         font-size: 14px;
+        border-bottom: 1px solid black;
     }
     .font-grid{
         display: grid;
@@ -1087,7 +1098,7 @@
         line-height: 30px;
         font-size: 20px;
         line-height: 20px;
-        margin: -25% 0 0 25%;
+        margin: -35% 0 0 29%;
         width: 50%;
     }
     .questions-title{
@@ -1106,6 +1117,7 @@
     }
     .question-input{
         font-size: 14px;
+        border-bottom: 1px solid black;
     }
     .font-grid{
         display: grid;
@@ -1156,4 +1168,10 @@
         font-size: 20px;
         text-align: center;
     }
+}
+
+
+.scroll-ani img{
+    max-width: none;
+    height: auto;
 }
