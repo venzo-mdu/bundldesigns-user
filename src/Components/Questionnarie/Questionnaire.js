@@ -96,7 +96,9 @@ export const Questionnaire = ({
             }
           </div>
         </div>
+        <div>
         {questions}
+        </div>
       </div>
       <div className='questonnaire-actions-height'>
         <div className='questonnaire-actions'>

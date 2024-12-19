@@ -195,7 +195,7 @@ export const Questionnaire3 = () => {
                 question.answer_type === 'bar' ? '' :
                   <input value={getAnswerValue(question.id)} placeholder={placeHolders[index]} className="question-input" onChange={(e) => handleChange(question.id, e.target.value)} />
               }
-              <div className=' flex items-center justify-center flex-col w-[100%] md:w-[100% xl:w-[100%] lg:w-[100%]'>
+              <div className=' flex items-center justify-center flex-col w-[100%] md:w-[100% xl:w-[100%] lg:w-[100%] mt-[3%]'>
                 {/* {question.answer_type === 'bar' && (
                   progressLabels.map((data, index) => {
                     console.log(sliderValues[data?.left]  ,"&", sliderValues[data?.right] )
@@ -294,7 +294,7 @@ export const Questionnaire3 = () => {
 
                 {
                   question.answer_type === 'bar' && (
-                    <div style={{ borderBottom: '1px solid #000000', width: '100%', margin: '2% 0 0 0' }}></div>
+                    <div className="w-[100%] xl:h-[2px] lg:h-[2px] md:h-[2px] sm:h-[2px] xs:h-[1px] bg-black mt-[3%]"></div>
                   )
                 }
               </div>

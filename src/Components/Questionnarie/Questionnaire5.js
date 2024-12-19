@@ -201,12 +201,22 @@ export const Questionnaire5 = () => {
                 </div>
               </div>
             )}
-            <input
+
+            {
+              (question.id === 24) ?
+              (
+                <div className="w-[100%] xl:h-[2px] lg:h-[2px] md:h-[2px] sm:h-[2px] xs:h-[1px]  bg-black mt-[3%]"></div>
+              ):
+              (
+              <input
               placeholder={question.placeholder}
               className="question-input"
               value={getAnswerValue(question.id)}
               onChange={(e) => handleChange(question.id, e.target.value)}
             />
+              )
+            }
+            
           </div>
         ))}
         bgTitle={'Final Thoughts'}
