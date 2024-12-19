@@ -161,7 +161,7 @@ export const Accordian = ({ accordianTitle, addOnPayload, bundlePackageId }) => 
           {titleArr.map((title, index) => (
             <button
               key={index}
-              className={`${isDropdown[index] ? 'active-button' : 'accordian-button'}`}
+              className={`!font-[500] ${isDropdown[index] ? 'active-button' : 'accordian-button'}`}
               onClick={() => toggleDropdown(index)}
             >
               {title}
@@ -171,14 +171,17 @@ export const Accordian = ({ accordianTitle, addOnPayload, bundlePackageId }) => 
 
         {titleArr.map((title, index) => (
 
-          <Accordion  key={index} expanded={isDropdown[index]}>
+          <Accordion sx={{
+            boxShadow: 'none !important', 
+            borderBottom: index === titleArr.length-1 ? 'none' : '1px solid #000000',
+          }}  key={index} expanded={isDropdown[index]}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon className='text-[#000]' />}
               aria-controls={`panel${index + 1}-content`}
               id={`panel${index + 1}-header`}
               onClick={()=> toggleDropdown(index)}
             >
-              <Typography className='!font-[700]'>{title}</Typography>
+              <Typography className='!font-[700] !text-[24px]'>{title}</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Typography>
@@ -201,7 +204,8 @@ export const Accordian = ({ accordianTitle, addOnPayload, bundlePackageId }) => 
                           marginRight: '10px',
                           marginBottom: '5%',
                           width: '60%',
-                          fontWeight:'500'
+                          fontWeight:'500',
+                          fontSize:'20px'
                         }}
                       >
                         {design.name_english}
