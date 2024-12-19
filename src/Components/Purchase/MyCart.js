@@ -56,34 +56,40 @@ export const MyCart = () => {
         }
     };
  
-    const removeItem = (itemId, itemType) => {
-        setCartDetails((prevCartDetails) => {
-            const updatedItemDetails = { ...prevCartDetails.item_details };
-            let updatedTotalAmount = prevCartDetails.total_amount;
+    const removeItem = async (itemId, itemType) => {
+        let cartDetailsTemp = cartDetails
+        const updatedItemDetails = { ...cartDetailsTemp.item_details };
+            let updatedTotalAmount = cartDetailsTemp.total_amount;
+            let updatedTotalTime = cartDetailsTemp.total_time
             setRemovedItems(itemId)
             // Handle removal based on item type
             if (itemType === 'bundle') {
                 const removedItem = updatedItemDetails.bundle_items.find(item => item.id === itemId);
                 updatedTotalAmount -= removedItem?.unit_price * removedItem?.qty || 0;
+                updatedTotalTime -= removedItem?.unit_time * removedItem?.qty ||0
                 updatedItemDetails.bundle_items = updatedItemDetails.bundle_items.filter(item => item.id !== itemId);
             } else if (itemType === 'addon') {
                 const removedItem = updatedItemDetails.addon_items.find(item => item.id === itemId);
                 updatedTotalAmount -= removedItem?.unit_price * removedItem?.qty || 0;
+                updatedTotalTime -= removedItem?.unit_time * removedItem?.qty ||0
                 updatedItemDetails.addon_items = updatedItemDetails.addon_items.filter(item => item.id !== itemId);
             }
-   
+
             // Recalculate the totals
             const updatedTax = updatedTotalAmount * 0.15; // Assuming VAT is 15%
             const updatedGrandTotal = updatedTotalAmount + updatedTax;
-   
-            return {
-                ...prevCartDetails,
-                item_details: updatedItemDetails,
-                total_amount: updatedTotalAmount,
-                tax: updatedTax,
-                grand_total: updatedGrandTotal,
-            };
-        });
+            const response = await axios.patch(`${base_url}/api/order/cart/`,{'item_to_delete':itemId,'total_amount':updatedTotalAmount,
+                tax:updatedTax,'grand_total':updatedGrandTotal},ConfigToken());
+
+                setCartDetails((prevCartDetails) => ({
+                    ...prevCartDetails,
+                    item_details: updatedItemDetails,
+                    total_amount: updatedTotalAmount,
+                    total_time: updatedTotalTime,
+                    tax: updatedTax,
+                    grand_total: updatedGrandTotal,
+                }));
+
     };
    
     const validateFields = () => {

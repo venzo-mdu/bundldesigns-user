@@ -20,31 +20,52 @@ export const Login = () => {
   const [loginData, setLoginData] = useState({
     email: '',
     password: '',
-    google :false
+    google: false
   });
 
   const [errors, setErrors] = useState({
   });
-  const [loginError,setLoginError] = useState(false)
-
+  const [loginError, setLoginError] = useState(false)
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+    // Update the login data state
     setLoginData((prevData) => ({
       ...prevData,
-      [name]: value
+      [name]: value,
     }));
 
-    if (name === 'email' && value.trim()) {
+    // Helper function to set errors
+    const setError = (field, errorMessage) => {
       setErrors((prevErrors) => ({
         ...prevErrors,
-        email: ''
+        [field]: errorMessage,
       }));
+    };
+
+    // Email validation
+    if (name === 'email') {
+      if (!value.trim()) {
+        setError('email', 'Email is required');
+      } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value)) {
+        setError('email', 'Invalid email address');
+      } else {
+        setError('email', ''); // clear error if email is valid
+      }
     }
-    if (name === 'password' && value.trim()) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        password: ''
-      }));
+
+    // Password validation
+    if (name === 'password') {
+      if (/\s/.test(value)) {  // Check for spaces
+        setError('password', 'Password cannot contain spaces');
+      }
+      else if (!value.trim()) {
+        setError('password', 'Password is required');
+      } else if (value.length < 8) {
+        setError('password', 'Password must be at least 8 characters');
+      } else {
+        setError('password', ''); // clear error if password is valid
+      }
     }
   };
 
@@ -55,31 +76,33 @@ export const Login = () => {
     } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(loginData.email)) {
       errorMessages.email = 'Invalid email format';
     }
-      if (!loginData.password.trim()) {
-        errorMessages.password = 'Password is required';
-      } else if (/\s/.test(loginData.password)) {
-        errorMessages.password = 'Password must not contain spaces';
-      }
-      else if (loginData.password.length > 16) {
-        errorMessages.password = 'Password must be at most 16 characters long';
-      }
+    if (!loginData.password.trim()) {
+      errorMessages.password = 'Password is required';
+    } else if (/\s/.test(loginData.password)) {
+      errorMessages.password = 'Password must not contain spaces';
+    }
+    else if (loginData.password.length > 16) {
+      errorMessages.password = 'Password must be at most 16 characters long';
+    }
     setErrors(errorMessages);
     return Object.keys(errorMessages).length === 0;
   };
 
-  const loginWithGoogle = async() =>{
-    
-      try {
-        const response = await axios.post(`${base_url}/api/login/`, loginData);
-        if (response.status === 200) {
-          document.cookie = `token=${response?.data?.data.token || ""}; path=/; SameSite=None; Secure`;
-          dispatch(loginAction(response.data.user));
-          navigate('/');
-        }
+  const loginWithGoogle = async () => {
+
+    try {
+      const response = await axios.post(`${base_url}/api/login/`, loginData);
+      if (response.status === 200) {
+        document.cookie = `token=${response?.data?.data.token || ""}; path=/; SameSite=None; Secure`;
+        dispatch(loginAction(response.data.user));
+        navigate('/');
         
-      } catch (response) {
-        setLoginError(response.response.data.data)
-      }  
+      }
+
+    } catch (response) {
+
+      setLoginError(response.response.data.data)
+    }
   }
 
   const onSubmit = async (e) => {
@@ -89,13 +112,13 @@ export const Login = () => {
 
     try {
       const response = await axios.post(`${base_url}/api/login/`, loginData);
-      console.log(response) 
+      console.log(response)
       if (response.status === 200) {
         document.cookie = `token=${response?.data?.data.token || ""}; path=/; SameSite=None; Secure`;
         dispatch(loginAction(response.data.user));
         navigate('/');
       }
-      
+
     } catch (response) {
 
       setLoginError(response.response.data.data)
@@ -119,12 +142,12 @@ export const Login = () => {
               onChange={handleChange}
             />
             {errors.email && <p className="error">{errors.email}</p>}
-            
+
             <label style={{ margin: '3% 0 0 0' }}>Password</label>
             <input
               type="password"
               name="password"
-              placeholder="Password" 
+              placeholder="Password"
               value={loginData.password}
               onChange={handleChange}
             />
@@ -136,34 +159,34 @@ export const Login = () => {
             <button className='signin !text-[24px]' type='submit'>
               Sign In
             </button>
-                <p className='or mt-[4vh] flex items-center ml-2 font-[500] text-[11px]'> <span className='border-[#F5F5F5] border-b h-[2px] basis-[41%] mr-[2%] border-[1.5px]'>
-                        </span> Or  <span className='border-[#F5F5F5] border-b h-[2px] basis-[43%] ml-[2%] border-[1.5px]'></span></p>
-                      <p className='signinwithgoogle !text-[17px] !font-bold'>
-                        {/* <img src={Googleicon} alt='google-icon' /> Sign in with Google */}
-                         <GoogleLogin
-                                onSuccess={credentialResponse => {
-                                  const token = credentialResponse.credential;
-                                  const userDetails = jwt_decode(token);
-                                  console.log('User Details:', userDetails);
-                                  // Example of how to access user info
-                                  console.log('Name:', userDetails.name);
-                                  console.log('Email:', userDetails.email);
-                                  console.log('Profile Picture:', userDetails.picture);
-                                  setLoginData((prevData) => ({
-                                    ...prevData,
-                                    google : true
-                                  }));
-                                  loginWithGoogle()
-                                }}
-                                onError={() => {
-                                  console.log('Login Failed');
-                                }}
-                              />
+            <p className='or mt-[4vh] flex items-center ml-2 font-[500] text-[11px]'> <span className='border-[#F5F5F5] border-b h-[2px] basis-[41%] mr-[2%] border-[1.5px]'>
+            </span> Or  <span className='border-[#F5F5F5] border-b h-[2px] basis-[43%] ml-[2%] border-[1.5px]'></span></p>
+            <p className='signinwithgoogle !text-[17px] !font-bold'>
+              {/* <img src={Googleicon} alt='google-icon' /> Sign in with Google */}
+              <GoogleLogin
+                onSuccess={credentialResponse => {
+                  const token = credentialResponse.credential;
+                  const userDetails = jwt_decode(token);
+                  console.log('User Details:', userDetails);
+                  // Example of how to access user info
+                  console.log('Name:', userDetails.name);
+                  console.log('Email:', userDetails.email);
+                  console.log('Profile Picture:', userDetails.picture);
+                  setLoginData((prevData) => ({
+                    ...prevData,
+                    google: true
+                  }));
+                  loginWithGoogle()
+                }}
+                onError={() => {
+                  console.log('Login Failed');
+                }}
+              />
 
-                      </p>
-                      <p className='dont !mt-2 w-[90%]'>
-                        Have an account? <span><NavLink  className='signup !font-[500]' to={'/signup'}>&nbsp;Sign Up</NavLink></span>
-                      </p>
+            </p>
+            <p className='dont !mt-2 w-[90%]'>
+              Don’t Have an account? <span><NavLink className='signup !font-[500]' to={'/signup'}>&nbsp;Sign Up</NavLink></span>
+            </p>
           </form>
         </div>
         <img className='anchor1 w-[160px]' src={loginGIF} alt='login-anchor' />

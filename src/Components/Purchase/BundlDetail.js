@@ -187,8 +187,8 @@ export const BundlDetail = () => {
         <div style={{ borderBottom: '1px solid #000000', width: '100%' }}>
           <h2>{location.state?.bundlDetail?.name_english}</h2>
           <div className='bundl-amount'>
-            <p className='flex items-center'><img src={Dollor} alt="Dollar icon" className="inline-block mr-1" /><span>{Math.round(location.state?.bundlDetail?.price) || "3750 SAR"} SAR</span></p>
-            <p><img src={Time} alt="Time icon" className="inline-block" /><span> {location.state?.bundlDetail?.time || "30 Days"} Days</span></p>
+            <p className='flex items-center'><img src={Dollor} alt="Dollar icon" className="inline-block mr-3" /><span>{Math.round(location.state?.bundlDetail?.price) || "3750 SAR"} SAR</span></p>
+            <p className='items-center flex'><img src={Time} alt="Time icon" className="inline-block mr-1" /><span> {location.state?.bundlDetail?.time || "30 Days"} Days</span></p>
           </div>
           <p className='bundl-desc-title'>Main outcomes: Brand Identity, Commerce Collateral, Social Media Starter Kit.</p>
           <p className='bundl-desc'>{location.state?.bundlDetail?.description_english}</p>
@@ -258,7 +258,7 @@ export const BundlDetail = () => {
                       const sectionClassName = !isSingleItem && !isLastIndex ? 'commerce-sections' : 'commerce-sections1';
                       return (
                         <div key={idx} className={`flex justify-between ${sectionClassName} w-[100%]`}>
-                          <p className='w-[25%]'>{design.name_english}</p>
+                          <p className='w-[33%]'>{design.name_english}</p>
                           {/* <p style={window.innerWidth <= 441 ? { width: '50%' } : { width: '20%' }}><img src={BlackDollor} alt="Price icon" className="inline-block" />{design.price} SAR</p>
                           <p style={window.innerWidth <= 441 ? { width: '50%' } : { width: '20%' }}><img src={BlackTime} alt="Time icon" className="inline-block" />{design.time} Days</p> */}
                           {
@@ -285,7 +285,7 @@ export const BundlDetail = () => {
                 </div>
               })}
             </div>
-            <Accordian accordianTitle={'Something feels missing ?'} addOnPayload={setAddonPayLoads} bundlePackageId={location.state.bundlDetail?.id} />
+            <Accordian        accordianTitle={'Something feels missing ?'} addOnPayload={setAddonPayLoads} bundlePackageId={location.state.bundlDetail?.id} />
           </div>
 
           <div className='bundl-summary'>
@@ -293,7 +293,7 @@ export const BundlDetail = () => {
               <p className='text-[24px] font-[700] px-0 !mb-2'  >Summary</p>
             </div>
             <div style={{ display: 'flex', padding: '1% 5%' }}>
-              <p style={{ fontSize: '20px', fontWeight: '700', width: '60%' }}>{location.state?.bundlDetail?.name_english}</p>
+              <p style={{ fontSize: '20px', fontWeight: '700', width: '60%' }}>{location.state?.bundlDetail?.name_english } {location.state?.bundlDetail?.name_english && 'Bundl'}</p>
               <p style={{ fontSize: '20px', fontWeight: '700', width: '40%' }}>{Math.round(location.state?.bundlDetail?.price)} SAR</p>
             </div>
             {selectedItems?.map((item, idx) => {
