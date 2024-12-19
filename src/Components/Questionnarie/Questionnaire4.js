@@ -29,7 +29,7 @@ export const Questionnaire4 = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const answers = useSelector((state) => state.questionnaire3);
- 
+
   const [questions, setQuestions] = useState([]);
   const [selectedColors, setSelectedColors] = useState([]); // To store selected color codes
   const [inputValue, setInputValue] = useState(''); // For input field
@@ -56,7 +56,7 @@ export const Questionnaire4 = () => {
       }
     };
 
-    
+
     const fetchAnswers = async () => {
       try {
         const response = await axios.get(`${base_url}/api/questionnaire/update/${location.state.orderId}`, ConfigToken());
@@ -99,21 +99,21 @@ export const Questionnaire4 = () => {
     const unansweredRequiredQuestions = questions.filter((q) => {
       const answer = formData?.[q.id];
       if (!q.required) {
-        return false; 
+        return false;
       }
-  
+
       return !answer || answer.toString().trim() === "";
     });
-  
-  
+
+
     if (unansweredRequiredQuestions.length > 0) {
       showToastMessage(); // Display the error toast
       return false;
     }
-  
+
     return true; // All required fields are valid
   };
-  
+
 
   const handleColorClick = (color, questionId) => {
     let updatedColors;
@@ -151,11 +151,11 @@ export const Questionnaire4 = () => {
     }));
   };
 
-  const handleInputChange = (e,questionId) => {
+  const handleInputChange = (e, questionId) => {
     setInputValue(e.target.value);
-    setFormData((prevData)=>({
+    setFormData((prevData) => ({
       ...prevData,
-      [questionId]:e.target.value
+      [questionId]: e.target.value
     }))
   };
 
@@ -165,39 +165,39 @@ export const Questionnaire4 = () => {
       setInputValue('');
     }
     else {
-      setSelectedColors([inputValue]);
+      setSelectedColors([...selectedColors, inputValue]);
       setInputValue('');
     }
   };
 
 
-  const handleButtonClick = (index, questionId,font) => {
+  const handleButtonClick = (index, questionId, font) => {
     // Determine the new active buttons array
     const updatedActiveButtons = activeButtons.includes(font)
       ? activeButtons.filter((i) => i !== font) // Remove index if already selected
       : [...activeButtons, font]; // Add index if not selected
-  
+
     // Update the state for active buttons
     setActiveButtons(updatedActiveButtons);
-  
+
     // Update the form data with the new value for the selected question
     setFormData((prevData) => ({
       ...prevData,
       [questionId]: updatedActiveButtons,
     }));
   };
-  
 
-  const handleShadeButtonClick = (color, textColor, type , questionId) => {
+
+  const handleShadeButtonClick = (color, textColor, type, questionId) => {
     setShadeBackgroundColor(color);
     setshadeColor(textColor);
     setShadeType('');
     if (type === 'surprise') {
       setShadeType(type)
     }
-    setFormData((prevData)=>({
+    setFormData((prevData) => ({
       ...prevData,
-      [questionId]:shadeBackgroundColor
+      [questionId]: shadeBackgroundColor
     }))
   };
 
@@ -213,7 +213,7 @@ export const Questionnaire4 = () => {
     setFormData((prevData) => {
       // Get the current selections for this questionId or initialize to an empty array
       const currentSelections = prevData[questionId] || [];
-  
+
       if (checked) {
         // Add the selected value if checked
         return {
@@ -229,7 +229,7 @@ export const Questionnaire4 = () => {
       }
     });
   };
-  
+
 
   const onBackClick = () => {
     navigate(`/questionnaire/${3}`, { state: { questionnaireData3: answers } });
@@ -240,9 +240,9 @@ export const Questionnaire4 = () => {
       return; // Stop execution if validation fails
     }
     dispatch(questionnaireAction4(formData))
-    navigate(`/questionnaire/${5}`,{
-      state:{
-        orderId:location.state?.orderId
+    navigate(`/questionnaire/${5}`, {
+      state: {
+        orderId: location.state?.orderId
       }
     });
   }
@@ -258,10 +258,10 @@ export const Questionnaire4 = () => {
     }
     try {
       const response = await axios.post(`${base_url}/api/questionnaire/create`, data, ConfigToken());
-      if(response.status === 200){
-        navigate('/dashboard',{
-          state:{
-            orderId:location.state?.orderId
+      if (response.status === 200) {
+        navigate('/dashboard', {
+          state: {
+            orderId: location.state?.orderId
           }
         })
       }
@@ -273,7 +273,7 @@ export const Questionnaire4 = () => {
 
   return (
     <div>
-      <ToastContainer/>
+      <ToastContainer />
       <Questionnaire
         pageNo={4}
         storeAnswers={answers}
@@ -301,8 +301,8 @@ export const Questionnaire4 = () => {
                   question.answer_type === 'shade' && (
                     <>
 
-                      <div className='shade-background' style={{ backgroundColor: shadeBackgroundColor }}>
-                        <p style={{ color: shadeBackgroundColor === 'rgb(228, 222, 216)' ? '' : '#FFFFFF' }} className="questions-title">
+                      <div className='shade-background py-5' style={{ backgroundColor: shadeBackgroundColor }}>
+                        <p style={{ color: shadeBackgroundColor === 'rgb(228, 222, 216)' ? '' : '#FFFFFF',width:'100%' }} className="questions-title mb-3">
                           {question.question}
                           <span>
                             <sup>*</sup>
@@ -311,21 +311,21 @@ export const Questionnaire4 = () => {
                         <div className='shade-buttons'>
                           <div className='button-shade-group'>
                             <img src={Color1}></img>
-                            <button className={shadeBackgroundColor === 'rgb(228, 222, 216)' && shadeType !== 'surprise' ? 'shade-btn-active' : 'shade-btn'} onClick={() => handleShadeButtonClick('rgb(228, 222, 216)', 'rgb(0, 0, 0)','',question.id)}>CLEAN & CLASSIC</button>
+                            <button className={shadeBackgroundColor === 'rgb(228, 222, 216)' && shadeType !== 'surprise' ? 'shade-btn-active' : 'shade-btn'} onClick={() => handleShadeButtonClick('rgb(228, 222, 216)', 'rgb(0, 0, 0)', '', question.id)}>CLEAN & CLASSIC</button>
                           </div>
                           <div className='button-shade-group'>
                             <img src={Color2}></img>
-                            <button className={shadeBackgroundColor === 'rgb(9, 50, 108)' && shadeType !== 'surprise' ? 'shade-btn-active' : 'shade-btn'} onClick={() => handleShadeButtonClick('rgb(9, 50, 108)', 'rgb(255, 98, 10)','',question.id)}>CONTRASTING COLORS</button>
+                            <button className={shadeBackgroundColor === 'rgb(9, 50, 108)' && shadeType !== 'surprise' ? 'shade-btn-active' : 'shade-btn'} onClick={() => handleShadeButtonClick('rgb(9, 50, 108)', 'rgb(255, 98, 10)', '', question.id)}>CONTRASTING COLORS</button>
                           </div>
                           <div className='button-shade-group'>
                             <img src={Color3}></img>
-                            <button className={shadeBackgroundColor === 'rgb(221, 45, 45)' && shadeType !== 'surprise' ? 'shade-btn-active' : 'shade-btn'} onClick={() => handleShadeButtonClick('rgb(221, 45, 45)', 'rgb(255, 136, 136)','',question.id)}>ONE COLOR SHADES</button>
+                            <button className={shadeBackgroundColor === 'rgb(221, 45, 45)' && shadeType !== 'surprise' ? 'shade-btn-active' : 'shade-btn'} onClick={() => handleShadeButtonClick('rgb(221, 45, 45)', 'rgb(255, 136, 136)', '', question.id)}>ONE COLOR SHADES</button>
                           </div>
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
                           <p className='shade-bundl-text' style={{ color: shadeColor }}>Bundl</p>
                           <b><p className='not-sure'>Not sure ? It’s okay!</p></b>
-                          <button className={shadeType === 'surprise' ? 'surprise-active' : 'surprise'} onClick={() => handleShadeButtonClick('rgb(228, 222, 216)', 'rgb(0, 0, 0)', 'surprise',question.id)}>surprise me</button>
+                          <button className={shadeType === 'surprise' ? 'surprise-active' : 'surprise'} onClick={() => handleShadeButtonClick('rgb(228, 222, 216)', 'rgb(0, 0, 0)', 'surprise', question.id)}>surprise me !</button>
                         </div>
                       </div>
                     </>
@@ -333,23 +333,29 @@ export const Questionnaire4 = () => {
                 }
                 {
                   question.answer_type === 'font' && (
-                    <div
-                      className='font-grid'
-                    >
-                      {
-                        textStyle.map((font, index) => {
-                          return (
-                            <>
-                              <div className='font-background'>
-                                <img style={{ margin: '6% 0 0% 0' }} src={font.img}></img>
-                                <button className={`font-buttons ${activeButtons.includes(font.fontStyle) ? 'font-buttons-active' : ''
-                                  }`} onClick={() => handleButtonClick(index,question.id,font.fontStyle)}>{font.fontStyle}</button>
-                              </div>
-                            </>
-                          )
-                        })
-                      }
-                    </div>
+                    <>
+                      <div
+                        className='font-grid'
+                      >
+                        {
+                          textStyle.map((font, index) => {
+                            return (
+                              <>
+                                <div className='font-background'>
+                                  <img style={{ margin: '6% 0 0% 0' }} src={font.img}></img>
+                                  <button className={`font-buttons ${activeButtons.includes(font.fontStyle) ? 'font-buttons-active' : ''
+                                    }`} onClick={() => handleButtonClick(index, question.id, font.fontStyle)}>{font.fontStyle}</button>
+                                </div>
+                              </>
+                            )
+                          })
+                        }
+                      </div>
+                      <figure className='mt-[5%]'>
+                        <b><i className='text-[28px]'>Not sure ? It's okay!</i></b>
+                      </figure>
+                      <button className='surprise'>surprise me !</button>
+                    </>
                   )
                 }
                 {
@@ -457,7 +463,8 @@ export const Questionnaire4 = () => {
                             padding: '8px',
                             border: '1px solid #ccc',
                             outline: 'none',
-                            width: window.innerWidth <= 441 ? '200px' : '400px'
+                            width: window.innerWidth <= 441 ? '250px' : '400px',
+                            height: '44.5px'
                           }}
                         />
                         <button
@@ -468,7 +475,7 @@ export const Questionnaire4 = () => {
                             color: '#fff',
                             border: 'none',
                             cursor: 'pointer',
-                            margin: '-55px 0px 0px 53.5%'
+                            margin:window.innerWidth <=441 ?   '-54px 0px 0px 51.5%' :'-54px 0px 0px 52.5%'
                           }}
                         >
                           <AddCircleRoundedIcon onClick={handleAddColor} />
@@ -476,7 +483,7 @@ export const Questionnaire4 = () => {
                         <figure className='mt-1'>
                           <b><i className='text-[28px]'>Not sure ? It's okay!</i></b>
                         </figure>
-                        <button className='surprise'>surprise me</button>
+                        <button className='surprise'>surprise me !</button>
                       </div>
                     </>
                   )
@@ -489,7 +496,7 @@ export const Questionnaire4 = () => {
 
                         <ul className="h-list select-btns grid-view padding-top-20 checkbox-btn-img h-list-check">
                           <li className="checkbox checkbox-btn">
-                            <input type="checkbox" name="13" value="patterns" id="patterns" className="validThis" onChange={(e)=>handleTextureChange(e,question.id)}></input>
+                            <input type="checkbox" name="13" value="patterns" id="patterns" className="validThis" onChange={(e) => handleTextureChange(e, question.id)}></input>
                             <label for="patterns">
                               <figure className="image-container img-animation">
                                 {
@@ -506,7 +513,7 @@ export const Questionnaire4 = () => {
                           </li>
                           <li className="checkbox checkbox-btn">
                             <ul className="valid-error text-purple"></ul>
-                            <input type="checkbox" name="13" value="textures" id="textures" onChange={(e)=>handleTextureChange(e,question.id)}></input>
+                            <input type="checkbox" name="13" value="textures" id="textures" onChange={(e) => handleTextureChange(e, question.id)}></input>
                             <label for="textures">
                               <figure className="image-container img-animation">
                                 {
@@ -523,7 +530,7 @@ export const Questionnaire4 = () => {
                           </li>
                           <li className="checkbox checkbox-btn">
                             <ul className="valid-error text-purple"></ul>
-                            <input type="checkbox" name="13" value="collages" id="collages" onChange={(e)=>handleTextureChange(e,question.id)}></input>
+                            <input type="checkbox" name="13" value="collages" id="collages" onChange={(e) => handleTextureChange(e, question.id)}></input>
                             <label for="collages">
                               <figure className="image-container img-animation">
                                 {
@@ -542,7 +549,7 @@ export const Questionnaire4 = () => {
                           </li>
                           <li className="checkbox checkbox-btn">
                             <ul className="valid-error text-purple"></ul>
-                            <input type="checkbox" name="13" value="cleanvisual" id="cleanvisual" onChange={(e)=>handleTextureChange(e,question.id)}></input>
+                            <input type="checkbox" name="13" value="cleanvisual" id="cleanvisual" onChange={(e) => handleTextureChange(e, question.id)}></input>
                             <label for="cleanvisual">
                               <figure className="image-container img-animation">
                                 {
@@ -561,7 +568,7 @@ export const Questionnaire4 = () => {
                           </li>
                           <li className="checkbox checkbox-btn">
                             <ul className="valid-error text-purple"></ul>
-                            <input type="checkbox" name="13" value="illustrations" id="illustrations" onChange={(e)=>handleTextureChange(e,question.id)}></input>
+                            <input type="checkbox" name="13" value="illustrations" id="illustrations" onChange={(e) => handleTextureChange(e, question.id)}></input>
                             <label for="illustrations">
                               <figure className="image-container img-animation">
                                 {
@@ -580,7 +587,7 @@ export const Questionnaire4 = () => {
                           </li>
                           <li className="checkbox checkbox-btn">
                             <ul className="valid-error text-purple"></ul>
-                            <input type="checkbox" name="13" value="frames" id="frames" onChange={(e)=>handleTextureChange(e,question.id)}></input>
+                            <input type="checkbox" name="13" value="frames" id="frames" onChange={(e) => handleTextureChange(e, question.id)}></input>
                             <label for="frames">
                               <figure className="image-container img-animation">
                                 {
@@ -597,18 +604,12 @@ export const Questionnaire4 = () => {
                               </span>
                             </label>
                           </li>
-                          <li className="checkbox checkbox-btn">
-                            <ul className="valid-error text-purple"></ul>
-                            <input type="checkbox" name="13" value="surprise me" id="surprisemepatter"></input>
-                            <label for="surprisemepatter" className="b-none">
-                              <figure>
-                                <i>Not sure ? It's okay!</i>
-                              </figure>
-                              <span className="button-text">Surprise me!
-                              </span>
-                            </label>
-                          </li>
+
                         </ul>
+                        <figure className='mt-1'>
+                          <b><i className='text-[28px]'>Not sure ? It's okay!</i></b>
+                        </figure>
+                        <button className='surprise'>surprise me !</button>
                       </div>
                     </>
                   )
@@ -623,36 +624,50 @@ export const Questionnaire4 = () => {
                         flexDirection: 'column',
                         alignItems: 'center',
                         gap: '10px',
-                        position: 'relative'
+                        position: 'relative',
+                        height:'65px'
                       }}
                     >
                       <input
                         type="text"
                         value={getAnswerValue(question.id)}
-                        onChange={(e)=>handleInputChange(e,question.id)}
+                        onChange={(e) => handleInputChange(e, question.id)}
                         style={{
                           padding: '8px',
                           border: '1px solid #ccc',
                           outline: 'none',
-                          width: window.innerWidth <= 441 ? '200px' : '400px'
+                          width: window.innerWidth <= 441 ? '250px' : '400px'
                         }}
                       />
                       <button
                         // onClick={handleAddColor}
                         style={{
-                          padding: '8px 16px',
+                          padding:window.innerWidth <=441 ? '0': '8px 16px',
                           backgroundColor: 'transparent',
                           color: '#fff',
                           border: 'none',
                           cursor: 'pointer',
-                          margin: '-55px 0px 0px 53.5%'
+                          margin:window.innerWidth <=441 ?  '-45px 0px 0px 80%' : '-55px 0px 0px 80%'
                         }}
                       >
                         <img src={Link}></img>
                       </button>
                     </div> : ''
                 }
-                <input placeholder={placeHolders[index]} value={question.id==21?'':getAnswerValue(question.id)} className="question-input" onChange={(e) => handleChange(question.id, e.target.value)} />
+                {
+                  (question.id === 15 || question.id === 16) ? (
+                    <input
+                      placeholder={placeHolders[index]}
+                      value={question.id === 21 ? '' : getAnswerValue(question.id)}
+                      className="question-input"
+                      onChange={(e) => handleChange(question.id, e.target.value)}
+                    />
+                  ) : (
+                    <div className="w-[100%] xl:h-[2px] lg:h-[2px] md:h-[2px] sm:h-[2px] xs:h-[1px] bg-black mt-[3%]"></div>
+                  )
+                }
+
+
               </div>
             ))}
 

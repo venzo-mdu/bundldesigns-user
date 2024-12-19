@@ -33,7 +33,7 @@
     margin: auto;
     position: absolute;
     z-index: 1;
-    margin: -11% 0 0 30%;
+    margin: -11% 0 0 0%;
 }
 .eyespoon{
     position: absolute;
@@ -43,7 +43,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 1% 0 0 0;
+    margin: 3% 0 0 0;
 }
 .questonnaire-actions1{
     display: flex;
@@ -57,20 +57,20 @@
 .back{
     background-color: transparent;
     height: 60px;
-    width: 400px;
+    width: 300px;
     color: #000000;
     font-size: 24px;
-    font-weight: 500;
+    font-weight: 300;
     border: 1px solid #000000;
     outline: none;
 }
 .next{
     background-color: #F3B7CE;
     height: 60px;
-    width: 400px;
+    width: 300px;
     color: #000000;
     font-size: 24px;
-    font-weight: 500;
+    font-weight: 400;
     border: 1px solid #000000;
     outline: none;
     margin: 0 0 0 2%;
@@ -245,18 +245,19 @@
  }
 .surprise{
     background-color: #FFFFFF;
-    width: 400px;
-    height: 45px;
+    width: 325px;
+    height: 50px;
     text-transform: uppercase;
     font-size: 20px;
     font-weight: 500;
     outline: none;
     border: 1px solid #000000;
+    margin: 0 0 5% 0;
 }
 .surprise-active{
     background-color: #000000;
-    width: 400px;
-    height: 45px;
+    width: 325px;
+    height: 50px;
     text-transform: uppercase;
     font-size: 20px;
     font-weight: 500;
@@ -266,8 +267,8 @@
 }
 .surprise:hover{
     background-color: #000000;
-    width: 400px;
-    height: 45px;
+    width: 325px;
+    height: 50px;
     text-transform: uppercase;
     font-size: 20px;
     font-weight: 500;
@@ -333,6 +334,7 @@
     width: 100%;
     padding: 0% 5%;
     margin: 4% 0 0 0;
+    transition: 2s;
 }
 .shade-buttons{
     display: flex;
@@ -543,15 +545,15 @@
         }
         .eyespoon2{
             position: absolute;
-            top: 70%;
-            left: -10%;
+            top: 66%;
+            left: -6%;
             transform: translateY(-50%) rotate(280deg);
             animation: move 8s ease-in-out infinite forwards;
-            z-index: 1;
+            z-index: 0;
         }
-        .eyespoon2 img{
+        /* .eyespoon2 img{
             transform: scaleX(-1);
-        }
+        } */
         @keyframes move{
             0%{
                 transform: rotate(0);
@@ -570,6 +572,7 @@
             position: absolute;
             right: 5%;
             top: 19%;
+            z-index: -1;
         }
         .mouth{
             bottom:3%;
@@ -616,11 +619,19 @@
                 transform: translate(28%, 3%);
                 opacity:0;
             }
-            40%{
+            /* 20%{
                 animation-duration: 5s;
-                transform: translate(28%, -80%);
-                opacity: 0;
+                transform: translate(28%, -15%);
+                opacity: 1;
+            } */
+            60%{
+                transform: translate(28%, -35%);
+                opacity: 1;
             }
+            /* 60%{
+                transform: translate(28%, -65%);
+                opacity: 1;
+            } */
             98%{
                 transform: translate(28%, -80%);
                 opacity: 1;
@@ -672,7 +683,7 @@
                 transform: translate(0, -100%) rotate(0deg);
             }
             100%{
-                transform: translate(0, 140%) rotate(-10deg);
+                transform: translate(0, 300%) rotate(-10deg);
             }
         }
 
@@ -693,48 +704,48 @@
                 transform: rotate(0deg);
             }
             20%{
-                top:35%;
+                top:45%;
                 left: 15%;
                 transform: rotate(0deg);
             }
             30%{
-                top:35%;
+                top:45%;
                 left: 15%;
                 transform: rotate(0deg);
             }
             40%{
-                top:35%;
+                top:45%;
                 left: 15%;
                 transform: rotate(0deg);
             }
             50%{
-                top:35%;
+                top:45%;
                 left: 15%;
                 transform: rotate(0deg);
             }
             60%{
-                top:35%;
+                top:45%;
                 left: 15%;
                 transform: rotate(0deg);
             }
             
             70%{
-                top:5%;
+                top:15%;
                 left: 57%;
                 transform: rotate(-10deg);
             }
             80%{
-                top:5%;
+                top:15%;
                 left: 57%;
                 transform: rotate(-10deg);
             }
             90%{
-                top:5%;
+                top:15%;
                 left: 57%;
                 transform: rotate(-10deg);
             }
             100%{
-                top: 35%;
+                top: 45%;
                 left: 75%;
                 transform: rotate(12deg);
             }
@@ -823,14 +834,37 @@
 @media screen and (max-width:1705px) and (min-width:1024px) {
     .title-questionnaire{
         font-size: 50px;
-        width: 45%;
+        width: 34%;
         line-height: 50px;
+        margin: -15% 0 0 0%;
     }
     .progress-section-q3{
         width: 90%;
     }
     .questions-title{
         font-size: 36px;
+        width: 86%;
+        line-height: 40px;
+    }
+    .eyespoon2 {
+        top: 73%;
+        left: -9%;
+    }
+    .mirror{
+        transform: translate(28%, 3%);
+        opacity: 1;
+        animation-duration: 3s;
+        animation: mirror 8s ease-in-out infinite forwards;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        z-index: -1;
+    }
+    .lips {
+        width: 8%;
+        right: 9%;
+        top: 19%;
+        animation: lip 4s ease-in-out infinite forwards;
     }
 }
 
@@ -844,7 +878,8 @@
     .title-questionnaire{
         font-size: 45px;
         line-height: 40px;
-        margin: -11% 0 0 25%;
+        margin: -15% 0 0 0%;
+        width: 40%;
     }
     .customer-text{
         font-size: 18px;
@@ -890,8 +925,8 @@
     .title-questionnaire{
         font-size: 35px;
         line-height: 32px;
-        margin: -11% 0 0 25%;
-        width: 50%;
+        margin: -11% 0 0 0%;
+        width: 44%;
     }
     .questions-title{
         font-size: 18px;
@@ -933,6 +968,7 @@
     .progress-section-q3{
         width: 100%;
     }
+   
 }
 
 
@@ -943,21 +979,25 @@
     .eyespoon{
         top: 3%;
     }
+    .eyespoon2{
+        top: 38%;
+    }
     .eyeball{
         padding: 0;
     }
     .title-questionnaire{
         font-size: 20px;
         line-height: 20px;
-        margin: -25% 0 0 25%;
+        margin: -35% 0 0 0%;
         width: 45%;
     }
     .miclady{
-        top:20%;
+        top:14%;
         width: 32%;
+        z-index: -1;
     }
     .lips{
-        top: 20%;
+        top: 14%;
         right: 10%;
         width: 15%;
     }
@@ -970,7 +1010,8 @@
         width: 15%;
     }
     .questions-title{
-        font-size: 12px;
+        font-size: 16px;
+        margin: 3% 0 5% 0;
     }
     .questions-title sup{
         font-size: 12px;
@@ -1004,13 +1045,16 @@
     }
     .female-buttons,.male-buttons{
         padding: 0 0%;
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
     }
     .male-btn,.female-btn{
-        font-size: 10px;
-        height: 20px;
+        font-size: 16px;
+        height: 40px;
     }
     .question-input{
         font-size: 14px;
+        border-bottom: 1px solid black;
     }
     .font-grid{
         display: grid;
@@ -1030,7 +1074,7 @@
         font-size:18px ;
     }
     .shade-background{
-        height: 700px;
+        height: 750px;
         margin: 5% 0 0 0;
     }
     .shade-btn{
@@ -1077,6 +1121,88 @@
     .next,.save,.back{
         font-size: 18px;
     }
+
+    @keyframes mirror{
+        0%{
+            transform: translate(28%, 3%);
+            opacity:0;
+        }
+        /* 20%{
+            animation-duration: 5s;
+            transform: translate(28%, -15%);
+            opacity: 1;
+        } */
+        60%{
+            transform: translate(28%, -80%);
+            opacity: 1;
+        }
+        /* 60%{
+            transform: translate(28%, -65%);
+            opacity: 1;
+        } */
+        98%{
+            transform: translate(28%, -120%);
+            opacity: 1;
+        }
+        100%{
+            transform: translate(28%, -120%);
+            opacity:0;
+        }
+    }
+
+    @keyframes candy{
+        0%, 10%{
+            top: 0;
+            left: -10%;
+            transform: rotate(0deg);
+        }
+        20%{
+            top:22%;
+            left: 15%;
+            transform: rotate(0deg);
+        }
+        30%{
+            top:22%;
+            left: 15%;
+            transform: rotate(0deg);
+        }
+        40%{
+            top:22%;
+            left: 15%;
+            transform: rotate(0deg);
+        }
+        50%{
+            top:22%;
+            left: 15%;
+            transform: rotate(0deg);
+        }
+        60%{
+            top:22%;
+            left: 15%;
+            transform: rotate(0deg);
+        }
+        
+        70%{
+            top:8%;
+            left: 57%;
+            transform: rotate(-10deg);
+        }
+        80%{
+            top:8%;
+            left: 57%;
+            transform: rotate(-10deg);
+        }
+        90%{
+            top:8%;
+            left: 57%;
+            transform: rotate(-10deg);
+        }
+        100%{
+            top: 22%;
+            left: 75%;
+            transform: rotate(12deg);
+        }
+    }
 }
 @media screen and (max-width:375px) {
     .questionnaire{
@@ -1087,7 +1213,7 @@
         line-height: 30px;
         font-size: 20px;
         line-height: 20px;
-        margin: -25% 0 0 25%;
+        margin: -35% 0 0 29%;
         width: 50%;
     }
     .questions-title{
@@ -1106,6 +1232,7 @@
     }
     .question-input{
         font-size: 14px;
+        border-bottom: 1px solid black;
     }
     .font-grid{
         display: grid;
@@ -1156,4 +1283,10 @@
         font-size: 20px;
         text-align: center;
     }
+}
+
+
+.scroll-ani img{
+    max-width: none;
+    /* height: auto; */
 }

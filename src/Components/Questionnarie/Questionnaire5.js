@@ -188,7 +188,7 @@ export const Questionnaire5 = () => {
               )}
             </p>
             {question.id === 24 && (
-              <div className="flex items-center justify-center gap-[20px]">
+              <div className="flex items-center justify-center gap-[20px] mt-2">
                 <div>
                   <button  onClick={() => handleLanguageChange("English",question.id)}  className="font-[18px] h-[45px] w-[150px] border-[1px] border-solid border-[#000000] hover:bg-[#000000] hover:text-[#FFFFFF]">
                     English
@@ -201,12 +201,22 @@ export const Questionnaire5 = () => {
                 </div>
               </div>
             )}
-            <input
+
+            {
+              (question.id === 24) ?
+              (
+                <div className="w-[100%] xl:h-[2px] lg:h-[2px] md:h-[2px] sm:h-[2px] xs:h-[1px]  bg-black mt-[3%]"></div>
+              ):
+              (
+              <input
               placeholder={question.placeholder}
               className="question-input"
               value={getAnswerValue(question.id)}
               onChange={(e) => handleChange(question.id, e.target.value)}
             />
+              )
+            }
+            
           </div>
         ))}
         bgTitle={'Final Thoughts'}

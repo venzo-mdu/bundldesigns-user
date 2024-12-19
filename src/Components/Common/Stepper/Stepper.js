@@ -13,11 +13,11 @@ export const Stepper = ({ pageNo , answersData , fillId }) => {
     const [translateX, setTranslateX] = useState();
 
     const processData = [
-        { title: "ABOUT YOUR BUSINESS", fill: '#4FA472', color: '#000' },
-        { title: "AUDIENCE & COMPETITION", fill: '#00A8C8', color: '#000' },
-        { title: "YOUR BRANDING", fill: '#F175AD', color: '#000' },
-        { title: "VISUAL IDENTITY", fill: '#4FA472', color: '#000' },
-        { title: "FINAL TOUCHES", fill: '#00A8C8', color: '#000' },
+        { title: "ABOUT YOUR BUSINESS", fill: '#F175AD', color: '#000' },
+        { title: "AUDIENCE & COMPETITION", fill: '#4FA472', color: '#000' },
+        { title: "YOUR BRANDING", fill: '#00A8C8', color: '#000' },
+        { title: "VISUAL IDENTITY", fill: '#FFFFFF', color: '#000' },
+        { title: "FINAL TOUCHES", fill: '#F175AD', color: '#000' },
     ];
 
     // Adjust the dotted line width based on screen size
@@ -165,7 +165,7 @@ export const Stepper = ({ pageNo , answersData , fillId }) => {
                         style={{ transition: '1s', opacity: isActiveProcess[index] ? 1 : 0.3 }}
                     >
                         {process.title.split("  ").map((word, i) => (
-                            <span className='text-[14px] font-[700]' style={{ cursor: 'pointer' }} onClick={()=>handleRoute(index+1)} key={i}>{word}</span>
+                            <span className='xl:text-[14px] lg:text-[14px] md:text-[14px] font-[700] xs:text-[10px]' style={{ cursor: 'pointer' }} onClick={()=>handleRoute(index+1)} key={i}>{word}</span>
                         ))}
                     </div>
                 </div>

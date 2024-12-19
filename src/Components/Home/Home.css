@@ -4378,7 +4378,7 @@ font-size: 20px;
 
 @media screen and (max-width:1705px) and (min-width:1024px) {
 .img-rotate-qf{
-  bottom: 3%;
+  bottom: 13%;
 }
 .col-lg-6{
   width: 40%;
@@ -4550,6 +4550,12 @@ font-size: 20px;
     margin: 10% 0 0 0;
     width: 45px;
   }
+
+ .img-rotate-qf{
+  top: 39%;
+ }
+ 
+
  .inner-nav li{
   width: 100% !important;
   margin-top: 1%;
@@ -4565,6 +4571,7 @@ font-size: 20px;
     width: 75px;
     height: 70px;
 }
+
   .navIcons{
     width: 30px;
   }
@@ -4572,6 +4579,7 @@ font-size: 20px;
   height: 145px;
   width: 325px;
 }
+.scroll-ani {animation: scroll var(--_animation-duration, 7s) var(--_animation-direction, forwards) linear infinite;}
 .scroll-button{
   display: none;
 }
