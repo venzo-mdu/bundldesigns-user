@@ -177,7 +177,7 @@ export const Home = () => {
                                         <div className="col-1 col-md-1 col-lg-6">
                                             <div className="navbar navbar-expand-lg justify-content-end">
                                                 <div className=" navbar-collapse" id="mainNav">
-                                                    <ul className="navbar-nav mx-auto align-items-center ">
+                                                    <ul className=" mx-auto align-items-center ">
                                                         <li className="nav-item">
                                                             <a className="nav-link" href="/aboutus">About</a>
                                                         </li>
@@ -196,7 +196,7 @@ export const Home = () => {
                                         </div>
                                         <div className="col-7 col-md-8 col-lg-3 text-end">
                                             <div className="navbar navbar-expand-lg justify-content-end ">
-                                                <ul className="navbar-nav  h-list align-items-center">
+                                                <ul className="  h-list align-items-center">
                                                     <li className="nav-item">
                                                         <a className="nav-link" href="#"><img src={Search} alt="" className="img-fluid nav-icon"></img></a>
                                                     </li>
@@ -642,7 +642,7 @@ export const Home = () => {
                                                         </div>
                                                         <div className="work_time d-flex align-items-center">
                                                             {/* <img src={Time} alt="" className="ing-fluid"></img> */}
-                                                            <span className="working_days px-2"><span>{bundles.name_english === "The Newbie" ? 'Starting from' : ''}</span> {bundles.time} WORKING DAYS</span>
+                                                            <span className="working_days px-2"><span>{bundles.name_english === "The Newbie" ? 'Starting from' : ''}</span> {Math.round(bundles.time)} WORKING DAYS</span>
                                                         </div>
                                                     </>
                                                 </div>
@@ -757,7 +757,7 @@ export const Home = () => {
                                         <div className="desc">
                                             Prefer a one-on-one design experience?
                                         </div>
-                                        <a href="/premium-form" className="btn bundl-btn bt-1">Send us a message</a>
+                                        <a href="/form/premium" className="btn bundl-btn bt-1">Send us a message</a>
                                     </div>
                                 </div>
                                 <div className="col-md-6 text-center">
@@ -771,7 +771,7 @@ export const Home = () => {
                                         <div className="desc">
                                             Dreaming of a perfect website?
                                         </div>
-                                        <a href="/webster-form" className="btn bundl-btn bt-1">Send us a message</a>
+                                        <a href="/form/webster" className="btn bundl-btn bt-1">Send us a message</a>
                                     </div>
                                 </div>
                             </div>

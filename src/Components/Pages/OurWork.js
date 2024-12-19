@@ -7,6 +7,9 @@ import loaderSticker from '../../Images/Background/loadsticker.svg'
 import paperPlane from '../../Images/paperPlaneRose.svg'
 import paperplane from '../../Images/our-work.gif'
 import { Bgloader } from '../Common/Background/Bgloader';
+import workOurGIF from '../../Images/ourWorkGIF.gif'
+import workBrandGIF from '../../Images/ourWorkBranding.gif'
+
 export default function OurWork() {
   const [loading,setLoading] = useState(true)
   const [projects, setProjects] = useState([])
@@ -79,9 +82,9 @@ export default function OurWork() {
           className="!text-[#00000080] w-[70%] text-[16px]"
           dangerouslySetInnerHTML={{ __html: project.description_english }}
         />
-        <button className="lg:w-[70%] xl:w-[60%] md:w-[70%] text-[16px]  bg-black py-2 text-white">
+        <a href={`${project.instagram? project.instagram:'https://www.instagram.com/bundl_designs'}`} className="lg:w-[70%] xl:w-[60%] md:w-[80%] text-[16px] px-2 block text-center  bg-black py-2 text-white">
           Follow Our Instagram
-        </button>
+        </a>
       </div>
 
       {/* Right Column */}
@@ -101,13 +104,13 @@ export default function OurWork() {
           </div>
         </div>
         <div className='relative py-10 pb-24'>
-          <img className='absolute left-12' width='200px' style={{ transform: 'rotate(350deg)'}}  src={paperPlane}></img>
+          <img className='absolute left-12' width='200px' style={{ transform: 'rotate(350deg)'}}  src={workOurGIF}></img>
           <div className='w-[48%] text-center mx-auto'>
-          <p className='flex justify-center mb-0 mt-0'> <img  className='animate-rotate-animation' width='150px' height='110px' src={loaderSticker}></img></p>
+          <p className='flex justify-center mb-0 mt-0'> <img  className='animate-rotate-animation' width='150px' height='110px' src={workBrandGIF}></img></p>
           <h2 className='text-[40px] '>Inspired to start your journey to launch your next big thing ?</h2>
           <p> <button className='bg-[#000] mt-4 text-[20px] text-white py-[5px] px-[18px]'>Get started!</button> </p>
           </div>
-  <img width='300px' className='absolute top-[14%] right-[3%]' style={{ transform: 'rotate(320deg)'}}  src={paperPlane}></img>
+          <img width='300px' className='absolute top-[14%] right-[3%]' style={{ transform: 'rotate(320deg)'}}  src={workOurGIF}></img>
         </div> 
       </div>
       <Footer />

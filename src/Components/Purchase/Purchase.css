@@ -84,7 +84,6 @@
 }
 
 .logo-design {
-    width: 50%;
     font-size: 24px;
     font-weight: 700;
 }
@@ -93,9 +92,9 @@
     width: 50%;
 }
 
-.languages p {
+/* .languages p {
     margin: 0 0 0 15%;
-}
+} */
 
 .commerce-collateral {
     text-align: left;
@@ -146,7 +145,7 @@
     cursor: pointer;
     font-size: 20px;
     width: 38px;
-    height: 35px;
+    /* height: 35px; */
     text-align: center;
     /* border-bottom: 1px solid #000000; */
     background-color: transparent;
@@ -204,7 +203,7 @@
 }
 
 .bundl-name {
-    padding: 1% 5%;
+    padding: 0 5%;
 }
 
 .one-heading {
@@ -219,7 +218,7 @@
     color: #0BA6C4;
     font-size: 20px;
     font-weight: 700;
-    border-bottom: 1px solid grey;
+    border-bottom: 1px solid #00000080;
 }
 
 .bundl-checkout {
@@ -274,9 +273,7 @@
 
 
 @media screen and (max-width:1705px) and (min-width:1024px) {
-    .logo-design {
-        width: 45%;
-    }
+
     .brand-details{
         padding: 2% 6%;
     }
@@ -285,7 +282,7 @@
     }
 
     .languages p {
-        margin: 0 0 0 12%;
+        margin: 0 0 0 2%;
     }
 
     .commerce-sections p {
@@ -348,9 +345,7 @@
 
 
 @media screen and (max-width:768px) and (min-width:441px) {
-    .navIcons{
-        display: none;
-    }
+
     .menu {
         display: flex;
     }
@@ -371,22 +366,19 @@
         width: 650px;
     }
 
-    .logo-design {
-        width: 45%;
-    }
 
     .languages {
         width: 55%;
     }
 
-    .languages p {
+    /* .languages p {
         margin: 0 0 0 8%;
-    }
+    } */
 }
 
 @media screen and (max-width:441px) {
     .navIcons{
-        display: none;
+        width: 24px;
     }
     .menu {
         display: flex;
@@ -413,9 +405,9 @@
     .languages{
         width: 100%;
     }
-    .languages p{
+    /* .languages p{
         margin: 0 0 0 2%;
-    }
+    } */
     /* .commerce-sections,.commerce-sections1{
         display: block;
     } */

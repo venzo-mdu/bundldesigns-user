@@ -421,8 +421,8 @@ export default function Dashboard() {
         <div className='flex items-center w-[80%] mx-auto mt-10 px-20'>{renderProcessData()}</div>
         <div className='flex mb-12 w-[80%] m-auto'>
             {dashboardJson.project_process.map((item, index) => {
-                return <div className='basis-1/5 text-center text-[16px]'>  <p className={`pb-0 mb-0 ${index == processIndex && 'font-bold'}`}> {item} </p>
-                    {index == processIndex && <p className='text-[#1BA56F] font-[500]'>You’re now Here!</p>}
+                return <div className='basis-1/5  text-center text-[16px]'>  <p className={`pb-0 max-w-[90%] mx-auto mb-0 ${index == processIndex && 'font-bold'}`}> {item} </p>
+                    {index == processIndex && <p className='text-[#1BA56F] font-[700]'>You’re now Here!</p>}
                 </div>
             })}
         </div>
@@ -430,9 +430,9 @@ export default function Dashboard() {
         <div className='w-[80%] mx-auto'>
 
             {order && order.item_details && Array.isArray(order.item_details) && <>
-                <p className={`text-[22px] font-bold my-2 ${processIndex < 2 && isEdit == false ? 'text-[#00000080]' : 'text-black'}`}>Brand & Visual Identity <span className='text-[#1BA56F] text-[18px] font-[500]'> -
-                    {processIndex < 2 && isEdit == false ? ' ON HOLD' : processIndex >= 4 ? ' COMPLETE' : ' IN PROGRESS'}</span> </p>
-                <p className='font-medium text-[18px]'>{order?.brand_identity?.item_name}</p>
+                <p className={`text-[22px] font-bold my-2 ${processIndex < 2 ? 'text-[#00000080]' : 'text-black'}`}>Brand & Visual Identity <span className='text-[#1BA56F] text-[18px] font-[500]'> -
+                    {processIndex < 2 ? ' ON HOLD' : processIndex >= 4 ? ' COMPLETE' : ' IN PROGRESS'}</span> </p>
+                <p className={`font-medium text-[18px] ${processIndex < 2 ? 'text-[#00000080]':'text-[#000]' }`}>{order?.brand_identity?.item_name}</p>
                 <p className={`text-[22px] ${processIndex < 4 && 'text-[#00000080]'} font-bold my-2`}>Applications
 
                     <span className='text-[#1BA56F] text-[18px] font-[500]'> -

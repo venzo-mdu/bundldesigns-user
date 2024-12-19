@@ -39,7 +39,14 @@ body {
   cursor: pointer;
 }
 
-
+#websterSelect{
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: url('../src/Images/websterDropdown.svg') no-repeat right 16px center;
+  background-size: 18px;
+  cursor: pointer;
+}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
