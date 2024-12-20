@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import '../Stepper/Stepper.css';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 export const Stepper = ({ pageNo , answersData , fillId }) => {
-
 
     const navigate = useNavigate();
 
@@ -12,12 +12,19 @@ export const Stepper = ({ pageNo , answersData , fillId }) => {
     const [lineWidth, setLineWidth] = useState(365); // default for large screens
     const [translateX, setTranslateX] = useState();
 
+    const answers1 = useSelector((state) => state.questionnaire1);
+    const answers2 = useSelector((state) => state.questionnaire2);
+    const answers3 = useSelector((state) => state.questionnaire3);
+    const answers4 = useSelector((state) => state.questionnaire4);
+    const answers5 = useSelector((state) => state.questionnaire5);
+
+
     const processData = [
-        { title: "ABOUT YOUR BUSINESS", fill: '#4FA472', color: '#000' },
-        { title: "AUDIENCE & COMPETITION", fill: '#00A8C8', color: '#000' },
-        { title: "YOUR BRANDING", fill: '#F175AD', color: '#000' },
-        { title: "VISUAL IDENTITY", fill: '#4FA472', color: '#000' },
-        { title: "FINAL TOUCHES", fill: '#00A8C8', color: '#000' },
+        { title: "ABOUT YOUR BUSINESS", fill: '#F175AD', color: '#000' },
+        { title: "AUDIENCE & COMPETITION", fill: '#4FA472', color: '#000' },
+        { title: "YOUR BRANDING", fill: '#00A8C8', color: '#000' },
+        { title: "VISUAL IDENTITY", fill: '#FFFFFF', color: '#000' },
+        { title: "FINAL TOUCHES", fill: '#F175AD', color: '#000' },
     ];
 
     // Adjust the dotted line width based on screen size
@@ -125,11 +132,33 @@ export const Stepper = ({ pageNo , answersData , fillId }) => {
         setIsActiveProcess(updatedActiveProcess);
     };
 
+
+    const getStoreAnswers = (page) => {
+        switch (page) {
+          case 1:
+            return answers1;
+          case 2:
+            return answers2;
+          case 3:
+            return answers3;
+          case 4:
+            return answers4;
+          case 5:
+            return answers5;  
+          default:
+            return {}; // Return an empty object if no matching page is found
+        }
+      };
+
+    
+
     const handleRoute = (page) => {
+        console.log(getStoreAnswers(),page,"answers")  
         navigate(`/questionnaire/${page}`, {
             state: {
-                [`questionnaireData${page}`]: answersData,
-                orderId:fillId // Use computed property name
+                [`questionnaireData${page}`]: getStoreAnswers(page),
+                orderId:fillId,
+                pageNo:page
             },
         });
     };
@@ -165,7 +194,7 @@ export const Stepper = ({ pageNo , answersData , fillId }) => {
                         style={{ transition: '1s', opacity: isActiveProcess[index] ? 1 : 0.3 }}
                     >
                         {process.title.split("  ").map((word, i) => (
-                            <span className='text-[14px] font-[700]' style={{ cursor: 'pointer' }} onClick={()=>handleRoute(index+1)} key={i}>{word}</span>
+                            <span className='xl:text-[14px] lg:text-[14px] md:text-[14px] font-[700] xs:text-[10px]' style={{ cursor: 'pointer' }} onClick={()=>handleRoute(index+1)} key={i}>{word}</span>
                         ))}
                     </div>
                 </div>
