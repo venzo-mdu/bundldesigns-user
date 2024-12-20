@@ -14,8 +14,9 @@ body {
 #description p{
   font-family:'Helvetica' !important;
   font-size: 18px !important;
-
 }
+
+
 
 #description a{
   font-family: 'Helvetica' !important;
@@ -25,6 +26,14 @@ body {
   font-family: 'Helvetica' !important;
   font-size: 18px !important;
 
+}
+@media (min-width: 325px) and (max-width: 500px) {
+  #description p {
+    font-size: 16px !important;
+  }
+    #description span {
+    font-size: 16px !important;
+  }
 }
 #description h1,#description h2,#description h3{
   font-family: 'Helvetica' !important;

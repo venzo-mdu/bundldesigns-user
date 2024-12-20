@@ -26,7 +26,8 @@ export const Signup = () => {
   const [registerData, setRegisterData] = useState({
     full_name: '',
     email: '',
-    password: ''
+    password: '',
+    google:false
   });
 
   const showToastMessage = () => {
@@ -34,59 +35,63 @@ export const Signup = () => {
       position: toast?.POSITION?.TOP_RIGHT,
     });
   };
+  const setError = (field, errorMessage) => {
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [field]: errorMessage,
+    }));
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+  
+    // Update the register data state
     setRegisterData((prevData) => ({
       ...prevData,
-      [name]: value
+      [name]: value,
     }));
-
-    // Clear error when user starts typing and input becomes valid
-    if (name === 'full_name' && value.trim()) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        full_name: ''
-      }));
-    }
-    if (name === 'email') {
+  
+    // Full name validation
+    if (name === 'full_name') {
       if (!value.trim()) {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          email: 'Email is required'
-        }));
-      } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value)) {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          email: 'Invalid email address'
-        }));
+        setError('full_name', 'Full name is required')
+    
+      } else if (/[^a-zA-Z\s-]/.test(value)) {
+        setError('full_name', 'Full name must not contain numbers or special characters')
+
+      } else if (value.length < 3) {
+        setError('full_name',  'Full name must be at least 3 characters')
       } else {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          email: '' // clear error if email is valid
-        }));
+        setError('full_name',  '')
+   
       }
     }
-    if (name === 'password') {
+  
+    // Email validation
+    if (name === 'email') {
       if (!value.trim()) {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          password: 'Password is required'
-        }));
-      } else if (value.length < 8) {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          password: 'Password must be at least 8 characters'
-        }));
+        setError('email', 'Email is required');
+      } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value)) {
+        setError('email', 'Invalid email address');
       } else {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          password: '' // clear error if password is valid
-        }));
+        setError('email', ''); // clear error if email is valid
+      }
+    }
+  
+    if (name === 'password') {
+      if (/\s/.test(value)) {  // Check for spaces
+        setError('password', 'Password cannot contain spaces');
+      }
+      else if (!value.trim()) {
+        setError('password', 'Password is required');
+      } else if (value.length < 8) {
+        setError('password', 'Password must be at least 8 characters');
+      } else {
+        setError('password', ''); // clear error if password is valid
       }
     }
   };
-
+  
   const validateForm = () => {
     const errors = {};
     if (!registerData.full_name.trim()) errors.full_name = 'Name is required';
@@ -95,7 +100,10 @@ export const Signup = () => {
     } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(registerData.email)) {
       errors.email = 'Invalid email address';
     }
-    if (!registerData.password.trim()) {
+    if (/\s/.test(registerData.password)) {  // Check for spaces
+      errors.password = 'Password cannot contain spaces'
+    }
+    else if (!registerData.password.trim()) {
       errors.password = 'Password is required';
     } else if (registerData.password.length < 8) {
       errors.password = 'Password must be at least 8 characters';
@@ -122,7 +130,7 @@ export const Signup = () => {
 
       }
     } catch (response) {
-      const errors = response.response.data?.error || {};
+      const errors = response.response.data || {};
       const formattedErrors = Object.fromEntries(
         Object.entries(errors).map(([key, value]) => [key, value[0]])
       );
@@ -158,25 +166,25 @@ export const Signup = () => {
           </p>
           <img className='loginlogo' src={Loginlogo} alt='login' />
           <form onSubmit={signUp}>
-            <label style={{ width: '100%' }}>Name</label>
+            <label className='mb-2' style={{ width: '100%' }}>Name</label>
             <input
-              placeholder='Name'
+              placeholder='Enter your name'
               name='full_name'
               value={registerData.full_name}
               onChange={handleChange}
             />
-            {errors.full_name && <p className="error">{errors.full_name}</p>}
+            {errors.full_name && <p className="error first-letter:capitalize">{errors.full_name}</p>}
             
-            <label style={{ margin: '3% 0 0 0' }}>Email address</label>
+            <label className='mb-2 mt-[3%]' style={{ marginTop: '3%' }}>Email address</label>
             <input
-              placeholder='Email'
+              placeholder='Enter your email'
               name='email'
               value={registerData.email}
               onChange={handleChange}
             />
-            {errors.email && <p className="error">{errors.email}</p>}
+            {errors.email && <p className="error first-letter:capitalize">{errors.email}</p>}
             
-            <label style={{ margin: '3% 0 0 0' }}>Password</label>
+            <label className='mb-2 mt-[3%]' >Password</label>
             <input
               type='password'
               placeholder='Password'
@@ -184,7 +192,7 @@ export const Signup = () => {
               value={registerData.password}
               onChange={handleChange}
             />
-            {errors.password && <p className="error">{errors.password}</p>}
+            {errors.password && <p className="error first-letter:capitalize">{errors.password}</p>}
             
             <label className='terms-policy  flex items-center my-1'>
               <input
