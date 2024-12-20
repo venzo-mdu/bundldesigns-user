@@ -157,7 +157,7 @@ export const Accordian = ({ accordianTitle, addOnPayload, bundlePackageId }) => 
       <div className='bundl-accordian'>
         <p className='accordian-heading mb-1'>{accordianTitle}</p>
         <p style={{ opacity: '50%' }}>Add anything you want to your bundle to fit your brand!</p>
-        <div className='tab-buttons'>
+        <div className='tab-buttons !border-b-0'>
           {titleArr.map((title, index) => (
             <button
               key={index}
@@ -174,6 +174,7 @@ export const Accordian = ({ accordianTitle, addOnPayload, bundlePackageId }) => 
           <Accordion sx={{
             boxShadow: 'none !important', 
             borderBottom: index === titleArr.length-1 ? 'none' : '1px solid #000000',
+            paddingTop:index ==0 ? '18px':'auto'
           }}  key={index} expanded={isDropdown[index]}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon className='text-[#000]' />}
@@ -210,8 +211,8 @@ export const Accordian = ({ accordianTitle, addOnPayload, bundlePackageId }) => 
                         {design.name_english}
                       </Typography>
                       <p className='flex items-center w-[35%] !mb-2'>
-                      <p className='flex items-center mb-1 mr-5 font-[500]'>
-                        <img src={BlackDollor} alt="Price icon" className="inline-block mr-1" />
+                      <p className='flex items-center mb-1 min-w-[120px] font-[500]'>
+                        <img src={BlackDollor} alt="Price icon" className="inline-block mr-2" />
                         {Math.round(design.price)} SAR
                       </p>
                       <p className='flex items-center mb-1 font-[500]' >

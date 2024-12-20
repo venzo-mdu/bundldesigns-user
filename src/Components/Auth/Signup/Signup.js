@@ -35,6 +35,13 @@ export const Signup = () => {
       position: toast?.POSITION?.TOP_RIGHT,
     });
   };
+  const setError = (field, errorMessage) => {
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [field]: errorMessage,
+    }));
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
   
@@ -47,25 +54,16 @@ export const Signup = () => {
     // Full name validation
     if (name === 'full_name') {
       if (!value.trim()) {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          full_name: 'Full name is required'
-        }));
+        setError('full_name', 'Full name is required')
+    
       } else if (/[^a-zA-Z\s-]/.test(value)) {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          full_name: 'Full name must not contain numbers or special characters'
-        }));
+        setError('full_name', 'Full name must not contain numbers or special characters')
+
       } else if (value.length < 3) {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          full_name: 'Full name must be at least 3 characters'
-        }));
+        setError('full_name',  'Full name must be at least 3 characters')
       } else {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          full_name: '' // clear error if name is valid
-        }));
+        setError('full_name',  '')
+   
       }
     }
   
@@ -102,7 +100,10 @@ export const Signup = () => {
     } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(registerData.email)) {
       errors.email = 'Invalid email address';
     }
-    if (!registerData.password.trim()) {
+    if (/\s/.test(registerData.password)) {  // Check for spaces
+      errors.password = 'Password cannot contain spaces'
+    }
+    else if (!registerData.password.trim()) {
       errors.password = 'Password is required';
     } else if (registerData.password.length < 8) {
       errors.password = 'Password must be at least 8 characters';

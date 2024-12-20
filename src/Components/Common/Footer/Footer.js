@@ -104,9 +104,9 @@ export const Footer = () => {
                 <div className='footer-bottom'>
                     <p className='copyright'> 2024 BundlDesigns, All rights reserved.</p>
                     <div className='policies'>
-                        <p>Terms of service</p>
-                        <p>Privacy policy</p>
-                        <p>Legal</p>
+                        <p className='!text-[14px] !text-[#FFFFFFCC]'>Terms of service</p>
+                        <p className='!text-[14px] !text-[#FFFFFFCC]'>Privacy policy</p>
+                        <p className='!text-[14px] !text-[#FFFFFFCC]'>Legal</p>
                     </div>
                 </div>
             </div>
