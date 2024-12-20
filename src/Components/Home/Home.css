@@ -2839,7 +2839,7 @@ text-align: center;
 /* // Footer section */
 
 
-.form-group {margin-bottom: 50px; text-align: center;}
+.form-group {margin-bottom: 0px; text-align: center;}
 .form-group label {
 font-size: 40px;
 font-weight: 700;

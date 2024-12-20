@@ -115,25 +115,59 @@ export const Questionnaire4 = () => {
   };
 
 
+  // const handleColorClick = (color, questionId) => {
+  //   let updatedColors;
+
+  //   // Add the color if not already selected
+  //   if (!selectedColors.includes(color)) {
+  //     updatedColors = [...selectedColors, color];
+  //     setSelectedColors(updatedColors);
+  //   } else {
+  //     updatedColors = selectedColors;
+  //   }
+
+  //   if(color === "Surprise"){
+  //     updatedColors = ['Surprise']
+  //   }
+
+  //   // Update formData with the selected colors for the specific questionId
+  //   setFormData((prevFormData) => ({
+  //     ...prevFormData, // Keep existing form data
+  //     [questionId]: updatedColors, // Update the selected colors for this questionId
+  //   }));
+  // };
+
   const handleColorClick = (color, questionId) => {
     let updatedColors;
-
-    // Add the color if not already selected
-    if (!selectedColors.includes(color)) {
-      updatedColors = [...selectedColors, color];
-      setSelectedColors(updatedColors);
+  
+    // If "Surprise" is selected, clear all other colors and set only "Surprise"
+    if (color === "Surprise") {
+      updatedColors = ["Surprise"];
     } else {
-      updatedColors = selectedColors;
+      // If any other color is selected, remove "Surprise" if it's in the list
+      updatedColors = selectedColors.includes("Surprise")
+        ? selectedColors.filter(item => item !== "Surprise") // Remove "Surprise"
+        : selectedColors;
+  
+      // Add the selected color if it's not already in the list
+      if (!updatedColors.includes(color)) {
+        updatedColors = [...updatedColors, color];
+      }
     }
-
+  
+    // Update selected colors
+    setSelectedColors(updatedColors);
+  
     // Update formData with the selected colors for the specific questionId
     setFormData((prevFormData) => ({
       ...prevFormData, // Keep existing form data
       [questionId]: updatedColors, // Update the selected colors for this questionId
     }));
   };
-
-
+  
+ 
+  
+console.log(selectedColors,formData)
 
   // const handleRemoveColor = (color) => {
   //   setSelectedColors(selectedColors.filter((c) => c !== color));
@@ -172,21 +206,37 @@ export const Questionnaire4 = () => {
 
 
   const handleButtonClick = (index, questionId, font) => {
-    // Determine the new active buttons array
-    const updatedActiveButtons = activeButtons.includes(font)
-      ? activeButtons.filter((i) => i !== font) // Remove index if already selected
-      : [...activeButtons, font]; // Add index if not selected
-
-    // Update the state for active buttons
-    setActiveButtons(updatedActiveButtons);
-
-    // Update the form data with the new value for the selected question
-    setFormData((prevData) => ({
-      ...prevData,
-      [questionId]: updatedActiveButtons,
-    }));
+    setFormData((prevData) => {
+      let updatedFonts;
+  
+      if (font === "Surprise") {
+        updatedFonts = ["Surprise"];
+      } else {
+        updatedFonts = prevData[questionId]?.includes("Surprise")
+          ? [font]
+          : prevData[questionId]?.includes(font)
+          ? prevData[questionId].filter((f) => f !== font) 
+          : [...(prevData[questionId] || []), font]; 
+      }
+  
+      return {
+        ...prevData,
+        [questionId]: updatedFonts,
+      };
+    });
+  
+    setActiveButtons((prevButtons) =>
+      font === "Surprise"
+        ? ["Surprise"]
+        : prevButtons.includes("Surprise")
+        ? [font] 
+        : prevButtons.includes(font)
+        ? prevButtons.filter((btn) => btn !== font) 
+        : [...prevButtons, font] 
+    );
   };
-
+  
+  
 
   const handleShadeButtonClick = (color, textColor, type, questionId) => {
     setShadeBackgroundColor(color);
@@ -208,28 +258,66 @@ export const Questionnaire4 = () => {
     }))
   }
 
-  const handleTextureChange = (e, questionId) => {
-    const { value, checked } = e.target;
-    setFormData((prevData) => {
-      // Get the current selections for this questionId or initialize to an empty array
-      const currentSelections = prevData[questionId] || [];
+  // const handleTextureChange = (e, questionId) => {
+  //   const { value, checked } = e.target;
+  //   setFormData((prevData) => {
+  //     // Get the current selections for this questionId or initialize to an empty array
+  //     const currentSelections = prevData[questionId] || [];
 
-      if (checked) {
-        // Add the selected value if checked
-        return {
-          ...prevData,
-          [questionId]: [...currentSelections, value],
-        };
-      } else {
-        // Remove the value if unchecked
-        return {
-          ...prevData,
-          [questionId]: currentSelections.filter((item) => item !== value),
-        };
-      }
-    });
+  //     if (checked) {
+  //       // Add the selected value if checked
+  //       return {
+  //         ...prevData,
+  //         [questionId]: [...currentSelections, value],
+  //       };
+  //     } else {
+  //       // Remove the value if unchecked
+  //       return {
+  //         ...prevData,
+  //         [questionId]: currentSelections.filter((item) => item !== value),
+  //       };
+  //     }
+  //   });
+  //   if(e==='Surprise'){
+
+  //   }
+  // };
+
+
+  const handleTextureChange = (e, questionId, isSurprise = false) => {
+    if (isSurprise) {
+      // Set "Surprise" as the only selected value and clear all others
+      setFormData((prevData) => ({
+        ...prevData,
+        [questionId]: ["Surprise"],
+      }));
+      document.querySelectorAll('input[name="13"]').forEach((checkbox) => {
+        checkbox.checked = false; // Uncheck all checkboxes with name="13"
+      });
+    } else {
+      const { value, checked } = e.target;
+  
+      setFormData((prevData) => {
+        const currentSelections = prevData[questionId] || [];
+  
+        if (checked) {
+          // If a non-Surprise option is selected, clear "Surprise" and add the new value
+          return {
+            ...prevData,
+            [questionId]: [...currentSelections.filter((item) => item !== "Surprise"), value],
+          };
+        } else {
+          // Remove the value if unchecked
+          return {
+            ...prevData,
+            [questionId]: currentSelections.filter((item) => item !== value),
+          };
+        }
+      });
+    }
   };
-
+  
+  
 
   const onBackClick = () => {
     navigate(`/questionnaire/${3}`, { state: { questionnaireData3: answers } });
@@ -354,7 +442,7 @@ export const Questionnaire4 = () => {
                       <figure className='mt-[5%]'>
                         <b><i className='text-[28px]'>Not sure ? It's okay!</i></b>
                       </figure>
-                      <button className='surprise'>surprise me !</button>
+                      <button className={`${activeButtons.includes("Surprise") ? 'surprise-active':'surprise'}`} onClick={() => handleButtonClick("", question.id, "Surprise")}>surprise me !</button>
                     </>
                   )
                 }
@@ -419,28 +507,32 @@ export const Questionnaire4 = () => {
                           height: 'inherit'
                         }}
                       >
-                        {selectedColors.map((color, index) => (
-                          <div
-                            key={index}
-                            className="selected-color"
-                            style={{
-                              backgroundColor: color,
-                              width: '120px',
-                              height: '30px',
-                              border: '1px solid #000000',
-                            }}
-                          >
-                            <span
+                        {
+                          selectedColors[0] === 'Surprise' ?'' :
+                          selectedColors.map((color, index) => (
+                            <div
+                              key={index}
+                              className="selected-color"
                               style={{
-                                // margin: '-5% 1% 0 0',
-                                float: 'right',
-                                cursor: 'pointer'
+                                backgroundColor: color,
+                                width: '120px',
+                                height: '30px',
+                                border: '1px solid #000000',
                               }}
                             >
-                              <img src={X} alt='X-icon' onClick={() => handleRemoveColor(color, question.id)}></img>
-                            </span>
-                          </div>
-                        ))}
+                              <span
+                                style={{
+                                  // margin: '-5% 1% 0 0',
+                                  float: 'right',
+                                  cursor: 'pointer'
+                                }}
+                              >
+                                <img src={X} alt='X-icon' onClick={() => handleRemoveColor(color, question.id)}></img>
+                              </span>
+                            </div>
+                          ))
+                        }
+                       
                       </div>
                       <div
                         className="color-input"
@@ -480,10 +572,10 @@ export const Questionnaire4 = () => {
                         >
                           <AddCircleRoundedIcon onClick={handleAddColor} />
                         </button>
-                        <figure className='mt-1'>
+                        <figure className='mt-[3%]'>
                           <b><i className='text-[28px]'>Not sure ? It's okay!</i></b>
                         </figure>
-                        <button className='surprise'>surprise me !</button>
+                        <button className={`${selectedColors.includes("Surprise") ? 'surprise-active':'surprise'}`} onClick={() => handleColorClick("Surprise", question.id)}>surprise me !</button>
                       </div>
                     </>
                   )
@@ -609,7 +701,7 @@ export const Questionnaire4 = () => {
                         <figure className='mt-1'>
                           <b><i className='text-[28px]'>Not sure ? It's okay!</i></b>
                         </figure>
-                        <button className='surprise'>surprise me !</button>
+                        <button className={`${formData[question.id]?.includes('Surprise')?'surprise-active':'surprise'}`} onClick={()=>handleTextureChange(null,question.id,true)}>surprise me !</button>
                       </div>
                     </>
                   )

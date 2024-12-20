@@ -249,7 +249,7 @@
     height: 50px;
     text-transform: uppercase;
     font-size: 20px;
-    font-weight: 500;
+    font-weight: 400;
     outline: none;
     border: 1px solid #000000;
     margin: 0 0 5% 0;
@@ -260,7 +260,7 @@
     height: 50px;
     text-transform: uppercase;
     font-size: 20px;
-    font-weight: 500;
+    font-weight: 400;
     outline: none;
     border: 1px solid #000000;
     color: #FFFFFF;
@@ -271,7 +271,7 @@
     height: 50px;
     text-transform: uppercase;
     font-size: 20px;
-    font-weight: 500;
+    font-weight: 400;
     color: #ffffff;
 }
 .font-grid{
@@ -653,7 +653,7 @@
             display: flex;
             justify-content:space-between;
             position: absolute;
-            height: 100px;
+            height: 175px;
             z-index: -1;
         }
 
@@ -666,8 +666,8 @@
 
         .animate{
             animation-duration: 6s;
-            width: 100px;
-            height: 100px;
+            /* width: 100px;
+            height: 100px; */
         }
 
         .animate--delay{
@@ -984,6 +984,7 @@
     }
     .eyeball{
         padding: 0;
+        height: 100px;
     }
     .title-questionnaire{
         font-size: 20px;

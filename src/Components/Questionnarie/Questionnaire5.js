@@ -13,7 +13,7 @@ export const Questionnaire5 = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
-
+  console.log(location)
   const answers1 = useSelector((state) => state.questionnaire1);
   const answers2 = useSelector((state) => state.questionnaire2);
   const answers3 = useSelector((state) => state.questionnaire3);
@@ -118,7 +118,7 @@ export const Questionnaire5 = () => {
 
   const FinishClick = async () => {
     if (!validateFields()) {
-      return; // Stop execution if validation fails
+      return; 
     }
     try {
       let finalFormData = {
@@ -165,6 +165,9 @@ export const Questionnaire5 = () => {
       console.error("Error submitting data:", error);
     }
   }
+
+  
+
 
 
   return (

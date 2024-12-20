@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import '../Stepper/Stepper.css';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 export const Stepper = ({ pageNo , answersData , fillId }) => {
-
 
     const navigate = useNavigate();
 
@@ -11,6 +11,13 @@ export const Stepper = ({ pageNo , answersData , fillId }) => {
     const [isActiveProcess, setIsActiveProcess] = useState([false, false, false, false, false]);
     const [lineWidth, setLineWidth] = useState(365); // default for large screens
     const [translateX, setTranslateX] = useState();
+
+    const answers1 = useSelector((state) => state.questionnaire1);
+    const answers2 = useSelector((state) => state.questionnaire2);
+    const answers3 = useSelector((state) => state.questionnaire3);
+    const answers4 = useSelector((state) => state.questionnaire4);
+    const answers5 = useSelector((state) => state.questionnaire5);
+
 
     const processData = [
         { title: "ABOUT YOUR BUSINESS", fill: '#F175AD', color: '#000' },
@@ -125,11 +132,33 @@ export const Stepper = ({ pageNo , answersData , fillId }) => {
         setIsActiveProcess(updatedActiveProcess);
     };
 
+
+    const getStoreAnswers = (page) => {
+        switch (page) {
+          case 1:
+            return answers1;
+          case 2:
+            return answers2;
+          case 3:
+            return answers3;
+          case 4:
+            return answers4;
+          case 5:
+            return answers5;  
+          default:
+            return {}; // Return an empty object if no matching page is found
+        }
+      };
+
+    
+
     const handleRoute = (page) => {
+        console.log(getStoreAnswers(),page,"answers")  
         navigate(`/questionnaire/${page}`, {
             state: {
-                [`questionnaireData${page}`]: answersData,
-                orderId:fillId // Use computed property name
+                [`questionnaireData${page}`]: getStoreAnswers(page),
+                orderId:fillId,
+                pageNo:page
             },
         });
     };

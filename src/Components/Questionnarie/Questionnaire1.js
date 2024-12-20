@@ -192,6 +192,7 @@ export const Questionnaire1 = () => {
               </div>
             )}
             <input
+              type='text'
               className='question-input'
               placeholder={placeHolders[index]}
               // value={formData?.[question.id] || fetchQ1Answers[2].answer }

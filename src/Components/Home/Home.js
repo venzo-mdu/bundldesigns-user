@@ -2203,8 +2203,8 @@ export const Home = () => {
                                 </div>
                                 <div className="row justify-content-center">
                                     <div className="col-md-10">
-                                        <div className="insta-feed">
-                                            <img src={Instafeed} alt="" className="img-fluid"></img>
+                                        <div className="insta-feed flex justify-center">
+                                            <img src={Instafeed} alt="" ></img>
                                         </div>
                                         <div className="social-cta text-center">
                                             <a href={`${mediaUrls.instagram}`} className="btn bundl-btn-border text-upper mt-5">Follow us on instagram</a>
