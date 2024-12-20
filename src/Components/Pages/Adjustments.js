@@ -32,7 +32,7 @@ import DeleteIcon from '../../Images/BundlDetail/deleteicon.svg'
 export default function Adjustments() {
     const { orderId } = useParams();
     const [page, setPage] = useState('adjustment')
-    const [adjustmentForm,setAdjustmentForm] = useState({content:'',file_name:''})
+    const [adjustmentForm, setAdjustmentForm] = useState({ content: '', file_name: '' })
     const [openPopup, setOpenPopup] = useState(false)
     const [order, setOrder] = useState()
     const [errorMsg, setErrorMsg] = useState(null)
@@ -167,7 +167,7 @@ export default function Adjustments() {
     }
 
     const removeItem = (id, type) => {
-        console.log(id,'idddd')
+        console.log(id, 'idddd')
         if (type == 'adjustment') {
             delete adjustmentData[id]
             setAdjustmentsData(adjustmentData)
@@ -178,14 +178,14 @@ export default function Adjustments() {
         }
         updateTotals(itemsList, adjustmentData);
     }
-    console.log(itemsList,'listtt')
+    console.log(itemsList, 'listtt')
     const uploadFile = async (e, id, index) => {
         if (e.target.files.length) {
             const formData = new FormData()
             setAdjustmentForm((prev) => ({
                 ...prev,
                 file_name: e.target.files[0]?.name
-              }));
+            }));
             formData.append('file', e.target.files[0])
             formData.append('file_name', e.target.files[0]?.name)
             const response = await axios.post(`${base_url}/api/upload_file/`, formData, ConfigToken());
@@ -258,8 +258,9 @@ export default function Adjustments() {
                                         {adjustments.map((adjustment, index) => {
                                             return <button className={`lg:px-[20px] md:px-[10px] basis-[20%] md:py-[3px] md:text-[16px] lg:py-[5px]  ${adjustmenTab == adjustment.english_adjustment_name ? 'text-white bg-[#1BA56F] ' : 'text-[#1BA56F] bg-white '} border-r border-t border-b 
                                 ${index == 0 && 'border-l'} ${index == adjustments.length && 'border-l-0 border-r'} !border-[#1BA56F]`}
-                                                onClick={() => {setAdjustmentTab(adjustment.english_adjustment_name)
-                                                    setAdjustmentForm({content:null,file_name:null})
+                                                onClick={() => {
+                                                    setAdjustmentTab(adjustment.english_adjustment_name)
+                                                    setAdjustmentForm({ content: null, file_name: null })
                                                 }}>{adjustment.english_adjustment_name}</button>
                                         })}
                                     </div>
@@ -274,17 +275,17 @@ export default function Adjustments() {
                                                     </p>
                                                 </div>
                                                 <p className='font-medium text-[18px]'>What would you like to change?</p>
-                                                <p ><input id={`${adjustment.id}_content`} onInput={(e)=>{
+                                                <p ><input id={`${adjustment.id}_content`} onInput={(e) => {
                                                     setAdjustmentForm((prev) => ({
                                                         ...prev,
-                                                        content: e.target.value 
-                                                      }));
-                                                }} 
-                                                placeholder='Tell us your thoughts...'
-                                                value={adjustmentForm.content?adjustmentForm.content:'' }
-                                                 className='border px-2 py-1 border-[#000000A0]  w-[80%]'
-                                                 ></input>
-                                                 <button onClick={() => addData(adjustment.id, index)} className='w-[20%] py-1 bg-[#1BA56F] text-white '>Submit Edit</button></p>
+                                                        content: e.target.value
+                                                    }));
+                                                }}
+                                                    placeholder='Tell us your thoughts...'
+                                                    value={adjustmentForm.content ? adjustmentForm.content : ''}
+                                                    className='border px-2 py-1 border-[#000000A0]  w-[80%]'
+                                                ></input>
+                                                    <button onClick={() => addData(adjustment.id, index)} className='w-[20%] py-1 bg-[#1BA56F] text-white '>Submit Edit</button></p>
                                                 <p className='font-medium text-[18px]'>Have something to show us?</p>
                                                 <p
                                                     className="border-b-2 w-[150px] !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer"
@@ -299,7 +300,7 @@ export default function Adjustments() {
                                                         onChange={(e) => uploadFile(e, adjustment.id, index)}
                                                     />
                                                     <img src={uploadIcon} alt="Upload Icon" />
-                                                    <span className='font-[500]'>{adjustmentForm?.file_name || 'Upload Content'}</span>
+                                                    <span className='font-[700]'>{adjustmentForm?.file_name || 'Upload Content'}</span>
                                                 </p>
                                             </div>
                                         }
@@ -313,20 +314,21 @@ export default function Adjustments() {
                                             toggleDescription(category)
                                             setDesignListTab(category)
                                         }
-                                        } href={`#${category.replaceAll(' ', '_')}_list`} className={`lg:px-[2px] min-w-[14%] md:px-[2px] md:py-[5px] md:text-[17px] lg:py-[5px] text-center font-[500] ${designListTab == category ? 'text-white bg-[#1BA56F] ' : 'text-[#1BA56F] bg-white '} border-r border-t border-b
-                           ${index == 0 && 'border-l'} ${index == Object.keys(bundlAddons).length && 'border-l-0 border-r'}
-                   !border-[#1BA56F]`}
+                                        } href={`#${category.replaceAll(' ', '_')}_list`} className={`lg:px-[2px] min-w-[14%] md:px-[2px] md:py-[5px] 
+                                            md:text-[17px] lg:py-[5px] text-center font-[500] ${designListTab == category ?
+                                                'text-white bg-[#1BA56F] ' : 'text-[#1BA56F] bg-white '} border-r border-t border-b
+                                        ${index == 0 && 'border-l'} ${index == Object.keys(bundlAddons).length && 'border-l-0 border-r'} !border-[#1BA56F]`}
                                         >{category}</a>
                                     })}</div>
 
                                     <div className='mt-10'>
                                         {Object.keys(bundlAddons).map((category, index) => {
                                             return <div className='' id={`${category.replaceAll(' ', '_')}_list`}>
-                                                <p className={`flex justify-between font-semibold text-[22px] pb-2  ${expantedTabs[category] ? '' : 'border-b'} border-[#00000080]`}> {category}      <button
+                                                <p className={`flex justify-between font-semibold text-[24px] pb-2  ${expantedTabs[category] ? '' : 'border-b'} border-[#00000080]`}> {category}      <button
                                                     onClick={() => toggleDescription(category)}
                                                     className="text-blue-500 cursor-pointer"
                                                 >
-                                                    <img className='w-8' src={expantedTabs[category] ? upArrow : downArrow}></img>
+                                                    <img className='w-6' src={expantedTabs[category] ? upArrow : downArrow}></img>
                                                 </button></p>
                                                 {expantedTabs[category] && <div className='mt-3 mb-8'>
                                                     {category in bundlAddons && bundlAddons[category].design_list.map((item, index) => {
@@ -334,7 +336,7 @@ export default function Adjustments() {
                                                             <span className='font-semibold basis-[40%] text-[#1BA56F]'>{item.name_english}</span>
                                                             <p className='flex mb-0 basis-[40%]'>
                                                                 <span className='flex items-center mr-2'><img src={BlackDollor}></img> {item.price} SAR </span>
-                                                                <span className='flex'><AccessTimeIcon style={{ marginRight: '5px' }} /> {item.time} Days</span>
+                                                                <span className='flex'><AccessTimeIcon style={{ marginRight: '5px' }} /> {Math.round(item.time)} Days</span>
                                                             </p>
                                                             <p className='mb-0 basis-[10%] flex items-center text-[#1BA56F] border !border-[#1BA56F]'>
                                                                 <button onClick={() => remove_item(item.id)} className='border-r !border-[#1BA56F] flex items-center'><RemoveIcon /></button>
@@ -358,16 +360,16 @@ export default function Adjustments() {
                                 {Object.values(itemsList).map(item => {
                                     return <div className='flex items-start'>
                                         <p className='mb-0 ml-4 mt-[4px] mr-2 flex items-center'>
-                                            <a onClick={()=>{toggleDescription(item.category)}} href={`#${item.id}_design_list`}><img  className='mr-2 w-[18px] cursor-pointer' src={EditIcon}></img></a>
+                                            <a onClick={() => { toggleDescription(item.category) }} href={`#${item.id}_design_list`}><img className='mr-2 w-[18px] cursor-pointer' src={EditIcon}></img></a>
                                             <ClearIcon onClick={() => removeItem(item.id, 'items')}
-                                                style={{ marginRight: '5px', width: '18px',cursor:'pointer' }} />
+                                                style={{ marginRight: '5px', width: '18px', cursor: 'pointer' }} />
                                         </p>
                                         <div className=''>
                                             <p className='font-bold'> {item.name_english}</p>
                                             <div className='flex font-[500] text-[#1BA56F]'>
                                                 <p className='flex mr-3'>
                                                     <AccessTimeIcon style={{ marginRight: '5px', width: '18px' }} />
-                                                    <span>{parseInt(item.time * item.qty)} Days</span>
+                                                    <span>{Math.round(item.time * item.qty)} Days</span>
                                                 </p>
                                                 <p className='flex'>
                                                     <img width={'18px'} className='mr-[5px]' src={dollorIcon}></img>
@@ -378,17 +380,18 @@ export default function Adjustments() {
                                     </div>
                                 })}
                                 {Object.values(adjustmentData).map(item => {
-                                    console.log(item.id,'idd')
+                                    console.log(item.id, 'idd')
                                     return <div className='flex items-start'>
                                         <p className='mb-0 ml-4 mt-[4px] mr-2 flex items-center'>
-                                            <img onClick={()=>{
-                                                 setAdjustmentTab(item.english_adjustment_name)
-                                                 setAdjustmentForm({content:item.content?item.content:null,
-                                                    file_name : item.file_name?item.file_name:null
-                                                 })
-                                            }}  className='mr-2 w-[18px] cursor-pointer' src={EditIcon}></img>
+                                            <img onClick={() => {
+                                                setAdjustmentTab(item.english_adjustment_name)
+                                                setAdjustmentForm({
+                                                    content: item.content ? item.content : null,
+                                                    file_name: item.file_name ? item.file_name : null
+                                                })
+                                            }} className='mr-2 w-[18px] cursor-pointer' src={EditIcon}></img>
                                             <ClearIcon onClick={() => removeItem(item.id, 'adjustment')}
-                                                style={{ marginRight: '5px', width: '18px',cursor:'pointer' }} />
+                                                style={{ marginRight: '5px', width: '18px', cursor: 'pointer' }} />
                                         </p>
                                         <div className=''>
                                             <p className='font-bold text-[18px]'> {item.english_adjustment_name}</p>

@@ -63,7 +63,7 @@ form{
     font-size: 20px;
     font-weight: 400;
 }
-.css-y2ff7i-MuiPaper-root-MuiTableContainer-root{
+/* .css-y2ff7i-MuiPaper-root-MuiTableContainer-root{
     box-shadow: none !important;
 }
 .css-1dc80h3-MuiTableCell-root,.css-14y13q2-MuiTableCell-root {
@@ -71,7 +71,7 @@ form{
 }
 .MuiTableRow-root:last-child .MuiTableCell-root {
     border-bottom: none !important;
-}
+} */
 .cart-total-container{
     float: right;
     margin: 4% 0 0 0;

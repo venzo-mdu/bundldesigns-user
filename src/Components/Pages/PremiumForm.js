@@ -1,6 +1,5 @@
 import React,{useState,useEffect} from 'react'
 import axios from 'axios'
-import { ConfigToken } from '../Auth/ConfigToken'
 import { base_url } from '../Auth/BackendAPIUrl';
 import { Footer } from '../Common/Footer/Footer'
 import { Navbar } from '../Common/Navbar/Navbar'

@@ -6,6 +6,8 @@ import Whatsapp from '../../../Images/Footer/Whatsapp.svg'
 import Linkedin from '../../../Images/Footer/Linkedin.svg'
 import Facebook from '../../../Images/Footer/Facebook.svg'
 import Instagram from '../../../Images/Footer/Instagram.svg'
+import mailIcon from '../../../Images/Footer/mailicon.svg'
+import WhatsappIcon from '../../../Images/Footer/WhatsappBlack.svg'
 import X from '../../../Images/Footer/icons8-twitterx-16.svg'
 import { NavLink } from 'react-router-dom'
 import axios from 'axios'
@@ -46,6 +48,14 @@ export const Footer = () => {
             icon:Linkedin,
             path:mediaUrls.linked_in
         },
+        {
+            icon:WhatsappIcon,
+            path: 'https://wa.me/547754124'
+        },
+        {
+            icon : mailIcon,
+            path:'mailto:info@bundldesigns.com'
+        }
     ]
     return (
         <div className='footer-section'>
@@ -54,14 +64,6 @@ export const Footer = () => {
                     <div className='left-content'>
                         <img className='bundl-logo-footer' src={Bundllogo} alt='footer-logo'></img>
                         <p className='footer-text-left'>Elevating Brands & Shaping Legacies.</p>
-                        {/* <div>
-                            <p className='join-text'>Join our newsletter !</p>
-                            <div style={{position:'relative'}}>
-                            <input className='footer-input ml-1 placeholder-white' placeholder='Enter your email'></input>
-                            <img className='input-message' src={Message} alt='message'></img>
-                            </div>
-                        </div> */}
-                        {/* <button className='subscribe'>Subscribe</button> */}
                     </div>
                     <div className='right-content'>
                         <div className='platform'>
@@ -83,9 +85,7 @@ export const Footer = () => {
                         </div>
                         <div className='contact-us'>
                             <p className='font-medium !text-[20px] mb-1 text-[#ECEAEB]'>Contact Us</p>
-                            <p><img src={Message} alt='message' className="inline-block"/><span> info@bundldesigns.com</span></p>
-                            <p><img src={Whatsapp} alt='whatsapp' className="inline-block"></img><span> +(966) 547754124</span></p>
-                            <div style={{display:'flex',width:'100%'}}>
+                            <div className='xs:mt-4 sm:mt-auto' style={{display:'flex',width:'100%'}}>
                                 {
                                     socialIcons.map((item, index) => {
                                         return (

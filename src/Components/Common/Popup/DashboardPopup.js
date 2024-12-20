@@ -7,6 +7,7 @@ import Mouth from '../../../Images/Bundles/mouth.webp'
 import Rocket from '../../../Images/Bundles/rocket-blue-for-animation.webp'
 import Pinkpaint from '../../../Images/Bundles/pink-paint.webp'
 import { Box, Button, Input, Typography, useMediaQuery } from "@mui/material";
+import popupGIF from '../../../Images/popupGIF.gif'
 
 export const DashboardPopup = ({ title, subTitle, popupType = 'default', onChange, save, cancel, openpopup, textArea, saveBtnBg, setPopup, onClick, sx, values, isCancel }) => {
     const isSmallScreen = useMediaQuery('(max-width:441px)');
@@ -42,7 +43,6 @@ export const DashboardPopup = ({ title, subTitle, popupType = 'default', onChang
             return <Box>{/* Custom component inputs here */}</Box>;
         }
     }
-
     return (
         <div>
             <Modal
@@ -53,18 +53,8 @@ export const DashboardPopup = ({ title, subTitle, popupType = 'default', onChang
                 <Box sx={style}>
                     <div className="container">
                         <div className="row justify-content-center">
-                            <div className="relative text-center p-0 !pb-[14px]">
-                                <p className="flex items-center justify-center m-auto">
-                                    <img src={Create} style={{ maxWidth:isSmallScreen ? '45%' : '35%' }} alt="" className="img-fluid" />
-                                </p>
-                                <div className="mySlides">
-                                    <img
-                                        className="slideImages"
-                                        style={{ width:'20%', margin:isSmallScreen ? '-60% 0 0 0' : '-30% 0 0 0' }}
-                                        src={Mouth}
-                                        alt="Image 1"
-                                    />
-                                </div>
+                            <div className="relative flex justify-center text-center p-0 !pb-[14px]">
+                            <img className='w-[100px] ' src={popupGIF}></img>
                             </div>
                         </div>
                     </div>
@@ -105,6 +95,7 @@ export const DashboardPopup = ({ title, subTitle, popupType = 'default', onChang
                                     color: "#fff",
                                 },
                             }}
+                            className='!rounded-none !capitalize text-[20px] font-[500]'
                         >
                             {save}
                         </Button>

@@ -87,8 +87,8 @@ export default function UploadContent() {
         <>
             <Navbar />
             <div className='font-Helvetica px-6 py-2 flex'>
-                <div className='basis-3/4 border-r border-black'>
-                    <p onClick={()=>{window.location.href ='/dashboard'}} className='flex text-[18px] items-center text-black'> <img src={backIcon} className='mr-2' ></img> Back to dashboard </p>
+                <div className='basis-3/4  !mt-[26px] border-r border-black'>
+                    <p onClick={()=>{window.location.href ='/dashboard'}} className='flex cursor-pointer text-[18px] items-center text-black'> <img src={backIcon} className='mr-2' ></img> Back to dashboard </p>
                     <div className='mx-12'>
                         <h3 className='my-4'> Upload Content </h3>
 
@@ -256,7 +256,7 @@ export default function UploadContent() {
                     </div>
 
                 </div>
-                <div className='basis-1/4 my-2 px-2'>
+                <div className='basis-1/4  !mt-[26px] my-2 px-2'>
 
                     <h3 className='text-[22px] font-bold py-2'>Checklist</h3>
 

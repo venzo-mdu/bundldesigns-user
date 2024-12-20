@@ -17,6 +17,7 @@ import PremiumForm from "./Components/Pages/PremiumForm";
 import Dashboard from "./Components/Pages/Dashboard";
 import UploadContent from "./Components/Pages/UploadContent";
 import Adjustments from "./Components/Pages/Adjustments";
+import WebsterPremiumForm from "./Components/Pages/WebsterPremiumForm";
 
 const getCookie = (name) => {
   const value = `; ${document.cookie}`;
@@ -105,6 +106,11 @@ export default function AppRouter() {
     {
       path: '/premium-form',
       element: < PremiumForm />
+    },
+    {
+      path:'/form/:form_type',
+      element:<WebsterPremiumForm />
+
     },
     {
       path: '/webster-form',
