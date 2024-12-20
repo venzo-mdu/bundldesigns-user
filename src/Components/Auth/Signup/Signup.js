@@ -26,7 +26,8 @@ export const Signup = () => {
   const [registerData, setRegisterData] = useState({
     full_name: '',
     email: '',
-    password: ''
+    password: '',
+    google:false
   });
 
   const showToastMessage = () => {
@@ -34,12 +35,13 @@ export const Signup = () => {
       position: toast?.POSITION?.TOP_RIGHT,
     });
   };
-
   const handleChange = (e) => {
     const { name, value } = e.target;
+  
+    // Update the register data state
     setRegisterData((prevData) => ({
       ...prevData,
-      [name]: value
+      [name]: value,
     }));
   
     // Full name validation
@@ -70,40 +72,24 @@ export const Signup = () => {
     // Email validation
     if (name === 'email') {
       if (!value.trim()) {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          email: 'Email is required'
-        }));
+        setError('email', 'Email is required');
       } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value)) {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          email: 'Invalid email address'
-        }));
+        setError('email', 'Invalid email address');
       } else {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          email: '' // clear error if email is valid
-        }));
+        setError('email', ''); // clear error if email is valid
       }
     }
   
-    // Password validation
     if (name === 'password') {
-      if (!value.trim()) {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          password: 'Password is required'
-        }));
+      if (/\s/.test(value)) {  // Check for spaces
+        setError('password', 'Password cannot contain spaces');
+      }
+      else if (!value.trim()) {
+        setError('password', 'Password is required');
       } else if (value.length < 8) {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          password: 'Password must be at least 8 characters'
-        }));
+        setError('password', 'Password must be at least 8 characters');
       } else {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          password: '' // clear error if password is valid
-        }));
+        setError('password', ''); // clear error if password is valid
       }
     }
   };
@@ -143,7 +129,7 @@ export const Signup = () => {
 
       }
     } catch (response) {
-      const errors = response.response.data?.error || {};
+      const errors = response.response.data || {};
       const formattedErrors = Object.fromEntries(
         Object.entries(errors).map(([key, value]) => [key, value[0]])
       );
@@ -186,7 +172,7 @@ export const Signup = () => {
               value={registerData.full_name}
               onChange={handleChange}
             />
-            {errors.full_name && <p className="error">{errors.full_name}</p>}
+            {errors.full_name && <p className="error first-letter:capitalize">{errors.full_name}</p>}
             
             <label className='mb-2 mt-[3%]' style={{ marginTop: '3%' }}>Email address</label>
             <input
@@ -195,7 +181,7 @@ export const Signup = () => {
               value={registerData.email}
               onChange={handleChange}
             />
-            {errors.email && <p className="error">{errors.email}</p>}
+            {errors.email && <p className="error first-letter:capitalize">{errors.email}</p>}
             
             <label className='mb-2 mt-[3%]' >Password</label>
             <input
@@ -205,7 +191,7 @@ export const Signup = () => {
               value={registerData.password}
               onChange={handleChange}
             />
-            {errors.password && <p className="error">{errors.password}</p>}
+            {errors.password && <p className="error first-letter:capitalize">{errors.password}</p>}
             
             <label className='terms-policy  flex items-center my-1'>
               <input
