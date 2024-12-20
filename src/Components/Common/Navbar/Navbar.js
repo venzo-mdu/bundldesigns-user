@@ -50,11 +50,17 @@ export const Navbar = () => {
       console.log(err)
     }
   }
-
+  const getCookie = (name) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2){
+      return parts.pop().split(';').shift()
+    } ;
+    return null;
+  };
   useEffect(() => {
-    setToken(ConfigToken())
+    setToken(getCookie('token'))
   }, [])
-console.log(ConfigToken(),'asdf')
   const isCommonNavbar = commonPaths.includes(window.location.pathname);
   return (
     <>
