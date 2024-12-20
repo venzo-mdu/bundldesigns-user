@@ -168,11 +168,11 @@ export const MyCart = () => {
                     <p>Your Cart</p>
                         <table className='w-full border-none' aria-label="simple table">
                             <thead>
-                                <tr className=' text-[20px]'>
-                                    <td className='text-[#00000080] pb-3' >Item</td>
-                                    <td className='text-[#00000080] pb-3'  align="center">Quantity</td>
-                                    <td className='text-[#00000080] pb-3' align="center">Price</td>
-                                    <td className='text-[#00000080] pb-3'  align="center">Action</td>
+                                <tr className='!text-left text-[20px]'>
+                                    <td className= 'text-left w-[20%] text-[#00000080] pb-3' >Item</td>
+                                    <td className='text-[#00000080] w-[30%] pb-3'  align="center">Quantity</td>
+                                    <td className='text-[#00000080] w-[30%]    pb-3' align="center">Price</td>
+                                    <td className='text-[#00000080] w-[20%]    pb-3'  align="center">Action</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -182,7 +182,7 @@ export const MyCart = () => {
                                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                         className={`text-[#000] font-[700] text-[20px] ${index == (cartDetails?.item_details?.bundle_items.length-1) && cartDetails?.item_details?.addon_items.length ==0? '':'border-b border-black'} mb-2 `}
                                     >
-                                        <td className=' !py-2' scope="row">
+                                        <td className='text-left !py-2' scope="row">
                                             {row.item_name}
                                         </td>
                                         <td className=' !py-2' align="center">{row.qty}</td>

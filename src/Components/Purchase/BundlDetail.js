@@ -184,7 +184,7 @@ export const BundlDetail = () => {
       <ToastContainer />
       <Navbar />
       <div className='bundl-detail'>
-        <div style={{ borderBottom: '1px solid #000000', width: '100%' }}>
+        <div className='xs:px-2 sm:px-auto px-auto' style={{ borderBottom: '1px solid #000000', width: '100%' }}>
           <h2>{location.state?.bundlDetail?.name_english}</h2>
           <div className='bundl-amount'>
             <p className='flex items-center'><img src={Dollor} alt="Dollar icon" className="inline-block mr-1" /><span>{Math.round(location.state?.bundlDetail?.price) || "3750 SAR"} SAR</span></p>

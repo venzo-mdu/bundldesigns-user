@@ -112,13 +112,13 @@ export default function WebsterPremiumForm() {
           <div className='basis-2/4 px-[2px]'  >
             <div className='text-center'>
               <h2 className='text-[40px] mt-4 leading-1 relative text-black w-[340px] mx-auto mb-0'>
-                  <img className='absolute bottom-[10px] xs:left-0 sm:left-[-10%] left-[-10%]' src={Loginlogo} alt='login' /> Welcome to
+                  <img className='absolute bottom-[10px] sm:bottom-[10px] xs:bottom-[20px] xs:left-0 sm:left-[-10%] left-[-10%]' src={Loginlogo} alt='login' /> Welcome to
               </h2>
               <h2 className='text-[40px] text-[#F3B7CE] font-[700]'>{form_type == 'premium' ? 'The Premium Bundl' : ' The Webster Bundl'}</h2>
               <p className='text-[20px] md:w-[100%] lg:w-[92%] xl:w-[62%] mx-auto'>Elevate your brand, whether online or in-store. This bundle includes comprehensive brand identity (logo, guidelines, colors, typography, patterns) and commerce collateral to enhance customer experience. Plus, get social media designs to boost sales.
               </p>
             </div>
-            <div className='text-left mt-4'>
+            <div className='text-left mt-4 xs:px-3 px-auto sm:px-auto'>
               <div className=' mb-2 '>
                 <h2 className='text-[32px] text-black'>What is the name of your brand?</h2>
                 <input

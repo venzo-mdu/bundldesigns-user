@@ -41,14 +41,33 @@ export const Signup = () => {
       ...prevData,
       [name]: value
     }));
-
-    // Clear error when user starts typing and input becomes valid
-    if (name === 'full_name' && value.trim()) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        full_name: ''
-      }));
+  
+    // Full name validation
+    if (name === 'full_name') {
+      if (!value.trim()) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          full_name: 'Full name is required'
+        }));
+      } else if (/[^a-zA-Z\s-]/.test(value)) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          full_name: 'Full name must not contain numbers or special characters'
+        }));
+      } else if (value.length < 3) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          full_name: 'Full name must be at least 3 characters'
+        }));
+      } else {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          full_name: '' // clear error if name is valid
+        }));
+      }
     }
+  
+    // Email validation
     if (name === 'email') {
       if (!value.trim()) {
         setErrors((prevErrors) => ({
@@ -67,6 +86,8 @@ export const Signup = () => {
         }));
       }
     }
+  
+    // Password validation
     if (name === 'password') {
       if (!value.trim()) {
         setErrors((prevErrors) => ({
@@ -86,7 +107,7 @@ export const Signup = () => {
       }
     }
   };
-
+  
   const validateForm = () => {
     const errors = {};
     if (!registerData.full_name.trim()) errors.full_name = 'Name is required';
@@ -158,25 +179,25 @@ export const Signup = () => {
           </p>
           <img className='loginlogo' src={Loginlogo} alt='login' />
           <form onSubmit={signUp}>
-            <label style={{ width: '100%' }}>Name</label>
+            <label className='mb-2' style={{ width: '100%' }}>Name</label>
             <input
-              placeholder='Name'
+              placeholder='Enter your name'
               name='full_name'
               value={registerData.full_name}
               onChange={handleChange}
             />
             {errors.full_name && <p className="error">{errors.full_name}</p>}
             
-            <label style={{ margin: '3% 0 0 0' }}>Email address</label>
+            <label className='mb-2 mt-[3%]' style={{ marginTop: '3%' }}>Email address</label>
             <input
-              placeholder='Email'
+              placeholder='Enter your email'
               name='email'
               value={registerData.email}
               onChange={handleChange}
             />
             {errors.email && <p className="error">{errors.email}</p>}
             
-            <label style={{ margin: '3% 0 0 0' }}>Password</label>
+            <label className='mb-2 mt-[3%]' >Password</label>
             <input
               type='password'
               placeholder='Password'
