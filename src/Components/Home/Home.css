@@ -607,10 +607,41 @@ text-transform: uppercase;
 width: 26px;
 }
 .nav-icon.user-icon {
-  margin-top: 10px; 
+  margin-top: 40px; 
 }
 .navbar-nav .dropdown .user-icon {
   transform: translateY(5px);  
+}
+.dropdown-menu {
+  display: block;
+  position: relative;
+  background: #fff;
+  width: 1%;
+  padding: 10px;
+  list-style: none;
+  margin: 0;
+  left: 70%;
+  
+}
+.navbar-toggle {
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+  justify-content: space-between;
+  width: 40px; /* Overall toggle width */
+  margin-top:10px;
+  margin-left:5px;
+  padding: 0;
+  
+}
+
+.navbar-toggle .icon-bar {
+  display: block;
+  width: 20px; /* Width of each bar */
+  height: 2px; /* Thickness of the bars */
+  background-color: #000; /* Bar color */
+  margin: 1px 0; /* Reduces space between bars */
+  
 }
 
 
@@ -1093,6 +1124,7 @@ top: -40px;
 left: 50%;
 transform: translate(-50%, -50%);
 }
+
 
 
 
@@ -4597,12 +4629,83 @@ font-size: 20px;
 }
 }
 
+.dropdown-menu {
+  display: block;
+  position: relative;
+  background: #fff;
+  width: 1%;
+  padding: 10px;
+  list-style: none;
+  margin: 0;
+  left: 70%;
+ 
+  
+}
+
+.dropdown-item {
+  padding: 8px 10px;
+  color: #000;
+  text-decoration: none;
+  
+}
+
+.dropdown-item:hover {
+  background-color: #f0f0f0;
+}
+@media (max-width: 768px) {
+  /* Apply styles for mobile screens */
+  body {
+    font-size: 14px;
+  }
+}
 
 
+.dropdown-backdrop {
+  background: transparent; /* Invisible backdrop */
+  cursor: default;
+}
 
+dropdown-menu.show {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
 
+.dropdown-menu {
+  display: none; /* Hidden by default */
+  opacity: 0;    /* Fully transparent */
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: translateY(-10px); /* Slide up initially */
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
 
+.navbar-toggle {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding:0;
+  justify-content: space-between;
+  margin-top:-25px;
+  margin-left:-4px;
+}
 
-
-
+.navbar-toggle .icon-bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  margin: auto;
+  background-color: #000;
+  margin: 2px 0;
+}
+.navbar .navbar-toggle {
+  margin-top: -8px;
+}
 

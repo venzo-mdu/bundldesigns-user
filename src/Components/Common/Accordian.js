@@ -234,14 +234,10 @@ export const Accordian = ({ accordianTitle, addOnPayload, bundlePackageId }) => 
                       >
                         {design.name_english}
                       </Typography>
-                      <p style={window.innerWidth <= 441 ? { width: '50%' } : { width: '20%' }}>
-                        <img src={BlackDollor} alt="Price icon" className="inline-block" />
-                        {Math.round(design.price)} SAR
-                      </p>
-                      <p style={window.innerWidth <= 441 ? { width: '50%' } : { width: '20%' }}>
-                        <img src={BlackTime} alt="Time icon" className="inline-block" />
-                        {Math.round(design.time)} Days
-                      </p>
+                      <p style={window.innerWidth <= 441 ? { width: '70%' } : { width: '50%' }}><img src={BlackDollor} alt="Price icon" className="inline-block" style={{ width: '18px', height: '18px', marginRight: '3px' }}/>
+                      <span style={{ fontSize: '14px', marginLeft: '2px' }}> {Math.round(design.price)} SAR</span></p>
+                      <p style={window.innerWidth <= 441 ? { width: '70%' } : { width: '50%' }}><img src={BlackTime} alt="Time icon" className="inline-block"  style={{ width: '18px', height: '18px', marginRight: '3px' }}/>
+                      <span style={{ fontSize: '14px' }}>{Math.round(design.time)} Days</span></p>
                       <div style={{ border: '0' }} className="quantity">
                         <button
                           style={{ border: '1px solid #0BA6C4', color: '#0BA6C4' }}

@@ -10,12 +10,7 @@ import User from '../../../Images/Bundles/icon-user.png'
 import { NavLink } from 'react-router-dom'
 export const Navbar = () => {
    
-   const [dropdownOpen, setDropdownOpen] = useState(false); // State for dropdown toggle
-
-  const toggleDropdown = () => {
-    setDropdownOpen((prev) => !prev); // Toggle dropdown visibility
-  };
-
+ 
   return (
     // <div className='common-navbar'>
     //     <div className='nav-logo'>
@@ -122,66 +117,30 @@ export const Navbar = () => {
     //   </div>
     // </div>
  
- //mobile view changes
-<div className="nav-container">
-      <div className="nav-section fixed top-0 w-[100%] z-[1]">
-        <div style={{ padding: "0% 2%" }} className="">
-          <div className="row align-items-center">
-            {/* Logo Section */}
-            <div className="col-6">
-              <a className="navbar-brand" href="/">
-                <img src={HomeLogo} alt="home-logo" className="img-fluid" />
-              </a>
-            </div>
-
-            {/* Toggle Menu for Mobile */}
-            <div className="col-6 text-end">
-              <button
-                type="button"
-                className="navbar-toggle"
-                onClick={toggleDropdown}
-              >
-                <span className="icon-bar"></span>
-                <span className="icon-bar"></span>
-                <span className="icon-bar"></span>
-              </button>
-            </div>
-
-            {/* Mobile Dropdown Menu */}
-           
-            {dropdownOpen && (
-              <div className="col-12" >
-                 <ul className="dropdown-menu show">
-                 <li>
-                    <a className="dropdown-item" href="/aboutus">
-                      About
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="/">
-                      Bundls
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="/our-work">
-                      Work
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Contact Us
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            )}
-            
-          </div>
-        </div>
-      </div>
+    <div className='common-navbar'>
+    <div className='nav-logo'>
+    <img src={NavLogo}></img>
     </div>
-  );
-};
+
+    <div className='nav-items'>
+       <p><NavLink style={{color:'#000000'}} to="/">Home</NavLink></p>
+       <p> <a  className='text-black' href='/aboutus'> About </a> </p>
+       <p> <a  className='text-black' href='/our-work'>Work</a> </p>
+       <p>Bundls</p>
+    </div>
+    <div className='profile'>
+      <input className='profile-input'></input>
+      <img className='search-icon' src={Search}></img>
+      <NavLink to="/mycart">
+      <img className='cart-icon' src={Cart}></img>
+      </NavLink>
+      <img className='user-icon' src={User}></img>
+      <div className='profile-name'>AD</div>
+    </div>
+</div>
+)
+}
+
 
 {/* // Handle screen size changes
     useEffect(() => {

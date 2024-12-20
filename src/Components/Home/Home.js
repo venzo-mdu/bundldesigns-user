@@ -58,6 +58,28 @@ export const Home = () => {
         const toggleDropdown = () => {
           setDropdownOpen(!dropdownOpen); // toggle dropdown visibility
         };
+        const [isMobileView, setIsMobileView] = useState(false); // State for screen size
+    const [menuOpen, setMenuOpen] = useState(false); // State for menu toggle
+
+    // Detect screen size and set mobile view state
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobileView(window.innerWidth <= 768); // Mobile view for widths <= 768px
+        };
+
+        handleResize(); // Set initial state
+        window.addEventListener("resize", handleResize); // Listen for resize events
+
+        return () => {
+            window.removeEventListener("resize", handleResize); // Clean up event listener
+        };
+    }, []);
+
+    // Toggle menu visibility
+    const toggleMenu = () => {
+        setMenuOpen((prev) => !prev);
+    };
+   
       
     const navigate = useNavigate();
     const imageArray = [Car, Lemon, Mouth, Rocket, Pinkpaint];
@@ -235,14 +257,52 @@ export const Home = () => {
                                                     <li className="nav-item">
                                                         <a className="nav-link" href="#"><img src={Language} alt="" className="img-fluid nav-icon"></img></a>
                                                     </li>
-                                                    <li className=" menu">
-                                                        <button type="button" className="navbar-toggle" id="menu-toggle">
-                                                            <span className="icon-bar"></span>
-                                                            <span className="icon-bar"></span>
-                                                            <span className="icon-bar"></span>
-                                                        </button>
-                                                    </li>
+                                                   
+
                                                 </ul>
+                                                {isMobileView && ( // Render only in mobile view
+                <div className="mobile-menu-container">
+                    {/* Mobile Menu Toggle Button */}
+                    <button
+                        type="button"
+                        className="navbar-toggle"
+                        onClick={toggleMenu}
+                        style={{ display: isMobileView ? "block" : "none" }} // Show only in mobile view
+            
+                    >
+                        <span className="icon-bar"></span>
+                        <span className="icon-bar"></span>
+                        <span className="icon-bar"></span>
+                    </button>
+
+                    {/* Mobile Dropdown Menu */}
+                    {menuOpen && (
+                         <ul className="dropdown-menu show">
+                           
+                            <li>
+                                <a href="/aboutus" className="dropdown-item" onClick={() => setMenuOpen(false)}>
+                                    About Us
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/" className="dropdown-item" onClick={() => setMenuOpen(false)}>
+                                    Bundls
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/our-work" className="dropdown-item" onClick={() => setMenuOpen(false)}>
+                                    Our Work
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" className="dropdown-item" onClick={() => setMenuOpen(false)}>
+                                    Contact Us
+                                </a>
+                            </li>
+                        </ul>
+                    )}
+                </div>
+            )}
                                                 <nav className="navigation">
                                                     <ul className="navbar">
                                                         <li>
