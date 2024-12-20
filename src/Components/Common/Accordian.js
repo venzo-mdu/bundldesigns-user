@@ -238,13 +238,13 @@ export const Accordian = ({ accordianTitle, addOnPayload, bundlePackageId }) => 
                       >
                         {design.name_english}
                       </Typography>
-                      <p style={window.innerWidth <= 441 ? { width: '50%' } : { width: '20%' }}>
+                      <p style={window.innerWidth <= 441 ? { width: '70%' } : { width: '30%' }}>
                         <img src={BlackDollor} alt="Price icon" className="inline-block" />
-                        {Math.round(design.price)} SAR
+                        {Math.round(design.price)}  SAR
                       </p>
-                      <p style={window.innerWidth <= 441 ? { width: '50%' } : { width: '20%' }}>
+                      <p style={window.innerWidth <= 441 ? { width: '70%'} : { width: '60%' }}>
                         <img src={BlackTime} alt="Time icon" className="inline-block" />
-                        {Math.round(design.time)} Days
+                        {Math.round(design.time)}  Days
                       </p>
                       <div style={{ border: '0' }} className="quantity">
                         <button
