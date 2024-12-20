@@ -35,6 +35,13 @@ export const Signup = () => {
       position: toast?.POSITION?.TOP_RIGHT,
     });
   };
+  const setError = (field, errorMessage) => {
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [field]: errorMessage,
+    }));
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
   
@@ -44,19 +51,23 @@ export const Signup = () => {
       [name]: value,
     }));
   
-    // Helper function to set errors
-    const setError = (field, errorMessage) => {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        [field]: errorMessage,
-      }));
-    };
-  
-    // Clear error when user starts typing and input becomes valid
-    if (name === 'full_name' && value.trim()) {
-      setError('full_name', '');
+    // Full name validation
+    if (name === 'full_name') {
+      if (!value.trim()) {
+        setError('full_name', 'Full name is required')
+    
+      } else if (/[^a-zA-Z\s-]/.test(value)) {
+        setError('full_name', 'Full name must not contain numbers or special characters')
+
+      } else if (value.length < 3) {
+        setError('full_name',  'Full name must be at least 3 characters')
+      } else {
+        setError('full_name',  '')
+   
+      }
     }
   
+    // Email validation
     if (name === 'email') {
       if (!value.trim()) {
         setError('email', 'Email is required');
@@ -81,7 +92,6 @@ export const Signup = () => {
     }
   };
   
-
   const validateForm = () => {
     const errors = {};
     if (!registerData.full_name.trim()) errors.full_name = 'Name is required';
@@ -90,7 +100,10 @@ export const Signup = () => {
     } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(registerData.email)) {
       errors.email = 'Invalid email address';
     }
-    if (!registerData.password.trim()) {
+    if (/\s/.test(registerData.password)) {  // Check for spaces
+      errors.password = 'Password cannot contain spaces'
+    }
+    else if (!registerData.password.trim()) {
       errors.password = 'Password is required';
     } else if (registerData.password.length < 8) {
       errors.password = 'Password must be at least 8 characters';
@@ -153,25 +166,25 @@ export const Signup = () => {
           </p>
           <img className='loginlogo' src={Loginlogo} alt='login' />
           <form onSubmit={signUp}>
-            <label style={{ width: '100%' }}>Name</label>
+            <label className='mb-2' style={{ width: '100%' }}>Name</label>
             <input
-              placeholder='Name'
+              placeholder='Enter your name'
               name='full_name'
               value={registerData.full_name}
               onChange={handleChange}
             />
             {errors.full_name && <p className="error first-letter:capitalize">{errors.full_name}</p>}
             
-            <label style={{ margin: '3% 0 0 0' }}>Email address</label>
+            <label className='mb-2 mt-[3%]' style={{ marginTop: '3%' }}>Email address</label>
             <input
-              placeholder='Email'
+              placeholder='Enter your email'
               name='email'
               value={registerData.email}
               onChange={handleChange}
             />
             {errors.email && <p className="error first-letter:capitalize">{errors.email}</p>}
             
-            <label style={{ margin: '3% 0 0 0' }}>Password</label>
+            <label className='mb-2 mt-[3%]' >Password</label>
             <input
               type='password'
               placeholder='Password'

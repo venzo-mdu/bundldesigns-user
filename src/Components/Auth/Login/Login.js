@@ -88,15 +88,15 @@ export const Login = () => {
     return Object.keys(errorMessages).length === 0;
   };
 
-  const loginWithGoogle = async () => {
+  const loginWithGoogle = async (data) => {
 
     try {
-      const response = await axios.post(`${base_url}/api/login/`, loginData);
+      const response = await axios.post(`${base_url}/api/login/`, data);
       if (response.status === 200) {
         document.cookie = `token=${response?.data?.data.token || ""}; path=/; SameSite=None; Secure`;
         dispatch(loginAction(response.data.user));
         navigate('/');
-        
+
       }
 
     } catch (response) {
@@ -130,20 +130,19 @@ export const Login = () => {
       <div className='login !mb-24'>
         <img className='anchor w-[100px]' src={loginGIF} alt='login-anchor' />
         <div className='login-content'>
-          <p className='welcometext'>Welcome Back Sarah  !</p>
+          <p className='welcometext'>Welcome Back!</p>
           <img className='loginlogo' src={Loginlogo} alt='login' />
           <form onSubmit={onSubmit}>
-            <label>Email address</label>
+            <label className='xs:mb-2'> Email address</label>
             <input
               type="email"
               name="email"
-              placeholder="Email"
+              placeholder="Enter your email"
               value={loginData.email}
               onChange={handleChange}
             />
             {errors.email && <p className="error">{errors.email}</p>}
-
-            <label style={{ margin: '3% 0 0 0' }}>Password</label>
+            <label className='xs:mb-2' style={{ marginTop:'3%' }}>Password</label>
             <input
               type="password"
               name="password"
@@ -172,11 +171,11 @@ export const Login = () => {
                   console.log('Name:', userDetails.name);
                   console.log('Email:', userDetails.email);
                   console.log('Profile Picture:', userDetails.picture);
-                  setLoginData((prevData) => ({
-                    ...prevData,
+                  loginWithGoogle({
+                    email:userDetails.email,
+                    password:null,
                     google: true
-                  }));
-                  loginWithGoogle()
+                  })
                 }}
                 onError={() => {
                   console.log('Login Failed');

@@ -21,12 +21,13 @@ export const BundlDetail = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [bundlAddons, setBundlAddons] = useState([]);
+  const [minError,setMinError] = useState([])
   const [quantities, setQuantities] = useState({});
   const [addonPayLoads, setAddonPayLoads] = useState({});
   const [brandInput, setBrandInput] = useState('');
   const [selectedLanguage, setSelectedLanguage] = useState('English');
   const [firstOrder,setFirstOrder] = useState(true)
-
+  const [actual,setactual] = useState({})
   const handleRadioChange = (e) => {
     setSelectedLanguage(e.target.value);
   };
@@ -63,6 +64,14 @@ export const BundlDetail = () => {
   const getBundlData = async () => {
     const response = await axios.get(`${base_url}/api/package/?bundle_id=${location.state.bundlDetail?.id}`, ConfigToken());
     setBundlAddons(response.data);
+    const flatList = response.data?.bundle_details?.flatMap(item => item.design_list);
+
+    const data = flatList.reduce((acc, item) => {
+      acc[item.name_english] = item.quantity;
+      return acc;
+    }, {});
+    setQuantities(data)
+    setactual(data)
   }
   const getprojects = async () => {
     const response = await axios.get(`${base_url}/api/order/`, ConfigToken());
@@ -82,8 +91,12 @@ export const BundlDetail = () => {
   //   console.log(quantities)
   // };
   const handleQuantityChange = (designName, change) => {
+
     setQuantities(prevQuantities => {
-      const newQuantity = (prevQuantities[designName] || 1) + change;
+      let newQuantity = (prevQuantities[designName] || 1) + change;
+      if(newQuantity < actual[designName]) setMinError([...minError,designName])
+      else setMinError((prevErrors) => prevErrors.filter((error) => error !== designName));
+      newQuantity = newQuantity < actual[designName] ? actual[designName] : newQuantity
       return {
         ...prevQuantities,
         [designName]: newQuantity
@@ -163,7 +176,7 @@ export const BundlDetail = () => {
   const selectedItems = bundlAddons.bundle_details?.flatMap(bundle =>
     bundle.design_list.map(design => ({
       ...design,
-      quantity: quantities[design.name_english] || 1,
+      quantity: quantities[design.name_english] || design.quantity,
       total_price: (quantities[design.name_english] || 1) * design.price,
       total_time: (quantities[design.name_english] || 1) * design.time
     }))
@@ -184,7 +197,7 @@ export const BundlDetail = () => {
       <ToastContainer />
       <Navbar />
       <div className='bundl-detail'>
-        <div style={{ borderBottom: '1px solid #000000', width: '100%' }}>
+        <div className='xs:px-2 sm:px-auto px-auto' style={{ borderBottom: '1px solid #000000', width: '100%' }}>
           <h2>{location.state?.bundlDetail?.name_english}</h2>
           <div className='bundl-amount'>
             <p className='flex items-center'><img src={Dollor} alt="Dollar icon" className="inline-block mr-3" /><span>{Math.round(location.state?.bundlDetail?.price) || "3750 SAR"} SAR</span></p>
@@ -262,7 +275,7 @@ export const BundlDetail = () => {
                           {/* <p style={window.innerWidth <= 441 ? { width: '50%' } : { width: '20%' }}><img src={BlackDollor} alt="Price icon" className="inline-block" />{design.price} SAR</p>
                           <p style={window.innerWidth <= 441 ? { width: '50%' } : { width: '20%' }}><img src={BlackTime} alt="Time icon" className="inline-block" />{design.time} Days</p> */}
                           {
-                            quantities[design.name_english] <=0 && (
+                             minError.includes(design.name_english) && (
                               <div 
                               style={window.innerWidth <=441 ?{color:'#0BA6C4',width:'47%',textAlign:'left',fontSize:'14px'} :{color:'#0BA6C4',width:'47%',textAlign:'left',fontSize:'18px'}} 
                               >
@@ -272,7 +285,7 @@ export const BundlDetail = () => {
                           }
                           <p className=' basis-[10%] flex items-center text-[#000000] border !border-[#000000]'>
                                                                 <button onClick={() => handleQuantityChange(design.name_english, -1)} className='border-r !border-[#000000] px-1 flex h-[100%] items-center'><RemoveIcon /></button>
-                                                                <span className='border-r !text-[20px] font-normal px-2 !border-[#000000]'> {quantities[design.name_english] || 1}</span>
+                                                                <span className='border-r !text-[20px] font-normal px-2 !border-[#000000]'> {quantities[design.name_english] || design.quantity}</span>
                                                                 <button  onClick={() => handleQuantityChange(design.name_english, 1)} className='flex items-center px-1 '><AddIcon /></button>
                                                             </p>
                                                         

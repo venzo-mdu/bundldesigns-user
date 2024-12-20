@@ -170,9 +170,10 @@
         font-size:25px;
         margin: 0% 0 0 0;
     }
-    .loginlogo{
-        top: -10%;
-        width: 25%;
+    .loginlogo {
+        top: -4%;
+        width: 20%;
+        left: 6%;
     }
     .signin{
         width: 100%;

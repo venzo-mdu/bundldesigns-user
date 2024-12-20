@@ -47,9 +47,9 @@ export default function OurWork() {
           <p className='text-[20px] text-[#00000080]'>Where we answer all your questions!</p>
         </div>
         <div className=' sm:p-3 border-b px-[3%] border-black'>
-          <div className='flex py-4 justify-center w-[80%] mx-auto'>
+          <div className='flex py-4 justify-center sm:w-[80%] xs:w-[100%] mx-auto'>
             {Object.keys(categories).map((key, index) => {
-              return <button className={`basis-1/5 ${currentTab == key ? 'text-white bg-[#1BA56F] ' : 'text-[#1BA56F] bg-white '} py-[5px] font-[500] text-[20px] border-r border-t border-b
+              return <button className={`basis-1/5 ${currentTab == key ? 'text-white bg-[#1BA56F] ' : 'text-[#1BA56F] bg-white '} py-[5px] font-[500] sm:text-[20px] xs:text-[15px] border-r border-t border-b
                            ${index == 0 && 'border-l'} ${index == categories.length && 'border-l-0 border-r'}
                    !border-[#1BA56F]`}
                 onClick={() => setCurrentTab(key)}>{categories[key]}</button>
@@ -63,7 +63,7 @@ export default function OurWork() {
   .map((project, index,filteredProjects) => (
     <div
       key={index}
-      className={`flex w-full ${
+      className={`sm:flex flex xs:block x w-full ${
         index !== filteredProjects.length - 1 ? 'border-b' : ''
       } mt-2 !border-black items-start mb-2 pb-4 p-2 px-4`}
     >
@@ -88,7 +88,7 @@ export default function OurWork() {
       </div>
 
       {/* Right Column */}
-      <div className="flex flex-wrap basis-1/2 w-full">
+      <div className="flex flex-wrap basis-1/2 xs:mt-6 w-full">
         {project.project_images.map((img, imgIndex) => (
           <img
             key={imgIndex}
@@ -104,13 +104,13 @@ export default function OurWork() {
           </div>
         </div>
         <div className='relative py-10 pb-24'>
-          <img className='absolute left-12' width='200px' style={{ transform: 'rotate(350deg)'}}  src={workOurGIF}></img>
+          <img className='absolute sm:left-12 left-12 xs:left-4 sm:w-[200px] w-[200px] xs:w-[150px]' style={{ transform: 'rotate(350deg)'}}  src={workOurGIF}></img>
           <div className='w-[48%] text-center mx-auto'>
           <p className='flex justify-center mb-0 mt-0'> <img  className='animate-rotate-animation' width='150px' height='110px' src={workBrandGIF}></img></p>
           <h2 className='text-[40px] '>Inspired to start your journey to launch your next big thing ?</h2>
-          <p> <button className='bg-[#000] mt-4 text-[20px] text-white py-[5px] px-[18px]'>Get started!</button> </p>
+          <p> <button onClick={()=>{window.location.href='/'}} className='bg-[#000] mt-4 text-[20px] text-white py-[5px] px-[18px]'>Get started!</button> </p>
           </div>
-          <img width='300px' className='absolute top-[14%] right-[3%]' style={{ transform: 'rotate(320deg)'}}  src={workOurGIF}></img>
+          <img width='300px' className='absolute sm:w-[300px] w-[300px] xs:w-[200px] xs:top-[30%] xs:right-[0%] sm:top-[14%] sm:right-[3%] right-[3%]' style={{ transform: 'rotate(320deg)'}}  src={workOurGIF}></img>
         </div> 
       </div>
       <Footer />

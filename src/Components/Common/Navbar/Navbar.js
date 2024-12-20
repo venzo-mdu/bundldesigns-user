@@ -18,7 +18,7 @@ import { useDispatch } from 'react-redux'
 
 export const Navbar = () => {
   const [menuVisible, setMenuVisible] = useState(false);
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [profileVisible, setProfileVisible] = useState(false)
   const [token, setToken] = useState(null)
@@ -39,22 +39,28 @@ export const Navbar = () => {
     "/bundldetail"
   ];
 
-  const Logout = async()=>{
-    try{
+  const Logout = async () => {
+    try {
       const response = await axios.get(`${base_url}/api/logout`, ConfigToken());
       document.cookie = `token=; path=/; SameSite=None; Secure; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
       dispatch(loginAction(null));
       navigate('/');
 
-    }catch(err) {
+    } catch (err) {
       console.log(err)
     }
   }
-
+  const getCookie = (name) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) {
+      return parts.pop().split(';').shift()
+    };
+    return null;
+  };
   useEffect(() => {
-    setToken(ConfigToken())
+    setToken(getCookie('token'))
   }, [])
-console.log(ConfigToken(),'asdf')
   const isCommonNavbar = commonPaths.includes(window.location.pathname);
   return (
     <>
@@ -188,27 +194,27 @@ console.log(ConfigToken(),'asdf')
                           <nav className={`w-44 inner-nav-item absolute top-[50px] shodow-sm -right-2 text-right bg-white p-2 transition-all duration-300 ease-in-out ${profileVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
                             }`}>
                             <ul >
-                            {token ? <>
-                                  <li className='relative p-1'>
-                                    <a href="/dashboard" previewlistener="true">Projects</a>
-                                  </li>
-                                  <li className='relative p-1'>
-                                    <a href="#" previewlistener="true">Profile</a>
-                                  </li>
-                                  <li className='relative p-1'>
-                                  <a 
-  className="cursor-pointer" 
-  onClick={Logout} 
-  previewlistener="true"
->
-  Logout
-</a>
-                                  </li>
-                                </> :
-                                  <>  <li className='relative p-1'>
-                                    <a href="/login" previewlistener="true">Login</a>
-                                  </li>
-                                  </>}
+                              {token ? <>
+                                <li className='relative p-1'>
+                                  <a href="/dashboard" previewlistener="true">Projects</a>
+                                </li>
+                                <li className='relative p-1'>
+                                  <a href="#" previewlistener="true">Profile</a>
+                                </li>
+                                <li className='relative p-1'>
+                                  <a
+                                    className="cursor-pointer"
+                                    onClick={Logout}
+                                    previewlistener="true"
+                                  >
+                                    Logout
+                                  </a>
+                                </li>
+                              </> :
+                                <>  <li className='relative p-1'>
+                                  <a href="/login" previewlistener="true">Login</a>
+                                </li>
+                                </>}
 
                             </ul>
                           </nav>
@@ -325,7 +331,7 @@ console.log(ConfigToken(),'asdf')
                                     <a href="#" previewlistener="true">Profile</a>
                                   </li>
                                   <li className='relative p-1'>
-                                    <a onClick={()=>{Logout()}} previewlistener="true">Logout</a>
+                                    <a onClick={() => { Logout() }} previewlistener="true">Logout</a>
                                   </li>
                                 </> :
                                   <>  <li className='relative p-1'>
