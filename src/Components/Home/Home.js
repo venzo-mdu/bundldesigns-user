@@ -1295,11 +1295,16 @@ import { Scale } from '@mui/icons-material'
 import MenuIcon from '@mui/icons-material/Menu';
 import popupGIF from '../../Images/popupGIF.gif'
 import CloseIcon from '@mui/icons-material/Close';
+import { loginAction } from '../../Redux/Action'
+import { useDispatch } from 'react-redux'
+
 
 export const Home = () => {
-    const navigate = useNavigate();
+        const dispatch = useDispatch();
+      const navigate = useNavigate();
     const imageArray = [Car, Lemon, Mouth, Rocket, Pinkpaint];
     const [selectedIndex, setSelectedIndex] = useState(null)
+      const [token, setToken] = useState(null)
     const [menuVisible, setMenuVisible] = useState(false);
     const [profileVisible, setProfileVisible] = useState(false)
     const toggleMenu = () => {
@@ -1366,6 +1371,25 @@ export const Home = () => {
             setmediaUrls(response.data)
         }
     }
+    const Logout = async()=>{
+        try{
+          const response = await axios.get(`${base_url}/api/logout`, ConfigToken());
+          document.cookie = `token=; path=/; SameSite=None; Secure; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
+          dispatch(loginAction(null));
+            window.location.reload()
+    
+        }catch(err) {
+          console.log(err)
+        }
+      }
+      const getCookie = (name) => {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2){
+          return parts.pop().split(';').shift()
+        } ;
+        return null;
+      };
 
     useEffect(() => {
         setTimeout(() => {
@@ -1386,6 +1410,7 @@ export const Home = () => {
     useEffect(() => {
         getBundl();
         getMediaUrls()
+        setToken(getCookie('token'))
     }, []);
 
     const getBundl = async () => {
@@ -1467,15 +1492,33 @@ export const Home = () => {
                                                         <a className="" href="#"><img src={Search} alt="" className="navIcons"></img></a>
                                                     </li>
                                                     <li className='px-[6px] inner-nav'>
-                                                        <a className="" onClick={() => { setProfileVisible(!profileVisible) }}><img src={User} alt="" className="navIcons"></img></a>
+                                                        <a className="" onClick={() => { setProfileVisible(!profileVisible) }}><img src={User} alt="" className="navIcons cursor-pointer"></img></a>
                                                         <nav className={`w-44 absolute top-full -right-2 text-right bg-white p-2 transition-all duration-300 ease-in-out ${profileVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
                                                             }`}>
-                                                            <ul >
-                                                                <li>
-                                                                    <a href="/login" previewlistener="true">Login</a>
-                                                                </li>
+                                   <ul >
+                              {token ? <>
+                                <li className='relative p-1'>
+                                  <a href="/dashboard" previewlistener="true">Projects</a>
+                                </li>
+                                <li className='relative p-1'>
+                                  <a href="#" previewlistener="true">Profile</a>
+                                </li>
+                                <li className='relative p-1'>
+                                  <a
+                                    className="cursor-pointer"
+                                    onClick={Logout}
+                                    previewlistener="true"
+                                  >
+                                    Logout
+                                  </a>
+                                </li>
+                              </> :
+                                <>  <li className='relative p-1'>
+                                  <a href="/login" previewlistener="true">Login</a>
+                                </li>
+                                </>}
 
-                                                            </ul>
+                            </ul>
                                                         </nav>
                                                     </li>
                                                     <li className='px-[6px]'>
@@ -1569,19 +1612,19 @@ export const Home = () => {
                                         <h1 className='!text-black sm:px-[9%] xs:px-[12%]  lg:px-[10%] !w-[100%] xs:!text-[32px] sm:!text-[58px] !text-[58px]'><span>Elevating</span> brands & shaping legacies, one <span>extraordinary design</span> at a <i>time.</i></h1>
                                         <div className="button-container scroller">
                                             <ul className="scroll-button scroller__inner_btn">
-                                                <li><span>Shop our Bundls</span></li>
+                                                <li><span><a className='text-black' href='#ourBundl'>Shop our Bundls</a></span></li>
                                                 <li><span><img src={MagicIcon} alt="" className="img-fluid"></img></span></li>
-                                                <li><span>Shop our Bundls</span></li>
+                                                <li><span><a className='text-black' href='#ourBundl'>Shop our Bundls</a></span></li>
                                                 <li><span><img src={MagicIcon} alt="" className="img-fluid"></img></span></li>
-                                                <li><span>Shop our Bundls</span></li>
+                                                <li><span><a className='text-black' href='#ourBundl'>Shop our Bundls</a></span></li>
                                                 <li><span><img src={MagicIcon} alt="" className="img-fluid"></img></span></li>
-                                                <li><span>Shop our Bundls</span></li>
+                                                <li><span><a className='text-black' href='#ourBundl'>Shop our Bundls</a></span></li>
                                             </ul>
-                                            <div className="hover-animation btn-blank-hover">
+                                            <div  className="hover-animation btn-blank-hover">
                                                 <span className="blue"></span>
                                                 <span className="green"></span>
                                                 <span className="pink"></span>
-                                                <span className="hover-txt">Shop our Bundls</span>
+                                                <span className="hover-txt"> <a className='text-white' href='#ourBundl'>Shop our Bundls</a></span>
                                             </div>
                                         </div>
                                     </div>
@@ -1699,7 +1742,7 @@ export const Home = () => {
                         <div className="plus plus-deivide"></div>
 
 
-                        <section className="container-fluid our-bundl">
+                        <section id='ourBundl' className="container-fluid our-bundl">
                             <div className="container">
                                 <div className="row justify-content-center bundl-pack-head">
                                     <div className="col-md-11 col-lg-9">

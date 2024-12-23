@@ -63,34 +63,40 @@ export const MyCart = () => {
         
     };
  
-    const removeItem = (itemId, itemType) => {
-        setCartDetails((prevCartDetails) => {
-            const updatedItemDetails = { ...prevCartDetails.item_details };
-            let updatedTotalAmount = prevCartDetails.total_amount;
+    const removeItem = async (itemId, itemType) => {
+        let cartDetailsTemp = cartDetails
+        const updatedItemDetails = { ...cartDetailsTemp.item_details };
+            let updatedTotalAmount = cartDetailsTemp.total_amount;
+            let updatedTotalTime = cartDetailsTemp.total_time
             setRemovedItems(itemId)
             // Handle removal based on item type
             if (itemType === 'bundle') {
                 const removedItem = updatedItemDetails.bundle_items.find(item => item.id === itemId);
                 updatedTotalAmount -= removedItem?.unit_price * removedItem?.qty || 0;
+                updatedTotalTime -= removedItem?.unit_time * removedItem?.qty ||0
                 updatedItemDetails.bundle_items = updatedItemDetails.bundle_items.filter(item => item.id !== itemId);
             } else if (itemType === 'addon') {
                 const removedItem = updatedItemDetails.addon_items.find(item => item.id === itemId);
                 updatedTotalAmount -= removedItem?.unit_price * removedItem?.qty || 0;
+                updatedTotalTime -= removedItem?.unit_time * removedItem?.qty ||0
                 updatedItemDetails.addon_items = updatedItemDetails.addon_items.filter(item => item.id !== itemId);
             }
-   
+
             // Recalculate the totals
             const updatedTax = updatedTotalAmount * 0.15; // Assuming VAT is 15%
             const updatedGrandTotal = updatedTotalAmount + updatedTax;
-   
-            return {
-                ...prevCartDetails,
-                item_details: updatedItemDetails,
-                total_amount: updatedTotalAmount,
-                tax: updatedTax,
-                grand_total: updatedGrandTotal,
-            };
-        });
+            const response = await axios.patch(`${base_url}/api/order/cart/`,{'item_to_delete':itemId,'total_amount':updatedTotalAmount,
+                tax:updatedTax,'grand_total':updatedGrandTotal},ConfigToken());
+
+                setCartDetails((prevCartDetails) => ({
+                    ...prevCartDetails,
+                    item_details: updatedItemDetails,
+                    total_amount: updatedTotalAmount,
+                    total_time: updatedTotalTime,
+                    tax: updatedTax,
+                    grand_total: updatedGrandTotal,
+                }));
+
     };
    
     const validateFields = () => {
@@ -175,11 +181,11 @@ export const MyCart = () => {
                     <p>Your Cart</p>
                         <table className='w-full border-none' aria-label="simple table">
                             <thead>
-                                <tr className=' text-[20px]'>
-                                    <td className='text-[#00000080] pb-3' >Item</td>
-                                    <td className='text-[#00000080] pb-3'  align="center">Quantity</td>
-                                    <td className='text-[#00000080] pb-3' align="center">Price</td>
-                                    <td className='text-[#00000080] pb-3'  align="center">Action</td>
+                                <tr className='!text-left text-[20px]'>
+                                    <td className= 'text-left w-[20%] text-[#00000080] pb-3' >Item</td>
+                                    <td className='text-[#00000080] w-[30%] pb-3'  align="center">Quantity</td>
+                                    <td className='text-[#00000080] w-[30%]    pb-3' align="center">Price</td>
+                                    <td className='text-[#00000080] w-[20%]    pb-3'  align="center">Action</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -189,7 +195,7 @@ export const MyCart = () => {
                                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                         className={`text-[#000] font-[700] text-[20px] ${index == (cartDetails?.item_details?.bundle_items.length-1) && cartDetails?.item_details?.addon_items.length ==0? '':'border-b border-black'} mb-2 `}
                                     >
-                                        <td className=' !py-2' scope="row">
+                                        <td className='text-left !py-2' scope="row">
                                             {row.item_name}
                                         </td>
                                         <td className=' !py-2' align="center">{row.qty}</td>

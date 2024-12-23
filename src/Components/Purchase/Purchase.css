@@ -253,14 +253,14 @@
     text-align: center;
 }
 
-.css-1808mag-MuiPaper-root-MuiAccordion-root {
+/* .css-1808mag-MuiPaper-root-MuiAccordion-root {
     box-shadow: none !important;
     border-bottom: 1px solid #000000;
 }
 
 .css-1808mag-MuiPaper-root-MuiAccordion-root::before {
     background-color: transparent !important;
-}
+} */
 
 .bundl-accordian {
     margin: 0 0 5% 0;
