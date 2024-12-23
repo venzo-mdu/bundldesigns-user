@@ -131,7 +131,7 @@ export const Questionnaire1 = () => {
 
   const onSaveLaterClick = async () => {
     if (!validateFields()) {
-      return; // Stop execution if validation fails
+      return; 
     }
     else{
       let data = {
@@ -167,7 +167,7 @@ export const Questionnaire1 = () => {
         onSaveLaterClick={onSaveLaterClick}
         questions={questions.map((question, index) => (
           <div className='questions' key={index}>
-            <p className='questions-title'>
+            <p className={`questions-title ${index === 0 ? 'mt-[1%]' : 'mt-[4%]'}`}>
               {question.question}
               {
                 question.required && (
@@ -176,7 +176,7 @@ export const Questionnaire1 = () => {
               }
             </p>
             {question.answer_type === "brand" && (
-              <div style={{ display: 'flex', gap: '10px' }}>
+              <div style={{ display: 'flex', gap: '10px',marginBottom:'3%' }}>
                 <button
                   className={`product-btn ${activeType === 'Product' ? 'active' : ''}`}
                   onClick={() => handleTypeClick('Product')}

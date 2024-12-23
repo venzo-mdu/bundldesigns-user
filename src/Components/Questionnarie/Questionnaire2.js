@@ -285,7 +285,7 @@ export const Questionnaire2 = () => {
           {
           questions.map((question, index) => (
           <div className="questions" key={index}>
-            <p className="questions-title">
+            <p className={`questions-title ${index === 0 ? 'mt-[1%]' : 'mt-[4%]'}`}>
               {question.question}
               {
                 question.required && (
