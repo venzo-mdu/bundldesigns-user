@@ -198,16 +198,16 @@
 //                                             <div className="navbar navbar-expand-lg float-right">
 //                                                 <ul className="navbar-nav mr-auto h-list align-items-center ">
 //                                                     <li >
-//                                                         <a className="" href="#"><img src={Search} alt="" className="navIcons  ml-2"></img></a>
+//                                                         <a className="" href="#"><img src={Search} alt="" className="navIcons  ml-3"></img></a>
 //                                                     </li>
 //                                                     <li >
-//                                                         <a className="" href="/login"><img src={User} alt="" className="navIcons  ml-2"></img></a>
+//                                                         <a className="" href="/login"><img src={User} alt="" className="navIcons  ml-3"></img></a>
 //                                                     </li>
 //                                                     <li >
-//                                                         <a className="" href="/mycart"><img src={Cart} alt="" className="navIcons  ml-2"></img></a>
+//                                                         <a className="" href="/mycart"><img src={Cart} alt="" className="navIcons  ml-3"></img></a>
 //                                                     </li>
 //                                                     <li >
-//                                                         <a className="" href="#"><img src={Language} alt="" className="navIcons  ml-2"></img></a>
+//                                                         <a className="" href="#"><img src={Language} alt="" className="navIcons  ml-3"></img></a>
 //                                                     </li>
 //                                                     <li className="nav-item menu mr-auto">
 //                                                         <button type="button" className="navbar-toggle" id="menu-toggle">

@@ -139,7 +139,14 @@ export const Questionnaire4 = () => {
 
   const handleColorClick = (color, questionId) => {
     let updatedColors;
-  
+    const isHexCode = /^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/.test(color);
+    if (!isHexCode && color !== "Surprise") {
+      toast.error("Allows only HEX Code!", {
+        position: toast?.POSITION?.TOP_RIGHT,
+      });
+      setInputValue('');
+      return;
+    }
     // If "Surprise" is selected, clear all other colors and set only "Surprise"
     if (color === "Surprise") {
       updatedColors = ["Surprise"];
@@ -157,7 +164,7 @@ export const Questionnaire4 = () => {
   
     // Update selected colors
     setSelectedColors(updatedColors);
-  
+    setInputValue('');
     // Update formData with the selected colors for the specific questionId
     setFormData((prevFormData) => ({
       ...prevFormData, // Keep existing form data
@@ -165,13 +172,6 @@ export const Questionnaire4 = () => {
     }));
   };
   
- 
-  
-console.log(selectedColors,formData)
-
-  // const handleRemoveColor = (color) => {
-  //   setSelectedColors(selectedColors.filter((c) => c !== color));
-  // };
 
   const handleRemoveColor = (color, questionId) => {
     // Remove the color from the selectedColors
@@ -193,16 +193,16 @@ console.log(selectedColors,formData)
     }))
   };
 
-  const handleAddColor = () => {
-    if (colorCodes.includes(inputValue) && !selectedColors.includes(inputValue)) {
-      setSelectedColors([...selectedColors, inputValue]);
-      setInputValue('');
-    }
-    else {
-      setSelectedColors([...selectedColors, inputValue]);
-      setInputValue('');
-    }
-  };
+  // const handleAddColor = () => {
+  //   if (colorCodes.includes(inputValue) && !selectedColors.includes(inputValue)) {
+  //     setSelectedColors([...selectedColors, inputValue]);
+  //     setInputValue('');
+  //   }
+  //   else {
+  //     setSelectedColors([...selectedColors, inputValue]);
+  //     setInputValue('');
+  //   }
+  // };
 
 
   const handleButtonClick = (index, questionId, font) => {
@@ -375,7 +375,7 @@ console.log(selectedColors,formData)
               <div className="questions" key={index}>
                 {
                   question.answer_type === 'shade' ? '' :
-                    <p className="questions-title">
+                  <p className={`questions-title ${index === 0 ? 'mt-[1%]' : 'mt-[4%]'}`}>
                       {question.question}
                       {
                         question.required && (
@@ -390,7 +390,7 @@ console.log(selectedColors,formData)
                     <>
 
                       <div className='shade-background py-5' style={{ backgroundColor: shadeBackgroundColor }}>
-                        <p style={{ color: shadeBackgroundColor === 'rgb(228, 222, 216)' ? '' : '#FFFFFF',width:'100%' }} className="questions-title mb-3">
+                        <p style={{ color: shadeBackgroundColor === 'rgb(228, 222, 216)' ? '' : '#FFFFFF',width:'100%' }} className={`questions-title mb-3 ${index === 0 ? 'mt-[1%]' : 'mt-[4%]'}`}>
                           {question.question}
                           <span>
                             <sup>*</sup>
@@ -560,17 +560,17 @@ console.log(selectedColors,formData)
                           }}
                         />
                         <button
-                          onClick={handleAddColor}
+                          onClick={()=>handleColorClick(inputValue,question.id)}
                           style={{
                             padding: '8px 16px',
-                            backgroundColor: '#343a40',
+                            backgroundColor: '#000000',
                             color: '#fff',
                             border: 'none',
                             cursor: 'pointer',
                             margin:window.innerWidth <=441 ?   '-54px 0px 0px 51.5%' :'-54px 0px 0px 52.5%'
                           }}
                         >
-                          <AddCircleRoundedIcon onClick={handleAddColor} />
+                          <AddCircleRoundedIcon  onClick={()=>handleColorClick(inputValue,question.id)} />
                         </button>
                         <figure className='mt-[3%]'>
                           <b><i className='text-[28px]'>Not sure ? It's okay!</i></b>

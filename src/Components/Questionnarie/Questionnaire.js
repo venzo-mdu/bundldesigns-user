@@ -45,8 +45,8 @@ export const Questionnaire = ({
         <div style={{ padding: '2% 0%', borderBottom: '9px solid #000000' }}>
           <div className=''>
             {/* <p className='title-questionnaire'>{bgTitle}</p> */}
-            <div class=" pic-container position-relative" style={{ zIndex: -1}}>
-              <div class="d-flex flex-row gag1 scroll-ani">
+            <div className=" pic-container position-relative" style={{ zIndex: -1}}>
+              <div className="d-flex flex-row gag1 scroll-ani">
                 <img src={Cloud1} alt="Natural" />
                 <img src={Cloud2} alt="Natural" />
               </div>

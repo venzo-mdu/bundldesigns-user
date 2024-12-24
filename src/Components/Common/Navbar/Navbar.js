@@ -743,7 +743,7 @@ export const Navbar = () => {
                             <button onClick={toggleMenu} type="button" id="menu-toggle">
                               {menuVisible ? <CloseIcon className='!text-[50px]' /> : <MenuIcon className='!text-[50px]' />}
                             </button>
-                            <nav className={`w-44 absolute top-[-10px] shadow-sm -right-2 text-right bg-white p-2 transition-all duration-300 ease-in-out ${menuVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
+                            <nav className={`w-44 absolute  shadow-sm -right-2 text-right bg-white p-2 transition-all duration-300 ease-in-out ${menuVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
                               }`}>
                               <ul className=' inner-nav-item'>
                                 <li className='relative p-1'>
