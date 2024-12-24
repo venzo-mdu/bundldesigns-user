@@ -8,6 +8,9 @@ import Dollor from '../../Images/BundlDetail/dollor.svg'
 import Time from '../../Images/BundlDetail/time.svg'
 import BlackDollor from '../../Images/BundlDetail/blackdollor.svg'
 import BlackTime from '../../Images/BundlDetail/blacktime.svg'
+import greenIcon from  '../../Images/green staked coin.svg'
+import pinkIcon from '../../Images/pink staked coin.svg'
+import blueIcon from '../../Images/blue staked coin.svg'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { base_url } from '../Auth/BackendAPIUrl'
 import { ConfigToken } from '../Auth/ConfigToken'
@@ -15,6 +18,8 @@ import { ToastContainer, toast } from 'react-toastify'
 import { css } from '@emotion/react'
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+
 
 export const BundlDetail = () => {
 
@@ -31,13 +36,15 @@ export const BundlDetail = () => {
   const handleRadioChange = (e) => {
     setSelectedLanguage(e.target.value);
   };
+  const [coinIcon,setCoinIcon] = useState(greenIcon)
+  const [textColor,setTextColor] = useState('#1BA56F')
 
   useEffect(() => {
     document.documentElement.scrollTo({ top: 0, left: 0 });
     getBundlData();
     getprojects()
   }, []);
-  console.log(location.state?.bundlDetail, 'details')
+  console.log(location.state?.bundlDetail,location.state?.index, 'details')
 
   const validateFields = () => {
 
@@ -62,6 +69,25 @@ export const BundlDetail = () => {
 
 
   const getBundlData = async () => {
+    const colors = {
+      '12':'#f175ad',
+      '4':'#1BA56F',
+      '22':"#00A8C8",
+      '13':'#f175ad',
+    }
+    if(location.state.bundlDetail?.id == '12'){
+      setCoinIcon(pinkIcon)
+    }
+    else if(location.state.bundlDetail?.id == '4'){
+      setCoinIcon(greenIcon)
+    }
+    else if(location.state.bundlDetail?.id == '22'){
+      setCoinIcon(blueIcon)
+    }
+   else if(location.state.bundlDetail?.id == '13'){
+    setCoinIcon(pinkIcon)
+    }
+    setTextColor(colors[location.state.bundlDetail?.id])
     const response = await axios.get(`${base_url}/api/package/?bundle_id=${location.state.bundlDetail?.id}`, ConfigToken());
     setBundlAddons(response.data);
     const flatList = response.data?.bundle_details?.flatMap(item => item.design_list);
@@ -200,8 +226,8 @@ export const BundlDetail = () => {
         <div className='xs:px-2 sm:px-auto px-auto' style={{ borderBottom: '1px solid #000000', width: '100%' }}>
           <h2>{location.state?.bundlDetail?.name_english}</h2>
           <div className='bundl-amount'>
-            <p className='flex items-center'><img src={Dollor} alt="Dollar icon" className="inline-block mr-3" /><span>{Math.round(location.state?.bundlDetail?.price) || "3750 SAR"} SAR</span></p>
-            <p className='items-center flex'><img src={Time} alt="Time icon" className="inline-block mr-1" /><span> {location.state?.bundlDetail?.time || "30 Days"} Days</span></p>
+            <p style={{color:textColor}}  className='flex items-center'><img src={coinIcon} alt="Dollar icon" className="inline-block mr-3" /><span>{Math.round(location.state?.bundlDetail?.price) || "3750 SAR"} SAR</span></p>
+            <p style={{color:textColor}}  className='items-center flex'><AccessTimeIcon className='mr-1'/><span> {location.state?.bundlDetail?.time || "30 Days"} Days</span></p>
           </div>
           <p className='bundl-desc-title'>Main outcomes: Brand Identity, Commerce Collateral, Social Media Starter Kit.</p>
           <p className='bundl-desc'>{location.state?.bundlDetail?.description_english}</p>
@@ -212,7 +238,6 @@ export const BundlDetail = () => {
           <div className='brand-details !pt-16'>
             <p style={window.innerWidth <= 441 ? { fontSize: '24px', fontWeight: '700' } : { textAlign: 'left', fontSize: '32px', fontWeight: '700' }}>What is the name of your brand?</p>
             <input className='brand-input' onChange={(e) => setBrandInput(e.target.value)} />
-
             <div className='commerce-collateral'>
               {bundlAddons.bundle_details?.map((bundle, index) => {
                 return <div key={index} className='bundle-section' style={{ margin: '3% 0 0 0' }}>
@@ -222,7 +247,7 @@ export const BundlDetail = () => {
                     bundle.name_english === "Brand Identity" ? (
                       <div style={window.innerWidth < 441 ? { display: 'flex', width: '100%',flexWrap:'wrap' } : { display: 'flex', width: '100%' ,alignItems:'center',justifyContent:'space-between',flexWrap:'wrap' }}>
                         <p className='logo-design xs:basis-[100%] sm:basis-1/4'>Logo design</p>
-                          <p className=''>
+                          <p className='mr-1'>
                             <label className='cursor-pointer flex items-center mb-0'>
                               <input
                                 type="radio"
@@ -236,7 +261,7 @@ export const BundlDetail = () => {
                             </label>
                           </p>
 
-                          <p>
+                          <p className='mr-1'>
                             <label  className='cursor-pointer flex items-center  mb-0'>
                               <input
                                 type="radio"
@@ -250,7 +275,7 @@ export const BundlDetail = () => {
                             </label>
                           </p>
 
-                          <p>
+                          <p className='mr-1'>
                             <label  className='cursor-pointer flex items-center  mb-0'>
                               <input
                                 type="radio"
@@ -277,7 +302,7 @@ export const BundlDetail = () => {
                           {
                              minError.includes(design.name_english) && (
                               <div 
-                              style={window.innerWidth <=441 ?{color:'#0BA6C4',width:'47%',textAlign:'left',fontSize:'14px'} :{color:'#0BA6C4',width:'47%',textAlign:'left',fontSize:'18px'}} 
+                              style={window.innerWidth <=441 ?{color:textColor,width:'47%',textAlign:'left',fontSize:'14px'} :{color:textColor,width:'47%',textAlign:'left',fontSize:'18px'}} 
                               >
                             Minimum quantity cannot be decreased
                             </div>
@@ -298,7 +323,7 @@ export const BundlDetail = () => {
                 </div>
               })}
             </div>
-            <Accordian        accordianTitle={'Something feels missing ?'} addOnPayload={setAddonPayLoads} bundlePackageId={location.state.bundlDetail?.id} />
+            <Accordian textColor={textColor} accordianTitle={'Something feels missing ?'} addOnPayload={setAddonPayLoads} bundlePackageId={location.state.bundlDetail?.id} />
           </div>
 
           <div className='bundl-summary'>
@@ -313,8 +338,8 @@ export const BundlDetail = () => {
              return <div key={idx} className='one-brand-identity'>
                 <p className='text-black text-[20px] font-[700] min-w-[60%] !mb-1' >{item.quantity} {item.name_english}</p>
                 <div style={{ display: 'flex' }}>
-                  <p style={{ fontSize: '20px', fontWeight: '700', width: '40%' }}>+ {item.total_time} Days</p>
-{ item.id =='76' && selectedLanguage == 'Both'? <p style={{ fontSize: '20px', fontWeight: '700', width: '40%' }}>+ {item.total_price + 2000} SAR</p>:<p style={{ fontSize: '20px', fontWeight: '700', width: '40%' }}>+ {item.total_price} SAR</p>}
+                  <p style={{ fontSize: '20px',color:textColor, fontWeight: '700', width: '40%' }}>+ {item.total_time} Days</p>
+{ item.id =='76' && selectedLanguage == 'Both'? <p style={{ fontSize: '20px',color:textColor, fontWeight: '700', width: '40%' }}>+ {item.total_price + 2000} SAR</p>:<p style={{ fontSize: '20px', fontWeight: '700',color:textColor, width: '40%' }}>+ {item.total_price} SAR</p>}
                 </div>
               </div>
 })}
@@ -345,11 +370,11 @@ export const BundlDetail = () => {
                 <p style={{ width: '40%' }}>{totalDuration + addonPayLoads.total_time} Days</p>
               </div>
 
-              <div className='proceed-checkout'>
+              <div >
                 {
                   (totalCost + addonPayLoads.total_price) > 700 ?
-                    <button onClick={createPayload} className='proceed'>Proceed Checkout</button> :
-                    <button disabled className='proceed'>Proceed Checkout</button>
+                    <button style={{backgroundColor:textColor}} className={`proceed !bg-[${textColor}]`}  onClick={createPayload} >Proceed Checkout</button> :
+                    <button style={{backgroundColor:textColor}} className={`proceed !bg-[${textColor}]`} disabled>Proceed Checkout</button>
                 }
               </div>
              {firstOrder == false && <p className='proceed-text'>Your minimum total should be above 4880 SAR</p>}

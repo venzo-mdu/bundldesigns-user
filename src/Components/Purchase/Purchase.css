@@ -178,8 +178,6 @@
 .tab-buttons .accordian-button {
     width: 250px;
     height: 40px;
-    border: 1px solid #0BA6C4;
-    color: #0BA6C4;
     outline: none;
     background-color: transparent;
 }
@@ -190,7 +188,6 @@
     outline: none;
     width: 250px;
     height: 40px;
-    border: 1px solid #0BA6C4;
 }
 
 .dropdowns {
@@ -233,7 +230,6 @@
 .proceed {
     height: 50px;
     width: 450px;
-    background-color: #0BA6C4;
     color: #FFFFFF;
     font-size: 20px;
     font-weight: 500;

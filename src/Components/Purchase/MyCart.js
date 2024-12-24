@@ -64,23 +64,22 @@ export const MyCart = () => {
     };
  
     const removeItem = async (itemId, itemType) => {
+        if(itemType=='bundle'){
+               toast.error(`Package Item Connot removed`, {
+                    position: toast?.POSITION?.TOP_RIGHT,
+                  });
+                  return;
+        }
         let cartDetailsTemp = cartDetails
         const updatedItemDetails = { ...cartDetailsTemp.item_details };
             let updatedTotalAmount = cartDetailsTemp.total_amount;
             let updatedTotalTime = cartDetailsTemp.total_time
             setRemovedItems(itemId)
             // Handle removal based on item type
-            if (itemType === 'bundle') {
-                const removedItem = updatedItemDetails.bundle_items.find(item => item.id === itemId);
-                updatedTotalAmount -= removedItem?.unit_price * removedItem?.qty || 0;
-                updatedTotalTime -= removedItem?.unit_time * removedItem?.qty ||0
-                updatedItemDetails.bundle_items = updatedItemDetails.bundle_items.filter(item => item.id !== itemId);
-            } else if (itemType === 'addon') {
                 const removedItem = updatedItemDetails.addon_items.find(item => item.id === itemId);
                 updatedTotalAmount -= removedItem?.unit_price * removedItem?.qty || 0;
                 updatedTotalTime -= removedItem?.unit_time * removedItem?.qty ||0
                 updatedItemDetails.addon_items = updatedItemDetails.addon_items.filter(item => item.id !== itemId);
-            }
 
             // Recalculate the totals
             const updatedTax = updatedTotalAmount * 0.15; // Assuming VAT is 15%
@@ -175,9 +174,10 @@ export const MyCart = () => {
  
     return (
         <div>
+            <ToastContainer />
             <Navbar />
             <div className='mycart '>
-                <div className='cart !pb-[170px]'>
+                <div className='cart sm:!pb-[170px] !pb-[170px] xs:!pb-[20px]'>
                     <p>Your Cart</p>
                         <table className='w-full border-none' aria-label="simple table">
                             <thead>

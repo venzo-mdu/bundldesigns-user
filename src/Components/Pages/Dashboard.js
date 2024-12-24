@@ -505,7 +505,7 @@ export default function Dashboard() {
                 <div className='text-center pt-20 pb-24'>
                     <h2 className='lg:text-[32px] md:text-[24px]'>{dashboardJson.rate_us}</h2>
                     <p className='lg:text-[20px] text-[#00000080] md:text-[16px]'>{dashboardJson.rate_us_content}</p>
-                    <button className='px-12 py-1 lg:text-[20px] md:text-[16px] text-white bg-[#1BA56F]'>{dashboardJson.review_google}</button>
+                    <a href="https://www.google.com/search?q=bundldesigns&rlz=1C1OPNX_enIN1088IN1088&oq=bundldesigns&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQRRg8MgYIAhBFGDwyBggDEEUYPDIICAQQRRgnGDsyBggFEEUYPDIGCAYQRRg8MgYIBxBFGDzSAQgzODA5ajBqN6gCALACAA&sourceid=chrome&ie=UTF-8#lrd=0x3e2efdec17da19b7:0xb10d764716306f04,3,,,," className='px-12 py-2 lg:text-[20px] md:text-[16px] text-white bg-[#1BA56F]'>{dashboardJson.review_google}</a>
                 </div>
 
             </div>
