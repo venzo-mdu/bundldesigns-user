@@ -47,9 +47,9 @@ export const AboutUs = () => {
         }}>
         < Navbar />
 
-        <div className='xl:h-[56vh]  lg:h-[60vh] md:h-[58vh] xs:h-[40vh] relative'>
+        <div className='xl:h-[56vh]  lg:h-[60vh] md:h-[58vh] xs:h-[350px] relative'>
           <h1 className='font-Helvetica md:w-[60vw] lg:text-[38px] xs:text-[22px] sm:text-[22px] sm:w-[70vw] xs:w-[70vw] md:text-[36px] xl:w-[50vw] xl:text-[45px] mx-auto py-[8%] lg:py-[6%] md:py-[2%] my-[2%] text-center'>{aboutUs.main_content} </h1>
-          <img className='animate-rotate-animation absolute  xl:top-[75%] lg:ml-[25vw] md:ml-[25vw] md:top-[60%] xl:ml-[26vw]' width='100px' height='100px' src={loaderSticker}></img>
+          <img className='animate-rotate-animation absolute xs:ml-[36vw] xl:top-[75%] lg:ml-[25vw] md:ml-[25vw] md:top-[60%] xl:ml-[26vw]' width='100px' height='100px' src={loaderSticker}></img>
         </div >
 
 
@@ -57,14 +57,14 @@ export const AboutUs = () => {
           <div className='basis-[50%] border-t border-r border-l relative py-4 !border-black'>
             <h1 className='px-28 text-[32px] sm:text-[22px] xs:text-[22px]   md:text-[28px]'>Mission</h1>
             <p className='xl:px-48 md:px-20 xl:text-[20px] md:text-[18px]'>{aboutUs.mission}</p>
-            <img className='absolute md:top-[130px] xs:w-[100px] left-0 xl:top-[70px] xl:w-[260px] md:w-[160px]' src={paperPlane}></img>
+            <img className='absolute md:top-[130px] top-[130px]  xs:top-[-50px] xs:w-[100px] left-0 xl:top-[70px] xl:w-[260px] md:w-[160px]' src={paperPlane}></img>
 
           </div>
           <div className='!z-10 basis-[50%] border-t border-r  py-4   relative !border-black'>
 
             <h1 className='px-[8%] md:text-[28px] xl:text-[32px]'>Vision</h1>
             <p className=' xl:px-[200px] md:px-20 md:text-[18px] xl:text-[20px]'>{aboutUs.vission}</p>
-            <img className='absolute md:bottom-[50px] xs:w-[100px] xl:bottom-[-25px]  right-[10px] xl:w-[240px] md:w-[160px]' src={glass}></img>
+            <img className='absolute md:top-[-95px] top-[-95px] xs:top-[-60px] xs:w-[100px] xl:bottom-[-25px]  right-[10px] xl:w-[240px] md:w-[160px]' src={glass}></img>
 
           </div>
 
@@ -92,24 +92,24 @@ export const AboutUs = () => {
           <h1 className='text-[32px] sm:text-[22px] xs:text-[22px]  md:text-[28px]'>Our Values</h1>
           <p className='text-[20px] sm:text-[20px] xs:text-[20px]  md:text-[20px]'>{aboutUs.our_values}</p>
         </div>
-        <div className='text-center text-Helvetica md:pt-[5%] lg:pt-[3%]'>
+        <div className='text-center text-Helvetica md:pt-[5%] xs:pt-[5%] lg:pt-[3%]'>
           <h2 className='pb-[2%] md:text-[28px] sm:text-[22px] xs:text-[22px] '> The Founders</h2>
-          <p className='xl:w-[38vw] md:w-[57vw] md:text-[20px] mx-auto leading-[28px] text-[20px]'> {aboutUs.founders} </p>
+          <p className='xl:w-[38vw] md:w-[57vw] md:text-[20px] xs:w-[80vw] mx-auto leading-[28px] text-[20px]'> {aboutUs.founders} </p>
         </div>
         <div className='text-center text-Helvetica md:pt-[4%] lg:pt-[3%] pb-[4%]'>
           <h2 className='pb-[2%] md:text-[28px] sm:text-[22px] xs:text-[22px] '> Our Talents</h2>
-          <p className='xl:w-[38vw] md:w-[56vw] md:text-[20px] mx-auto leading-[28px] text-[20px]'>{aboutUs.our_talents}</p>
+          <p className='xl:w-[38vw] md:w-[56vw] md:text-[20px] xs:w-[80vw] mx-auto leading-[28px] text-[20px]'>{aboutUs.our_talents}</p>
         </div>
       </div>
 
       <div style={{ backgroundColor: whatwedo ? aboutUs[whatwedo].bgColor : 'inherit' }} className={`text-center py-1 relative border-black leading-[40px] border-b`}>
-        <img className='absolute md:top-[-72px] xl:top-[-100px] sm:w-[100px] xs:w-[100px] 
+        <img className='absolute md:top-[-72px] xl:top-[-100px] sm:w-[100px] xs:w-[80px] 
         xs:top-[-30px] z-10 sm:top-[-52px] lg:top-[-80px] md:w-[150px] xl:w-[200px] left-[12vw] '
           width='200px' height='140px' src={blueSticker} />
         {
           whatwedo ?
             <>
-              <p className='text-end pr-10 pb-0'>                 
+              <p className='text-end sm:pr-10 pr-10 xs:pr-0 sm:mb-4 mb-4 xs:!mb-0 pb-0'>                 
                 <ClearIcon onClick={() => {
                 setWhatwedo(null)
                 setWWDImg(null)
@@ -117,15 +117,15 @@ export const AboutUs = () => {
               }}
                 className="mr-1  cursor-pointer !w-[50px] !h-[50px] text-white" />
               </p>
-              <div className='flex mb-2'>
+              <div className='sm:flex xs:block mb-2'>
                 <div className='basis-1/5'>
-                  <img className='min-w-[230px]' src={WWDImg}></img>
+                  <img className='sm:min-w-[230px] min-w-[230px] xs:mx-auto xs:w-[180px]' src={WWDImg}></img>
                 </div>
                 <div className='basis-3/5 text-center text-white'>
-                  <h2 className='text-white text-[32px]'>{aboutUs[whatwedo].title}</h2>
-                  <p className='text-[20px] px-2 mb-4'>{aboutUs[whatwedo].content}</p>
-                  <p> <a href='/our-work' className='text-[white] font-[500] text-[20px] px-[17px] py-1 !border-white border mr-2'>View Our Work</a>
-                    <a href='/' className={`bg-white text-[${aboutUs[whatwedo].bgColor}] font-[500] border !border-white px-[17px] text-[20px] py-1 `}>Purchase Now</a> </p>
+                  <h2 className='text-white sm:text-[32px] text-[32px] xs:text-[20px]'>{aboutUs[whatwedo].title}</h2>
+                  <p className='sm:text-[20px] text-[20px] xs:text-[18px] px-2 mb-4'>{aboutUs[whatwedo].content}</p>
+                  <p> <a href='/our-work' className='text-[white] font-[500] sm:text-[20px] text-[20px] xs:text-[18px] px-[17px] py-1 !border-white border mr-2'>View Our Work</a>
+                    <a href='/' className={`bg-white text-[${aboutUs[whatwedo].bgColor}] font-[500] border !border-white px-[17px] sm:text-[20px] text-[20px] xs:text-[18px] py-1 `}>Purchase Now</a> </p>
                 </div>
 
               </div>
@@ -158,7 +158,7 @@ export const AboutUs = () => {
 />
 
               </div>
-              <div className='basis-[30%] '>
+              <div className='sm:basis-[30%] basis-[30%]  xs:basis-[100%] '>
                 <h2 className=' mt-2 md:text-[32px] sm:text-[24px] xs:text-[24px]  font-bold pb-[30px]'>What we do</h2>
                 <div className='flex mb-2 flex-col'>
                   <p
@@ -242,17 +242,16 @@ export const AboutUs = () => {
 
         <h2 className=' text-[28px] capitalize ' > LOVE LETTERS </h2>
         <p className='md:w-[29vw] xs:w-[70vw] mx-auto text-[16px]' > We work hard to bring your brand dreams to life. But don’t take only our word for it! Listen to what our clients have to say about us.</p>
-        <img className='absolute md:block md:left-[20vw] md:top-12 left-[24vw] xs:left-[0vw] xs:hidden md:w-[140px] xs:w-[80px]' width='140px' height='140px' style={{ transform: 'rotate(320deg)' }} src={paper_plane_rose}></img>
-        <img className='absolute md:block xs:hidden' width='320px' height='320px' src={paper_plane_rose}></img>
-        <img className='absolute md:block top-16 xs:hidden right-[16vw] md:right-10' width='320px' height='320px' style={{ transform: 'rotate(320deg)' }} src={paper_plane_rose}></img>
-
+        <img className='absolute md:block md:left-[20vw] md:top-12 left-[24vw] xs:left-[-20px]  xs:top-[10vh] md:w-[140px] xs:w-[100px]' width='140px' height='140px' style={{ transform: 'rotate(320deg)' }} src={paper_plane_rose}></img>
+        <img className='absolute md:block xs:!top-[50%] sm:top-0 top-0 sm:left-0 left-0 xs:left-[-41px] w-[320px] sm:w-[320px] xs:w-[150px] ' src={paper_plane_rose}></img>
+        <img className='absolute md:block top-16 sm:top-16 xs:top-0 w-[320px] sm:w-[320px] xs:w-[160px] right-[16vw] sm:right-[16vw] xs:right-[-36px] md:right-10' style={{ transform: 'rotate(320deg)' }} src={paper_plane_rose}></img>
         <div>
           <div className='text-[16px] md:w-[40vw] xs:w-[80vw] relative flex mx-auto'>
             <p className='text-[90px] absolute top-[-34px] font-bold '>“</p>
             <p className='px-12 pt-4 text-[20px] font-medium'>{testimonials.length ? testimonials[0].description_english : ''}</p>
             <p className='text-[90px] right-0 absolute font-bold bottom-[-60px]'>”</p>
           </div>
-
+  
           <div className='flex justify-center'>
             <div class={`w-12 h-12 text-${testimonials.length && testimonials[0].stars >= 1 ? '[#000]' : '[red]'}`}>
               <svg viewBox="0 0 24 24" fill="currentColor" class="w-full h-full">
@@ -290,7 +289,7 @@ export const AboutUs = () => {
 
       </div>
       <div className='text-center py-14 '>
-        <h2 className='w-[50vw] xs:w-[70vw] text-[32px] mx-auto'>Inspired to start your journey to launch your next big thing ?</h2>
+        <h2 className='sm:w-[50vw] w-[50vw] xs:w-[70vw] text-[32px] mx-auto'>Inspired to start your journey to launch your next big thing ?</h2>
         <p className='text-center'> <button onClick={() => { window.location.href = '/' }} className='py-1 px-3  mt-8 bg-black text-white'>Get started!</button> </p>
       </div>
       <Footer />

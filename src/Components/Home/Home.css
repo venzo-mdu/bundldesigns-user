@@ -638,7 +638,7 @@ position: fixed; */
 }
 
 .nav-section .nav-link {
-padding: 5px 25px !important;
+padding: 5px 20px !important;
 font-weight: 500;
 color: var(--black-color);
 text-transform: uppercase;

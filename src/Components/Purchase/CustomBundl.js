@@ -160,6 +160,7 @@ export const CustomBundl = () => {
             <div style={{ margin: '5% 0 0 0' }}>
               <Accordian
                 accordianTitle={'Custom Your Bundl!'}
+                textColor={'#1BA56F'}
                 addOnPayload={setAddonPayLoads}
               />
             </div>

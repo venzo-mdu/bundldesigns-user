@@ -1227,18 +1227,6 @@
 //         </>
 //     )
 // }
-
-
-
-
-
-
-
-
-
-
-
-
 import React, { useMemo, useEffect, useState } from 'react'
 import "../Home/Home.css"
 import { Bgloader } from '../Common/Background/Bgloader'
@@ -1247,12 +1235,12 @@ import Search from '../../Images/Bundles/icon-search.png'
 import User from '../../Images/Bundles/icon-user.png'
 import Cart from '../../Images/Bundles/icon-cart.png'
 import Language from '../../Images/Bundles/icon-language.png'
-import CarMarquee from '../../Images/Bundles/car-marquee.webp'
+import CarMarquee from '../../Images/Bundles/car-marquee.svg'
 import LemonMarquee from '../../Images/Bundles/green-lemon-margquee.webp'
-import MouthMarquee from '../../Images/Bundles/mouth-margquee.webp'
+import MouthMarquee from '../../Images/Bundles/mouth-margquee.svg'
 import PaintMarquee from '../../Images/Bundles/paint-marquee.webp'
 import RocketMarquee from '../../Images/Bundles/paper-rocket-marquee.webp'
-import EyeMarquee from '../../Images/Bundles/eye-margquee.webp'
+import EyeMarquee from '../../Images/Bundles/eye-margquee.svg'
 import Loader from '../../Images/Home/load sticker.svg'
 import BundlSticker from '../../Images/Bundles/bundl-sticker.png'
 import MagicIcon from '../../Images/Bundles/magic-icon.webp'
@@ -1426,7 +1414,7 @@ export const Home = () => {
                 setSelectedIndex(index)
             } else {
                 setSelectedIndex(null)
-                navigate('/bundldetail', { state: { bundlDetail: bundlData.packages[index] } });
+                navigate('/bundldetail', { state: { bundlDetail: bundlData.packages[index] ,index:index} });
             }
         } catch (error) {
             console.error('An error occurred:', error);
@@ -1459,15 +1447,12 @@ export const Home = () => {
                                         <div className="col-4 col-md-3 col-lg-3 justify-content-between">
                                             <div className="navbar navbar-expand-lg justify-content-between">
                                                 <a className="navbar-brand" href="/"><img src={HomeLogo} alt="" className="img-fluid"></img></a>
-                                                {/* <!--<button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"-->
-                            <!--    aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation" id="navbutton">-->
-                            <!--    <span className="navbar-toggler-icon"></span>-->
-                            <!--</button> */}
+                                        
                                             </div>
                                         </div>
                                         <div className="col-1 col-md-1 col-lg-6">
                                         <div className="navbar navbar-expand-lg justify-content-end">
-                      <div className=" navbar-collapse" id="mainNav">
+                      <div className=" navbar-collapse !mt-4" id="mainNav">
                         <ul className=" mx-auto flex align-items-center ">
                           <li className="nav-item">
                             <a className="nav-link" href="/aboutus">About</a>
@@ -1485,7 +1470,7 @@ export const Home = () => {
                       </div>
                     </div>
                                         </div>
-                                        <div className="col-7  col-md-8 col-lg-3 text-end ">
+                                        <div className="col-7 !mt-4 col-md-8 col-lg-3 text-end ">
                                             <div className="navbar navbar-expand-lg float-right">
                                                 <ul className=" mr-auto h-list align-items-center ">
                                                     <li className='px-[6px]' >
@@ -1559,44 +1544,43 @@ export const Home = () => {
                             <div className="nav-sider mt-20">
                                 <div className="scroller bg-grey">
                                     <ul className="tag-list scroller__inner">
-                                        <li className="slidee "><img src={CarMarquee} className="img-fluid"></img></li>
-                                        <li className="slidee "><span>BRAND identity</span></li>
-                                        <li className="slidee "><img src={LemonMarquee} alt="" className="img-fluid"></img></li>
-                                        <li className="slidee "><span>web design</span></li>
-                                        <li className="slidee "><img src={MouthMarquee} alt="" className="img-fluid"></img></li>
-                                        <li className="slidee "><span>graphic design</span></li>
-                                        <li className="slidee "><img src={RocketMarquee} alt="" className="img-fluid"></img></li>
-                                        <li className="slidee "><span>BRAND identity</span></li>
-                                        <li className="slidee "><img src={EyeMarquee} alt="" className="img-fluid"></img></li>
-                                        <li className="slidee "><span>web design</span></li>
-                                        <li className="slidee "><img src={PaintMarquee} alt="" className="img-fluid"></img></li>
-                                        <li className="slidee "><span>graphic design</span></li>
-
-                                        <li className="slidee "><img src={CarMarquee} className="img-fluid"></img></li>
-                                        <li className="slidee "><span>BRAND identity</span></li>
-                                        <li className="slidee "><img src={LemonMarquee} alt="" className="img-fluid"></img></li>
-                                        <li className="slidee "><span>web design</span></li>
-                                        <li className="slidee "><img src={MouthMarquee} alt="" className="img-fluid"></img></li>
-                                        <li className="slidee "><span>graphic design</span></li>
-                                        <li className="slidee "><img src={RocketMarquee} alt="" className="img-fluid"></img></li>
-                                        <li className="slidee "><span>BRAND identity</span></li>
-                                        <li className="slidee "><img src={EyeMarquee} alt="" className="img-fluid"></img></li>
-                                        <li className="slidee "><span>web design</span></li>
-                                        <li className="slidee "><img src={PaintMarquee} alt="" className="img-fluid"></img></li>
-                                        <li className="slidee "><span>graphic design</span></li>
-
-                                        <li className="slidee "><img src={CarMarquee} className="img-fluid"></img></li>
-                                        <li className="slidee "><span>BRAND identity</span></li>
-                                        <li className="slidee "><img src={LemonMarquee} alt="" className="img-fluid"></img></li>
-                                        <li className="slidee "><span>web design</span></li>
-                                        <li className="slidee "><img src={MouthMarquee} alt="" className="img-fluid"></img></li>
-                                        <li className="slidee "><span>graphic design</span></li>
-                                        <li className="slidee "><img src={RocketMarquee} alt="" className="img-fluid"></img></li>
-                                        <li className="slidee "><span>BRAND identity</span></li>
-                                        <li className="slidee "><img src={EyeMarquee} alt="" className="img-fluid"></img></li>
-                                        <li className="slidee "><span>web design</span></li>
-                                        <li className="slidee "><img src={PaintMarquee} alt="" className="img-fluid"></img></li>
-                                        <li className="slidee "><span>graphic design</span></li>
+                                       <img src={CarMarquee} className="slidee  w-[54px]"></img>
+                                      <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">BRAND identity</span>
+                                      <img src={LemonMarquee} alt="" className="img-fluid w-[41px] slidee"></img>
+                                      <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">web design</span>
+                                      <img src={MouthMarquee} alt="" className="img-fluid w-[30px] slidee"></img>
+                                      <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">graphic design</span>
+                                      <img src={RocketMarquee} alt="" className="img-fluid w-[70px] slidee"></img>
+                                      <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">BRAND identity</span>
+                                      <img src={EyeMarquee} alt="" className="img-fluid w-[47px] slidee"></img>
+                                      <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">web design</span>
+                                      <img src={PaintMarquee} alt="" className="img-fluid w-[56px] slidee"></img>
+                                      <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">graphic design</span>
+                                      <img src={CarMarquee} className="img-fluid w-[54px] slidee"></img>
+                                      <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">BRAND identity</span>
+                                      <img src={LemonMarquee} alt="" className="img-fluid w-[41px] slidee"></img>
+                                      <span  className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">web design</span>
+                                      <img src={MouthMarquee} alt="" className="img-fluid w-[30px] slidee"></img>
+                                      <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">graphic design</span>
+                                      <img src={RocketMarquee} alt="" className="img-fluid w-[70px] slidee"></img>
+                                      <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">BRAND identity</span>
+                                      <img src={EyeMarquee} alt="" className="img-fluid w-[47px] slidee"></img>
+                                      <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">web design</span>
+                                      <img src={PaintMarquee} alt="" className="img-fluid w-[56px] slidee"></img>
+                                      <span  className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">graphic design</span>
+                                      <img src={RocketMarquee} alt="" className="img-fluid w-[70px] slidee"></img>
+                                      <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">BRAND identity</span>
+                                      <img src={LemonMarquee} alt="" className="img-fluid w-[41px] slidee"></img>
+                                      <span   className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">web design</span>
+                                      <img src={MouthMarquee} alt="" className="img-fluid w-[30px] slidee"></img>
+                                      <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">graphic design</span>
+                                      <img src={RocketMarquee} alt="" className="img-fluid w-[70px] slidee"></img>
+                                      <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">BRAND identity</span>
+                                      <img src={EyeMarquee} alt="" className="img-fluid w-[47px] slidee"></img>
+                                      <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">web design</span>
+                                      <img src={PaintMarquee} alt="" className="img-fluid w-[56px] slidee"></img>
+                                      <span  className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">graphic design</span>
+                
                                     </ul>
                                 </div>
                                 {/* <div className="img-rotate">
