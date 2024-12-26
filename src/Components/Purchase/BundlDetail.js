@@ -247,7 +247,7 @@ export const BundlDetail = () => {
                     bundle.name_english === "Brand Identity" ? (
                       <div style={window.innerWidth < 441 ? { display: 'flex', width: '100%',flexWrap:'wrap' } : { display: 'flex', width: '100%' ,alignItems:'center',justifyContent:'space-between',flexWrap:'wrap' }}>
                         <p className='logo-design xs:basis-[100%] sm:basis-1/4'>Logo design</p>
-                          <p className='mr-1'>
+                          <p className='mr-3'>
                             <label className='cursor-pointer flex items-center mb-0'>
                               <input
                                 type="radio"
@@ -261,7 +261,7 @@ export const BundlDetail = () => {
                             </label>
                           </p>
 
-                          <p className='mr-1'>
+                          <p className='mr-3'>
                             <label  className='cursor-pointer flex items-center  mb-0'>
                               <input
                                 type="radio"
@@ -275,7 +275,7 @@ export const BundlDetail = () => {
                             </label>
                           </p>
 
-                          <p className='mr-1'>
+                          <p className='mr-3'>
                             <label  className='cursor-pointer flex items-center  mb-0'>
                               <input
                                 type="radio"
@@ -302,13 +302,13 @@ export const BundlDetail = () => {
                           {
                              minError.includes(design.name_english) && (
                               <div 
-                              style={window.innerWidth <=441 ?{color:textColor,width:'47%',textAlign:'left',fontSize:'14px'} :{color:textColor,width:'47%',textAlign:'left',fontSize:'18px'}} 
+                              style={window.innerWidth <=441 ?{color:textColor,width:'47%',textAlign:'left',fontSize:'16px'} :{color:textColor,width:'47%',textAlign:'left',fontSize:'18px'}} 
                               >
                             Minimum quantity cannot be decreased
                             </div>
                             )
                           }
-                          <p className=' basis-[10%] flex items-center text-[#000000] border !border-[#000000]'>
+                          <p className=' basis-[10%] flex items-center text-[#000000] h-[34px] border !border-[#000000]'>
                                                                 <button onClick={() => handleQuantityChange(design.name_english, -1)} className='border-r !border-[#000000] px-1 flex h-[100%] items-center'><RemoveIcon /></button>
                                                                 <span className='border-r !text-[20px] font-normal px-2 !border-[#000000]'> {quantities[design.name_english] || design.quantity}</span>
                                                                 <button  onClick={() => handleQuantityChange(design.name_english, 1)} className='flex items-center px-1 '><AddIcon /></button>
@@ -355,8 +355,8 @@ export const BundlDetail = () => {
               <div key={idx} className='one-brand-identity'>
                 <p style={{ color: '#000000', fontSize: '20px', fontWeight: '700', width: '60%' }}>{addon.qty} {addon.addon_name}</p>
                 <div style={{ display: 'flex' }}>
-                  <p style={{ fontSize: '20px', fontWeight: '700', width: '40%' }}>+ {addon.unit_time * addon.qty} Days</p>
-                  <p style={{ fontSize: '20px', fontWeight: '700', width: '40%' }}>+ {addon.unit_price * addon.qty} SAR</p>
+                  <p style={{ fontSize: '20px', fontWeight: '700',color:textColor, width: '40%' }}>+ {addon.unit_time * addon.qty} Days</p>
+                  <p style={{ fontSize: '20px', fontWeight: '700',color:textColor, width: '40%' }}>+ {addon.unit_price * addon.qty} SAR</p>
                 </div>
               </div>
             ))}

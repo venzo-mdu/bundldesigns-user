@@ -104,7 +104,7 @@ export const Navbar = () => {
                         <li className='px-[6px] inner-nav'>
 
                           <a className="" onClick={() => { setProfileVisible(!profileVisible) }}><img src={User} alt="" className="navIcons cursor-pointer"></img></a>
-                          <nav className={`w-44 inner-nav-item absolute top-[50px] shodow-sm -right-2 text-right bg-white p-2 transition-all duration-300 ease-in-out ${profileVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
+                          <nav className={`w-44 inner-nav-item absolute xs:top-[80px] md:top-[50px] shodow-sm -right-2 text-right bg-white p-2 transition-all duration-300 ease-in-out ${profileVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
                             }`}>
                             <ul >
                               {token ? <>
@@ -143,7 +143,7 @@ export const Navbar = () => {
                           <button onClick={toggleMenu} type="button" id="menu-toggle">
                             {menuVisible ? <CloseIcon className='!text-[50px]' /> : <MenuIcon className='!text-[50px]' />}
                           </button>
-                          <nav className={`w-44 inner-nav-item absolute top-[50px] shadow-sm -right-2 text-right  bg-white p-2 transition-all duration-300 ease-in-out ${menuVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
+                          <nav className={`w-44 inner-nav-item absolute xs:top-[80px] md:top-[50px] shadow-sm -right-2 text-right  bg-white p-2 transition-all duration-300 ease-in-out ${menuVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
                             }`}>
                             <ul >
                               <li className='relative p-1'>
@@ -229,7 +229,7 @@ export const Navbar = () => {
                           <li className='px-[6px] inner-nav'>
 
                             <a className="" onClick={() => { setProfileVisible(!profileVisible) }}><img src={User} alt="" className="navIcons cursor-pointer"></img></a>
-                            <nav className={`w-44  absolute top-[50px] shodow-sm -right-2 text-right bg-white p-2 transition-all duration-300 ease-in-out ${profileVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
+                            <nav className={`w-44  absolute xs:top-[80px] md:top-[50px] shodow-sm -right-2 text-right bg-white p-2 transition-all duration-300 ease-in-out ${profileVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
                               }`}>
                               <ul  >
                                 {token ? <>

@@ -32,6 +32,7 @@ import { DashboardPopup } from '../Common/Popup/DashboardPopup';
 import { redirect, useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { Bgloader } from '../Common/Background/Bgloader';
+import DoneIcon from '@mui/icons-material/Done';
 
 const style = {
     position: 'absolute',
@@ -48,6 +49,8 @@ const style = {
 export default function Dashboard() {
 
     const navigate = useNavigate();
+    const [projectName,setProjectName] = useState('')
+    const [projectToEdit,setProjectEdit] = useState(null)
     const [loading,setLoading] = useState(true)
     const [projects, setProjects] = useState([])
     const [purchases,setPurchases] = useState([])
@@ -69,14 +72,14 @@ export default function Dashboard() {
     const queryParams = new URLSearchParams(location.search);
     const reDirect = queryParams.get('reDirect',null);
     const [purchasePopUp,setPurchasePopUp] = useState(reDirect)
-    const getprojects = async () => {
+    const getprojects = async (id=null) => {
         const response = await axios.get(`${base_url}/api/order/`, ConfigToken());
         if (response.data) {
             const resProjects = response.data.data.filter(item=> item.order_status!='completed' && item.order_status!='in_cart')
             setProjects(resProjects);
             setPurchases(response.data.data.filter(item=>item.order_status != 'in_cart'))
             if (resProjects.length) {
-                getOrderDetails(resProjects[0].id)
+                getOrderDetails(id? id:resProjects[0].id)
             }
         }
         setLoading(false)
@@ -355,7 +358,12 @@ export default function Dashboard() {
         return () => clearInterval(timer); // Cleanup on component unmount
     }, [counter]);
 
-
+    const nameChange =async()=>{
+        const response = await axios.patch(`${base_url}/api/order-name/${projectToEdit}/`, {'project_name':projectName}, ConfigToken());
+        getprojects(projectToEdit)
+        setProjectEdit(null)
+        setProjectName(null)
+    }
 
     return (
         <>
@@ -413,15 +421,34 @@ export default function Dashboard() {
         {projects.map(project => <button onClick={(e) => getOrderDetails(project.id)}
             className={`py-1 px-4 min-w-[15%] max-w-[20%] border-[1.5px] !border-[#1BA56F] ${project.id == currentTab ? 'bg-[#1BA56F] text-white' : 'bg-white text-[#1BA56F]'}
          flex justify-around items-center border-r-0`}>
-            {project.project_name}{project.id == currentTab && <img width='15px' className='ml-2' src={editIcon}></img>}</button>)}
+         {projectToEdit === project.id ? (
+            <>
+  <input
+    className="px-2 py-1 !text-black w-full"
+    value={projectName}
+    onChange={(e) => setProjectName(e.target.value)}
+  />
+    <button onClick={()=>nameChange()}><DoneIcon className='ml-2' /></button>
+  </>
+) : (
+  <>
+    {project.project_name}
+    {project.id === currentTab && (
+      <img width="15px" className="ml-2" src={editIcon} onClick={()=>{setProjectEdit(project.id); setProjectName(project.project_name)}} alt="Edit Icon" />
+    )}
+  </>
+)}
+            </button>
+        
+        )}
         <button onClick={()=>{window.location.href='/'}} className='py-2 sticky right-0 flex bg-black text-white items-center lg:text-[32px] md:text-[24px] leading-[0px] px-2'>+</button>
     </p>
 
     <div className='border-[1.5px] mt-0 !border-black py-2 px-6'>
-        <div className='flex items-center w-[80%] mx-auto mt-10 px-20'>{renderProcessData()}</div>
-        <div className='flex mb-12 w-[80%] m-auto'>
+        <div className='flex items-center lg:w-[80%] w-[80%] md:w-[90%] mx-auto mt-10 px-20'>{renderProcessData()}</div>
+        <div className='flex mb-12 lg:w-[80%] w-[80%] md:w-[80%] m-auto'>
             {dashboardJson.project_process.map((item, index) => {
-                return <div className='basis-1/5  text-center text-[16px]'>  <p className={`pb-0 max-w-[90%] mx-auto mb-0 ${index == processIndex && 'font-bold'}`}> {item} </p>
+                return <div className='basis-1/5  text-center text-[16px]'>  <p className={`pb-0 lg:max-w-[90%] md:max-w-[95%] max-w-[95%] mx-auto mb-0 ${index == processIndex && 'font-bold'}`}> {item} </p>
                     {index == processIndex && <p className='text-[#1BA56F] font-[700]'>You’re now Here!</p>}
                 </div>
             })}

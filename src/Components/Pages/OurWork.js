@@ -37,8 +37,8 @@ export default function OurWork() {
 
 
   return (
-    // loading ? 
-    // <Bgloader /> :
+    loading ? 
+    <Bgloader /> :
     <>
       <Navbar />
       <div className='font-Helvetica'>
@@ -92,7 +92,7 @@ export default function OurWork() {
         {project.project_images.map((img, imgIndex) => (
           <img
             key={imgIndex}
-            className="width-[30%]"
+            className="sm:w-[30%] w-[30%] xs:w-[50%]"
             width="200px"
             src={img}
             alt={`Project ${index} Image ${imgIndex}`}
@@ -104,13 +104,13 @@ export default function OurWork() {
           </div>
         </div>
         <div className='relative py-10 pb-24'>
-          <img className='absolute sm:left-12 left-12 xs:left-4 sm:w-[200px] w-[200px] xs:w-[150px]' style={{ transform: 'rotate(350deg)'}}  src={workOurGIF}></img>
+          <img className='absolute sm:left-12 left-12 xs:left-[-3rem] sm:w-[200px] w-[200px] xs:w-[125px]' style={{ transform: 'rotate(350deg)'}}  src={workOurGIF}></img>
           <div className='w-[48%] text-center mx-auto'>
           <p className='flex justify-center mb-0 mt-0'> <img  className='animate-rotate-animation' width='150px' height='110px' src={workBrandGIF}></img></p>
-          <h2 className='text-[40px] '>Inspired to start your journey to launch your next big thing ?</h2>
+          <h2 className='text-[40px] xs:text-[24px] sm:text-[40px]'>Inspired to start your journey to launch your next big thing ?</h2>
           <p> <button onClick={()=>{window.location.href='/'}} className='bg-[#000] mt-4 text-[20px] text-white py-[5px] px-[18px]'>Get started!</button> </p>
           </div>
-          <img width='300px' className='absolute sm:w-[300px] w-[300px] xs:w-[200px] xs:top-[30%] xs:right-[0%] sm:top-[14%] sm:right-[3%] right-[3%]' style={{ transform: 'rotate(320deg)'}}  src={workOurGIF}></img>
+          <img width='300px' className='absolute sm:w-[300px] w-[300px] xs:w-[150px] xs:top-[30%] xs:right-[-14%] sm:top-[14%] sm:right-[3%] right-[3%]' style={{ transform: 'rotate(320deg)'}}  src={workOurGIF}></img>
         </div> 
       </div>
       <Footer />

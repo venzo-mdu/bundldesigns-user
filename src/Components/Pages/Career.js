@@ -9,6 +9,7 @@ import whatsappicon from '../../Images/whatsappIcon.svg'
 import emailicon from '../../Images/mailIcon.svg'
 import fileUploadIcon from '../../Images/fileUploadIcon.svg'
 import careerImg from '../../Images/default-career-img.svg'
+import CloseIcon from '@mui/icons-material/Close';
 
 export default function Career() {
   const  [vacancies,setVacancies] =  useState([])
@@ -96,6 +97,14 @@ export default function Career() {
     );
       if(response.data){
           console.log(response.data)
+          setFormData({
+            name: '',
+            phone: '',
+            email: '',
+            message: '',
+            vacancy: '',
+            file: null,
+          })
           setSuccessMsg('Application Submitted Successfully')
       }
     }
@@ -270,7 +279,7 @@ export default function Career() {
             <p className='text-center flex items-center !mb-1 mt-4 justify-center font-bold'> <img className='mr-1' src={emailicon}></img> info@bundldesigns.com</p>
             <p className='text-center flex items-center mt-1 justify-center font-bold'> <img className='mr-1' src={whatsappicon}></img>+(966) 547754124 </p>
 
-            {successMsg && <p className='bg-green-600 py-1 px-4 rounded text-white'>{successMsg}</p>}
+            {successMsg && <p className='bg-green-600 py-1 px-4 rounded text-white'>{successMsg} <CloseIcon onClick={()=>{setSuccessMsg(null)}} className='ml-2 text-white' /> </p>}
     </form>
         </div >
     </div>

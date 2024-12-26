@@ -18,30 +18,35 @@ import websiteGIF from '../../Images/aboutus/website.gif'
 import socialMediaGIF from '../../Images/aboutus/socialMedia.gif'
 import identityImg from '../../Images/aboutus/Identity.svg'
 import ClearIcon from '@mui/icons-material/Clear';
+import { Bgloader } from '../Common/Background/Bgloader'
 
 
 export const AboutUs = () => {
+    const [loading, setLoading] = useState(true)
   const [testimonials, setTestimonials] = useState([])
   const [whatwedo, setWhatwedo] = useState(null)
   const [isHovered, setIsHovered] = useState('');
   const [WWDImg, setWWDImg] = useState(null)
   const base_url = process.env.REACT_APP_BACKEND_URL
   const getTestimonials = async () => {
-    console.log(base_url)
     const response = await axios.get(`${base_url}/api/content?section=testimonials`);
     if (response.data) {
       setTestimonials(response.data);
     }
+    setLoading(false)
   }
   useEffect(() => {
     getTestimonials()
   }, [])
 
 
-  console.log(aboutUs)
   return (
     <>
-      <div className={`bg-cover  md:bg-[100%_7%] lg:bg-[100%_7%] xs:[120%_10%] font-Helvetica`}
+    {
+          loading ?
+          <Bgloader /> :
+          <>
+                <div className={`bg-cover  md:bg-[100%_7%] lg:bg-[100%_7%] xs:[120%_10%] font-Helvetica`}
         style={{
           backgroundImage: `url(${cloud_bg})`,
         }}>
@@ -60,7 +65,7 @@ export const AboutUs = () => {
             <img className='absolute md:top-[130px] top-[130px]  xs:top-[-50px] xs:w-[100px] left-0 xl:top-[70px] xl:w-[260px] md:w-[160px]' src={paperPlane}></img>
 
           </div>
-          <div className='!z-10 basis-[50%] border-t border-r  py-4   relative !border-black'>
+          <div className='!z-10 basis-[50%] border-t border-r xs:border-l md:border-l-0  py-4   relative !border-black'>
 
             <h1 className='px-[8%] md:text-[28px] xl:text-[32px]'>Vision</h1>
             <p className=' xl:px-[200px] md:px-20 md:text-[18px] xl:text-[20px]'>{aboutUs.vission}</p>
@@ -102,7 +107,7 @@ export const AboutUs = () => {
         </div>
       </div>
 
-      <div style={{ backgroundColor: whatwedo ? aboutUs[whatwedo].bgColor : 'inherit' }} className={`text-center py-1 relative border-black leading-[40px] border-b`}>
+      <div style={{ backgroundColor: whatwedo ? aboutUs[whatwedo].bgColor : 'inherit' }} className={`text-center !pt-16 md:!pt-16 ${whatwedo? "xs:!pt-6":"sm:!pt-16"} !pb-8 relative border-black leading-[40px] border-b`}>
         <img className='absolute md:top-[-72px] xl:top-[-100px] sm:w-[100px] xs:w-[80px] 
         xs:top-[-30px] z-10 sm:top-[-52px] lg:top-[-80px] md:w-[150px] xl:w-[200px] left-[12vw] '
           width='200px' height='140px' src={blueSticker} />
@@ -289,10 +294,13 @@ export const AboutUs = () => {
 
       </div>
       <div className='text-center py-14 '>
-        <h2 className='sm:w-[50vw] w-[50vw] xs:w-[70vw] text-[32px] mx-auto'>Inspired to start your journey to launch your next big thing ?</h2>
-        <p className='text-center'> <button onClick={() => { window.location.href = '/' }} className='py-1 px-3  mt-8 bg-black text-white'>Get started!</button> </p>
+        <h2 className='sm:w-[600px] w-[50vw] xs:w-[70vw] text-[32px] !mt-6 mx-auto'>Inspired to start your journey to launch your next big thing ?</h2>
+        <p className='text-center'> <button onClick={() => { window.location.href = '/' }} className='py-1 px-3  !mt-[50px] !mb-8 bg-black text-white'>Get started!</button> </p>
       </div>
       <Footer />
+      </>
+    }
+
     </>
   )
 }

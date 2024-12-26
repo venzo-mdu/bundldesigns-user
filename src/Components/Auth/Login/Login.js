@@ -127,9 +127,9 @@ export const Login = () => {
 
   return (
     <div>
-      <div className='login !mb-24'>
+      <div className='login !mb-24 '>
         <img className='anchor w-[100px]' src={loginGIF} alt='login-anchor' />
-        <div className='login-content'>
+        <div className='login-content '>
           <p className='welcometext'>Welcome Back!</p>
           <img className='loginlogo' src={Loginlogo} alt='login' />
           <form onSubmit={onSubmit}>
@@ -183,7 +183,7 @@ export const Login = () => {
               />
 
             </p>
-            <p className='dont !mt-2 w-[90%]'>
+            <p className='dont !mt-2 w-[90%] sm:w-[90%] xs:w-full'>
               Don’t Have an account? <span><NavLink className='signup !font-[500]' to={'/signup'}>&nbsp;Sign Up</NavLink></span>
             </p>
           </form>

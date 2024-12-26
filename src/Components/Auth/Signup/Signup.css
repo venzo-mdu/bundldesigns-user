@@ -1,6 +1,6 @@
 .signup-content{
     position: relative;
-    height: 700px;
+    height: 665px;
     width: 700px;
     padding: 2% 4%;
 }
@@ -62,19 +62,41 @@
 }
 @media screen and (max-width:441px) {
     .signup-content input{
-        width: 375px;
+        width: 100%;
+    }
+    .loginlogo {
+        top: -3%;
+        width: 20%;
+        left: 0vw;
+    }
+
+    .signup-content{
+        width: 100% !important;
+        padding: 2% 3% !important;
     }
     .terms-policy input{
         width: 15px;
     }
+    #anchor {
+        width: 15%;
+        top: -12%;
+    }
+    #anchor1 {
+        bottom: -9%;
+        width: 25%;
+    }
+
 }
 @media screen and (max-width:375px) {
-    .signup-content{
-        width: 100%;
-        padding: 2% 3%;
-    }
+
     .signup-content input{
-        width: 350px;
+        width: 100%;
+    } 
+      
+     .loginlogo {
+        top: -2%;
+        width: 20%;
+        left: 5vw;
     }
     .terms-policy input{
         width: 15px;

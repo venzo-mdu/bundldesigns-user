@@ -39,6 +39,7 @@ export const MyCart = () => {
         postalCode: '',
         promoCode: '',
     });
+    const [error,setError] = useState({})
     const [errors, setErrors] = useState({});
     useEffect(() => {
         document.documentElement.scrollTo({ top: 0, left: 0 });
@@ -58,9 +59,7 @@ export const MyCart = () => {
         }
         catch(e){
             navigate("/login");
-        }
-      
-        
+        }  
     };
  
     const removeItem = async (itemId, itemType) => {
@@ -99,38 +98,48 @@ export const MyCart = () => {
     };
    
     const validateFields = () => {
-        const newErrors = {};
+        let newErrors = {};
 
-        if (!billingInfo.firstName.trim()) newErrors.firstName = 'required field';
-        if (!billingInfo.lastName.trim()) newErrors.lastName = 'required field' ;
+        if (!billingInfo.firstName.trim()) {setError({firstName:'Your first name field is empty.'})
+    return false
+    }
+        if (!billingInfo.lastName.trim()){ setError({lastName:'Your last name field is empty.'})
+    return false
+    };
 
         if (!billingInfo.email.trim()) {
-            newErrors.email = 'required field';
+            setError({email:'Your email field is empty'})
+           return false
         } else if (!/^[\w-.]+@[\w-]+\.[a-z]{2,4}$/i.test(billingInfo.email)) {
-            newErrors.email = 'Invalid email format';
+            setError({email:'Invalid email format'})
+        return false
         }
-        console.log(billingInfo.phone)
         if(!billingInfo.phone.trim()){
-            newErrors.phone = 'required field'
+            setError({phone:'Your phone number field is empty.'})
+            return false
         }
 
-        if (!billingInfo.country.trim()) newErrors.country = 'required field';
-        if (!billingInfo.city.trim()) newErrors.city = 'required field';
+        if (!billingInfo.country.trim()){ setError({country:'Your country field is empty.'})
+        return false
+    };
+        if (!billingInfo.city.trim()) {setError({city:'Your city field is empty.'})
+    
+        return false};
 
         if (!billingInfo.postalCode.trim()) {
-            newErrors.postalCode = 'required field';
+            setError({postalCode:'Your postal code field is empty.'})
+            return false
         } else if (!/^[0-9]{5,6}$/.test(billingInfo.postalCode)) {
-            newErrors.postalCode = 'code must be 5 or 6 digits';
+            setError({postalCode:'Yout postal code must be 5 or 6 digits.'})
+            return false
         }
 
         // if (!billingInfo.promoCode.trim()) newErrors.promoCode = 'Promo code is required';
-
-        setErrors(newErrors);
+        setError(newErrors);
 
         // Return true if there are no errors
-        return Object.keys(newErrors).length === 0;
+        return true;
     };
-    console.log(phoneError)
 
  
     const handlePayment = async (e) => {
@@ -157,7 +166,6 @@ export const MyCart = () => {
                     console.error("Payment error:", error);
                 }
             }
-  
     }
     };
  
@@ -167,10 +175,6 @@ export const MyCart = () => {
         delete errors[name] 
         setErrors(errors)
     };
-    const handlePhone = (e) =>{
-        setBillingInfo({ ...billingInfo, phone: e });
-    }
- 
  
     return (
         <div>
@@ -252,88 +256,91 @@ export const MyCart = () => {
                     <form onSubmit={handlePayment} noValidate>
             <div className="user-name mb-[15px]">
                 <div className='mr-[4%]'>
-                    <label className='text-[#00000080]'>First Name <span className='text-[red]'>*</span></label>
+                    <label className={`${'firstName' in error && 'text-[red]'}`}>First Name <span className='text-[red]'>*</span></label>
                     <input 
                         name="firstName" 
                         value={billingInfo.firstName} 
                         onChange={handleBillingChange} 
+                        className={`${'firstName' in error ? '!border-[red]' :''}`}
                     />
-                    {errors.firstName && <p className="!text-[16px] !font-normal  text-[red] error-message">{errors.firstName}</p>}
                 </div>
                 <div className='ml-[4%]' style={{ margin: '0% 0 0 2%' }}>
-                    <label className='text-[#00000080]'>Last Name <span className='text-[red]'>*</span></label>
+                    <label  className={`${'lastName' in error && 'text-[red]'}`}>Last Name <span className='text-[red]'>*</span></label>
                     <input 
                         name="lastName" 
                         value={billingInfo.lastName} 
                         onChange={handleBillingChange} 
+                        className={`${'lastName' in error ? '!border-[red]' :''}`}
                     />
-                    {errors.lastName && <p className="!text-[16px] !font-normal  text-[red] error-message">{errors.lastName}</p>}
                 </div>
             </div>
             <div className="email mb-[15px]">
-                <label className='text-[#00000080]'>Email <span className='text-[red]'>*</span></label>
+                <label  className={`${'email' in error && 'text-[red]'}`}>Email <span className='text-[red]'>*</span></label>
                 <input 
+
                     name="email" 
                     value={billingInfo.email} 
                     onChange={handleBillingChange} 
+                    className={`${'email' in error ? '!border-[red]' :''}`}
                 />
-                {errors.email && <p className="!text-[16px] !font-normal  text-[red] error-message">{errors.email}</p>}
             </div>
             <div className="phonenumber mb-[15px]">
-                <label className='text-[#00000080]'>Phone Number <span className='text-[red]'>*</span></label>
+                <label className={`${'phone' in error && 'text-[red]'}`}>Phone Number <span className='text-[red]'>*</span></label>
                 <PhoneNumberInput
         name="phone"
         placeholder="Enter phone number"
         value={billingInfo.phone}
         status={setBillingInfo}
-        extraInputClass={'!border-[#000000] text-[18px]'}
+        extraInputClass={`${'phone' in error ? '!border-[red]':'!border-[#000000]'} text-[18px]`}
         setPhoneError={setPhoneError}
-        setErrors = {setErrors}
-        formErrors = {errors}
+        setErrors = {setError}
+        formErrors = {error}
         idName={'vacancySelect'}
         className="w-full  text-[18px]  "
       />
-                {errors.phone && <p className="!text-[16px] !font-normal  text-[red] error-message">{errors.phone}</p>}
             </div>
             <div className="country mb-[15px]">
                 <div className='mr-[4%]'>
-                    <label className='text-[#00000080]'>Country <span className='text-[red]'>*</span></label>
+                    <label className={`${'country' in error && 'text-[red]'}`}>Country <span className='text-[red]'>*</span></label>
                     <input 
                         name="country" 
                         value={billingInfo.country} 
                         onChange={handleBillingChange} 
+                        className={`${'country' in error ? '!border-[red]' :''}`}
                     />
-                    {errors.country && <p className="!text-[16px] !font-normal  text-[red] error-message">{errors.country}</p>}
                 </div>
                 <div className='mr-[4%]' style={{ margin: '0% 0 0 2%' }}>
-                    <label className='text-[#00000080]'>City<span className='text-[red]'>*</span></label>
+                    <label className={`${'city' in error && 'text-[red]'}`}>City<span className='text-[red]'>*</span></label>
                     <input 
                         name="city" 
                         value={billingInfo.city} 
                         onChange={handleBillingChange} 
+                        className={`${'city' in error ? '!border-[red]' :''}`}
                     />
-                    {errors.city && <p className="!text-[16px] !font-normal  text-[red] error-message">{errors.city}</p>}
                 </div>
             </div>
             <div className="postal-code mb-[15px]">
-                <label className='text-[#00000080]'>Postal Code<span className='text-[red]'>*</span></label>
+                <label className={`${'postalCode' in error && 'text-[red]'}`}>Postal Code<span className='text-[red]'>*</span></label>
                 <input 
                     name="postalCode" 
                     value={billingInfo.postalCode} 
                     onChange={handleBillingChange} 
+                    className={`${'postalCode' in error ? '!border-[red]' :''}`}
                 />
-                {errors.postalCode && <p className="!text-[16px] !font-normal  text-[red] error-message">{errors.postalCode}</p>}
             </div>
             <div className="promo-code mb-[15px]">
-                <label className='text-[#00000080]'>Promo Code</label>
+                <label className={`${'promoCode' in error && 'text-[red]'}`}>Promo Code</label>
                 <input 
                     name="promoCode" 
                     value={billingInfo.promoCode} 
                     onChange={handleBillingChange} 
+                    className={`${'promoCode' in error ? '!border-[red]' :''}`}
                 />
-                {errors.promoCode && <p className="!text-[16px] !font-normal  text-[red] error-message">{errors.promoCode}</p>}
             </div>
             <button className="payment">Make Payment</button>
+            <p className='text-[red] !text-[20px] !font-[400] !mt-2'>{Object.values(error).map(item =>{
+                return item
+            })}</p>
         </form>
                 </div>
             </div>

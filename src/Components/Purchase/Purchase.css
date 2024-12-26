@@ -423,11 +423,11 @@
         flex-direction: column;
     }
     .tab-buttons .accordian-button {
-        font-size: 13px;
+        font-size: 16px;
         width: 100%;
      }
      .tab-buttons .active-button{
-        font-size: 13px;
+        font-size: 16px;
         width: 100%;
     }
     .proceed{

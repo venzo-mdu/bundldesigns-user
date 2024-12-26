@@ -18,20 +18,15 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import ClearIcon from '@mui/icons-material/Clear';
 import EditIcon from '../../Images/editIcon.svg'
 import { Popup } from '../Common/Popup/Popup';
-
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-
 import DeleteIcon from '../../Images/BundlDetail/deleteicon.svg'
+import PhoneNumberInput from './PhoneNumberInput';
+import CloseIcon from '@mui/icons-material/Close';
+
 
 export default function Adjustments() {
     const { orderId } = useParams();
     const [page, setPage] = useState('adjustment')
+    const navigate = useNavigate();
     const [adjustmentForm, setAdjustmentForm] = useState({ content: '', file_name: '' })
     const [openPopup, setOpenPopup] = useState(false)
     const [order, setOrder] = useState()
@@ -44,18 +39,21 @@ export default function Adjustments() {
     const [itemsList, setItemList] = useState({})
     const [totalPrice, setTotalPrice] = useState(0)
     const [totalTime, setTotalTime] = useState(0)
+    const [tax, setTax] = useState(0)
     const [adjustmentData, setAdjustmentsData] = useState({})
     const [billingInfo, setBillingInfo] = useState({
         firstName: '',
         lastName: '',
         email: '',
-        phoneNumber: '',
+        phone: '',
         country: '',
         city: '',
         postalCode: '',
         promoCode: '',
     });
-
+    const [error, setError] = useState({})
+    const [errors, setErrors] = useState({});
+    const [phoneError, setPhoneError] = useState(false)
     useEffect(() => {
         getOrderDetails()
         getBundlData()
@@ -123,25 +121,30 @@ export default function Adjustments() {
 
     const updateTotals = (items, adjustments) => {
         const { price, time } = calculateTotals(items, adjustments);
+        let temptax = price * 0.15
+        setTax(temptax)
         setTotalPrice(price);
         setTotalTime(time);
     };
 
     const addData = (id, index) => {
         const elementValue = document.getElementById(`${id}_content`).value;
-        setAdjustmentsData(prev => {
-            const updatedData = {
-                ...prev,
-                [id]: {
-                    ...prev[id],
-                    content: elementValue,
-                    ...(prev[id] ? {} : adjustments[index]),
-                },
-            };
-            updateTotals(itemsList, updatedData);
-            return updatedData;
-        });
-        setErrorMsg(null)
+        if(elementValue){
+            setAdjustmentsData(prev => {
+                const updatedData = {
+                    ...prev,
+                    [id]: {
+                        ...prev[id],
+                        content: elementValue,
+                        ...(prev[id] ? {} : adjustments[index]),
+                    },
+                };
+                updateTotals(itemsList, updatedData);
+                return updatedData;
+            });
+            setErrorMsg(null)
+        }
+
     };
 
     const addItem = (index, key, id) => {
@@ -167,7 +170,7 @@ export default function Adjustments() {
     }
 
     const removeItem = (id, type) => {
-        console.log(id, 'idddd')
+
         if (type == 'adjustment') {
             delete adjustmentData[id]
             setAdjustmentsData(adjustmentData)
@@ -176,9 +179,12 @@ export default function Adjustments() {
             console.log(itemsList)
             setItemList(itemsList)
         }
+
         updateTotals(itemsList, adjustmentData);
+        if (Object.keys(itemsList).length === 0 && Object.keys(adjustmentData).length === 0) {
+            navigate('/'); // Redirect to the home page
+        }
     }
-    console.log(itemsList, 'listtt')
     const uploadFile = async (e, id, index) => {
         if (e.target.files.length) {
             const formData = new FormData()
@@ -189,45 +195,129 @@ export default function Adjustments() {
             formData.append('file', e.target.files[0])
             formData.append('file_name', e.target.files[0]?.name)
             const response = await axios.post(`${base_url}/api/upload_file/`, formData, ConfigToken());
-            setAdjustmentsData(prev => {
+            setAdjustmentsData((prev) => {
                 const updatedData = {
                     ...prev,
                     [id]: {
                         ...prev[id],
-                        attachments: response.data.file_url,
-                        file_name: e.target.files[0]?.name || '',
-                        ...(prev[id] ? {} : adjustments[index]),
+                        attachments: [response.data.file_url, ...(prev[id]?.attachments || [])],
+                        file_name: [e.target.files[0]?.name || '', ...(prev[id]?.file_name || [])],
+                        ...(prev[id] ? {} : adjustments[index]), // Add adjustments[index] only if prev[id] does not exist
                     },
                 };
-                updateTotals(itemsList, updatedData);
-                return updatedData;
+                updateTotals(itemsList, updatedData); // Update totals with the latest data
+                return updatedData; // Return the updated data to update the state
             });
         }
     }
+    const validateFields = () => {
+        let newErrors = {};
+
+        if (!billingInfo.firstName.trim()) {
+            setError({ firstName: 'Your first name field is empty.' })
+            return false
+        }
+        if (!billingInfo.lastName.trim()) {
+            setError({ lastName: 'Your last name field is empty.' })
+            return false
+        };
+
+        if (!billingInfo.email.trim()) {
+            setError({ email: 'Your email field is empty' })
+            return false
+        } else if (!/^[\w-.]+@[\w-]+\.[a-z]{2,4}$/i.test(billingInfo.email)) {
+            setError({ email: 'Invalid email format' })
+            return false
+        }
+        if (!billingInfo.phone.trim()) {
+            setError({ phone: 'Your phone number field is empty.' })
+            return false
+        }
+
+        if (!billingInfo.country.trim()) {
+            setError({ country: 'Your country field is empty.' })
+            return false
+        };
+        if (!billingInfo.city.trim()) {
+            setError({ city: 'Your city field is empty.' })
+
+            return false
+        };
+
+        if (!billingInfo.postalCode.trim()) {
+            setError({ postalCode: 'Your postal code field is empty.' })
+            return false
+        } else if (!/^[0-9]{5,6}$/.test(billingInfo.postalCode)) {
+            setError({ postalCode: 'Yout postal code must be 5 or 6 digits.' })
+            return false
+        }
+
+        // if (!billingInfo.promoCode.trim()) newErrors.promoCode = 'Promo code is required';
+        setError(newErrors);
+
+        // Return true if there are no errors
+        return true;
+    };
+
+
 
     const createAdjustmentOrder = async () => {
         const billingData = {
             ...billingInfo,
             user_name: billingInfo.firstName + ' ' + billingInfo.lastName,
-            phone: billingInfo.phoneNumber,
+            phone: billingInfo.phone,
             promo_code: billingInfo.promoCode,
             total_amount: totalPrice,
             total_time: totalTime,
-            grand_total: totalPrice,
+            grand_total: totalPrice + tax,
         }
         const formData = {
             item_list: itemsList,
             adjustmentList: adjustmentData,
             billingInfo: billingData,
-            total_price: totalPrice,
+            total_price: totalPrice + tax,
             total_time: totalTime
         }
-        const res = await axios.post(`${base_url}/api/adjustment_create/${orderId}/`, formData, ConfigToken())
-
-        if (res.data) {
-            window.location.href = res.data.data.payment_response.redirect_url
+        if (validateFields()) {
+            const res = await axios.post(`${base_url}/api/adjustment_create/${orderId}/`, formData, ConfigToken())
+            if (res.data) {
+                window.location.href = res.data.data.payment_response.redirect_url
+            }
         }
     }
+    
+    const removeFile = (id, fileNameToRemove) => {
+        setAdjustmentsData((prev) => {
+            // Destructure the existing data for the given ID
+            const { attachments = [], file_name = [], ...rest } = prev[id] || {};
+    
+            // Filter out the file to remove
+            const updatedAttachments = attachments.filter((url, index) => file_name[index] !== fileNameToRemove);
+            const updatedFileNames = file_name.filter((name) => name !== fileNameToRemove);
+    
+            // If no files remain, remove the ID from adjustments
+            if (updatedAttachments.length === 0) {
+                const { [id]: _, ...updatedData } = prev; // Remove the key from the object
+                updateTotals(itemsList, updatedData); // Update totals with the latest data
+                return updatedData;
+            }
+    
+            // Otherwise, update the specific ID
+            const updatedData = {
+                ...prev,
+                [id]: {
+                    ...rest,
+                    attachments: updatedAttachments,
+                    file_name: updatedFileNames,
+                },
+            };
+    
+            updateTotals(itemsList, updatedData); // Update totals with the latest data
+            return updatedData; // Return the updated data to update the state
+        });
+    }
+
+
     return (
         <>
             <Navbar />
@@ -246,17 +336,17 @@ export default function Adjustments() {
                             cancel={'Cancel'}
                         />
                     }
-                    <div className='font-Helvetica p-2 flex'>
-                        <div className='basis-[72%] px-8 mt-4 py-4 border-r'>
+                    <div className='font-Helvetica p-2 md:flex xs:block'>
+                        <div className='basis-[72%] md:px-8 px-8 xs:px-2 mt-4 py-4 border-r'>
                             <p className='flex text-[18px] items-center pb-2 text-black' onClick={() => { window.location.href = '/dashboard' }}> <ArrowBackIcon style={{ width: '25px', marginRight: '10px' }} /> Back to dashboard </p>
-                            <div className='pl-14'>
+                            <div className='pl-14 md:pl-14 xs:pl-2'>
                                 <h1 className='lg:text-[40px] md:text-[32px]'> Adjustments </h1>
                                 <p className='lg:text-[20px] mb-2 md:text-[16px] text-[#00000080]'> Here you can edit your brand and add items to your bundl! </p>
                                 <p className='lg:text-[32px] font-bold md:text-[24px]'>What would you like to edit ?</p>
                                 <div className=''>
-                                    <div className=' flex overflow-auto w-[100%]'>
+                                    <div className=' flex overflow-auto md:max-w-[62vw] max-w-[62vw] xs:max-w-[100%]'>
                                         {adjustments.map((adjustment, index) => {
-                                            return <button className={`lg:px-[20px] md:px-[10px] basis-[20%] md:py-[3px] md:text-[16px] lg:py-[5px]  ${adjustmenTab == adjustment.english_adjustment_name ? 'text-white bg-[#1BA56F] ' : 'text-[#1BA56F] bg-white '} border-r border-t border-b 
+                                            return <button className={`lg:px-[20px] md:px-[10px] basis-[20%] min-w-[100px] md:py-[3px] md:text-[16px] lg:py-[5px]  ${adjustmenTab == adjustment.english_adjustment_name ? 'text-white bg-[#1BA56F] ' : 'text-[#1BA56F] bg-white '} border-r border-t border-b 
                                 ${index == 0 && 'border-l'} ${index == adjustments.length && 'border-l-0 border-r'} !border-[#1BA56F]`}
                                                 onClick={() => {
                                                     setAdjustmentTab(adjustment.english_adjustment_name)
@@ -268,10 +358,18 @@ export default function Adjustments() {
                                     {adjustments.map((adjustment, index) => {
                                         if (adjustment.english_adjustment_name == adjustmenTab) {
                                             return <div className='my-6'>
-                                                <div className='flex justify-between my-1'> <span className='font-bold'>{adjustment.english_adjustment_name}</span>
-                                                    <p className='flex items-center  text-center text-[#1BA56F]'>
-                                                        <span className='flex items-center mr-10'><img className='mr-2' src={dollorIcon}></img> {adjustment.price} SAR  </span>
-                                                        <span> <AccessTimeIcon /> {parseInt(adjustment.time_limit)} Days </span>
+                                                <div className='flex justify-between my-1'>
+                                                    <span className='font-bold'>{adjustment.english_adjustment_name}</span>
+                                                    <p className='flex items-center text-[#1BA56F] !mb-2'>
+                                                        <p className='flex items-center mb-1 sm:min-w-[120px] min-w-[120px] xs:min-w-[100px] font-[500]'>
+                                                            <img src={dollorIcon} alt="Price icon" className="inline-block mr-2" />
+                                                            {Math.round(adjustment.price)} SAR
+                                                        </p>
+                                                        <p className='flex items-center mb-1 font-[500]' >
+                                                            <AccessTimeIcon className='mr-2' />
+                                                            {Math.round(adjustment.time_limit)} Days
+
+                                                        </p>
                                                     </p>
                                                 </div>
                                                 <p className='font-medium text-[18px]'>What would you like to change?</p>
@@ -283,9 +381,9 @@ export default function Adjustments() {
                                                 }}
                                                     placeholder='Tell us your thoughts...'
                                                     value={adjustmentForm.content ? adjustmentForm.content : ''}
-                                                    className='border px-2 py-1 border-[#000000A0]  w-[80%]'
+                                                    className='border px-2 py-1 border-[#000000A0]  md:w-[80%] w-[80%] xs:w-[70%]'
                                                 ></input>
-                                                    <button onClick={() => addData(adjustment.id, index)} className='w-[20%] py-1 bg-[#1BA56F] text-white '>Submit Edit</button></p>
+                                                    <button onClick={() => addData(adjustment.id, index)} className='md:w-[20%] w-[20%] xs:w-[30%] py-1 bg-[#1BA56F] text-white '>Submit Edit</button></p>
                                                 <p className='font-medium text-[18px]'>Have something to show us?</p>
                                                 <p
                                                     className="border-b-2 w-[150px] !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer"
@@ -300,7 +398,13 @@ export default function Adjustments() {
                                                         onChange={(e) => uploadFile(e, adjustment.id, index)}
                                                     />
                                                     <img src={uploadIcon} alt="Upload Icon" />
-                                                    <span className='font-[700]'>{adjustmentForm?.file_name || 'Upload Content'}</span>
+                                                    <span className='font-[700]'>Upload Content</span>
+                                                </p>
+                                                <p>
+                                                {adjustmentData[adjustment.id]?adjustmentData[adjustment.id].file_name?.map(name=>{
+                                                    return <span className='bg-black text-white py-1 px-2 mr-2'>{name} <CloseIcon onClick={()=>{removeFile(adjustment.id,name)}} className='ml-2 cursor-pointer'/></span>
+                                                }):'' }
+
                                                 </p>
                                             </div>
                                         }
@@ -315,7 +419,7 @@ export default function Adjustments() {
                                             setDesignListTab(category)
                                         }
                                         } href={`#${category.replaceAll(' ', '_')}_list`} className={`lg:px-[2px] min-w-[14%] md:px-[2px] md:py-[5px] 
-                                            md:text-[17px] lg:py-[5px] text-center font-[500] ${designListTab == category ?
+                                            md:text-[17px] lg:py-[5px] !font[500] text-center font-[500] ${designListTab == category ?
                                                 'text-white bg-[#1BA56F] ' : 'text-[#1BA56F] bg-white '} border-r border-t border-b
                                         ${index == 0 && 'border-l'} ${index == Object.keys(bundlAddons).length && 'border-l-0 border-r'} !border-[#1BA56F]`}
                                         >{category}</a>
@@ -332,16 +436,16 @@ export default function Adjustments() {
                                                 </button></p>
                                                 {expantedTabs[category] && <div className='mt-3 mb-8'>
                                                     {category in bundlAddons && bundlAddons[category].design_list.map((item, index) => {
-                                                        return <div id={`${item.id}_design_list`} className='flex  justify-between font-semibold text-[18px] py-2  border-b !border-[#1BA56F]'>
-                                                            <span className='font-semibold basis-[40%] text-[#1BA56F]'>{item.name_english}</span>
-                                                            <p className='flex mb-0 basis-[40%]'>
-                                                                <span className='flex items-center mr-2'><img src={BlackDollor}></img> {item.price} SAR </span>
-                                                                <span className='flex'><AccessTimeIcon style={{ marginRight: '5px' }} /> {Math.round(item.time)} Days</span>
+                                                        return <div id={`${item.id}_design_list`} className='flex flex-wrap justify-between font-semibold text-[18px] py-2  border-b !border-[#1BA56F]'>
+                                                            <span className='font-semibold md:basis-[25%] basis-[25%] xs:basis-[100%] text-[18px] md:text-[18px] xs:text-[16px] text-[#1BA56F]'>{item.name_english}</span>
+                                                            <p className='flex mb-0 text-[18px] md:text-[18px] xs:text-[16px] basis-[40%]'>
+                                                                <span className='flex items-center w-[150px]'><img src={BlackDollor} className='mr-2'></img> {Math.round(item.price)} SAR </span>
+                                                                <span className='flex items-center w-[120px]'><AccessTimeIcon style={{ marginRight: '5px' }} /> {Math.round(item.time)} Days</span>
                                                             </p>
-                                                            <p className='mb-0 basis-[10%] flex items-center text-[#1BA56F] border !border-[#1BA56F]'>
-                                                                <button onClick={() => remove_item(item.id)} className='border-r !border-[#1BA56F] flex items-center'><RemoveIcon /></button>
-                                                                <span className='border-r px-2 !border-[#1BA56F]'> {item.id in itemsList ? itemsList[item.id]['qty'] : 0}</span>
-                                                                <button onClick={() => addItem(index, category, item.id)} className='flex items-center'><AddIcon /></button>
+                                                            <p className='mb-0 basis-[10%] h-[30px] text-[20px] md:text-[20px] xs:text-[16px] flex items-center text-[#1BA56F] border !border-[#1BA56F]'>
+                                                                <button onClick={() => remove_item(item.id)} className='border-r !border-[#1BA56F] h-full flex items-center'><RemoveIcon /></button>
+                                                                <span className='px-2 !border-[#1BA56F]'> {item.id in itemsList ? itemsList[item.id]['qty'] : 0}</span>
+                                                                <button onClick={() => addItem(index, category, item.id)} className='flex items-center border-l !border-[#1BA56F] h-full'><AddIcon /></button>
                                                             </p>
                                                         </div>
                                                     })}
@@ -413,13 +517,13 @@ export default function Adjustments() {
 
                             <div className='bundl-checkout'>
                                 <div className=' flex items-center mb-1' >
-                                    <img src={BlackDollor} className='mr-2' alt="Total Price" />
-                                    <p className='basis-3/5 font-bold text-[18px] mb-0'>Total Price</p>
+                                    <img src={BlackDollor} className='ml-[6px] mr-4' alt="Total Price" />
+                                    <p className='basis-3/5 font-bold text-[18px] mb-0'>Total Price:</p>
                                     <p className='basis-2/5 font-bold text-[18px]  mb-0'>{totalPrice} SAR</p>
                                 </div>
                                 <div className=' flex'>
-                                    <img className='mr-2' src={BlackTime} alt="Total Duration" />
-                                    <p className='basis-3/5 text-[18px] mb-0'>Total Duration</p>
+                                    <img className='mr-2 ' src={BlackTime} alt="Total Duration" />
+                                    <p className='basis-3/5 text-[18px] mb-0'>Total Duration:</p>
                                     <p className='basis-2/5 text-[18px] mb-0'>{totalTime} Days</p>
                                 </div>
 
@@ -432,109 +536,167 @@ export default function Adjustments() {
                     </div>
                 </> :
                 <>
-                    <div className='mycart'>
-                        <div className='cart'>
+                    <div className='mycart '>
+                        <div className='cart sm:!pb-[170px] !pb-[170px] xs:!pb-[20px]'>
                             <p className='flex !text-[18px] !font-normal items-center pb-2 cursor-pointer text-black' onClick={() => { setPage('adjustment') }}> <ArrowBackIcon style={{ width: '25px', marginRight: '10px' }} /> Back To Adjustments </p>
                             <p>Your Cart</p>
-                            <TableContainer component={Paper}>
-                                <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                                    <TableHead>
-                                        <TableRow>
-                                            <TableCell>Item</TableCell>
-                                            <TableCell align="center">Quantity</TableCell>
-                                            <TableCell align="center">Price</TableCell>
-                                            <TableCell align="center">Action</TableCell>
-                                        </TableRow>
-                                    </TableHead>
-                                    <TableBody>
-                                        {Object.values(adjustmentData)?.map((row) => (
-                                            <TableRow
-                                                key={row.item_name}
-                                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                            >
-                                                <TableCell scope="row">
-                                                    {row.english_adjustment_name}
-                                                </TableCell>
-                                                <TableCell align="center">1</TableCell>
-                                                <TableCell align="center">{row.price}</TableCell>
-                                                {/* <TableCell align="center"><img style={{width:'23px'}} src={row.DeleteIcon}></img></TableCell> */}
-                                                <TableCell align="center">
-                                                    <img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'adjustment')} />
-                                                </TableCell>
-                                            </TableRow>
-                                        ))}
-                                        {(Object.values(itemsList))?.map((row) => (
-                                            <TableRow
-                                                key={row.name_english}
-                                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                            >
-                                                <TableCell scope="row">
-                                                    {row.name_english}
-                                                </TableCell>
-                                                <TableCell align="center">{row.qty}</TableCell>
-                                                <TableCell align="center">{row.price}</TableCell>
-                                                {/* <TableCell align="center"><img style={{width:'23px'}} src={row.DeleteIcon}></img></TableCell> */}
-                                                <TableCell align="center">
-                                                    <img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'addon')} />
-                                                </TableCell>
-                                            </TableRow>
-                                        ))}
-                                    </TableBody>
-                                </Table>
-                            </TableContainer>
-                            <div className='!text-[20px] float-right w-[50%]'>
-                                <p className='ml-8 mb-1 !text-[20px] !font-normal flex justify-between'><span>Price</span> <span>{totalPrice} sar</span></p>
-                                <p className='ml-8 mb-1 !text-[20px] !font-normal  flex justify-between'><span>VAT</span> <span>0 sar</span></p>
-                                <p className='!text-[20px] flex justify-between mb-1'>
-                                    <span className='flex items-center'><img className='mr-2' src={BlackDollor}></img> Total Price</span>
-                                    <span>{totalPrice} sar</span>
-                                </p>
-                                <p className='ml-1 !text-[20px] flex justify-between mb-1'>
-                                    <span className='flex items-center'><AccessTimeIcon style={{ marginRight: '4px' }} /> Total Duration</span>
-                                    <span>{totalTime} Days</span>
-                                </p>
+                            <table className='w-full border-none' aria-label="simple table">
+                                <thead>
+                                    <tr className='!text-left text-[20px]'>
+                                        <td className='text-left w-[20%] text-[#00000080] pb-3' >Item</td>
+                                        <td className='text-[#00000080] w-[30%] pb-3' align="center">Quantity</td>
+                                        <td className='text-[#00000080] w-[30%]    pb-3' align="center">Price</td>
+                                        <td className='text-[#00000080] w-[20%]    pb-3' align="center">Action</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    {Object.values(adjustmentData)?.map((row, index) => (
+                                        <tr
+                                            key={row.item_name}
+                                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                            className={`text-[#000] font-[700] text-[20px] ${index == Object.values(adjustmentData).length - 1 && (Object.values(itemsList)).length == 0 ? "" : 'border-b border-black'} `}
+                                        >
+                                            <td className=' !py-2' scope="row">
+                                                {row.english_adjustment_name}
+                                            </td>
+                                            <td className=' !py-2' align="center">1</td>
+                                            <td className=' !py-2' align="center">{row.price}</td>
+                                            <td align="center">
+                                                <p className='flex items-center !mb-0 justify-center'><img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'adjustment')} /></p>
+                                            </td>
+                                        </tr>
+                                    ))}
+
+                                    {(Object.values(itemsList))?.map((row, index) => (
+                                        <tr
+                                            key={row.item_name}
+                                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                            className={`text-[#000] font-[700] text-[20px] ${index == (Object.values(itemsList)).length - 1 ? "" : 'border-b border-black'} `}
+                                        >
+                                            <td className=' !py-2' scope="row">
+                                                {row.name_english}
+                                            </td>
+                                            <td className=' !py-2' align="center">{row.qty}</td>
+                                            <td className=' !py-2' align="center" scope="row">{row.price}</td>
+                                            {/* <TableCell align="center"><img style={{width:'23px'}} src={row.DeleteIcon}></img></TableCell> */}
+                                            <td className=' !py-2' align="center" scope="row">
+                                                <p className='flex items-center !mb-0 justify-center'> <img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'addon')} /></p>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                            <div className='cart-total-container '>
+                                <div className='total justify-between pl-10  mr-4' style={{ display: 'flex' }}>
+                                    <p className='!text-[20px]' style={{ width: '50%' }}>Price:</p>
+                                    <p className='!text-[20px]  text-right' style={{ width: '50%' }}>{totalPrice} sar</p>
+                                </div>
+                                <div className='total justify-between pl-10 mr-4' style={{ display: 'flex' }}>
+                                    <p className='!text-[20px]' style={{ width: '53%' }}>VAT:</p>
+                                    <p className='!text-[20px]  text-right' style={{ width: '40%' }}>{tax} sar</p>
+                                </div>
+                                <div>
+                                    <div className='justify-between mr-4' style={{ display: 'flex' }}>
+                                        <p className='!text-[20px] ml-[6px]' style={{ width: '50%' }}><img src={BlackDollor} className='inline-block ml-[0px] mr-[18px]'></img>Total Price :</p>
+                                        <p className='!text-[20px] text-right' style={{ width: '40%' }}>{totalPrice} sar</p>
+                                    </div>
+                                    <div className='justify-between mr-4' style={{ display: 'flex' }}>
+                                        <p className='!text-[20px]' style={{ width: '66%' }}><AccessTimeIcon style={{ marginRight: '4px' }} /> Total Duration :</p>
+                                        <p className='!text-[20px]  text-right' style={{ width: '45%' }}>{totalTime} Days</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div className='billing'>
+                        <div className='billing !px-[2%]'>
                             <p>Billing Address</p>
-                            <div className="user-name">
-                                <div>
-                                    <label>First Name</label>
-                                    <input className='border ' name="firstName" value={billingInfo.firstName} onChange={handleBillingChange} />
+                            <div className="user-name mb-[15px]">
+                                <div className='mr-[4%]'>
+                                    <label className={`${'firstName' in error && 'text-[red]'}`}>First Name <span className='text-[red]'>*</span></label>
+                                    <input
+                                        name="firstName"
+                                        value={billingInfo.firstName}
+                                        onChange={handleBillingChange}
+                                        className={`${'firstName' in error ? '!border-[red]' : ''}`}
+                                    />
                                 </div>
-                                <div style={{ margin: '2% 0 0 2%' }}>
-                                    <label>Last Name</label>
-                                    <input className='border ' name="lastName" value={billingInfo.lastName} onChange={handleBillingChange} />
-                                </div>
-                            </div>
-                            <div className="email">
-                                <label>Email</label>
-                                <input className='border ' name="email" value={billingInfo.email} onChange={handleBillingChange} />
-                            </div>
-                            <div className="phonenumber">
-                                <label>Phone Number</label>
-                                <input className='border ' name="phoneNumber" value={billingInfo.phoneNumber} onChange={handleBillingChange} />
-                            </div>
-                            <div className="country">
-                                <div>
-                                    <label>Country</label>
-                                    <input className='border ' name="country" value={billingInfo.country} onChange={handleBillingChange} />
-                                </div>
-                                <div style={{ margin: '2% 0 0 2%' }}>
-                                    <label>City</label>
-                                    <input className='border ' name="city" value={billingInfo.city} onChange={handleBillingChange} />
+                                <div className='ml-[4%]' style={{ margin: '0% 0 0 2%' }}>
+                                    <label className={`${'lastName' in error && 'text-[red]'}`}>Last Name <span className='text-[red]'>*</span></label>
+                                    <input
+                                        name="lastName"
+                                        value={billingInfo.lastName}
+                                        onChange={handleBillingChange}
+                                        className={`${'lastName' in error ? '!border-[red]' : ''}`}
+                                    />
                                 </div>
                             </div>
-                            <div className="postal-code">
-                                <label>Postal Code</label>
-                                <input className='border ' name="postalCode" value={billingInfo.postalCode} onChange={handleBillingChange} />
+                            <div className="email mb-[15px]">
+                                <label className={`${'email' in error && 'text-[red]'}`}>Email <span className='text-[red]'>*</span></label>
+                                <input
+
+                                    name="email"
+                                    value={billingInfo.email}
+                                    onChange={handleBillingChange}
+                                    className={`${'email' in error ? '!border-[red]' : ''}`}
+                                />
                             </div>
-                            <div className="promo-code">
-                                <label>Promo Code</label>
-                                <input className='border ' name="promoCode" value={billingInfo.promoCode} onChange={handleBillingChange} />
+                            <div className="phone mb-[15px]">
+                                <label className={`${'phone' in error && 'text-[red]'}`}>Phone Number <span className='text-[red]'>*</span></label>
+                                <PhoneNumberInput
+                                    name="phone"
+                                    placeholder="Enter phone number"
+                                    value={billingInfo.phone}
+                                    status={setBillingInfo}
+                                    extraInputClass={`${'phone' in error ? '!border-[red]' : '!border-[#000000]'} text-[18px]`}
+                                    setPhoneError={setPhoneError}
+                                    setErrors={setError}
+                                    formErrors={error}
+                                    idName={'vacancySelect'}
+                                    className="w-full  text-[18px]  "
+                                />
+                            </div>
+                            <div className="country mb-[15px]">
+                                <div className='mr-[4%]'>
+                                    <label className={`${'country' in error && 'text-[red]'}`}>Country <span className='text-[red]'>*</span></label>
+                                    <input
+                                        name="country"
+                                        value={billingInfo.country}
+                                        onChange={handleBillingChange}
+                                        className={`${'country' in error ? '!border-[red]' : ''}`}
+                                    />
+                                </div>
+                                <div className='mr-[4%] ' style={{ margin: '0% 0 0 2%' }}>
+                                    <label className={`${'city' in error && 'text-[red]'}`}>City<span className='text-[red]'>*</span></label>
+                                    <input
+                                        name="city"
+                                        value={billingInfo.city}
+                                        onChange={handleBillingChange}
+                                        className={`${'city' in error ? '!border-[red]' : ''}`}
+                                    />
+                                </div>
+                            </div>
+                            <div className="postal-code mb-[15px]">
+                                <label className={`${'postalCode' in error && 'text-[red]'}`}>Postal Code<span className='text-[red]'>*</span></label>
+                                <input
+                                    name="postalCode"
+                                    value={billingInfo.postalCode}
+                                    onChange={handleBillingChange}
+                                    className={`${'postalCode' in error ? '!border-[red]' : ''}`}
+                                />
+                            </div>
+                            <div className="promo-code mb-[15px]">
+                                <label className={`${'promoCode' in error && 'text-[red]'}`}>Promo Code</label>
+                                <input
+                                    name="promoCode"
+                                    value={billingInfo.promoCode}
+                                    onChange={handleBillingChange}
+                                    className={`${'promoCode' in error ? '!border-[red]' : ''}`}
+                                />
                             </div>
                             <button onClick={() => createAdjustmentOrder()} className="payment">Make Payment</button>
-
+                            <p className='text-[red] !text-[20px] !font-[400] !mt-2'>{Object.values(error).map(item => {
+                                return item
+                            })}</p>
                         </div>
                     </div>
                 </>

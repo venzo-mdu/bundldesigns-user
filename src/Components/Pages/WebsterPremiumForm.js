@@ -12,6 +12,7 @@ import paperPlaneGif from '../../Images/ourWorkGIF.gif'
 import websterGif from '../../Images/aboutus/website.gif'
 import paperPlaneReverse from '../../Images/ourWorkGIFReverse.gif'
 import 'react-phone-number-input/style.css';
+import CloseIcon from '@mui/icons-material/Close';
 
 export default function WebsterPremiumForm() {
   const { form_type } = useParams();
@@ -195,7 +196,7 @@ export default function WebsterPremiumForm() {
             >
              Submit Contact Request
             </button></p>
-            {successMsg && <p className='bg-green-600 py-1 px-2 rounded text-white'>{successMsg}</p>}
+            {successMsg && <p className='bg-green-600 py-1 px-2 rounded text-white'>{successMsg} <CloseIcon  onClick={()=>{setSuccessMsg(null)}} className='text-white ml-2' /></p>}
 
             </div>
 

@@ -95,6 +95,11 @@ export const Signup = () => {
   const validateForm = () => {
     const errors = {};
     if (!registerData.full_name.trim()) errors.full_name = 'Name is required';
+    else if (/[^a-zA-Z\s-]/.test(registerData.full_name)) {
+      errors.full_name = 'Full name must not contain numbers or special characters'
+    } else if (registerData.full_name.length < 3) {
+      errors.full_name =  'Full name must be at least 3 characters'
+    }
     if (!registerData.email.trim()) {
       errors.email = 'Email is required';
     } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(registerData.email)) {
@@ -159,7 +164,7 @@ export const Signup = () => {
   return (
     <div>
       <div className='login !mb-24'>
-        <img className='anchor' src={loginGIF} alt='login-anchor' />
+        <img className='anchor' id='anchor' src={loginGIF} alt='login-anchor' />
         <div className='signup-content'>
           <p className='welcometext'>
             Welcome to <span className='bundle-designs'>Bundl Designs</span>
@@ -232,7 +237,7 @@ export const Signup = () => {
                        </p>
           </form>
         </div>
-        <img className='anchor1 w-[160px]' src={loginGIF} alt='login-anchor' />
+        <img className='anchor1 w-[160px]' id='anchor1' src={loginGIF} alt='login-anchor' />
       </div>
       <Footer />
     </div>

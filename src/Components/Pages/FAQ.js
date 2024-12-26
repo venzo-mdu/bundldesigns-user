@@ -10,6 +10,7 @@ import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import fileUploadIcon from '../../Images/fileUploadIcon.svg'
 import msgIcon from '../../Images/messageIcon.svg'
 import { Bgloader } from '../Common/Background/Bgloader';
+import CloseIcon from '@mui/icons-material/Close';
 
 export default function FAQ() {
 
@@ -114,8 +115,8 @@ export default function FAQ() {
                   onClick={() => setCurrentTab(category.name_english)}>{category.name_english}</button>
               })}
             </div>
-            <div className='mt-12 '>
-              {currentTab && <h2 className='mb-10 text-[28px]'>{currentTab}</h2>}
+            <div className='sm:mt-12 mt-12 xs:mt-6'>
+              {currentTab && <h2 className='mb-10 sm:mb-10 xs:mb-8 xs:text-[24px] text-[28px] sm:text-[28px]'>{currentTab}</h2>}
               {
                 faqs.data.map((faq) => {
                   if (faq.category_english == currentTab) {
@@ -203,7 +204,7 @@ export default function FAQ() {
               <p className='text-center flex items-center my-1 justify-center font-bold'> < WhatsAppIcon /> <span className='pl-1'>+(966) 547754124</span>  </p>
               </div>
            
-              {successMsg && <p className='bg-green-600 py-1 px-2 rounded text-white'>{successMsg}</p>}
+              {successMsg && <p className='bg-green-600 py-1 px-2 rounded text-white'>{successMsg} <CloseIcon  onClick={()=>{setSuccessMsg(null)}} className='text-white ml-2' /></p>}
             </form>
 
 

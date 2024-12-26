@@ -83,7 +83,7 @@ export const DashboardPopup = ({ title, subTitle, popupType = 'default', onChang
                         getPopupType()
                     )}
 
-                    <Box sx={{ marginTop:'10px'}}>
+                    <Box sx={{ marginTop:'30px'}}>
                         <Button
                             onClick={onClick}
                             sx={{
