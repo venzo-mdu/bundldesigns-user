@@ -234,8 +234,9 @@ export const MyCart = () => {
                         name="firstName" 
                         value={billingInfo.firstName} 
                         onChange={handleBillingChange} 
+                        className={errors.firstName ? 'input-error' : ''} 
                     />
-                    {errors.firstName && <p className="text-[16px] text-red font-normal error-message">{errors.firstName}*</p>}
+             
                 </div>
                 <div style={{ margin: '0% 0 0 2%' }}>
                     <label>Last Name</label>
@@ -243,8 +244,9 @@ export const MyCart = () => {
                         name="lastName" 
                         value={billingInfo.lastName} 
                         onChange={handleBillingChange} 
+                        className={errors.lastName ? 'input-error' : ''} 
                     />
-                    {errors.lastName && <p className="text-[16px] text-red font-normal error-message">{errors.lastName}</p>}
+                  
                 </div>
             </div>
             <div className="email">
@@ -253,8 +255,9 @@ export const MyCart = () => {
                     name="email" 
                     value={billingInfo.email} 
                     onChange={handleBillingChange} 
+                    className={errors.email ? 'input-error' : ''} 
                 />
-                {errors.email && <p className="text-[16px] text-red font-normal error-message">{errors.email}</p>}
+               
             </div>
             <div className="phonenumber">
                 <label>Phone Number</label>
@@ -262,8 +265,9 @@ export const MyCart = () => {
                     name="phoneNumber" 
                     value={billingInfo.phoneNumber} 
                     onChange={handleBillingChange} 
+                    className={errors.phoneNumber ? 'input-error' : ''} 
                 />
-                {errors.phoneNumber && <p className="text-[16px] text-red font-normal error-message">{errors.phoneNumber}</p>}
+           
             </div>
             <div className="country">
                 <div>
@@ -272,8 +276,9 @@ export const MyCart = () => {
                         name="country" 
                         value={billingInfo.country} 
                         onChange={handleBillingChange} 
+                        className={errors.country ? 'input-error' : ''} 
                     />
-                    {errors.country && <p className="text-[16px] text-red font-normal error-message">{errors.country}</p>}
+            
                 </div>
                 <div style={{ margin: '0% 0 0 2%' }}>
                     <label>City</label>
@@ -281,8 +286,9 @@ export const MyCart = () => {
                         name="city" 
                         value={billingInfo.city} 
                         onChange={handleBillingChange} 
+                        className={errors.city ? 'input-error' : ''} 
                     />
-                    {errors.city && <p className="text-[16px] text-red font-normal error-message">{errors.city}</p>}
+          
                 </div>
             </div>
             <div className="postal-code">
@@ -291,8 +297,11 @@ export const MyCart = () => {
                     name="postalCode" 
                     value={billingInfo.postalCode} 
                     onChange={handleBillingChange} 
+                    className={errors.postalCode ? 'input-error' : ''} 
                 />
-                {errors.postalCode && <p className="text-[16px] text-red font-normal error-message">{errors.postalCode}</p>}
+                
+        
+                {/*{errors.postalCode && <p className="text-[16px] text-red font-normal error-message">{errors.postalCode}</p>}*/}
             </div>
             <div className="promo-code">
                 <label>Promo Code</label>
@@ -300,10 +309,17 @@ export const MyCart = () => {
                     name="promoCode" 
                     value={billingInfo.promoCode} 
                     onChange={handleBillingChange} 
-                />
-                {errors.promoCode && <p className="text-[16px] text-red font-normal error-message">{errors.promoCode}</p>}
+                    className={errors.promoCode ? 'input-error' : ''} 
+                    />
+                     
+        
             </div>
             <button className="payment">Make Payment</button>
+            {Object.keys(errors).length > 0 && (
+        <p className="error-message">{Object.values(errors)[0]}</p>
+    )}
+
+       
         </form>
                 </div>
             </div>

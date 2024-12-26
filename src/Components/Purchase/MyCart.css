@@ -2,10 +2,14 @@
    display: flex;
    width: 100%;
 }
-.billing input{
+.billing input {
     outline: none;
     padding: 1% 2%;
-    border:1px solid #000000;
+    border: 1px solid #000000; 
+}
+
+.input-error {
+    border: 1px solid red !important;
 }
 .cart{
     width: 70%;
@@ -20,9 +24,12 @@
     font-size: 24px;
     font-weight: 700;
 }
+
+
 .billing p{
-    font-size: 24px;
-    font-weight: 700;
+    font-size: 16px;
+    font-weight: 400;
+    color:red;
 }
 form{
     width: 100%;
