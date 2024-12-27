@@ -48,7 +48,9 @@ export default function WebsterForm() {
             newErrors.name = 'Name must be at least 3 characters';
           } else if (/\d/.test(formData.name)) {
             newErrors.name = 'Name must not contain numbers';
-          }      
+          } else if (/[^a-zA-Z\s]/.test(formData.name)) {
+            newErrors.name = 'Name must not contain special characters';
+          }  
       
           if (!formData.project_name) newErrors.project_name = 'Project name is required';
           else if (formData.project_name.length < 3) newErrors.project_name = 'Project name must be at least 3 characters';
@@ -153,7 +155,7 @@ export default function WebsterForm() {
           <div>
             <input
               name="message"
-              placeholder='message'
+              placeholder='Message'
               value={formData.message}
               onChange={handleChange}
               className="w-full border  p-2"

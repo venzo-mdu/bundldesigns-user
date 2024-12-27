@@ -33,7 +33,7 @@
     margin: auto;
     position: absolute;
     z-index: 1;
-    margin: -11% 0 0 30%;
+    margin: -11% 0 0 0%;
 }
 .eyespoon{
     position: absolute;
@@ -43,7 +43,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 1% 0 0 0;
+    margin: 3% 0 0 0;
 }
 .questonnaire-actions1{
     display: flex;
@@ -52,25 +52,25 @@
     /* margin: 2% 0 10% 0; */
 }
 .questonnaire-actions-height{
-    height: 350px;
+    height: 300px;
 }
 .back{
     background-color: transparent;
     height: 60px;
-    width: 400px;
+    width: 300px;
     color: #000000;
     font-size: 24px;
-    font-weight: 500;
+    font-weight: 300;
     border: 1px solid #000000;
     outline: none;
 }
 .next{
     background-color: #F3B7CE;
     height: 60px;
-    width: 400px;
+    width: 300px;
     color: #000000;
     font-size: 24px;
-    font-weight: 500;
+    font-weight: 400;
     border: 1px solid #000000;
     outline: none;
     margin: 0 0 0 2%;
@@ -98,12 +98,12 @@
     font-size: 40px;
     font-weight: 700;
     color: #000000;
-    margin: 3% 0 0% 0;
+    /* margin: 1% 0 0% 0; */
     text-align: center;
 }
 .question-input{
     width: 100%;
-    /* border-bottom: 2px solid #000000; */
+    border-bottom: 2px solid #000000;
     outline: none;
     border-right: 0;
     border-top: 0;
@@ -167,6 +167,7 @@
     color: #000000;
     border: 1px solid #000000;
     text-align: center;
+    text-transform: uppercase;
 }
 .male:hover,.female:hover , .male-active , .female-active{
     width: 150px; /* Prevents buttons from becoming too large on larger screens */
@@ -175,6 +176,7 @@
     color: #ffffff;
     border: 1px solid #000000;
     text-align: center;
+    text-transform: uppercase;
 }
 
 .male-buttons, .female-buttons {
@@ -187,7 +189,7 @@
 .male-btn, .female-btn {
     flex-grow: 1; /* Allows buttons to grow evenly across available space */
     max-width: 200px; /* Prevents buttons from becoming too large on larger screens */
-    height: 45px;
+    height: 50px;
     background-color: transparent;
     color: #000000;
     border: 1px solid #000000;
@@ -203,6 +205,7 @@
 .male-btn:disabled{
     opacity: 0.5;
     cursor: not-allowed;
+
 }
 .female-btn:disabled{
     opacity: 0.5;
@@ -242,32 +245,34 @@
  }
 .surprise{
     background-color: #FFFFFF;
-    width: 400px;
-    height: 45px;
+    width: 325px;
+    height: 50px;
     text-transform: uppercase;
     font-size: 20px;
-    font-weight: 500;
+    font-weight: 400;
     outline: none;
     border: 1px solid #000000;
+    margin: 2% 0 5% 0;
 }
 .surprise-active{
     background-color: #000000;
-    width: 400px;
-    height: 45px;
+    width: 325px;
+    height: 50px;
     text-transform: uppercase;
     font-size: 20px;
-    font-weight: 500;
+    font-weight: 400;
     outline: none;
     border: 1px solid #000000;
     color: #FFFFFF;
+    margin: 2% 0 5% 0;
 }
 .surprise:hover{
     background-color: #000000;
-    width: 400px;
-    height: 45px;
+    width: 325px;
+    height: 50px;
     text-transform: uppercase;
     font-size: 20px;
-    font-weight: 500;
+    font-weight: 400;
     color: #ffffff;
 }
 .font-grid{
@@ -323,12 +328,14 @@
     font-style: italic;
     width: 10%;
     margin: 1%;
+    height: 20px;
 }
 .shade-background{
     height: 600px;
     width: 100%;
     padding: 0% 5%;
     margin: 4% 0 0 0;
+    transition: .5s;
 }
 .shade-buttons{
     display: flex;
@@ -539,15 +546,15 @@
         }
         .eyespoon2{
             position: absolute;
-            top: 70%;
-            left: -10%;
+            top: 100%;
+            left: -7%;
             transform: translateY(-50%) rotate(280deg);
             animation: move 8s ease-in-out infinite forwards;
-            z-index: 1;
+            z-index: 0;
         }
-        .eyespoon2 img{
+        /* .eyespoon2 img{
             transform: scaleX(-1);
-        }
+        } */
         @keyframes move{
             0%{
                 transform: rotate(0);
@@ -566,6 +573,7 @@
             position: absolute;
             right: 5%;
             top: 19%;
+            z-index: -1;
         }
         .mouth{
             bottom:3%;
@@ -597,32 +605,39 @@
 ------------------------------------------------------------ */
 
         .mirror{
-            transform: translate(28%, 3%);
+            transform: translate(35%, 3%);
             opacity: 1;
             animation-duration: 3s;
-            animation: mirror 8s ease-in-out infinite forwards;
+            animation: mirror 4s ease-in-out infinite forwards;
             position: absolute;
             left: 0;
-            top: 37%;
+            top: 45%;
             z-index: -1;
         }
 
         @keyframes mirror{
             0%{
-                transform: translate(28%, 3%);
+                transform: translate(35%, 3%);
                 opacity:0;
             }
-            40%{
+            /* 20%{
                 animation-duration: 5s;
-                transform: translate(28%, -80%);
-                opacity: 0;
-            }
+                transform: translate(28%, -15%);
+                opacity: 1;
+            } */
+            /* 0%{
+                transform: translate(28%, -35%);
+                opacity: 1;
+            } */
+           
             98%{
-                transform: translate(28%, -80%);
+                transition: 3s;
+                transform: translate(35%, -95%);
                 opacity: 1;
             }
             100%{
-                transform: translate(28%, -80%);
+                transition: 3s;
+                transform: translate(35%, -95%);
                 opacity:0;
             }
         }
@@ -638,7 +653,7 @@
             display: flex;
             justify-content:space-between;
             position: absolute;
-            height: 100px;
+            height: 175px;
             z-index: -1;
         }
 
@@ -651,8 +666,8 @@
 
         .animate{
             animation-duration: 6s;
-            width: 100px;
-            height: 100px;
+            /* width: 100px;
+            height: 100px; */
         }
 
         .animate--delay{
@@ -668,7 +683,7 @@
                 transform: translate(0, -100%) rotate(0deg);
             }
             100%{
-                transform: translate(0, 140%) rotate(-10deg);
+                transform: translate(0, 300%) rotate(-10deg);
             }
         }
 
@@ -689,48 +704,48 @@
                 transform: rotate(0deg);
             }
             20%{
-                top:35%;
+                top:36%;
                 left: 15%;
                 transform: rotate(0deg);
             }
             30%{
-                top:35%;
+                top:36%;
                 left: 15%;
                 transform: rotate(0deg);
             }
             40%{
-                top:35%;
+                top:36%;
                 left: 15%;
                 transform: rotate(0deg);
             }
             50%{
-                top:35%;
+                top:36%;
                 left: 15%;
                 transform: rotate(0deg);
             }
             60%{
-                top:35%;
+                top:36%;
                 left: 15%;
                 transform: rotate(0deg);
             }
             
             70%{
-                top:5%;
+                top:15%;
                 left: 57%;
                 transform: rotate(-10deg);
             }
             80%{
-                top:5%;
+                top:15%;
                 left: 57%;
                 transform: rotate(-10deg);
             }
             90%{
-                top:5%;
+                top:15%;
                 left: 57%;
                 transform: rotate(-10deg);
             }
             100%{
-                top: 35%;
+                top: 36%;
                 left: 75%;
                 transform: rotate(12deg);
             }
@@ -819,11 +834,103 @@
 @media screen and (max-width:1705px) and (min-width:1024px) {
     .title-questionnaire{
         font-size: 50px;
-        width: 45%;
+        width: 34%;
         line-height: 50px;
+        margin: -15% 0 0 0%;
     }
     .progress-section-q3{
         width: 90%;
+    }
+    .questions-title{
+        font-size: 36px;
+        width: 86%;
+        line-height: 40px;
+    }
+    .eyespoon2 {
+        top: 120%;
+        left: -10%;
+    }
+    .mirror{
+        transform: translate(28%, 3%);
+        opacity: 1;
+        animation-duration: 3s;
+        animation: mirror 8s ease-in-out infinite forwards;
+        position: absolute;
+        left: 0;
+        top: 54%;
+        z-index: -1;
+    }
+    .lips {
+        width: 8%;
+        right: 9%;
+        top: 19%;
+        animation: lip 4s ease-in-out infinite forwards;
+    }
+    @keyframes mirror{
+        0%{
+            transform: translate(28%, 20%);
+            opacity:0;
+        }
+        98%{
+            opacity: 1;
+        }
+        100%{
+            transform: translate(28%, -70%);
+            opacity:1;
+        }
+    }
+    @keyframes candy{
+        0%, 10%{
+            top: 0;
+            left: -10%;
+            transform: rotate(0deg);
+        }
+        20%{
+            top:49%;
+            left: 15%;
+            transform: rotate(0deg);
+        }
+        30%{
+            top:49%;
+            left: 15%;
+            transform: rotate(0deg);
+        }
+        40%{
+            top:49%;
+            left: 15%;
+            transform: rotate(0deg);
+        }
+        50%{
+            top:49%;
+            left: 15%;
+            transform: rotate(0deg);
+        }
+        60%{
+            top:49%;
+            left: 15%;
+            transform: rotate(0deg);
+        }
+        
+        70%{
+            top:15%;
+            left: 57%;
+            transform: rotate(-10deg);
+        }
+        80%{
+            top:15%;
+            left: 57%;
+            transform: rotate(-10deg);
+        }
+        90%{
+            top:15%;
+            left: 57%;
+            transform: rotate(-10deg);
+        }
+        100%{
+            top: 49%;
+            left: 75%;
+            transform: rotate(12deg);
+        }
     }
 }
 
@@ -837,7 +944,8 @@
     .title-questionnaire{
         font-size: 45px;
         line-height: 40px;
-        margin: -15% 0 0 25%;
+        margin: -25% 0 0 0%;
+        width: 40%;
     }
     .customer-text{
         font-size: 18px;
@@ -867,6 +975,13 @@
         height: 50px;
         width: 60px;
     }
+    .mirror{
+        top: 30%;
+        
+    }
+    .mirror img{
+        width: 50%;
+    }
 }
 
 @media screen and (max-width:768px) and (min-width:441px) {
@@ -874,9 +989,10 @@
         padding: 10% 5%;
     }
     .title-questionnaire{
-        font-size: 45px;
-        line-height: 40px;
-        margin: -20% 0 0 25%;
+        font-size: 35px;
+        line-height: 32px;
+        margin: -11% 0 0 0%;
+        width: 44%;
     }
     .questions-title{
         font-size: 18px;
@@ -918,6 +1034,7 @@
     .progress-section-q3{
         width: 100%;
     }
+   
 }
 
 
@@ -928,20 +1045,43 @@
     .eyespoon{
         top: 3%;
     }
+    .eyespoon2{
+        top: 38%;
+    }
     .eyeball{
         padding: 0;
+        height: 100px;
     }
     .title-questionnaire{
         font-size: 20px;
         line-height: 20px;
-        margin: -12% 0 0 25%;
+        margin: -35% 0 0 0%;
         width: 45%;
     }
+    .miclady{
+        top:14%;
+        width: 32%;
+        z-index: -1;
+    }
+    .lips{
+        top: 14%;
+        right: 10%;
+        width: 15%;
+    }
+    .mirror{
+        left: -10%;
+        top:30%;
+        width:35%
+    }
+    .candy-rocket{
+        width: 15%;
+    }
     .questions-title{
-        font-size: 12px;
+        font-size: 16px;
+        margin: 3% 0 5% 0;
     }
     .questions-title sup{
-        font-size: 16px;
+        font-size: 12px;
     }
     .customer-text{
         font-size: 12px;
@@ -957,15 +1097,31 @@
     .female-active,.male-active{
         height: 30px;
     }
+    .product-btn,.service-btn{
+        height: 30px;
+        font-size: 14px;
+        width: 100px;
+    }
+    .product-btn.active,.service-btn.active {
+    height: 30px;
+    font-size: 14px;
+    width: 100px;
+}
+    .female-active,.male-active ,.male:hover,.female:hover {
+        height: 30px;
+    }
     .female-buttons,.male-buttons{
         padding: 0 0%;
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
     }
     .male-btn,.female-btn{
-        font-size: 10px;
-        height: 20px;
+        font-size: 16px;
+        height: 40px;
     }
     .question-input{
         font-size: 14px;
+        border-bottom: 1px solid black;
     }
     .font-grid{
         display: grid;
@@ -985,7 +1141,7 @@
         font-size:18px ;
     }
     .shade-background{
-        height: 700px;
+        height: 750px;
         margin: 5% 0 0 0;
     }
     .shade-btn{
@@ -1006,10 +1162,12 @@
         margin: 8% 0 0 0;
     }
     .question-progress{
-        width: 300px;
+        width: 200px;
     }
     .progress-text{
         font-size: 12px;
+        width: 20%;
+        height: 20px;
     }
     .thank-you-text{
         font-size: 24px;
@@ -1021,14 +1179,96 @@
         width: 250px;
         font-size: 18px;
     }
-    .rotating-image{
-        width: 100px;
+    .questions .rotating-image{
+        width: 50px;
     }
     .progress-section-q3{
-        width: 85%;
+        width: 100%;
     }
     .next,.save,.back{
         font-size: 18px;
+    }
+
+    @keyframes mirror{
+        0%{
+            transform: translate(28%, 3%);
+            opacity:0;
+        }
+        /* 20%{
+            animation-duration: 5s;
+            transform: translate(28%, -15%);
+            opacity: 1;
+        } */
+        60%{
+            transform: translate(28%, -80%);
+            opacity: 1;
+        }
+        /* 60%{
+            transform: translate(28%, -65%);
+            opacity: 1;
+        } */
+        98%{
+            transform: translate(28%, -120%);
+            opacity: 1;
+        }
+        100%{
+            transform: translate(28%, -120%);
+            opacity:0;
+        }
+    }
+
+    @keyframes candy{
+        0%, 10%{
+            top: 0;
+            left: -10%;
+            transform: rotate(0deg);
+        }
+        20%{
+            top:22%;
+            left: 15%;
+            transform: rotate(0deg);
+        }
+        30%{
+            top:22%;
+            left: 15%;
+            transform: rotate(0deg);
+        }
+        40%{
+            top:22%;
+            left: 15%;
+            transform: rotate(0deg);
+        }
+        50%{
+            top:22%;
+            left: 15%;
+            transform: rotate(0deg);
+        }
+        60%{
+            top:22%;
+            left: 15%;
+            transform: rotate(0deg);
+        }
+        
+        70%{
+            top:8%;
+            left: 57%;
+            transform: rotate(-10deg);
+        }
+        80%{
+            top:8%;
+            left: 57%;
+            transform: rotate(-10deg);
+        }
+        90%{
+            top:8%;
+            left: 57%;
+            transform: rotate(-10deg);
+        }
+        100%{
+            top: 22%;
+            left: 75%;
+            transform: rotate(12deg);
+        }
     }
 }
 @media screen and (max-width:375px) {
@@ -1038,6 +1278,10 @@
     .title-questionnaire{
         font-size: 25px;
         line-height: 30px;
+        font-size: 20px;
+        line-height: 20px;
+        margin: -35% 0 0 29%;
+        width: 50%;
     }
     .questions-title{
         font-size: 12px;
@@ -1055,6 +1299,7 @@
     }
     .question-input{
         font-size: 14px;
+        border-bottom: 1px solid black;
     }
     .font-grid{
         display: grid;
@@ -1097,10 +1342,18 @@
         width: 200px;
     }
     .progress-text{
-        font-size: 12px;
+        font-size: 10px;
+        width: 20%;
+        height: 20px;
     }
     .thank-you-desc{
         font-size: 20px;
         text-align: center;
     }
+}
+
+
+.scroll-ani img{
+    max-width: none;
+    /* height: auto; */
 }

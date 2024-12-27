@@ -6,11 +6,14 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { ConfigToken } from '../Auth/ConfigToken';
 import { questionnaireAction5, questionnaireAnswers } from '../../Redux/Action';
+import { ToastContainer, toast } from 'react-toastify';
 
 export const Questionnaire5 = () => {
+
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
+ 
   const answers1 = useSelector((state) => state.questionnaire1);
   const answers2 = useSelector((state) => state.questionnaire2);
   const answers3 = useSelector((state) => state.questionnaire3);
@@ -18,7 +21,7 @@ export const Questionnaire5 = () => {
   const [questions, setQuestions] = useState([]);
   const [formData, setFormData] = useState({});
   const [selectedLanguage, setSelectedLanguage] = useState(null);
-
+  const [fetchQ5Answers, setFetchQ5Answers] = useState([]);
 
   const placeHolders = [
     "",
@@ -39,8 +42,66 @@ export const Questionnaire5 = () => {
         console.error("Error fetching questions:", error);
       }
     };
+    const fetchAnswers = async () => {
+      try {
+        const response = await axios.get(`${base_url}/api/questionnaire/update/${location.state.orderId}`, ConfigToken());
+        setFetchQ5Answers(response.data.data)
+      } catch (error) {
+        console.error("Error fetching questions:", error);
+      }
+    }
     fetchQuestions();
+    fetchAnswers();
   }, []);
+
+
+  const getAnswerValue = (questionId) => {
+
+    const formValue = formData?.[questionId];
+    if (formValue !== undefined) {
+      return formValue;
+    }
+
+    const fetchedAnswer = fetchQ5Answers.find((answer) => answer.question_id === questionId)?.answer;
+    if (fetchedAnswer !== undefined && formValue === undefined) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [questionId]: fetchedAnswer,
+      }));
+    }
+    return fetchedAnswer ?? '';
+  };
+
+  const showToastMessage = () => {
+    toast.error("The Value is required!", {
+      position: toast?.POSITION?.TOP_RIGHT,
+    });
+  };
+
+  const validateFields = () => {
+    // Filter required questions that are either unanswered or contain invalid values
+    const unansweredRequiredQuestions = questions.filter((q) => {
+      return (
+        q.required && // Check if the question is marked as required
+        (!formData?.[q.id] || formData?.[q.id].trim() === "") // Check if there's no answer or only whitespace
+      );
+    });
+
+
+    if (unansweredRequiredQuestions.length > 0) {
+      showToastMessage(); // Display the error toast
+      return false;
+    }
+
+    if((answers1 || answers2 || answers3 ||answers4) === null || undefined || {} || [] ){
+      toast.error("You should fill all the mandatory fields", {
+        position: toast?.POSITION?.TOP_RIGHT,
+        style: { width: "400px",margin:'0 0 0 -25%' },
+      });
+    }
+
+    return true; // All required fields are valid
+  };
 
   const handleChange = (id, value) => {
     setFormData((prev) => ({
@@ -49,31 +110,34 @@ export const Questionnaire5 = () => {
     }));
   };
 
-  const handleLanguageChange = (language,questionId) => {
+  const handleLanguageChange = (language, questionId) => {
     setSelectedLanguage(language);
-    setFormData((prevData)=>({
+    setFormData((prevData) => ({
       ...prevData,
-      [questionId]:language
+      [questionId]: language
     }))
   };
-  
+
 
   const onBackClick = () => {
     navigate(`/questionnaire/${4}`, { state: { questionnaireData4: answers4 } });
   };
 
   const FinishClick = async () => {
+    if (!validateFields()) {
+      return;
+    }
     try {
       let finalFormData = {
-        answers:{
+        answers: {
           ...answers1,
           ...answers2,
           ...answers3,
           ...answers4,
           ...formData,
         },
-        status:'submit',
-        orderId:43
+        status: 'submit',
+        orderId: location.state?.orderId
       };
       const response = await axios.post(
         `${base_url}/api/questionnaire/create`,
@@ -87,12 +151,15 @@ export const Questionnaire5 = () => {
     }
   };
 
-  const onSaveLaterClick = async() =>{
+  const onSaveLaterClick = async () => {
+    if (!validateFields()) {
+      return; // Stop execution if validation fails
+    }
     try {
       let data = {
         formData,
-        status:'not submitted',
-        orderId:location.state.orderId
+        status: 'not submitted',
+        orderId: location.state.orderId
       };
       const response = await axios.post(
         `${base_url}/api/questionnaire/create`,
@@ -100,24 +167,28 @@ export const Questionnaire5 = () => {
         ConfigToken()
       );
       dispatch(questionnaireAction5(formData))
-      navigate("/thankyou");
+      navigate("/dashboard");
     } catch (error) {
       console.error("Error submitting data:", error);
     }
   }
 
 
+
+
   return (
     <div>
+      <ToastContainer />
       <Questionnaire
         pageNo={5}
-        storeAnswers={answers4} // Pass the local answers to the Questionnaire
+        storeAnswers={answers4}
+        orderId={location.state?.orderId}
         onBackClick={onBackClick}
         onNextClick={FinishClick}
         onSaveLaterClick={onSaveLaterClick}
-        questions={questions.map((question) => (
+        questions={questions.map((question,index) => (
           <div className="questions" key={question.id}>
-            <p className="questions-title">
+            <p className={`questions-title ${index === 0 ? 'mt-[1%]' : 'mt-[4%]'}`}>
               {question.question}
               {question.required && (
                 <span>
@@ -126,25 +197,43 @@ export const Questionnaire5 = () => {
               )}
             </p>
             {question.id === 24 && (
-              <div className="flex items-center justify-center gap-[20px]">
+              <div className="flex items-center justify-center gap-[20px] mt-2">
                 <div>
-                  <button  onClick={() => handleLanguageChange("English",question.id)}  className="font-[18px] h-[45px] w-[150px] border-[1px] border-solid border-[#000000] hover:bg-[#000000] hover:text-[#FFFFFF]">
+                  <button
+                    onClick={() => handleLanguageChange("English", question.id)}
+                    className={`font-[18px] h-[45px] w-[150px] border-[1px] border-solid border-[#000000] ${selectedLanguage === "English" ? "bg-[#000000] text-[#FFFFFF]" : "hover:bg-[#000000] hover:text-[#FFFFFF]"
+                      }`}
+                  >
                     English
                   </button>
                 </div>
                 <div>
-                  <button  onClick={() => handleLanguageChange("Arabic",question.id)} className="font-[18px] h-[45px] w-[150px] border-[1px] border-solid border-[#000000] hover:bg-[#000000] hover:text-[#FFFFFF]">
+                  <button
+                    onClick={() => handleLanguageChange("Arabic", question.id)}
+                    className={`font-[18px] h-[45px] w-[150px] border-[1px] border-solid border-[#000000] ${selectedLanguage === "Arabic" ? "bg-[#000000] text-[#FFFFFF]" : "hover:bg-[#000000] hover:text-[#FFFFFF]"
+                      }`}
+                  >
                     Arabic
                   </button>
                 </div>
               </div>
             )}
-            <input
-              placeholder={question.placeholder}
-              className="question-input"
-              // value={formData[question.id] || ""}
-              onChange={(e) => handleChange(question.id, e.target.value)}
-            />
+
+            {
+              (question.id === 24) ?
+                (
+                  <div className="w-[100%] xl:h-[2px] lg:h-[2px] md:h-[2px] sm:h-[2px] xs:h-[1px]  bg-black mt-[3%]"></div>
+                ) :
+                (
+                  <input
+                    placeholder={question.placeholder}
+                    className="question-input"
+                    value={getAnswerValue(question.id)}
+                    onChange={(e) => handleChange(question.id, e.target.value)}
+                  />
+                )
+            }
+
           </div>
         ))}
         bgTitle={'Final Thoughts'}

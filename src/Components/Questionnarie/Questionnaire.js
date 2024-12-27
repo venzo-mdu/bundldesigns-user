@@ -12,6 +12,7 @@ import User from '../../Images/Bundles/icon-user.png'
 import Cart from '../../Images/Bundles/icon-cart.png'
 import Language from '../../Images/Bundles/icon-language.png'
 import Eyesspoon from '../../Images/Questionnaire/eyespoon.webp'
+import Eyesspoon2 from '../../Images/Questionnaire/eyespoon2.webp'
 import Mouth from '../../Images/Questionnaire/mouth.webp'
 import Announcement from '../../Images/Bundles/announcement.webp'
 import Buy from '../../Images/Bundles/buy_a_bundl.webp'
@@ -29,7 +30,8 @@ export const Questionnaire = ({
   onBackClick,
   onNextClick,
   onSaveLaterClick,
-  storeAnswers
+  storeAnswers,
+  orderId
 }) => {
 
   const navigate = useNavigate();
@@ -39,27 +41,29 @@ export const Questionnaire = ({
     <div>
       <Navbar />
 
-      <div style={{ padding: '1% 5%' }}>
+      <div style={window.innerWidth <= 441 ?{  padding: '1% 0%' }:{padding: '1% 5%'}}>
         <div style={{ padding: '2% 0%', borderBottom: '9px solid #000000' }}>
           <div className=''>
             {/* <p className='title-questionnaire'>{bgTitle}</p> */}
-            <div class=" pic-container position-relative" style={{ zIndex: -1}}>
-              <div class="d-flex flex-row gag1 scroll-ani">
+            <div className=" pic-container position-relative" style={{ zIndex: -1}}>
+              <div className="d-flex flex-row gag1 scroll-ani">
                 <img src={Cloud1} alt="Natural" />
                 <img src={Cloud2} alt="Natural" />
               </div>
+              <div className='flex justify-center items-center'>
               <p className='title-questionnaire'>{bgTitle}</p>
+              </div>
             </div>
             {
               pageNo === 1 ?
                 <div className='eyespoon'>
-                  <img src={Eyesspoon}></img>
+                  <img width={500} height={500} src={Eyesspoon}></img>
                 </div> : ''
             }
             {
               pageNo === 1 ?
                 <div className='eyespoon2'>
-                  <img src={Eyesspoon} width={500} height={500}></img>
+                  <img src={Eyesspoon2} width={300} height={500}></img>
                 </div> : ''
             }
             {
@@ -92,7 +96,9 @@ export const Questionnaire = ({
             }
           </div>
         </div>
+        <div>
         {questions}
+        </div>
       </div>
       <div className='questonnaire-actions-height'>
         <div className='questonnaire-actions'>
@@ -110,7 +116,7 @@ export const Questionnaire = ({
         </div>
       </div>
       <div style={{ position: 'fixed', bottom: '0' }}>
-        <Stepper pageNo={pageNo} answersData={storeAnswers} />
+        <Stepper pageNo={pageNo} answersData={storeAnswers} fillId={orderId}/>
       </div>
       {/* <Footer/> */}
     </div>

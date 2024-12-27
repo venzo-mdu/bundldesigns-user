@@ -44,13 +44,14 @@ export default function FAQ() {
   // Validation function
   const validate = () => {
     const newErrors = {};
-
     if (!formData.name) {
       newErrors.name = 'Name is required';
     } else if (formData.name.length < 3) {
       newErrors.name = 'Name must be at least 3 characters';
     } else if (/\d/.test(formData.name)) {
       newErrors.name = 'Name must not contain numbers';
+    } else if (/[^a-zA-Z\s-]/.test(formData.name)) {
+      newErrors.name = 'Name must not contain special characters';
     }
 
     if (!formData.phone) newErrors.phone = 'Phone number is required';
@@ -104,30 +105,30 @@ export default function FAQ() {
             <h1 className='text-[40px]'> FAQs </h1>
             <p className='text-[20px] font-medium text-[#00000080]'>Where we answer all your questions!</p>
           </div>
-          <div className='lg:p-20 md:p-10  sm:p-10 xs:p-10 border-b  border-black'>
+          <div className='lg:p-20 md:p-10  sm:p-10 xs:p-4 border-b  border-black'>
             <div className='flex md:justify-center overflow-x-auto'>
               {faqs.categories.map((category, index) => {
-                return <button className={`lg:px-[20px] md:px-[10px] xs:px-[5px] sm:px-[5px] md:py-[3px] md:text-[16px] lg:py-[5px]  ${currentTab == category.name_english ? 'text-white bg-[#1BA56F] ' : 'text-[#1BA56F] bg-white '} border-r border-t border-b
+                return <button className={`lg:px-[20px] xs:min-w-[100px] sm:min-w-min xs:text-[14px] sm:text-[18px] text-[18px] md:px-[10px] xs:px-[5px] sm:px-[5px] md:py-[3px] md:text-[16px] lg:py-[5px]  ${currentTab == category.name_english ? 'text-white bg-[#1BA56F] ' : 'text-[#1BA56F] bg-white '} border-r border-t border-b
                            ${index == 0 && 'border-l'} ${index == faqs.categories.length && 'border-l-0 border-r'}
                    !border-[#1BA56F]`}
                   onClick={() => setCurrentTab(category.name_english)}>{category.name_english}</button>
               })}
             </div>
-            <div className='mt-8 '>
-              {currentTab && <h2 className='mb-6 text-[28px]'>{currentTab}</h2>}
+            <div className='mt-12 '>
+              {currentTab && <h2 className='mb-10 text-[28px]'>{currentTab}</h2>}
               {
                 faqs.data.map((faq) => {
                   if (faq.category_english == currentTab) {
-                    return <div className=' border-none my-2'>
+                    return <div className=' border-none mt-2 mb-4'>
 
-                      <div className='flex items-center mb-1'>
+                      <div className='flex items-center mb-2'>
                         <img className='w-[24px]' src={msgIcon}></img>
                         <p className='lg:text-[24px] pl-1 font-bold md:text-[18px] mb-0'>{faq.question_english}</p>
                       </div>
 
                       <div
                         id="description"
-                        className=" text-[#00000080] pl-[30px] md:text-[16px]"
+                        className=" text-[#00000080] sm:pl-[30px] pl-[30px] xs:pl-[10px] md:text-[16px]"
                         dangerouslySetInnerHTML={{ __html: faq.answer_english }}
                       />
                     </div>
@@ -137,9 +138,9 @@ export default function FAQ() {
             </div>
           </div>
 
-          <div className='mt-12 mb-10'>
-            <h2 className='text-[32px] mb-3 text-center'>Can’t fine what you’re looking for ?</h2>
-            <h3 className='text-[24px] mb-1 mt-2 text-center text-[#1BA56F]'>Contact Us!</h3>
+          <div className='mt-14 mb-10'>
+            <h2 className='text-[32px] mb-3 text-center'>Can’t find what you’re looking for ?</h2>
+            <h3 className='text-[24px] mb-1 mt-4 text-center text-[#1BA56F]'>Contact Us!</h3>
             <form onSubmit={handleSubmit} className="px-6 pb-6 pt-2 sm:max-w-[90vw] md:max-w-[50vw] mx-auto space-y-4">
               {/* Name Field */}
               <div>
@@ -191,18 +192,17 @@ export default function FAQ() {
                 />
                 {errors.thoughts && <p className="text-red-500 text-sm">{errors.thoughts}</p>}
               </div>
-
-
-              {/* Submit Button */}
               <p className='text-center'> <button
                 type="submit"
-                className="bg-[#1BA56F] text-white p-1  px-4 "
+                className="bg-[#1BA56F] text-white p-1 mt-2  px-4 "
               >
                 Send Message
               </button></p>
-
-              <p className='text-center flex items-center justify-center font-bold'> <MailOutlineIcon style={{ marginRight: '2px' }} /><span className='pl-1'>info@bundldesigns.com</span> </p>
-              <p className='text-center flex items-center justify-center font-bold'> < WhatsAppIcon /> <span className='pl-1'>+(966) 547754124</span>  </p>
+              <div className='!mt-10'>
+              <p className='text-center flex items-center mb-1  justify-center font-bold'> <MailOutlineIcon style={{ marginRight: '2px' }} /><span className='pl-1'>info@bundldesigns.com</span> </p>
+              <p className='text-center flex items-center my-1 justify-center font-bold'> < WhatsAppIcon /> <span className='pl-1'>+(966) 547754124</span>  </p>
+              </div>
+           
               {successMsg && <p className='bg-green-600 py-1 px-2 rounded text-white'>{successMsg}</p>}
             </form>
 

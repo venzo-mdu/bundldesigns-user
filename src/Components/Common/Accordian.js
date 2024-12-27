@@ -10,8 +10,10 @@ import { base_url } from '../Auth/BackendAPIUrl';
 import BlackDollor from '../../Images/BundlDetail/blackdollor.svg';
 import BlackTime from '../../Images/BundlDetail/blacktime.svg';
 import { ConfigToken } from '../Auth/ConfigToken';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
 
-export const Accordian = ({ accordianTitle, addOnPayload, bundlePackageId }) => {
+export const Accordian = ({ accordianTitle, addOnPayload, bundlePackageId, textColor }) => {
   const [isDropdown, setIsDropdown] = useState([false, false, false, false, false, false, false]);
   const [addOnData, setAddonData] = useState({});
   const [quantities, setQuantities] = useState({});
@@ -21,8 +23,8 @@ export const Accordian = ({ accordianTitle, addOnPayload, bundlePackageId }) => 
     "Social Media",
     "Products",
     "Documents",
-    "E-designs",
-    "Special Designs"
+    "E-Designs",
+    "Space Design"
   ];
 
   useEffect(() => {
@@ -36,7 +38,11 @@ export const Accordian = ({ accordianTitle, addOnPayload, bundlePackageId }) => 
 
   const getAddons = async () => {
     try {
-      const response = await axios.get(`${base_url}/api/package/?bundle_id=${bundlePackageId}`, ConfigToken());
+      const url = window.location.pathname === "/custombundl"
+        ? `${base_url}/api/package/`
+        : `${base_url}/api/package/?bundle_id=${bundlePackageId}`;
+
+      const response = await axios.get(url, ConfigToken());
       setAddonData(response.data);
     } catch (error) {
       console.error("Error fetching addons data:", error);
@@ -149,13 +155,18 @@ export const Accordian = ({ accordianTitle, addOnPayload, bundlePackageId }) => 
   return (
     <div>
       <div className='bundl-accordian'>
-        <p className='accordian-heading'>{accordianTitle}</p>
+        <p className='accordian-heading mb-1'>{accordianTitle}</p>
         <p style={{ opacity: '50%' }}>Add anything you want to your bundle to fit your brand!</p>
-        <div className='tab-buttons'>
+        <div className='tab-buttons !border-b-0'>
           {titleArr.map((title, index) => (
             <button
               key={index}
-              className={`${isDropdown[index] ? 'active-button' : 'accordian-button'}`}
+              style={{
+                color: isDropdown[index] ? '#fff' : textColor,
+                border: `1px solid ${textColor}`,
+                backgroundColor: isDropdown[index] ? textColor : '#fff'
+              }}
+              className={`!font-[500]  !text-[${textColor}] ${isDropdown[index] ? 'active-button' : 'accordian-button'}`}
               onClick={() => toggleDropdown(index)}
             >
               {title}
@@ -164,50 +175,19 @@ export const Accordian = ({ accordianTitle, addOnPayload, bundlePackageId }) => 
         </div>
 
         {titleArr.map((title, index) => (
-          // <Accordion key={index} expanded={isDropdown[index]}>
-          //   <AccordionSummary
-          //     expandIcon={<ExpandMoreIcon />}
-          //     aria-controls={`panel${index + 1}-content`}
-          //     id={`panel${index + 1}-header`}
-          //   >
-          //     <Typography sx={{ color: 'text.secondary' }}>{title}</Typography>
-          //   </AccordionSummary>
-          //   <AccordionDetails>
-          //     <Typography>
-          //       {addOnData && addOnData.designs_details && addOnData.designs_details[title] &&
-          //         addOnData.designs_details[title].design_list.length > 0 ? (
-          //         addOnData.designs_details[title].design_list.map((design, i) => (
-          //           <div key={i} style={{
-          //             display:  window.innerWidth<=441 ?'block':'flex',
-          //             borderBottom: i === addOnData.designs_details[title].design_list.length - 1 ? 'none' : '1px solid #0BA6C4',
-          //             padding: '1% 0%'
-          //           }}>
-          //             <Typography sx={{ color: '#0BA6C4', display: 'block', marginRight: '10px',marginBottom:'5%', width: '60%' }}>
-          //               {design.name_english}
-          //             </Typography>
-          //             <p style={window.innerWidth<=441 ? {width: '50%'}:{ width: '20%' }}><img src={BlackDollor} alt="Price icon" className='inline-block'/>{Math.round(design.price)} SAR</p>
-          //             <p style={window.innerWidth<=441 ? {width: '50%'}:{ width: '20%' }}><img src={BlackTime} alt="Time icon" className='inline-block'/>{Math.round(design.time)} Days</p>
-          //             <div style={{border:'0'}} className="quantity">
-          //               <button style={{border:'1px solid #0BA6C4',color:'#0BA6C4'}} className="" onClick={() => handleQuantityChange(design.name_english, -1)}>&minus;</button>
-          //               <input style={{border:'1px solid #0BA6C4',color:'#0BA6C4',height:'35px'}} type="number" className="input-box" value={quantities[design.name_english] || 0} readOnly />
-          //               <button style={{border:'1px solid #0BA6C4',color:'#0BA6C4'}} className="minus" onClick={() => handleQuantityChange(design.name_english, 1)}>+</button>
-          //             </div>
-          //           </div>
-          //         ))
-          //       ) : (
-          //         'No designs available'
-          //       )}
-          //     </Typography>
-          //   </AccordionDetails>
-          // </Accordion>
 
-          <Accordion key={index} expanded={isDropdown[index]}>
+          <Accordion sx={{
+            boxShadow: 'none !important',
+            borderBottom: index === titleArr.length - 1 ? 'none' : '1px solid #000000',
+            paddingTop: index == 0 ? '18px' : 'auto'
+          }} key={index} expanded={isDropdown[index]}>
             <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
+              expandIcon={<ExpandMoreIcon className='text-[#000]' />}
               aria-controls={`panel${index + 1}-content`}
               id={`panel${index + 1}-header`}
+              onClick={() => toggleDropdown(index)}
             >
-              <Typography sx={{ color: 'text.secondary' }}>{title}</Typography>
+              <Typography className='!font-[700] !text-[24px]'>{title}</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Typography>
@@ -217,50 +197,55 @@ export const Accordian = ({ accordianTitle, addOnPayload, bundlePackageId }) => 
                     <div
                       key={i}
                       style={{
-                        display: window.innerWidth <= 441 ? 'block' : 'flex',
-                        borderBottom: i === addOnData.designs_details[title].design_list.length - 1 ? 'none' : '1px solid #0BA6C4',
+                        display: 'flex',
+                        borderBottom: i === addOnData.designs_details[title].design_list.length - 1 ? 'none' : `1px solid ${textColor}`,
                         padding: '1% 0%',
-                        height:'60px'
                       }}
+                      className='items-center flex-wrap'
                     >
                       <Typography
                         sx={{
-                          color: '#0BA6C4',
+                          color: { textColor },
                           display: 'block',
-                          marginRight: '10px',
-                          marginBottom: '5%',
-                          width: '60%'
+                          marginRight: '5px',
+                          marginBottom: '8px',
+
+                          fontWeight: '500'
                         }}
+                        className='sm:basis-[35%] basis-[35%] xs:basis-[100%]'
                       >
                         {design.name_english}
                       </Typography>
-                      <p style={window.innerWidth <= 441 ? { width: '70%' } : { width: '50%' }}><img src={BlackDollor} alt="Price icon" className="inline-block" style={{ width: '18px', height: '18px', marginRight: '3px' }}/>
-                      <span style={{ fontSize: '14px', marginLeft: '2px' }}> {Math.round(design.price)} SAR</span></p>
-                      <p style={window.innerWidth <= 441 ? { width: '70%' } : { width: '50%' }}><img src={BlackTime} alt="Time icon" className="inline-block"  style={{ width: '18px', height: '18px', marginRight: '3px' }}/>
-                      <span style={{ fontSize: '14px' }}>{Math.round(design.time)} Days</span></p>
-                      <div style={{ border: '0' }} className="quantity">
-                        <button
-                          style={{ border: '1px solid #0BA6C4', color: '#0BA6C4' }}
-                          className=""
-                          onClick={() => handleQuantityChange(design.name_english, -1)}
-                        >
-                          &minus;
-                        </button>
-                        <input
-                          style={{ border: '1px solid #0BA6C4', color: '#0BA6C4', height: '35px' }}
-                          type="number"
-                          className="input-box"
-                          value={quantities[design.name_english] || 0}
-                          readOnly
-                        />
-                        <button
-                          style={{ border: '1px solid #0BA6C4', color: '#0BA6C4' }}
-                          className="minus"
-                          onClick={() => handleQuantityChange(design.name_english, 1)}
-                        >
-                          +
-                        </button>
-                      </div>
+                      <p className='flex items-center sm:w-[35%] w-[35%] xs:w-[70%] !mb-2'>
+                        <p className='flex items-center mb-1 sm:min-w-[120px] min-w-[120px] xs:min-w-[100px] font-[500]'>
+                          <img src={BlackDollor} alt="Price icon" className="inline-block mr-2" />
+                          {Math.round(design.price)} SAR
+                        </p>
+                        <p className='flex items-center mb-1 font-[500]' >
+                          <img src={BlackTime} alt="Time icon" className="inline-block mr-1" />
+                          {Math.round(design.time)} Days
+
+                        </p>
+                      </p>
+
+                      <p style={{ color: textColor }} className={`  sm:w-[29%] w-[29%] xs:w-[29%] max-h-[36px] !mb-2 flex justify-end text-[${textColor}] `}>
+                        <button style={{
+                          borderColor: textColor,
+                          borderStyle: 'solid',
+                          borderWidth: '1px',
+                        }} onClick={() => handleQuantityChange(design.name_english, -1)} className={` !border-r-0 !py-[17px]  px-1  flex  items-center`}><RemoveIcon /></button>
+                        <span style={{
+                          borderColor: textColor,
+                          borderStyle: 'solid',
+                          borderWidth: '1px',
+                        }} className={`!border-r-0 px-2 !text-[20px]`}> {quantities[design.name_english] || 0}</span>
+                        <button style={{
+                          borderColor: textColor,
+                          borderStyle: 'solid',
+                          borderWidth: '1px',
+                        }} onClick={() => handleQuantityChange(design.name_english, 1)} className={`flex  items-center px-1  !py-[5px] `}><AddIcon /></button>
+                      </p>
+
                     </div>
                   ))
                 ) : (

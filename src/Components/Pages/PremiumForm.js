@@ -1,6 +1,5 @@
 import React,{useState,useEffect} from 'react'
 import axios from 'axios'
-import { ConfigToken } from '../Auth/ConfigToken'
 import { base_url } from '../Auth/BackendAPIUrl';
 import { Footer } from '../Common/Footer/Footer'
 import { Navbar } from '../Common/Navbar/Navbar'
@@ -50,6 +49,8 @@ export default function PremiumForm() {
       newErrors.name = 'Name must be at least 3 characters';
     } else if (/\d/.test(formData.name)) {
       newErrors.name = 'Name must not contain numbers';
+    } else if (/[^a-zA-Z\s]/.test(formData.name)) {
+      newErrors.name = 'Name must not contain special characters';
     }
 
 
@@ -157,7 +158,7 @@ export default function PremiumForm() {
             <div>
               <input
                 name="message"
-                placeholder='message'
+                placeholder='Message'
                 value={formData.message}
                 onChange={handleChange}
                 className="w-full border  p-2"

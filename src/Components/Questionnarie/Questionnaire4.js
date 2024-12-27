@@ -21,6 +21,7 @@ import Color3 from '../../Images/Questionnaire/img3.png'
 import Link from '../../Images/Questionnaire/icons8-link-26.png'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ConfigToken } from '../Auth/ConfigToken';
+import { ToastContainer, toast } from 'react-toastify';
 
 export const Questionnaire4 = () => {
 
@@ -37,6 +38,7 @@ export const Questionnaire4 = () => {
   const [shadeColor, setshadeColor] = useState('rgb(0, 0, 0)');
   const [shadeType, setShadeType] = useState('');
   const [formData, setFormData] = useState({});
+  const [fetchQ4Answers, setFetchQ4Answers] = useState([]);
 
   const placeHolders = [
     "BUNDL",
@@ -53,40 +55,123 @@ export const Questionnaire4 = () => {
         console.error('Error fetching questions:', error);
       }
     };
+
+
+    const fetchAnswers = async () => {
+      try {
+        const response = await axios.get(`${base_url}/api/questionnaire/update/${location.state.orderId}`, ConfigToken());
+        setFetchQ4Answers(response.data.data)
+      } catch (error) {
+        console.error("Error fetching questions:", error);
+      }
+    }
     fetchQuestions();
+    fetchAnswers();
   }, []);
 
   const displayedColors = colorCodes.slice(0, 90);
 
-  // const handleColorClick = (color,questionId) => {
-  //   if (!selectedColors.includes(color)) {
-  //     setSelectedColors([...selectedColors, color]);
-  //   }
-  //   setFormData(...formData,{[questionId]:selectedColors})
-  // };
-  const handleColorClick = (color, questionId) => {
-    let updatedColors;
+  const getAnswerValue = (questionId) => {
 
-    // Add the color if not already selected
-    if (!selectedColors.includes(color)) {
-      updatedColors = [...selectedColors, color];
-      setSelectedColors(updatedColors);
-    } else {
-      updatedColors = selectedColors;
+    const formValue = formData?.[questionId];
+    if (formValue !== undefined) {
+      return formValue;
     }
 
+    const fetchedAnswer = fetchQ4Answers.find((answer) => answer.question_id === questionId)?.answer;
+    if (fetchedAnswer !== undefined && formValue === undefined) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [questionId]: fetchedAnswer,
+      }));
+    }
+    return fetchedAnswer ?? '';
+  };
+
+  const showToastMessage = () => {
+    toast.error("The Value is required!", {
+      position: toast?.POSITION?.TOP_RIGHT,
+    });
+  };
+
+  const validateFields = () => {
+    // Filter required questions that are either unanswered or contain invalid data
+    const unansweredRequiredQuestions = questions.filter((q) => {
+      const answer = formData?.[q.id];
+      if (!q.required) {
+        return false;
+      }
+
+      return !answer || answer.toString().trim() === "";
+    });
+
+
+    if (unansweredRequiredQuestions.length > 0) {
+      showToastMessage(); // Display the error toast
+      return false;
+    }
+
+    return true; // All required fields are valid
+  };
+
+
+  // const handleColorClick = (color, questionId) => {
+  //   let updatedColors;
+
+  //   // Add the color if not already selected
+  //   if (!selectedColors.includes(color)) {
+  //     updatedColors = [...selectedColors, color];
+  //     setSelectedColors(updatedColors);
+  //   } else {
+  //     updatedColors = selectedColors;
+  //   }
+
+  //   if(color === "Surprise"){
+  //     updatedColors = ['Surprise']
+  //   }
+
+  //   // Update formData with the selected colors for the specific questionId
+  //   setFormData((prevFormData) => ({
+  //     ...prevFormData, // Keep existing form data
+  //     [questionId]: updatedColors, // Update the selected colors for this questionId
+  //   }));
+  // };
+
+  const handleColorClick = (color, questionId) => {
+    let updatedColors;
+    const isHexCode = /^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/.test(color);
+    if (!isHexCode && color !== "Surprise") {
+      toast.error("Allows only HEX Code!", {
+        position: toast?.POSITION?.TOP_RIGHT,
+      });
+      setInputValue('');
+      return;
+    }
+    // If "Surprise" is selected, clear all other colors and set only "Surprise"
+    if (color === "Surprise") {
+      updatedColors = ["Surprise"];
+    } else {
+      // If any other color is selected, remove "Surprise" if it's in the list
+      updatedColors = selectedColors.includes("Surprise")
+        ? selectedColors.filter(item => item !== "Surprise") // Remove "Surprise"
+        : selectedColors;
+  
+      // Add the selected color if it's not already in the list
+      if (!updatedColors.includes(color)) {
+        updatedColors = [...updatedColors, color];
+      }
+    }
+  
+    // Update selected colors
+    setSelectedColors(updatedColors);
+    setInputValue('');
     // Update formData with the selected colors for the specific questionId
     setFormData((prevFormData) => ({
       ...prevFormData, // Keep existing form data
       [questionId]: updatedColors, // Update the selected colors for this questionId
     }));
   };
-
-
-
-  // const handleRemoveColor = (color) => {
-  //   setSelectedColors(selectedColors.filter((c) => c !== color));
-  // };
+  
 
   const handleRemoveColor = (color, questionId) => {
     // Remove the color from the selectedColors
@@ -100,49 +185,69 @@ export const Questionnaire4 = () => {
     }));
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e, questionId) => {
     setInputValue(e.target.value);
-  };
-
-  const handleAddColor = () => {
-    if (colorCodes.includes(inputValue) && !selectedColors.includes(inputValue)) {
-      setSelectedColors([...selectedColors, inputValue]);
-      setInputValue('');
-    }
-    else {
-      setSelectedColors([inputValue]);
-      setInputValue('');
-    }
-  };
-
-
-  const handleButtonClick = (index, questionId,font) => {
-    // Determine the new active buttons array
-    const updatedActiveButtons = activeButtons.includes(font)
-      ? activeButtons.filter((i) => i !== font) // Remove index if already selected
-      : [...activeButtons, font]; // Add index if not selected
-  
-    // Update the state for active buttons
-    setActiveButtons(updatedActiveButtons);
-  
-    // Update the form data with the new value for the selected question
     setFormData((prevData) => ({
       ...prevData,
-      [questionId]: updatedActiveButtons,
-    }));
+      [questionId]: e.target.value
+    }))
+  };
+
+  // const handleAddColor = () => {
+  //   if (colorCodes.includes(inputValue) && !selectedColors.includes(inputValue)) {
+  //     setSelectedColors([...selectedColors, inputValue]);
+  //     setInputValue('');
+  //   }
+  //   else {
+  //     setSelectedColors([...selectedColors, inputValue]);
+  //     setInputValue('');
+  //   }
+  // };
+
+
+  const handleButtonClick = (index, questionId, font) => {
+    setFormData((prevData) => {
+      let updatedFonts;
+  
+      if (font === "Surprise") {
+        updatedFonts = ["Surprise"];
+      } else {
+        updatedFonts = prevData[questionId]?.includes("Surprise")
+          ? [font]
+          : prevData[questionId]?.includes(font)
+          ? prevData[questionId].filter((f) => f !== font) 
+          : [...(prevData[questionId] || []), font]; 
+      }
+  
+      return {
+        ...prevData,
+        [questionId]: updatedFonts,
+      };
+    });
+  
+    setActiveButtons((prevButtons) =>
+      font === "Surprise"
+        ? ["Surprise"]
+        : prevButtons.includes("Surprise")
+        ? [font] 
+        : prevButtons.includes(font)
+        ? prevButtons.filter((btn) => btn !== font) 
+        : [...prevButtons, font] 
+    );
   };
   
+  
 
-  const handleShadeButtonClick = (color, textColor, type , questionId) => {
+  const handleShadeButtonClick = (color, textColor, type, questionId) => {
     setShadeBackgroundColor(color);
     setshadeColor(textColor);
     setShadeType('');
     if (type === 'surprise') {
       setShadeType(type)
     }
-    setFormData((prevData)=>({
+    setFormData((prevData) => ({
       ...prevData,
-      [questionId]:shadeBackgroundColor
+      [questionId]: shadeBackgroundColor
     }))
   };
 
@@ -153,27 +258,65 @@ export const Questionnaire4 = () => {
     }))
   }
 
-  const handleTextureChange = (e, questionId) => {
-    const { value, checked } = e.target;
-    setFormData((prevData) => {
-      // Get the current selections for this questionId or initialize to an empty array
-      const currentSelections = prevData[questionId] || [];
+  // const handleTextureChange = (e, questionId) => {
+  //   const { value, checked } = e.target;
+  //   setFormData((prevData) => {
+  //     // Get the current selections for this questionId or initialize to an empty array
+  //     const currentSelections = prevData[questionId] || [];
+
+  //     if (checked) {
+  //       // Add the selected value if checked
+  //       return {
+  //         ...prevData,
+  //         [questionId]: [...currentSelections, value],
+  //       };
+  //     } else {
+  //       // Remove the value if unchecked
+  //       return {
+  //         ...prevData,
+  //         [questionId]: currentSelections.filter((item) => item !== value),
+  //       };
+  //     }
+  //   });
+  //   if(e==='Surprise'){
+
+  //   }
+  // };
+
+
+  const handleTextureChange = (e, questionId, isSurprise = false) => {
+    if (isSurprise) {
+      // Set "Surprise" as the only selected value and clear all others
+      setFormData((prevData) => ({
+        ...prevData,
+        [questionId]: ["Surprise"],
+      }));
+      document.querySelectorAll('input[name="13"]').forEach((checkbox) => {
+        checkbox.checked = false; // Uncheck all checkboxes with name="13"
+      });
+    } else {
+      const { value, checked } = e.target;
   
-      if (checked) {
-        // Add the selected value if checked
-        return {
-          ...prevData,
-          [questionId]: [...currentSelections, value],
-        };
-      } else {
-        // Remove the value if unchecked
-        return {
-          ...prevData,
-          [questionId]: currentSelections.filter((item) => item !== value),
-        };
-      }
-    });
+      setFormData((prevData) => {
+        const currentSelections = prevData[questionId] || [];
+  
+        if (checked) {
+          // If a non-Surprise option is selected, clear "Surprise" and add the new value
+          return {
+            ...prevData,
+            [questionId]: [...currentSelections.filter((item) => item !== "Surprise"), value],
+          };
+        } else {
+          // Remove the value if unchecked
+          return {
+            ...prevData,
+            [questionId]: currentSelections.filter((item) => item !== value),
+          };
+        }
+      });
+    }
   };
+  
   
 
   const onBackClick = () => {
@@ -181,24 +324,32 @@ export const Questionnaire4 = () => {
   }
 
   const onNextClick = () => {
-
-    
+    if (!validateFields()) {
+      return; // Stop execution if validation fails
+    }
     dispatch(questionnaireAction4(formData))
-    navigate(`/questionnaire/${5}`);
+    navigate(`/questionnaire/${5}`, {
+      state: {
+        orderId: location.state?.orderId
+      }
+    });
   }
 
   const onSaveLaterClick = async () => {
+    if (!validateFields()) {
+      return; // Stop execution if validation fails
+    }
     let data = {
       answers: formData,
-      orderId: 16,
+      orderId: location.state?.orderId,
       status: 'not submitted'
     }
     try {
       const response = await axios.post(`${base_url}/api/questionnaire/create`, data, ConfigToken());
-      if(response.status === 200){
-        navigate('/questionnaire/5',{
-          state:{
-            orderId:location.state?.orderId
+      if (response.status === 200) {
+        navigate('/dashboard', {
+          state: {
+            orderId: location.state?.orderId
           }
         })
       }
@@ -210,9 +361,11 @@ export const Questionnaire4 = () => {
 
   return (
     <div>
+      <ToastContainer />
       <Questionnaire
         pageNo={4}
         storeAnswers={answers}
+        orderId={location.state?.orderId}
         onBackClick={onBackClick}
         onNextClick={onNextClick}
         onSaveLaterClick={onSaveLaterClick}
@@ -222,7 +375,7 @@ export const Questionnaire4 = () => {
               <div className="questions" key={index}>
                 {
                   question.answer_type === 'shade' ? '' :
-                    <p className="questions-title">
+                  <p className={`questions-title ${index === 0 ? 'mt-[1%]' : 'mt-[4%]'}`}>
                       {question.question}
                       {
                         question.required && (
@@ -236,8 +389,8 @@ export const Questionnaire4 = () => {
                   question.answer_type === 'shade' && (
                     <>
 
-                      <div className='shade-background' style={{ backgroundColor: shadeBackgroundColor }}>
-                        <p style={{ color: shadeBackgroundColor === 'rgb(228, 222, 216)' ? '' : '#FFFFFF' }} className="questions-title">
+                      <div className='shade-background py-5' style={{ backgroundColor: shadeBackgroundColor }}>
+                        <p style={{ color: shadeBackgroundColor === 'rgb(228, 222, 216)' ? '' : '#FFFFFF',width:'100%' }} className={`questions-title mb-3 ${index === 0 ? 'mt-[1%]' : 'mt-[4%]'}`}>
                           {question.question}
                           <span>
                             <sup>*</sup>
@@ -246,21 +399,21 @@ export const Questionnaire4 = () => {
                         <div className='shade-buttons'>
                           <div className='button-shade-group'>
                             <img src={Color1}></img>
-                            <button className={shadeBackgroundColor === 'rgb(228, 222, 216)' && shadeType !== 'surprise' ? 'shade-btn-active' : 'shade-btn'} onClick={() => handleShadeButtonClick('rgb(228, 222, 216)', 'rgb(0, 0, 0)','',question.id)}>CLEAN & CLASSIC</button>
+                            <button className={shadeBackgroundColor === 'rgb(228, 222, 216)' && shadeType !== 'surprise' ? 'shade-btn-active' : 'shade-btn'} onClick={() => handleShadeButtonClick('rgb(228, 222, 216)', 'rgb(0, 0, 0)', '', question.id)}>CLEAN & CLASSIC</button>
                           </div>
                           <div className='button-shade-group'>
                             <img src={Color2}></img>
-                            <button className={shadeBackgroundColor === 'rgb(9, 50, 108)' && shadeType !== 'surprise' ? 'shade-btn-active' : 'shade-btn'} onClick={() => handleShadeButtonClick('rgb(9, 50, 108)', 'rgb(255, 98, 10)','',question.id)}>CONTRASTING COLORS</button>
+                            <button className={shadeBackgroundColor === 'rgb(9, 50, 108)' && shadeType !== 'surprise' ? 'shade-btn-active' : 'shade-btn'} onClick={() => handleShadeButtonClick('rgb(9, 50, 108)', 'rgb(255, 98, 10)', '', question.id)}>CONTRASTING COLORS</button>
                           </div>
                           <div className='button-shade-group'>
                             <img src={Color3}></img>
-                            <button className={shadeBackgroundColor === 'rgb(221, 45, 45)' && shadeType !== 'surprise' ? 'shade-btn-active' : 'shade-btn'} onClick={() => handleShadeButtonClick('rgb(221, 45, 45)', 'rgb(255, 136, 136)','',question.id)}>ONE COLOR SHADES</button>
+                            <button className={shadeBackgroundColor === 'rgb(221, 45, 45)' && shadeType !== 'surprise' ? 'shade-btn-active' : 'shade-btn'} onClick={() => handleShadeButtonClick('rgb(221, 45, 45)', 'rgb(255, 136, 136)', '', question.id)}>ONE COLOR SHADES</button>
                           </div>
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
                           <p className='shade-bundl-text' style={{ color: shadeColor }}>Bundl</p>
                           <b><p className='not-sure'>Not sure ? It’s okay!</p></b>
-                          <button className={shadeType === 'surprise' ? 'surprise-active' : 'surprise'} onClick={() => handleShadeButtonClick('rgb(228, 222, 216)', 'rgb(0, 0, 0)', 'surprise',question.id)}>surprise me</button>
+                          <button className={shadeType === 'surprise' ? 'surprise-active' : 'surprise'} onClick={() => handleShadeButtonClick('rgb(228, 222, 216)', 'rgb(0, 0, 0)', 'surprise', question.id)}>surprise me !</button>
                         </div>
                       </div>
                     </>
@@ -268,23 +421,29 @@ export const Questionnaire4 = () => {
                 }
                 {
                   question.answer_type === 'font' && (
-                    <div
-                      className='font-grid'
-                    >
-                      {
-                        textStyle.map((font, index) => {
-                          return (
-                            <>
-                              <div className='font-background'>
-                                <img style={{ margin: '3% 0 0% 0' }} src={font.img}></img>
-                                <button className={`font-buttons ${activeButtons.includes(font.fontStyle) ? 'font-buttons-active' : ''
-                                  }`} onClick={() => handleButtonClick(index,question.id,font.fontStyle)}>{font.fontStyle}</button>
-                              </div>
-                            </>
-                          )
-                        })
-                      }
-                    </div>
+                    <>
+                      <div
+                        className='font-grid'
+                      >
+                        {
+                          textStyle.map((font, index) => {
+                            return (
+                              <>
+                                <div className='font-background'>
+                                  <img style={{ margin: '6% 0 0% 0' }} src={font.img}></img>
+                                  <button className={`font-buttons ${activeButtons.includes(font.fontStyle) ? 'font-buttons-active' : ''
+                                    }`} onClick={() => handleButtonClick(index, question.id, font.fontStyle)}>{font.fontStyle}</button>
+                                </div>
+                              </>
+                            )
+                          })
+                        }
+                      </div>
+                      <figure className='mt-[5%]'>
+                        <b><i className='text-[28px]'>Not sure ? It's okay!</i></b>
+                      </figure>
+                      <button className={`${activeButtons.includes("Surprise") ? 'surprise-active':'surprise'}`} onClick={() => handleButtonClick("", question.id, "Surprise")}>surprise me !</button>
+                    </>
                   )
                 }
                 {
@@ -348,28 +507,32 @@ export const Questionnaire4 = () => {
                           height: 'inherit'
                         }}
                       >
-                        {selectedColors.map((color, index) => (
-                          <div
-                            key={index}
-                            className="selected-color"
-                            style={{
-                              backgroundColor: color,
-                              width: '120px',
-                              height: '30px',
-                              border: '1px solid #000000',
-                            }}
-                          >
-                            <span
+                        {
+                          selectedColors[0] === 'Surprise' ?'' :
+                          selectedColors.map((color, index) => (
+                            <div
+                              key={index}
+                              className="selected-color"
                               style={{
-                                // margin: '-5% 1% 0 0',
-                                float: 'right',
-                                cursor: 'pointer'
+                                backgroundColor: color,
+                                width: '120px',
+                                height: '30px',
+                                border: '1px solid #000000',
                               }}
                             >
-                              <img src={X} alt='X-icon' onClick={() => handleRemoveColor(color, question.id)}></img>
-                            </span>
-                          </div>
-                        ))}
+                              <span
+                                style={{
+                                  // margin: '-5% 1% 0 0',
+                                  float: 'right',
+                                  cursor: 'pointer'
+                                }}
+                              >
+                                <img src={X} alt='X-icon' onClick={() => handleRemoveColor(color, question.id)}></img>
+                              </span>
+                            </div>
+                          ))
+                        }
+                       
                       </div>
                       <div
                         className="color-input"
@@ -392,26 +555,27 @@ export const Questionnaire4 = () => {
                             padding: '8px',
                             border: '1px solid #ccc',
                             outline: 'none',
-                            width: window.innerWidth <= 441 ? '200px' : '400px'
+                            width: window.innerWidth <= 441 ? '250px' : '400px',
+                            height: '44.5px'
                           }}
                         />
                         <button
-                          onClick={handleAddColor}
+                          onClick={()=>handleColorClick(inputValue,question.id)}
                           style={{
                             padding: '8px 16px',
-                            backgroundColor: '#343a40',
+                            backgroundColor: '#000000',
                             color: '#fff',
                             border: 'none',
                             cursor: 'pointer',
-                            margin: '-55px 0px 0px 53.5%'
+                            margin:window.innerWidth <=441 ?   '-54px 0px 0px 51.5%' :'-54px 0px 0px 52.5%'
                           }}
                         >
-                          <AddCircleRoundedIcon onClick={handleAddColor} />
+                          <AddCircleRoundedIcon  onClick={()=>handleColorClick(inputValue,question.id)} />
                         </button>
-                        <figure className='mt-1'>
+                        <figure className='mt-[3%]'>
                           <b><i className='text-[28px]'>Not sure ? It's okay!</i></b>
                         </figure>
-                        <button className='surprise'>surprise me</button>
+                        <button className={`${selectedColors.includes("Surprise") ? 'surprise-active':'surprise'}`} onClick={() => handleColorClick("Surprise", question.id)}>surprise me !</button>
                       </div>
                     </>
                   )
@@ -424,7 +588,7 @@ export const Questionnaire4 = () => {
 
                         <ul className="h-list select-btns grid-view padding-top-20 checkbox-btn-img h-list-check">
                           <li className="checkbox checkbox-btn">
-                            <input type="checkbox" name="13" value="patterns" id="patterns" className="validThis" onChange={(e)=>handleTextureChange(e,question.id)}></input>
+                            <input type="checkbox" name="13" value="patterns" id="patterns" className="validThis" onChange={(e) => handleTextureChange(e, question.id)}></input>
                             <label for="patterns">
                               <figure className="image-container img-animation">
                                 {
@@ -441,7 +605,7 @@ export const Questionnaire4 = () => {
                           </li>
                           <li className="checkbox checkbox-btn">
                             <ul className="valid-error text-purple"></ul>
-                            <input type="checkbox" name="13" value="textures" id="textures" onChange={(e)=>handleTextureChange(e,question.id)}></input>
+                            <input type="checkbox" name="13" value="textures" id="textures" onChange={(e) => handleTextureChange(e, question.id)}></input>
                             <label for="textures">
                               <figure className="image-container img-animation">
                                 {
@@ -458,7 +622,7 @@ export const Questionnaire4 = () => {
                           </li>
                           <li className="checkbox checkbox-btn">
                             <ul className="valid-error text-purple"></ul>
-                            <input type="checkbox" name="13" value="collages" id="collages" onChange={(e)=>handleTextureChange(e,question.id)}></input>
+                            <input type="checkbox" name="13" value="collages" id="collages" onChange={(e) => handleTextureChange(e, question.id)}></input>
                             <label for="collages">
                               <figure className="image-container img-animation">
                                 {
@@ -477,7 +641,7 @@ export const Questionnaire4 = () => {
                           </li>
                           <li className="checkbox checkbox-btn">
                             <ul className="valid-error text-purple"></ul>
-                            <input type="checkbox" name="13" value="cleanvisual" id="cleanvisual" onChange={(e)=>handleTextureChange(e,question.id)}></input>
+                            <input type="checkbox" name="13" value="cleanvisual" id="cleanvisual" onChange={(e) => handleTextureChange(e, question.id)}></input>
                             <label for="cleanvisual">
                               <figure className="image-container img-animation">
                                 {
@@ -496,7 +660,7 @@ export const Questionnaire4 = () => {
                           </li>
                           <li className="checkbox checkbox-btn">
                             <ul className="valid-error text-purple"></ul>
-                            <input type="checkbox" name="13" value="illustrations" id="illustrations" onChange={(e)=>handleTextureChange(e,question.id)}></input>
+                            <input type="checkbox" name="13" value="illustrations" id="illustrations" onChange={(e) => handleTextureChange(e, question.id)}></input>
                             <label for="illustrations">
                               <figure className="image-container img-animation">
                                 {
@@ -515,7 +679,7 @@ export const Questionnaire4 = () => {
                           </li>
                           <li className="checkbox checkbox-btn">
                             <ul className="valid-error text-purple"></ul>
-                            <input type="checkbox" name="13" value="frames" id="frames" onChange={(e)=>handleTextureChange(e,question.id)}></input>
+                            <input type="checkbox" name="13" value="frames" id="frames" onChange={(e) => handleTextureChange(e, question.id)}></input>
                             <label for="frames">
                               <figure className="image-container img-animation">
                                 {
@@ -532,18 +696,12 @@ export const Questionnaire4 = () => {
                               </span>
                             </label>
                           </li>
-                          <li className="checkbox checkbox-btn">
-                            <ul className="valid-error text-purple"></ul>
-                            <input type="checkbox" name="13" value="surprise me" id="surprisemepatter"></input>
-                            <label for="surprisemepatter" className="b-none">
-                              <figure>
-                                <i>Not sure ? It's okay!</i>
-                              </figure>
-                              <span className="button-text">Surprise me!
-                              </span>
-                            </label>
-                          </li>
+
                         </ul>
+                        <figure className='mt-1'>
+                          <b><i className='text-[28px]'>Not sure ? It's okay!</i></b>
+                        </figure>
+                        <button className={`${formData[question.id]?.includes('Surprise')?'surprise-active':'surprise'}`} onClick={()=>handleTextureChange(null,question.id,true)}>surprise me !</button>
                       </div>
                     </>
                   )
@@ -558,36 +716,50 @@ export const Questionnaire4 = () => {
                         flexDirection: 'column',
                         alignItems: 'center',
                         gap: '10px',
-                        position: 'relative'
+                        position: 'relative',
+                        height:'65px'
                       }}
                     >
                       <input
                         type="text"
-                        value={inputValue}
-                        onChange={handleInputChange}
+                        value={getAnswerValue(question.id)}
+                        onChange={(e) => handleInputChange(e, question.id)}
                         style={{
                           padding: '8px',
                           border: '1px solid #ccc',
                           outline: 'none',
-                          width: window.innerWidth <= 441 ? '200px' : '400px'
+                          width: window.innerWidth <= 441 ? '250px' : '400px'
                         }}
                       />
                       <button
-                        onClick={handleAddColor}
+                        // onClick={handleAddColor}
                         style={{
-                          padding: '8px 16px',
+                          padding:window.innerWidth <=441 ? '0': '8px 16px',
                           backgroundColor: 'transparent',
                           color: '#fff',
                           border: 'none',
                           cursor: 'pointer',
-                          margin: '-55px 0px 0px 53.5%'
+                          margin:window.innerWidth <=441 ?  '-45px 0px 0px 80%' : '-55px 0px 0px 80%'
                         }}
                       >
                         <img src={Link}></img>
                       </button>
                     </div> : ''
                 }
-                <input placeholder={placeHolders[index]} value={formData[index]} className="question-input" onChange={(e) => handleChange(question.id, e.target.value)} />
+                {
+                  (question.id === 15 || question.id === 16) ? (
+                    <input
+                      placeholder={placeHolders[index]}
+                      value={question.id === 21 ? '' : getAnswerValue(question.id)}
+                      className="question-input"
+                      onChange={(e) => handleChange(question.id, e.target.value)}
+                    />
+                  ) : (
+                    <div className="w-[100%] xl:h-[2px] lg:h-[2px] md:h-[2px] sm:h-[2px] xs:h-[1px] bg-black mt-[3%]"></div>
+                  )
+                }
+
+
               </div>
             ))}
 
