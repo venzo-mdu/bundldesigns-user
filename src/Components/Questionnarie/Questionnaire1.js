@@ -10,18 +10,18 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ConfigToken } from '../Auth/ConfigToken'
 
-export const Questionnaire1 = () => {
+export const Questionnaire1 = ({formData,setFormData}) => {
 
   const location = useLocation();
-
   const [questions, setQuestions] = useState([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [formData, setFormData] = useState(location.state?.questionnaireData1);
+  // const [formData, setFormData] = useState();
+  const [errors,setErrors] = useState({})
   const [activeType, setActiveType] = useState(null);
   const [fetchQ1Answers, setFetchQ1Answers] = useState([]);
   const [requiredQuestions , setRequiredQuestions] = useState([])
-
+  const currentAnswer = useSelector((state) => state.questionnaire1)
   const placeHolders = [
     "Project Name",
     "(ex:Fashion,Food,Services,Personal Brand,etc...)",
@@ -52,6 +52,7 @@ export const Questionnaire1 = () => {
         console.error("Error fetching questions:", error);
       }
     }
+    setFormData(currentAnswer)
     fetchQuestions();
     fetchAnswers();
   }, []);
@@ -67,12 +68,25 @@ export const Questionnaire1 = () => {
     let brandingType = activeType
     setFormData((prev) => ({
       ...prev,
-      // type: type, // Update formData accordingly
+      type: type, // Update formData accordingly
     }));
   };
 
 
   const handleInputChange = (questionId, value) => {
+    if(questionId=='2' || questionId == '3'){
+      if(/[0-9!@#$%^&*(),.?":{}|<>]/g.test(value)){
+        setErrors((prev) => ({
+          ...prev,
+          [questionId]: 'Should not contain numbers or special characters',
+        }));
+        return
+      }else{
+        let temp_err =  errors
+        delete temp_err[questionId]
+        setErrors(temp_err)
+      }
+    }
     setFormData((prev) => ({
       ...prev,
       [questionId]: value,
@@ -163,6 +177,8 @@ export const Questionnaire1 = () => {
         storeAnswers={location.state?.questionnaireData1}
         orderId={location.state?.orderId}
         bgTitle={'About your business'}
+        formData={formData}
+        setFormData={setFormData}
         onNextClick={onNextClick}
         onSaveLaterClick={onSaveLaterClick}
         questions={questions.map((question, index) => (
@@ -199,6 +215,7 @@ export const Questionnaire1 = () => {
               value={getAnswerValue(question.id)}
               onChange={(e) => handleInputChange(question.id, e.target.value)} // Update Redux
             />
+            {question.id in errors && <p className='text-[red]'>{errors[question.id]}</p>}
             {index === 0 ? (
               <div className='img-rotate-qf'>
                 <img className='rotating-image' src={Load} alt="Loading" />

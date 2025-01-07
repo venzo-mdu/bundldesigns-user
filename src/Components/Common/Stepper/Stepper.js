@@ -1,23 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import '../Stepper/Stepper.css';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { questionnaireAction1,questionnaireAction2,questionnaireAction3,questionnaireAction4,questionnaireAction5 } from '../../../Redux/Action';
 
-export const Stepper = ({ pageNo , answersData , fillId }) => {
+export const Stepper = ({ pageNo ,formData, answersData , fillId }) => {
 
     const navigate = useNavigate();
-
+    const dispatch = useDispatch();
     const [activeProcess, setActiveProcess] = useState(0);
     const [isActiveProcess, setIsActiveProcess] = useState([false, false, false, false, false]);
     const [lineWidth, setLineWidth] = useState(365); // default for large screens
-    const [translateX, setTranslateX] = useState();
-
-    const answers1 = useSelector((state) => state.questionnaire1);
-    const answers2 = useSelector((state) => state.questionnaire2);
-    const answers3 = useSelector((state) => state.questionnaire3);
-    const answers4 = useSelector((state) => state.questionnaire4);
-    const answers5 = useSelector((state) => state.questionnaire5);
-
+    const [translateX, setTranslateX] = useState(0);
+    const [prevTransx,setTransx] = useState(0)
 
     const processData = [
         { title: "ABOUT YOUR BUSINESS", fill: '#F175AD', color: '#000' },
@@ -29,97 +24,42 @@ export const Stepper = ({ pageNo , answersData , fillId }) => {
 
     // Adjust the dotted line width based on screen size
     const adjustLineWidth = () => {
+        let lineWidth;
+        let translateXValues = [];
+    
         if (window.innerWidth <= 600) {
-            setLineWidth(85);
-            if (activeProcess === 0) {
-                setTranslateX(15)
-            }
-            if (activeProcess === 1) {
-                setTranslateX(100)
-            }
-            if (activeProcess === 2) {
-                setTranslateX(190)
-            }
-            if (activeProcess === 3) {
-                setTranslateX(270)
-            }
-            if (activeProcess === 4) {
-                setTranslateX(340)
-            }
+            lineWidth = 85;
+            translateXValues = [15, 100, 190, 270, 340];
+        } else if (window.innerWidth <= 768) {
+            lineWidth = 150;
+            translateXValues = [0, 160, 300, 450, 600];
+        } else if (window.innerWidth <= 1024) {
+            lineWidth = 180;
+            translateXValues = [0, 340, 395, 575, 780];
+        } else if (window.innerWidth <= 1705) {
+            lineWidth = 250;
+            translateXValues = [0, 250, 480, 720, 960];
+        } else {
+            lineWidth = 365;
+            translateXValues = [0, 380, 750,1110 ,1470];
         }
-        else if (window.innerWidth <= 768) {
-            setLineWidth(150);
-            if (activeProcess === 0) {
-                setTranslateX(0)
-            }
-            if (activeProcess === 1) {
-                setTranslateX(160)
-            }
-            if (activeProcess === 2) {
-                setTranslateX(300)
-            }
-            if (activeProcess === 3) {
-                setTranslateX(450)
-            }
-            if (activeProcess === 4) {
-                setTranslateX(600)
-            }
+    
+        // Set the line width
+        const transX = localStorage.getItem('transx');
+        if(transX){
+            setTransx(transX)
         }
-        else if (window.innerWidth <= 1024) {
-            setLineWidth(180);
-            if (activeProcess === 0) {
-                setTranslateX(0)
-            }
-            if (activeProcess === 1) {
-                setTranslateX(190)
-            }
-            if (activeProcess === 2) {
-                setTranslateX(395)
-            }
-            if (activeProcess === 3) {
-                setTranslateX(575)
-            }
-            if (activeProcess === 4) {
-                setTranslateX(780)
-            }
-        }
-        else if (window.innerWidth <= 1705) {
-            setLineWidth(250);
-            if (activeProcess === 0) {
-                setTranslateX(-150)
-            }
-            if (activeProcess === 1) {
-                setTranslateX(120)
-            }
-            if (activeProcess === 2) {
-                setTranslateX(375)
-            }
-            if (activeProcess === 3) {
-                setTranslateX(625)
-            }
-            if (activeProcess === 4) {
-                setTranslateX(875)
-            }
-        }
-        else {
-            setLineWidth(365);
-            if (activeProcess === 0) {
-                setTranslateX(-325)
-            }
-            if (activeProcess === 1) {
-                setTranslateX(35)
-            }
-            if (activeProcess === 2) {
-                setTranslateX(395)
-            }
-            if (activeProcess === 3) {
-                setTranslateX(760)
-            }
-            if (activeProcess === 4) {
-                setTranslateX(1115)
+        console.log(transX,'trrr')
+        setLineWidth(lineWidth);
+        // Set translateX based on the activeProcess
+        if (activeProcess >= 0 && activeProcess < translateXValues.length) {
+            setTranslateX(translateXValues[activeProcess]);
+            if(translateXValues[activeProcess]>0){
+                localStorage.setItem('transx',translateXValues[activeProcess]);
             }
         }
     };
+
 
     useEffect(() => {
         setActiveProcess(pageNo - 1);
@@ -131,6 +71,17 @@ export const Stepper = ({ pageNo , answersData , fillId }) => {
         const updatedActiveProcess = isActiveProcess.map((_, i) => i <= index);
         setIsActiveProcess(updatedActiveProcess);
     };
+    // useEffect(() => {
+    //     // This will run whenever translateX changes, updating prevTransx accordingly
+    //     setTransx(translateX);
+    // }, [translateX]);
+    
+    const animationName = `moveRight-${prevTransx}-${translateX}`;
+    const answers1 = useSelector((state) => state.questionnaire1);
+    const answers2 = useSelector((state) => state.questionnaire2);
+    const answers3 = useSelector((state) => state.questionnaire3);
+    const answers4 = useSelector((state) => state.questionnaire4);
+    const answers5 = useSelector((state) => state.questionnaire5);
 
 
     const getStoreAnswers = (page) => {
@@ -150,10 +101,21 @@ export const Stepper = ({ pageNo , answersData , fillId }) => {
         }
       };
 
-    
-
     const handleRoute = (page) => {
-        console.log(getStoreAnswers(),page,"answers")  
+            //   dispatch(questionnaireAction1(formData));
+            const reduxact = {
+                1: questionnaireAction1,
+                2: questionnaireAction2,
+                3: questionnaireAction3,
+                4: questionnaireAction4,
+                5: questionnaireAction5,
+              };
+              
+              if (reduxact[page]) {
+                dispatch(reduxact[page](formData));
+              } else {
+                console.error(`No action found for page: ${page}`);
+              }
         navigate(`/questionnaire/${page}`, {
             state: {
                 [`questionnaireData${page}`]: getStoreAnswers(page),
@@ -165,7 +127,7 @@ export const Stepper = ({ pageNo , answersData , fillId }) => {
     
 
     return (
-        <div className="stepper">
+        <div className="stepper relative" >
             {processData.map((process, index) => (
                 <div
                     onClick={()=>handleRoute(index+1)}
@@ -200,11 +162,19 @@ export const Stepper = ({ pageNo , answersData , fillId }) => {
                 </div>
             ))}
             <svg 
-                className="rocket overlay"
-                style={{ transform: activeProcess === 0 ? `translateX(${translateX}px)` : `translateX(${translateX}px)`, margin: '1% 0 0 0' }}
+                className="rocket overlay !left-[9%]"
+                style={{ animation: `${animationName} 2s forwards`, margin: '1% -150px 0 0' }}
                 width="103" height="51" viewBox="0 0 103 51" fill="none"
                 xmlns="http://www.w3.org/2000/svg"
             >
+                    <style>
+                {`
+                    @keyframes ${animationName} {
+                        0% { transform: translateX(${prevTransx}px); }
+                        100% { transform: translateX(${translateX}px); }
+                    }
+                `}
+            </style>
                 <g style={{ mixBlendMode: "multiply" }}>
                     <path
                         d="M17.0243 20.1751L0.10283 39.9605L20.7547 38.3386L33.3441 50.4381L52.0055 44.0664L53.6119 42.9629L58.3442 42.0547L63.9225 39.9665L76.0922 37.2171L100.775 30.1494L102.466 29.1142L102.303 27.853L101.161 27.3343L72.3146 16.0341L49.3982 6.77805L32.8747 0.593947L28.2324 6.28473L25.3511 9.71008L23.2039 11.6917L20.7801 14.6193L19.3632 15.5849L21.3765 19.2735L21.7309 21.025L17.0243 20.1751Z"

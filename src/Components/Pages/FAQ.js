@@ -11,6 +11,7 @@ import fileUploadIcon from '../../Images/fileUploadIcon.svg'
 import msgIcon from '../../Images/messageIcon.svg'
 import { Bgloader } from '../Common/Background/Bgloader';
 import CloseIcon from '@mui/icons-material/Close';
+import PhoneNumberInput from './PhoneNumberInput';
 
 export default function FAQ() {
 
@@ -22,6 +23,7 @@ export default function FAQ() {
   const base_url = process.env.REACT_APP_BACKEND_URL
   const [currentTab, setCurrentTab] = useState('');
   const [successMsg, setSuccessMsg] = useState('')
+  const [phoneError,setPhoneError] = useState(false)
 
   const [formData, setFormData] = useState({
     name: '',
@@ -56,7 +58,7 @@ export default function FAQ() {
     }
 
     if (!formData.phone) newErrors.phone = 'Phone number is required';
-    else if (!/^\d{10}$/.test(formData.phone)) newErrors.phone = 'Phone number must be 10 digits';
+    // else if (!/^\d{10}$/.test(formData.phone)) newErrors.phone = 'Phone number must be 10 digits';
 
     if (!formData.email) newErrors.email = 'Email is required';
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = 'Email is invalid';
@@ -158,14 +160,18 @@ export default function FAQ() {
 
               {/* Phone Field */}
               <div>
-                <input
-                  type="tel"
-                  name="phone"
-                  placeholder='Phone Number'
-                  value={formData.phone}
-                  onChange={handleChange}
-                  className="w-full border  !border-[#000000]  px-2 py-1"
-                />
+              <PhoneNumberInput
+        name="phone"
+        placeholder="ex: 569754639"
+        value={formData.phone}
+        status={setFormData}
+        extraInputClass={'!border-black text-[16px]'}
+        setPhoneError={setPhoneError}
+        className="w-full  text-[16px]  "
+        setErrors = {setErrors}
+        formErrors = {errors}
+        idName={'websterSelect'}
+      />
                 {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
               </div>
 
@@ -204,7 +210,7 @@ export default function FAQ() {
               <p className='text-center flex items-center my-1 justify-center font-bold'> < WhatsAppIcon /> <span className='pl-1'>+(966) 547754124</span>  </p>
               </div>
            
-              {successMsg && <p className='bg-green-600 py-1 px-2 rounded text-white'>{successMsg} <CloseIcon  onClick={()=>{setSuccessMsg(null)}} className='text-white ml-2' /></p>}
+              {successMsg && <p className='bg-green-600 py-1 px-2 flex justify-between items-center rounded text-white'>{successMsg} <CloseIcon  onClick={()=>{setSuccessMsg(null)}} className='text-white ml-2 cursor-pointer'  /></p>}
             </form>
 
 

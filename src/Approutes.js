@@ -84,7 +84,7 @@ export default function AppRouter() {
       element:<ProtectedRoute element={<Dashboard />} />
     },
     {
-      path:'/adjustment/:orderId',
+      path:'/adjustment',
       element:<ProtectedRoute element={<Adjustments />} />
     },
     {

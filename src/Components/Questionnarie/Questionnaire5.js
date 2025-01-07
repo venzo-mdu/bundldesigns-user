@@ -8,18 +8,17 @@ import { ConfigToken } from '../Auth/ConfigToken';
 import { questionnaireAction5, questionnaireAnswers } from '../../Redux/Action';
 import { ToastContainer, toast } from 'react-toastify';
 
-export const Questionnaire5 = () => {
+export const Questionnaire5 = ({formData,setFormData}) => {
 
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
- 
+  const currentAnswer = useSelector((state) => state.questionnaire5)
   const answers1 = useSelector((state) => state.questionnaire1);
   const answers2 = useSelector((state) => state.questionnaire2);
   const answers3 = useSelector((state) => state.questionnaire3);
   const answers4 = useSelector((state) => state.questionnaire4);
   const [questions, setQuestions] = useState([]);
-  const [formData, setFormData] = useState({});
   const [selectedLanguage, setSelectedLanguage] = useState(null);
   const [fetchQ5Answers, setFetchQ5Answers] = useState([]);
 
@@ -50,6 +49,7 @@ export const Questionnaire5 = () => {
         console.error("Error fetching questions:", error);
       }
     }
+    setFormData(currentAnswer)
     fetchQuestions();
     fetchAnswers();
   }, []);
@@ -186,6 +186,8 @@ export const Questionnaire5 = () => {
         onBackClick={onBackClick}
         onNextClick={FinishClick}
         onSaveLaterClick={onSaveLaterClick}
+        formData={formData}
+        setFormData={setFormData}
         questions={questions.map((question,index) => (
           <div className="questions" key={question.id}>
             <p className={`questions-title ${index === 0 ? 'mt-[1%]' : 'mt-[4%]'}`}>

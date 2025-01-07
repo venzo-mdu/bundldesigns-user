@@ -99,7 +99,7 @@ export const Navbar = () => {
                     <div className="navbar  float-right">
                       <ul className=" mr-auto h-list align-items-center ">
                         <li >
-                          <a className="" href="#"><img src={Search} alt="" className="navIcons  ml-2"></img></a>
+                          <a className="" href="#"><img src={Search} alt="" className="navIcons  ml-2"></img> dsdsd </a>
                         </li>
                         <li className='px-[6px] inner-nav'>
 
@@ -108,13 +108,13 @@ export const Navbar = () => {
                             }`}>
                             <ul >
                               {token ? <>
-                                <li className='relative p-1'>
+                                <li className='relative p-1 inner-nav-li'>
                                   <a href="/dashboard" previewlistener="true">Projects</a>
                                 </li>
-                                <li className='relative p-1'>
+                                <li className='relative p-1 inner-nav-li'>
                                   <a href="#" previewlistener="true">Profile</a>
                                 </li>
-                                <li className='relative p-1'>
+                                <li className='relative p-1 inner-nav-li'>
                                   <a
                                     className="cursor-pointer"
                                     onClick={Logout}
@@ -124,7 +124,7 @@ export const Navbar = () => {
                                   </a>
                                 </li>
                               </> :
-                                <>  <li className='relative p-1'>
+                                <>  <li className='relative p-1 inner-nav-li'>
                                   <a href="/login" previewlistener="true">Login</a>
                                 </li>
                                 </>}
@@ -146,16 +146,16 @@ export const Navbar = () => {
                           <nav className={`w-44 inner-nav-item absolute xs:top-[80px] md:top-[50px] shadow-sm -right-2 text-right  bg-white p-2 transition-all duration-300 ease-in-out ${menuVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
                             }`}>
                             <ul >
-                              <li className='relative p-1'>
+                              <li className='relative p-1 inner-nav-li'>
                                 <a href="/" previewlistener="true">Bundl Offers</a>
                               </li>
-                              <li className='relative p-1'>
+                              <li className='relative p-1 inner-nav-li'>
                                 <a href="/our-work" previewlistener="true">Our Work</a>
                               </li>
-                              <li className='relative p-1'>
+                              <li className='relative p-1 inner-nav-li'>
                                 <a href="/aboutus" previewlistener="true">About Us</a>
                               </li>
-                              <li className='relative p-1'>
+                              <li className='relative p-1 inner-nav-li'>
                                 <a href="#" previewlistener="true">Contact Us</a>
                               </li>
                             </ul>
@@ -193,7 +193,7 @@ export const Navbar = () => {
             <div className=' nav-container'>
               <div className="nav-section bg-[#FFFFFF] w-[100%] z-[1] sticky top-0" >
                 <div style={{ padding: '0% 0%' }} className="">
-                  <div className="row align-items-center">
+                  <div className="row items-center">
                     <div className="col-4 col-md-3 col-lg-3 justify-content-between">
                       <div className="navbar navbar-expand-lg justify-content-between">
                         <a className="navbar-brand" href="/"><img src={HomeLogo} alt="" className="img-fluid"></img></a>
@@ -219,31 +219,30 @@ export const Navbar = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="col-7 col-md-8 col-lg-3 text-end ">
+                    <div className="col-7 col-md-8  col-lg-3 text-end ">
                       <div className="navbar navbar-expand-lg float-right">
-                        <ul className=" mr-auto h-list align-items-center ">
-                          <li >
-                            <a className="" href="#"><img src={Search} alt="" className="navIcons"></img></a>
+                        <ul className="mt-[5vh] mr-auto h-list align-items-center ">
+                          <li className='px-[7px]'>
+                            <a className="w-[26px]" href="#"><img src={Search} alt="" className="navIcons"></img></a>
                           </li>
                           
-                          <li className='px-[6px] inner-nav'>
+                          <li className='px-[7px] inner-nav'>
 
-                            <a className="" onClick={() => { setProfileVisible(!profileVisible) }}><img src={User} alt="" className="navIcons cursor-pointer"></img></a>
-                            <nav className={`w-44  absolute xs:top-[80px] md:top-[50px] shodow-sm -right-2 text-right bg-white p-2 transition-all duration-300 ease-in-out ${profileVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
-                              }`}>
+                            <a className="w-[26px]" onClick={() => { setProfileVisible(!profileVisible) }}><img src={User} alt="" className="navIcons cursor-pointer"></img></a>
+                            <nav className={`w-44  absolute xs:top-[80px] md:top-[80px] shodow-sm -right-2 text-right bg-white p-2 transition-all duration-300 ease-in-out ${profileVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'}`}>
                               <ul  >
                                 {token ? <>
-                                  <li className='relative p-1'>
+                                  <li className='relative p-1 inner-nav-li'>
                                     <a href="/dashboard" previewlistener="true">Projects</a>
                                   </li>
-                                  <li className='relative p-1'>
+                                  <li className='relative p-1 inner-nav-li'>
                                     <a href="#" previewlistener="true">Profile</a>
                                   </li>
-                                  <li className='relative p-1'>
+                                  <li className='relative p-1 inner-nav-li'>
                                     <a onClick={() => { Logout() }} previewlistener="true">Logout</a>
                                   </li>
                                 </> :
-                                  <>  <li className='relative p-1'>
+                                  <>  <li className='relative p-1 inner-nav-li'>
                                     <a href="/login" previewlistener="true">Login</a>
                                   </li>
                                   </>}
@@ -253,11 +252,11 @@ export const Navbar = () => {
                               </ul>
                             </nav>
                           </li>
-                          <li >
-                            <a className="" href="/mycart"><img src={Cart} alt="" className="navIcons  ml-2"></img></a>
+                          <li className='px-[7px]'>
+                            <a className="w-[26px]" href="/mycart"><img src={Cart} alt="" className="navIcons"></img></a>
                           </li>
-                          <li >
-                            <a className="" ><img src={Language} alt="" className="navIcons  ml-2"></img></a>
+                          <li className='px-[7px]'>
+                            <a className="w-[26px]" ><img src={Language} alt="" className="navIcons"></img></a>
                           </li>
                           <li className="nav-item xs:!block sm:!hidden  inner-nav text-center !hidden menu mr-auto">
                             <button onClick={toggleMenu} type="button" id="menu-toggle">
@@ -266,16 +265,16 @@ export const Navbar = () => {
                             <nav className={`w-44 absolute  shadow-sm -right-2 text-right bg-white p-2 transition-all duration-300 ease-in-out ${menuVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
                               }`}>
                               <ul className=' inner-nav-item'>
-                                <li className='relative p-1'>
+                                <li className='relative p-1 inner-nav-li'>
                                   <a href="/" previewlistener="true">Bundl Offers</a>
                                 </li>
-                                <li className='relative p-1'>
+                                <li className='relative p-1 inner-nav-li'>
                                   <a href="/our-work" previewlistener="true">Our Work</a>
                                 </li>
-                                <li className='relative p-1'>
+                                <li className='relative p-1 inner-nav-li'>
                                   <a href="/aboutus" previewlistener="true">About Us</a>
                                 </li>
-                                <li className='relative p-1'>
+                                <li className='relative p-1 inner-nav-li'>
                                   <a href="#" previewlistener="true">Contact Us</a>
                                 </li>
                               </ul>

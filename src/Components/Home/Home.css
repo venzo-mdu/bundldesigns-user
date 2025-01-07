@@ -373,7 +373,7 @@ border-top: 1px solid rgba(0, 0, 0, .1)
  .inner-nav-item li a:after {
   transform: rotate(90deg);
 }
-.inner-nav-item li a:before,  .inner-nav-item li a:after {
+.inner-nav-item nav li a:before,  .inner-nav-item nav li a:after {
   content: '';
   position: absolute;
   top: 0px;
@@ -382,6 +382,49 @@ border-top: 1px solid rgba(0, 0, 0, .1)
   height: 6px;
   background: #67C1BB;
   transition: all 0.3s ease;
+}
+.inner-nav-li a:before,  .inner-nav-li a:after {
+  content: '';
+  position: absolute;
+  top: 0px;
+  right: 0;
+  width: 1px;
+  height: 6px;
+  background: #67C1BB;
+  transition: all 0.3s ease;
+}
+.inner-nav-li a:after {
+  transform: rotate(90deg);
+}
+
+.inner-nav-li{
+  width: 100% !important;
+  margin-top: 1%;
+  padding: 3px 10px 0px !important;
+  margin-bottom: 6px;
+  border-bottom: 1px solid black;
+}
+
+.inner-nav-item nav li:hover a:before {
+  transform: scale(2); /* Scale only */
+  background: yellowgreen;
+}
+
+.inner-nav-item li:hover a:after {
+  transform: rotate(90deg) scale(2); /* Rotate and scale */
+  background: yellowgreen;
+
+}
+
+.inner-nav-li:hover a:before {
+  transform: scale(2); /* Scale only */
+  background: yellowgreen;
+}
+
+.inner-nav-li:hover a:after {
+  transform: rotate(90deg) scale(2); /* Rotate and scale */
+  background: yellowgreen;
+
 }
 
 .small,

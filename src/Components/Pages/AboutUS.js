@@ -107,7 +107,7 @@ export const AboutUs = () => {
         </div>
       </div>
 
-      <div style={{ backgroundColor: whatwedo ? aboutUs[whatwedo].bgColor : 'inherit' }} className={`text-center !pt-16 md:!pt-16 ${whatwedo? "xs:!pt-6":"sm:!pt-16"} !pb-8 relative border-black leading-[40px] border-b`}>
+      <div style={{ backgroundColor: whatwedo ? aboutUs[whatwedo].bgColor : 'inherit' }} className={`text-center relative border-black leading-[40px] border-b`}>
         <img className='absolute md:top-[-72px] xl:top-[-100px] sm:w-[100px] xs:w-[80px] 
         xs:top-[-30px] z-10 sm:top-[-52px] lg:top-[-80px] md:w-[150px] xl:w-[200px] left-[12vw] '
           width='200px' height='140px' src={blueSticker} />
@@ -124,9 +124,9 @@ export const AboutUs = () => {
               </p>
               <div className='sm:flex xs:block mb-2'>
                 <div className='basis-1/5'>
-                  <img className='sm:min-w-[230px] min-w-[230px] xs:mx-auto xs:w-[180px]' src={WWDImg}></img>
+                  <img className='sm:min-w-[230px] min-w-[230px] mt-3 xs:mx-auto xs:w-[180px]' src={WWDImg}></img>
                 </div>
-                <div className='basis-3/5 text-center text-white'>
+                <div className='basis-3/5 mt-[2%] mb-[3%] text-center text-white'>
                   <h2 className='text-white sm:text-[32px] text-[32px] xs:text-[20px]'>{aboutUs[whatwedo].title}</h2>
                   <p className='sm:text-[20px] text-[20px] xs:text-[18px] px-2 mb-4'>{aboutUs[whatwedo].content}</p>
                   <p> <a href='/our-work' className='text-[white] font-[500] sm:text-[20px] text-[20px] xs:text-[18px] px-[17px] py-1 !border-white border mr-2'>View Our Work</a>
@@ -139,8 +139,8 @@ export const AboutUs = () => {
             <div className='flex overflow-hidden'>
               <div className='basis-[35%] relative'>
               <img 
-  className={`w-[320px] absolute brandIdentity transition-all transform duration-700 ease-out 
-              ${isHovered === 'socialMedia' ? 'left-[-140px] opacity-100' : 'left-[-330px] opacity-0'}`} 
+  className={`w-[320px] absolute brandIdentity transition-all top-[10%] transform duration-700 ease-out 
+              ${isHovered === 'socialMedia' ? 'left-[-140px]  opacity-100' : 'left-[-330px] opacity-0'}`} 
   src={socialMediaGIF} 
 />
 
@@ -151,7 +151,7 @@ export const AboutUs = () => {
 />
 
 <img 
-  className={`w-[320px] absolute z-0 transition-all transform duration-700 ease-out rotate-180 
+  className={`w-[320px] absolute z-0 left-[25%] transition-all transform duration-700 ease-out rotate-180 
               ${isHovered === 'websites' ? 'top-[-10px] opacity-100' : 'top-[-330px] opacity-0'}`} 
   src={websiteGIF} 
 />
@@ -163,7 +163,7 @@ export const AboutUs = () => {
 />
 
               </div>
-              <div className='sm:basis-[30%] basis-[30%]  xs:basis-[100%] '>
+              <div className={`sm:basis-[30%] basis-[30%]  !pb-8  !pt-16 md:!pt-16 xs:basis-[100%]  ${whatwedo? "xs:!pt-6":"sm:!pt-16"}`}>
                 <h2 className=' mt-2 md:text-[32px] sm:text-[24px] xs:text-[24px]  font-bold pb-[30px]'>What we do</h2>
                 <div className='flex mb-2 flex-col'>
                   <p
@@ -211,7 +211,7 @@ export const AboutUs = () => {
               </div>
               <div className='basis-[35%] relative'>
               <img 
-  className={`w-[320px] absolute brandIdentity transition-all transform duration-700 ease-out 
+  className={`w-[320px] absolute brandIdentity transition-all top-[10%] transform duration-700 ease-out 
               ${isHovered === 'socialMedia' ? 'right-[-100px] opacity-100' : 'right-[-330px] opacity-0'}`} 
   src={socialMediaGIF} 
 />

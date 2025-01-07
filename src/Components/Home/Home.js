@@ -606,7 +606,7 @@
 //                                     {/* <!-- rotating buiscut --> */}
 //                                     <div className="icon_section1">
 //                                         <div className="subzero1">
-                                           
+
 //                                             <span onClick={() => addToCart(0)} className="buiscut_layer1">
 //                                             <img style={{ width: '30%' }} src={CartIcon} alt='cart-icon'></img>
 //                                                 ADD TO <br></br>CART</span>
@@ -1288,11 +1288,11 @@ import { useDispatch } from 'react-redux'
 
 
 export const Home = () => {
-        const dispatch = useDispatch();
-      const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const imageArray = [Car, Lemon, Mouth, Rocket, Pinkpaint];
     const [selectedIndex, setSelectedIndex] = useState(null)
-      const [token, setToken] = useState(null)
+    const [token, setToken] = useState(null)
     const [menuVisible, setMenuVisible] = useState(false);
     const [profileVisible, setProfileVisible] = useState(false)
     const toggleMenu = () => {
@@ -1359,25 +1359,25 @@ export const Home = () => {
             setmediaUrls(response.data)
         }
     }
-    const Logout = async()=>{
-        try{
-          const response = await axios.get(`${base_url}/api/logout`, ConfigToken());
-          document.cookie = `token=; path=/; SameSite=None; Secure; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
-          dispatch(loginAction(null));
+    const Logout = async () => {
+        try {
+            const response = await axios.get(`${base_url}/api/logout`, ConfigToken());
+            document.cookie = `token=; path=/; SameSite=None; Secure; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
+            dispatch(loginAction(null));
             window.location.reload()
-    
-        }catch(err) {
-          console.log(err)
+
+        } catch (err) {
+            console.log(err)
         }
-      }
-      const getCookie = (name) => {
+    }
+    const getCookie = (name) => {
         const value = `; ${document.cookie}`;
         const parts = value.split(`; ${name}=`);
-        if (parts.length === 2){
-          return parts.pop().split(';').shift()
-        } ;
+        if (parts.length === 2) {
+            return parts.pop().split(';').shift()
+        };
         return null;
-      };
+    };
 
     useEffect(() => {
         setTimeout(() => {
@@ -1414,7 +1414,7 @@ export const Home = () => {
                 setSelectedIndex(index)
             } else {
                 setSelectedIndex(null)
-                navigate('/bundldetail', { state: { bundlDetail: bundlData.packages[index] ,index:index} });
+                navigate('/bundldetail', { state: { bundlDetail: bundlData.packages[index], index: index } });
             }
         } catch (error) {
             console.error('An error occurred:', error);
@@ -1447,28 +1447,28 @@ export const Home = () => {
                                         <div className="col-4 col-md-3 col-lg-3 justify-content-between">
                                             <div className="navbar navbar-expand-lg justify-content-between">
                                                 <a className="navbar-brand" href="/"><img src={HomeLogo} alt="" className="img-fluid"></img></a>
-                                        
+
                                             </div>
                                         </div>
                                         <div className="col-1 col-md-1 col-lg-6">
-                                        <div className="navbar navbar-expand-lg justify-content-end">
-                      <div className=" navbar-collapse !mt-4" id="mainNav">
-                        <ul className=" mx-auto flex align-items-center ">
-                          <li className="nav-item">
-                            <a className="nav-link" href="/aboutus">About</a>
-                          </li>
-                          <li className="nav-item">
-                            <a className="nav-link" href="/">Bundls</a>
-                          </li>
-                          <li className="nav-item">
-                            <a className="nav-link" href="/our-work">Work</a>
-                          </li>
-                          <li className="nav-item">
-                            <a className="nav-link" href="#">Contact Us</a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
+                                            <div className="navbar navbar-expand-lg justify-content-end">
+                                                <div className=" navbar-collapse !mt-4" id="mainNav">
+                                                    <ul className=" mx-auto flex align-items-center ">
+                                                        <li className="nav-item">
+                                                            <a className="nav-link" href="/aboutus">About</a>
+                                                        </li>
+                                                        <li className="nav-item">
+                                                            <a className="nav-link" href="/">Bundls</a>
+                                                        </li>
+                                                        <li className="nav-item">
+                                                            <a className="nav-link" href="/our-work">Work</a>
+                                                        </li>
+                                                        <li className="nav-item">
+                                                            <a className="nav-link" href="#">Contact Us</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div className="col-7 !mt-4 col-md-8 col-lg-3 text-end ">
                                             <div className="navbar navbar-expand-lg float-right">
@@ -1480,30 +1480,30 @@ export const Home = () => {
                                                         <a className="" onClick={() => { setProfileVisible(!profileVisible) }}><img src={User} alt="" className="navIcons cursor-pointer"></img></a>
                                                         <nav className={`w-44 absolute top-full -right-2 text-right bg-white p-2 transition-all duration-300 ease-in-out ${profileVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
                                                             }`}>
-                                   <ul >
-                              {token ? <>
-                                <li className='relative p-1'>
-                                  <a href="/dashboard" previewlistener="true">Projects</a>
-                                </li>
-                                <li className='relative p-1'>
-                                  <a href="#" previewlistener="true">Profile</a>
-                                </li>
-                                <li className='relative p-1'>
-                                  <a
-                                    className="cursor-pointer"
-                                    onClick={Logout}
-                                    previewlistener="true"
-                                  >
-                                    Logout
-                                  </a>
-                                </li>
-                              </> :
-                                <>  <li className='relative p-1'>
-                                  <a href="/login" previewlistener="true">Login</a>
-                                </li>
-                                </>}
+                                                            <ul >
+                                                                {token ? <>
+                                                                    <li className='relative p-1 inner-nav-li'>
+                                                                        <a href="/dashboard" previewlistener="true">Projects</a>
+                                                                    </li>
+                                                                    <li className='relative p-1 inner-nav-li'>
+                                                                        <a href="#" previewlistener="true">Profile</a>
+                                                                    </li>
+                                                                    <li className='relative p-1 inner-nav-li'>
+                                                                        <a
+                                                                            className="cursor-pointer"
+                                                                            onClick={Logout}
+                                                                            previewlistener="true"
+                                                                        >
+                                                                            Logout
+                                                                        </a>
+                                                                    </li>
+                                                                </> :
+                                                                    <>  <li className='relative p-1 inner-nav-li'>
+                                                                        <a href="/login" previewlistener="true">Login</a>
+                                                                    </li>
+                                                                    </>}
 
-                            </ul>
+                                                            </ul>
                                                         </nav>
                                                     </li>
                                                     <li className='px-[6px]'>
@@ -1519,16 +1519,16 @@ export const Home = () => {
                                                         <nav className={`w-44 absolute top-full -right-2 text-right bg-white p-2 transition-all duration-300 ease-in-out ${menuVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
                                                             }`}>
                                                             <ul >
-                                                                <li>
+                                                                <li  className='relative p-1 inner-nav-li'>
                                                                     <a href="/" previewlistener="true">Bundl Offers</a>
                                                                 </li>
-                                                                <li>
+                                                                <li  className='relative p-1 inner-nav-li'>
                                                                     <a href="/our-work" previewlistener="true">Our Work</a>
                                                                 </li>
-                                                                <li>
+                                                                <li  className='relative p-1 inner-nav-li'>
                                                                     <a href="/aboutus" previewlistener="true">About Us</a>
                                                                 </li>
-                                                                <li>
+                                                                <li  className='relative p-1 inner-nav-li'>
                                                                     <a href="#" previewlistener="true">Contact Us</a>
                                                                 </li>
                                                             </ul>
@@ -1544,43 +1544,43 @@ export const Home = () => {
                             <div className="nav-sider mt-20">
                                 <div className="scroller bg-grey">
                                     <ul className="tag-list scroller__inner">
-                                       <img src={CarMarquee} className="slidee  w-[54px]"></img>
-                                      <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">BRAND identity</span>
-                                      <img src={LemonMarquee} alt="" className="img-fluid w-[41px] slidee"></img>
-                                      <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">web design</span>
-                                      <img src={MouthMarquee} alt="" className="img-fluid w-[30px] slidee"></img>
-                                      <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">graphic design</span>
-                                      <img src={RocketMarquee} alt="" className="img-fluid w-[70px] slidee"></img>
-                                      <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">BRAND identity</span>
-                                      <img src={EyeMarquee} alt="" className="img-fluid w-[47px] slidee"></img>
-                                      <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">web design</span>
-                                      <img src={PaintMarquee} alt="" className="img-fluid w-[56px] slidee"></img>
-                                      <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">graphic design</span>
-                                      <img src={CarMarquee} className="img-fluid w-[54px] slidee"></img>
-                                      <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">BRAND identity</span>
-                                      <img src={LemonMarquee} alt="" className="img-fluid w-[41px] slidee"></img>
-                                      <span  className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">web design</span>
-                                      <img src={MouthMarquee} alt="" className="img-fluid w-[30px] slidee"></img>
-                                      <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">graphic design</span>
-                                      <img src={RocketMarquee} alt="" className="img-fluid w-[70px] slidee"></img>
-                                      <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">BRAND identity</span>
-                                      <img src={EyeMarquee} alt="" className="img-fluid w-[47px] slidee"></img>
-                                      <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">web design</span>
-                                      <img src={PaintMarquee} alt="" className="img-fluid w-[56px] slidee"></img>
-                                      <span  className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">graphic design</span>
-                                      <img src={RocketMarquee} alt="" className="img-fluid w-[70px] slidee"></img>
-                                      <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">BRAND identity</span>
-                                      <img src={LemonMarquee} alt="" className="img-fluid w-[41px] slidee"></img>
-                                      <span   className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">web design</span>
-                                      <img src={MouthMarquee} alt="" className="img-fluid w-[30px] slidee"></img>
-                                      <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">graphic design</span>
-                                      <img src={RocketMarquee} alt="" className="img-fluid w-[70px] slidee"></img>
-                                      <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">BRAND identity</span>
-                                      <img src={EyeMarquee} alt="" className="img-fluid w-[47px] slidee"></img>
-                                      <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">web design</span>
-                                      <img src={PaintMarquee} alt="" className="img-fluid w-[56px] slidee"></img>
-                                      <span  className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">graphic design</span>
-                
+                                        <img src={CarMarquee} className="slidee  w-[54px]"></img>
+                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">BRAND identity</span>
+                                        <img src={LemonMarquee} alt="" className="img-fluid w-[41px] slidee"></img>
+                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">web design</span>
+                                        <img src={MouthMarquee} alt="" className="img-fluid w-[30px] slidee"></img>
+                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">graphic design</span>
+                                        <img src={RocketMarquee} alt="" className="img-fluid w-[70px] slidee"></img>
+                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">BRAND identity</span>
+                                        <img src={EyeMarquee} alt="" className="img-fluid w-[47px] slidee"></img>
+                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">web design</span>
+                                        <img src={PaintMarquee} alt="" className="img-fluid w-[56px] slidee"></img>
+                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">graphic design</span>
+                                        <img src={CarMarquee} className="img-fluid w-[54px] slidee"></img>
+                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">BRAND identity</span>
+                                        <img src={LemonMarquee} alt="" className="img-fluid w-[41px] slidee"></img>
+                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">web design</span>
+                                        <img src={MouthMarquee} alt="" className="img-fluid w-[30px] slidee"></img>
+                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">graphic design</span>
+                                        <img src={RocketMarquee} alt="" className="img-fluid w-[70px] slidee"></img>
+                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">BRAND identity</span>
+                                        <img src={EyeMarquee} alt="" className="img-fluid w-[47px] slidee"></img>
+                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">web design</span>
+                                        <img src={PaintMarquee} alt="" className="img-fluid w-[56px] slidee"></img>
+                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">graphic design</span>
+                                        <img src={RocketMarquee} alt="" className="img-fluid w-[70px] slidee"></img>
+                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">BRAND identity</span>
+                                        <img src={LemonMarquee} alt="" className="img-fluid w-[41px] slidee"></img>
+                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">web design</span>
+                                        <img src={MouthMarquee} alt="" className="img-fluid w-[30px] slidee"></img>
+                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">graphic design</span>
+                                        <img src={RocketMarquee} alt="" className="img-fluid w-[70px] slidee"></img>
+                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">BRAND identity</span>
+                                        <img src={EyeMarquee} alt="" className="img-fluid w-[47px] slidee"></img>
+                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">web design</span>
+                                        <img src={PaintMarquee} alt="" className="img-fluid w-[56px] slidee"></img>
+                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">graphic design</span>
+
                                     </ul>
                                 </div>
                                 {/* <div className="img-rotate">
@@ -1604,7 +1604,7 @@ export const Home = () => {
                                                 <li><span><img src={MagicIcon} alt="" className="img-fluid"></img></span></li>
                                                 <li><span><a className='text-black' href='#ourBundl'>Shop our Bundls</a></span></li>
                                             </ul>
-                                            <div  className="hover-animation btn-blank-hover">
+                                            <div className="hover-animation btn-blank-hover">
                                                 <span className="blue"></span>
                                                 <span className="green"></span>
                                                 <span className="pink"></span>

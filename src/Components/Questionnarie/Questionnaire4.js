@@ -23,13 +23,13 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { ConfigToken } from '../Auth/ConfigToken';
 import { ToastContainer, toast } from 'react-toastify';
 
-export const Questionnaire4 = () => {
+export const Questionnaire4 = ({formData,setFormData}) => {
 
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
   const answers = useSelector((state) => state.questionnaire3);
-
+  const currentAnswer = useSelector((state) => state.questionnaire4)
   const [questions, setQuestions] = useState([]);
   const [selectedColors, setSelectedColors] = useState([]); // To store selected color codes
   const [inputValue, setInputValue] = useState(''); // For input field
@@ -37,7 +37,6 @@ export const Questionnaire4 = () => {
   const [shadeBackgroundColor, setShadeBackgroundColor] = useState('rgb(228, 222, 216)');
   const [shadeColor, setshadeColor] = useState('rgb(0, 0, 0)');
   const [shadeType, setShadeType] = useState('');
-  const [formData, setFormData] = useState({});
   const [fetchQ4Answers, setFetchQ4Answers] = useState([]);
 
   const placeHolders = [
@@ -65,6 +64,7 @@ export const Questionnaire4 = () => {
         console.error("Error fetching questions:", error);
       }
     }
+    setFormData(currentAnswer)
     fetchQuestions();
     fetchAnswers();
   }, []);
@@ -115,28 +115,6 @@ export const Questionnaire4 = () => {
   };
 
 
-  // const handleColorClick = (color, questionId) => {
-  //   let updatedColors;
-
-  //   // Add the color if not already selected
-  //   if (!selectedColors.includes(color)) {
-  //     updatedColors = [...selectedColors, color];
-  //     setSelectedColors(updatedColors);
-  //   } else {
-  //     updatedColors = selectedColors;
-  //   }
-
-  //   if(color === "Surprise"){
-  //     updatedColors = ['Surprise']
-  //   }
-
-  //   // Update formData with the selected colors for the specific questionId
-  //   setFormData((prevFormData) => ({
-  //     ...prevFormData, // Keep existing form data
-  //     [questionId]: updatedColors, // Update the selected colors for this questionId
-  //   }));
-  // };
-
   const handleColorClick = (color, questionId) => {
     let updatedColors;
     const isHexCode = /^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/.test(color);
@@ -172,7 +150,6 @@ export const Questionnaire4 = () => {
     }));
   };
   
-
   const handleRemoveColor = (color, questionId) => {
     // Remove the color from the selectedColors
     const updatedColors = selectedColors.filter((c) => c !== color);
@@ -192,17 +169,6 @@ export const Questionnaire4 = () => {
       [questionId]: e.target.value
     }))
   };
-
-  // const handleAddColor = () => {
-  //   if (colorCodes.includes(inputValue) && !selectedColors.includes(inputValue)) {
-  //     setSelectedColors([...selectedColors, inputValue]);
-  //     setInputValue('');
-  //   }
-  //   else {
-  //     setSelectedColors([...selectedColors, inputValue]);
-  //     setInputValue('');
-  //   }
-  // };
 
 
   const handleButtonClick = (index, questionId, font) => {
@@ -235,8 +201,6 @@ export const Questionnaire4 = () => {
         : [...prevButtons, font] 
     );
   };
-  
-  
 
   const handleShadeButtonClick = (color, textColor, type, questionId) => {
     setShadeBackgroundColor(color);
@@ -257,32 +221,6 @@ export const Questionnaire4 = () => {
       [questionId]: value
     }))
   }
-
-  // const handleTextureChange = (e, questionId) => {
-  //   const { value, checked } = e.target;
-  //   setFormData((prevData) => {
-  //     // Get the current selections for this questionId or initialize to an empty array
-  //     const currentSelections = prevData[questionId] || [];
-
-  //     if (checked) {
-  //       // Add the selected value if checked
-  //       return {
-  //         ...prevData,
-  //         [questionId]: [...currentSelections, value],
-  //       };
-  //     } else {
-  //       // Remove the value if unchecked
-  //       return {
-  //         ...prevData,
-  //         [questionId]: currentSelections.filter((item) => item !== value),
-  //       };
-  //     }
-  //   });
-  //   if(e==='Surprise'){
-
-  //   }
-  // };
-
 
   const handleTextureChange = (e, questionId, isSurprise = false) => {
     if (isSurprise) {
@@ -317,8 +255,6 @@ export const Questionnaire4 = () => {
     }
   };
   
-  
-
   const onBackClick = () => {
     navigate(`/questionnaire/${3}`, { state: { questionnaireData3: answers } });
   }
@@ -369,17 +305,19 @@ export const Questionnaire4 = () => {
         onBackClick={onBackClick}
         onNextClick={onNextClick}
         onSaveLaterClick={onSaveLaterClick}
+        formData={formData}
+        setFormData={setFormData}
         questions={
           <>
             {questions.map((question, index) => (
               <div className="questions" key={index}>
                 {
                   question.answer_type === 'shade' ? '' :
-                  <p className={`questions-title ${index === 0 ? 'mt-[1%]' : 'mt-[4%]'}`}>
+                  <p className={`questions-title ${index === 0 ? 'mt-[1%]' : 'mt-[4%]'} ${question.id == 21 ?'!text-[22px]':''}`}>
                       {question.question}
                       {
                         question.required && (
-                          <span><sup>*</sup></span>
+                          <span><sup className={`${question.id == 21 ?'!text-[22px]':''}`}>*</sup></span>
                         )
                       }
                     </p>
@@ -459,14 +397,7 @@ export const Questionnaire4 = () => {
                           columnGap: '10px'
                         }}
                       >
-                        {/* {displayedColors.map((color, index) => (
-                <div
-                  key={index}
-                  className="specific-color"
-                  style={{ backgroundColor: `${colorCodes[index]}` }}
-                  onClick={() => handleColorClick(color)}
-                ></div>
-              ))} */}
+                  
                         {displayedColors.map((color, index) => {
 
                           const isTopRow = index < 9;

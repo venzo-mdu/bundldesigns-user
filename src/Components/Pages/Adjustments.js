@@ -5,7 +5,7 @@ import { base_url } from '../Auth/BackendAPIUrl';
 import { Footer } from '../Common/Footer/Footer'
 import { Navbar } from '../Common/Navbar/Navbar'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import dollorIcon from '../../Images/dollorIconGreen.svg'
+import dollorIcon from '../../Images/green staked coin.svg'
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import uploadIcon from "../../Images/uploadIcon.svg"
@@ -24,9 +24,11 @@ import CloseIcon from '@mui/icons-material/Close';
 
 
 export default function Adjustments() {
-    const { orderId } = useParams();
+    const { state} = useLocation();
+    const {orderId,orderItemId } = state
     const [page, setPage] = useState('adjustment')
     const navigate = useNavigate();
+    const [itemId,setItemId] = useState()
     const [adjustmentForm, setAdjustmentForm] = useState({ content: '', file_name: '' })
     const [openPopup, setOpenPopup] = useState(false)
     const [order, setOrder] = useState()
@@ -78,7 +80,13 @@ export default function Adjustments() {
         const response = await axios.get(`${base_url}/api/order/${orderId}/`, ConfigToken());
         if (response.data) {
             setOrder(response.data.data);
-            getAdjustments(response.data.data.brand_identity.item__id)
+            if(orderItemId){
+            getAdjustments(orderItemId)
+            setItemId(orderItemId)
+            }else{
+            setItemId(response.data.data.brand_identity.id)
+            getAdjustments(response.data.data.brand_identity.id)
+            }
         }
     }
     const getAdjustments = async (designId) => {
@@ -181,7 +189,7 @@ export default function Adjustments() {
         }
 
         updateTotals(itemsList, adjustmentData);
-        if (Object.keys(itemsList).length === 0 && Object.keys(adjustmentData).length === 0) {
+        if (page != 'adjustment' && Object.keys(itemsList).length === 0 && Object.keys(adjustmentData).length === 0) {
             navigate('/'); // Redirect to the home page
         }
     }
@@ -248,7 +256,7 @@ export default function Adjustments() {
             setError({ postalCode: 'Your postal code field is empty.' })
             return false
         } else if (!/^[0-9]{5,6}$/.test(billingInfo.postalCode)) {
-            setError({ postalCode: 'Yout postal code must be 5 or 6 digits.' })
+            setError({ postalCode: 'Your postal code must be 5 or 6 digits.' })
             return false
         }
 
@@ -279,7 +287,7 @@ export default function Adjustments() {
             total_time: totalTime
         }
         if (validateFields()) {
-            const res = await axios.post(`${base_url}/api/adjustment_create/${orderId}/`, formData, ConfigToken())
+            const res = await axios.post(`${base_url}/api/adjustment_create/${itemId}/`, formData, ConfigToken())
             if (res.data) {
                 window.location.href = res.data.data.payment_response.redirect_url
             }
@@ -340,7 +348,7 @@ export default function Adjustments() {
                         <div className='basis-[72%] md:px-8 px-8 xs:px-2 mt-4 py-4 border-r'>
                             <p className='flex text-[18px] items-center pb-2 text-black' onClick={() => { window.location.href = '/dashboard' }}> <ArrowBackIcon style={{ width: '25px', marginRight: '10px' }} /> Back to dashboard </p>
                             <div className='pl-14 md:pl-14 xs:pl-2'>
-                                <h1 className='lg:text-[40px] md:text-[32px]'> Adjustments </h1>
+                                <h1 className='lg:text-[40px] text-[#000] md:text-[32px]'> Adjustments </h1>
                                 <p className='lg:text-[20px] mb-2 md:text-[16px] text-[#00000080]'> Here you can edit your brand and add items to your bundl! </p>
                                 <p className='lg:text-[32px] font-bold md:text-[24px]'>What would you like to edit ?</p>
                                 <div className=''>
@@ -475,8 +483,8 @@ export default function Adjustments() {
                                                     <AccessTimeIcon style={{ marginRight: '5px', width: '18px' }} />
                                                     <span>{Math.round(item.time * item.qty)} Days</span>
                                                 </p>
-                                                <p className='flex'>
-                                                    <img width={'18px'} className='mr-[5px]' src={dollorIcon}></img>
+                                                <p className='flex items-center'>
+                                                    <img width={'18px'} className='mr-[5px] h-[18px]' src={dollorIcon}></img>
                                                     <span>{item.price * item.qty} SAR</span>
                                                 </p>
                                             </div>
@@ -504,8 +512,8 @@ export default function Adjustments() {
                                                     <AccessTimeIcon style={{ marginRight: '5px', width: '18px' }} />
                                                     <span>{parseInt(item.time_limit)} Days</span>
                                                 </p>
-                                                <p className='flex'>
-                                                    <img width={'18px'} className='mr-[5px]' src={dollorIcon}></img>
+                                                <p className='flex items-center'>
+                                                    <img width={'18px'} className='mr-[5px] h-[18px]' src={dollorIcon}></img>
                                                     <span>{item.price} SAR</span>
                                                 </p>
                                             </div>

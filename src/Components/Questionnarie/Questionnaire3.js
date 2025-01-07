@@ -8,15 +8,15 @@ import { questionnaireAction3 } from '../../Redux/Action';
 import { ConfigToken } from "../Auth/ConfigToken"
 import { ToastContainer, toast } from 'react-toastify';
 
-export const Questionnaire3 = () => {
+export const Questionnaire3 = ({formData,setFormData}) => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
   const answers = useSelector((state) => state.questionnaire2);
+  const currentAnswer = useSelector((state) => state.questionnaire3)
   const [questions, setQuestions] = useState([]);
   const [sliderValues, setSliderValues] = useState({});
-  const [formData, setFormData] = useState(location.state?.questionnaireData3?.formData);
   const [fetchQ3Answers, setFetchQ3Answers] = useState([]);
 
   const progressLabels = [
@@ -64,6 +64,7 @@ export const Questionnaire3 = () => {
         console.error("Error fetching questions:", error);
       }
     }
+    setFormData(currentAnswer)
     fetchQuestions();
     fetchAnswers();
   }, []);
@@ -179,7 +180,10 @@ export const Questionnaire3 = () => {
         orderId={location.state?.orderId}
         onBackClick={onBackClick}
         onNextClick={onNextClick}
-        onSaveLaterClick={onSaveLaterClick}
+        onSaveLaterClick={onSaveLaterClick}        
+        formData={formData}
+        setFormData={setFormData}
+
         questions={
           questions.map((question, index) => (
             <div className="questions" key={index}>

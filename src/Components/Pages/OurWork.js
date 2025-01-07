@@ -63,7 +63,7 @@ export default function OurWork() {
   .map((project, index,filteredProjects) => (
     <div
       key={index}
-      className={`sm:flex flex xs:block x w-full ${
+      className={`sm:flex flex items-center xs:block x w-full ${
         index !== filteredProjects.length - 1 ? 'border-b' : ''
       } mt-2 !border-black items-start mb-2 pb-4 p-2 px-4`}
     >

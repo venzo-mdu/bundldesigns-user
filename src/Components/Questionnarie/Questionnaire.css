@@ -185,6 +185,9 @@
     padding: 0% 20%;
     margin: 2% 0 0 0;
 }
+input::placeholder {
+    font-weight: normal; /* Change to 'normal', 'lighter', 'bolder', or a numeric value as needed */
+}
 
 .male-btn, .female-btn {
     flex-grow: 1; /* Allows buttons to grow evenly across available space */
@@ -833,10 +836,11 @@
 
 @media screen and (max-width:1705px) and (min-width:1024px) {
     .title-questionnaire{
-        font-size: 50px;
-        width: 34%;
-        line-height: 50px;
-        margin: -15% 0 0 0%;
+        width: 60%;
+        line-height: 75px;
+        margin: auto;
+        position: absolute;
+        top: 20%;
     }
     .progress-section-q3{
         width: 90%;

@@ -31,6 +31,8 @@ export const Questionnaire = ({
   onNextClick,
   onSaveLaterClick,
   storeAnswers,
+  formData,
+  setFormData,
   orderId
 }) => {
 
@@ -51,7 +53,7 @@ export const Questionnaire = ({
                 <img src={Cloud2} alt="Natural" />
               </div>
               <div className='flex justify-center items-center'>
-              <p className='title-questionnaire'>{bgTitle}</p>
+              <p className='title-questionnaire !text-[72px]'>{bgTitle}</p>
               </div>
             </div>
             {
@@ -116,7 +118,7 @@ export const Questionnaire = ({
         </div>
       </div>
       <div style={{ position: 'fixed', bottom: '0' }}>
-        <Stepper pageNo={pageNo} answersData={storeAnswers} fillId={orderId}/>
+        <Stepper formData={formData} pageNo={pageNo} answersData={storeAnswers} fillId={orderId}/>
       </div>
       {/* <Footer/> */}
     </div>

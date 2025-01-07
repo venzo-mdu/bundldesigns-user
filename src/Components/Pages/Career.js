@@ -10,11 +10,14 @@ import emailicon from '../../Images/mailIcon.svg'
 import fileUploadIcon from '../../Images/fileUploadIcon.svg'
 import careerImg from '../../Images/default-career-img.svg'
 import CloseIcon from '@mui/icons-material/Close';
+import PhoneNumberInput from './PhoneNumberInput';
+
 
 export default function Career() {
   const  [vacancies,setVacancies] =  useState([])
   const [expandedVacancies, setExpandedVacancies] = useState({});
   const [successMsg,setSuccessMsg] = useState('')
+  const [phoneError,setPhoneError] = useState(false)
   const base_url = process.env.REACT_APP_BACKEND_URL
   const getCookie = (name) => {
     const value = `; ${document.cookie}`;
@@ -62,7 +65,7 @@ export default function Career() {
     }
 
     if (!formData.phone) newErrors.phone = 'Phone number is required';
-    else if (!/^\d{10}$/.test(formData.phone)) newErrors.phone = 'Phone number must be 10 digits';
+    // else if (!/^\d{10}$/.test(formData.phone)) newErrors.phone = 'Phone number must be 10 digits';
 
     if (!formData.email) newErrors.email = 'Email is required';
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = 'Email is invalid';
@@ -195,14 +198,18 @@ export default function Career() {
 
       {/* Phone Field */}
       <div  className='mt-3 mb-3'>
-        <input
-          type="tel"
-          name="phone"
-          placeholder='Phone Number'
-          value={formData.phone}
-          onChange={handleChange}
-          className="w-full border !border-black p-2"
-        />
+      <PhoneNumberInput
+        name="phone"
+        placeholder="ex: 569754639"
+        value={formData.phone}
+        status={setFormData}
+        extraInputClass={'!border-black text-[16px]'}
+        setPhoneError={setPhoneError}
+        className="w-full  text-[16px]  "
+        setErrors = {setErrors}
+        formErrors = {errors}
+        idName={'websterSelect'}
+      />
         {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
       </div>
 
@@ -279,7 +286,7 @@ export default function Career() {
             <p className='text-center flex items-center !mb-1 mt-4 justify-center font-bold'> <img className='mr-1' src={emailicon}></img> info@bundldesigns.com</p>
             <p className='text-center flex items-center mt-1 justify-center font-bold'> <img className='mr-1' src={whatsappicon}></img>+(966) 547754124 </p>
 
-            {successMsg && <p className='bg-green-600 py-1 px-4 rounded text-white'>{successMsg} <CloseIcon onClick={()=>{setSuccessMsg(null)}} className='ml-2 text-white' /> </p>}
+            {successMsg && <p className='bg-green-600 py-1 px-4 flex justify-between items-center rounded text-white'>{successMsg} <CloseIcon onClick={()=>{setSuccessMsg(null)}} className='ml-2 text-white cursor-pointer' /> </p>}
     </form>
         </div >
     </div>

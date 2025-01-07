@@ -20,12 +20,7 @@ import ItemProgressIcon from '../../Images/orderItemProgress.svg'
 import ItemFinishedIcon from '../../Images/orderItemFinished.svg'
 import downloadBlackIcon from '../../Images/downloadIconBlack.svg'
 import ClearIcon from '@mui/icons-material/Clear';
-
-
-
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { Popup } from '../Common/Popup/Popup';
 import { DashboardPopup } from '../Common/Popup/DashboardPopup';
@@ -114,7 +109,8 @@ export default function Dashboard() {
                      setProcessIndex(1)
             }
             if (orderData.order_status == 'send_for_approval' || orderData.order_status =='add_ons' || orderData.order_status =='in_review' ) {
-                const parts = response.data.brand_item_management?.delivery_files[0].split('/');
+                console.log(response.data.brand_item_management?.delivery_files,'del')
+                const parts = response.data.brand_item_management?.delivery_files.length? response.data.brand_item_management?.delivery_files[0].split('/'):null
                 parts && setBrandFile(parts[parts.length - 1])
             }
         }
@@ -221,14 +217,14 @@ export default function Dashboard() {
                         </p>
                         <p>
                             <button
-                                onClick={() => { window.location.href = `/adjustment/${order.id}` }}
-                                className="px-2 py-1 text-[#1BA56F] font-[500] border !border-[#1BA56F] text-[16px] mt-2 mr-2"
+                            onClick={()=>{navigate('/adjustment',{state:{orderId:order.id,orderItemId:null}})}}
+                            className="px-3 py-1 text-[#1BA56F] font-[500] border !border-[#1BA56F] text-[16px] mt-2 mr-2"
                             >
                                 {dashboardJson.process_content.request_edit}
                             </button>
                             <button
                                 onClick={() => approveBrand()}
-                                className="bg-[#1BA56F] px-2 py-1 font-[500] text-[#fff] text-[16px] mt-2"
+                                className="bg-[#1BA56F] px-3 py-1 font-[500] text-[#fff] text-[16px] mt-2"
                             >
                                 {dashboardJson.process_content.approve_brand}
                             </button>
@@ -445,10 +441,10 @@ export default function Dashboard() {
     </p>
 
     <div className='border-[1.5px] mt-0 !border-black py-2 px-6'>
-        <div className='flex items-center lg:w-[80%] w-[80%] md:w-[90%] mx-auto mt-10 px-20'>{renderProcessData()}</div>
-        <div className='flex mb-12 lg:w-[80%] w-[80%] md:w-[80%] m-auto'>
+        <div className='flex items-center lg:w-[80%] w-[80%] md:w-[92%]  mx-auto mt-10 px-20'>{renderProcessData()}</div>
+        <div className='flex mb-12 lg:w-[80%] w-[80%] md:w-[92%] m-auto'>
             {dashboardJson.project_process.map((item, index) => {
-                return <div className='basis-1/5  text-center text-[16px]'>  <p className={`pb-0 lg:max-w-[90%] md:max-w-[95%] max-w-[95%] mx-auto mb-0 ${index == processIndex && 'font-bold'}`}> {item} </p>
+                return <div className='basis-1/5  text-center text-[16px]'>  <p className={`pb-0 lg:max-w-[60%] md:max-w-[95%] max-w-[95%] mx-auto mb-0 ${index == processIndex && 'font-bold'}`}> {item} </p>
                     {index == processIndex && <p className='text-[#1BA56F] font-[700]'>You’re now Here!</p>}
                 </div>
             })}
@@ -459,7 +455,7 @@ export default function Dashboard() {
             {order && order.item_details && Array.isArray(order.item_details) && <>
                 <p className={`text-[22px] font-bold my-2 ${processIndex < 2 ? 'text-[#00000080]' : 'text-black'}`}>Brand & Visual Identity <span className='text-[#1BA56F] text-[18px] font-[500]'> -
                     {processIndex < 2 ? ' ON HOLD' : processIndex >= 4 ? ' COMPLETE' : ' IN PROGRESS'}</span> </p>
-                <p className={`font-medium text-[18px] ${processIndex < 2 ? 'text-[#00000080]':'text-[#000]' }`}>{order?.brand_identity?.item_name}</p>
+                <p className={`font-medium text-[18px] ${processIndex < 2 ? 'text-[#00000080]':'text-[#000]' }`}>{order?.brand_identity?.item_name} { processIndex >= 4 &&  <button className='bg-[#1BA56F] px-2 !py-0  text-[16px] ml-4 text-white font-[400]'  onClick={()=>{navigate('/adjustment',{state:{orderId:order.id,orderItemId:null}})}}>Request Edits</button>} </p>
                 <p className={`text-[22px] ${processIndex < 4 && 'text-[#00000080]'} font-bold my-2`}>Applications
 
                     <span className='text-[#1BA56F] text-[18px] font-[500]'> -
@@ -475,10 +471,11 @@ export default function Dashboard() {
                                 {item.status == 'questionnaire required' ? <>
                                     <span className='mr-2 font-normal'>Waiting content</span>
                                     <img src={ItemWaitingIcon}></img>
-                                </> : item.status == 'content_uploaded' ? <>
+                                </> : item.status == 'in process' ? <>
                                     <span className='mr-2 font-normal'>In Progress</span>
                                     <img src={ItemProgressIcon}></img>
                                 </> : <>
+                                <button className='bg-[#1BA56F] mr-10 px-2 !py-0 text-[16px] ml-4 text-white font-[400]'  onClick={()=>{navigate('/adjustment',{state:{orderId:order.id,orderItemId:item.id}})}}>Request Edits</button>
                                     <span className='mr-2 font-semibold text-[#1BA56F]'>Finished</span>
                                     <img src={ItemFinishedIcon}></img>
                                 </>}

@@ -130,7 +130,7 @@ export const MyCart = () => {
             setError({postalCode:'Your postal code field is empty.'})
             return false
         } else if (!/^[0-9]{5,6}$/.test(billingInfo.postalCode)) {
-            setError({postalCode:'Yout postal code must be 5 or 6 digits.'})
+            setError({postalCode:'Your postal code must be 5 or 6 digits.'})
             return false
         }
 

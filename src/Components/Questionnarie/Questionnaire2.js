@@ -24,20 +24,19 @@ import { questionnaireAction2 } from '../../Redux/Action';
 import { ConfigToken } from '../Auth/ConfigToken';
 
 
-export const Questionnaire2 = () => {
+export const Questionnaire2 = ({formData,setFormData}) => {
  
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
   const answers = useSelector((state) => state.questionnaire1);
+  const currentAnswer = useSelector((state) => state.questionnaire2)
 
   const [questions, setQuestions] = useState([]);
   const [selectedGender, setSelectedGender] = useState('');
   const [activeFemaleButtons, setActiveFemaleButtons] = useState([]);
   const [activeMaleButtons, setActiveMaleButtons] = useState([]);
-  const [formData, setFormData] = useState(location.state?.questionnaireData2);
   const [fetchQ2Answers, setFetchQ2Answers] = useState([]);
-
   const femaleImages = [Female1, Female2, Female3, Female4, Female5, Female6];
   const MaleImages = [Male1, Male2, Male3, Male4, Male5, Male6];
   const placeHolders = [
@@ -58,6 +57,7 @@ export const Questionnaire2 = () => {
         console.error("Error fetching questions:", error);
       }
     };
+    setFormData(location.state?.questionnaireData2)
     const fetchAnswers = async () => {
       try {
         const response = await axios.get(`${base_url}/api/questionnaire/update/${location.state.orderId}`, ConfigToken());
@@ -78,6 +78,21 @@ export const Questionnaire2 = () => {
         console.error("Error fetching questions:", error);
       }
     }
+    setFormData(currentAnswer)
+  console.log(currentAnswer,'10' in currentAnswer,'apppp')
+    if ('10' in currentAnswer) {
+      const answer = currentAnswer['10'];
+      setActiveMaleButtons(answer['male'])
+      setActiveFemaleButtons(answer['female'])
+     if (answer['female'].length && answer['male'].length) {
+          setSelectedGender('both');
+      }else if(answer['male'].length) {
+        setSelectedGender('male');
+      }
+       else {
+          setSelectedGender('female');
+      }
+  }
     fetchQuestions();
     fetchAnswers();
   }, []);
@@ -225,7 +240,7 @@ export const Questionnaire2 = () => {
     });
   };
   
-
+  console.log(formData,'form')
   const handleChange = (questionId , value) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -280,6 +295,8 @@ export const Questionnaire2 = () => {
         onNextClick={onNextClick}
         onSaveLaterClick={onSaveLaterClick}
         storeAnswers={answers}
+        formData={formData}
+        setFormData={setFormData}
         questions={
           <>
           {
