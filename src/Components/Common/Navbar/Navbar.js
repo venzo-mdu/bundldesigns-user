@@ -99,7 +99,7 @@ export const Navbar = () => {
                     <div className="navbar  float-right">
                       <ul className=" mr-auto h-list align-items-center ">
                         <li >
-                          <a className="" href="#"><img src={Search} alt="" className="navIcons  ml-2"></img> dsdsd </a>
+                          <a className="" href="#"><img src={Search} alt="" className="navIcons  ml-2"></img> </a>
                         </li>
                         <li className='px-[6px] inner-nav'>
 
