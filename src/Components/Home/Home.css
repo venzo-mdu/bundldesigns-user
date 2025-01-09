@@ -804,10 +804,10 @@ left: 50%;
 transform: translate(-50%, -50%);
 }
 .img-rotate-qf {
-position: absolute;
-bottom: 30%;
-right: 10%;
-transform: translateY(-20%);
+  position: absolute;
+  bottom: -33%;
+  right: 10%;
+  z-index: 40;
 }
 .rotating-image {
 animation: rotate-animation 30s linear infinite;
@@ -4418,9 +4418,9 @@ font-size: 20px;
 }
 
 @media screen and (max-width:1705px) and (min-width:1024px) {
-.img-rotate-qf{
+/* .img-rotate-qf{
   bottom: 6%;
-}
+} */
 .col-lg-6{
   width: 40%;
 }

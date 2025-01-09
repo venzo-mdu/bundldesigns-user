@@ -123,6 +123,11 @@ export const Stepper = ({ pageNo ,formData, answersData , fillId }) => {
                 pageNo:page
             },
         });
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+          });
+
     };
     
 

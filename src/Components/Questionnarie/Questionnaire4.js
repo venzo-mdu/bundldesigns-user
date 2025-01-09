@@ -269,6 +269,10 @@ export const Questionnaire4 = ({formData,setFormData}) => {
         orderId: location.state?.orderId
       }
     });
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
   }
 
   const onSaveLaterClick = async () => {
@@ -345,12 +349,12 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                           </div>
                           <div className='button-shade-group'>
                             <img src={Color3}></img>
-                            <button className={shadeBackgroundColor === 'rgb(221, 45, 45)' && shadeType !== 'surprise' ? 'shade-btn-active' : 'shade-btn'} onClick={() => handleShadeButtonClick('rgb(221, 45, 45)', 'rgb(255, 136, 136)', '', question.id)}>ONE COLOR SHADES</button>
+                            <button className={shadeBackgroundColor === 'rgb(255, 136, 136)' && shadeType !== 'surprise' ? 'shade-btn-active' : 'shade-btn'} onClick={() => handleShadeButtonClick('rgb(255, 136, 136)','rgb(221, 45, 45)' ,'', question.id)}>ONE COLOR SHADES</button>
                           </div>
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
                           <p className='shade-bundl-text' style={{ color: shadeColor }}>Bundl</p>
-                          <b><p className='not-sure'>Not sure ? It’s okay!</p></b>
+                          <b><p className='text-[12px] leading-1 font-[500]'>Not sure ? It’s okay!</p></b>
                           <button className={shadeType === 'surprise' ? 'surprise-active' : 'surprise'} onClick={() => handleShadeButtonClick('rgb(228, 222, 216)', 'rgb(0, 0, 0)', 'surprise', question.id)}>surprise me !</button>
                         </div>
                       </div>
@@ -378,7 +382,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                         }
                       </div>
                       <figure className='mt-[5%]'>
-                        <b><i className='text-[28px]'>Not sure ? It's okay!</i></b>
+                        <b><i className='text-[12px] leading-1 font-[500]'>Not sure ? It's okay!</i></b>
                       </figure>
                       <button className={`${activeButtons.includes("Surprise") ? 'surprise-active':'surprise'}`} onClick={() => handleButtonClick("", question.id, "Surprise")}>surprise me !</button>
                     </>
@@ -504,7 +508,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                           <AddCircleRoundedIcon  onClick={()=>handleColorClick(inputValue,question.id)} />
                         </button>
                         <figure className='mt-[3%]'>
-                          <b><i className='text-[28px]'>Not sure ? It's okay!</i></b>
+                          <b><i className='text-[12px] leading-1 font-[500]'>Not sure ? It's okay!</i></b>
                         </figure>
                         <button className={`${selectedColors.includes("Surprise") ? 'surprise-active':'surprise'}`} onClick={() => handleColorClick("Surprise", question.id)}>surprise me !</button>
                       </div>
@@ -630,7 +634,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
 
                         </ul>
                         <figure className='mt-1'>
-                          <b><i className='text-[28px]'>Not sure ? It's okay!</i></b>
+                          <b><i className='text-[12px] leading-1 font-[500]'>Not sure ? It's okay!</i></b>
                         </figure>
                         <button className={`${formData[question.id]?.includes('Surprise')?'surprise-active':'surprise'}`} onClick={()=>handleTextureChange(null,question.id,true)}>surprise me !</button>
                       </div>

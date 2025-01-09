@@ -1305,7 +1305,7 @@ export const Home = () => {
     const [activeProcess, setActiveProcess] = useState(0);
     const [isActiveProcess, setIsActiveProcess] = useState([false, false, false, false, false]);
     const [bundlData, setBundlData] = useState([]);
-    const translateX = activeProcess * (window.innerWidth <= 475 ? 85 : window.innerWidth <= 768 ? 150 : 195);
+    const translateX = activeProcess * (window.innerWidth <= 475 ? 85 : window.innerWidth <= 768 ? 150 : 180);
     const bundlImages = [QubeIcon, Diamond, Eye, Food, Money]
     const textColor = ["pink-text", "green-text", "blue-text", "pink-text"]
     const titles = ["Just to get started", "For Restaurants and Cafés", "For Salons and Other Services", "For Shops and Online Stores"]
@@ -1715,7 +1715,7 @@ export const Home = () => {
                                             </div>
                                         ))}
                                     </div>
-                                    <svg className="rocket overlay" style={{ transform: `translateX(${translateX}px)` }} width="103" height="51" viewBox="0 0 103 51" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <svg className="rocket overlay ml-[-20px]" style={{ transform: `translateX(${translateX}px)` }} width="103" height="51" viewBox="0 0 103 51" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <g style={{ mixBlendMode: "multiply" }}>
                                             <path d="M17.0243 20.1751L0.10283 39.9605L20.7547 38.3386L33.3441 50.4381L52.0055 44.0664L53.6119 42.9629L58.3442 42.0547L63.9225 39.9665L76.0922 37.2171L100.775 30.1494L102.466 29.1142L102.303 27.853L101.161 27.3343L72.3146 16.0341L49.3982 6.77805L32.8747 0.593947L28.2324 6.28473L25.3511 9.71008L23.2039 11.6917L20.7801 14.6193L19.3632 15.5849L21.3765 19.2735L21.7309 21.025L17.0243 20.1751Z" fill={processData[activeProcess].fill} />
                                         </g>

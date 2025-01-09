@@ -140,6 +140,10 @@ export const Questionnaire1 = ({formData,setFormData}) => {
       navigate(`/questionnaire/${2}`,{state:{
         orderId:location.state?.orderId
       }});
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
     }
   };
 
@@ -168,6 +172,18 @@ export const Questionnaire1 = ({formData,setFormData}) => {
       }
     }
   }
+
+  
+  const getOrderDetails = async () => {
+    const response = await axios.get(`${base_url}/api/order/${ location.state?.orderId}/`, ConfigToken());
+    setFormData((prev) => ({
+      ...prev,
+      1: response.data.data.project_name, 
+    }));
+  }
+  useEffect(()=>{
+    getOrderDetails()
+  })
 
   return (
     <div>

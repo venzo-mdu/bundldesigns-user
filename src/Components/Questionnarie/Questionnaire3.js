@@ -144,6 +144,10 @@ export const Questionnaire3 = ({formData,setFormData}) => {
         orderId: location.state?.orderId
       }
     });
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
   }
 
   const onSaveLaterClick = async () => {

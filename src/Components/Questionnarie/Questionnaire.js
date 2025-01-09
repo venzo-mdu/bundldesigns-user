@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import '../Questionnarie/Questionnaire.css'
 import { Navbar } from '../Common/Navbar/Navbar'
 import { Footer } from '../Common/Footer/Footer'
@@ -37,6 +37,7 @@ export const Questionnaire = ({
 }) => {
 
   const navigate = useNavigate();
+  
 
   const bgColors = ['#F3B7CE', '#1BA56F', '#00A8C8', '#F3B7CE']
   return (
@@ -117,7 +118,7 @@ export const Questionnaire = ({
           <button className='save' onClick={onSaveLaterClick}>SAVE FOR LATER</button>
         </div>
       </div>
-      <div style={{ position: 'fixed', bottom: '0' }}>
+      <div style={{ bottom: '0' }}>
         <Stepper formData={formData} pageNo={pageNo} answersData={storeAnswers} fillId={orderId}/>
       </div>
       {/* <Footer/> */}
