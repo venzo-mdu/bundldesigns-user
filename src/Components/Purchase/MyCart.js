@@ -19,6 +19,7 @@ import { base_url } from '../Auth/BackendAPIUrl';
 import { redirect, useLocation, useNavigate } from 'react-router-dom'
 import { ConfigToken } from '../Auth/ConfigToken'
 import PhoneNumberInput from '../Pages/PhoneNumberInput';
+import backIcon from "../../Images/backIcon.svg"
 
  
 export const MyCart = () => {
@@ -26,8 +27,10 @@ export const MyCart = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const [cartDetails, setCartDetails] = useState([]);
+    const [showModal, setShowModal] = useState(false);
     const [openPopup , setOpenPopup] = useState(false);
     const [removedItems,setRemovedItems] = useState([])
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 440);
     const [phoneError,setPhoneError] = useState(false)
     const [billingInfo, setBillingInfo] = useState({
         firstName: '',
@@ -45,6 +48,17 @@ export const MyCart = () => {
         document.documentElement.scrollTo({ top: 0, left: 0 });
         getCartData();
     }, []);
+      useEffect(()=>{
+        const handleResize = () => {
+          setIsMobile(window.innerWidth < 440);
+        };
+    
+        window.addEventListener('resize', handleResize);
+    
+        return () => {
+          window.removeEventListener('resize', handleResize);
+        };
+      },[]);
  
     const getCartData = async () => {
         try{
@@ -175,15 +189,74 @@ export const MyCart = () => {
         delete errors[name] 
         setErrors(errors)
     };
- 
+    useEffect(() => {
+        const handlePopState = (event) => {
+          event.preventDefault();
+          setShowModal(true); // Show modal when browser back button is clicked
+        };
+    
+        window.history.pushState(null, '', window.location.href);
+        window.addEventListener('popstate', handlePopState);
+    
+        return () => {
+          window.removeEventListener('popstate', handlePopState);
+        };
+      }, []);
+    const handleBackClick = () => {
+        setShowModal(true);
+      };
+    
+      const confirmNavigation = () => {
+        setShowModal(false);
+        navigate(-1); // Navigate to the previous page
+      };
+    
+      const cancelNavigation = () => {
+        setShowModal(false);
+      };
     return (
         <div>
             <ToastContainer />
             <Navbar />
+            {showModal && (
+        <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white rounded-lg shadow-lg p-6 max-w-sm">
+            <p className="text-lg font-medium text-gray-900">
+            Your customized package will be reset.
+            Are you sure you want to go back?
+            </p>
+            <div className="mt-4 flex justify-center space-x-4">
+              <button
+                onClick={confirmNavigation}
+                className="px-4 py-2 bg-[#0BA6C4] text-white rounded "
+              >
+                Yes
+              </button>
+              <button
+                onClick={cancelNavigation}
+                className="px-4 py-2 bg-grey  text-white rounded hover:bg-grey"
+              >
+                No
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
             <div className='mycart '>
-                <div className='cart sm:!pb-[170px] !pb-[170px] xs:!pb-[20px]'>
-                    <p>Your Cart</p>
-                        <table className='w-full border-none' aria-label="simple table">
+                <div className='cart !xs:border-none  sm:!pb-[170px] !pb-[170px] xs:!pb-[20px]'>
+            <p onClick={()=>handleBackClick()} className='flex cursor-pointer text-[18px] items-center text-black'> <img src={backIcon} className='mr-2' ></img> Back to Bundl </p>
+                    <p className='!xs:text-[16px] !sm:text-[20px]'>Your Cart</p>
+                    {isMobile ? <>
+                        {cartDetails?.item_details?.bundle_items?.map((row,index) => (
+                            <div className='flex justify-between border-b pb-2 !border-black'> 
+                            <div>
+                            <div className='font-[700] text-[20px]'>{row.qty} x {row.item_name}</div>
+                            <div className='font-[500] ml-8'> {row.unit_price} SAR</div>
+                            </div>
+                            <p className='flex items-center !mb-0 justify-center'><img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'bundle')}/></p>
+                             </div>
+                        ))}
+                    </>:<table className='w-full border-none' aria-label="simple table">
                             <thead>
                                 <tr className='!text-left text-[20px]'>
                                     <td className= 'text-left w-[20%] text-[#00000080] pb-3' >Item</td>
@@ -229,20 +302,21 @@ export const MyCart = () => {
                                     </tr>
                                 ))}
                             </tbody>
-                        </table>
+                        </table>}
+                        
                     <div className='cart-total-container '>
-                        <div className='total justify-between pl-10  mr-4' style={{ display: 'flex' }}>
-                            <p  className='!text-[20px]' style={{ width: '50%' }}>Price:</p>
-                            <p  className='!text-[20px]  text-right' style={{ width: '50%' }}>{Math.round(cartDetails.total_amount)} sar</p>
+                        <div className='total justify-between sm:pl-10 xs:pl-1 mr-4' style={{ display: 'flex' }}>
+                            <p  className='!text-[20px] xs:mb-0 sm:mb-auto' style={{ width: '50%' }}>Price:</p>
+                            <p  className='!text-[20px] xs:mb-0 sm:mb-auto text-right' style={{ width: '50%' }}>{Math.round(cartDetails.total_amount)} sar</p>
                         </div>
-                        <div className='total justify-between pl-10 mr-4' style={{ display: 'flex' }}>
+                        <div className='total justify-between sm:pl-10 xs:pl-1 mr-4' style={{ display: 'flex' }}>
                             <p  className='!text-[20px]' style={{ width: '53%' }}>VAT:</p>
                             <p  className='!text-[20px]  text-right' style={{ width: '40%' }}>{Math.round(cartDetails.tax)} sar</p>
                         </div>
                         <div>
                             <div  className='justify-between mr-4'  style={{ display: 'flex'}}>
-                                <p className='!text-[20px] ml-[6px]' style={{ width: '50%' }}><img src={BlackDollor} className='inline-block ml-[0px] mr-[18px]'></img>Total Price :</p>
-                                <p className='!text-[20px] text-right' style={{ width: '40%' }}>{isNaN(Math.round(cartDetails.grand_total))?0:Math.round(cartDetails.grand_total)} sar</p>
+                                <p className='!text-[20px] xs:mb-0 sm:mb-auto ml-[6px]' style={{ width: '50%' }}><img src={BlackDollor} className='inline-block ml-[0px] mr-[18px]'></img>Total Price :</p>
+                                <p className='!text-[20px] xs:mb-0 sm:mb-auto text-right' style={{ width: '40%' }}>{isNaN(Math.round(cartDetails.grand_total))?0:Math.round(cartDetails.grand_total)} sar</p>
                             </div>
                             <div  className='justify-between mr-4' style={{ display: 'flex' }}>
                                 <p className='!text-[20px]' style={{ width: '66%' }}><img src={BlackTime} className='inline-block mr-3'></img>Total Duration :</p>

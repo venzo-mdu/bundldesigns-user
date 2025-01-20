@@ -43,17 +43,20 @@ export const Questionnaire5 = ({formData,setFormData}) => {
     };
     const fetchAnswers = async () => {
       try {
+        if(location.state.orderId != undefined){
         const response = await axios.get(`${base_url}/api/questionnaire/update/${location.state.orderId}`, ConfigToken());
         setFetchQ5Answers(response.data.data)
+        }
       } catch (error) {
         console.error("Error fetching questions:", error);
       }
     }
     setFormData(currentAnswer)
     fetchQuestions();
+    setSelectedLanguage(currentAnswer?.[24] ?currentAnswer[24]:null)
     fetchAnswers();
   }, []);
-
+  console.log(formData,'form')
 
   const getAnswerValue = (questionId) => {
 
@@ -120,9 +123,9 @@ export const Questionnaire5 = ({formData,setFormData}) => {
 
 
   const onBackClick = () => {
-    navigate(`/questionnaire/${4}`, { state: { questionnaireData4: answers4 } });
+    navigate(`/questionnaire/${4}`, { state: { questionnaireData4: answers4,orderId:location.state?.orderId } });
   };
-
+console.log(location.state?.orderId,'orderid')
   const FinishClick = async () => {
     if (!validateFields()) {
       return;
@@ -190,7 +193,7 @@ export const Questionnaire5 = ({formData,setFormData}) => {
         setFormData={setFormData}
         questions={questions.map((question,index) => (
           <div className="questions" key={question.id}>
-            <p className={`questions-title ${index === 0 ? 'mt-[1%]' : 'mt-[4%]'}`}>
+            <p className={`questions-title  xs:w-[70%] sm:w-full md:w-full mx-auto ${index === 0 ? 'mt-[1%]' : 'mt-[4%]'}`}>
               {question.question}
               {question.required && (
                 <span>

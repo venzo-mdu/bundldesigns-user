@@ -191,7 +191,7 @@ export const Navbar = () => {
 
 
             <div className=' nav-container'>
-              <div className="nav-section bg-[#FFFFFF] w-[100%] z-[1] sticky top-0" >
+              <div className="nav-section  border-b border-black bg-[#FFFFFF] w-[100%] z-[1] sticky top-0" >
                 <div style={{ padding: '0% 0%' }} className="">
                   <div className="row items-center">
                     <div className="col-4 col-md-3 col-lg-3 justify-content-between">
@@ -221,7 +221,7 @@ export const Navbar = () => {
                     </div>
                     <div className="col-7 col-md-8  col-lg-3 text-end ">
                       <div className="navbar navbar-expand-lg float-right">
-                        <ul className="mt-[5vh] mr-auto h-list align-items-center ">
+                        <ul className="sm:mt-[5vh] xs:mt-0 mr-auto h-list align-items-center ">
                           <li className='px-[7px]'>
                             <a className="w-[26px]" href="#"><img src={Search} alt="" className="navIcons"></img></a>
                           </li>

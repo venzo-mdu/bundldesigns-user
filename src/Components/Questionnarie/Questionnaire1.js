@@ -46,12 +46,15 @@ export const Questionnaire1 = ({formData,setFormData}) => {
 
     const fetchAnswers = async () => {
       try {
+        if(location.state.orderId != undefined){
         const response = await axios.get(`${base_url}/api/questionnaire/update/${location.state.orderId}`, ConfigToken());
         setFetchQ1Answers(response.data.data)
+        }
       } catch (error) {
         console.error("Error fetching questions:", error);
       }
     }
+    setActiveType(currentAnswer?.type != undefined ?currentAnswer?.type :null )
     setFormData(currentAnswer)
     fetchQuestions();
     fetchAnswers();
@@ -109,7 +112,6 @@ export const Questionnaire1 = ({formData,setFormData}) => {
     }
     return fetchedAnswer ?? '';
   }
-
 
   const validateFields = () => {
     // Filter required questions that are either unanswered or contain invalid values
@@ -175,15 +177,21 @@ export const Questionnaire1 = ({formData,setFormData}) => {
 
   
   const getOrderDetails = async () => {
-    const response = await axios.get(`${base_url}/api/order/${ location.state?.orderId}/`, ConfigToken());
-    setFormData((prev) => ({
-      ...prev,
-      1: response.data.data.project_name, 
-    }));
+    if(location.state?.orderId){
+      const response = await axios.get(`${base_url}/api/order/${ location.state?.orderId}/`, ConfigToken());
+      console.log(formData,'formData')
+       setFormData((prev) => ({
+         ...prev,
+         1: response.data.data.project_name, 
+       }));
+    }
+        console.log(location.state?.questionnaireData1,'questionaire1s')
   }
   useEffect(()=>{
     getOrderDetails()
-  })
+  },[])
+console.log(formData,'formdata')
+
 
   return (
     <div>
@@ -199,7 +207,7 @@ export const Questionnaire1 = ({formData,setFormData}) => {
         onSaveLaterClick={onSaveLaterClick}
         questions={questions.map((question, index) => (
           <div className='questions' key={index}>
-            <p className={`questions-title ${index === 0 ? 'mt-[1%]' : 'mt-[4%]'}`}>
+            <p className={`questions-title xs:w-[100%] sm:w-full md:w-full mx-auto ${index === 0 ? 'mt-[1%]' : 'mt-[4%]'}`}>
               {question.question}
               {
                 question.required && (

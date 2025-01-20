@@ -34,6 +34,8 @@ export const Questionnaire3 = ({formData,setFormData}) => {
     "(ex: was always passionate about creating my own perfume business)",
   ]
 
+console.log(formData,'formData')
+
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
@@ -58,13 +60,16 @@ export const Questionnaire3 = ({formData,setFormData}) => {
     };
     const fetchAnswers = async () => {
       try {
-        const response = await axios.get(`${base_url}/api/questionnaire/update/${location.state.orderId}`, ConfigToken());
-        setFetchQ3Answers(response.data.data)
+        if(location.state.orderId != undefined){
+          const response = await axios.get(`${base_url}/api/questionnaire/update/${location.state.orderId}`, ConfigToken());
+          setFetchQ3Answers(response.data.data)
+        }
       } catch (error) {
         console.error("Error fetching questions:", error);
       }
     }
     setFormData(currentAnswer)
+    setSliderValues(currentAnswer[14]? currentAnswer[14]:{})
     fetchQuestions();
     fetchAnswers();
   }, []);
@@ -86,21 +91,6 @@ export const Questionnaire3 = ({formData,setFormData}) => {
     return fetchedAnswer ?? '';
   };
 
-  const handleSliderChange = (index, value, questionId) => {
-    const key = progressLabels[index] && value < 50 ? progressLabels[index].left : progressLabels[index].right;
-
-    setSliderValues((prevValues) => ({
-      ...prevValues,
-      [key]: value,
-    }));
-
-    // setFormData((prevFormData) => ({
-    //   ...prevFormData,
-    //   [questionId]: sliderValues
-    // }));
-  };
-
-  console.log(sliderValues, "values")
   const handleChange = (questionId, value) => {
     setFormData((formValues) => ({
       ...formValues,
@@ -132,7 +122,7 @@ export const Questionnaire3 = ({formData,setFormData}) => {
     return true; // All required fields are valid
   };
   const onBackClick = () => {
-    navigate(`/questionnaire/${2}`, { state: { questionnaireData2: answers } });
+    navigate(`/questionnaire/${2}`, { state: { questionnaireData2: answers,orderId:location.state?.orderId } });
   }
   const onNextClick = () => {
     if (!validateFields()) {
@@ -149,6 +139,7 @@ export const Questionnaire3 = ({formData,setFormData}) => {
       behavior: 'smooth',
     });
   }
+  console.log(location.state?.orderId,'orderid')
 
   const onSaveLaterClick = async () => {
     if (!validateFields()) {
@@ -191,7 +182,7 @@ export const Questionnaire3 = ({formData,setFormData}) => {
         questions={
           questions.map((question, index) => (
             <div className="questions" key={index}>
-              <p className={`questions-title ${index === 0 ? 'mt-[1%]' : 'mt-[4%]'}`}>
+              <p className={`questions-title  xs:w-[70%] sm:w-full md:w-full mx-auto ${index === 0 ? 'mt-[1%]' : 'mt-[4%]'}`}>
                 {question.question}
                 {
                   question.required && (
@@ -204,41 +195,6 @@ export const Questionnaire3 = ({formData,setFormData}) => {
                   <input value={getAnswerValue(question.id)} placeholder={placeHolders[index]} className="question-input" onChange={(e) => handleChange(question.id, e.target.value)} />
               }
               <div className=' flex items-center justify-center flex-col w-[100%] md:w-[100% xl:w-[100%] lg:w-[100%] mt-[3%]'>
-                {/* {question.answer_type === 'bar' && (
-                  progressLabels.map((data, index) => {
-                    console.log(sliderValues[data?.left]  ,"&", sliderValues[data?.right] )
-                    return (
-                      <>
-                        <div
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "space-between",
-                            gap: "10px",
-                          }}
-                          className='progress-section-q3'
-                        >
-                          <p className="progress-text" style={{ textAlign: 'left' }}>{data?.left}</p>
-                          <input
-                            type="range"
-                            // value={sliderValues[data?.left || data?.right] || 50}
-                            value={sliderValues[data?.left] < 50 ? sliderValues[data?.left] : sliderValues[data?.right] > 50 ? sliderValues[data?.right]:''}
-                            className="question-progress"
-                            min={0}
-                            max={100}
-                            // value={sliderValues[index] || 50}
-                            onChange={(e) => handleSliderChange(index, e.target.value, question.id)}
-                          />
-                          
-                          <p className="progress-text" style={{ textAlign: 'right' }}>{data?.right}</p>
-                        </div>
-                      </>
-                    )
-
-                  })
-
-                )} */}
-
 
                 {question.answer_type === 'bar' && (
                   progressLabels.map((data, index) => {
@@ -248,18 +204,17 @@ export const Questionnaire3 = ({formData,setFormData}) => {
 
                     const handleSliderChange = (newValue, id) => {
                       const adjustedValue = parseInt(newValue, 10);
-
-                      setSliderValues({
+                      const newSlideValues = {
                         ...sliderValues,
                         [data?.left]:100 - adjustedValue, 
                         [data?.right]: adjustedValue, 
-                      });
+                      }
+                      setSliderValues(newSlideValues);
                       setFormData((prevFormData) => ({
                         ...prevFormData,
-                        [id]: sliderValues
+                        [id]: newSlideValues
                       }));
                     };
-
                     const leftTextStyle = {
                       textAlign: "left",
                       fontSize: leftValue > rightValue ? "18px" : "14px", 

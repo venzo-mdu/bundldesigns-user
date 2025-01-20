@@ -1058,9 +1058,9 @@ input::placeholder {
     }
     .title-questionnaire{
         font-size: 20px;
-        line-height: 20px;
+        line-height: 36px;
         margin: -35% 0 0 0%;
-        width: 45%;
+        width: 60%;
     }
     .miclady{
         top:14%;
@@ -1081,7 +1081,7 @@ input::placeholder {
         width: 15%;
     }
     .questions-title{
-        font-size: 16px;
+        font-size: 22px;
         margin: 3% 0 5% 0;
     }
     .questions-title sup{
@@ -1162,7 +1162,6 @@ input::placeholder {
         font-size: 18px;
     }
     .questonnaire-actions-height{
-        height: 250px;
         margin: 8% 0 0 0;
     }
     .question-progress{

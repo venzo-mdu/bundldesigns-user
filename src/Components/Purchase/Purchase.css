@@ -9,7 +9,6 @@
 
 .bundl-detail h2 {
     color: #000000;
-    font-size: 40px;
     font-weight: 700;
 }
 
@@ -20,16 +19,14 @@
 }
 
 .bundl-amount p {
-    color: #0BA6C4;
+    color: #1BA56F;
     font-size: 20px;
     font-weight: 700;
 }
 
 .bundl-desc-title {
     color: #000000;
-    font-size: 20px;
     font-weight: 700;
-    width: 100%;
     text-align: center;
 }
 
@@ -128,7 +125,7 @@
 }
 .minimum {
     font-size: 20px;
-    color: #0BA6C4;
+    color: #1BA56F;
     font-weight: 500;
     width: 50%;
 }
@@ -183,7 +180,7 @@
 }
 
 .tab-buttons .active-button {
-    background-color: #0BA6C4;
+    background-color: #1BA56F;
     color: #FFFFFF;
     outline: none;
     width: 250px;
@@ -212,7 +209,7 @@
 
 .one-brand-identity {
     padding: 1% 5%;
-    color: #0BA6C4;
+    color: #1BA56F;
     font-size: 20px;
     font-weight: 700;
     border-bottom: 1px solid #00000080;
@@ -221,11 +218,11 @@
 .bundl-checkout {
     padding: 1% 5%;
 }
-
+/* 
 .total p {
     font-size: 20px;
     font-weight: 400;
-}
+} */
 
 .proceed {
     height: 50px;
@@ -244,7 +241,7 @@
 .proceed-text {
     font-size: 15px;
     font-weight: 500;
-    color: #0BA6C4;
+    color: #1BA56F;
     margin: 5% 0 0 0;
     text-align: center;
 }
@@ -296,7 +293,7 @@
     }
 
     .proceed {
-        width: 350px;
+        width: 330px;
     }
     .proceed-checkout {
         padding: 2% 1%;
@@ -387,16 +384,28 @@
         border-right: 0;
     }
     .bundl-summary {
+        position:fixed;
+        background-color: #FFFFFF;
+        bottom: 0;
         width: 100%;
     }
     .brand-input {
         height: 30px;
     }
+    .proceed-checkout {
+        padding: 2% 0%;
+    }
+    .proceed-text {
+        margin: 0%;
+    }
     .bundl-desc{
-        width: 100%;
-        font-size: 20px;
+        width: 90%;
+        font-size: 16px;
         line-height: 1.5;
         padding: 1% 1%;
+    }
+    .one-minor{
+        font-size: 16px;
     }
     .languages{
         width: 100%;
@@ -417,18 +426,37 @@
         font-size: 14px;
     }
     .accordian-heading{
-        font-size: 24px;
+        font-size: 32px;
     }
     .tab-buttons{
-        flex-direction: column;
+        flex-wrap: wrap;
     }
     .tab-buttons .accordian-button {
         font-size: 16px;
-        width: 100%;
      }
      .tab-buttons .active-button{
         font-size: 16px;
-        width: 100%;
+    }
+    .accordion-btn-1 {
+        width: 40% !important;
+    }
+    .accordion-btn-2 {
+        width: 60% !important;
+    }
+    .accordion-btn-3 {
+        width: 50% !important;
+    }
+    .accordion-btn-4 {
+        width: 50% !important;
+    }
+    .accordion-btn-5 {
+        width: 40% !important;
+    }
+    .accordion-btn-6 {
+        width: 60% !important;
+    }
+    .accordion-btn-7 {
+        width: 100% !important;
     }
     .proceed{
         width: 350px;

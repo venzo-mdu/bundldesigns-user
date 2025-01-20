@@ -10,7 +10,6 @@ import { Questionnaire5 } from './Questionnaire5';
 export const QuestionnaireLayout = () => {
   const {pageno} = useParams();
   const [formData, setFormData] = useState()
-  console.log(pageno,'sdfa')
   const questionnairePages = {
     1:<Questionnaire1 setFormData={setFormData} formData={formData} />,
     2:<Questionnaire2 setFormData={setFormData} formData={formData}/>,

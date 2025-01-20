@@ -106,30 +106,33 @@ export default function WebsterPremiumForm() {
 
         <div className=' font-Helvetica flex sm:pt-10 xs:pt-0 pt-10 xs:block sm:flex sm:pb-24 xs:pb-2 pb-24 overflow-hidden'>
           <div className='basis-1/4 relative xs:pb-8'>
-          {form_type=="premium"?<img className='sm:!w-[200px] !w-[200px] xs:!w-[130px] top-[15%] sm:right-[10%] xs:right-0 right-[10%] left- absolute xs:relative sm:absolute ' src={ paperPlaneGif}></img>
-          :<img className='sm:!w-[200px] !w-[200px] xs:!w-[130px]  top-[15%] sm:right-[10%] xs:right-0 right-[10%] absolute xs:relative sm:absolute ' src={ websterGif}></img>}
+          {form_type=="premium"?<img className='sm:!w-[200px] !w-[200px] xs:!w-[130px] top-[15%] sm:right-[10%] xs:right-0 right-[10%] left- absolute xs:hidden sm:absolute sm:block' src={ paperPlaneGif}></img>
+          :<img className='sm:!w-[200px] !w-[200px] xs:!w-[130px]  top-[15%] sm:right-[10%] xs:right-0 right-[10%] absolute xs:hidden sm:absolute sm:block ' src={ websterGif}></img>}
 
           </div>
           <div className='basis-2/4 px-[2px]'  >
-            <div className='text-center'>
+            <div className='text-center xs:border-b border-black relative sm:border-b-none'>
               <h2 className='text-[40px] mt-4 leading-1 relative text-black w-[340px] mx-auto mb-0'>
-                  <img className='absolute bottom-[10px] sm:bottom-[10px] xs:bottom-[20px] xs:left-0 sm:left-[-10%] left-[-10%]' src={Loginlogo} alt='login' /> Welcome to
+                  <img className='absolute bottom-[10px] xs:w-[90px] sm:w-[150px] sm:bottom-[10px] xs:bottom-[20px] xs:left-0 sm:left-[-10%] left-[-10%]' src={Loginlogo} alt='login' /> Welcome to
               </h2>
               <h2 className='text-[40px] text-[#F3B7CE] font-[700]'>{form_type == 'premium' ? 'The Premium Bundl' : ' The Webster Bundl'}</h2>
-              <p className='text-[20px] md:w-[100%] lg:w-[92%] xl:w-[62%] mx-auto'>Elevate your brand, whether online or in-store. This bundle includes comprehensive brand identity (logo, guidelines, colors, typography, patterns) and commerce collateral to enhance customer experience. Plus, get social media designs to boost sales.
+              <p className='sm:text-[20px] xs:pb-8 sm:pb-1 text-[20px] xs:text-[16px] md:w-[100%] lg:w-[92%] xl:w-[62%] xs:w-[350px] mx-auto'>Elevate your brand, whether online or in-store. This bundle includes comprehensive brand identity (logo, guidelines, colors, typography, patterns) and commerce collateral to enhance customer experience. Plus, get social media designs to boost sales.
               </p>
+              {form_type=="premium"?<img className='sm:!w-[200px] !w-[200px] xs:!w-[130px] bottom-[-50px] left-[-30px] right-[10%] absolute sm:hidden ' src={ paperPlaneGif}></img>
+          :<img className=' !w-[100px] bottom-[-20px] left-[-6px] right-[10%] absolute   sm:hidden ' src={ websterGif}></img>}
+
             </div>
-            <div className='text-left mt-4 xs:px-3 px-auto sm:px-auto'>
-              <div className=' mb-2 '>
+            <div className='text-left mt-4 sm:mt-4  xs:px-3 px-auto sm:px-auto'>
+              <div className=' mb-2 xs:pt-10 sm:pt-1 '>
                 <h2 className='text-[32px] text-black'>What is the name of your brand?</h2>
                 <input
                   name="project_name"
                   value={formData.project_name}
                   onChange={handleChange} placeholder='Enter the name of your project....'
-                  className='w-full text-[16px] focus:outline-none p-2 border !border-[#b0b0b0] mt-3'></input>
+                  className='w-full text-[16px] focus:outline-none px-2 sm:py-2  xs:py-4 border !border-[#b0b0b0] mt-3'></input>
                 {errors.project_name && <p className="text-red-500 text-sm">{errors.project_name}</p>}
               </div>
-              <div className='my-4'>
+              <div className='mb-4 sm:mt-4 xs:mt-6'>
                 <label className='font-[500] text-[16px]' for='name'> Name</label>
               <input
                 type="text"
@@ -137,13 +140,13 @@ export default function WebsterPremiumForm() {
                 value={formData.name}
                 placeholder='ex: Nora Albaiz..'
                 onChange={handleChange}
-                className="w-full border text-[16px] !border-[#b0b0b0] focus:outline-none p-2"
+                className="w-full border text-[16px]  !border-[#b0b0b0] focus:outline-none px-2 sm:py-2  xs:py-3"
               />
               {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
             </div>
 
             {/* Phone Field */}
-            <div className='my-4'>
+            <div className='mb-4 sm:mt-4 xs:mt-6'>
             <label className='font-[500] text-[16px]' for='name'> Phone Number</label>
             <PhoneNumberInput
         name="phone"
@@ -161,7 +164,7 @@ export default function WebsterPremiumForm() {
             </div>
 
             {/* Email Field */}
-            <div className='my-4'>
+            <div className='mb-4 sm:mt-4 xs:mt-6'>
             <label className='font-[500] text-[16px]' for='name'> Email Address</label>
               <input
                 type="email"
@@ -169,20 +172,20 @@ export default function WebsterPremiumForm() {
                 placeholder='ex: Nora.m.1999@gmail.com'
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full border text-[16px] !border-[#b0b0b0] focus:outline-none p-2"
+                className="w-full border text-[16px] !border-[#b0b0b0] focus:outline-none px-2 sm:py-2  xs:py-3"
               />
               {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
             </div>
 
             {/* Description Field */}
-            <div className='my-4'>
+            <div className='mb-4 sm:mt-4 xs:mt-6'>
             <label className='font-[500] text-[16px]' for='name'> Message</label>
               <textarea
                 name="message"
                 placeholder='Describe your needs to us...  '
                 value={formData.message}
                 onChange={handleChange}
-                className="w-full border text-[16px] !border-[#b0b0b0] focus:outline-none p-2"
+                className="w-full border text-[16px] !border-[#b0b0b0] focus:outline-none px-2 sm:py-2  xs:py-3"
                 rows={4}
               />
               {errors.message && <p className="text-red-500 text-sm">{errors.message}</p>}
@@ -190,20 +193,20 @@ export default function WebsterPremiumForm() {
 
 
             {/* Submit Button */}
-            <p className='text-center !my-8'> <button
+            <p className='text-center !sm:my-8 '> <button
             onClick={(e)=>handleSubmit(e)}
-              className="bg-[#F3B7CE] sm:text-[24px] w-[80%] text-white py-2"
+              className="bg-[#F3B7CE] text-[24px] w-full text-white py-2"
             >
              Submit Contact Request
             </button></p>
-            {successMsg && <p className='bg-green-600 py-1 px-2 rounded text-white'>{successMsg} <CloseIcon  onClick={()=>{setSuccessMsg(null)}} className='text-white ml-2' /></p>}
+            {successMsg && <p className='bg-green-600 py-1 px-2 flex justify-between rounded text-white'>{successMsg} <CloseIcon  onClick={()=>{setSuccessMsg(null)}} className='text-white ml-2' /></p>}
 
             </div>
 
           </div>
-          <div className='basis-1/4 xs:relative' >
+          <div className='basis-1/4 xs:relative xs:h-[200px] sm:h-auto p-0' >
           {form_type=="premium"?
-          <img className='sm:!w-[380px] !w-[380px] xs:!w-[150px]  right-[-18%] sm:right-[-25%]  bottom-[-8%] xs:ml-[50%] sm:absolute' src={ paperPlaneReverse}></img>
+          <img className='sm:!w-[380px] !w-[380px] xs:!w-[250px]  right-[-18%] sm:right-[-25%] xs:right-[-60%] sm:bottom-[-8%] xs:top-[-10%] sm:top-auto sm:absolute xs:relative' src={ paperPlaneReverse}></img>
           :<img className='sm:!w-[430px] !w-[430px] xs:!w-[200px] z-0 sm:left-[10%] left-[10%] md:left-[-5%] md:bottom-[-19vh] sm:bottom-[-17vh] bottom-[-17vh] xs:left-[20%] xs:bottom-[-13px] absolute sm:absolute xs:relative' src={ websterGif}></img>}
 
           </div>

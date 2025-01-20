@@ -13,7 +13,7 @@ import { ConfigToken } from '../Auth/ConfigToken';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 
-export const Accordian = ({ accordianTitle, addOnPayload, bundlePackageId, textColor }) => {
+export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackageId, textColor }) => {
   const [isDropdown, setIsDropdown] = useState([false, false, false, false, false, false, false]);
   const [addOnData, setAddonData] = useState({});
   const [quantities, setQuantities] = useState({});
@@ -33,8 +33,7 @@ export const Accordian = ({ accordianTitle, addOnPayload, bundlePackageId, textC
 
   useEffect(() => {
     addOnPayload(addOnPayloads());
-  }, [addOnData, quantities]);
-
+  }, [addOnData, quantities,extraQty]);
 
   const getAddons = async () => {
     try {
@@ -70,73 +69,39 @@ export const Accordian = ({ accordianTitle, addOnPayload, bundlePackageId, textC
     });
   };
 
-  // const addOnPayloads = () => {
-  //   const allDesigns = titleArr.flatMap(title => addOnData.designs_details?.[title]?.design_list || []);
-  //   let total_price = 0;
-  //   let total_time = 0;
-
-  //   const item_list = allDesigns.map((design, index) => {
-  //   const quantity = quantities[design.name_english] || 1; 
-
-  //     total_price += design.price * quantity;
-  //     total_time += design.time * quantity;
-
-  //     return {
-  //       design_id: design.id,
-  //       addon_name:design.name_english,
-  //       unit_price: design.price.toString(),
-  //       unit_time: design.time.toString(),
-  //       qty: quantity.toString(),
-  //       item_type: "addon"
-  //     };
-  //   });
-
-
-  //   const taxRate = 18;
-  //   const tax = Math.round(total_price * (taxRate / 100));
-
-  //   const payload = {
-  //     order_name: "Addons",
-  //     total_time: total_time,
-  //     total_price: total_price,
-  //     tax_treatment: taxRate,
-  //     tax: tax,
-  //     item_list: item_list
-  //   };
-
-  //   return payload;
-  // };
-
+  let total_price = 0
   const addOnPayloads = () => {
     const allDesigns = titleArr.flatMap(
       (title) => addOnData.designs_details?.[title]?.design_list || []
     );
 
-    let total_price = 0;
-    let total_time = 0;
+    let total_time = allDesigns
+    .filter((design) => (quantities[design.name_english] || 0) + (extraQty[design.name_english] || 0) > 0)
+    .reduce((max, design) => {
+      return Math.max(max, design.time);
+    }, 0);
+
 
     // Filter and map designs with non-zero quantities
     const item_list = allDesigns
-      .filter((design) => (quantities[design.name_english] || 0) > 0) // Include only non-zero quantities
-      .map((design) => {
-        const quantity = quantities[design.name_english] || 0;
-
-        total_price += design.price * quantity;
-        total_time += design.time * quantity;
-
-        return {
-          design_id: design.id,
-          addon_name: design.name_english,
-          unit_price: design.price.toString(),
-          unit_time: design.time.toString(),
-          qty: quantity.toString(),
-          item_type: "addon",
-        };
-      });
-
+    .filter((design) => (quantities[design.name_english] || 0) + (extraQty[design.name_english] || 0) > 0) // Include only non-zero quantities
+    .map((design) => {
+      const quantity = (quantities[design.name_english] || 0) + (extraQty[design.name_english] || 0);
+      total_price += quantity <= 1
+        ? parseFloat(design.price)
+        : parseFloat(design.price) + ((parseFloat(design.price) / 100) * design.price_increment * (quantity - 1));
+  
+      return {
+        design_id: design.id,
+        addon_name: design.name_english,
+        unit_price: design.price.toString(),
+        unit_time: design.time.toString(),
+        qty: quantity.toString(),
+        item_type: "addon",
+      };
+    });
     const taxRate = 18; // Define the tax rate
     const tax = Math.round(total_price * (taxRate / 100));
-
     // Prepare payload
     const payload = {
       order_name: "Addons",
@@ -156,7 +121,7 @@ export const Accordian = ({ accordianTitle, addOnPayload, bundlePackageId, textC
     <div>
       <div className='bundl-accordian'>
         <p className='accordian-heading mb-1'>{accordianTitle}</p>
-        <p style={{ opacity: '50%' }}>Add anything you want to your bundle to fit your brand!</p>
+        <p className='xs:tesxt-[20px] sm:text-[16px] text-[16px]' style={{ opacity: '50%' }}>Add anything you want to your bundle to fit your brand!</p>
         <div className='tab-buttons !border-b-0'>
           {titleArr.map((title, index) => (
             <button
@@ -166,7 +131,7 @@ export const Accordian = ({ accordianTitle, addOnPayload, bundlePackageId, textC
                 border: `1px solid ${textColor}`,
                 backgroundColor: isDropdown[index] ? textColor : '#fff'
               }}
-              className={`!font-[500]  !text-[${textColor}] ${isDropdown[index] ? 'active-button' : 'accordian-button'}`}
+              className={`!font-[500]  !text-[${textColor}] ${isDropdown[index] ? 'active-button' : 'accordian-button'} accordion-btn-${index+1}`}
               onClick={() => toggleDropdown(index)}
             >
               {title}
@@ -205,18 +170,18 @@ export const Accordian = ({ accordianTitle, addOnPayload, bundlePackageId, textC
                     >
                       <Typography
                         sx={{
-                          color: { textColor },
+                          color:  `${textColor}` ,
                           display: 'block',
                           marginRight: '5px',
                           marginBottom: '8px',
 
                           fontWeight: '500'
                         }}
-                        className='sm:basis-[35%] basis-[35%] xs:basis-[100%]'
+                        className='sm:basis-[35%] basis-[35%] xs:basis-[65%] '
                       >
                         {design.name_english}
                       </Typography>
-                      <p className='flex items-center sm:w-[35%] w-[35%] xs:w-[70%] !mb-2'>
+                      <p className='flex xs:order-3 sm:order-2 items-center sm:w-[35%] w-[35%] xs:w-[100%] !mb-2'>
                         <p className='flex items-center mb-1 sm:min-w-[120px] min-w-[120px] xs:min-w-[100px] font-[500]'>
                           <img src={BlackDollor} alt="Price icon" className="inline-block mr-2" />
                           {Math.round(design.price)} SAR
@@ -228,7 +193,7 @@ export const Accordian = ({ accordianTitle, addOnPayload, bundlePackageId, textC
                         </p>
                       </p>
 
-                      <p style={{ color: textColor }} className={`  sm:w-[29%] w-[29%] xs:w-[29%] max-h-[36px] !mb-2 flex justify-end text-[${textColor}] `}>
+                      <p style={{ color: textColor }} className={`xs:order-2 sm:order-3 sm:w-[29%] w-[29%] xs:w-[29%] max-h-[36px] !mb-2 flex justify-end text-[${textColor}] `}>
                         <button style={{
                           borderColor: textColor,
                           borderStyle: 'solid',

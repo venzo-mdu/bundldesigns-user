@@ -58,18 +58,39 @@ export const Questionnaire4 = ({formData,setFormData}) => {
 
     const fetchAnswers = async () => {
       try {
+        if(location.state.orderId != undefined){
         const response = await axios.get(`${base_url}/api/questionnaire/update/${location.state.orderId}`, ConfigToken());
         setFetchQ4Answers(response.data.data)
+        }
       } catch (error) {
         console.error("Error fetching questions:", error);
       }
     }
     setFormData(currentAnswer)
+    console.log(Object.values(currentAnswer),'swwwewe')
+    if(Object.values(currentAnswer).length){
+      setActiveButtons(currentAnswer[17])
+      let currentColor = currentAnswer[18]
+      if(currentColor =='suprise'){
+        currentColor ='rgb(255, 136, 136)'
+      }
+      const bgcolor = {
+        'rgb(9, 50, 108)':'rgb(255, 98, 10)',
+        'rgb(228, 222, 216)':'rgb(0, 0, 0)',
+        'rgb(255, 136, 136)':'rgb(221, 45, 45)'
+      }
+      console.log(currentColor)
+      setShadeBackgroundColor(currentColor);
+      setshadeColor(bgcolor[currentColor]);
+      setSelectedColors(currentAnswer[19])
+    }
     fetchQuestions();
     fetchAnswers();
   }, []);
 
   const displayedColors = colorCodes.slice(0, 90);
+  console.log(formData,'formData')
+
 
   const getAnswerValue = (questionId) => {
 
@@ -208,10 +229,13 @@ export const Questionnaire4 = ({formData,setFormData}) => {
     setShadeType('');
     if (type === 'surprise') {
       setShadeType(type)
+      setShadeBackgroundColor('rgb(228, 222, 216)');
+    }else{
+      setShadeBackgroundColor(color);
     }
     setFormData((prevData) => ({
       ...prevData,
-      [questionId]: shadeBackgroundColor
+      [questionId]: type === 'surprise' ? 'surprise':color
     }))
   };
 
@@ -256,8 +280,9 @@ export const Questionnaire4 = ({formData,setFormData}) => {
   };
   
   const onBackClick = () => {
-    navigate(`/questionnaire/${3}`, { state: { questionnaireData3: answers } });
+    navigate(`/questionnaire/${3}`, { state: { questionnaireData3: answers,orderId:location.state?.orderId } });
   }
+  console.log(location.state?.orderId,'orderid')
 
   const onNextClick = () => {
     if (!validateFields()) {
@@ -317,7 +342,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
               <div className="questions" key={index}>
                 {
                   question.answer_type === 'shade' ? '' :
-                  <p className={`questions-title ${index === 0 ? 'mt-[1%]' : 'mt-[4%]'} ${question.id == 21 ?'!text-[22px]':''}`}>
+                  <p className={`questions-title  xs:w-[70%] sm:w-full md:w-full mx-auto ${index === 0 ? 'mt-[1%]' : 'mt-[4%]'} ${question.id == 21 ?'!text-[22px]':''}`}>
                       {question.question}
                       {
                         question.required && (
@@ -341,7 +366,8 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                         <div className='shade-buttons'>
                           <div className='button-shade-group'>
                             <img src={Color1}></img>
-                            <button className={shadeBackgroundColor === 'rgb(228, 222, 216)' && shadeType !== 'surprise' ? 'shade-btn-active' : 'shade-btn'} onClick={() => handleShadeButtonClick('rgb(228, 222, 216)', 'rgb(0, 0, 0)', '', question.id)}>CLEAN & CLASSIC</button>
+                            <button className={shadeBackgroundColor === 'rgb(228, 222, 216)' && shadeType !== 'surprise' ? 'shade-btn-active' : 'shade-btn'} onClick={() =>
+                               handleShadeButtonClick('rgb(228, 222, 216)', 'rgb(0, 0, 0)', '', question.id)}>CLEAN & CLASSIC</button>
                           </div>
                           <div className='button-shade-group'>
                             <img src={Color2}></img>
@@ -523,7 +549,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
 
                         <ul className="h-list select-btns grid-view padding-top-20 checkbox-btn-img h-list-check">
                           <li className="checkbox checkbox-btn">
-                            <input type="checkbox" name="13" value="patterns" id="patterns" className="validThis" onChange={(e) => handleTextureChange(e, question.id)}></input>
+                            <input type="checkbox" name="13" checked={formData?.[20]?.includes('patterns') ?true:false} value="patterns" id="patterns" className="validThis" onChange={(e) => handleTextureChange(e, question.id)}></input>
                             <label for="patterns">
                               <figure className="image-container img-animation">
                                 {
@@ -540,7 +566,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                           </li>
                           <li className="checkbox checkbox-btn">
                             <ul className="valid-error text-purple"></ul>
-                            <input type="checkbox" name="13" value="textures" id="textures" onChange={(e) => handleTextureChange(e, question.id)}></input>
+                            <input type="checkbox" name="13" checked={formData?.[20]?.includes('textures') ?true:false} value="textures" id="textures" onChange={(e) => handleTextureChange(e, question.id)}></input>
                             <label for="textures">
                               <figure className="image-container img-animation">
                                 {
@@ -557,7 +583,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                           </li>
                           <li className="checkbox checkbox-btn">
                             <ul className="valid-error text-purple"></ul>
-                            <input type="checkbox" name="13" value="collages" id="collages" onChange={(e) => handleTextureChange(e, question.id)}></input>
+                            <input type="checkbox" name="13" checked={formData?.[20]?.includes('collages') ?true:false} value="collages" id="collages" onChange={(e) => handleTextureChange(e, question.id)}></input>
                             <label for="collages">
                               <figure className="image-container img-animation">
                                 {
@@ -576,7 +602,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                           </li>
                           <li className="checkbox checkbox-btn">
                             <ul className="valid-error text-purple"></ul>
-                            <input type="checkbox" name="13" value="cleanvisual" id="cleanvisual" onChange={(e) => handleTextureChange(e, question.id)}></input>
+                            <input type="checkbox" name="13" checked={formData?.[20]?.includes('cleanvisual') ?true:false} value="cleanvisual" id="cleanvisual" onChange={(e) => handleTextureChange(e, question.id)}></input>
                             <label for="cleanvisual">
                               <figure className="image-container img-animation">
                                 {
@@ -595,7 +621,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                           </li>
                           <li className="checkbox checkbox-btn">
                             <ul className="valid-error text-purple"></ul>
-                            <input type="checkbox" name="13" value="illustrations" id="illustrations" onChange={(e) => handleTextureChange(e, question.id)}></input>
+                            <input type="checkbox" name="13" checked={formData?.[20]?.includes('illustrations') ?true:false} value="illustrations" id="illustrations" onChange={(e) => handleTextureChange(e, question.id)}></input>
                             <label for="illustrations">
                               <figure className="image-container img-animation">
                                 {
@@ -614,7 +640,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                           </li>
                           <li className="checkbox checkbox-btn">
                             <ul className="valid-error text-purple"></ul>
-                            <input type="checkbox" name="13" value="frames" id="frames" onChange={(e) => handleTextureChange(e, question.id)}></input>
+                            <input type="checkbox" name="13" checked={formData?.[20]?.includes('frames') ?true:false} value="frames" id="frames" onChange={(e) => handleTextureChange(e, question.id)}></input>
                             <label for="frames">
                               <figure className="image-container img-animation">
                                 {

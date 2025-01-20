@@ -60,6 +60,8 @@ export const Questionnaire2 = ({formData,setFormData}) => {
     setFormData(location.state?.questionnaireData2)
     const fetchAnswers = async () => {
       try {
+        if(location.state.orderId != undefined){
+
         const response = await axios.get(`${base_url}/api/questionnaire/update/${location.state.orderId}`, ConfigToken());
         setFetchQ2Answers(response.data.data)
         const ageDataQuestion = response.data.data.find(
@@ -74,6 +76,7 @@ export const Questionnaire2 = ({formData,setFormData}) => {
           setActiveMaleButtons(ageDataQuestion.answer.male);
           setSelectedGender("male");
         }  
+      }
       } catch (error) {
         console.error("Error fetching questions:", error);
       }
@@ -96,6 +99,8 @@ export const Questionnaire2 = ({formData,setFormData}) => {
     fetchQuestions();
     fetchAnswers();
   }, []);
+console.log(location.state?.orderId,'orderid')
+
   
   const getAnswerValue = (questionId) => {
 
@@ -249,7 +254,7 @@ export const Questionnaire2 = ({formData,setFormData}) => {
   };
 
   const onBackClick = () =>{
-    navigate(`/questionnaire/${1}`,{state:{questionnaireData1:answers}});
+    navigate(`/questionnaire/${1}`,{state:{questionnaireData1:answers,orderId:location.state?.orderId}});
   }
   const onNextClick = () =>{
     if (!validateFields()) {
@@ -306,7 +311,7 @@ export const Questionnaire2 = ({formData,setFormData}) => {
           {
           questions.map((question, index) => (
           <div className="questions" key={index}>
-            <p className={`questions-title ${index === 0 ? 'mt-[1%]' : 'mt-[4%]'}`}>
+            <p className={`questions-title  xs:w-[92%] sm:w-full md:w-full mx-auto ${index === 0 ? 'mt-[1%]' : 'mt-[4%]'}`}>
               {question.question}
               {
                 question.required && (

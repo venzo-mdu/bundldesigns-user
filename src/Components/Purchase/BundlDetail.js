@@ -29,6 +29,7 @@ export const BundlDetail = () => {
   const [minError,setMinError] = useState([])
   const [quantities, setQuantities] = useState({});
   const [addonPayLoads, setAddonPayLoads] = useState({});
+  const [extraQty,setExtraQty] = useState({})
   const [brandInput, setBrandInput] = useState('');
   const [selectedLanguage, setSelectedLanguage] = useState('English');
   const [firstOrder,setFirstOrder] = useState(true)
@@ -38,18 +39,38 @@ export const BundlDetail = () => {
   };
   const [coinIcon,setCoinIcon] = useState(greenIcon)
   const [textColor,setTextColor] = useState('#1BA56F')
+    const [showDetails,setDetails] = useState(false)
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 440);
+  const selectedItems = bundlAddons.bundle_details?.flatMap(bundle =>
+    bundle.design_list.map(design => ({
+      ...design,
+      quantity: quantities[design.name_english] || design.quantity,
+      total_price: (quantities[design.name_english] || 1) * design.price,
+      total_time: (quantities[design.name_english] || 1) * design.time
+    }))
+  );
 
   useEffect(() => {
     document.documentElement.scrollTo({ top: 0, left: 0 });
     getBundlData();
     getprojects()
+    
   }, []);
   console.log(location.state?.bundlDetail,location.state?.index, 'details')
+  useEffect(()=>{
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 440);
+    };
 
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  },[]);
   const validateFields = () => {
 
-    const totalAmount = totalCost + addonPayLoads.total_price;
-    const bundlePrice = Math.round(location.state?.bundlDetail?.price);
+    const totalAmount = parseFloat(location.state.bundlDetail?.price )+ addonPayLoads.total_price;
     if (totalAmount < 4880) {
       toast.error(`Minimum order is 4880 SAR`, {
         position: toast?.POSITION?.TOP_RIGHT,
@@ -90,6 +111,7 @@ export const BundlDetail = () => {
     setTextColor(colors[location.state.bundlDetail?.id])
     const response = await axios.get(`${base_url}/api/package/?bundle_id=${location.state.bundlDetail?.id}`, ConfigToken());
     setBundlAddons(response.data);
+    console.log(response.data,'daasss')
     const flatList = response.data?.bundle_details?.flatMap(item => item.design_list);
 
     const data = flatList.reduce((acc, item) => {
@@ -117,12 +139,18 @@ export const BundlDetail = () => {
   //   console.log(quantities)
   // };
   const handleQuantityChange = (designName, change) => {
-
-    setQuantities(prevQuantities => {
-      let newQuantity = (prevQuantities[designName] || 1) + change;
-      if(newQuantity < actual[designName]) setMinError([...minError,designName])
-      else setMinError((prevErrors) => prevErrors.filter((error) => error !== designName));
-      newQuantity = newQuantity < actual[designName] ? actual[designName] : newQuantity
+    console.log(change,'chabge')
+    if (designName in extraQty == false && change<0){
+      setMinError([...minError,designName])
+      return 
+    }else if(extraQty[designName]==0 && change<0){
+      setMinError([...minError,designName])
+      return
+    }else{
+       setMinError((prevErrors) => prevErrors.filter((error) => error !== designName));
+    }
+    setExtraQty(prevQuantities => {
+      let newQuantity = (prevQuantities[designName] || 0) + change;
       return {
         ...prevQuantities,
         [designName]: newQuantity
@@ -130,7 +158,8 @@ export const BundlDetail = () => {
     });
   };
 
-  console.log(quantities); // This may not reflect the updated state immediately
+
+
   const createPayload = async () => {
     if (!validateFields()) return;
     if (!bundlAddons.bundle_details) {
@@ -172,8 +201,8 @@ export const BundlDetail = () => {
     const payload = {
       order_name: brandInput,
       bundle_id: location.state.bundlDetail?.id,
-      total_time: totalDuration + addonPayLoads.total_time,
-      total_price: totalCost + addonPayLoads.total_price,
+      total_time:  location.state.bundlDetail?.time + addonPayLoads.total_time,
+      total_price: parseFloat(location.state.bundlDetail?.price) + addonPayLoads.total_price,
       tax_treatment: taxRate + addonPayLoads.tax_treatment,
       tax: tax + addonPayLoads.tax,
       item_list: item_list,
@@ -198,45 +227,25 @@ export const BundlDetail = () => {
 
   };
 
-
-  const selectedItems = bundlAddons.bundle_details?.flatMap(bundle =>
-    bundle.design_list.map(design => ({
-      ...design,
-      quantity: quantities[design.name_english] || design.quantity,
-      total_price: (quantities[design.name_english] || 1) * design.price,
-      total_time: (quantities[design.name_english] || 1) * design.time
-    }))
-  );
-
-  const totalCost = selectedItems?.reduce((total, item) => {
-    if (selectedLanguage === 'Both') {
-      return total + item.total_price + 2000
-    }
-    else {
-      return total + item.total_price
-    }
-  }, 0);
-  const totalDuration = selectedItems?.reduce((total, item) => total + item.total_time, 0);
-
   return (
     <div>
       <ToastContainer />
       <Navbar />
       <div className='bundl-detail'>
-        <div className='xs:px-2 sm:px-auto px-auto' style={{ borderBottom: '1px solid #000000', width: '100%' }}>
-          <h2>{location.state?.bundlDetail?.name_english}</h2>
+        <div className='xs:px-2 sm:px-auto px-auto' style={{ borderBottom: '1.5px solid #000000', width: '100%' }}>
+          <h2 className='sm:text-[40px] text-[40px] xs:text-[32px]'>{location.state?.bundlDetail?.name_english}</h2>
           <div className='bundl-amount'>
             <p style={{color:textColor}}  className='flex items-center'><img src={coinIcon} alt="Dollar icon" className="inline-block mr-3" /><span>{Math.round(location.state?.bundlDetail?.price) || "3750 SAR"} SAR</span></p>
             <p style={{color:textColor}}  className='items-center flex'><AccessTimeIcon className='mr-1'/><span> {location.state?.bundlDetail?.time || "30 Days"} Days</span></p>
           </div>
-          <p className='bundl-desc-title'>Main outcomes: Brand Identity, Commerce Collateral, Social Media Starter Kit.</p>
+          <p className='bundl-desc-title text-[20px] sm:text-[20px] xs:text-[16px] w-full sm:w-full xs:w-[350px] mx-auto'>Main outcomes: Brand Identity, Commerce Collateral, Social Media Starter Kit.</p>
           <p className='bundl-desc'>{location.state?.bundlDetail?.description_english}</p>
           <p className='one-minor my-3'>* This Bundl includes one minor revision</p>
         </div>
 
         <div className='bundl-section'>
           <div className='brand-details !pt-16'>
-            <p style={window.innerWidth <= 441 ? { fontSize: '24px', fontWeight: '700' } : { textAlign: 'left', fontSize: '32px', fontWeight: '700' }}>What is the name of your brand?</p>
+            <p style={window.innerWidth <= 441 ? { fontSize: '32px', fontWeight: '700' } : { textAlign: 'left', fontSize: '32px', fontWeight: '700' }}>What is the name of your brand?</p>
             <input className='brand-input' onChange={(e) => setBrandInput(e.target.value)} />
             <div className='commerce-collateral'>
               {bundlAddons.bundle_details?.map((bundle, index) => {
@@ -308,9 +317,9 @@ export const BundlDetail = () => {
                             </div>
                             )
                           }
-                          <p className=' basis-[10%] flex items-center text-[#000000] h-[34px] border !border-[#000000]'>
+                          <p className=' md:basis-auto basis-auto xs:basis-[10%] flex items-center text-[#000000] h-[34px] border !border-[#000000]'>
                                                                 <button onClick={() => handleQuantityChange(design.name_english, -1)} className='border-r !border-[#000000] px-1 flex h-[100%] items-center'><RemoveIcon /></button>
-                                                                <span className='border-r !text-[20px] font-normal px-2 !border-[#000000]'> {quantities[design.name_english] || design.quantity}</span>
+                                                                <span className='border-r !text-[20px] font-normal px-2 !border-[#000000]'> {parseInt(design.quantity)+ (extraQty[design.name_english] || 0)}</span>
                                                                 <button  onClick={() => handleQuantityChange(design.name_english, 1)} className='flex items-center px-1 '><AddIcon /></button>
                                                             </p>
                                                         
@@ -323,23 +332,28 @@ export const BundlDetail = () => {
                 </div>
               })}
             </div>
-            <Accordian textColor={textColor} accordianTitle={'Something feels missing ?'} addOnPayload={setAddonPayLoads} bundlePackageId={location.state.bundlDetail?.id} />
+            <Accordian textColor={textColor} extraQty={extraQty} accordianTitle={'Something feels missing ?'} addOnPayload={setAddonPayLoads} bundlePackageId={location.state.bundlDetail?.id} />
           </div>
 
-          <div className='bundl-summary'>
+          <div className='bundl-summary !border-black border max-h-[80%] overflow-y-scroll w-full' >
             <div className='bundl-name '>
-              <p className='text-[24px] font-[700] px-0 !mb-2'  >Summary</p>
+              <p className='sm:text-[24px] xs:mb-0 xs:flex xs:justify-between sm:block font-[700] px-0 !mb-2'  >
+              <span className='font-normal'>Summary</span>
+              {isMobile && <button onClick={()=> setDetails(!showDetails)} style={{color:`${textColor}`}} className='text-[14px] font-normal underline'>Show Details</button>}
+              </p>
             </div>
+            {!isMobile || isMobile && showDetails ? <>
             <div style={{ display: 'flex', padding: '1% 5%' }}>
-              <p style={{ fontSize: '20px', fontWeight: '700', width: '60%' }}>{location.state?.bundlDetail?.name_english } {location.state?.bundlDetail?.name_english && 'Bundl'}</p>
-              <p style={{ fontSize: '20px', fontWeight: '700', width: '40%' }}>{Math.round(location.state?.bundlDetail?.price)} SAR</p>
+              <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[60%]'>{location.state?.bundlDetail?.name_english } {location.state?.bundlDetail?.name_english && 'Bundl'}</p>
+              <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[40%]'>{Math.round(location.state?.bundlDetail?.price)} sar</p>
             </div>
             {selectedItems?.map((item, idx) => {
-             return <div key={idx} className='one-brand-identity'>
-                <p className='text-black text-[20px] font-[700] min-w-[60%] !mb-1' >{item.quantity} {item.name_english}</p>
-                <div style={{ display: 'flex' }}>
-                  <p style={{ fontSize: '20px',color:textColor, fontWeight: '700', width: '40%' }}>+ {item.total_time} Days</p>
-{ item.id =='76' && selectedLanguage == 'Both'? <p style={{ fontSize: '20px',color:textColor, fontWeight: '700', width: '40%' }}>+ {item.total_price + 2000} SAR</p>:<p style={{ fontSize: '20px', fontWeight: '700',color:textColor, width: '40%' }}>+ {item.total_price} SAR</p>}
+             return <div key={idx} className='one-brand-identity xs:flex sm:block block flex-wrap justify-around'>
+                <p className='text-black sm:text-[20px] text-[20px] xs:text-[16px] font-[700] !mb-1 w-[42%]' >{item.quantity} {item.name_english}</p>
+                <div className='flex xs:w-[58%]  sm:w-full w-full'>
+                  <p className='sm:text-[20px] xs:ml-10 sm:ml-[2px] text-[20px] xs:text-[16px] font-[700] w-[40%]' style={{color:textColor }}>+ {item.total_time} Days</p>
+{ item.id =='76' && selectedLanguage == 'Both'? <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[50%]' style={{color:textColor }}>+ {item.total_price + 2000} SAR</p>:
+<p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[40%]' style={{color:textColor }}>+ {item.total_price} sar</p>}
                 </div>
               </div>
 })}
@@ -353,26 +367,28 @@ export const BundlDetail = () => {
             </div>
             {addonPayLoads?.item_list?.map((addon, idx) => (
               <div key={idx} className='one-brand-identity'>
-                <p style={{ color: '#000000', fontSize: '20px', fontWeight: '700', width: '60%' }}>{addon.qty} {addon.addon_name}</p>
-                <div style={{ display: 'flex' }}>
-                  <p style={{ fontSize: '20px', fontWeight: '700',color:textColor, width: '40%' }}>+ {addon.unit_time * addon.qty} Days</p>
-                  <p style={{ fontSize: '20px', fontWeight: '700',color:textColor, width: '40%' }}>+ {addon.unit_price * addon.qty} SAR</p>
+                <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] sm:w-[60%] w-[60%] text-black xs:w-[45%]'>{addon.qty} {addon.addon_name}</p>
+                <div className='flex xs:w-[55%] sm:w-full w-full' >
+                  <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[40%]' style={{color:textColor }} >+ {addon.unit_time * addon.qty} Days</p>
+                  <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[40%]' style={{color:textColor }}>+ {addon.unit_price * addon.qty} SAR</p>
                 </div>
               </div>
             ))}
-            <div className='bundl-checkout mt-3'>
+  </>:''}
+
+            <div className='bundl-checkout sm:mt-3'>
               <div className='total !font-[700]' style={{ display: 'flex' }}>
-                <p style={{ width: '60%' }}><img src={BlackDollor} alt="Total Price" className="inline-block !font-[700] ml-1" /><span className='ml-3 !font-[700]'>Total Price :</span></p>
-                <p className='!font-[700]' style={{ width: '40%' }} >{totalCost + addonPayLoads.total_price} SAR</p>
+                <p className='sm:mb-3 xs:mb-0 flex items-center !xs:text-[16px] !sm:text-[20px]' style={{ width: '60%' }}><img src={BlackDollor} alt="Total Price" className="inline-block !font-[700] sm:ml-1 xs:ml-2" /><span className='sm:ml-3 xs:ml-5 !font-[700]'>Total Price :</span></p>
+                <p className='!font-[700] text-end !xs:text-[16px] !sm:text-[20px] sm:mb-3 xs:mb-0'  style={{ width: '40%' }} >{parseFloat(location.state.bundlDetail?.price) + addonPayLoads.total_price} sar</p>
               </div>
               <div className='total' style={{ display: 'flex' }}>
-                <p style={{ width: '60%' }}><img src={BlackTime} alt="Total Duration" className="inline-block" /><span className='ml-3'>Total Duration :</span></p>
-                <p style={{ width: '40%' }}>{totalDuration + addonPayLoads.total_time} Days</p>
+                <p className='!xs:text-[16px] flex items-center !sm:text-[20px]' style={{ width: '60%' }}><img src={BlackTime} alt="Total Duration" className="inline-block" /><span className='ml-3'>Total Duration :</span></p>
+                <p className='!xs:text-[16px] text-end !sm:text-[20px]'  style={{ width: '40%' }}>{location.state?.bundlDetail?.time + addonPayLoads.total_time} Days</p>
               </div>
 
               <div >
                 {
-                  (totalCost + addonPayLoads.total_price) > 700 ?
+                  (parseFloat(location.state.bundlDetail?.price) + addonPayLoads.total_price) > 700 ?
                     <button style={{backgroundColor:textColor}} className={`proceed !bg-[${textColor}]`}  onClick={createPayload} >Proceed Checkout</button> :
                     <button style={{backgroundColor:textColor}} className={`proceed !bg-[${textColor}]`} disabled>Proceed Checkout</button>
                 }

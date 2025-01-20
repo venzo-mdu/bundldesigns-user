@@ -55,7 +55,7 @@ const PhoneNumberInput = ({ name, placeholder, value, status, className,setPhone
           value={selectedCountry ? selectedCountry.code : ''}
           onChange={handleCountryChange}
           id={idName}
-          className={`border py-2 sm:px-3  text-gray-900 font-bold w-[100px]  focus:outline-none ${extraInputClass}`}
+          className={`border sm:py-2  xs:py-3 sm:px-3  text-gray-900 font-bold sm:w-[100px] xs:w-[85px] xs:pl-[8px] sm:pl-3  focus:outline-none ${extraInputClass}`}
         >
           {countries.map((country) => (
             <option key={country.code} value={country.code}>
@@ -69,7 +69,7 @@ const PhoneNumberInput = ({ name, placeholder, value, status, className,setPhone
           value={phoneNumber}
           onChange={handlePhoneNumberChange}
           placeholder={selectedCountry ? placeholder : 'Select country first'}
-          className={`flex-1  p-2 border  ${extraInputClass} border-l-none focus:outline-none`}
+          className={`flex-1  px-2 sm:py-2  xs:py-3 border  ${extraInputClass} border-l-none focus:outline-none`}
           disabled={!selectedCountry}
         />
       </div>

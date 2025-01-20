@@ -4725,10 +4725,23 @@ font-size: 20px;
 .box-child{
   width:100%
 }
+.navbar-expand-lg{
+  padding: 0;
+
+}
 }
 @media screen and (max-width:441) {
   .h-list li{
     width: 40px;
+
+  }
+  .navbar-expand-lg{
+    padding: 0;
+
+  }
+  .h-list{
+    margin-top: 0;
+    margin-bottom: 0;
   }
   .container {
     max-width: 300px;
