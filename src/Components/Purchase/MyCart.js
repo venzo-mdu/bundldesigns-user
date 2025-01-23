@@ -330,7 +330,7 @@ export const MyCart = () => {
                     <form onSubmit={handlePayment} noValidate>
             <div className="user-name mb-[15px]">
                 <div className='mr-[4%]'>
-                    <label className={`${'firstName' in error && 'text-[red]'}`}>First Name <span className='text-[red]'>*</span></label>
+                    <label className={`${'firstName' in error ? 'text-[red]':'opacity-50'}`}>First Name <span className='text-[red]'>*</span></label>
                     <input 
                         name="firstName" 
                         value={billingInfo.firstName} 
@@ -339,7 +339,7 @@ export const MyCart = () => {
                     />
                 </div>
                 <div className='ml-[4%]' style={{ margin: '0% 0 0 2%' }}>
-                    <label  className={`${'lastName' in error && 'text-[red]'}`}>Last Name <span className='text-[red]'>*</span></label>
+                    <label  className={`${'lastName' in error ? 'text-[red]':'opacity-50'}`}>Last Name <span className='text-[red]'>*</span></label>
                     <input 
                         name="lastName" 
                         value={billingInfo.lastName} 
@@ -349,7 +349,7 @@ export const MyCart = () => {
                 </div>
             </div>
             <div className="email mb-[15px]">
-                <label  className={`${'email' in error && 'text-[red]'}`}>Email <span className='text-[red]'>*</span></label>
+                <label  className={`${'email' in error ? 'text-[red]':'opacity-50'}`}>Email <span className='text-[red]'>*</span></label>
                 <input 
 
                     name="email" 
@@ -359,7 +359,7 @@ export const MyCart = () => {
                 />
             </div>
             <div className="phonenumber mb-[15px]">
-                <label className={`${'phone' in error && 'text-[red]'}`}>Phone Number <span className='text-[red]'>*</span></label>
+                <label className={`${'phone' in error ? 'text-[red]':'opacity-50'}`}>Phone Number <span className='text-[red]'>*</span></label>
                 <PhoneNumberInput
         name="phone"
         placeholder="Enter phone number"
@@ -375,7 +375,7 @@ export const MyCart = () => {
             </div>
             <div className="country mb-[15px]">
                 <div className='mr-[4%]'>
-                    <label className={`${'country' in error && 'text-[red]'}`}>Country <span className='text-[red]'>*</span></label>
+                    <label className={`${'country' in error ? 'text-[red]':'opacity-50'}`}>Country <span className='text-[red]'>*</span></label>
                     <input 
                         name="country" 
                         value={billingInfo.country} 
@@ -384,7 +384,7 @@ export const MyCart = () => {
                     />
                 </div>
                 <div className='mr-[4%]' style={{ margin: '0% 0 0 2%' }}>
-                    <label className={`${'city' in error && 'text-[red]'}`}>City<span className='text-[red]'>*</span></label>
+                    <label className={`${'city' in error ? 'text-[red]':'opacity-50'}`}>City<span className='text-[red]'>*</span></label>
                     <input 
                         name="city" 
                         value={billingInfo.city} 
@@ -394,7 +394,7 @@ export const MyCart = () => {
                 </div>
             </div>
             <div className="postal-code mb-[15px]">
-                <label className={`${'postalCode' in error && 'text-[red]'}`}>Postal Code<span className='text-[red]'>*</span></label>
+                <label className={`${'postalCode' in error ? 'text-[red]':'opacity-50'}`}>Postal Code<span className='text-[red]'>*</span></label>
                 <input 
                     name="postalCode" 
                     value={billingInfo.postalCode} 
@@ -403,7 +403,7 @@ export const MyCart = () => {
                 />
             </div>
             <div className="promo-code mb-[15px]">
-                <label className={`${'promoCode' in error && 'text-[red]'}`}>Promo Code</label>
+                <label className={`${'promoCode' in error ? 'text-[red]':'opacity-50'}`}>Promo Code</label>
                 <input 
                     name="promoCode" 
                     value={billingInfo.promoCode} 

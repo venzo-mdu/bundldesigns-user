@@ -26,17 +26,6 @@ export const Navbar = () => {
     setMenuVisible(!menuVisible);
   };
   const commonPaths = [
-    "/aboutus",
-    "/career",
-    "/faq",
-    "/premium-form",
-    "/webster-form",
-    "/our-work",
-    "/dashboard",
-    "/adjustment",
-    "/upload-content",
-    "/mycart",
-    "/bundldetail"
   ];
 
   const Logout = async () => {
@@ -67,7 +56,7 @@ export const Navbar = () => {
       {
         isCommonNavbar ?
           (
-            <div className="nav-section">
+            <div className="nav-section ">
               <div className="">
                 <div className="row align-items-center">
                   <div className="col-4 col-md-3 col-lg-3 justify-content-between">

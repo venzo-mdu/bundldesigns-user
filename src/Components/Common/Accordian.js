@@ -120,8 +120,8 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
   return (
     <div>
       <div className='bundl-accordian'>
-        <p className='accordian-heading mb-1'>{accordianTitle}</p>
-        <p className='xs:tesxt-[20px] sm:text-[16px] text-[16px]' style={{ opacity: '50%' }}>Add anything you want to your bundle to fit your brand!</p>
+        <p className='accordian-heading mb-1  leading-[1.2] '>{accordianTitle}</p>
+        <p className='xs:tesxt-[20px] sm:text-[16px] text-[16px] xs:w-[220px] sm:w-full w-full' style={{ opacity: '50%' }}>Add anything you want to your bundle to fit your brand!</p>
         <div className='tab-buttons !border-b-0'>
           {titleArr.map((title, index) => (
             <button
@@ -181,7 +181,7 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
                       >
                         {design.name_english}
                       </Typography>
-                      <p className='flex xs:order-3 sm:order-2 items-center sm:w-[35%] w-[35%] xs:w-[100%] !mb-2'>
+                      <p className={`flex xs:order-3 sm:order-2 items-center sm:w-[35%] w-[35%] xs:w-[100%] !mb-2 ${bundlePackageId && 'xs:hidden sm:flex'}`}>
                         <p className='flex items-center mb-1 sm:min-w-[120px] min-w-[120px] xs:min-w-[100px] font-[500]'>
                           <img src={BlackDollor} alt="Price icon" className="inline-block mr-2" />
                           {Math.round(design.price)} SAR

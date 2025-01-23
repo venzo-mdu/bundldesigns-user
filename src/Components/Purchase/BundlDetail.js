@@ -250,8 +250,8 @@ export const BundlDetail = () => {
             <div className='commerce-collateral'>
               {bundlAddons.bundle_details?.map((bundle, index) => {
                 return <div key={index} className='bundle-section' style={{ margin: '3% 0 0 0' }}>
-                  <p className='collateral-text mb-[2px]'>{bundle.name_english}</p>
-                  <p style={{ opacity: '50%' }}>{bundle.slogan_english}</p>
+                  <p className={`collateral-text mb-[2px] leading-[1.2] ${bundle.name_english == 'Social Media Starter Kit'?'w-[80%]': 'w-full'}`}>{bundle.name_english}</p>
+                  <p className='text-[16px] sm:text-[16px] xs:text-[20px]' style={{ opacity: '50%' }}>{bundle.slogan_english}</p>
                   {
                     bundle.name_english === "Brand Identity" ? (
                       <div style={window.innerWidth < 441 ? { display: 'flex', width: '100%',flexWrap:'wrap' } : { display: 'flex', width: '100%' ,alignItems:'center',justifyContent:'space-between',flexWrap:'wrap' }}>
@@ -304,14 +304,13 @@ export const BundlDetail = () => {
                       const isLastIndex = idx === bundle.design_list.length - 1;
                       const sectionClassName = !isSingleItem && !isLastIndex ? 'commerce-sections' : 'commerce-sections1';
                       return (
-                        <div key={idx} className={`flex justify-between ${sectionClassName} w-[100%]`}>
-                          <p className='w-[33%]'>{design.name_english}</p>
-                          {/* <p style={window.innerWidth <= 441 ? { width: '50%' } : { width: '20%' }}><img src={BlackDollor} alt="Price icon" className="inline-block" />{design.price} SAR</p>
-                          <p style={window.innerWidth <= 441 ? { width: '50%' } : { width: '20%' }}><img src={BlackTime} alt="Time icon" className="inline-block" />{design.time} Days</p> */}
+                        <div key={idx} className={`flex flex-wrap justify-between pt-[2%] sm:pt-[2%] xs:pt-[5%] ${sectionClassName} w-[100%]`}>
+                          <p className='sm:basis-[33%] basis-[33%] xs:basis-[66%]'>{design.name_english}</p>
                           {
-                             minError.includes(design.name_english) && (
+                            ( minError.includes(design.name_english) && isMobile == false) && (
                               <div 
-                              style={window.innerWidth <=441 ?{color:textColor,width:'47%',textAlign:'left',fontSize:'16px'} :{color:textColor,width:'47%',textAlign:'left',fontSize:'18px'}} 
+                              style={{color:textColor}}
+                              className={`w-[47%] text-left text-[16px]`}
                               >
                             Minimum quantity cannot be decreased
                             </div>
@@ -322,7 +321,16 @@ export const BundlDetail = () => {
                                                                 <span className='border-r !text-[20px] font-normal px-2 !border-[#000000]'> {parseInt(design.quantity)+ (extraQty[design.name_english] || 0)}</span>
                                                                 <button  onClick={() => handleQuantityChange(design.name_english, 1)} className='flex items-center px-1 '><AddIcon /></button>
                                                             </p>
-                                                        
+                                                            {
+                            ( minError.includes(design.name_english) && isMobile) && (
+                              <div 
+                              style={{color:textColor}}
+                              className={`w-[100%] text-left text-[16px]`}
+                              >
+                            Minimum quantity cannot be decreased
+                            </div>
+                            )
+                          }
                         </div>
 
                       )
@@ -352,7 +360,7 @@ export const BundlDetail = () => {
                 <p className='text-black sm:text-[20px] text-[20px] xs:text-[16px] font-[700] !mb-1 w-[42%]' >{item.quantity} {item.name_english}</p>
                 <div className='flex xs:w-[58%]  sm:w-full w-full'>
                   <p className='sm:text-[20px] xs:ml-10 sm:ml-[2px] text-[20px] xs:text-[16px] font-[700] w-[40%]' style={{color:textColor }}>+ {item.total_time} Days</p>
-{ item.id =='76' && selectedLanguage == 'Both'? <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[50%]' style={{color:textColor }}>+ {item.total_price + 2000} SAR</p>:
+{ item.id =='76' && selectedLanguage == 'Both'? <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[50%]' style={{color:textColor }}>+ {item.total_price + 2000} sar</p>:
 <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[40%]' style={{color:textColor }}>+ {item.total_price} sar</p>}
                 </div>
               </div>
@@ -366,11 +374,11 @@ export const BundlDetail = () => {
               }
             </div>
             {addonPayLoads?.item_list?.map((addon, idx) => (
-              <div key={idx} className='one-brand-identity'>
-                <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] sm:w-[60%] w-[60%] text-black xs:w-[45%]'>{addon.qty} {addon.addon_name}</p>
-                <div className='flex xs:w-[55%] sm:w-full w-full' >
-                  <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[40%]' style={{color:textColor }} >+ {addon.unit_time * addon.qty} Days</p>
-                  <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[40%]' style={{color:textColor }}>+ {addon.unit_price * addon.qty} SAR</p>
+              <div key={idx} className=' one-brand-identity xs:flex sm:block block flex-wrap justify-around'>
+                <p className='text-black sm:text-[20px] text-[20px] xs:text-[16px] font-[700] !mb-1 w-[42%]'>{addon.qty} {addon.addon_name}</p>
+                <div className='flex xs:w-[58%]  sm:w-full w-full' >
+                  <p className='sm:text-[20px] xs:ml-10 sm:ml-[2px] text-[20px] xs:text-[16px] font-[700] w-[40%]' style={{color:textColor }} >+ {addon.unit_time * addon.qty} Days</p>
+                  <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[40%]' style={{color:textColor }}>+ {addon.unit_price * addon.qty} sar</p>
                 </div>
               </div>
             ))}
