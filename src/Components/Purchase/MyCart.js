@@ -32,6 +32,8 @@ export const MyCart = () => {
     const [removedItems,setRemovedItems] = useState([])
     const [isMobile, setIsMobile] = useState(window.innerWidth < 440);
     const [phoneError,setPhoneError] = useState(false)
+    const [historyStack, setHistoryStack] = useState([]);
+    const [type,setType] = useState(false)
     const [billingInfo, setBillingInfo] = useState({
         firstName: '',
         lastName: '',
@@ -42,6 +44,8 @@ export const MyCart = () => {
         postalCode: '',
         promoCode: '',
     });
+
+    console.log(historyStack,'state')
     const [error,setError] = useState({})
     const [errors, setErrors] = useState({});
     useEffect(() => {
@@ -95,8 +99,15 @@ export const MyCart = () => {
                 updatedItemDetails.addon_items = updatedItemDetails.addon_items.filter(item => item.id !== itemId);
 
             // Recalculate the totals
-            const updatedTax = updatedTotalAmount * 0.15; // Assuming VAT is 15%
+            let updatedTax = 0; // Default value, assuming no tax
+
+            if (billingInfo.country.trim().toLowerCase() === 'saudi arabia') {
+                updatedTax = updatedTotalAmount * 0.15; // Assuming VAT is 15%
+            } else {
+                updatedTax = 0; // No tax for countries other than Saudi Arabia
+            }
             const updatedGrandTotal = updatedTotalAmount + updatedTax;
+ 
             const response = await axios.patch(`${base_url}/api/order/cart/`,{'item_to_delete':itemId,'total_amount':updatedTotalAmount,
                 tax:updatedTax,'grand_total':updatedGrandTotal},ConfigToken());
 
@@ -110,6 +121,33 @@ export const MyCart = () => {
                 }));
 
     };
+
+    const getTotal = (countryValue) =>{
+        let cartDetailsTemp = cartDetails
+        const updatedItemDetails = { ...cartDetailsTemp.item_details };
+            let updatedTotalAmount = cartDetailsTemp.total_amount;
+            let updatedTotalTime = cartDetailsTemp.total_time
+            // Handle removal based on item type
+            // Recalculate the totals
+            let updatedTax = 0; // Default value, assuming no tax
+            let updatedTaxTreatment = 0
+            if (countryValue.toLowerCase() === 'saudi arabia') {
+                updatedTax = updatedTotalAmount * 0.15; // Assuming VAT is 15%
+                updatedTaxTreatment = 15
+            }
+
+            const updatedGrandTotal = parseFloat(updatedTotalAmount) + updatedTax;
+            console.log(updatedTax,updatedGrandTotal,'asdfsad')
+                setCartDetails((prevCartDetails) => ({
+                    ...prevCartDetails,
+                    item_details: updatedItemDetails,
+                    total_amount: updatedTotalAmount,
+                    total_time: updatedTotalTime,
+                    tax: updatedTax,
+                    tax_treatment:updatedTaxTreatment,
+                    grand_total: updatedGrandTotal,
+                }))
+    }
    
     const validateFields = () => {
         let newErrors = {};
@@ -168,6 +206,8 @@ export const MyCart = () => {
                         total_amount:cartDetails.total_amount,
                         total_time:cartDetails.total_time,
                         grand_total:cartDetails.grand_total,
+                        tax_treatment:cartDetails.tax_treatment,
+                        tax:cartDetails.tax,
                         items_to_delete:removedItems
                     }
                     const response = await axios.put(`${base_url}/api/order/cart/?initiate=True`, formData,ConfigToken());
@@ -185,14 +225,22 @@ export const MyCart = () => {
  
     const handleBillingChange = (e) => {
         const { name, value } = e.target;
+        if(name =='country'){
+            getTotal(value.trim())
+        }
         setBillingInfo({ ...billingInfo, [name]: value });
         delete errors[name] 
         setErrors(errors)
     };
     useEffect(() => {
         const handlePopState = (event) => {
-          event.preventDefault();
-          navigate(-1) // Show modal when browser back button is clicked
+            if(location.state){
+                event.preventDefault();
+                setShowModal(true);
+            }
+            else{
+                navigate(-1)
+            }
         };
     
         window.history.pushState(null, '', window.location.href);
@@ -201,17 +249,33 @@ export const MyCart = () => {
         return () => {
           window.removeEventListener('popstate', handlePopState);
         };
-      }, [showModal]);
-    const handleBackClick = () => {
+      }, []);
+    const handleBackClick = (type) => {
+        setType(true)
         setShowModal(true);
       };
     
       const confirmNavigation = () => {
         setShowModal(false); 
-        navigate(-1);
+        navigateToDetailHistory()
+      };
+
+
+      useEffect(() => {
+        // Track history as the component renders (you could also use a more sophisticated history tracking mechanism)
+        setHistoryStack(prevHistory => [...prevHistory, location.pathname]);
+      }, [location]);
+    
+      const navigateToDetailHistory = () => {
+        if(type){
+            navigate(-3)
+        }else{
+            navigate(-2)
+        }
       };
       const cancelNavigation = () => {
         setShowModal(false);
+        setType(false)
       };
     return (
         <div>
@@ -226,7 +290,7 @@ export const MyCart = () => {
             </p>
             <div className="mt-4 flex justify-center space-x-4">
               <button
-                onClick={confirmNavigation}
+                onClick={()=>confirmNavigation()}
                 className="px-4 py-2 bg-[#0BA6C4] text-white rounded "
               >
                 Yes
@@ -243,8 +307,8 @@ export const MyCart = () => {
       )}
             <div className='mycart '>
                 <div className='cart !xs:border-none  sm:!pb-[170px] !pb-[170px] xs:!pb-[20px]'>
-            <p onClick={handleBackClick} className='flex cursor-pointer text-[18px] items-center text-black'> <img src={backIcon} className='mr-2' ></img> Back to Bundl </p>
-                    <p className='!xs:text-[16px] !sm:text-[20px]'>Your Cart</p>
+                    {location.state &&             <p onClick={()=>handleBackClick('back')} className='flex font-[500] cursor-pointer text-[18px] items-center text-black'> <img src={backIcon} className='mr-2' ></img> Back to Bundl </p>}
+                    <p className='!xs:text-[16px] font-[700] !sm:text-[20px]'>Your Cart</p>
                     {isMobile ? <>
                         {cartDetails?.item_details?.bundle_items?.map((row,index) => (
                             <div className='flex justify-between border-b pb-2 !border-black'> 
@@ -313,11 +377,11 @@ export const MyCart = () => {
                             <p  className='!text-[20px]  text-right' style={{ width: '40%' }}>{Math.round(cartDetails.tax)} sar</p>
                         </div>
                         <div>
-                            <div  className='justify-between mr-4'  style={{ display: 'flex'}}>
+                            <div  className='justify-between font-[700] mr-4'  style={{ display: 'flex'}}>
                                 <p className='!text-[20px] xs:mb-0 sm:mb-auto ml-[6px]' style={{ width: '50%' }}><img src={BlackDollor} className='inline-block ml-[0px] mr-[18px]'></img>Total Price :</p>
                                 <p className='!text-[20px] xs:mb-0 sm:mb-auto text-right' style={{ width: '40%' }}>{isNaN(Math.round(cartDetails.grand_total))?0:Math.round(cartDetails.grand_total)} sar</p>
                             </div>
-                            <div  className='justify-between mr-4' style={{ display: 'flex' }}>
+                            <div  className='justify-between  font-[700] mr-4' style={{ display: 'flex' }}>
                                 <p className='!text-[20px]' style={{ width: '66%' }}><img src={BlackTime} className='inline-block mr-3'></img>Total Duration :</p>
                                 <p className='!text-[20px]  text-right' style={{ width: '45%' }}>{isNaN(Math.round(cartDetails.total_time))?0 :Math.round(cartDetails.total_time)} Days</p>
                             </div>

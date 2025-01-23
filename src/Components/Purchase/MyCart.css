@@ -18,7 +18,7 @@
 }
 .cart p{
     font-size: 24px;
-    font-weight: 700;
+    /* font-weight: 700; */
 }
 .billing p{
     font-size: 24px;
@@ -58,6 +58,11 @@ form{
     font-size:20px  !important;
     font-weight: 400 !important;
     opacity: 50%;
+}
+
+.billing #vacancySelect{
+    padding: 1% 4%;
+    background: url('../../../src/Images/down-arrow.svg') no-repeat right 6px center;
 }
 /* .total p {
     font-size: 20px;
@@ -106,6 +111,10 @@ form{
 @media screen and (max-width:441px) {
     .mycart{
         flex-direction: column;
+    }
+    .billing #vacancySelect{
+        padding: 1% 1%;
+    background: url('../../../src/Images/down-arrow.svg') no-repeat right 3px center;
     }
     .cart{
         width: 100%;

@@ -111,7 +111,7 @@ export default function WebsterPremiumForm() {
 
           </div>
           <div className='basis-2/4 px-[2px]'  >
-            <div className='text-center xs:border-b border-black relative sm:border-b-none'>
+            <div className='text-center xs:border-b border-black relative sm:border-none '>
               <h2 className='text-[40px] mt-4 leading-1 relative text-black w-[340px] mx-auto mb-0'>
                   <img className='absolute bottom-[10px] xs:w-[90px] sm:w-[150px] sm:bottom-[10px] xs:bottom-[20px] xs:left-0 sm:left-[-10%] left-[-10%]' src={Loginlogo} alt='login' /> Welcome to
               </h2>

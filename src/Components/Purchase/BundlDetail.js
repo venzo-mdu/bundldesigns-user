@@ -45,7 +45,7 @@ export const BundlDetail = () => {
     bundle.design_list.map(design => ({
       ...design,
       quantity: quantities[design.name_english] || design.quantity,
-      total_price: (quantities[design.name_english] || 1) * design.price,
+      total_price: design.total_price,
       total_time: (quantities[design.name_english] || 1) * design.time
     }))
   );
@@ -167,25 +167,6 @@ export const BundlDetail = () => {
       return;
     }
 
-    const total_price = Object.keys(quantities).reduce((total, designName) => {
-      const item = bundlAddons.bundle_details
-        .flatMap(bundle => bundle.design_list)
-        .find(design => design.name_english === designName);
-      const quantity = quantities[designName];
-      return item ? total + item.price * quantity : total;
-    }, 0);
-
-    const total_time = Object.keys(quantities).reduce((total, designName) => {
-      const item = bundlAddons.bundle_details
-        .flatMap(bundle => bundle.design_list)
-        .find(design => design.name_english === designName);
-      const quantity = quantities[designName];
-      return item ? total + item.time * quantity : total;
-    }, 0);
-
-    const taxRate = 18;
-    const tax = Math.round(total_price * (taxRate / 100));
-
     const item_list = bundlAddons.bundle_details.flatMap((bundle, index) =>
       bundle.design_list.map((design, idx) => {
         const quantity = quantities[design.name_english] || 1;
@@ -203,8 +184,6 @@ export const BundlDetail = () => {
       bundle_id: location.state.bundlDetail?.id,
       total_time:  location.state.bundlDetail?.time + addonPayLoads.total_time,
       total_price: parseFloat(location.state.bundlDetail?.price) + addonPayLoads.total_price,
-      tax_treatment: taxRate + addonPayLoads.tax_treatment,
-      tax: tax + addonPayLoads.tax,
       item_list: item_list,
       addons: addonPayLoads,
       order_status: "in_cart",
@@ -218,7 +197,7 @@ export const BundlDetail = () => {
         ConfigToken()
       );
       if (response.status === 201) {
-        navigate('/mycart', { state: { orderData: response.data.data.data } });
+        navigate('/mycart', { state: { orderData: response.data.data.data} });
       }
     } catch (error) {
       console.error("Error creating order:", error);
@@ -226,6 +205,7 @@ export const BundlDetail = () => {
 
 
   };
+  console.log(addonPayLoads,'sdsdsaa')
 
   return (
     <div>
@@ -353,15 +333,20 @@ export const BundlDetail = () => {
             {!isMobile || isMobile && showDetails ? <>
             <div style={{ display: 'flex', padding: '1% 5%' }}>
               <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[60%]'>{location.state?.bundlDetail?.name_english } {location.state?.bundlDetail?.name_english && 'Bundl'}</p>
-              <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[40%]'>{Math.round(location.state?.bundlDetail?.price)} sar</p>
+              <p className='sm:text-[20px] text-[20px] text-right xs:text-[16px] font-[700] w-[40%]'>{Math.round(location.state?.bundlDetail?.price)} sar</p>
             </div>
             {selectedItems?.map((item, idx) => {
+              console.log(item,'sdfa')
              return <div key={idx} className='one-brand-identity xs:flex sm:block block flex-wrap justify-around'>
-                <p className='text-black sm:text-[20px] text-[20px] xs:text-[16px] font-[700] !mb-1 w-[42%]' >{item.quantity} {item.name_english}</p>
+                <p className='text-black sm:text-[20px] text-[20px] xs:text-[16px] font-[700] !mb-1 xs:w-[42%] sm:w-full' >{item.quantity} {item.name_english}</p>
                 <div className='flex xs:w-[58%]  sm:w-full w-full'>
                   <p className='sm:text-[20px] xs:ml-10 sm:ml-[2px] text-[20px] xs:text-[16px] font-[700] w-[40%]' style={{color:textColor }}>+ {item.total_time} Days</p>
-{ item.id =='76' && selectedLanguage == 'Both'? <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[50%]' style={{color:textColor }}>+ {item.total_price + 2000} sar</p>:
-<p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[40%]' style={{color:textColor }}>+ {item.total_price} sar</p>}
+{ item.id =='76' && selectedLanguage == 'Both'? <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[50%]' style={{color:textColor }}>+ {item.quantity == 1
+        ? parseFloat(item.price)
+        : parseFloat(item.price) + ((parseFloat(item.price) / 100) * item.price_increment * (item.quantity - 1)) + 2000} sar</p>:
+<p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[40%]' style={{color:textColor }}>+ {item.quantity == 1
+        ? parseFloat(item.price)
+        : parseFloat(item.price) + ((parseFloat(item.price) / 100) * item.price_increment * (item.quantity - 1))} sar</p>}
                 </div>
               </div>
 })}
@@ -378,7 +363,7 @@ export const BundlDetail = () => {
                 <p className='text-black sm:text-[20px] text-[20px] xs:text-[16px] font-[700] !mb-1 w-[42%]'>{addon.qty} {addon.addon_name}</p>
                 <div className='flex xs:w-[58%]  sm:w-full w-full' >
                   <p className='sm:text-[20px] xs:ml-10 sm:ml-[2px] text-[20px] xs:text-[16px] font-[700] w-[40%]' style={{color:textColor }} >+ {addon.unit_time * addon.qty} Days</p>
-                  <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[40%]' style={{color:textColor }}>+ {addon.unit_price * addon.qty} sar</p>
+                  <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[40%]' style={{color:textColor }}>+ {addon.total_price} sar</p>
                 </div>
               </div>
             ))}
@@ -390,7 +375,7 @@ export const BundlDetail = () => {
                 <p className='!font-[700] text-end !xs:text-[16px] !sm:text-[20px] sm:mb-3 xs:mb-0'  style={{ width: '40%' }} >{parseFloat(location.state.bundlDetail?.price) + addonPayLoads.total_price} sar</p>
               </div>
               <div className='total' style={{ display: 'flex' }}>
-                <p className='!xs:text-[16px] flex items-center !sm:text-[20px]' style={{ width: '60%' }}><img src={BlackTime} alt="Total Duration" className="inline-block" /><span className='ml-3'>Total Duration :</span></p>
+                <p className='!xs:text-[16px] flex items-center !sm:text-[20px]' style={{ width: '60%' }}><img src={BlackTime} alt="Total Duration" className="inline-block" /><span className='xs:ml-4 sm:ml-1 ml-1'>Total Duration :</span></p>
                 <p className='!xs:text-[16px] text-end !sm:text-[20px]'  style={{ width: '40%' }}>{location.state?.bundlDetail?.time + addonPayLoads.total_time} Days</p>
               </div>
 
