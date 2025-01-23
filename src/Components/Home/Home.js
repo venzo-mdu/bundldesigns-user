@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect, useState } from 'react'
+import React, { useMemo, useEffect, useState,useRef } from 'react'
 import "../Home/Home.css"
 import { Bgloader } from '../Common/Background/Bgloader'
 import HomeLogo from '../../Images/Bundles/logo-black.svg'
@@ -65,6 +65,8 @@ export const Home = () => {
     const [selectedIndex, setSelectedIndex] = useState(null)
     const [token, setToken] = useState(null)
     const [menuVisible, setMenuVisible] = useState(false);
+    const popupRef = useRef(null)
+    const navigationRef = useRef(null)
     const [profileVisible, setProfileVisible] = useState(false)
     const toggleMenu = () => {
         setMenuVisible(!menuVisible);
@@ -77,7 +79,6 @@ export const Home = () => {
     const [isActiveProcess, setIsActiveProcess] = useState([false, false, false, false, false]);
     const [bundlData, setBundlData] = useState([]);
     const translateX = activeProcess * (window.innerWidth <= 475 ? activeProcess <=3 ?85 : 80 : window.innerWidth <= 768 ? 150 : activeProcess <3 ? 200:195);
-    console.log(activeProcess,translateX,'activeProcess')
     const bundlImages = [QubeIcon, Diamond, Eye, Food, Money]
     const textColor = ["pink-text", "green-text", "blue-text", "pink-text"]
     const titles = ["Just to get started", "For Restaurants and Cafés", "For Salons and Other Services", "For Shops and Online Stores"]
@@ -173,6 +174,34 @@ export const Home = () => {
         setToken(getCookie('token'))
     }, []);
 
+  useEffect(() => {
+    const handleClickOutsideProfile = (event) => {
+      if (popupRef.current && !popupRef.current.contains(event.target)) {
+        setProfileVisible(false);
+      }
+    };
+  
+    document.addEventListener("mouseup", handleClickOutsideProfile);
+    return () => {
+      document.removeEventListener("mouseup", handleClickOutsideProfile);
+    };
+  }, []); 
+
+
+  useEffect(() => {
+    const handleClickOutsideMenu = (event) => {
+      if (navigationRef.current && !navigationRef.current.contains(event.target)) {
+        setMenuVisible(false);
+      }
+    };
+  
+    document.addEventListener("mousedown", handleClickOutsideMenu);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutsideMenu);
+    };
+  }, []);
+  
+    
     const getBundl = async () => {
         const response = await axios.get(`${base_url}/api/homepage/`);
         setBundlData(response.data);
@@ -196,16 +225,16 @@ export const Home = () => {
 
 
     const emptyCart = async () => {
+        setOpenPopup(false);
         await axios.delete(`${base_url}/api/order/cart/`, ConfigToken());
         addToCart(selectedIndex)
-        setOpenPopup(false);
     }
 
     const updateActiveProcess = (index) => {
         const updatedActiveProcess = isActiveProcess.map((_, i) => i <= index);
         setIsActiveProcess(updatedActiveProcess);
     };
-
+    console.log(profileVisible,"aaa")
     return (
         <>
             {
@@ -252,30 +281,29 @@ export const Home = () => {
                                                         <a className="" onClick={() => { setProfileVisible(!profileVisible) }}><img src={User} alt="" className="navIcons cursor-pointer"></img></a>
                                                         <nav className={`w-44 absolute top-full -right-2 text-right bg-white p-2 transition-all duration-300 ease-in-out ${profileVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
                                                             }`}>
-                                                            <ul >
-                                                                {token ? <>
-                                                                    <li className='relative p-1 inner-nav-li'>
-                                                                        <a href="/dashboard" previewlistener="true">Projects</a>
-                                                                    </li>
-                                                                    <li className='relative p-1 inner-nav-li'>
-                                                                        <a href="#" previewlistener="true">Profile</a>
-                                                                    </li>
-                                                                    <li className='relative p-1 inner-nav-li'>
-                                                                        <a
-                                                                            className="cursor-pointer"
-                                                                            onClick={Logout}
-                                                                            previewlistener="true"
-                                                                        >
-                                                                            Logout
-                                                                        </a>
-                                                                    </li>
-                                                                </> :
-                                                                    <>  <li className='relative p-1 inner-nav-li'>
-                                                                        <a href="/login" previewlistener="true">Login</a>
-                                                                    </li>
-                                                                    </>}
-
-                                                            </ul>
+                                                           <div ref={popupRef}>
+      {profileVisible && (
+        <ul>
+          {token ? (
+            <>
+              <li className='relative p-1 inner-nav-li'>
+                <a href="/dashboard" previewlistener="true">Projects</a>
+              </li>
+              <li className='relative p-1 inner-nav-li'>
+                <a href="#" previewlistener="true">Profile</a>
+              </li>
+              <li className='relative p-1 inner-nav-li'>
+                <a onClick={() => { Logout() }} previewlistener="true">Logout</a>
+              </li>
+            </>
+          ) : (
+            <li className='relative p-1 inner-nav-li'>
+              <a href="/login" previewlistener="true">Login</a>
+            </li>
+          )}
+        </ul>
+      )}
+    </div>
                                                         </nav>
                                                     </li>
                                                     <li className='px-[6px]'>
@@ -290,7 +318,7 @@ export const Home = () => {
                                                         </button>
                                                         <nav className={`w-44 absolute top-full -right-2 text-right bg-white p-2 transition-all duration-300 ease-in-out ${menuVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
                                                             }`}>
-                                                            <ul >
+                                                            {/* <ul >
                                                                 <li  className='relative p-1 inner-nav-li'>
                                                                     <a href="/" previewlistener="true">Bundl Offers</a>
                                                                 </li>
@@ -303,7 +331,29 @@ export const Home = () => {
                                                                 <li  className='relative p-1 inner-nav-li'>
                                                                     <a href="#" previewlistener="true">Contact Us</a>
                                                                 </li>
-                                                            </ul>
+                                                            </ul> */}
+
+                                                            <div ref={navigationRef}>
+                                  {
+                                    menuVisible && (
+                                <ul className=' inner-nav-item'>
+                                <li className='relative p-1 inner-nav-li'>
+                                  <a href="/" previewlistener="true">Bundl Offers</a>
+                                </li>
+                                <li className='relative p-1 inner-nav-li'>
+                                  <a href="/our-work" previewlistener="true">Our Work</a>
+                                </li>
+                                <li className='relative p-1 inner-nav-li'>
+                                  <a href="/aboutus" previewlistener="true">About Us</a>
+                                </li>
+                                <li className='relative p-1 inner-nav-li'>
+                                  <a href="#" previewlistener="true">Contact Us</a>
+                                </li>
+                              </ul>
+                                    )
+                                  }
+                                
+                            </div>
                                                         </nav>
                                                     </li>
                                                 </ul>

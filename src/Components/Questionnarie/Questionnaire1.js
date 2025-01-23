@@ -46,7 +46,7 @@ export const Questionnaire1 = ({formData,setFormData}) => {
 
     const fetchAnswers = async () => {
       try {
-        if(location.state.orderId != undefined){
+        if(location?.state?.orderId != undefined){
         const response = await axios.get(`${base_url}/api/questionnaire/update/${location.state.orderId}`, ConfigToken());
         setFetchQ1Answers(response.data.data)
         }

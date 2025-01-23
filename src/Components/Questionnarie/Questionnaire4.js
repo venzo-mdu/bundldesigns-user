@@ -375,7 +375,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                           </div>
                           <div className='button-shade-group'>
                             <img src={Color3}></img>
-                            <button className={shadeBackgroundColor === 'rgb(255, 136, 136)' && shadeType !== 'surprise' ? 'shade-btn-active' : 'shade-btn'} onClick={() => handleShadeButtonClick('rgb(255, 136, 136)','rgb(221, 45, 45)' ,'', question.id)}>ONE COLOR SHADES</button>
+                            <button className={shadeBackgroundColor === 'rgb(255, 136, 136)' && shadeType !== 'surprise' ? 'shade-btn-active' : 'shade-btn'} onClick={() => handleShadeButtonClick('rgb(255, 45, 45)','rgb(221, 136, 136)' ,'', question.id)}>ONE COLOR SHADES</button>
                           </div>
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
@@ -399,8 +399,8 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                               <>
                                 <div className='font-background'>
                                   <img style={{ margin: '6% 0 0% 0' }} src={font.img}></img>
-                                  <button className={`font-buttons ${activeButtons.includes(font.fontStyle) ? 'font-buttons-active' : ''
-                                    }`} onClick={() => handleButtonClick(index, question.id, font.fontStyle)}>{font.fontStyle}</button>
+                                  <button className={`font-buttons ${activeButtons?.includes(font?.fontStyle) ? 'font-buttons-active' : ''
+                                    }`} onClick={() => handleButtonClick(index, question.id, font.fontStyle)}>{font?.fontStyle}</button>
                                 </div>
                               </>
                             )
