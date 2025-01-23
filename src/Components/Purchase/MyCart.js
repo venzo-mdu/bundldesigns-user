@@ -192,7 +192,7 @@ export const MyCart = () => {
     useEffect(() => {
         const handlePopState = (event) => {
           event.preventDefault();
-          setShowModal(true); // Show modal when browser back button is clicked
+          navigate(-1) // Show modal when browser back button is clicked
         };
     
         window.history.pushState(null, '', window.location.href);
@@ -201,16 +201,15 @@ export const MyCart = () => {
         return () => {
           window.removeEventListener('popstate', handlePopState);
         };
-      }, []);
+      }, [showModal]);
     const handleBackClick = () => {
         setShowModal(true);
       };
     
       const confirmNavigation = () => {
-        setShowModal(false);
-        navigate(-1); // Navigate to the previous page
+        setShowModal(false); 
+        navigate(-1);
       };
-    
       const cancelNavigation = () => {
         setShowModal(false);
       };
@@ -244,7 +243,7 @@ export const MyCart = () => {
       )}
             <div className='mycart '>
                 <div className='cart !xs:border-none  sm:!pb-[170px] !pb-[170px] xs:!pb-[20px]'>
-            <p onClick={()=>handleBackClick()} className='flex cursor-pointer text-[18px] items-center text-black'> <img src={backIcon} className='mr-2' ></img> Back to Bundl </p>
+            <p onClick={handleBackClick} className='flex cursor-pointer text-[18px] items-center text-black'> <img src={backIcon} className='mr-2' ></img> Back to Bundl </p>
                     <p className='!xs:text-[16px] !sm:text-[20px]'>Your Cart</p>
                     {isMobile ? <>
                         {cartDetails?.item_details?.bundle_items?.map((row,index) => (

@@ -334,7 +334,7 @@ input::placeholder {
     height: 20px;
 }
 .shade-background{
-    height: 600px;
+    height: 70%;
     width: 100%;
     padding: 0% 5%;
     margin: 4% 0 0 0;
@@ -1047,10 +1047,12 @@ input::placeholder {
         padding: 15% 5%;
     }
     .eyespoon{
-        top: 3%;
+        top: 1%;
+        right: -2%;
     }
     .eyespoon2{
-        top: 38%;
+        top: 68%;
+        z-index: 1;
     }
     .eyeball{
         padding: 0;
@@ -1059,7 +1061,7 @@ input::placeholder {
     .title-questionnaire{
         font-size: 20px;
         line-height: 36px;
-        margin: -35% 0 0 0%;
+        margin: -55% 0 0 0%;
         width: 60%;
     }
     .miclady{
@@ -1125,7 +1127,7 @@ input::placeholder {
     }
     .question-input{
         font-size: 14px;
-        border-bottom: 1px solid black;
+        border-bottom: 2px solid black;
     }
     .font-grid{
         display: grid;
@@ -1152,6 +1154,9 @@ input::placeholder {
         font-size: 18px;
     }
     .shade-btn-active{
+        font-size: 18px;
+    }
+    .shade-btn:hover{
         font-size: 18px;
     }
     .specific-color{
@@ -1190,6 +1195,9 @@ input::placeholder {
     }
     .next,.save,.back{
         font-size: 18px;
+    }
+    .shade-bundl-text{
+        font-size: 52px;
     }
 
     @keyframes mirror{
@@ -1329,7 +1337,10 @@ input::placeholder {
     .shade-btn-active{
         font-size: 18px;
         width: 250px;
-
+    }
+    .shade-btn:hover{
+        font-size: 18px;
+        width: 250px;
     }
     .specific-color{
         height: 25px;
@@ -1352,6 +1363,9 @@ input::placeholder {
     .thank-you-desc{
         font-size: 20px;
         text-align: center;
+    }
+    .shade-bundl-text{
+        font-size: 52px;
     }
 }
 

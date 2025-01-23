@@ -84,3 +84,6 @@ input:-webkit-autofill:focus {
   margin-left: 8px;
 }
 
+.PhoneInputInput{
+  outline: none !important;
+}

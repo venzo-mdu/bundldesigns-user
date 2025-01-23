@@ -122,7 +122,7 @@ export default function WebsterPremiumForm() {
           :<img className=' !w-[100px] bottom-[-20px] left-[-6px] right-[10%] absolute   sm:hidden ' src={ websterGif}></img>}
 
             </div>
-            <div className='text-left mt-4 sm:mt-4  xs:px-3 px-auto sm:px-auto'>
+            <div className='text-left mt-4 sm:mt-4  xs:px-[5%] px-auto sm:px-auto'>
               <div className=' mb-2 xs:pt-10 sm:pt-1 '>
                 <h2 className='text-[32px] text-black'>What is the name of your brand?</h2>
                 <input

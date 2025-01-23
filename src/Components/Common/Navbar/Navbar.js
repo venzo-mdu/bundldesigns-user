@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect, useState } from 'react'
+import React, { useMemo, useEffect, useState,useRef } from 'react'
 import '../Navbar/Navbar.css'
 import NavLogo from '../../../Images/Navbar/Navlogo.svg'
 import HomeLogo from '../../../Images/Bundles/logo-black.svg'
@@ -21,7 +21,9 @@ export const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [profileVisible, setProfileVisible] = useState(false)
-  const [token, setToken] = useState(null)
+  const [token, setToken] = useState(null);
+  const popupRef = useRef(null)
+  const navigationRef = useRef(null)
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
   };
@@ -47,9 +49,61 @@ export const Navbar = () => {
     };
     return null;
   };
+
   useEffect(() => {
     setToken(getCookie('token'))
-  }, [])
+  }, []);
+
+  // useEffect(()=>{
+  //   const handleClickOutside = (event) => {
+  //     if (
+  //       popupRef.current &&
+  //       !popupRef.current.contains(event.target)
+  //     ) {
+  //         setProfileVisible(false);
+  //     }
+  //     if (
+  //       navigationRef.current &&
+  //       !navigationRef.current.contains(event.target)
+  //     ) {
+  //         setMenuVisible(false);
+  //     }
+  //   };
+
+  //   document.addEventListener("mousedown", handleClickOutside);
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleClickOutside);
+  //   }; 
+  // },[])
+
+
+  useEffect(() => {
+    const handleClickOutsideProfile = (event) => {
+      if (popupRef.current && !popupRef.current.contains(event.target)) {
+        setProfileVisible(false);
+      }
+    };
+  
+    document.addEventListener("mouseup", handleClickOutsideProfile);
+    return () => {
+      document.removeEventListener("mouseup", handleClickOutsideProfile);
+    };
+  }, []); 
+
+
+  useEffect(() => {
+    const handleClickOutsideMenu = (event) => {
+      if (navigationRef.current && !navigationRef.current.contains(event.target)) {
+        setMenuVisible(false);
+      }
+    };
+  
+    document.addEventListener("mousedown", handleClickOutsideMenu);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutsideMenu);
+    };
+  }, []);
+  
   const isCommonNavbar = commonPaths.includes(window.location.pathname);
   return (
     <>
@@ -95,7 +149,7 @@ export const Navbar = () => {
                           <a className="" onClick={() => { setProfileVisible(!profileVisible) }}><img src={User} alt="" className="navIcons cursor-pointer"></img></a>
                           <nav className={`w-44 inner-nav-item absolute xs:top-[80px] md:top-[50px] shodow-sm -right-2 text-right bg-white p-2 transition-all duration-300 ease-in-out ${profileVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
                             }`}>
-                            <ul >
+                            {/* <ul>
                               {token ? <>
                                 <li className='relative p-1 inner-nav-li'>
                                   <a href="/dashboard" previewlistener="true">Projects</a>
@@ -119,7 +173,30 @@ export const Navbar = () => {
                                 </>}
 
 
-                            </ul>
+                            </ul> */}
+                            <div ref={popupRef}>
+      {profileVisible && (
+        <ul>
+          {token ? (
+            <>
+              <li className='relative p-1 inner-nav-li'>
+                <a href="/dashboard" previewlistener="true">Projects</a>
+              </li>
+              <li className='relative p-1 inner-nav-li'>
+                <a href="#" previewlistener="true">Profile</a>
+              </li>
+              <li className='relative p-1 inner-nav-li'>
+                <a onClick={() => { Logout() }} previewlistener="true">Logout</a>
+              </li>
+            </>
+          ) : (
+            <li className='relative p-1 inner-nav-li'>
+              <a href="/login" previewlistener="true">Login</a>
+            </li>
+          )}
+        </ul>
+      )}
+    </div>
                           </nav>
                         </li>
                         <li >
@@ -134,7 +211,7 @@ export const Navbar = () => {
                           </button>
                           <nav className={`w-44 inner-nav-item absolute xs:top-[80px] md:top-[50px] shadow-sm -right-2 text-right  bg-white p-2 transition-all duration-300 ease-in-out ${menuVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
                             }`}>
-                            <ul >
+                            {/* <ul>
                               <li className='relative p-1 inner-nav-li'>
                                 <a href="/" previewlistener="true">Bundl Offers</a>
                               </li>
@@ -147,7 +224,29 @@ export const Navbar = () => {
                               <li className='relative p-1 inner-nav-li'>
                                 <a href="#" previewlistener="true">Contact Us</a>
                               </li>
-                            </ul>
+                            </ul> */}
+
+                            <div ref={navigationRef}>
+                                  {
+                                    menuVisible && (
+                                <ul className=' inner-nav-item'>
+                                <li className='relative p-1 inner-nav-li'>
+                                  <a href="/" previewlistener="true">Bundl Offers</a>
+                                </li>
+                                <li className='relative p-1 inner-nav-li'>
+                                  <a href="/our-work" previewlistener="true">Our Work</a>
+                                </li>
+                                <li className='relative p-1 inner-nav-li'>
+                                  <a href="/aboutus" previewlistener="true">About Us</a>
+                                </li>
+                                <li className='relative p-1 inner-nav-li'>
+                                  <a href="#" previewlistener="true">Contact Us</a>
+                                </li>
+                              </ul>
+                                    )
+                                  }
+                                
+                            </div>
                           </nav>
                         </li>
                       </ul>
@@ -218,27 +317,30 @@ export const Navbar = () => {
                           <li className='px-[7px] inner-nav'>
 
                             <a className="w-[26px]" onClick={() => { setProfileVisible(!profileVisible) }}><img src={User} alt="" className="navIcons cursor-pointer"></img></a>
-                            <nav className={`w-44  absolute xs:top-[80px] md:top-[80px] shodow-sm -right-2 text-right bg-white p-2 transition-all duration-300 ease-in-out ${profileVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'}`}>
-                              <ul  >
-                                {token ? <>
-                                  <li className='relative p-1 inner-nav-li'>
-                                    <a href="/dashboard" previewlistener="true">Projects</a>
-                                  </li>
-                                  <li className='relative p-1 inner-nav-li'>
-                                    <a href="#" previewlistener="true">Profile</a>
-                                  </li>
-                                  <li className='relative p-1 inner-nav-li'>
-                                    <a onClick={() => { Logout() }} previewlistener="true">Logout</a>
-                                  </li>
-                                </> :
-                                  <>  <li className='relative p-1 inner-nav-li'>
-                                    <a href="/login" previewlistener="true">Login</a>
-                                  </li>
-                                  </>}
-
-
-
-                              </ul>
+                            <nav ref={popupRef} className={`w-44  absolute xs:top-[80px] md:top-[80px] shodow-sm -right-2 text-right bg-white p-2 transition-all duration-300 ease-in-out ${profileVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'}`}>
+                            <div >
+      {profileVisible && (
+        <ul>
+          {token ? (
+            <>
+              <li className='relative p-1 inner-nav-li'>
+                <a href="/dashboard" previewlistener="true">Projects</a>
+              </li>
+              <li className='relative p-1 inner-nav-li'>
+                <a href="#" previewlistener="true">Profile</a>
+              </li>
+              <li className='relative p-1 inner-nav-li'>
+                <a onClick={() => { Logout() }} previewlistener="true">Logout</a>
+              </li>
+            </>
+          ) : (
+            <li className='relative p-1 inner-nav-li'>
+              <a href="/login" previewlistener="true">Login</a>
+            </li>
+          )}
+        </ul>
+      )}
+    </div>
                             </nav>
                           </li>
                           <li className='px-[7px]'>
@@ -253,7 +355,10 @@ export const Navbar = () => {
                             </button>
                             <nav className={`w-44 absolute  shadow-sm -right-2 text-right bg-white p-2 transition-all duration-300 ease-in-out ${menuVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
                               }`}>
-                              <ul className=' inner-nav-item'>
+                                <div ref={navigationRef}>
+                                  {
+                                    menuVisible && (
+                                <ul className=' inner-nav-item'>
                                 <li className='relative p-1 inner-nav-li'>
                                   <a href="/" previewlistener="true">Bundl Offers</a>
                                 </li>
@@ -267,6 +372,11 @@ export const Navbar = () => {
                                   <a href="#" previewlistener="true">Contact Us</a>
                                 </li>
                               </ul>
+                                    )
+                                  }
+                                
+                                </div>
+                              
                             </nav>
                           </li>
                         </ul>
