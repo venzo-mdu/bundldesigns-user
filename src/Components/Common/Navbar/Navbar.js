@@ -91,7 +91,11 @@ export const Navbar = () => {
   useEffect(() => {
     const handleClickOutsideProfile = (event) => {
       if (popupRef.current && !popupRef.current.contains(event.target)) {
-        setProfileVisible(false);
+        if (event.target.closest('.navIcons')) {
+            return; // Skip handling the click if it's on the profile icon
+          }else{
+            setProfileVisible(false);
+          }
       }
     };
   

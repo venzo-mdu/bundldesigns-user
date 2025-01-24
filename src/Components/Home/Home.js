@@ -73,8 +73,6 @@ export const Home = () => {
     };
     const [loading, setLoading] = useState(false);
     const [openPopup, setOpenPopup] = useState(false);
-    const [slideImage, setSlideImage] = useState(imageArray[0]);
-    const [currentIndex, setCurrentIndex] = useState(0);
     const [activeProcess, setActiveProcess] = useState(0);
     const [isActiveProcess, setIsActiveProcess] = useState([false, false, false, false, false]);
     const [bundlData, setBundlData] = useState([]);
@@ -157,35 +155,15 @@ export const Home = () => {
             setLoading(true);
         }, 1000);
 
-        const intervalId = setInterval(() => {
-            setCurrentIndex((prevIndex) => (prevIndex + 1) % imageArray.length);
-        }, 500);
-
-        return () => clearInterval(intervalId);
     }, []);
-
-    useEffect(() => {
-        setSlideImage(imageArray[currentIndex]);
-    }, [currentIndex]);
 
     useEffect(() => {
         getBundl();
         getMediaUrls()
         setToken(getCookie('token'))
-    }, []);
+    }, [token]);
 
-  useEffect(() => {
-    const handleClickOutsideProfile = (event) => {
-      if (popupRef.current && !popupRef.current.contains(event.target)) {
-        setProfileVisible(false);
-      }
-    };
-  
-    document.addEventListener("mouseup", handleClickOutsideProfile);
-    return () => {
-      document.removeEventListener("mouseup", handleClickOutsideProfile);
-    };
-  }, []); 
+ 
 
 
   useEffect(() => {
@@ -193,13 +171,20 @@ export const Home = () => {
       if (navigationRef.current && !navigationRef.current.contains(event.target)) {
         setMenuVisible(false);
       }
+      if (popupRef.current && !popupRef.current.contains(event.target)) {
+        if (event.target.closest('.navIcons')) {
+            return; // Skip handling the click if it's on the profile icon
+          }else{
+            setProfileVisible(false);
+          }
+      }
     };
   
     document.addEventListener("mousedown", handleClickOutsideMenu);
     return () => {
       document.removeEventListener("mousedown", handleClickOutsideMenu);
     };
-  }, []);
+  }, [navigationRef, popupRef]);
   
     
     const getBundl = async () => {
@@ -278,32 +263,31 @@ export const Home = () => {
                                                         <a className="" href="#"><img src={Search} alt="" className="navIcons"></img></a>
                                                     </li>
                                                     <li className='px-[6px] inner-nav'>
-                                                        <a className="" onClick={() => { setProfileVisible(!profileVisible) }}><img src={User} alt="" className="navIcons cursor-pointer"></img></a>
-                                                        <nav className={`w-44 absolute top-full -right-2 text-right bg-white p-2 transition-all duration-300 ease-in-out ${profileVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
+                                                        <a className="" onClick={(event) => { 
+                                                            setProfileVisible(!profileVisible) }}><img src={User} alt="" className="navIcons cursor-pointer"></img></a>
+                                                        <nav ref={popupRef}  className={`w-44 absolute top-full -right-2 text-right bg-white p-2 transition-all duration-300 ease-in-out ${profileVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
                                                             }`}>
-                                                           <div ref={popupRef}>
-      {profileVisible && (
-        <ul>
-          {token ? (
-            <>
-              <li className='relative p-1 inner-nav-li'>
-                <a href="/dashboard" previewlistener="true">Projects</a>
-              </li>
-              <li className='relative p-1 inner-nav-li'>
-                <a href="#" previewlistener="true">Profile</a>
-              </li>
-              <li className='relative p-1 inner-nav-li'>
-                <a onClick={() => { Logout() }} previewlistener="true">Logout</a>
-              </li>
-            </>
-          ) : (
-            <li className='relative p-1 inner-nav-li'>
-              <a href="/login" previewlistener="true">Login</a>
-            </li>
-          )}
-        </ul>
-      )}
-    </div>
+                                                               <ul >
+                                                                {profileVisible && (
+                                                                    token ? (
+                                                                    <>
+                                                                        <li className="relative p-1 inner-nav-li">
+                                                                        <a href="/dashboard" previewlistener="true">Projects</a>
+                                                                        </li>
+                                                                        <li className="relative p-1 inner-nav-li">
+                                                                        <a href="#" previewlistener="true">Profile</a>
+                                                                        </li>
+                                                                        <li className="relative p-1 inner-nav-li">
+                                                                        <a onClick={() => { Logout() }} previewlistener="true">Logout</a>
+                                                                        </li>
+                                                                    </>
+                                                                    ) : (
+                                                                    <li className="relative p-1 inner-nav-li">
+                                                                        <a href="/login" previewlistener="true">Login</a>
+                                                                    </li>
+                                                                    )
+                                                                )}
+                                                                </ul>
                                                         </nav>
                                                     </li>
                                                     <li className='px-[6px]'>

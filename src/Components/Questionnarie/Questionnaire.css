@@ -1058,6 +1058,9 @@ input::placeholder {
         padding: 0;
         height: 100px;
     }
+    .questions{
+        padding: 0% 5%;
+    }
     .title-questionnaire{
         font-size: 20px;
         line-height: 36px;
@@ -1098,10 +1101,10 @@ input::placeholder {
         font-size:16px ;
     }
     .female,.male{
-        height: 30px;
+        height: 40px;
     }
     .female-active,.male-active{
-        height: 30px;
+        height: 40px;
     }
     .product-btn,.service-btn{
         height: 30px;
