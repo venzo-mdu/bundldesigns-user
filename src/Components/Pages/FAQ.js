@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { base_url } from '../Auth/BackendAPIUrl';
 import { Footer } from '../Common/Footer/Footer'
 import { Navbar } from '../Common/Navbar/Navbar'
-import downArrow from '../../Images/down-arrow.svg'
-import upArrow from '../../Images/up-arrow.svg'
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
-import fileUploadIcon from '../../Images/fileUploadIcon.svg'
 import msgIcon from '../../Images/messageIcon.svg'
 import { Bgloader } from '../Common/Background/Bgloader';
 import CloseIcon from '@mui/icons-material/Close';
 import PhoneNumberInput from './PhoneNumberInput';
+import { ToastContainer, toast } from 'react-toastify'
 
 export default function FAQ() {
 
@@ -63,7 +60,7 @@ export default function FAQ() {
     if (!formData.email) newErrors.email = 'Email is required';
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = 'Email is invalid';
 
-    if (!formData.thoughts) newErrors.description = 'Description is required';
+    if (!formData.thoughts) newErrors.thoughts = 'Thoughts is required';
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -73,13 +70,19 @@ export default function FAQ() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (validate()) {
-      setLoading(true)
       const response = await axios.post(`${base_url}/api/send-mail?form_type=contactus`, formData);
       if (response.data) {
-        console.log(response.data)
+        toast.success(`Form submitted successfully`, {
+          position: toast?.POSITION?.TOP_RIGHT,
+        });
         setSuccessMsg('submitted successfully')
+        setFormData({
+          name: '',
+          phone: '',
+          email: '',
+          thoughts: '',
+        })
       }
-      setLoading(false)
     }
   };
 
@@ -102,6 +105,7 @@ export default function FAQ() {
     loading ?
       <Bgloader /> :
       <>
+             <ToastContainer />
         <Navbar />
         <div className='font-Helvetica'>
           <div className='text-center py-2 border-b border-black'>

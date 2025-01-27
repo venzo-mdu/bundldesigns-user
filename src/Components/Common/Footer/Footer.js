@@ -70,17 +70,17 @@ export const Footer = () => {
                             <p className='font-medium text-[20px] mb-1 text-[#ECEAEB]'>Platform</p>
                             <ul>
                                 <li>
-                                    <a href='/our-work' className='text-[#ECEAEB]'> Our Work</a></li>
-                                <li>   <a href='/' className='text-[#ECEAEB]'> Bundls</a></li>
-                                <li>   <a href='/dashboard' className='text-[#ECEAEB]'> Dashboard</a></li>
+                                    <a href='/our-work' className='text-[#ECEAEB] hover:text-[#f175ad]'> Our Work</a></li>
+                                <li>   <a href='/' className='text-[#ECEAEB] hover:text-[#f175ad]'> Bundls</a></li>
+                                <li>   <a href='/dashboard' className='text-[#ECEAEB] hover:text-[#f175ad]'> Dashboard</a></li>
                             </ul>
                         </div>
                         <div className='information'>
                             <p className='font-medium text-[20px] mb-1 text-[#ECEAEB]'>Information</p>
                             <ul> 
-                                <li>  <a href='/aboutus' className='text-[#ECEAEB] font-normal'> About us</a></li>
-                                <li>  <a href='/faq' className='text-[#ECEAEB]'> FAQ's</a></li>
-                                <li>  <a href='/career' className='text-[#ECEAEB]'> Careers</a></li>
+                                <li>  <a href='/aboutus' className='text-[#ECEAEB] font-normal hover:text-[#f175ad]'> About us</a></li>
+                                <li>  <a href='/faq' className='text-[#ECEAEB] hover:text-[#f175ad]'> FAQs</a></li>
+                                <li>  <a href='/career' className='text-[#ECEAEB] hover:text-[#f175ad]'> Careers</a></li>
                             </ul>
                         </div>
                         <div className='contact-us'>
@@ -102,7 +102,7 @@ export const Footer = () => {
                 </div>
                 <hr></hr>
                 <div className='footer-bottom'>
-                    <p className='copyright'> 2024 BundlDesigns, All rights reserved.</p>
+                    <p className='copyright'> 2025 BundlDesigns, All rights reserved.</p>
                     <div className='policies'>
                         <p className='!text-[14px] !text-[#FFFFFFCC]'>Terms of service</p>
                         <p className='!text-[14px] !text-[#FFFFFFCC]'>Privacy policy</p>

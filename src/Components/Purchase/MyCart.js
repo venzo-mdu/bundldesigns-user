@@ -27,9 +27,32 @@ export const MyCart = () => {
     const [removedItems,setRemovedItems] = useState([])
     const [isMobile, setIsMobile] = useState(window.innerWidth < 440);
     const [phoneError,setPhoneError] = useState(false)
-    const [type,setType] = useState(false)
 
-    console.log(cartDetails,'zxcv')
+    const countries = [
+        "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", 
+        "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", 
+        "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei", "Bulgaria", 
+        "Burkina Faso", "Burundi", "Cabo Verde", "Cambodia", "Cameroon", "Canada", "Central African Republic", "Chad", 
+        "Chile", "China", "Colombia", "Comoros", "Congo (Congo-Brazzaville)", "Costa Rica", "Croatia", "Cuba", "Cyprus", 
+        "Czech Republic", "Democratic Republic of the Congo", "Denmark", "Djibouti", "Dominica", "Dominican Republic", 
+        "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Eswatini", "Ethiopia", "Fiji", 
+        "Finland", "France", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea", 
+        "Guinea-Bissau", "Guyana", "Haiti", "Honduras", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", 
+        "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Korea, North", "Korea, South", 
+        "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", 
+        "Luxembourg", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", 
+        "Mauritius", "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco", "Mozambique", 
+        "Myanmar (formerly Burma)", "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", "Nicaragua", "Niger", 
+        "Nigeria", "North Macedonia", "Norway", "Oman", "Pakistan", "Palau", "Panama", "Papua New Guinea", "Paraguay", 
+        "Peru", "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia", "Rwanda", "Saint Kitts and Nevis", 
+        "Saint Lucia", "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", 
+        "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", 
+        "Somalia", "South Africa", "South Sudan", "Spain", "Sri Lanka", "Sudan", "Suriname", "Sweden", "Switzerland", 
+        "Syria", "Taiwan", "Tajikistan", "Tanzania", "Thailand", "Timor-Leste", "Togo", "Tonga", "Trinidad and Tobago", 
+        "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", 
+        "United States", "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe"
+      ];
+      
 
     const [billingInfo, setBillingInfo] = useState({
         firstName: '',
@@ -159,10 +182,16 @@ export const MyCart = () => {
 
         if (!billingInfo.firstName.trim()) {setError({firstName:'Your first name field is empty.'})
     return false
-    }
+    }else if (/\d/.test(billingInfo.firstName)) { // Check if it contains any number
+  setError({ firstName: "First Name should not contain numbers." });
+  return false;
+}
         if (!billingInfo.lastName.trim()){ setError({lastName:'Your last name field is empty.'})
     return false
-    };
+    }else if (/\d/.test(billingInfo.lastName)) { // Check if it contains any number
+  setError({ lastName: "Last Name should not contain numbers." });
+  return false;
+}
 
         if (!billingInfo.email.trim()) {
             setError({email:'Your email field is empty'})
@@ -259,7 +288,6 @@ export const MyCart = () => {
         };
       }, []);
     const handleBackClick = () => {
-        setType(true)
         setShowModal(true);
       };
     
@@ -278,8 +306,8 @@ export const MyCart = () => {
       
       const cancelNavigation = () => {
         setShowModal(false);
-        setType(false)
       };
+      console.log(billingInfo.country,'country')
     return (
         <>
         {
@@ -313,7 +341,7 @@ export const MyCart = () => {
       )}
             <div className='mycart '>
                 <div className='cart !xs:border-none  sm:!pb-[170px] !pb-[170px] xs:!pb-[20px]'>
-                     {isDirect == false && <p onClick={()=>handleBackClick()} className='flex font-[500] cursor-pointer text-[18px] items-center text-black'> <img src={backIcon} className='mr-2' ></img> Back to Bundl </p>}          
+                     {isDirect == false && <p onClick={()=>handleBackClick()} className='flex font-[500] cursor-pointer !text-[18px] items-center text-black'> <img src={backIcon} className='mr-2 w-[30px]' ></img> Back to Bundl </p>}          
                     <p className='!xs:text-[16px] font-[700] !sm:text-[20px]'>Your Cart</p>
                     {isMobile ? <>
                         {cartDetails?.item_details?.bundle_items?.map((row,index) => (
@@ -445,12 +473,17 @@ export const MyCart = () => {
             <div className="country mb-[15px]">
                 <div className='mr-[4%]'>
                     <label className={`${'country' in error ? 'text-[red]':'opacity-50'}`}>Country <span className='text-[red]'>*</span></label>
-                    <input 
+                    <select 
                         name="country" 
+                        // id='vacancySelect'
                         value={billingInfo.country} 
                         onChange={handleBillingChange} 
-                        className={`${'country' in error ? '!border-[red]' :''}`}
-                    />
+                        className={`${'country' in error ? '!border-[red]' :''} border !border-black px-2 py-[5px] w-full`}
+                    >
+                        { countries.map(country=>(
+                            <option>{country}</option>
+                        ))}
+                    </select>
                 </div>
                 <div className='mr-[4%]' style={{ margin: '0% 0 0 2%' }}>
                     <label className={`${'city' in error ? 'text-[red]':'opacity-50'}`}>City<span className='text-[red]'>*</span></label>

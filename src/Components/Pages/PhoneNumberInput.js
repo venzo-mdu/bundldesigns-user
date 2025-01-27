@@ -37,7 +37,7 @@ const PhoneNumberInput = ({ name, placeholder, value, status, className,setPhone
     // Validate phone number length
     if (selectedCountry && value.length !== selectedCountry.phoneLength) {
       setPhoneError(true);
-      setError(`Phone number for ${selectedCountry.name} must be exactly ${selectedCountry.phoneLength} digits.`);
+      setError(`Please enter valid mobile number.`);
     } else {
       setPhoneError(false);
       setError('');

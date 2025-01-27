@@ -82,7 +82,7 @@ export default function OurWork() {
           className="!text-[#00000080] w-[70%] text-[16px]"
           dangerouslySetInnerHTML={{ __html: project.description_english }}
         />
-        <a href={`${project.instagram? project.instagram:'https://www.instagram.com/bundl_designs'}`} className="lg:w-[70%] xl:w-[60%] md:w-[80%] text-[16px] px-2 block text-center  bg-black py-2 text-white">
+        <a  target='_blank' href={`${project.instagram? project.instagram:'https://www.instagram.com/bundl_designs'}`} className="lg:w-[70%] xl:w-[60%] md:w-[80%] text-[16px] px-2 block text-center  bg-black py-2 text-white">
           Follow Our Instagram
         </a>
       </div>

@@ -4,8 +4,6 @@ import '../Purchase/Purchase.css'
 import { Navbar } from '../Common/Navbar/Navbar'
 import { Footer } from '../Common/Footer/Footer'
 import { Accordian } from '../Common/Accordian'
-import Dollor from '../../Images/BundlDetail/dollor.svg'
-import Time from '../../Images/BundlDetail/time.svg'
 import BlackDollor from '../../Images/BundlDetail/blackdollor.svg'
 import BlackTime from '../../Images/BundlDetail/blacktime.svg'
 import greenIcon from  '../../Images/green staked coin.svg'
@@ -80,6 +78,15 @@ export const BundlDetail = () => {
       });
       return false;
     }
+    const total_price = parseFloat(packageDetail?.package?.price) +
+    addonPayLoads.total_price +
+    (selectedLanguage === 'Both' ? 2000 : 0)
+    if(firstOrder && total_price < 4880){
+      toast.error(`Minimum order amount should be 4880`, {
+        position: toast?.POSITION?.TOP_RIGHT,
+      });
+      return false;
+    }
 
     return true;
   };
@@ -127,17 +134,10 @@ export const BundlDetail = () => {
     if (response.data) {
         const resProjects = response.data.data.filter(item=> item.order_status!='in_cart')
         if (resProjects.length) {
-            setFirstOrder(true)
+            setFirstOrder(false)
         }
     }
 }
-  // const handleQuantityChange = (designName, change) => {
-  //   setQuantities(prevQuantities => ({
-  //     ...prevQuantities,
-  //     [designName]: Math.max(1, (prevQuantities[designName] || 1) + change)
-  //   }));
-  //   console.log(quantities)
-  // };
   const handleQuantityChange = (designName, change) => {
     console.log(change,'chabge')
     if (designName in extraQty == false && change<0){
@@ -149,6 +149,9 @@ export const BundlDetail = () => {
     }else{
        setMinError((prevErrors) => prevErrors.filter((error) => error !== designName));
     }
+        toast.success(`Cart updated successfully`, {
+                position: toast?.POSITION?.TOP_RIGHT,
+              });
     setExtraQty(prevQuantities => {
       let newQuantity = (prevQuantities[designName] || 0) + change;
       return {
@@ -183,7 +186,9 @@ export const BundlDetail = () => {
       order_name: brandInput,
       bundle_id: packageID,
       total_time:  packageDetail?.package?.time + addonPayLoads.total_time,
-      total_price: parseFloat(packageDetail?.package?.price) + addonPayLoads.total_price,
+      total_price: parseFloat(packageDetail?.package?.price) +
+      addonPayLoads.total_price +
+      (selectedLanguage === 'Both' ? 2000 : 0),
       item_list: item_list,
       addons: addonPayLoads,
       order_status: "in_cart",
@@ -205,7 +210,6 @@ export const BundlDetail = () => {
 
 
   };
-  console.log(addonPayLoads,'sdsdsaa')
 
   return (
     <>
@@ -215,7 +219,7 @@ export const BundlDetail = () => {
        <div>
        <ToastContainer />
        <Navbar />
-       <div className='bundl-detail'>
+       <div className='bundl-detail mt-3'>
          <div className='xs:px-2 sm:px-auto px-auto' style={{ borderBottom: '1.5px solid #000000', width: '100%' }}>
            <h2 className='sm:text-[40px] text-[40px] xs:text-[32px]'>{packageDetail?.package?.name_english||  ''}</h2>
            <div className='bundl-amount'>
@@ -340,13 +344,12 @@ export const BundlDetail = () => {
                <p className='sm:text-[20px] text-[20px] text-right xs:text-[16px] font-[700] w-[40%]'>{Math.round(packageDetail?.package?.price)} sar</p>
              </div>
              {selectedItems?.map((item, idx) => {
-               console.log(item,'sdfa')
               return <div key={idx} className='one-brand-identity xs:flex sm:block block flex-wrap justify-around'>
-                 <p className='text-black sm:text-[20px] text-[20px] xs:text-[16px] font-[700] !mb-1 xs:w-[42%] sm:w-full' >{item.quantity} {item.name_english}</p>
+                 <p className='text-black sm:text-[20px] text-[20px] xs:text-[16px] font-[700] !mb-1 xs:w-[42%] sm:w-full' >{item.quantity} {item.name_english} <span className='sm:text-[16px] text-[16px] xs:text-[14px]'>{item.id =='76' && (selectedLanguage == 'Both' ? '(English & Arabic)' :`(${selectedLanguage})`)} </span></p>
                  <div className='flex xs:w-[58%]  sm:w-full w-full'>
                    <p className='sm:text-[20px] xs:ml-10 sm:ml-[2px] text-[20px] xs:text-[16px] font-[700] w-[40%]' style={{color:textColor }}>+ {item.total_time} Days</p>
  { item.id =='76' && selectedLanguage == 'Both'? <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[50%]' style={{color:textColor }}>+ {item.quantity == 1
-         ? parseFloat(item.price)
+         ? parseFloat(item.price) + 2000 
          : parseFloat(item.price) + ((parseFloat(item.price) / 100) * item.price_increment * (item.quantity - 1)) + 2000} sar</p>:
  <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[40%]' style={{color:textColor }}>+ {item.quantity == 1
          ? parseFloat(item.price)
@@ -376,7 +379,10 @@ export const BundlDetail = () => {
              <div className='bundl-checkout sm:mt-3'>
                <div className='total !font-[700]' style={{ display: 'flex' }}>
                  <p className='sm:mb-3 xs:mb-0 flex items-center !xs:text-[16px] !sm:text-[20px]' style={{ width: '60%' }}><img src={BlackDollor} alt="Total Price" className="inline-block !font-[700] sm:ml-1 xs:ml-2" /><span className='sm:ml-3 xs:ml-5 !font-[700]'>Total Price :</span></p>
-                 <p className='!font-[700] text-end !xs:text-[16px] !sm:text-[20px] sm:mb-3 xs:mb-0'  style={{ width: '40%' }} >{parseFloat(packageDetail?.package?.price) + addonPayLoads.total_price} sar</p>
+                 <p className='!font-[700] text-end !xs:text-[16px] !sm:text-[20px] sm:mb-3 xs:mb-0'  
+                 style={{ width: '40%' }} >{parseFloat(packageDetail?.package?.price) +
+                  addonPayLoads.total_price +
+                  (selectedLanguage === 'Both' ? 2000 : 0)} sar</p>
                </div>
                <div className='total' style={{ display: 'flex' }}>
                  <p className='!xs:text-[16px] flex items-center !sm:text-[20px]' style={{ width: '60%' }}><img src={BlackTime} alt="Total Duration" className="inline-block" /><span className='xs:ml-4 sm:ml-1 ml-1'>Total Duration :</span></p>
@@ -390,7 +396,7 @@ export const BundlDetail = () => {
                      <button style={{backgroundColor:textColor}} className={`proceed !bg-[${textColor}]`} disabled>Proceed Checkout</button>
                  }
                </div>
-              {firstOrder == false && <p className='proceed-text'>Your minimum total should be above 4880 SAR</p>}
+              {firstOrder && <p className='proceed-text'>Your minimum total should be above 4880 SAR</p>}
              </div>
            </div>
          </div>

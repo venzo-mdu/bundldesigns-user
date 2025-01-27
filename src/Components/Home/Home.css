@@ -400,7 +400,7 @@ border-top: 1px solid rgba(0, 0, 0, .1)
 .inner-nav-li{
   width: 100% !important;
   margin-top: 1%;
-  padding: 3px 10px 0px !important;
+  padding: 3px 4px 0px !important;
   margin-bottom: 6px;
   border-bottom: 1px solid black;
 }
@@ -2358,6 +2358,9 @@ background-image: url(../../Images/Bundles/plus-icon.png);
 background-position: center center;
 background-repeat: no-repeat;
 background-size: contain;
+}
+#AboutusContainer .nav-section{
+  background: inherit;
 }
 
 .bundl-pack-head {

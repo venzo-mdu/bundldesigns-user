@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import axios from 'axios';
 import { base_url } from '../Auth/BackendAPIUrl';
-
+import { ToastContainer, toast } from 'react-toastify'
 import BlackDollor from '../../Images/BundlDetail/blackdollor.svg';
 import BlackTime from '../../Images/BundlDetail/blacktime.svg';
 import { ConfigToken } from '../Auth/ConfigToken';
@@ -79,6 +79,9 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
   // };
 
   const handleQuantityChange = (designName, change) => {
+        toast.success(`Cart updated successfully`, {
+            position: toast?.POSITION?.TOP_RIGHT,
+          });
     setQuantities((prevQuantities) => {
       const currentQuantity = prevQuantities[designName] || 0; // Default to 0 if not defined
       const newQuantity = Math.max(0, currentQuantity + change); // Prevent negative values

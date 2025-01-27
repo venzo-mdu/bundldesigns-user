@@ -46,7 +46,7 @@ export const AboutUs = () => {
           loading ?
           <Bgloader /> :
           <>
-                <div className={`bg-cover  md:bg-[100%_7%] lg:bg-[100%_7%] xs:[120%_10%] font-Helvetica`}
+                <div id='AboutusContainer' className={`bg-cover  md:bg-[100%_7%] lg:bg-[100%_7%] xs:[120%_10%] font-Helvetica`}
         style={{
           backgroundImage: `url(${cloud_bg})`,
         }}>

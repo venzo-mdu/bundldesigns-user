@@ -281,7 +281,7 @@ export const Home = () => {
                                     <div className="row align-items-center">
                                         <div className="col-4 col-md-3 col-lg-3 justify-content-between">
                                             <div className="navbar navbar-expand-lg justify-content-between">
-                                                <a className="navbar-brand" href="/"><img src={HomeLogo} alt="" className="img-fluid"></img></a>
+                                                <a className="navbar-brand" href="#ourBundl"><img src={HomeLogo} alt="" className="img-fluid"></img></a>
 
                                             </div>
                                         </div>
@@ -316,7 +316,7 @@ export const Home = () => {
                                                     </li>
                                                     <li className='px-[6px] inner-nav'>
                                                         <a className="" onClick={() => { setProfileVisible(!profileVisible) }}><img src={User} alt="" className="navIcons cursor-pointer"></img></a>
-                                                        <nav className={`w-44 absolute top-full -right-2 text-right bg-white p-2 transition-all duration-300 ease-in-out ${profileVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
+                                                        <nav className={`w-44 absolute top-full right-[6rem] text-right bg-white py-2 px-3 transition-all duration-300 ease-in-out ${profileVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
                                                             }`}>
                                                             <div ref={popupRef}>
                                                                 {profileVisible && (
@@ -1093,7 +1093,7 @@ export const Home = () => {
                                             <img src={Instafeed} alt="" ></img>
                                         </div>
                                         <div className="social-cta text-center">
-                                            <a href={`${mediaUrls.instagram}`} className="btn bundl-btn-border text-upper mt-5">Follow us on instagram</a>
+                                            <a  target='_blank' href={`${mediaUrls.instagram}`} className="btn bundl-btn-border text-upper mt-5">Follow us on instagram</a>
                                         </div>
                                     </div>
                                 </div>
@@ -1140,7 +1140,7 @@ export const Home = () => {
                                     </div>
                                 </div>
                                 <div className="px-5 mx-auto mt-5 text-center">
-                                    <a href="https://www.google.com/search?q=bundldesigns&rlz=1C1OPNX_enIN1088IN1088&oq=bundldesigns&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQRRg8MgYIAhBFGDwyBggDEEUYPDIICAQQRRgnGDsyBggFEEUYPDIGCAYQRRg8MgYIBxBFGDzSAQgzODA5ajBqN6gCALACAA&sourceid=chrome&ie=UTF-8#lrd=0x3e2efdec17da19b7:0xb10d764716306f04,3,,,," className="btn bundl-btn-border">Leave a review</a>
+                                    <a target='_blank' href="https://www.google.com/search?q=bundldesigns&rlz=1C1OPNX_enIN1088IN1088&oq=bundldesigns&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQRRg8MgYIAhBFGDwyBggDEEUYPDIICAQQRRgnGDsyBggFEEUYPDIGCAYQRRg8MgYIBxBFGDzSAQgzODA5ajBqN6gCALACAA&sourceid=chrome&ie=UTF-8#lrd=0x3e2efdec17da19b7:0xb10d764716306f04,3,,,," className="btn bundl-btn-border">Leave a review</a>
                                 </div>
                             </div>
                         </section>
@@ -1156,10 +1156,10 @@ export const Home = () => {
                                 </div>
                                 <div className="social-link  align-items-center">
                                     <ul className="d-flex justify-content-center">
-                                        <li className="social-item"><a href={`${mediaUrls.linked_in}`}><img src={Linkedin} alt="" className="img-fluid social-icon"></img></a></li>
-                                        <li className="social-item"><a href={`${mediaUrls.instagram}`}><img src={Instagram} alt="" className="img-fluid social-icon"></img></a></li>
-                                        <li className="social-item"><a href={`${mediaUrls.twitter}`}><img src={X} alt="" className="img-fluid social-icon"></img></a></li>
-                                        <li className="social-item"><a href={`${mediaUrls.facebook}`}><img src={Facbook} alt="" className="img-fluid social-icon"></img></a></li>
+                                        <li className="social-item"><a href={`${mediaUrls.linked_in}`} target='_blank'><img src={Linkedin} alt="" className="img-fluid social-icon"></img></a></li>
+                                        <li className="social-item"><a href={`${mediaUrls.instagram}`} target='_blank'><img src={Instagram} alt="" className="img-fluid social-icon"></img></a></li>
+                                        <li className="social-item"><a href={`${mediaUrls.twitter}`} target='_blank'><img src={X} alt="" className="img-fluid social-icon"></img></a></li>
+                                        <li className="social-item"><a href={`${mediaUrls.facebook}`} target='_blank'><img src={Facbook} alt="" className="img-fluid social-icon"></img></a></li>
                                     </ul>
                                 </div>
                             </div>

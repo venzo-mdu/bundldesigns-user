@@ -6,7 +6,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { base_url } from '../Auth/BackendAPIUrl';
 import { Bgloader } from '../Common/Background/Bgloader';
-import PhoneInput from 'react-phone-number-input'
+import { ToastContainer, toast } from 'react-toastify'
 import PhoneNumberInput from './PhoneNumberInput';
 import paperPlaneGif from '../../Images/ourWorkGIF.gif'
 import websterGif from '../../Images/aboutus/website.gif'
@@ -74,13 +74,15 @@ export default function WebsterPremiumForm() {
     e.preventDefault();
     if (validate()) {
       if(phoneError == false){
-        setLoading(true)
         const response = await axios.post(`${base_url}/api/send-mail?form_type=${form_type}`, formData);
         if (response.data) {
           setSuccessMsg('Submitted Successfully')
+          toast.success(`Form submitted successfully`, {
+                    position: toast?.POSITION?.TOP_RIGHT,
+                  });
         }
-        setLoading(false)
         setErrors({})
+
         setFormData({
           project_name: '',
           name: '',
@@ -101,9 +103,8 @@ export default function WebsterPremiumForm() {
     loading ?
       <Bgloader /> :
       <>
-
+      <ToastContainer />
         <Navbar />
-
         <div className=' font-Helvetica flex sm:pt-10 xs:pt-0 pt-10 xs:block sm:flex sm:pb-24 xs:pb-2 pb-24 overflow-hidden'>
           <div className='basis-1/4 relative xs:pb-8'>
           {form_type=="premium"?<img className='sm:!w-[200px] !w-[200px] xs:!w-[130px] top-[15%] sm:right-[10%] xs:right-0 right-[10%] left- absolute xs:hidden sm:absolute sm:block' src={ paperPlaneGif}></img>
