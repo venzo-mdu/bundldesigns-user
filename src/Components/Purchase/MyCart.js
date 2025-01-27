@@ -16,15 +16,17 @@ import DeleteIcon from '../../Images/BundlDetail/deleteicon.svg'
 import BlackDollor from '../../Images/BundlDetail/blackdollor.svg'
 import BlackTime from '../../Images/BundlDetail/blacktime.svg'
 import { base_url } from '../Auth/BackendAPIUrl';
-import { redirect, useLocation, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { ConfigToken } from '../Auth/ConfigToken'
 import PhoneNumberInput from '../Pages/PhoneNumberInput';
 import backIcon from "../../Images/backIcon.svg"
-
+import { useSearchParams } from 'react-router-dom';
+import { Bgloader } from '../Common/Background/Bgloader'
  
 export const MyCart = () => {
- 
-    const location = useLocation();
+    const [searchParams] = useSearchParams();
+    const isDirect = searchParams.get('direct') === 'true';
+    const [loading,setLoading] = useState(true)
     const navigate = useNavigate();
     const [cartDetails, setCartDetails] = useState([]);
     const [showModal, setShowModal] = useState(false);
@@ -32,8 +34,10 @@ export const MyCart = () => {
     const [removedItems,setRemovedItems] = useState([])
     const [isMobile, setIsMobile] = useState(window.innerWidth < 440);
     const [phoneError,setPhoneError] = useState(false)
-    const [historyStack, setHistoryStack] = useState([]);
     const [type,setType] = useState(false)
+
+    console.log(cartDetails,'zxcv')
+
     const [billingInfo, setBillingInfo] = useState({
         firstName: '',
         lastName: '',
@@ -45,7 +49,6 @@ export const MyCart = () => {
         promoCode: '',
     });
 
-    console.log(historyStack,'state')
     const [error,setError] = useState({})
     const [errors, setErrors] = useState({});
     useEffect(() => {
@@ -66,6 +69,7 @@ export const MyCart = () => {
  
     const getCartData = async () => {
         try{
+            setLoading(true)
             // const response = await axios.get(`${base_url}/api/order/${location.state.orderData.id}/`);
             const response = await axios.get(`${base_url}/api/order/cart/`,ConfigToken());
             if(response.data){
@@ -77,8 +81,10 @@ export const MyCart = () => {
         }
         catch(e){
             navigate("/login");
-        }  
-    };
+        } finally{
+            setLoading(false)
+        }
+    }; 
  
     const removeItem = async (itemId, itemType) => {
         if(itemType=='bundle'){
@@ -94,8 +100,14 @@ export const MyCart = () => {
             setRemovedItems(itemId)
             // Handle removal based on item type
                 const removedItem = updatedItemDetails.addon_items.find(item => item.id === itemId);
-                updatedTotalAmount -= removedItem?.unit_price * removedItem?.qty || 0;
-                updatedTotalTime -= removedItem?.unit_time * removedItem?.qty ||0
+                updatedTotalAmount -= removedItem?.subtotal_price || 0;
+                const sorted = [...updatedItemDetails.addon_items].sort((a, b) => b.unit_time - a.unit_time);
+                if(sorted.length && sorted[0].id == itemId){
+                    updatedTotalTime -= removedItem?.unit_time
+                    if(sorted.length >1){
+                        updatedTotalTime += sorted[1].unit_time
+                    }
+                }
                 updatedItemDetails.addon_items = updatedItemDetails.addon_items.filter(item => item.id !== itemId);
 
             // Recalculate the totals
@@ -233,24 +245,27 @@ export const MyCart = () => {
         setErrors(errors)
     };
     useEffect(() => {
+        // Function to handle the back button (popstate)
         const handlePopState = (event) => {
-            if(location.state){
-                event.preventDefault();
-                setShowModal(true);
-            }
-            else{
-                navigate(-1)
-            }
+          console.log('Back button pressed');
+          setShowModal(true); // Show the modal
+          document.documentElement.scrollTo({ top: 0, left: 0 });
+          // Push the same state back to prevent navigation
+          window.history.pushState(null, '', window.location.href);
         };
     
+        // Push initial state into history when the component mounts
         window.history.pushState(null, '', window.location.href);
+    
+        // Add the event listener for "popstate"
         window.addEventListener('popstate', handlePopState);
     
+        // Cleanup the listener on unmount
         return () => {
           window.removeEventListener('popstate', handlePopState);
         };
       }, []);
-    const handleBackClick = (type) => {
+    const handleBackClick = () => {
         setType(true)
         setShowModal(true);
       };
@@ -259,25 +274,19 @@ export const MyCart = () => {
         setShowModal(false); 
         navigateToDetailHistory()
       };
-
-
-      useEffect(() => {
-        // Track history as the component renders (you could also use a more sophisticated history tracking mechanism)
-        setHistoryStack(prevHistory => [...prevHistory, location.pathname]);
-      }, [location]);
     
       const navigateToDetailHistory = () => {
-        if(type){
-            navigate(-3)
-        }else{
-            navigate(-2)
-        }
+        navigate(`/bundldetail/${cartDetails.bundle_id}`,{state:{project_name:cartDetails.project_name}})
       };
+      
       const cancelNavigation = () => {
         setShowModal(false);
         setType(false)
       };
     return (
+        <>
+        {
+            loading ? <Bgloader /> :        
         <div>
             <ToastContainer />
             <Navbar />
@@ -307,7 +316,7 @@ export const MyCart = () => {
       )}
             <div className='mycart '>
                 <div className='cart !xs:border-none  sm:!pb-[170px] !pb-[170px] xs:!pb-[20px]'>
-                    {location.state &&             <p onClick={()=>handleBackClick('back')} className='flex font-[500] cursor-pointer text-[18px] items-center text-black'> <img src={backIcon} className='mr-2' ></img> Back to Bundl </p>}
+                     {isDirect == false && <p onClick={()=>handleBackClick()} className='flex font-[500] cursor-pointer text-[18px] items-center text-black'> <img src={backIcon} className='mr-2' ></img> Back to Bundl </p>}          
                     <p className='!xs:text-[16px] font-[700] !sm:text-[20px]'>Your Cart</p>
                     {isMobile ? <>
                         {cartDetails?.item_details?.bundle_items?.map((row,index) => (
@@ -356,7 +365,7 @@ export const MyCart = () => {
                                             {row.item_name}
                                         </td>
                                         <td className=' !py-2' align="center">{row.qty}</td>
-                                        <td className=' !py-2' align="center">{row.unit_price}</td>
+                                        <td className=' !py-2' align="center">{row.subtotal_price}</td>
                                         {/* <TableCell align="center"><img style={{width:'23px'}} src={row.DeleteIcon}></img></TableCell> */}
                                         <td align="center">
                                             {/* <img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'addon')}/> */}
@@ -496,6 +505,10 @@ export const MyCart = () => {
                 />
            }
         </div>
+
+        }
+        </>
+
         
     )
 }

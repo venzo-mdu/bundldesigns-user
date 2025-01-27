@@ -200,7 +200,7 @@ export const Navbar = () => {
                           </nav>
                         </li>
                         <li >
-                          <a className="" href="/mycart"><img src={Cart} alt="" className="navIcons  ml-2"></img></a>
+                          <a className="" href="/mycart?direct=true"><img src={Cart} alt="" className="navIcons  ml-2"></img></a>
                         </li>
                         <li >
                           <a className="" ><img src={Language} alt="" className="navIcons  ml-2"></img></a>
@@ -344,7 +344,7 @@ export const Navbar = () => {
                             </nav>
                           </li>
                           <li className='px-[7px]'>
-                            <a className="w-[26px]" href="/mycart"><img src={Cart} alt="" className="navIcons"></img></a>
+                            <a className="w-[26px]" href="/mycart?direct=true"><img src={Cart} alt="" className="navIcons"></img></a>
                           </li>
                           <li className='px-[7px]'>
                             <a className="w-[26px]" ><img src={Language} alt="" className="navIcons"></img></a>

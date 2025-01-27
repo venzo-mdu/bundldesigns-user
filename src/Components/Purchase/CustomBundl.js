@@ -73,6 +73,7 @@ export const CustomBundl = () => {
     
     
   };
+  console.log(addonPayLoads,'addonPayLoads')
 
   return (
     <div>
@@ -121,7 +122,7 @@ export const CustomBundl = () => {
                 <p className='text-[#000] sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[45%]' >{addon.qty} {addon.addon_name}</p>
                 <div className='flex xs:w-[55%] sm:w-full w-full'>
                   <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[55%]' >+ {addon.unit_time * addon.qty} Days</p>
-                  <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[45%]'>+ {addon.unit_price * addon.qty} SAR</p>
+                  <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[45%]'>+ {addon.qty ==1 ? parseFloat(addon.unit_price): parseFloat(addon.unit_price) + ((parseFloat(addon.unit_price) / 100) * addon.price_increment * (addon.qty - 1)) } sar</p>
                 </div>
               </div>
             ))}

@@ -56,7 +56,7 @@ export default function AppRouter() {
       element: <Home />,
     },
     {
-      path: "/bundldetail",
+      path: "/bundldetail/:packageID",
       element: <ProtectedRoute element={<BundlDetail />} />,
     },
     {

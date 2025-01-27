@@ -215,7 +215,7 @@ export const Home = () => {
                 setSelectedIndex(index)
             } else {
                 setSelectedIndex(null)
-                navigate('/bundldetail', { state: { bundlDetail: bundlData.packages[index], index: index } });
+                navigate(`/bundldetail/${bundlData.packages[index].id}`,);
             }
         } catch (error) {
             console.error('An error occurred:', error);
@@ -307,7 +307,7 @@ export const Home = () => {
                                                         </nav>
                                                     </li>
                                                     <li className='px-[6px]'>
-                                                        <a className="" href="/mycart"><img src={Cart} alt="" className="navIcons"></img></a>
+                                                        <a className="" href="/mycart?direct=true"><img src={Cart} alt="" className="navIcons"></img></a>
                                                     </li>
                                                     <li className='px-[6px]'>
                                                         <a className="" href="#"><img src={Language} alt="" className="navIcons"></img></a>
