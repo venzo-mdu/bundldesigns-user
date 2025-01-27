@@ -18,6 +18,7 @@ import Dashboard from "./Components/Pages/Dashboard";
 import UploadContent from "./Components/Pages/UploadContent";
 import Adjustments from "./Components/Pages/Adjustments";
 import WebsterPremiumForm from "./Components/Pages/WebsterPremiumForm";
+import Search from "./Components/Pages/Search";
 
 const getCookie = (name) => {
   const value = `; ${document.cookie}`;
@@ -90,6 +91,10 @@ export default function AppRouter() {
     {
       path:"/aboutus",
       element:<AboutUs/>
+    },
+    {
+      path:"/search",
+      element:<Search/>
     },
     {
       path:'/career',

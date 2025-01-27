@@ -73,13 +73,6 @@ export const BundlDetail = () => {
   },[]);
   const validateFields = () => {
 
-    const totalAmount = parseFloat(packageDetail?.package?.price )+ addonPayLoads.total_price;
-    if (totalAmount < 4880) {
-      toast.error(`Minimum order is 4880 SAR`, {
-        position: toast?.POSITION?.TOP_RIGHT,
-      });
-      return false;
-    }
 
     if (brandInput == '') {
       toast.error(`Name your brand`, {

@@ -21,8 +21,11 @@ export const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [profileVisible, setProfileVisible] = useState(false)
+  const [searchShow,setSearchShow] = useState(false)
+  const [searchQry,setSearchQry] = useState('')
   const [token, setToken] = useState(null);
   const popupRef = useRef(null)
+  const searchRef = useRef(null)
   const navigationRef = useRef(null)
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
@@ -54,35 +57,17 @@ export const Navbar = () => {
     setToken(getCookie('token'))
   }, []);
 
-  // useEffect(()=>{
-  //   const handleClickOutside = (event) => {
-  //     if (
-  //       popupRef.current &&
-  //       !popupRef.current.contains(event.target)
-  //     ) {
-  //         setProfileVisible(false);
-  //     }
-  //     if (
-  //       navigationRef.current &&
-  //       !navigationRef.current.contains(event.target)
-  //     ) {
-  //         setMenuVisible(false);
-  //     }
-  //   };
-
-  //   document.addEventListener("mousedown", handleClickOutside);
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //   }; 
-  // },[])
-
-
   useEffect(() => {
     const handleClickOutsideProfile = (event) => {
       if (popupRef.current && !popupRef.current.contains(event.target)) {
         setProfileVisible(false);
       }
+      if(searchRef.current && !searchRef.current.contains(event.target)){
+        setSearchShow(false)
+      }
+    
     };
+
   
     document.addEventListener("mouseup", handleClickOutsideProfile);
     return () => {
@@ -90,6 +75,12 @@ export const Navbar = () => {
     };
   }, []); 
 
+
+  function checkEnterKey(event) {
+    if (event.key === 'Enter') {
+        navigate(`/search?query=${event.target.value}`)
+    }
+    }
 
   useEffect(() => {
     const handleClickOutsideMenu = (event) => {
@@ -103,7 +94,6 @@ export const Navbar = () => {
       document.removeEventListener("mousedown", handleClickOutsideMenu);
     };
   }, []);
-  
   const isCommonNavbar = commonPaths.includes(window.location.pathname);
   return (
     <>
@@ -138,42 +128,21 @@ export const Navbar = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="col-7 !mt-5 col-md-8 col-lg-3 text-end ">
+                  <div className="col-7 relative !mt-5 col-md-8 col-lg-3 text-end ">
                     <div className="navbar  float-right">
                       <ul className=" mr-auto h-list align-items-center ">
                         <li >
-                          <a className="" href="#"><img src={Search} alt="" className="navIcons  ml-2"></img> </a>
+                          <a onClick={()=>{setSearchShow(!searchShow)}}><img src={Search} alt="" className="navIcons cursor-pointer ml-2"></img> </a>
+                          <div ref={searchRef}>
+                           {searchShow ? <input   onKeyDown={(e)=>checkEnterKey(e)} className='border-b focus:outline-none py-1 px-2 text-[#1ba56f] border-[#1ba56f]' value={searchQry} onChange={(e)=>setSearchQry(e.target.value)}  />:''}
+                          </div>
                         </li>
                         <li className='px-[6px] inner-nav'>
 
                           <a className="" onClick={() => { setProfileVisible(!profileVisible) }}><img src={User} alt="" className="navIcons cursor-pointer"></img></a>
                           <nav className={`w-44 inner-nav-item absolute xs:top-[80px] md:top-[50px] shodow-sm -right-2 text-right bg-white p-2 transition-all duration-300 ease-in-out ${profileVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
                             }`}>
-                            {/* <ul>
-                              {token ? <>
-                                <li className='relative p-1 inner-nav-li'>
-                                  <a href="/dashboard" previewlistener="true">Projects</a>
-                                </li>
-                                <li className='relative p-1 inner-nav-li'>
-                                  <a href="#" previewlistener="true">Profile</a>
-                                </li>
-                                <li className='relative p-1 inner-nav-li'>
-                                  <a
-                                    className="cursor-pointer"
-                                    onClick={Logout}
-                                    previewlistener="true"
-                                  >
-                                    Logout
-                                  </a>
-                                </li>
-                              </> :
-                                <>  <li className='relative p-1 inner-nav-li'>
-                                  <a href="/login" previewlistener="true">Login</a>
-                                </li>
-                                </>}
-
-
-                            </ul> */}
+                          
                             <div ref={popupRef}>
       {profileVisible && (
         <ul>
@@ -211,20 +180,6 @@ export const Navbar = () => {
                           </button>
                           <nav className={`w-44 inner-nav-item absolute xs:top-[80px] md:top-[50px] shadow-sm -right-2 text-right  bg-white p-2 transition-all duration-300 ease-in-out ${menuVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
                             }`}>
-                            {/* <ul>
-                              <li className='relative p-1 inner-nav-li'>
-                                <a href="/" previewlistener="true">Bundl Offers</a>
-                              </li>
-                              <li className='relative p-1 inner-nav-li'>
-                                <a href="/our-work" previewlistener="true">Our Work</a>
-                              </li>
-                              <li className='relative p-1 inner-nav-li'>
-                                <a href="/aboutus" previewlistener="true">About Us</a>
-                              </li>
-                              <li className='relative p-1 inner-nav-li'>
-                                <a href="#" previewlistener="true">Contact Us</a>
-                              </li>
-                            </ul> */}
 
                             <div ref={navigationRef}>
                                   {
@@ -307,11 +262,14 @@ export const Navbar = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="col-7 col-md-8  col-lg-3 text-end ">
+                    <div className="col-7 relative col-md-8  col-lg-3 text-end ">
                       <div className="navbar navbar-expand-lg float-right">
                         <ul className="sm:mt-[5vh] xs:mt-0 mr-auto h-list align-items-center ">
                           <li className='px-[7px]'>
-                            <a className="w-[26px]" href="#"><img src={Search} alt="" className="navIcons"></img></a>
+                            <a className="w-[26px] cursor-pointer"  onClick={()=>{setSearchShow(!searchShow)}}><img src={Search} alt="" className="navIcons"></img></a>
+                            <div className='absolute' ref={searchRef}>
+                           {searchShow ? <input   onKeyDown={(e)=>checkEnterKey(e)} className='border-b focus:outline-none py-1 px-2 text-[#1ba56f] border-[#1ba56f]' value={searchQry} onChange={(e)=>setSearchQry(e.target.value)} />:''}
+                          </div>
                           </li>
                           
                           <li className='px-[7px] inner-nav'>

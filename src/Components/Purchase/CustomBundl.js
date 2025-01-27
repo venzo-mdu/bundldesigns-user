@@ -3,25 +3,22 @@ import '../Purchase/Purchase.css'
 import { Navbar } from '../Common/Navbar/Navbar'
 import { Footer } from '../Common/Footer/Footer'
 import { Accordian } from '../Common/Accordian'
-
-
-import Dollor from '../../Images/BundlDetail/dollor.svg'
-import Time from '../../Images/BundlDetail/time.svg'
 import BlackDollor from '../../Images/BundlDetail/blackdollor.svg'
 import BlackTime from '../../Images/BundlDetail/blacktime.svg'
-import Edit from '../../Images/BundlDetail/editicon.svg'
-import Xmark from '../../Images/BundlDetail/xmarkicon.svg'
 import { ConfigToken } from '../Auth/ConfigToken'
 import axios from 'axios'
 import { base_url } from '../Auth/BackendAPIUrl'
-
-import { NavLink, useLocation, useNavigate } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify'
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 
 export const CustomBundl = () => {
 
   const navigate = useNavigate();
+      const [searchParams] = useSearchParams();
+      const query = searchParams.get('search')
   const [isMobile, setIsMobile] = useState(window.innerWidth < 440);
   const location = useLocation();
+  const {state} = location
   const [addonPayLoads, setAddonPayLoads] = useState({});
   const [brandInput , setBrandInput] = useState('');
   const [showDetails,setDetails] = useState(false)
@@ -31,7 +28,9 @@ export const CustomBundl = () => {
       top: 0,
       left: 0
     })
-
+    if(state && 'project_name' in state){
+      setBrandInput(state.project_name)
+    }
     const handleResize = () => {
       setIsMobile(window.innerWidth < 440);
     };
@@ -44,7 +43,18 @@ export const CustomBundl = () => {
   },[]);
 
   const createPayload = async() => {
-
+    if (brandInput == '') {
+      toast.error(`Name your brand`, {
+        position: toast?.POSITION?.TOP_RIGHT,
+      });
+      return false;
+    }
+    if(addonPayLoads.item_list.length ==0){
+      toast.error(`Please add an Item to Checkout`, {
+        position: toast?.POSITION?.TOP_RIGHT,
+      });
+      return false;
+    }
     const payload = {
       order_name:brandInput || "Addons",
       // bundle_id: location.state.bundlDetail?.id,
@@ -73,10 +83,10 @@ export const CustomBundl = () => {
     
     
   };
-  console.log(addonPayLoads,'addonPayLoads')
 
   return (
     <div>
+      <ToastContainer />
       <Navbar />
       <div className='bundl-detail'>
         <div style={{ borderBottom: '1.5px solid #000000', width: '100%' }}>
@@ -89,13 +99,14 @@ export const CustomBundl = () => {
         <div className='bundl-section'>
           <div className='brand-details'>
             <p style={window.innerWidth<=441 ? {fontSize:'24px',fontWeight: '700'}:{ textAlign: 'left', fontSize: '32px', fontWeight: '700' }}>What is the name of your brand?</p>
-            <input className='brand-input' onChange={(e)=>setBrandInput(e.target.value)}/>
+            <input value={brandInput} className='brand-input' onChange={(e)=>setBrandInput(e.target.value)}/>
             <div style={{ margin: '5% 0 0 0' }}>
               <Accordian
                 accordianTitle={'Custom Your Bundl!'}
                 textColor={'#1BA56F'}
                 addOnPayload={setAddonPayLoads}
                 extraQty ={{}}
+                searchParams={query}
               />
             </div>
 

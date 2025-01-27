@@ -13,7 +13,7 @@ import { ConfigToken } from '../Auth/ConfigToken';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 
-export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackageId, textColor }) => {
+export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackageId, textColor,searchParams=null }) => {
   const [isDropdown, setIsDropdown] = useState([false, false, false, false, false, false, false]);
   const [addOnData, setAddonData] = useState({});
   const [quantities, setQuantities] = useState({});
@@ -40,14 +40,31 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
       const url = window.location.pathname === "/custombundl"
         ? `${base_url}/api/package/`
         : `${base_url}/api/package/?bundle_id=${bundlePackageId}`;
-
+  
       const response = await axios.get(url, ConfigToken());
-      setAddonData(response.data);
+  
+      if (response.data) {
+        setAddonData(response.data);
+  
+        if (searchParams) {
+          const searchIndex = titleArr.findIndex((key) => {
+            const designs = response.data.designs_details[key]?.design_list || [];
+            return designs.some((item) => item.id == searchParams);
+          });
+  
+          if (searchIndex !== -1) {
+            setIsDropdown((prevState) =>
+              prevState.map((_, i) => (i === searchIndex ? true : false)) // Open only the matched dropdown
+            );
+          } else {
+            console.warn("No matching index found for searchParams");
+          }
+        }
+      }
     } catch (error) {
       console.error("Error fetching addons data:", error);
     }
   };
-
   const toggleDropdown = (index) => {
     setIsDropdown((prevState) =>
       prevState.map((_, i) => (i === index ? !prevState[i] : false))
@@ -117,8 +134,6 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
     return payload;
   };
 
-
-
   return (
     <div>
       <div className='bundl-accordian'>
@@ -162,7 +177,7 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
                   addOnData.designs_details[title].design_list.length > 0 ? (
                   addOnData.designs_details[title].design_list.map((design, i) => (
                     <div
-                      key={i}
+                      id={design.id}
                       style={{
                         display: 'flex',
                         borderBottom: i === addOnData.designs_details[title].design_list.length - 1 ? 'none' : `1px solid ${textColor}`,
@@ -172,7 +187,7 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
                     >
                       <Typography
                         sx={{
-                          color:  `${textColor}` ,
+                          color:  `${design.id == searchParams?'#00a8c8': textColor}` ,
                           display: 'block',
                           marginRight: '5px',
                           marginBottom: '8px',

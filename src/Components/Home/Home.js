@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect, useState,useRef } from 'react'
+import React, { useMemo, useEffect, useState, useRef } from 'react'
 import "../Home/Home.css"
 import { Bgloader } from '../Common/Background/Bgloader'
 import HomeLogo from '../../Images/Bundles/logo-black.svg'
@@ -63,9 +63,12 @@ export const Home = () => {
     const navigate = useNavigate();
     const imageArray = [Car, Lemon, Mouth, Rocket, Pinkpaint];
     const [selectedIndex, setSelectedIndex] = useState(null)
+      const [searchShow,setSearchShow] = useState(false)
+      const [searchQry,setSearchQry] = useState('')
     const [token, setToken] = useState(null)
     const [menuVisible, setMenuVisible] = useState(false);
     const popupRef = useRef(null)
+    const searchRef = useRef(null)
     const navigationRef = useRef(null)
     const [profileVisible, setProfileVisible] = useState(false)
     const toggleMenu = () => {
@@ -78,7 +81,7 @@ export const Home = () => {
     const [activeProcess, setActiveProcess] = useState(0);
     const [isActiveProcess, setIsActiveProcess] = useState([false, false, false, false, false]);
     const [bundlData, setBundlData] = useState([]);
-    const translateX = activeProcess * (window.innerWidth <= 475 ? activeProcess <=3 ?85 : 80 : window.innerWidth <= 768 ? 150 : activeProcess <3 ? 200:195);
+    const translateX = activeProcess * (window.innerWidth <= 475 ? activeProcess <= 3 ? 85 : 80 : window.innerWidth <= 768 ? 150 : activeProcess < 3 ? 200 : 195);
     const bundlImages = [QubeIcon, Diamond, Eye, Food, Money]
     const textColor = ["pink-text", "green-text", "blue-text", "pink-text"]
     const titles = ["Just to get started", "For Restaurants and Cafés", "For Salons and Other Services", "For Shops and Online Stores"]
@@ -151,6 +154,27 @@ export const Home = () => {
         };
         return null;
     };
+    const handleScroll = () => {
+        const hash = window.location.hash;
+        if (hash) {
+            // Select the element based on the hash
+            const element = document.getElementById(hash.substring(1));
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' }); // Scroll smoothly to the element
+            }
+        }
+    };
+    useEffect(() => {
+
+        // Add an event listener for changes in the hash
+        window.addEventListener('hashchange', handleScroll);
+
+        // Clean up the event listener on component unmount
+        return () => {
+            window.removeEventListener('hashchange', handleScroll);
+        };
+    }, []);
+
 
     useEffect(() => {
         setTimeout(() => {
@@ -168,40 +192,50 @@ export const Home = () => {
         setSlideImage(imageArray[currentIndex]);
     }, [currentIndex]);
 
+    function checkEnterKey(event) {
+        if (event.key === 'Enter') {
+            navigate(`/search?query=${event.target.value}`)
+        }
+        }
     useEffect(() => {
         getBundl();
         getMediaUrls()
         setToken(getCookie('token'))
+        handleScroll()
     }, []);
 
-  useEffect(() => {
-    const handleClickOutsideProfile = (event) => {
-      if (popupRef.current && !popupRef.current.contains(event.target)) {
-        setProfileVisible(false);
-      }
-    };
-  
-    document.addEventListener("mouseup", handleClickOutsideProfile);
-    return () => {
-      document.removeEventListener("mouseup", handleClickOutsideProfile);
-    };
-  }, []); 
+    useEffect(() => {
+        const handleClickOutsideProfile = (event) => {
+            if (popupRef.current && !popupRef.current.contains(event.target)) {
+                setProfileVisible(false);
+            }
+            if(searchRef.current && !searchRef.current.contains(event.target)){
+                setSearchShow(false)
+              }
+            
+        };
+
+        document.addEventListener("mouseup", handleClickOutsideProfile);
+        return () => {
+            document.removeEventListener("mouseup", handleClickOutsideProfile);
+        };
+    }, []);
 
 
-  useEffect(() => {
-    const handleClickOutsideMenu = (event) => {
-      if (navigationRef.current && !navigationRef.current.contains(event.target)) {
-        setMenuVisible(false);
-      }
-    };
-  
-    document.addEventListener("mousedown", handleClickOutsideMenu);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutsideMenu);
-    };
-  }, []);
-  
-    
+    useEffect(() => {
+        const handleClickOutsideMenu = (event) => {
+            if (navigationRef.current && !navigationRef.current.contains(event.target)) {
+                setMenuVisible(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutsideMenu);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutsideMenu);
+        };
+    }, []);
+
+
     const getBundl = async () => {
         const response = await axios.get(`${base_url}/api/homepage/`);
         setBundlData(response.data);
@@ -234,7 +268,7 @@ export const Home = () => {
         const updatedActiveProcess = isActiveProcess.map((_, i) => i <= index);
         setIsActiveProcess(updatedActiveProcess);
     };
-    console.log(profileVisible,"aaa")
+    console.log(profileVisible, "aaa")
     return (
         <>
             {
@@ -271,39 +305,42 @@ export const Home = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="col-7 !mt-4 col-md-8 col-lg-3 text-end ">
+                                        <div className="col-7 relative !mt-4 col-md-8 col-lg-3 text-end ">
                                             <div className="navbar navbar-expand-lg float-right">
                                                 <ul className=" mr-auto h-list align-items-center ">
                                                     <li className='px-[6px]' >
-                                                        <a className="" href="#"><img src={Search} alt="" className="navIcons"></img></a>
+                                                        <a onClick={()=>{setSearchShow(!searchShow)}} className="cursor-pointer"><img src={Search} alt="" className="navIcons"></img></a>
+                                                        <div className='absolute' ref={searchRef}>
+                                                            {searchShow ? <input onKeyDown={(e) => checkEnterKey(e)} className='border-b focus:outline-none py-1 px-2 text-[#1ba56f] border-[#1ba56f]' value={searchQry} onChange={(e) => setSearchQry(e.target.value)} /> : ''}
+                                                        </div>
                                                     </li>
                                                     <li className='px-[6px] inner-nav'>
                                                         <a className="" onClick={() => { setProfileVisible(!profileVisible) }}><img src={User} alt="" className="navIcons cursor-pointer"></img></a>
                                                         <nav className={`w-44 absolute top-full -right-2 text-right bg-white p-2 transition-all duration-300 ease-in-out ${profileVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
                                                             }`}>
-                                                           <div ref={popupRef}>
-      {profileVisible && (
-        <ul>
-          {token ? (
-            <>
-              <li className='relative p-1 inner-nav-li'>
-                <a href="/dashboard" previewlistener="true">Projects</a>
-              </li>
-              <li className='relative p-1 inner-nav-li'>
-                <a href="#" previewlistener="true">Profile</a>
-              </li>
-              <li className='relative p-1 inner-nav-li'>
-                <a onClick={() => { Logout() }} previewlistener="true">Logout</a>
-              </li>
-            </>
-          ) : (
-            <li className='relative p-1 inner-nav-li'>
-              <a href="/login" previewlistener="true">Login</a>
-            </li>
-          )}
-        </ul>
-      )}
-    </div>
+                                                            <div ref={popupRef}>
+                                                                {profileVisible && (
+                                                                    <ul>
+                                                                        {token ? (
+                                                                            <>
+                                                                                <li className='relative p-1 inner-nav-li'>
+                                                                                    <a href="/dashboard" previewlistener="true">Projects</a>
+                                                                                </li>
+                                                                                <li className='relative p-1 inner-nav-li'>
+                                                                                    <a href="#" previewlistener="true">Profile</a>
+                                                                                </li>
+                                                                                <li className='relative p-1 inner-nav-li'>
+                                                                                    <a onClick={() => { Logout() }} previewlistener="true">Logout</a>
+                                                                                </li>
+                                                                            </>
+                                                                        ) : (
+                                                                            <li className='relative p-1 inner-nav-li'>
+                                                                                <a href="/login" previewlistener="true">Login</a>
+                                                                            </li>
+                                                                        )}
+                                                                    </ul>
+                                                                )}
+                                                            </div>
                                                         </nav>
                                                     </li>
                                                     <li className='px-[6px]'>
@@ -334,26 +371,26 @@ export const Home = () => {
                                                             </ul> */}
 
                                                             <div ref={navigationRef}>
-                                  {
-                                    menuVisible && (
-                                <ul className=' inner-nav-item'>
-                                <li className='relative p-1 inner-nav-li'>
-                                  <a href="/" previewlistener="true">Bundl Offers</a>
-                                </li>
-                                <li className='relative p-1 inner-nav-li'>
-                                  <a href="/our-work" previewlistener="true">Our Work</a>
-                                </li>
-                                <li className='relative p-1 inner-nav-li'>
-                                  <a href="/aboutus" previewlistener="true">About Us</a>
-                                </li>
-                                <li className='relative p-1 inner-nav-li'>
-                                  <a href="#" previewlistener="true">Contact Us</a>
-                                </li>
-                              </ul>
-                                    )
-                                  }
-                                
-                            </div>
+                                                                {
+                                                                    menuVisible && (
+                                                                        <ul className=' inner-nav-item'>
+                                                                            <li className='relative p-1 inner-nav-li'>
+                                                                                <a href="/" previewlistener="true">Bundl Offers</a>
+                                                                            </li>
+                                                                            <li className='relative p-1 inner-nav-li'>
+                                                                                <a href="/our-work" previewlistener="true">Our Work</a>
+                                                                            </li>
+                                                                            <li className='relative p-1 inner-nav-li'>
+                                                                                <a href="/aboutus" previewlistener="true">About Us</a>
+                                                                            </li>
+                                                                            <li className='relative p-1 inner-nav-li'>
+                                                                                <a href="#" previewlistener="true">Contact Us</a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    )
+                                                                }
+
+                                                            </div>
                                                         </nav>
                                                     </li>
                                                 </ul>
@@ -618,7 +655,7 @@ export const Home = () => {
                                                 </ul>
                                             </div>
                                             <div className="box-child">
-                                                <div className="pack-inner-title"><span>Choose Add-ons to Your Bundl</span></div>
+                                                <div className="pack-inner-title"><span>Choose Your Add-ons</span></div>
                                                 <ul className="second_brand_list">
                                                     <li>Branding</li>
                                                     <li>E-designs</li>
@@ -999,7 +1036,7 @@ export const Home = () => {
                             <div className="container mb-16">
                                 <div className="row justify-content-center">
                                     <div className="col-md-4 flex justify-center">
-                                        <img className='xs:w-[150px] sm:w-[200px]' src={popupGIF}></img>
+                                        <img className='xs:w-[150px] sm:w-[170px]' src={popupGIF}></img>
                                     </div>
                                 </div>
                             </div>

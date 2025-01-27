@@ -4,13 +4,6 @@ import '../Purchase/MyCart.css'
 import { Navbar } from '../Common/Navbar/Navbar'
 import { Footer } from '../Common/Footer/Footer'
 import { Popup } from '../Common/Popup/Popup'
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 import { ToastContainer, toast } from 'react-toastify'
 import DeleteIcon from '../../Images/BundlDetail/deleteicon.svg'
 import BlackDollor from '../../Images/BundlDetail/blackdollor.svg'
@@ -276,7 +269,11 @@ export const MyCart = () => {
       };
     
       const navigateToDetailHistory = () => {
-        navigate(`/bundldetail/${cartDetails.bundle_id}`,{state:{project_name:cartDetails.project_name}})
+        if(cartDetails.bundle_id){
+            navigate(`/bundldetail/${cartDetails.bundle_id}`,{state:{project_name:cartDetails.project_name}})
+        }else{
+            navigate(`/custombundl`,{state:{project_name:cartDetails.project_name}})
+        }
       };
       
       const cancelNavigation = () => {
