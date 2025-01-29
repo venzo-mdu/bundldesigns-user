@@ -68,7 +68,7 @@ export default function OurWork() {
       } mt-2 !border-black items-start mb-2 pb-4 p-2 px-4`}
     >
       {/* Left Column */}
-      <div className="basis-1/2 w-full">
+      <div className="basis-1/2 sm:ml-[22px] ml-[22px] xs:ml-[12px] w-full">
         <h2 className="text-[28px]">{project.name_english}</h2>
         <div className="mb-2">
           <button
@@ -82,7 +82,7 @@ export default function OurWork() {
           className="!text-[#00000080] w-[70%] text-[16px]"
           dangerouslySetInnerHTML={{ __html: project.description_english }}
         />
-        <a  target='_blank' href={`${project.instagram? project.instagram:'https://www.instagram.com/bundl_designs'}`} className="lg:w-[70%] xl:w-[60%] md:w-[80%] text-[16px] px-2 block text-center  bg-black py-2 text-white">
+        <a  target='_blank' href={`${project.instagram? project.instagram:'https://www.instagram.com/bundl_designs'}`} className="lg:w-[70%] xl:w-[60%] md:w-[80%] text-[16px] px-2 block text-center mt-4 bg-black py-2 text-white">
           Follow Our Instagram
         </a>
       </div>
@@ -92,7 +92,7 @@ export default function OurWork() {
         {project.project_images.map((img, imgIndex) => (
           <img
             key={imgIndex}
-            className="sm:w-[30%] w-[30%] xs:w-[50%]"
+            className="sm:w-[32%] w-[32%] xs:w-[50%]"
             width="200px"
             src={img}
             alt={`Project ${index} Image ${imgIndex}`}

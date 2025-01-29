@@ -62,7 +62,6 @@ form{
 
 .billing #vacancySelect{
     padding: 1% 4%;
-    background: url('../../../src/Images/down-arrow.svg') no-repeat right 6px center;
 }
 /* .total p {
     font-size: 20px;

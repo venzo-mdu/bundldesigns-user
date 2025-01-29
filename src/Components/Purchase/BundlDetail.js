@@ -26,6 +26,7 @@ export const BundlDetail = () => {
   const { packageID } = useParams();
   const [packageDetail,setPackageDetail] = useState()
   const navigate = useNavigate();
+  const [brandError,setBrandError] = useState(false)
   const [loading,setLoading] = useState(true)
   const [bundlAddons, setBundlAddons] = useState([]);
   const [minError,setMinError] = useState([])
@@ -76,18 +77,23 @@ export const BundlDetail = () => {
       toast.error(`Name your brand`, {
         position: toast?.POSITION?.TOP_RIGHT,
       });
+      const element = document.getElementById("brandInput");
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+      setBrandError(true)
       return false;
     }
+
     const total_price = parseFloat(packageDetail?.package?.price) +
     addonPayLoads.total_price +
     (selectedLanguage === 'Both' ? 2000 : 0)
-    if(firstOrder && total_price < 4880){
+    if(firstOrder && total_price < 4880 && packageID==12){
       toast.error(`Minimum order amount should be 4880`, {
         position: toast?.POSITION?.TOP_RIGHT,
       });
       return false;
     }
-
     return true;
   };
 
@@ -234,7 +240,10 @@ export const BundlDetail = () => {
          <div className='bundl-section'>
            <div className='brand-details !pt-16'>
              <p style={window.innerWidth <= 441 ? { fontSize: '32px', fontWeight: '700' } : { textAlign: 'left', fontSize: '32px', fontWeight: '700' }}>What is the name of your brand?</p>
-             <input className='brand-input' value={brandInput} onChange={(e) => setBrandInput(e.target.value)} />
+             <input id='brandInput'  className={`brand-input ${brandError && '!border-[red]'}`} value={brandInput} onChange={(e) => {setBrandInput(e.target.value)
+           
+              setBrandError(false)}} />
+                {brandError && <p className='text-[red]'>Please enter name of the brand</p>}
              <div className='commerce-collateral'>
                {bundlAddons.bundle_details?.map((bundle, index) => {
                  return <div key={index} className='bundle-section' style={{ margin: '3% 0 0 0' }}>
@@ -396,7 +405,7 @@ export const BundlDetail = () => {
                      <button style={{backgroundColor:textColor}} className={`proceed !bg-[${textColor}]`} disabled>Proceed Checkout</button>
                  }
                </div>
-              {firstOrder && <p className='proceed-text'>Your minimum total should be above 4880 SAR</p>}
+              {(firstOrder && packageID==12) && <p className='proceed-text'>Your minimum total should be above 4880 SAR</p>}
              </div>
            </div>
          </div>

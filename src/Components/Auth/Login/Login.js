@@ -4,7 +4,7 @@ import Loginlogo from '../../../Images/Login/loginlogo.svg';
 import Anchor from '../../../Images/Login/anchor.svg';
 import Googleicon from '../../../Images/Login/google.svg';
 import { Footer } from '../../Common/Footer/Footer';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { loginAction } from '../../../Redux/Action';
 import axios from 'axios';
@@ -16,6 +16,9 @@ import loginGIF from '../../../Images/loginGIF.gif'
 export const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const next_url = searchParams.get("next_url");
 
   const [loginData, setLoginData] = useState({
     email: '',
@@ -61,14 +64,12 @@ export const Login = () => {
       }
       else if (!value.trim()) {
         setError('password', 'Password is required');
-      } else if (value.length < 8) {
-        setError('password', 'Password must be at least 8 characters');
       } else {
         setError('password', ''); // clear error if password is valid
       }
     }
   };
-
+  console.log(next_url,'next')
   const validateForm = () => {
     const errorMessages = {};
     if (!loginData.email.trim()) {
@@ -95,7 +96,9 @@ export const Login = () => {
       if (response.status === 200) {
         document.cookie = `token=${response?.data?.data.token || ""}; path=/; SameSite=None; Secure`;
         dispatch(loginAction(response.data.user));
-        navigate('/');
+       if(next_url){
+        window.location.href =`${process.env.REACT_APP_URL}/${next_url}`
+       }else{ navigate('/');}
 
       }
 
@@ -116,7 +119,9 @@ export const Login = () => {
       if (response.status === 200) {
         document.cookie = `token=${response?.data?.data.token || ""}; path=/; SameSite=None; Secure`;
         dispatch(loginAction(response.data.user));
-        navigate('/');
+        if(next_url){
+          navigate(`/${next_url}`)
+         }else{ navigate('/');}
       }
 
     } catch (response) {
@@ -173,6 +178,7 @@ export const Login = () => {
                   console.log('Profile Picture:', userDetails.picture);
                   loginWithGoogle({
                     email:userDetails.email,
+                    full_name: userDetails.name,
                     password:null,
                     google: true
                   })

@@ -61,14 +61,27 @@ export default function Dashboard() {
     const [processIndex, setProcessIndex] = useState(0)
     const [order, setOrder] = useState({})
     const [dashboardJson, setDashboardJson] = useState(dashboard.english)
+    const [purchased,setPurchased] = useState('not')
     const ProcessIndexDict = ['purchase', 'questionnaire_required', 'in_progress', 'send_for_approval', 'add_ons', 'content_uploaded']
     const base_url = process.env.REACT_APP_BACKEND_URL
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
-    const reDirect = queryParams.get('reDirect',null);
-    const [purchasePopUp,setPurchasePopUp] = useState(reDirect)
+    const purchase_id = queryParams.get('purchase',null);
+    const [purchasePopUp,setPurchasePopUp] = useState(purchased == 'done'?true:false)
+
+    const checkPurchase = async ()=>{
+        const response = await axios.get(`${base_url}/api/order/${purchase_id}/`, ConfigToken());
+        console.log( response.data.data,'data')
+        if(response.data.data.payment_status){
+            setPurchasePopUp(true)
+        }
+    }
+
     const getprojects = async (id=null) => {
         const response = await axios.get(`${base_url}/api/order/`, ConfigToken());
+        if(purchase_id){
+            checkPurchase()
+        }
         if (response.data) {
             const resProjects = response.data.data.filter(item=> item.order_status!='completed' && item.order_status!='in_cart')
             setProjects(resProjects);
@@ -330,7 +343,7 @@ export default function Dashboard() {
     }
     useEffect(() => {
         // Wait for 2 seconds, then hide the loader
-        if(reDirect){
+        if(purchase_id){
             const timer = setTimeout(() => {
                 getprojects()
                 }, 1000);    

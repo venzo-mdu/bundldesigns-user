@@ -190,7 +190,7 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
                     >
                       <Typography
                         sx={{
-                          color:  `${design.id == searchParams?'#00a8c8': textColor}` ,
+                          color:  `${design.id == searchParams?'#0F5C3C': textColor}` ,
                           display: 'block',
                           marginRight: '5px',
                           marginBottom: '8px',

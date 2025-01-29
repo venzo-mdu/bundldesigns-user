@@ -8,7 +8,7 @@ import Cart from '../../Images/Bundles/icon-cart.png'
 import Language from '../../Images/Bundles/icon-language.png'
 import CarMarquee from '../../Images/Bundles/car-marquee.svg'
 import LemonMarquee from '../../Images/Bundles/green-lemon-margquee.webp'
-import MouthMarquee from '../../Images/Bundles/mouth-margquee.svg'
+import MouthMarquee from '../../Images/Bundles/mouth.webp'
 import PaintMarquee from '../../Images/Bundles/paint-marquee.webp'
 import RocketMarquee from '../../Images/Bundles/paper-rocket-marquee.webp'
 import EyeMarquee from '../../Images/Bundles/eye-margquee.svg'
@@ -56,15 +56,17 @@ import popupGIF from '../../Images/popupGIF.gif'
 import CloseIcon from '@mui/icons-material/Close';
 import { loginAction } from '../../Redux/Action'
 import { useDispatch } from 'react-redux'
-
+import plusImage from '../../Images/Bundles/plus-icon.png'
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 
 export const Home = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const imageArray = [Car, Lemon, Mouth, Rocket, Pinkpaint];
     const [selectedIndex, setSelectedIndex] = useState(null)
-      const [searchShow,setSearchShow] = useState(false)
-      const [searchQry,setSearchQry] = useState('')
+    const [searchShow, setSearchShow] = useState(false)
+    const [searchQry, setSearchQry] = useState('')
     const [token, setToken] = useState(null)
     const [menuVisible, setMenuVisible] = useState(false);
     const popupRef = useRef(null)
@@ -79,9 +81,12 @@ export const Home = () => {
     const [slideImage, setSlideImage] = useState(imageArray[0]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [activeProcess, setActiveProcess] = useState(0);
+    const [ourworks, setOurworks] = useState([])
+    const [currentWork, setCurrentWork] = useState(1)
     const [isActiveProcess, setIsActiveProcess] = useState([false, false, false, false, false]);
     const [bundlData, setBundlData] = useState([]);
-    const translateX = activeProcess * (window.innerWidth <= 475 ? activeProcess <= 3 ? 85 : 80 : window.innerWidth <= 768 ? 150 : activeProcess < 3 ? 200 : 195);
+    // const translateX = (activeProcess * 200) +60;
+    const translateX = activeProcess * (window.innerWidth <= 475 ? activeProcess <= 3 ? 85 : 80 : window.innerWidth <= 768 ? 150 : activeProcess < 3 ? 200 : 195) + (window.innerWidth > 1450 ? 60 : 0);
     const bundlImages = [QubeIcon, Diamond, Eye, Food, Money]
     const textColor = ["pink-text", "green-text", "blue-text", "pink-text"]
     const titles = ["Just to get started", "For Restaurants and Cafés", "For Salons and Other Services", "For Shops and Online Stores"]
@@ -196,23 +201,22 @@ export const Home = () => {
         if (event.key === 'Enter') {
             navigate(`/search?query=${event.target.value}`)
         }
-        }
+    }
     useEffect(() => {
         getBundl();
         getMediaUrls()
         setToken(getCookie('token'))
         handleScroll()
     }, []);
-
     useEffect(() => {
         const handleClickOutsideProfile = (event) => {
             if (popupRef.current && !popupRef.current.contains(event.target)) {
                 setProfileVisible(false);
             }
-            if(searchRef.current && !searchRef.current.contains(event.target)){
+            if (searchRef.current && !searchRef.current.contains(event.target)) {
                 setSearchShow(false)
-              }
-            
+            }
+
         };
 
         document.addEventListener("mouseup", handleClickOutsideProfile);
@@ -238,7 +242,11 @@ export const Home = () => {
 
     const getBundl = async () => {
         const response = await axios.get(`${base_url}/api/homepage/`);
+        setOurworks(response.data.projects)
         setBundlData(response.data);
+    }
+    const slideChange = (action) => {
+        setCurrentWork((prev) => (action == 'next' ? prev + 1 : prev - 1))
     }
 
     const addToCart = async (index) => {
@@ -253,7 +261,7 @@ export const Home = () => {
             }
         } catch (error) {
             console.error('An error occurred:', error);
-            navigate("/login");
+            navigate(`/login?next_url=bundldetail/${bundlData.packages[index].id}`);
         }
     };
 
@@ -264,11 +272,11 @@ export const Home = () => {
         addToCart(selectedIndex)
     }
 
+
     const updateActiveProcess = (index) => {
         const updatedActiveProcess = isActiveProcess.map((_, i) => i <= index);
         setIsActiveProcess(updatedActiveProcess);
     };
-    console.log(profileVisible, "aaa")
     return (
         <>
             {
@@ -293,7 +301,7 @@ export const Home = () => {
                                                             <a className="nav-link" href="/aboutus">About</a>
                                                         </li>
                                                         <li className="nav-item">
-                                                            <a className="nav-link" href="/">Bundls</a>
+                                                            <a className="nav-link" href="#ourBundl">Bundls</a>
                                                         </li>
                                                         <li className="nav-item">
                                                             <a className="nav-link" href="/our-work">Work</a>
@@ -309,9 +317,9 @@ export const Home = () => {
                                             <div className="navbar navbar-expand-lg float-right">
                                                 <ul className=" mr-auto h-list align-items-center ">
                                                     <li className='px-[6px]' >
-                                                        <a onClick={()=>{setSearchShow(!searchShow)}} className="cursor-pointer"><img src={Search} alt="" className="navIcons"></img></a>
+                                                        <a onClick={() => { setSearchShow(!searchShow) }} className="cursor-pointer"><img src={Search} alt="" className="navIcons"></img></a>
                                                         <div className='absolute' ref={searchRef}>
-                                                            {searchShow ? <input onKeyDown={(e) => checkEnterKey(e)} className='border-b focus:outline-none py-1 px-2 text-[#1ba56f] border-[#1ba56f]' value={searchQry} onChange={(e) => setSearchQry(e.target.value)} /> : ''}
+                                                            {searchShow ? <input placeholder='Search' onKeyDown={(e) => checkEnterKey(e)} className='border-b focus:outline-none py-1 px-2 mt-3 text-black border-black' value={searchQry} onChange={(e) => setSearchQry(e.target.value)} /> : ''}
                                                         </div>
                                                     </li>
                                                     <li className='px-[6px] inner-nav'>
@@ -324,18 +332,18 @@ export const Home = () => {
                                                                         {token ? (
                                                                             <>
                                                                                 <li className='relative p-1 inner-nav-li'>
-                                                                                    <a href="/dashboard" previewlistener="true">Projects</a>
+                                                                                    <a href="/dashboard" className='!text-black' previewlistener="true">Projects</a>
                                                                                 </li>
                                                                                 <li className='relative p-1 inner-nav-li'>
-                                                                                    <a href="#" previewlistener="true">Profile</a>
+                                                                                    <a href="#" className='!text-black' previewlistener="true">Profile</a>
                                                                                 </li>
                                                                                 <li className='relative p-1 inner-nav-li'>
-                                                                                    <a onClick={() => { Logout() }} previewlistener="true">Logout</a>
+                                                                                    <a className='cursor-pointer !text-black' onClick={() => { Logout() }} previewlistener="true">Logout</a>
                                                                                 </li>
                                                                             </>
                                                                         ) : (
                                                                             <li className='relative p-1 inner-nav-li'>
-                                                                                <a href="/login" previewlistener="true">Login</a>
+                                                                                <a href="/login" className='!text-black' previewlistener="true">Login</a>
                                                                             </li>
                                                                         )}
                                                                     </ul>
@@ -375,16 +383,16 @@ export const Home = () => {
                                                                     menuVisible && (
                                                                         <ul className=' inner-nav-item'>
                                                                             <li className='relative p-1 inner-nav-li'>
-                                                                                <a href="/" previewlistener="true">Bundl Offers</a>
+                                                                                <a href="/" className='!text-black' previewlistener="true">Bundl Offers</a>
                                                                             </li>
                                                                             <li className='relative p-1 inner-nav-li'>
-                                                                                <a href="/our-work" previewlistener="true">Our Work</a>
+                                                                                <a href="/our-work" className='!text-black' previewlistener="true">Our Work</a>
                                                                             </li>
                                                                             <li className='relative p-1 inner-nav-li'>
-                                                                                <a href="/aboutus" previewlistener="true">About Us</a>
+                                                                                <a href="/aboutus" className='!text-black' previewlistener="true">About Us</a>
                                                                             </li>
                                                                             <li className='relative p-1 inner-nav-li'>
-                                                                                <a href="#" previewlistener="true">Contact Us</a>
+                                                                                <a href="#" className='!text-black' previewlistener="true">Contact Us</a>
                                                                             </li>
                                                                         </ul>
                                                                     )
@@ -402,7 +410,7 @@ export const Home = () => {
                             </div>
                             <div className="nav-sider mt-20">
                                 <div className="scroller bg-grey">
-                                    <ul className="tag-list scroller__inner">
+                                    <ul className="tag-list h-[46px] scroller__inner">
                                         <img src={CarMarquee} className="slidee  w-[54px]"></img>
                                         <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">BRAND identity</span>
                                         <img src={LemonMarquee} alt="" className="img-fluid w-[41px] slidee"></img>
@@ -454,7 +462,7 @@ export const Home = () => {
                                         </div>
                                         <h1 className='!text-black sm:px-[9%] xs:px-[12%]  lg:px-[10%] !w-[100%] xs:!text-[32px] sm:!text-[58px] !text-[58px]'><span>Elevating</span> brands & shaping legacies, one <span>extraordinary design</span> at a <i>time.</i></h1>
                                         <div className="button-container scroller">
-                                            <ul className="scroll-button scroller__inner_btn">
+                                            <ul className="scroll-button h-[46px] scroller__inner_btn">
                                                 <li><span><a className='text-black' href='#ourBundl'>Shop our Bundls</a></span></li>
                                                 <li><span><img src={MagicIcon} alt="" className="img-fluid"></img></span></li>
                                                 <li><span><a className='text-black' href='#ourBundl'>Shop our Bundls</a></span></li>
@@ -467,7 +475,7 @@ export const Home = () => {
                                                 <span className="blue"></span>
                                                 <span className="green"></span>
                                                 <span className="pink"></span>
-                                                <span className="hover-txt"> <a className='text-white' href='#ourBundl'>Shop our Bundls</a></span>
+                                                <span className="hover-txt"> <a className='sm:text-white hover:text-white xs:text-black' href='#ourBundl'>Shop our Bundls</a></span>
                                             </div>
                                         </div>
                                     </div>
@@ -582,7 +590,9 @@ export const Home = () => {
                                 </div>
                             </div>
                         </section>
-                        <div className="plus plus-deivide"></div>
+                        <div className="plus relative plus-deivide">
+                            <img className='w-[50px] h-[50px] mx-auto relative -top-[30px]' src={plusImage}></img>
+                        </div>
 
 
                         <section id='ourBundl' className="container-fluid our-bundl">
@@ -629,7 +639,7 @@ export const Home = () => {
                                     <div className="bg_color1"></div>
 
                                     <div className="open_arrow1 position-relative">
-                                        <label for="newbie_no1">
+                                        <label className='cursor-pointer' for="newbie_no1">
                                             <svg width="18" height="28" viewBox="0 0 18 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M2.26122 1.6006L14.4624 13.8018L2.26122 26.0029" stroke="auto" stroke-width="4" />
                                             </svg>
@@ -706,7 +716,7 @@ export const Home = () => {
                                     <div className="bg_color2"></div>
 
                                     <div className="open_arrow2 position-relative">
-                                        <label for="newbie_no2">
+                                        <label className='cursor-pointer' for="newbie_no2">
                                             <svg width="18" height="28" viewBox="0 0 18 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M2.26122 1.6006L14.4624 13.8018L2.26122 26.0029" stroke="auto" stroke-width="4" />
                                             </svg>
@@ -793,7 +803,7 @@ export const Home = () => {
                                     <div className="bg_color3"></div>
 
                                     <div className="open_arrow3 position-relative">
-                                        <label for="newbie_no3">
+                                        <label className='cursor-pointer' for="newbie_no3">
                                             <svg width="18" height="28" viewBox="0 0 18 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M2.26122 1.6006L14.4624 13.8018L2.26122 26.0029" stroke="auto" stroke-width="4" />
                                             </svg>
@@ -879,7 +889,7 @@ export const Home = () => {
                                     <div className="bg_color4"></div>
 
                                     <div className="open_arrow4 position-relative">
-                                        <label for="newbie_no4">
+                                        <label className='cursor-pointer' for="newbie_no4">
                                             <svg width="18" height="28" viewBox="0 0 18 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M2.26122 1.6006L14.4624 13.8018L2.26122 26.0029" stroke="auto" stroke-width="4" />
                                             </svg>
@@ -976,7 +986,7 @@ export const Home = () => {
                                     <div className="bg_color5"></div>
 
                                     <div className="open_arrow5 position-relative">
-                                        <label for="newbie_no5">
+                                        <label className='cursor-pointer' for="newbie_no5">
                                             <svg width="18" height="28" viewBox="0 0 18 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M2.26122 1.6006L14.4624 13.8018L2.26122 26.0029" stroke="auto" stroke-width="4" />
                                             </svg>
@@ -1087,13 +1097,52 @@ export const Home = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="row justify-content-center">
+                                <div id='ourWorkContainer' className="row justify-content-center">
                                     <div className="col-md-10">
-                                        <div className="insta-feed flex justify-center">
-                                            <img src={Instafeed} alt="" ></img>
+                                        <div className={`insta-feed  flex justify-center`}>
+                                            {/* <img src={Instafeed} alt="" ></img> */}
+                                            <div className={`relative  w-full overflow-hidden`}>
+                                                {/* Carousel Content */}
+                                                <div
+                                                    className="flex transition-transform duration-500"
+                                                    style={{ transform: `translateX(-${currentWork * 100}%)` }}
+                                                >
+                                                    {ourworks.map((item, index) => (
+                                                        <div key={index} className={`relative  flex-shrink-0 xl:w-[84%] xs:w-[84%] xs:mx-[8%] md:w-[99%] md:mx-1 xl:mx-[8%] flex flex-wrap ${item.project_images.length > 2 ? 'sm:h-[900px] xs:h-[350px]' : 'sm:h-[450px] xs:h-[250px]'} justify-center`}>
+                                                            {item.project_images.map((img, imgIndex) => (
+                                                                <img
+                                                                    key={imgIndex}
+                                                                    className="w-1/3 sm:w-[33%] object-cover"
+                                                                    src={img}
+                                                                    alt={`Project ${index + 1}`}
+                                                                />
+                                                            ))}
+                                                {currentWork != 0 && <button
+                                                    onClick={() => slideChange('prev')}
+                                                    className="absolute md:left-20 left-20 xs:left-8 top-1/2 transform -translate-y-1/2 w-[30px] sm:w-[30px] xs:w-[10px] h-[35%] bg-black "
+                                                >
+                                    <ChevronLeftIcon className="text-white" />
+
+                                                </button>
+                                                }
+                                                {/* Right Button */}
+                                                {currentWork != ourworks.length - 1 && <button
+                                                    onClick={() => slideChange('next')}
+                                                    className="absolute md:right-20 right-20 xs:right-8 m-auto  top-1/2 transform -translate-y-1/2 w-[30px] sm:w-[30px] xs:w-[10px] h-[35%] bg-black">
+                                                    <ChevronRightIcon className="text-white " />
+                                                </button>
+                                                }
+                                                        </div>
+                                                        
+                                                    ))}
+                                                </div>
+
+                                                {/* Left Button */}
+
+                                            </div>
                                         </div>
                                         <div className="social-cta text-center">
-                                            <a  target='_blank' href={`${mediaUrls.instagram}`} className="btn bundl-btn-border text-upper mt-5">Follow us on instagram</a>
+                                            <a target='_blank' href={`${mediaUrls.instagram}`} className="btn bundl-btn-border text-upper mt-5">Follow us on instagram</a>
                                         </div>
                                     </div>
                                 </div>
@@ -1103,7 +1152,7 @@ export const Home = () => {
                         <section className="container-fluid section fact-section">
                             <div className="container">
                                 <h2 className="sub-head  text-upper">SO FAR WE’ve completed </h2>
-                                <h2 className="title">145</h2>
+                                <h2 className="title">{bundlData.noOfProjects || 1}</h2>
                                 <h3 className="desc text-upper">projects for happy clients</h3>
                             </div>
                         </section>
@@ -1152,7 +1201,7 @@ export const Home = () => {
                             <div className="container">
                                 <div className="quetions-container">
                                     <h2 className="sub-headeing text-upper text-black text-center mb-3">HAVE A QUESTION OR IDEA ?</h2>
-                                    <h4 className="h3 text-upper text-black text-center mb-4">let’s discuss</h4>
+                                    <h4 className="h3 text-upper !text-black text-center mb-4">let’s discuss</h4>
                                 </div>
                                 <div className="social-link  align-items-center">
                                     <ul className="d-flex justify-content-center">

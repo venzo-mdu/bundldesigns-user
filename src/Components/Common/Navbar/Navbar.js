@@ -134,7 +134,7 @@ export const Navbar = () => {
                         <li >
                           <a onClick={()=>{setSearchShow(!searchShow)}}><img src={Search} alt="" className="navIcons cursor-pointer ml-2"></img> </a>
                           <div ref={searchRef}>
-                           {searchShow ? <input   onKeyDown={(e)=>checkEnterKey(e)} className='border-b focus:outline-none py-1 px-2 text-[#1ba56f] border-[#1ba56f]' value={searchQry} onChange={(e)=>setSearchQry(e.target.value)}  />:''}
+                           {searchShow ? <input placeholder='Search'  onKeyDown={(e)=>checkEnterKey(e)} className='border-b mt-3 focus:outline-none py-1 px-2 text-black border-black' value={searchQry} onChange={(e)=>setSearchQry(e.target.value)}  />:''}
                           </div>
                         </li>
                         <li className='px-[6px] inner-nav'>
@@ -149,18 +149,18 @@ export const Navbar = () => {
           {token ? (
             <>
               <li className='relative p-1 inner-nav-li'>
-                <a href="/dashboard" previewlistener="true">Projects</a>
+                <a href="/dashboard" className='!text-black' previewlistener="true">Projects</a>
               </li>
               <li className='relative p-1 inner-nav-li'>
-                <a href="#" previewlistener="true">Profile</a>
+                <a href="#" className='!text-black' previewlistener="true">Profile</a>
               </li>
               <li className='relative p-1 inner-nav-li'>
-                <a onClick={() => { Logout() }} previewlistener="true">Logout</a>
+                <a className='cursor-pointer !text-black' onClick={() => { Logout() }} previewlistener="true">Logout</a>
               </li>
             </>
           ) : (
             <li className='relative p-1 inner-nav-li'>
-              <a href="/login" previewlistener="true">Login</a>
+              <a href="/login" className='!text-black' previewlistener="true">Login</a>
             </li>
           )}
         </ul>
@@ -186,16 +186,16 @@ export const Navbar = () => {
                                     menuVisible && (
                                 <ul className=' inner-nav-item'>
                                 <li className='relative p-1 inner-nav-li'>
-                                  <a href="/" previewlistener="true">Bundl Offers</a>
+                                  <a href="/" className='!text-black' previewlistener="true">Bundl Offers</a>
                                 </li>
                                 <li className='relative p-1 inner-nav-li'>
-                                  <a href="/our-work" previewlistener="true">Our Work</a>
+                                  <a href="/our-work" className='!text-black' previewlistener="true">Our Work</a>
                                 </li>
                                 <li className='relative p-1 inner-nav-li'>
-                                  <a href="/aboutus" previewlistener="true">About Us</a>
+                                  <a href="/aboutus" className='!text-black' previewlistener="true">About Us</a>
                                 </li>
                                 <li className='relative p-1 inner-nav-li'>
-                                  <a href="#" previewlistener="true">Contact Us</a>
+                                  <a href="#" className='!text-black' previewlistener="true">Contact Us</a>
                                 </li>
                               </ul>
                                     )
@@ -268,7 +268,7 @@ export const Navbar = () => {
                           <li className='px-[7px]'>
                             <a className="w-[26px] cursor-pointer"  onClick={()=>{setSearchShow(!searchShow)}}><img src={Search} alt="" className="navIcons"></img></a>
                             <div className='absolute' ref={searchRef}>
-                           {searchShow ? <input   onKeyDown={(e)=>checkEnterKey(e)} className='border-b focus:outline-none py-1 px-2 text-[#1ba56f] border-[#1ba56f]' value={searchQry} onChange={(e)=>setSearchQry(e.target.value)} />:''}
+                           {searchShow ? <input placeholder='Search'   onKeyDown={(e)=>checkEnterKey(e)} className='border-b mt-3 focus:outline-none py-1 px-2 text-black border-black' value={searchQry} onChange={(e)=>setSearchQry(e.target.value)} />:''}
                           </div>
                           </li>
                           
@@ -282,18 +282,18 @@ export const Navbar = () => {
           {token ? (
             <>
               <li className='relative p-1 inner-nav-li'>
-                <a href="/dashboard" previewlistener="true">Projects</a>
+                <a href="/dashboard" className='!text-black' previewlistener="true">Projects</a>
               </li>
               <li className='relative p-1 inner-nav-li'>
-                <a href="#" previewlistener="true">Profile</a>
+                <a href="#" className='!text-black' previewlistener="true">Profile</a>
               </li>
               <li className='relative p-1 inner-nav-li'>
-                <a onClick={() => { Logout() }} previewlistener="true">Logout</a>
+                <a className='cursor-pointer !text-black' onClick={() => { Logout() }} previewlistener="true">Logout</a>
               </li>
             </>
           ) : (
             <li className='relative p-1 inner-nav-li'>
-              <a href="/login" previewlistener="true">Login</a>
+              <a href="/login" className='!text-black' previewlistener="true">Login</a>
             </li>
           )}
         </ul>
@@ -318,16 +318,16 @@ export const Navbar = () => {
                                     menuVisible && (
                                 <ul className=' inner-nav-item'>
                                 <li className='relative p-1 inner-nav-li'>
-                                  <a href="/" previewlistener="true">Bundl Offers</a>
+                                  <a href="/" className='!text-black' previewlistener="true">Bundl Offers</a>
                                 </li>
                                 <li className='relative p-1 inner-nav-li'>
-                                  <a href="/our-work" previewlistener="true">Our Work</a>
+                                  <a href="/our-work" className='!text-black' previewlistener="true">Our Work</a>
                                 </li>
                                 <li className='relative p-1 inner-nav-li'>
-                                  <a href="/aboutus" previewlistener="true">About Us</a>
+                                  <a href="/aboutus" className='!text-black' previewlistener="true">About Us</a>
                                 </li>
                                 <li className='relative p-1 inner-nav-li'>
-                                  <a href="#" previewlistener="true">Contact Us</a>
+                                  <a href="#" className='!text-black' previewlistener="true">Contact Us</a>
                                 </li>
                               </ul>
                                     )

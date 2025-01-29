@@ -16,7 +16,9 @@ export const CustomBundl = () => {
   const navigate = useNavigate();
       const [searchParams] = useSearchParams();
       const query = searchParams.get('search')
+      const [brandError,setBrandError] = useState(false)
   const [isMobile, setIsMobile] = useState(window.innerWidth < 440);
+    const [firstOrder,setFirstOrder] = useState(true)
   const location = useLocation();
   const {state} = location
   const [addonPayLoads, setAddonPayLoads] = useState({});
@@ -28,6 +30,7 @@ export const CustomBundl = () => {
       top: 0,
       left: 0
     })
+    getprojects()
     if(state && 'project_name' in state){
       setBrandInput(state.project_name)
     }
@@ -47,8 +50,19 @@ export const CustomBundl = () => {
       toast.error(`Name your brand`, {
         position: toast?.POSITION?.TOP_RIGHT,
       });
+      const element = document.getElementById("brandInput");
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+      setBrandError(true)
       return false;
     }
+    if(firstOrder && addonPayLoads.total_price < 800){
+          toast.error(`Minimum order amount should be 800`, {
+            position: toast?.POSITION?.TOP_RIGHT,
+          });
+          return false;
+        }
     if(addonPayLoads.item_list.length ==0){
       toast.error(`Please add an Item to Checkout`, {
         position: toast?.POSITION?.TOP_RIGHT,
@@ -83,14 +97,22 @@ export const CustomBundl = () => {
     
     
   };
-
+  const getprojects = async () => {
+    const response = await axios.get(`${base_url}/api/order/`, ConfigToken());
+    if (response.data) {
+        const resProjects = response.data.data.filter(item=> item.order_status!='in_cart')
+        if (resProjects.length) {
+            setFirstOrder(false)
+        }
+    }
+}
   return (
     <div>
       <ToastContainer />
       <Navbar />
-      <div className='bundl-detail'>
+      <div className='bundl-detail mt-3'>
         <div style={{ borderBottom: '1.5px solid #000000', width: '100%' }}>
-          <h2>{location?.state?.title || 'Custom Bundl!' }</h2>
+          <h2>{location?.state?.title || 'Custom Bundl' }</h2>
           {/* <p className='bundl-desc-title'>Main outcomes: Brand Identity, Commerce Collateral, Social Media Starter Kit.</p> */}
           <p className='bundl-desc'>In this bundl, you have the freedom to mix and match from different add-ons that have been carefully curated to guarantee you find all the items needed for the success of your project.</p>
           <p className='one-minor mt-3'>* This Bundl includes one minor revision</p>
@@ -99,10 +121,14 @@ export const CustomBundl = () => {
         <div className='bundl-section'>
           <div className='brand-details'>
             <p style={window.innerWidth<=441 ? {fontSize:'24px',fontWeight: '700'}:{ textAlign: 'left', fontSize: '32px', fontWeight: '700' }}>What is the name of your brand?</p>
-            <input value={brandInput} className='brand-input' onChange={(e)=>setBrandInput(e.target.value)}/>
+            <input id='brandInput'  className={`brand-input ${brandError && '!border-[red]'}`} value={brandInput}
+             onChange={(e) => {setBrandInput(e.target.value)   
+           setBrandError(false)}} 
+           />
+             {brandError && <p className='text-[red]'>Please enter name of the brand</p>}
             <div style={{ margin: '5% 0 0 0' }}>
               <Accordian
-                accordianTitle={'Custom Your Bundl!'}
+                accordianTitle={'Customize your Bundl!'}
                 textColor={'#1BA56F'}
                 addOnPayload={setAddonPayLoads}
                 extraQty ={{}}
@@ -151,7 +177,7 @@ export const CustomBundl = () => {
               <div className='proceed-checkout'>
                  <button onClick={createPayload} className='proceed  bg-[#1BA56F]'>Proceed Checkout</button> 
               </div>
-              <p className='proceed-text'>Your minimum total should be above 700 SAR</p>
+              {firstOrder && <p className='proceed-text'>Your minimum total should be above 800 SAR</p>}
             </div>
           </div>
         </div>

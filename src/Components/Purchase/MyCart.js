@@ -27,7 +27,9 @@ export const MyCart = () => {
     const [removedItems,setRemovedItems] = useState([])
     const [isMobile, setIsMobile] = useState(window.innerWidth < 440);
     const [phoneError,setPhoneError] = useState(false)
-
+    const [totalAmount,setTotalAmount] = useState(0)
+    const [coupon,setCoupon] = useState(null)
+    const [profile,setProfile] = useState({})
     const countries = [
         "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", 
         "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", 
@@ -82,14 +84,16 @@ export const MyCart = () => {
           window.removeEventListener('resize', handleResize);
         };
       },[]);
- 
     const getCartData = async () => {
         try{
             setLoading(true)
             // const response = await axios.get(`${base_url}/api/order/${location.state.orderData.id}/`);
+            getProfile()
+            
             const response = await axios.get(`${base_url}/api/order/cart/`,ConfigToken());
             if(response.data){
-                setCartDetails(response.data);
+                setTotalAmount(response.data.total_amount)
+                setCartDetails({...response.data,actual_total_amount:response.data.total_amount});
             }
             if(response.status === 206){
                setOpenPopup(true)
@@ -111,7 +115,7 @@ export const MyCart = () => {
         }
         let cartDetailsTemp = cartDetails
         const updatedItemDetails = { ...cartDetailsTemp.item_details };
-            let updatedTotalAmount = cartDetailsTemp.total_amount;
+            let updatedTotalAmount = cartDetailsTemp.actual_total_amount;
             let updatedTotalTime = cartDetailsTemp.total_time
             setRemovedItems(itemId)
             // Handle removal based on item type
@@ -128,13 +132,17 @@ export const MyCart = () => {
 
             // Recalculate the totals
             let updatedTax = 0; // Default value, assuming no tax
+            let afterDiscount = updatedTotalAmount
+            if(coupon){
+                afterDiscount = afterDiscount - ((afterDiscount/100)* coupon.discount)
+            }
 
             if (billingInfo.country.trim().toLowerCase() === 'saudi arabia') {
-                updatedTax = updatedTotalAmount * 0.15; // Assuming VAT is 15%
+                updatedTax = afterDiscount * 0.15; // Assuming VAT is 15%
             } else {
                 updatedTax = 0; // No tax for countries other than Saudi Arabia
             }
-            const updatedGrandTotal = updatedTotalAmount + updatedTax;
+            const updatedGrandTotal = afterDiscount + updatedTax;
  
             const response = await axios.patch(`${base_url}/api/order/cart/`,{'item_to_delete':itemId,'total_amount':updatedTotalAmount,
                 tax:updatedTax,'grand_total':updatedGrandTotal},ConfigToken());
@@ -142,7 +150,8 @@ export const MyCart = () => {
                 setCartDetails((prevCartDetails) => ({
                     ...prevCartDetails,
                     item_details: updatedItemDetails,
-                    total_amount: updatedTotalAmount,
+                    total_amount: afterDiscount,
+                    actual_total_amount:updatedTotalAmount,
                     total_time: updatedTotalTime,
                     tax: updatedTax,
                     grand_total: updatedGrandTotal,
@@ -150,10 +159,13 @@ export const MyCart = () => {
 
     };
 
-    const getTotal = (countryValue) =>{
+    const getTotal = (countryValue,discount=null) =>{
         let cartDetailsTemp = cartDetails
         const updatedItemDetails = { ...cartDetailsTemp.item_details };
-            let updatedTotalAmount = cartDetailsTemp.total_amount;
+            let updatedTotalAmount = cartDetailsTemp.actual_total_amount
+            if (discount || coupon){
+                updatedTotalAmount = updatedTotalAmount - ((updatedTotalAmount/100) * (discount? discount: coupon.discount))
+            }
             let updatedTotalTime = cartDetailsTemp.total_time
             // Handle removal based on item type
             // Recalculate the totals
@@ -170,6 +182,7 @@ export const MyCart = () => {
                     ...prevCartDetails,
                     item_details: updatedItemDetails,
                     total_amount: updatedTotalAmount,
+                    actual_total_amount: cartDetailsTemp.actual_total_amount,
                     total_time: updatedTotalTime,
                     tax: updatedTax,
                     tax_treatment:updatedTaxTreatment,
@@ -226,7 +239,16 @@ export const MyCart = () => {
         // Return true if there are no errors
         return true;
     };
-
+    const getProfile = async()=>{
+        const response = await axios.get(`${base_url}/api/profile/`,ConfigToken());
+        if(response.data){
+            setProfile(response.data)
+            setBillingInfo((prevState) => ({
+                ...prevState,
+                email: response.data.email,
+              }));
+        }
+    }
  
     const handlePayment = async (e) => {
         e.preventDefault();
@@ -262,10 +284,46 @@ export const MyCart = () => {
         if(name =='country'){
             getTotal(value.trim())
         }
-        setBillingInfo({ ...billingInfo, [name]: value });
-        delete errors[name] 
-        setErrors(errors)
+        if(['firstName','lastName','city'].includes(name)){
+            const regex = /^[a-zA-Z\s]*$/;
+            if (regex.test(value) || value === '') {
+                setBillingInfo((prevState) => ({
+                  ...prevState,
+                  [name]: value,
+                }));
+            }
+        }
+        else if(name =='postalCode'){
+            const regex = /^[0-9]*$/ 
+            if (regex.test(value) || value === '') {
+                setBillingInfo((prevState) => ({
+                  ...prevState,
+                  [name]: value,
+                }));
+            }
+        }
+        else{
+            setBillingInfo({ ...billingInfo, [name]: value });
+            delete errors[name] 
+            setErrors(errors)
+        }
+
     };
+    const handlePromoChange = async(e) => {
+        const { name, value } = e.target;
+        setCoupon(null)
+        setBillingInfo({ ...billingInfo, [name]: value });
+        const response = await axios.get(`${base_url}/api/promocode?promoCode=${value}`,ConfigToken());
+        if(response.status == 206){
+            setError({...errors,promoCode:response.data.data})
+            getTotal(billingInfo.country.trim(),0)
+        }else if(response.status==200){
+            setCoupon(response.data)
+            getTotal(billingInfo.country.trim(),response.data.discount)
+            delete errors['promoCode']
+            setError(errors)
+        }
+    }
     useEffect(() => {
         // Function to handle the back button (popstate)
         const handlePopState = (event) => {
@@ -307,7 +365,6 @@ export const MyCart = () => {
       const cancelNavigation = () => {
         setShowModal(false);
       };
-      console.log(billingInfo.country,'country')
     return (
         <>
         {
@@ -476,10 +533,11 @@ export const MyCart = () => {
                     <select 
                         name="country" 
                         // id='vacancySelect'
-                        value={billingInfo.country} 
+                        value={billingInfo.country|| null} 
                         onChange={handleBillingChange} 
                         className={`${'country' in error ? '!border-[red]' :''} border !border-black px-2 py-[5px] w-full`}
                     >
+                       <option value={null} disabled selected > </option>
                         { countries.map(country=>(
                             <option>{country}</option>
                         ))}
@@ -509,7 +567,7 @@ export const MyCart = () => {
                 <input 
                     name="promoCode" 
                     value={billingInfo.promoCode} 
-                    onChange={handleBillingChange} 
+                    onChange={handlePromoChange} 
                     className={`${'promoCode' in error ? '!border-[red]' :''}`}
                 />
             </div>

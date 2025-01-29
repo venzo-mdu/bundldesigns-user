@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Navigate, useRoutes } from "react-router-dom";
+import { Navigate, useLocation, useRoutes } from "react-router-dom";
 import { Home } from '../src/Components/Home/Home';
 import { Login } from '../src/Components/Auth/Login/Login';
 import { Signup } from "./Components/Auth/Signup/Signup";
@@ -26,15 +26,16 @@ const getCookie = (name) => {
   return parts.length === 2 ? parts.pop().split(';').shift() : null;
 };
 
-const ProtectedRoute = ({ element }) => {
-  const token = getCookie("token");
-  return token != null ? element : <Navigate to="/login" />;
-};
 
 export default function AppRouter() {
-
   const token = getCookie("token");
+  const location = useLocation()
+  const ProtectedRoute = ({ element }) => {
 
+    const token = getCookie("token");
+    return token != null ? element : <Navigate to={{ pathname: "/login", search: `?next_url=${location.pathname.slice(1)}` }}  />;
+  };
+  
   useEffect(()=>{
     document.documentElement.scrollTo({
       top: 0,

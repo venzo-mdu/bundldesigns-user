@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 // GCC Countries and phone number length requirements
 const countries = [
@@ -11,11 +11,13 @@ const countries = [
  
 ];
 
-const PhoneNumberInput = ({ name, placeholder, value, status, className,setPhoneError,extraInputClass ,formErrors,setErrors,idName}) => {
+const PhoneNumberInput = ({ name, placeholder, value, status, className,setPhoneError,extraInputClass ,formErrors,setErrors,idName,successmsg=null}) => {
   const [selectedCountry, setSelectedCountry] = useState( { code: 'AE', name: 'UAE', countryCode: '+971', phoneLength: 9 });
   const [phoneNumber, setPhoneNumber] = useState(value || '');
   const [error, setError] = useState('');
-
+  useEffect(()=>{
+    setPhoneNumber(value || '')
+  },[successmsg])
   // Handles country change
   const handleCountryChange = (event) => {
     const selectedCountry = countries.find(country => country.code === event.target.value);
@@ -55,7 +57,7 @@ const PhoneNumberInput = ({ name, placeholder, value, status, className,setPhone
           value={selectedCountry ? selectedCountry.code : ''}
           onChange={handleCountryChange}
           id={idName}
-          className={`border sm:py-2  xs:py-3 sm:px-3  text-gray-900 font-bold sm:w-[100px] xs:w-[85px] xs:pl-[8px] sm:pl-3  focus:outline-none ${extraInputClass}`}
+          className={`border sm:py-2  xs:py-3 sm:px-3  text-gray-900 sm:w-[100px] xs:w-[85px] xs:pl-[8px] sm:pl-3  focus:outline-none ${extraInputClass}`}
         >
           {countries.map((country) => (
             <option key={country.code} value={country.code}>

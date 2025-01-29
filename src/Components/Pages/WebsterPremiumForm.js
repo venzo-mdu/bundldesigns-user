@@ -160,6 +160,7 @@ export default function WebsterPremiumForm() {
         setErrors = {setErrors}
         formErrors = {errors}
         idName={'websterSelect'}
+        successmsg={successMsg}
       />
               {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
             </div>
@@ -200,7 +201,6 @@ export default function WebsterPremiumForm() {
             >
              Submit Contact Request
             </button></p>
-            {successMsg && <p className='bg-green-600 py-1 px-2 flex justify-between rounded text-white'>{successMsg} <CloseIcon  onClick={()=>{setSuccessMsg(null)}} className='text-white ml-2' /></p>}
 
             </div>
 

@@ -53,21 +53,21 @@ export const AboutUs = () => {
         < Navbar />
 
         <div className='xl:h-[56vh]  lg:h-[60vh] md:h-[58vh] xs:h-[350px] relative'>
-          <h1 className='font-Helvetica md:w-[60vw] lg:text-[38px] xs:text-[22px] sm:text-[22px] sm:w-[70vw] xs:w-[70vw] md:text-[36px] xl:w-[50vw] xl:text-[45px] mx-auto py-[8%] lg:py-[6%] md:py-[2%] my-[2%] text-center'>{aboutUs.main_content} </h1>
+          <h1 className='font-Helvetica !text-black md:w-[60vw] lg:text-[38px] xs:text-[22px] sm:text-[22px] sm:w-[70vw] xs:w-[70vw] md:text-[36px] xl:w-[50vw] xl:text-[45px] mx-auto py-[8%] lg:py-[6%] md:py-[2%] my-[2%] text-center'>{aboutUs.main_content} </h1>
           <img className='animate-rotate-animation absolute xs:ml-[36vw] xl:top-[75%] lg:ml-[25vw] md:ml-[25vw] md:top-[60%] xl:ml-[26vw]' width='100px' height='100px' src={loaderSticker}></img>
         </div >
 
 
         <div className='flex md:flex sm:block xs:block justify-between text-center '>
           <div className='basis-[50%] border-t border-r border-l relative py-4 !border-black'>
-            <h1 className='px-28 text-[32px] sm:text-[22px] xs:text-[22px]   md:text-[28px]'>Mission</h1>
+            <h1 className='px-28 text-[32px] !text-black sm:text-[22px] xs:text-[22px]   md:text-[28px]'>Mission</h1>
             <p className='xl:px-48 md:px-20 xl:text-[20px] md:text-[18px]'>{aboutUs.mission}</p>
             <img className='absolute md:top-[130px] top-[130px]  xs:top-[-50px] xs:w-[100px] left-0 xl:top-[70px] xl:w-[260px] md:w-[160px]' src={paperPlane}></img>
 
           </div>
           <div className='!z-10 basis-[50%] border-t border-r xs:border-l md:border-l-0  py-4   relative !border-black'>
 
-            <h1 className='px-[8%] md:text-[28px] xl:text-[32px]'>Vision</h1>
+            <h1 className='px-[8%] md:text-[28px] !tet-black xl:text-[32px]'>Vision</h1>
             <p className=' xl:px-[200px] md:px-20 md:text-[18px] xl:text-[20px]'>{aboutUs.vission}</p>
             <img className='absolute md:top-[-95px] top-[-95px] xs:top-[-60px] xs:w-[100px] xl:bottom-[-25px]  right-[10px] xl:w-[240px] md:w-[160px]' src={glass}></img>
 
@@ -129,8 +129,8 @@ export const AboutUs = () => {
                 <div className='basis-3/5 mt-[2%] mb-[3%] text-center text-white'>
                   <h2 className='text-white sm:text-[32px] text-[32px] xs:text-[20px]'>{aboutUs[whatwedo].title}</h2>
                   <p className='sm:text-[20px] text-[20px] xs:text-[18px] px-2 mb-4'>{aboutUs[whatwedo].content}</p>
-                  <p> <a href='/our-work' className='text-[white] font-[500] sm:text-[20px] text-[20px] xs:text-[18px] px-[17px] py-1 !border-white border mr-2'>View Our Work</a>
-                    <a href='/' className={`bg-white text-[${aboutUs[whatwedo].bgColor}] font-[500] border !border-white px-[17px] sm:text-[20px] text-[20px] xs:text-[18px] py-1 `}>Purchase Now</a> </p>
+                  <p> <a href='/our-work' className='text-[white] font-[500] sm:text-[20px] text-[20px] xs:text-[18px] hover:text-[white] px-[17px] py-1 !border-white border mr-2'>View Our Work</a>
+                    <a href='/' className={`bg-white text-[${aboutUs[whatwedo].bgColor}] font-[500] border hover:text-[${aboutUs[whatwedo].bgColor}] !border-white px-[17px] sm:text-[20px] text-[20px] xs:text-[18px] py-1 `}>Purchase Now</a> </p>
                 </div>
 
               </div>

@@ -175,6 +175,7 @@ export default function FAQ() {
         setErrors = {setErrors}
         formErrors = {errors}
         idName={'websterSelect'}
+        successmsg={successMsg}
       />
                 {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
               </div>
@@ -214,7 +215,6 @@ export default function FAQ() {
               <p className='text-center flex items-center my-1 justify-center font-bold'> < WhatsAppIcon /> <span className='pl-1'>+(966) 547754124</span>  </p>
               </div>
            
-              {successMsg && <p className='bg-green-600 py-1 px-2 flex justify-between items-center rounded text-white'>{successMsg} <CloseIcon  onClick={()=>{setSuccessMsg(null)}} className='text-white ml-2 cursor-pointer'  /></p>}
             </form>
 
 

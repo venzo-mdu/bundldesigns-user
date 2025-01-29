@@ -744,7 +744,7 @@ overflow: hidden;
 width: max-content;
 flex-wrap: nowrap;
 align-items: center;
-animation: scroll var(--_animation-duration, 40s) var(--_animation-direction,forwards) linear infinite;
+animation: scroll var(--_animation-duration, 75s) var(--_animation-direction,forwards) linear infinite;
 }
 .scroller[data-animated="true"] .scroller__inner_btn {
 width: max-content;
@@ -770,11 +770,11 @@ animation: scroll var(--_animation-duration, 9s) var(--_animation-direction, rev
 
 @keyframes scroll {
 from {
-  transform: translateX(-50%)
+  transform: translateX(0)
 }
 
 to {
-  transform: translateX(0)
+  transform: translateX(100%)
 }
 }
 
@@ -2364,7 +2364,7 @@ background-size: contain;
 }
 
 .bundl-pack-head {
-padding-bottom: 60px;
+padding-bottom: 0;
 }
 
 .budl-sub-title {
@@ -2379,7 +2379,7 @@ margin-bottom: 0;
 }
 
 .our-bundl {
-padding: 80px 0;
+padding: 50px 0;
 }
 
 .our-bundl h3 {
@@ -4267,9 +4267,12 @@ animation: scroll var(--_animation-duration, 40s)
 }
 
 @keyframes scroll {
-to {
-  transform: translate(calc(-50% - 0.5rem));
-}
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-67%);
+  }
 }
 
 /* general styles */
@@ -4320,12 +4323,15 @@ overflow: hidden;
 .scroll-button {
 display: flex;  
 }
-
+#ourWorkContainer .MuiSvgIcon-root{
+  width: 22px !important;
+  height: 22px !important;
+}
 .scroll-button {
 margin: 0;
 padding-inline: 0;
 list-style: none;  
-animation: scroll var(--_animation-duration, 2s)
+animation: scroll var(--_animation-duration, 5s)
   var(--_animation-direction, forwards) linear infinite;
 }
 .scroll-button li{
@@ -4369,7 +4375,7 @@ transform: translate(-50%, -50%);
 width: 50px;
 height: 50px;
 }
-.plus::after {
+/* .plus::after {
 content: "";
 background-image: url(../../Images/Home/plusdivider.svg);
 background-size: contain;
@@ -4381,7 +4387,7 @@ left: 50%;
 transform: translate(-50%, -50%);
 width: 50px;
 height: 50px;
-}
+} */
 .love::after{
 content: "";
 background-image: url(../../Images/Home/loveletterdivider.svg);
@@ -4598,6 +4604,10 @@ font-size: 20px;
  .img-rotate-qf{
   top: 70%;
  }
+ #ourWorkContainer .MuiSvgIcon-root{
+  width: 8px !important;
+  height: 8px !important;
+}
  
 
  .inner-nav li{
