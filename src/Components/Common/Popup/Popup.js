@@ -7,7 +7,7 @@ import Mouth from '../../../Images/Bundles/mouth.webp'
 import Rocket from '../../../Images/Bundles/rocket-blue-for-animation.webp'
 import Pinkpaint from '../../../Images/Bundles/pink-paint.webp'
 import { Box, Button, Input, Typography, useMediaQuery } from "@mui/material";
-import popupGIF from '../../../Images/popupGIF.gif'
+import popupGIF from '../../../Images/gifs/popupGIF.gif'
 
 export const Popup = ({ title, subTitle, popupType = 'default', onChange, save, cancel, openpopup, textArea, saveBtnBg, setPopup, onClick, sx, values, isCancel }) => {
     

@@ -11,7 +11,7 @@ import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode as jwt_decode } from 'jwt-decode';
 import { base_url } from '../BackendAPIUrl';
 import { ToastContainer, toast } from 'react-toastify';
-import loginGIF from '../../../Images/loginGIF.gif'
+import loginGIF from '../../../Images/gifs/loginGIF.gif'
 import { useDispatch } from 'react-redux';
 import { loginAction } from '../../../Redux/Action';
 

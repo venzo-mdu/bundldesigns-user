@@ -12,8 +12,6 @@ import { AboutUs } from "./Components/Pages/AboutUS";
 import FAQ from "./Components/Pages/FAQ";
 import Career from "./Components/Pages/Career";
 import OurWork from "./Components/Pages/OurWork";
-import WebsterForm from "./Components/Pages/WebsterForm";
-import PremiumForm from "./Components/Pages/PremiumForm";
 import Dashboard from "./Components/Pages/Dashboard";
 import UploadContent from "./Components/Pages/UploadContent";
 import Adjustments from "./Components/Pages/Adjustments";
@@ -110,17 +108,9 @@ export default function AppRouter() {
       element: <OurWork />
     },
     {
-      path: '/premium-form',
-      element: < PremiumForm />
-    },
-    {
       path:'/form/:form_type',
       element:<WebsterPremiumForm />
 
-    },
-    {
-      path: '/webster-form',
-      element: < WebsterForm />
     },
     {
       path: "*",

@@ -12,8 +12,6 @@
 // import PaintMarquee from '../../Images/Bundles/paint-marquee.webp'
 // import RocketMarquee from '../../Images/Bundles/paper-rocket-marquee.webp'
 // import EyeMarquee from '../../Images/Bundles/eye-margquee.webp'
-// import Loader from '../../Images/Home/load sticker.svg'
-// import BundlSticker from '../../Images/Bundles/bundl-sticker.png'
 // import MagicIcon from '../../Images/Bundles/magic-icon.webp'
 // import BuyBundl from '../../Images/Bundles/buy_a_bundl.webp'
 // import FillQuestionnarie from '../../Images/Bundles/fill_a_questtionaire.webp'
@@ -559,7 +557,6 @@
 //                                     <h4 style={{ margin: '10% 0 0 0' }} className="sub-headeing  text-center">Our Bundls</h4>
 //                                     <div className="our-bundles text-center">
 //                                         <div className="text-animation">
-//                                             WE <div className="bunl"><img src={BundlSticker} width={200} alt="bundl-sticker" className="img-fluie"></img></div>  DESIGN TO MAKE YOUR BRAND
 //                                             <span className="second_text text-start">
 //                                                 <i className="bundl_animate impression">IMPRESSIVE</i>
 //                                                 <i className="bundl_animate">UNIQUE</i>

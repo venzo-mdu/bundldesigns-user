@@ -8,9 +8,9 @@ import { base_url } from '../Auth/BackendAPIUrl';
 import { Bgloader } from '../Common/Background/Bgloader';
 import { ToastContainer, toast } from 'react-toastify'
 import PhoneNumberInput from './PhoneNumberInput';
-import paperPlaneGif from '../../Images/ourWorkGIF.gif'
-import websterGif from '../../Images/aboutus/website.gif'
-import paperPlaneReverse from '../../Images/ourWorkGIFReverse.gif'
+import paperPlaneGif from '../../Images/gifs/ourWorkGIF.gif'
+import websterGif from '../../Images/gifs/website.gif'
+import paperPlaneReverse from '../../Images/gifs/ourWorkGIFReverse.gif'
 import 'react-phone-number-input/style.css';
 import CloseIcon from '@mui/icons-material/Close';
 

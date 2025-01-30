@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { base_url } from '../Auth/BackendAPIUrl';
 import { Footer } from '../Common/Footer/Footer'
 import { Navbar } from '../Common/Navbar/Navbar'
-import loaderSticker from '../../Images/Background/loadsticker.svg'
-import paperPlane from '../../Images/paperPlaneRose.svg'
-import paperplane from '../../Images/our-work.gif'
 import { Bgloader } from '../Common/Background/Bgloader';
-import workOurGIF from '../../Images/ourWorkGIF.gif'
-import workBrandGIF from '../../Images/ourWorkBranding.gif'
+import workOurGIF from '../../Images/gifs/ourWorkGIF.gif'
+import workBrandGIF from '../../Images/gifs/ourWorkBranding.gif'
 
 export default function OurWork() {
   const [loading,setLoading] = useState(true)

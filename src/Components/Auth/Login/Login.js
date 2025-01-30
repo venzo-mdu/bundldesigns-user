@@ -11,7 +11,7 @@ import axios from 'axios';
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode as jwt_decode } from 'jwt-decode';
 import { base_url } from '../BackendAPIUrl';
-import loginGIF from '../../../Images/loginGIF.gif'
+import loginGIF from '../../../Images/gifs/loginGIF.gif'
 
 export const Login = () => {
   const dispatch = useDispatch();

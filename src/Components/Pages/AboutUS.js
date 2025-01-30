@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import aboutUs from '../../json/aboutUs.json'
-import cloud_bg from '../../Images/bg-cloud.png'
-import gray_bg from '../../Images/Background/grey_cloud.svg'
-import loaderSticker from '../../Images/load sticker.svg'
+import cloud_bg from '../../Images/Background/bg-cloud.png'
+import gray_bg from '../../Images/Background/grey_cloud.webp'
+import loaderSticker from '../../Images/Home/loadsticker.png'
 import paperPlane from '../../Images/Background/paper plane.svg'
 import glass from '../../Images/Background/glass.svg'
-import paper_plane_rose from '../../Images/paperPlaneRose.svg'
+import paper_plane_rose from '../../Images/paperPlaneRose.png'
 import letterIcon from '../../Images/letterIcon.svg'
 import blueSticker from '../../Images/Sticker_blue.svg'
 import { Footer } from '../Common/Footer/Footer'
 import { Navbar } from '../Common/Navbar/Navbar'
 import axios from 'axios'
-import packagingGIF from '../../Images/aboutus/packaging.gif'
-import identityGIF from '../../Images/aboutus/Identity.gif'
-import websiteGIF from '../../Images/aboutus/website.gif'
-import socialMediaGIF from '../../Images/aboutus/socialMedia.gif'
+import packagingGIF from '../../Images/gifs/packaging.gif'
+import identityGIF from '../../Images/gifs/Identity.gif'
+import websiteGIF from '../../Images/gifs/website.gif'
+import socialMediaGIF from '../../Images/gifs/socialMedia.gif'
 import identityImg from '../../Images/aboutus/Identity.svg'
 import ClearIcon from '@mui/icons-material/Clear';
 import { Bgloader } from '../Common/Background/Bgloader'
@@ -53,7 +53,7 @@ export const AboutUs = () => {
         < Navbar />
 
         <div className='xl:h-[56vh]  lg:h-[60vh] md:h-[58vh] xs:h-[350px] relative'>
-          <h1 className='font-Helvetica !text-black md:w-[60vw] lg:text-[38px] xs:text-[22px] sm:text-[22px] sm:w-[70vw] xs:w-[70vw] md:text-[36px] xl:w-[50vw] xl:text-[45px] mx-auto py-[8%] lg:py-[6%] md:py-[2%] my-[2%] text-center'>{aboutUs.main_content} </h1>
+          <h1 className='font-Helvetica !text-black md:w-[60vw] lg:text-[38px] xs:text-[22px] sm:text-[22px] sm:w-[70vw] xs:w-[70vw] md:text-[36px] xl:w-[50vw] xl:text-[45px] mx-auto py-[8%] lg:py-[6%] md:py-[2%] my-[2%] text-center'>{aboutUs.main_content}sssssss </h1>
           <img className='animate-rotate-animation absolute xs:ml-[36vw] xl:top-[75%] lg:ml-[25vw] md:ml-[25vw] md:top-[60%] xl:ml-[26vw]' width='100px' height='100px' src={loaderSticker}></img>
         </div >
 
