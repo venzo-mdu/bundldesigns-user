@@ -574,7 +574,7 @@ export const Home = () => {
                                                         </svg>
                                                 }
 
-                                                <div className="content_section" style={{ transition: '1s', opacity: isActiveProcess[index] ? 1 : 0.3 }}>
+                                                <div className="content_section !cursor-pointer" style={{ transition: '1s', opacity: isActiveProcess[index] ? 1 : 0.3 }}>
                                                     {process.title.split("  ").map((word, i) => (
                                                         <span key={i}>{word}</span>
                                                     ))}

@@ -4271,7 +4271,7 @@ animation: scroll var(--_animation-duration, 40s)
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-67%);
+    transform: translateX(-60%);
   }
 }
 

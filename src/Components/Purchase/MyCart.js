@@ -473,8 +473,8 @@ export const MyCart = () => {
                                 <p className='!text-[20px] xs:mb-0 sm:mb-auto text-right' style={{ width: '40%' }}>{isNaN(Math.round(cartDetails.grand_total))?0:Math.round(cartDetails.grand_total)} sar</p>
                             </div>
                             <div  className='justify-between  font-[700] mr-4' style={{ display: 'flex' }}>
-                                <p className='!text-[20px]' style={{ width: '66%' }}><img src={BlackTime} className='inline-block mr-3'></img>Total Duration :</p>
-                                <p className='!text-[20px]  text-right' style={{ width: '45%' }}>{isNaN(Math.round(cartDetails.total_time))?0 :Math.round(cartDetails.total_time)} Days</p>
+                                <p className='!text-[20px]' style={{ width: '67%' }}><img src={BlackTime} className='inline-block mr-3'></img>Total Duration :</p>
+                                <p className='!text-[20px]  text-right' style={{ width: '43%' }}>{isNaN(Math.round(cartDetails.total_time))?0 :Math.round(cartDetails.total_time)} Days</p>
                             </div>
                         </div>
                     </div>
