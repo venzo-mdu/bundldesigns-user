@@ -68,6 +68,7 @@ export default function Dashboard() {
     const queryParams = new URLSearchParams(location.search);
     const purchase_id = queryParams.get('purchase', null);
     const [purchasePopUp, setPurchasePopUp] = useState(purchased == 'done' ? true : false)
+    const [showFull, setShowFull] = useState(false);
 
     const checkPurchase = async () => {
         const response = await axios.get(`${base_url}/api/order/${purchase_id}/`, ConfigToken());
@@ -171,7 +172,10 @@ export default function Dashboard() {
 
         // Format into HH:mm:ss
         const formattedCounter = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            
         switch (order.order_status) {
+        // switch ('send_for_approval') {
+
             case 'questionnaire_required':
                 return (
                     <div className="text-center">
@@ -457,8 +461,9 @@ export default function Dashboard() {
                                             </button>
     
                                             ) :
+                                            // id="websterSelect"
                                             <div className='xs:px-3'>
-                                            <select className='w-[200px] h-[40px] text-[32px] font-[700] outline-none border-none'>
+                                            <select className='w-[200px] h-[40px] text-[32px] font-[700] outline-none border-none' >
                                                 {projects?.map((project, index) => (
                                                     <option className="text-[16px] font-[500]" key={index} value={project.project_name}>
                                                         {project.project_name}
@@ -562,12 +567,53 @@ export default function Dashboard() {
                                         </table>
                                     </div> : ''
                                 :
-                                <div>
-                                    <div className='flex w-[100%] px-[8%]'>
-                                        <p className='text-[20px] font-[500] font-Helvetica opacity-50 w-[50%]'>Purchase History</p>
-                                        <p className='underline text-[20px] font-[500] font-Helvetica text-[#1BA56F] w-[50%] text-right'>See More</p>
-                                     </div>   
-                                </div>    
+                                // <div>
+                                //     <div className='flex w-[100%] px-[8%]'>
+                                //         <p className='text-[20px] font-[500] font-Helvetica opacity-50 w-[50%]'>Purchase History</p>
+                                //         <p className='underline text-[20px] font-[500] font-Helvetica text-[#1BA56F] w-[50%] text-right'>See More</p>
+                                //      </div>   
+                                // </div>   
+                                    <div className="w-full px-[8%]">
+                                        {/* Header */}
+                                        <div className="flex justify-between items-center">
+                                            <p className="text-[20px] font-[500] font-Helvetica opacity-50">Purchase History</p>
+                                            <p
+                                                className="underline text-[20px] font-[500] font-Helvetica text-[#1BA56F] cursor-pointer"
+                                                onClick={() => setShowFull(!showFull)}
+                                            >
+                                                {showFull ? "Show Less" : "See More"}
+                                            </p>
+                                        </div>
+
+                                        {/* Orders List */}
+                                        <div className={`transition-all duration-500 ${showFull ? "h-auto" : "h-[120px] overflow-hidden relative"}`}>
+                                            {purchases.map((order, index) => (
+                                                <div
+                                                    key={index}
+                                                    className="border-b border-gray-300 py-2 flex flex-col md:flex-row md:items-center justify-between"
+                                                >
+                                                    {/* Name & Amount */}
+                                                    <div className="flex justify-between w-full md:w-[50%]">
+                                                        <p className="text-[22px] font-[700] font-Helvetica">{order.project_name}</p>
+                                                        <p className="text-[22px] font-[700] font-Helvetica">{Math.round(order.grand_total)} SAR</p>
+                                                    </div>
+
+                                                    {/* ID, Date & Status */}
+                                                    <div className="flex justify-between w-full md:w-[50%] mt-1 md:mt-0">
+                                                        <p className="text-[20px] font-[500] text-gray-500 font-Helvetica">{order.id}</p>
+                                                        <p className="text-[20px] font-[500] text-gray-500 font-Helvetica">{format(new Date(order.purchase_date), "dd/MM/yy")}</p>
+                                                        <p className="text-[20px] font-[500] font-Helvetica text-[#1BA56F]">Completed</p>
+                                                    </div>
+                                                </div>
+                                            ))}
+
+                                            {/* Gradient Overlay (only when not expanded) */}
+                                            {!showFull && (
+                                                //<div className="absolute shadow-lg bottom-0 left-0 w-full h-[60px] bg-gradient-to-t from-white to-transparent pointer-events-none transition-shadow"></div>
+                                                <div className="absolute bottom-0 left-0 w-full h-[80px] bg-gradient-to-t from-white via-white/90 to-transparent shadow-[1px] pointer-events-none"></div>
+                                            )}
+                                        </div>
+                                    </div> 
                             }
 
                             
