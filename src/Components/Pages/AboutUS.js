@@ -54,21 +54,21 @@ export const AboutUs = () => {
 
         <div className='xl:h-[56vh]  lg:h-[60vh] md:h-[58vh] xs:h-[350px] relative'>
           <h1 className='font-Helvetica !text-black md:w-[60vw] lg:text-[38px] xs:text-[22px] sm:text-[22px] sm:w-[70vw] xs:w-[70vw] md:text-[36px] xl:w-[50vw] xl:text-[45px] mx-auto py-[8%] lg:py-[6%] md:py-[2%] my-[2%] text-center'>{aboutUs.main_content} </h1>
-          <img className='animate-rotate-animation absolute xs:ml-[36vw] xl:top-[75%] lg:ml-[25vw] md:ml-[25vw] md:top-[60%] xl:ml-[26vw]' width='100px' height='100px' src={loaderSticker}></img>
+          <img className='animate-rotate-animation absolute xs:ml-[36vw] xl:top-[70%] lg:ml-[25vw] md:ml-[25vw] md:top-[60%] lg:top-[50%] xl:ml-[26vw]' width='100px' height='100px' src={loaderSticker}></img>
         </div >
 
 
         <div className='flex md:flex sm:block xs:block justify-between text-center '>
           <div className='basis-[50%] border-t border-r border-l relative py-4 !border-black'>
             <h1 className='px-28 text-[32px] !text-black sm:text-[22px] xs:text-[22px]   md:text-[28px]'>Mission</h1>
-            <p className='xl:px-48 md:px-20 xl:text-[20px] md:text-[18px]'>{aboutUs.mission}</p>
+            <p className='xl:px-48 md:px-20 xl:text-[20px] md:text-[18px] xs:text-[20px] xs:px-[5%]'>{aboutUs.mission}</p>
             <img className='absolute md:top-[130px] top-[130px]  xs:top-[-50px] xs:w-[100px] left-0 xl:top-[70px] xl:w-[260px] md:w-[160px]' src={paperPlane}></img>
 
           </div>
           <div className='!z-10 basis-[50%] border-t border-r xs:border-l md:border-l-0  py-4   relative !border-black'>
 
             <h1 className='px-[8%] md:text-[28px] !tet-black xl:text-[32px]'>Vision</h1>
-            <p className=' xl:px-[200px] md:px-20 md:text-[18px] xl:text-[20px]'>{aboutUs.vission}</p>
+            <p className=' xl:px-[200px] md:px-20 md:text-[18px] xl:text-[20px] xs:text-[20px] xs:px-[5%]'>{aboutUs.vission}</p>
             <img className='absolute md:top-[-95px] top-[-95px] xs:top-[-60px] xs:w-[100px] xl:bottom-[-25px]  right-[10px] xl:w-[240px] md:w-[160px]' src={glass}></img>
 
           </div>
@@ -107,7 +107,7 @@ export const AboutUs = () => {
         </div>
       </div>
 
-      <div style={{ backgroundColor: whatwedo ? aboutUs[whatwedo].bgColor : 'inherit' }} className={`text-center relative border-black leading-[40px] border-b`}>
+      <div style={{ backgroundColor: whatwedo ? aboutUs[whatwedo].bgColor : 'inherit' }} className={`text-center relative border-black leading-[40px] border-b transition delay-150 duration-300 ease-in`}>
         <img className='absolute md:top-[-72px] xl:top-[-100px] sm:w-[100px] xs:w-[80px] 
         xs:top-[-30px] z-10 sm:top-[-52px] lg:top-[-80px] md:w-[150px] xl:w-[200px] left-[12vw] '
           width='200px' height='140px' src={blueSticker} />

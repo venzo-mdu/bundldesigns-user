@@ -86,7 +86,19 @@ export const Home = () => {
     const [isActiveProcess, setIsActiveProcess] = useState([false, false, false, false, false]);
     const [bundlData, setBundlData] = useState([]);
     // const translateX = (activeProcess * 200) +60;
-    const translateX = activeProcess * (window.innerWidth <= 475 ? activeProcess <= 3 ? 85 : 80 : window.innerWidth <= 768 ? 150 : activeProcess < 3 ? 200 : 195) + (window.innerWidth > 1450 ? 60 : 0);
+    // const translateX = activeProcess * (window.innerWidth <= 475 ? activeProcess <= 4 ? 88.5: window.innerWidth <= 390 ? 80 : 80 : window.innerWidth <= 768 ? 150 : activeProcess < 3 ? 200 : 195) + (window.innerWidth > 1450 ? 60 : 0);
+    let translateX = 0;
+    if (window.innerWidth <= 390) {
+        translateX = activeProcess === 4 ? 300 : activeProcess * 78.5;
+    } else if (window.innerWidth <= 475) {
+        translateX = activeProcess * (activeProcess <= 4 ? 88.5 : 80);
+    } else if (window.innerWidth <= 768) {
+        translateX = activeProcess * 150;
+    } else if (window.innerWidth <= 1450) {
+        translateX = activeProcess * (activeProcess < 3 ? 200 : 195);
+    } else {
+        translateX = activeProcess * (activeProcess < 3 ? 200 : 195) + 60;
+    }
     const bundlImages = [QubeIcon, Diamond, Eye, Food, Money]
     const textColor = ["pink-text", "green-text", "blue-text", "pink-text"]
     const titles = ["Just to get started", "For Restaurants and Cafés", "For Salons and Other Services", "For Shops and Online Stores"]
@@ -211,8 +223,12 @@ export const Home = () => {
     useEffect(() => {
         const handleClickOutsideProfile = (event) => {
             if (popupRef.current && !popupRef.current.contains(event.target)) {
-                setProfileVisible(false);
-            }
+                if (event.target.closest('.navIcons')) {
+                    return; // Skip handling the click if it's on the profile icon
+                  }else{
+                    setProfileVisible(false);
+                  }
+              }
             if (searchRef.current && !searchRef.current.contains(event.target)) {
                 setSearchShow(false)
             }
@@ -383,7 +399,7 @@ export const Home = () => {
                                                                     menuVisible && (
                                                                         <ul className=' inner-nav-item'>
                                                                             <li className='relative p-1 inner-nav-li'>
-                                                                                <a href="/" className='!text-black' previewlistener="true">Bundl Offers</a>
+                                                                                <a href="#ourBundl" className='!text-black' previewlistener="true">Bundls</a>
                                                                             </li>
                                                                             <li className='relative p-1 inner-nav-li'>
                                                                                 <a href="/our-work" className='!text-black' previewlistener="true">Our Work</a>
@@ -460,7 +476,7 @@ export const Home = () => {
                                         <div className="px-2">
 
                                         </div>
-                                        <h1 className='!text-black sm:px-[9%] xs:px-[12%]  lg:px-[10%] !w-[100%] xs:!text-[32px] sm:!text-[58px] !text-[58px]'><span>Elevating</span> brands & shaping legacies, one <span>extraordinary design</span> at a <i>time.</i></h1>
+                                        <h1 className='!text-black sm:px-[9%] xs:px-[12%]  lg:px-[10%] !w-[100%] xs:!text-[28px] sm:!text-[58px] !text-[58px]'><span>Elevating</span> brands & shaping legacies, one <span>extraordinary design</span> at a <i>time.</i></h1>
                                         <div className="button-container scroller">
                                             <ul className="scroll-button h-[46px] scroller__inner_btn">
                                                 <li><span><a className='text-black' href='#ourBundl'>Shop our Bundls</a></span></li>
@@ -484,7 +500,7 @@ export const Home = () => {
                         </section >
 
                         <div className='divider '></div>
-                        <section className="container-fluid our-process xs:py-[85px] sm:py-[80px]">
+                        <section className="container-fluid our-process xs:py-[65px] sm:py-[80px]">
                             <div className="container-fluid">
                                 <div className="row justify-content-center mb-4">
                                     <div className="col-md-5 text-center">
@@ -556,7 +572,7 @@ export const Home = () => {
                                             <div
                                                 key={index}
                                                 className={`flower ${activeProcess === index ? "active-flower" : ""}`}
-                                                style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+                                                style={window.innerWidth <= 475 ? { display: "flex", flexDirection: "column", alignItems: "center",marginTop:'1%' }:{ display: "flex", flexDirection: "column", alignItems: "center" }}
                                                 onMouseEnter={() => {
                                                     setActiveProcess(index);
                                                     updateActiveProcess(index)
@@ -655,7 +671,8 @@ export const Home = () => {
                                             <div className="box-child">
                                                 <div className="pack-inner-title"><span>Brand Identity</span></div>
                                                 <ul className="second_brand_list">
-                                                    <li>Brand Concept & Direction</li>
+                                                    <li>Brand Concept</li>
+                                                    <li>Brand Direction</li>
                                                     <li>Logo Design</li>
                                                     <li>Logo Variations</li>
                                                     <li>Color Palette</li>
@@ -732,7 +749,8 @@ export const Home = () => {
                                             <div className="box-child">
                                                 <div className="pack-inner-title"><span>Brand Identity</span></div>
                                                 <ul className="second_brand_list">
-                                                    <li>Brand Concept & Direction</li>
+                                                    <li>Brand Concept</li>
+                                                    <li>Brand Direction</li>
                                                     <li>Logo Design</li>
                                                     <li>Logo Variations</li>
                                                     <li>Color Palette</li>
@@ -819,7 +837,8 @@ export const Home = () => {
                                             <div className="box-child">
                                                 <div className="pack-inner-title"><span>Brand Identity</span></div>
                                                 <ul className="second_brand_list">
-                                                    <li>Brand Concept & Direction</li>
+                                                    <li>Brand Concept</li>
+                                                    <li>Brand Direction</li>
                                                     <li>Logo Design</li>
                                                     <li>Logo Variations</li>
                                                     <li>Color Palette</li>
@@ -905,7 +924,8 @@ export const Home = () => {
                                             <div className="box-child">
                                                 <div className="pack-inner-title"><span>Brand Identity</span></div>
                                                 <ul className="second_brand_list">
-                                                    <li>Brand Concept & Direction</li>
+                                                    <li>Brand Concept</li>
+                                                    <li>Brand Direction</li>
                                                     <li>Logo Design</li>
                                                     <li>Logo Variations</li>
                                                     <li>Color Palette</li>
@@ -1054,7 +1074,7 @@ export const Home = () => {
 
                         <div className="bunbl-box-news-section">
                             <div className="row justify-content-center bt-1">
-                                <div className="col-md-6 center-block text-center br-1">
+                                <div className="col-md-6 center-block text-center border-black lg:border-r-[1px] md:border-r-[1px] xs:border-r-0">
                                     <div className="bundl-box-inner">
                                         <div className="icon">
                                             <img src={GrownIcon} alt="" className="img-fluid"></img>
@@ -1109,14 +1129,24 @@ export const Home = () => {
                                                 >
                                                     {ourworks.map((item, index) => (
                                                         <div key={index} className={`relative  flex-shrink-0 xl:w-[84%] xs:w-[84%] xs:mx-[8%] md:w-[99%] md:mx-1 xl:mx-[8%] flex flex-wrap ${item.project_images.length > 2 ? 'sm:h-[900px] xs:h-[350px]' : 'sm:h-[450px] xs:h-[250px]'} justify-center`}>
-                                                            {item.project_images.map((img, imgIndex) => (
-                                                                <img
+                                                            {item.project_images.map((img, imgIndex) => {
+                                                                let borderClasses = "border-black border-solid";
+
+                                                                // Apply borders based on image index
+                                                                if (imgIndex === 0) borderClasses += " border-r-[2px] border-b-[2px]"; // 1st Image (Right, Bottom)
+                                                                if (imgIndex === 1) borderClasses += " border-l-[2px] border-r-[2px] border-b-[2px]"; // 2nd Image (Left, Right, Bottom)
+                                                                if (imgIndex === 2) borderClasses += " border-l-[2px] border-b-[2px]"; // 3rd Image (Left, Bottom)
+                                                                if (imgIndex === 3) borderClasses += " border-r-[2px] border-t-[2px]"; // 4th Image (Right, Top)
+                                                                if (imgIndex === 4) borderClasses += " border-l-[2px] border-r-[2px] border-t-[2px]"; // 5th Image (Left, Right, Top)
+                                                                if (imgIndex === 5) borderClasses += " border-l-[2px] border-t-[2px]"; // 6th Image (Left, Top)
+                                                                return (<img
                                                                     key={imgIndex}
-                                                                    className="w-1/3 sm:w-[33%] object-cover"
+                                                                    // className="w-1/3 sm:w-[33%] object-cover border-black border-solid border-[5px]"
+                                                                    className={`w-1/3 sm:w-[33%] object-cover ${borderClasses}`}
                                                                     src={img}
                                                                     alt={`Project ${index + 1}`}
-                                                                />
-                                                            ))}
+                                                                />)
+                                                            })}
                                                 {currentWork != 0 && <button
                                                     onClick={() => slideChange('prev')}
                                                     className="absolute md:left-20 left-20 xs:left-8 top-1/2 transform -translate-y-1/2 w-[30px] sm:w-[30px] xs:w-[10px] h-[35%] bg-black "

@@ -238,15 +238,15 @@ export const BundlDetail = () => {
          </div>
  
          <div className='bundl-section'>
-           <div className='brand-details !pt-16'>
-             <p style={window.innerWidth <= 441 ? { fontSize: '32px', fontWeight: '700' } : { textAlign: 'left', fontSize: '32px', fontWeight: '700' }}>What is the name of your brand?</p>
+           <div className='brand-details lg:!pt-16 md:!pt-[16] xs:!pt-8'>
+             <p style={window.innerWidth <= 441 ? { fontSize: '32px', fontWeight: '700',lineHeight:'1.2' } : { textAlign: 'left', fontSize: '32px', fontWeight: '700' }}>What is the name of your brand?</p>
              <input id='brandInput'  className={`brand-input ${brandError && '!border-[red]'}`} value={brandInput} onChange={(e) => {setBrandInput(e.target.value)
            
               setBrandError(false)}} />
                 {brandError && <p className='text-[red]'>Please enter name of the brand</p>}
              <div className='commerce-collateral'>
                {bundlAddons.bundle_details?.map((bundle, index) => {
-                 return <div key={index} className='bundle-section' style={{ margin: '3% 0 0 0' }}>
+                 return <div key={index} className='bundle-section' style={window.innerWidth <= 475 ? { margin: '10% 0 0 0' }:{ margin: '3% 0 0 0' }}>
                    <p className={`collateral-text mb-[2px] leading-[1.2] ${bundle.name_english == 'Social Media Starter Kit'?'w-[80%]': 'w-full'}`}>{bundle.name_english}</p>
                    <p className='text-[16px] sm:text-[16px] xs:text-[20px]' style={{ opacity: '50%' }}>{bundle.slogan_english}</p>
                    {
@@ -339,8 +339,8 @@ export const BundlDetail = () => {
              </div>
              <Accordian textColor={textColor} extraQty={extraQty} accordianTitle={'Something feels missing ?'} addOnPayload={setAddonPayLoads} bundlePackageId={packageID} />
            </div>
- 
-           <div className='bundl-summary !border-black border max-h-[80%] overflow-y-scroll w-full' >
+           {/* // border-black */}
+           <div className='bundl-summary  border max-h-[80%] overflow-y-scroll w-full' >
              <div className='bundl-name '>
                <p className='sm:text-[24px] xs:mb-0 xs:flex xs:justify-between sm:block font-[700] px-0 !mb-2'  >
                <span className='font-normal'>Summary</span>
@@ -398,7 +398,7 @@ export const BundlDetail = () => {
                  <p className='!xs:text-[16px] text-end !sm:text-[20px]'  style={{ width: '40%' }}>{packageDetail?.package?.time + addonPayLoads.total_time} Days</p>
                </div>
  
-               <div >
+               <div className='flex justify-center items-center'>
                  {
                    (parseFloat(packageDetail?.package?.price) + addonPayLoads.total_price) > 700 ?
                      <button style={{backgroundColor:textColor}} className={`proceed !bg-[${textColor}]`}  onClick={createPayload} >Proceed Checkout</button> :

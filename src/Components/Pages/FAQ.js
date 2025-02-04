@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect,useRef } from 'react'
 import axios from 'axios'
 import { Footer } from '../Common/Footer/Footer'
 import { Navbar } from '../Common/Navbar/Navbar'
@@ -9,6 +9,7 @@ import { Bgloader } from '../Common/Background/Bgloader';
 import CloseIcon from '@mui/icons-material/Close';
 import PhoneNumberInput from './PhoneNumberInput';
 import { ToastContainer, toast } from 'react-toastify'
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 export default function FAQ() {
 
@@ -21,6 +22,21 @@ export default function FAQ() {
   const [currentTab, setCurrentTab] = useState('');
   const [successMsg, setSuccessMsg] = useState('')
   const [phoneError,setPhoneError] = useState(false)
+
+  const scrollContainerRef = useRef(null);
+
+  const scrollLeft = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: -150, behavior: "smooth" });
+    }
+  };
+
+  const scrollRight = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: 150, behavior: "smooth" });
+    }
+  };
+
 
   const [formData, setFormData] = useState({
     name: '',
@@ -113,15 +129,47 @@ export default function FAQ() {
             <p className='text-[20px] font-medium text-[#00000080]'>Where we answer all your questions!</p>
           </div>
           <div className='lg:p-20 md:p-10  sm:p-10 xs:p-4 border-b  border-black'>
-            <div className='flex md:justify-center overflow-x-auto'>
-              {faqs.categories.map((category, index) => {
-                return <button className={`lg:px-[20px] xs:min-w-[100px] sm:min-w-min xs:text-[14px] sm:text-[18px] text-[18px] md:px-[10px] xs:px-[5px] sm:px-[5px] md:py-[3px] md:text-[16px] lg:py-[5px]  ${currentTab == category.name_english ? 'text-white bg-[#1BA56F] ' : 'text-[#1BA56F] bg-white '} border-r border-t border-b
-                           ${index == 0 && 'border-l'} ${index == faqs.categories.length && 'border-l-0 border-r'}
-                   !border-[#1BA56F]`}
-                  onClick={() => setCurrentTab(category.name_english)}>{category.name_english}</button>
-              })}
+           <div className="relative flex items-center">
+      {/* Left Arrow */}
+     
+
+      {/* Scrollable Container */}
+              <div ref={scrollContainerRef} className="flex overflow-x-auto scrollbar-hide md:justify-center">
+                {faqs.categories.map((category, index) => (
+                  <button
+                    key={category.name_english}
+                    className={`lg:px-[20px] xs:min-w-[100px] sm:min-w-min xs:text-[14px] sm:text-[18px] text-[18px] md:px-[10px] xs:px-[5px] sm:px-[5px] md:py-[3px] md:text-[16px] lg:py-[5px]  
+            ${currentTab === category.name_english
+                        ? "text-white bg-[#1BA56F]"
+                        : "text-[#1BA56F] bg-white"
+                      } border-r border-t border-b 
+            ${index === 0 ? "border-l" : ""} 
+            ${index === faqs.categories.length - 1 ? "border-r" : ""} 
+            !border-[#1BA56F]`}
+                    onClick={() => setCurrentTab(category.name_english)}
+                  >
+                    {category.name_english}
+                  </button>
+                ))}
+              </div>
+
+              {/* Right Arrow */}
+             
             </div>
-            <div className='sm:mt-12 mt-12 xs:mt-6'>
+            {
+              window.innerWidth <= 768 ? 
+              <div className='flex mt-[5%] w-full'>
+               <div className='w-[50%]' onClick={scrollLeft}>
+                <FaChevronLeft className="text-[#1BA56F] outline-none border-none" />
+                </div>
+                <div className='w-[50%]' onClick={scrollRight}>
+                <FaChevronRight className="text-[#1BA56F] outline-none border-none float-right" />
+              </div>
+            </div>
+               :''
+            }
+            
+            <div className='sm:mt-12 mt-12 xs:mt-[15%]'>
               {currentTab && <h2 className='mb-10 sm:mb-10 xs:mb-8 xs:text-[24px] text-[28px] sm:text-[28px]'>{currentTab}</h2>}
               {
                 faqs.data.map((faq) => {
@@ -135,7 +183,7 @@ export default function FAQ() {
 
                       <div
                         id="description"
-                        className=" text-[#00000080] sm:pl-[30px] pl-[30px] xs:pl-[10px] md:text-[16px]"
+                        className=" text-[#00000080] sm:pl-[30px] pl-[30px] xs:px-[10px]  lg:text-[18px] md:text-[18px] xs:text-[16px] "
                         dangerouslySetInnerHTML={{ __html: faq.answer_english }}
                       />
                     </div>
