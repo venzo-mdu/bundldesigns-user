@@ -39,19 +39,19 @@ const style = {
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
-    display:'flex',
+    display: 'flex',
 };
 export default function Dashboard() {
 
     const navigate = useNavigate();
-    const [projectName,setProjectName] = useState('')
-    const [projectToEdit,setProjectEdit] = useState(null)
-    const [loading,setLoading] = useState(true)
+    const [projectName, setProjectName] = useState('')
+    const [projectToEdit, setProjectEdit] = useState(null)
+    const [loading, setLoading] = useState(true)
     const [projects, setProjects] = useState([])
-    const [purchases,setPurchases] = useState([])
+    const [purchases, setPurchases] = useState([])
     const [reOrderId, setReOrderId] = useState()
     const [openPopup, setOpenPopup] = useState(false)
-    const [completePopup,setCompletePopup] = useState(false)
+    const [completePopup, setCompletePopup] = useState(false)
     const [currentTab, setCurrentTab] = useState('');
     const [brandFile, setBrandFile] = useState({})
     const [showPdf, setShowPdf] = useState(false)
@@ -61,33 +61,34 @@ export default function Dashboard() {
     const [processIndex, setProcessIndex] = useState(0)
     const [order, setOrder] = useState({})
     const [dashboardJson, setDashboardJson] = useState(dashboard.english)
-    const [purchased,setPurchased] = useState('not')
+    const [purchased, setPurchased] = useState('not')
     const ProcessIndexDict = ['purchase', 'questionnaire_required', 'in_progress', 'send_for_approval', 'add_ons', 'content_uploaded']
     const base_url = process.env.REACT_APP_BACKEND_URL
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
-    const purchase_id = queryParams.get('purchase',null);
-    const [purchasePopUp,setPurchasePopUp] = useState(purchased == 'done'?true:false)
+    const purchase_id = queryParams.get('purchase', null);
+    const [purchasePopUp, setPurchasePopUp] = useState(purchased == 'done' ? true : false)
+    const [showFull, setShowFull] = useState(false);
 
-    const checkPurchase = async ()=>{
+    const checkPurchase = async () => {
         const response = await axios.get(`${base_url}/api/order/${purchase_id}/`, ConfigToken());
-        console.log( response.data.data,'data')
-        if(response.data.data.payment_status){
+        console.log(response.data.data, 'data')
+        if (response.data.data.payment_status) {
             setPurchasePopUp(true)
         }
     }
 
-    const getprojects = async (id=null) => {
+    const getprojects = async (id = null) => {
         const response = await axios.get(`${base_url}/api/order/`, ConfigToken());
-        if(purchase_id){
+        if (purchase_id) {
             checkPurchase()
         }
         if (response.data) {
-            const resProjects = response.data.data.filter(item=> item.order_status!='completed' && item.order_status!='in_cart')
+            const resProjects = response.data.data.filter(item => item.order_status != 'completed' && item.order_status != 'in_cart')
             setProjects(resProjects);
-            setPurchases(response.data.data.filter(item=>item.order_status != 'in_cart'))
+            setPurchases(response.data.data.filter(item => item.order_status != 'in_cart'))
             if (resProjects.length) {
-                getOrderDetails(id? id:resProjects[0].id)
+                getOrderDetails(id ? id : resProjects[0].id)
             }
         }
         setLoading(false)
@@ -110,29 +111,31 @@ export default function Dashboard() {
             }
             if (orderData.content_uploaded_date) {
                 const uploadedDateObj = parseISO(orderData.content_uploaded_date)
-                console.log(uploadedDateObj,'dateee')
+                console.log(uploadedDateObj, 'dateee')
                 const oneDayLater = addDays(uploadedDateObj, 1);
-                console.log(oneDayLater,new Date())
+                console.log(oneDayLater, new Date())
                 if (isBefore(new Date(), oneDayLater)) {
                     setIsEdit(true)
-                    console.log(differenceInSeconds(oneDayLater, new Date()),'dateeeeee')
+                    console.log(differenceInSeconds(oneDayLater, new Date()), 'dateeeeee')
                     setCounter(differenceInSeconds(oneDayLater, new Date()))
                 }
-                if(orderData.order_status=='in_progress')
-                     setProcessIndex(1)
+                if (orderData.order_status == 'in_progress')
+                    setProcessIndex(1)
             }
-            if (orderData.order_status == 'send_for_approval' || orderData.order_status =='add_ons' || orderData.order_status =='in_review' ) {
-                console.log(response.data.brand_item_management?.delivery_files,'del')
-                const parts = response.data.brand_item_management?.delivery_files.length? response.data.brand_item_management?.delivery_files[0].split('/'):null
+            if (orderData.order_status == 'send_for_approval' || orderData.order_status == 'add_ons' || orderData.order_status == 'in_review') {
+                console.log(response.data.brand_item_management?.delivery_files, 'del')
+                const parts = response.data.brand_item_management?.delivery_files.length ? response.data.brand_item_management?.delivery_files[0].split('/') : null
                 parts && setBrandFile(parts[parts.length - 1])
             }
         }
     }
 
     const fillQuestionaire = () => {
-        navigate('/questionnaire/1',{state:{
-            orderId:order.id
-    }})
+        navigate('/questionnaire/1', {
+            state: {
+                orderId: order.id
+            }
+        })
     }
     const CheckCart = async (id) => {
         const response = await axios.get(`${base_url}/api/order/cart/`, ConfigToken());
@@ -166,14 +169,17 @@ export default function Dashboard() {
         const hours = Math.floor(counter / 3600);
         const minutes = Math.floor((counter % 3600) / 60);
         const seconds = counter % 60;
-        
+
         // Format into HH:mm:ss
         const formattedCounter = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            
         switch (order.order_status) {
+        // switch ('send_for_approval') {
+
             case 'questionnaire_required':
                 return (
                     <div className="text-center">
-                        <h2 className="text-[22px] text-[#000000]">
+                        <h2 className="lg:text-[22px] md:text-[22px] xs:text-[20px] text-[#000000]">
                             {dashboardJson.process_content.questionnaire}
                         </h2>
                         <button
@@ -190,7 +196,7 @@ export default function Dashboard() {
                 if (isEdit) {
                     return (
                         <div className="text-center">
-                            <h2 className="text-[22px] text-[#000000]">
+                            <h2 className="lg:text-[22px] md:text-[22px] xs:text-[20px] text-[#000000]">
                                 You have <span className='text-[#1BA56F]'>{formattedCounter}</span> to edit your questionnaire
                             </h2>
                             <p className="text-[18px] text-[#1BA56F] font-medium">
@@ -207,7 +213,7 @@ export default function Dashboard() {
                 }
                 return (
                     <div className="text-center">
-                        <h2 className="text-[22px] text-[#000000]">
+                        <h2 className="lg:text-[22px] md:text-[22px] xs:text-[20px] text-[#000000]">
                             {dashboardJson.process_content.design_brand}
                         </h2>
                         <p className="text-[18px] text-[#1BA56F] font-medium">
@@ -219,7 +225,7 @@ export default function Dashboard() {
             case 'send_for_approval':
                 return (
                     <div className="text-center">
-                        <h2 className="text-[22px] text-[#000000]">
+                        <h2 className="lg:text-[22px] md:text-[22px] xs:text-[20px] text-[#000000]">
                             {dashboardJson.process_content.approve_brand_content}
                         </h2>
                         <p className="flex justify-center w-full">
@@ -230,8 +236,8 @@ export default function Dashboard() {
                         </p>
                         <p>
                             <button
-                            onClick={()=>{navigate('/adjustment',{state:{orderId:order.id,orderItemId:null}})}}
-                            className="px-3 py-1 text-[#1BA56F] font-[500] border !border-[#1BA56F] text-[16px] mt-2 mr-2"
+                                onClick={() => { navigate('/adjustment', { state: { orderId: order.id, orderItemId: null } }) }}
+                                className="px-3 py-1 text-[#1BA56F] font-[500] border !border-[#1BA56F] text-[16px] mt-2 mr-2"
                             >
                                 {dashboardJson.process_content.request_edit}
                             </button>
@@ -248,7 +254,7 @@ export default function Dashboard() {
             case 'add_ons':
                 return (
                     <div className="text-center">
-                        <h2 className="text-[22px] text-[#000000]">
+                        <h2 className="lg:text-[22px] md:text-[22px] xs:text-[20px] text-[#000000]">
                             {dashboardJson.process_content.addons}
                         </h2>
                         <p className="flex mt-3 justify-center w-full">
@@ -271,7 +277,7 @@ export default function Dashboard() {
             case 'content_uploaded':
                 return (
                     <div className="text-center">
-                        <h2 className="text-[22px] text-[#000000]">
+                        <h2 className="lg:text-[22px] md:text-[22px] xs:text-[20px] text-[#000000]">
                             {dashboardJson.process_content.receive_designs}
                         </h2>
                         <p className="text-[18px] text-[#1BA56F] font-medium">
@@ -283,18 +289,18 @@ export default function Dashboard() {
             case 'in_review':
                 return (
                     <div className="text-center">
-                        <h2 className="text-[22px] text-[#000000]">
+                        <h2 className="lg:text-[22px] md:text-[22px] xs:text-[20px] text-[#000000]">
                             {dashboardJson.process_content.file_send}
                         </h2>
                         <p className="flex justify-center w-full">
                             <button onClick={() => { setShowPdf(true) }} className="border-b-2 border-[#1BA56F] pb-0 font-medium text-[#1BA56F] flex items-center">
-                                <img className="mr-2" onClick={()=>{}} src={downloadIcon} alt="Download Icon" />
+                                <img className="mr-2" onClick={() => { }} src={downloadIcon} alt="Download Icon" />
                                 Click Here to Download
                             </button>
                         </p>
                         <p>
                             <button
-                                onClick={() => {completeOrder()}}
+                                onClick={() => { completeOrder() }}
                                 className="bg-[#1BA56F] px-2 py-1 text-[#fff] text-[16px] mt-2"
                             >
                                 {dashboardJson.process_content.mark_complete}
@@ -343,16 +349,16 @@ export default function Dashboard() {
     }
     useEffect(() => {
         // Wait for 2 seconds, then hide the loader
-        if(purchase_id){
+        if (purchase_id) {
             const timer = setTimeout(() => {
                 getprojects()
-                }, 1000);    
-        return () => clearTimeout(timer);    
-        }else{
+            }, 1000);
+            return () => clearTimeout(timer);
+        } else {
             getprojects()
         }
         // Cleanup the timer to avoid memory leaks
-      }, []);
+    }, []);
 
     useEffect(() => {
         if (counter <= 0) {
@@ -367,8 +373,8 @@ export default function Dashboard() {
         return () => clearInterval(timer); // Cleanup on component unmount
     }, [counter]);
 
-    const nameChange =async()=>{
-        const response = await axios.patch(`${base_url}/api/order-name/${projectToEdit}/`, {'project_name':projectName}, ConfigToken());
+    const nameChange = async () => {
+        const response = await axios.patch(`${base_url}/api/order-name/${projectToEdit}/`, { 'project_name': projectName }, ConfigToken());
         getprojects(projectToEdit)
         setProjectEdit(null)
         setProjectName(null)
@@ -376,207 +382,282 @@ export default function Dashboard() {
 
     return (
         <>
-        {
-            loading ?
-            <Bgloader /> :
-            <>
-            <Navbar />
             {
-                openPopup && <DashboardPopup
-                    openpopup={openPopup}
-                    isCancel={false}
-                    setPopup={setOpenPopup}
-                    title={'empty your Cart'}
-                    // subTitle={'Are you sure, you want to empty the cart.'}
-                    onClick={() => reOrder(reOrderId)}
-                    save={'Yes'}
-                    cancel={'Cancel'}
-                />
-            }
-              {
-                purchasePopUp && <DashboardPopup
-                    openpopup={purchasePopUp}
-                    isCancel={true}
-                    setPopup={setPurchasePopUp}
-                    title={'Thank you for your purchase'}
-                    subTitle={"We're so happy you're here! Let's create something amazing together."}
-                    onClick={() => {setPurchasePopUp(false)}}
-                    save={'Continue to Dashboard'}
-                    // cancel={'Cancel'}
-                />
-            }
-               {
-                completePopup && <DashboardPopup
-                    openpopup={completePopup}
-                    isCancel={true}
-                    setPopup={setCompletePopup}
-                    title={"And that's a wrap!"}
-                    subTitle={"That's a wrap on the design project! It's been a fun and creative process. Enjoy the files."}
-                    onClick={() => window.location.reload()}
-                    save={'Continue to Dashboard'}
-                />
-            }
-            <div className='font-Helvetica'>
-                <div className='text-center py-2 border-b border-black'>
-                    <h1 className='lg:text-[40px] text-[#000] md:text-[32px]'> {dashboardJson.main_title} </h1>
-                    <p className='lg:text-[20px] md:text-[16px] text-[#00000080]'>{dashboardJson.title_content} </p>
-                </div>
+                loading ?
+                    <Bgloader /> :
+                    <>
+                        <Navbar />
+                        {
+                            openPopup && <DashboardPopup
+                                openpopup={openPopup}
+                                isCancel={false}
+                                setPopup={setOpenPopup}
+                                title={'empty your Cart'}
+                                // subTitle={'Are you sure, you want to empty the cart.'}
+                                onClick={() => reOrder(reOrderId)}
+                                save={'Yes'}
+                                cancel={'Cancel'}
+                            />
+                        }
+                        {
+                            purchasePopUp && <DashboardPopup
+                                openpopup={purchasePopUp}
+                                isCancel={true}
+                                setPopup={setPurchasePopUp}
+                                title={'Thank you for your purchase'}
+                                subTitle={"We're so happy you're here! Let's create something amazing together."}
+                                onClick={() => { setPurchasePopUp(false) }}
+                                save={'Continue to Dashboard'}
+                            // cancel={'Cancel'}
+                            />
+                        }
+                        {
+                            completePopup && <DashboardPopup
+                                openpopup={completePopup}
+                                isCancel={true}
+                                setPopup={setCompletePopup}
+                                title={"And that's a wrap!"}
+                                subTitle={"That's a wrap on the design project! It's been a fun and creative process. Enjoy the files."}
+                                onClick={() => window.location.reload()}
+                                save={'Continue to Dashboard'}
+                            />
+                        }
+                        <div className='font-Helvetica'>
+                            <div className='text-center py-2 border-b border-black'>
+                                <h1 className='lg:text-[40px] text-[#000] md:text-[32px] xs:text-[32px] xs:font-[700] lg:mt-[2%] md:mt-[2%] xs:mt-[5%]'> {dashboardJson.main_title} </h1>
+                                <p className='lg:text-[20px] md:text-[16px] text-[#00000080] lg:block md:block xs:hidden sm:hidden'>{dashboardJson.title_content} </p>
+                            </div>
 
-{
-    projects.length?      <div className=' border-black  py-16 px-14'>
-    <h1 className='lg:text-[32px] md:text-[24px] flex mb-4'>  <span className='mr-2'>{dashboardJson.second_title}</span> <img className='mr-2' src={ltIcon}></img>  <img src={gtIcon}></img> </h1>
+                            {
+                                projects.length ? <div className=' border-black  py-16 lg:px-14 md:px-14 xs:px-2'>
+                                    <h1 className='lg:text-[32px] md:text-[24px] flex mb-4 xs:px-5'>  <span className='mr-2'>{dashboardJson.second_title}</span> <img className='mr-2' src={ltIcon}></img>  <img src={gtIcon}></img> </h1>
 
-    <p className='flex overflow-auto mb-0'>
-        {projects.map(project => <button onClick={(e) => getOrderDetails(project.id)}
-            className={`py-1 px-4 min-w-[15%] max-w-[20%] border-[1.5px] !border-[#1BA56F] ${project.id == currentTab ? 'bg-[#1BA56F] text-white' : 'bg-white text-[#1BA56F]'}
-         flex justify-around items-center border-r-0`}>
-         {projectToEdit === project.id ? (
-            <>
-  <input
-    className="px-2 py-1 !text-black w-full"
-    value={projectName}
-    onChange={(e) => setProjectName(e.target.value)}
-  />
-    <button onClick={()=>nameChange()}><DoneIcon className='ml-2' /></button>
-  </>
-) : (
-  <>
-    {project.project_name}
-    {project.id === currentTab && (
-      <img width="15px" className="ml-2" src={editIcon} onClick={()=>{setProjectEdit(project.id); setProjectName(project.project_name)}} alt="Edit Icon" />
-    )}
-  </>
-)}
-            </button>
-        
-        )}
-        <button onClick={()=>{window.location.href='/'}} className='py-2 sticky right-0 flex bg-black text-white items-center lg:text-[32px] md:text-[24px] leading-[0px] px-2'>+</button>
-    </p>
+                                    <p className='flex overflow-auto mb-0'>
+                                    
+                                      {
+                                        window.innerWidth > 768 ?
+                                        
+                                            projects.map(project => 
+                                            <button onClick={(e) => getOrderDetails(project.id)}
+                                                className={`py-1 px-4 min-w-[15%] max-w-[20%] border-[1.5px] !border-[#1BA56F] ${project.id == currentTab ? 'bg-[#1BA56F] text-white' : 'bg-white text-[#1BA56F]'}
+                                                    flex justify-around items-center border-r-0`}>
+                                                {projectToEdit === project.id ? (
+                                                    <>
+                                                        <input
+                                                            className="px-2 py-1 !text-black w-full"
+                                                            value={projectName}
+                                                            onChange={(e) => setProjectName(e.target.value)}
+                                                        />
+                                                        <button onClick={() => nameChange()}><DoneIcon className='ml-2' /></button>
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        {project.project_name}
+                                                        {project.id === currentTab && (
+                                                            <img width="15px" className="ml-2" src={editIcon} onClick={() => { setProjectEdit(project.id); setProjectName(project.project_name) }} alt="Edit Icon" />
+                                                        )}
+                                                    </>
+                                                )}
+                                            </button>
+    
+                                            ) :
+                                            // id="websterSelect"
+                                            <div className='xs:px-3'>
+                                            <select className='w-[200px] h-[40px] text-[32px] font-[700] outline-none border-none' >
+                                                {projects?.map((project, index) => (
+                                                    <option className="text-[16px] font-[500]" key={index} value={project.project_name}>
+                                                        {project.project_name}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </div>
+                                            
+                                      }
+                                        
+                                       
+                                        <button onClick={() => { window.location.href = '/' }} className='lg:py-2 lg:px-2 lg:sticky lg:right-0 md:sticky md:right-0 flex bg-black text-white items-center lg:text-[32px] md:text-[24px] leading-[0px]  xs:text-[24px] xs:py-4 xs:px-4 xs:relative xs:left-[100px]'>+</button>
+                                    </p>
+                                    {window.innerWidth<768 && (<div className='px-3 mt-2 font-Helvetica'>
+                                        <p className='px-32text-[18px] font-[400] opacity-50'>
+                                            {processIndex + 1}/{dashboardJson.project_process.length} - {dashboardJson.project_process[processIndex]}
+                                        </p>
+                                    </div>)}
+                                    <div className='border-[1.5px] mt-0  lg:border-black md:border-black border-transparent py-2 px-6'>
+                                        <div className='flex items-center lg:w-[80%] w-[80%] md:w-[92%]  mx-auto lg:mt-10 md:mt-10 xs:mt-2 px-20 xs:w-[100%] xs:px-0'>{renderProcessData()}</div>
+                                        <div className='flex mb-12 lg:w-[80%] w-[80%] md:w-[92%] xs:w-[100%] m-auto'>
+                                            {window.innerWidth > 768 && dashboardJson.project_process.map((item, index) => {
+                                                return <div className='basis-1/5  text-center text-[16px]'>  <p className={`pb-0 lg:max-w-[60%] md:max-w-[95%] max-w-[95%] mx-auto mb-0 ${index == processIndex && 'font-bold'}`}> {item} </p>
+                                                    {index == processIndex && <p className='text-[#1BA56F] font-[700]'>You’re now Here!</p>}
+                                                </div>
+                                            })}
+                                        </div>
+                                        <div className='my-4'>{renderContent()}</div>
+                                        <div className='lg:w-[80%] md:w-[80%] xs:w-[100%] lg:mx-auto md:mx-auto xs:mx-0'>
 
-    <div className='border-[1.5px] mt-0 !border-black py-2 px-6'>
-        <div className='flex items-center lg:w-[80%] w-[80%] md:w-[92%]  mx-auto mt-10 px-20'>{renderProcessData()}</div>
-        <div className='flex mb-12 lg:w-[80%] w-[80%] md:w-[92%] m-auto'>
-            {dashboardJson.project_process.map((item, index) => {
-                return <div className='basis-1/5  text-center text-[16px]'>  <p className={`pb-0 lg:max-w-[60%] md:max-w-[95%] max-w-[95%] mx-auto mb-0 ${index == processIndex && 'font-bold'}`}> {item} </p>
-                    {index == processIndex && <p className='text-[#1BA56F] font-[700]'>You’re now Here!</p>}
-                </div>
-            })}
-        </div>
-        <div className='my-4'>{renderContent()}</div>
-        <div className='w-[80%] mx-auto'>
+                                            {order && order.item_details && Array.isArray(order.item_details) && <>
+                                                <p className={`text-[22px] font-bold my-2 ${processIndex < 2 ? 'text-[#00000080]' : 'text-black'}`}>Brand & Visual Identity <span className='text-[#1BA56F] text-[18px] font-[500]'> -
+                                                    {processIndex < 2 ? ' ON HOLD' : processIndex >= 4 ? ' COMPLETE' : ' IN PROGRESS'}</span> </p>
+                                                <p className={`font-medium text-[18px] ${processIndex < 2 ? 'text-[#00000080]' : 'text-[#000]'}`}>{order?.brand_identity?.item_name} {processIndex >= 4 && <button className='bg-[#1BA56F] px-2 !py-0  text-[16px] ml-4 text-white font-[400]' onClick={() => { navigate('/adjustment', { state: { orderId: order.id, orderItemId: null } }) }}>Request Edits</button>} </p>
+                                                <p className={`text-[22px] ${processIndex < 4 && 'text-[#00000080]'} font-bold my-2`}>Applications
 
-            {order && order.item_details && Array.isArray(order.item_details) && <>
-                <p className={`text-[22px] font-bold my-2 ${processIndex < 2 ? 'text-[#00000080]' : 'text-black'}`}>Brand & Visual Identity <span className='text-[#1BA56F] text-[18px] font-[500]'> -
-                    {processIndex < 2 ? ' ON HOLD' : processIndex >= 4 ? ' COMPLETE' : ' IN PROGRESS'}</span> </p>
-                <p className={`font-medium text-[18px] ${processIndex < 2 ? 'text-[#00000080]':'text-[#000]' }`}>{order?.brand_identity?.item_name} { processIndex >= 4 &&  <button className='bg-[#1BA56F] px-2 !py-0  text-[16px] ml-4 text-white font-[400]'  onClick={()=>{navigate('/adjustment',{state:{orderId:order.id,orderItemId:null}})}}>Request Edits</button>} </p>
-                <p className={`text-[22px] ${processIndex < 4 && 'text-[#00000080]'} font-bold my-2`}>Applications
+                                                    <span className='text-[#1BA56F] text-[18px] font-[500]'> -
+                                                        {processIndex < 4 ? ' ON HOLD' : processIndex == ProcessIndexDict.length ? ' COMPLETE' : ' IN PROGRESS'}</span>
+                                                </p>
 
-                    <span className='text-[#1BA56F] text-[18px] font-[500]'> -
-                        {processIndex < 4 ? ' ON HOLD' : processIndex == ProcessIndexDict.length ? ' COMPLETE' : ' IN PROGRESS'}</span>
-                </p>
-
-                {order?.item_details?.map((item, index) => {
-                    if(item.item__category !=1 && item.type!='bundl'){
-                        return <p className={`font-medium ${processIndex < 4 && 'text-[#00000080]'} text-[18px] mx-1 my-2 py-1 
+                                                {order?.item_details?.map((item, index) => {
+                                                    if (item.item__category != 1 && item.type != 'bundl') {
+                                                        return <p className={`font-medium ${processIndex < 4 && 'text-[#00000080]'} text-[18px] mx-1 my-2 py-1 
                             ${index != (order?.item_details.length - 1) &&
-                            'border-b'} border-[#00000080] flex justify-between`}><span>{item.item_name}</span>
-                            <span className='flex items-center text-[#00000080] text-[14px]'>{processIndex >= 4 ? <>
-                                {item.status == 'questionnaire required' ? <>
-                                    <span className='mr-2 font-normal'>Waiting content</span>
-                                    <img src={ItemWaitingIcon}></img>
-                                </> : item.status == 'in process' ? <>
-                                    <span className='mr-2 font-normal'>In Progress</span>
-                                    <img src={ItemProgressIcon}></img>
-                                </> : <>
-                                <button className='bg-[#1BA56F] mr-10 px-2 !py-0 text-[16px] ml-4 text-white font-[400]'  onClick={()=>{navigate('/adjustment',{state:{orderId:order.id,orderItemId:item.id}})}}>Request Edits</button>
-                                    <span className='mr-2 font-semibold text-[#1BA56F]'>Finished</span>
-                                    <img src={ItemFinishedIcon}></img>
-                                </>}
-                            </> : ''}</span>
-                        </p>
-                    }
-                 
-                })}
-            </>}
-        </div>
-    </div>
+                                                            'border-b'} border-[#00000080] flex justify-between`}><span>{item.item_name}</span>
+                                                            <span className='flex items-center text-[#00000080] text-[14px]'>{processIndex >= 4 ? <>
+                                                                {item.status == 'questionnaire required' ? <>
+                                                                    <span className='mr-2 font-normal'>Waiting content</span>
+                                                                    <img src={ItemWaitingIcon}></img>
+                                                                </> : item.status == 'in process' ? <>
+                                                                    <span className='mr-2 font-normal'>In Progress</span>
+                                                                    <img src={ItemProgressIcon}></img>
+                                                                </> : <>
+                                                                    <button className='bg-[#1BA56F] mr-10 px-2 !py-0 text-[16px] ml-4 text-white font-[400]' onClick={() => { navigate('/adjustment', { state: { orderId: order.id, orderItemId: item.id } }) }}>Request Edits</button>
+                                                                    <span className='mr-2 font-semibold text-[#1BA56F]'>Finished</span>
+                                                                    <img src={ItemFinishedIcon}></img>
+                                                                </>}
+                                                            </> : ''}</span>
+                                                        </p>
+                                                    }
 
-</div>:
+                                                })}
+                                            </>}
+                                        </div>
+                                    </div>
 
-<div className="text-center p-10"> 
-    <h1 className="text-[#00000080]">No Orders</h1>
-    <a href="/" className="text-blue-500 hover:underline">Make Some Orders</a>
-</div>
-}
-           
+                                </div> :
 
-{
-    purchases.length ? <div className='px-14 mt-4 mb-4'>
-    <h2 className='lg:text-[32px] text-[#000] md:text-[24px]'>{dashboardJson.third_title}</h2>
+                                    <div className="text-center p-10">
+                                        <h1 className="text-[#00000080]">No Orders</h1>
+                                        <a href="/" className="text-blue-500 hover:underline">Make Some Orders</a>
+                                    </div>
+                            }
 
-    <table className='w-full !border-[#00000080] border-separate border-spacing-y-2 border-spacing-x-0'>
-        <thead>
-            <tr className='!mb-4'>
-                {Object.keys(dashboardJson.table_heads).map((purchase_key) => {
-                    return <th className='text-[#00000080] pb-2 lg:text-[20px] md:text-[16px] font-Helvetica font-medium'>{dashboardJson.table_heads[purchase_key]}</th>
-                })}
-            </tr>
-        </thead>
-        <tbody>
-            {purchases.map((project, index) => {
-                return <tr className=' '>
-                    <td className={`lg:text-[20px] font-medium md:text-[16px] pb-2 ${index != purchases.length - 1 ? 'border-b !border-[#00000080]' : ''}`}>{project.id}</td>
-                    <td className={`lg:text-[20px] font-medium md:text-[16px] pb-2 ${index != purchases.length - 1 ? 'border-b !border-[#00000080]' : ''}`}>{project.project_name}</td>
-                    <td className={`lg:text-[20px] font-medium md:text-[16px] pb-2 ${index != purchases.length - 1 ? 'border-b !border-[#00000080]' : ''}`}>{project.grand_total}</td>
-                    <td className={`lg:text-[20px] font-medium md:text-[16px] pb-2 ${index != purchases.length - 1 ? 'border-b !border-[#00000080]' : ''} text-[#1BA56F]`}>Completed</td>
-                    <td onClick={() => CheckCart(project.id)} className={`lg:text-[20px] cursor-pointer font-medium md:text-[16px] pb-2 ${index != purchases.length - 1 ? 'border-b !border-[#00000080]' : ''}`}><img className='lg:w-[30px] md:w-[20px]' src={reload}></img></td>
-                    <td className={`lg:text-[20px] font-medium md:text-[16px] pb-2 ${index != purchases.length - 1 ? 'border-b !border-[#00000080]' : ''}`}>{format(new Date(project.purchase_date), "dd/MM/yy")}</td>
-                </tr>
-            })}
-        </tbody>
-    </table>
-</div> :''
-}
-          
+                            {
+                                window.innerWidth > 768 ?
+                                
+                                    purchases.length ? <div className='px-14 mt-4 mb-4'>
+                                        <h2 className='lg:text-[32px] text-[#000] md:text-[24px]'>{dashboardJson.third_title}</h2>
+    
+                                        <table className='w-full !border-[#00000080] border-separate border-spacing-y-2 border-spacing-x-0'>
+                                            <thead>
+                                                <tr className='!mb-4'>
+                                                    {Object.keys(dashboardJson.table_heads).map((purchase_key) => {
+                                                        return <th className='text-[#00000080] pb-2 lg:text-[20px] md:text-[16px] font-Helvetica font-medium'>{dashboardJson.table_heads[purchase_key]}</th>
+                                                    })}
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {purchases.map((project, index) => {
+                                                    return <tr className=' '>
+                                                        <td className={`lg:text-[20px] font-medium md:text-[16px] pb-2 ${index != purchases.length - 1 ? 'border-b !border-[#00000080]' : ''}`}>{project.id}</td>
+                                                        <td className={`lg:text-[20px] font-medium md:text-[16px] pb-2 ${index != purchases.length - 1 ? 'border-b !border-[#00000080]' : ''}`}>{project.project_name}</td>
+                                                        <td className={`lg:text-[20px] font-medium md:text-[16px] pb-2 ${index != purchases.length - 1 ? 'border-b !border-[#00000080]' : ''}`}>{project.grand_total}</td>
+                                                        <td className={`lg:text-[20px] font-medium md:text-[16px] pb-2 ${index != purchases.length - 1 ? 'border-b !border-[#00000080]' : ''} text-[#1BA56F]`}>Completed</td>
+                                                        <td onClick={() => CheckCart(project.id)} className={`lg:text-[20px] cursor-pointer font-medium md:text-[16px] pb-2 ${index != purchases.length - 1 ? 'border-b !border-[#00000080]' : ''}`}><img className='lg:w-[30px] md:w-[20px]' src={reload}></img></td>
+                                                        <td className={`lg:text-[20px] font-medium md:text-[16px] pb-2 ${index != purchases.length - 1 ? 'border-b !border-[#00000080]' : ''}`}>{format(new Date(project.purchase_date), "dd/MM/yy")}</td>
+                                                    </tr>
+                                                })}
+                                            </tbody>
+                                        </table>
+                                    </div> : ''
+                                :
+                                // <div>
+                                //     <div className='flex w-[100%] px-[8%]'>
+                                //         <p className='text-[20px] font-[500] font-Helvetica opacity-50 w-[50%]'>Purchase History</p>
+                                //         <p className='underline text-[20px] font-[500] font-Helvetica text-[#1BA56F] w-[50%] text-right'>See More</p>
+                                //      </div>   
+                                // </div>   
+                                    <div className="w-full px-[8%]">
+                                        {/* Header */}
+                                        <div className="flex justify-between items-center">
+                                            <p className="text-[20px] font-[500] font-Helvetica opacity-50">Purchase History</p>
+                                            <p
+                                                className="underline text-[20px] font-[500] font-Helvetica text-[#1BA56F] cursor-pointer"
+                                                onClick={() => setShowFull(!showFull)}
+                                            >
+                                                {showFull ? "Show Less" : "See More"}
+                                            </p>
+                                        </div>
 
-                <div className='text-center pt-20 pb-24'>
-                    <h2 className='lg:text-[32px] md:text-[24px]'>{dashboardJson.rate_us}</h2>
-                    <p className='lg:text-[20px] text-[#00000080] md:text-[16px]'>{dashboardJson.rate_us_content}</p>
-                    <a href="https://www.google.com/search?q=bundldesigns&rlz=1C1OPNX_enIN1088IN1088&oq=bundldesigns&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQRRg8MgYIAhBFGDwyBggDEEUYPDIICAQQRRgnGDsyBggFEEUYPDIGCAYQRRg8MgYIBxBFGDzSAQgzODA5ajBqN6gCALACAA&sourceid=chrome&ie=UTF-8#lrd=0x3e2efdec17da19b7:0xb10d764716306f04,3,,,," className='px-12 py-2 lg:text-[20px] md:text-[16px] text-white bg-[#1BA56F]'>{dashboardJson.review_google}</a>
-                </div>
+                                        {/* Orders List */}
+                                        <div className={`transition-all duration-500 ${showFull ? "h-auto" : "h-[120px] overflow-hidden relative"}`}>
+                                            {purchases.map((order, index) => (
+                                                <div
+                                                    key={index}
+                                                    className="border-b border-gray-300 py-2 flex flex-col md:flex-row md:items-center justify-between"
+                                                >
+                                                    {/* Name & Amount */}
+                                                    <div className="flex justify-between w-full md:w-[50%]">
+                                                        <p className="text-[22px] font-[700] font-Helvetica">{order.project_name}</p>
+                                                        <p className="text-[22px] font-[700] font-Helvetica">{Math.round(order.grand_total)} SAR</p>
+                                                    </div>
 
-            </div>
-            <Modal
-                open={showPdf}
-                onClose={() => { setShowPdf(false) }}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box sx={style}>
-                    <iframe
-                        src={`${base_url}/api/view_pdf?file=${brandFile}#toolbar=0`}
-                        title="PDF Viewer"
-                        className="flex-grow w-full h-full border-none m-0 p-0"
-                    ></iframe>
-                            <p className='absolute right-[-30px]'>
-                            < ClearIcon onClick={()=>{setShowPdf(false)}} style={{color:'white',fontSize:'30px',cursor:'pointer'}}/>
-    <a 
-      href={`${base_url}/api/download/${brandFile}`} 
-      download 
-      target="_blank" 
-      rel="noopener noreferrer"
-    >
-        <img src={downloadBlackIcon} className='w-[30px]' alt="Download Icon" />
-    </a>
-            
-        </p>
-                </Box>
-            </Modal>
-            <Footer />
+                                                    {/* ID, Date & Status */}
+                                                    <div className="flex justify-between w-full md:w-[50%] mt-1 md:mt-0">
+                                                        <p className="text-[20px] font-[500] text-gray-500 font-Helvetica">{order.id}</p>
+                                                        <p className="text-[20px] font-[500] text-gray-500 font-Helvetica">{format(new Date(order.purchase_date), "dd/MM/yy")}</p>
+                                                        <p className="text-[20px] font-[500] font-Helvetica text-[#1BA56F]">Completed</p>
+                                                    </div>
+                                                </div>
+                                            ))}
+
+                                            {/* Gradient Overlay (only when not expanded) */}
+                                            {!showFull && (
+                                                //<div className="absolute shadow-lg bottom-0 left-0 w-full h-[60px] bg-gradient-to-t from-white to-transparent pointer-events-none transition-shadow"></div>
+                                                <div className="absolute bottom-0 left-0 w-full h-[80px] bg-gradient-to-t from-white via-white/90 to-transparent shadow-[1px] pointer-events-none"></div>
+                                            )}
+                                        </div>
+                                    </div> 
+                            }
+
+                            
+
+                            <div className='font-Helvetica'>
+                                <div className='text-center pt-20 pb-24'>
+                                    <h2 className='lg:text-[32px] md:text-[24px] xs:text-[32px] xs:font-[700] xs:px-[15%]'>{dashboardJson.rate_us}</h2>
+                                    <p className='lg:text-[20px] text-[#00000080] md:text-[16px] xs:text-[20px] xs:px-[12%]'>{dashboardJson.rate_us_content}</p>
+                                    <a href="https://www.google.com/search?q=bundldesigns&rlz=1C1OPNX_enIN1088IN1088&oq=bundldesigns&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQRRg8MgYIAhBFGDwyBggDEEUYPDIICAQQRRgnGDsyBggFEEUYPDIGCAYQRRg8MgYIBxBFGDzSAQgzODA5ajBqN6gCALACAA&sourceid=chrome&ie=UTF-8#lrd=0x3e2efdec17da19b7:0xb10d764716306f04,3,,,," className='px-12 py-2 lg:text-[20px] md:text-[16px] text-white bg-[#1BA56F]'>{dashboardJson.review_google}</a>
+                                </div>
+                            </div>
+
+                        </div>
+                        <Modal
+                            open={showPdf}
+                            onClose={() => { setShowPdf(false) }}
+                            aria-labelledby="modal-modal-title"
+                            aria-describedby="modal-modal-description"
+                        >
+                            <Box sx={style}>
+                                <iframe
+                                    src={`${base_url}/api/view_pdf?file=${brandFile}#toolbar=0`}
+                                    title="PDF Viewer"
+                                    className="flex-grow w-full h-full border-none m-0 p-0"
+                                ></iframe>
+                                <p className='absolute right-[-30px]'>
+                                    < ClearIcon onClick={() => { setShowPdf(false) }} style={{ color: 'white', fontSize: '30px', cursor: 'pointer' }} />
+                                    <a
+                                        href={`${base_url}/api/download/${brandFile}`}
+                                        download
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        <img src={downloadBlackIcon} className='w-[30px]' alt="Download Icon" />
+                                    </a>
+
+                                </p>
+                            </Box>
+                        </Modal>
+                        <Footer />
+                    </>
+
+            }
         </>
-
-        }
-    </>
     )
 
 }

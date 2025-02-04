@@ -221,7 +221,7 @@ export const Home = () => {
                                                     <ul className="navbar">
                                                         <li>
                                                             {/* <!-- <a href="">Bundls</a> --> */}
-                                                            <a href="#" previewlistener="true">Bundl Offers</a>
+                                                            <a href="#" previewlistener="true">Bundls</a>
                                                         </li>
                                                         <li>
                                                             {/* <!-- <a href="">Our Work</a> --> */}

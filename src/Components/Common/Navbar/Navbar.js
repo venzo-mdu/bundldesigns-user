@@ -60,7 +60,11 @@ export const Navbar = () => {
   useEffect(() => {
     const handleClickOutsideProfile = (event) => {
       if (popupRef.current && !popupRef.current.contains(event.target)) {
-        setProfileVisible(false);
+        if (event.target.closest('.navIcons')) {
+            return; // Skip handling the click if it's on the profile icon
+          }else{
+            setProfileVisible(false);
+          }
       }
       if(searchRef.current && !searchRef.current.contains(event.target)){
         setSearchShow(false)
@@ -186,7 +190,7 @@ export const Navbar = () => {
                                     menuVisible && (
                                 <ul className=' inner-nav-item'>
                                 <li className='relative p-1 inner-nav-li'>
-                                  <a href="/" className='!text-black' previewlistener="true">Bundl Offers</a>
+                                  <a href="/" className='!text-black' previewlistener="true">Bundls</a>
                                 </li>
                                 <li className='relative p-1 inner-nav-li'>
                                   <a href="/our-work" className='!text-black' previewlistener="true">Our Work</a>
@@ -208,7 +212,7 @@ export const Navbar = () => {
                       <nav className="navigation">
                         <ul className="navbar">
                           <li>
-                            <a href="/" previewlistener="true">Bundl Offers</a>
+                            <a href="/" previewlistener="true">Bundls</a>
                           </li>
                           <li>
                             <a href="/our-work" previewlistener="true">Our Work</a>
@@ -318,7 +322,7 @@ export const Navbar = () => {
                                     menuVisible && (
                                 <ul className=' inner-nav-item'>
                                 <li className='relative p-1 inner-nav-li'>
-                                  <a href="/" className='!text-black' previewlistener="true">Bundl Offers</a>
+                                  <a href="/" className='!text-black' previewlistener="true">Bundls</a>
                                 </li>
                                 <li className='relative p-1 inner-nav-li'>
                                   <a href="/our-work" className='!text-black' previewlistener="true">Our Work</a>
@@ -327,7 +331,7 @@ export const Navbar = () => {
                                   <a href="/aboutus" className='!text-black' previewlistener="true">About Us</a>
                                 </li>
                                 <li className='relative p-1 inner-nav-li'>
-                                  <a href="#" className='!text-black' previewlistener="true">Contact Us</a>
+                                  <a href="/" className='!text-black' previewlistener="true">Contact Us</a>
                                 </li>
                               </ul>
                                     )
@@ -341,17 +345,17 @@ export const Navbar = () => {
                         <nav className="navigation">
                           <ul className="navbar">
                             <li >
-                              <a href="#" previewlistener="true">Bundl Offers </a>
+                              <a href="/" previewlistener="true">Bundls </a>
                             </li>
                             <li>
-                              <a href="#" previewlistener="true">Our Work</a>
+                              <a href="/our-work" previewlistener="true">Our Work</a>
                             </li>
                             <li>
-                              <a href="#" previewlistener="true">About Us</a>
+                              <a href="/aboutus" previewlistener="true">About Us</a>
 
                             </li>
                             <li>
-                              <a href="#" previewlistener="true">Contact Us</a>
+                              <a href="/" previewlistener="true">Contact Us</a>
 
                             </li>
 

@@ -1776,7 +1776,7 @@ flex-basis: 47.9%;
 display: flex;
 flex-flow: column nowrap;
 justify-content: center;
-padding-top: 1rem;
+padding-top: 2rem;
 padding-bottom: 1rem;
 padding-left: 1rem;
 /* border-right: 1px solid #000; */
@@ -4464,7 +4464,7 @@ font-size: 20px;
   opacity: 1;
 }
 .rocket {
-  left: 20%;
+  left: 24%;
   top:0%;
 }
 .hover-txt { opacity: 0;}
@@ -4517,7 +4517,7 @@ font-size: 20px;
 }
 
 .rocket {
-  left: 8%;
+  left: 12%;
   top: 0%;
 }
 .hover-txt { opacity: 0;}
@@ -4793,7 +4793,18 @@ font-size: 20px;
 }
 }
 
-
+@media screen and (max-width:390px) {
+  .rocket{
+    left: 0%;
+  }
+  .hero-text h1 {
+    font-size: 24px !important;
+    font-weight: 400;
+    /* margin: 0 0 0 10%; */
+    line-height: 1.4;
+    text-align: center;
+  }
+}
 
 .BIText:hover .brandIdentity{
   left :'-100px' /* Move 100px to the left */

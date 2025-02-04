@@ -69,10 +69,10 @@ export const Questionnaire1 = ({formData,setFormData}) => {
   const handleTypeClick = (type) => {
     setActiveType((prevType) => (prevType === type ? null : type)); // Toggle state
     let brandingType = activeType
-    setFormData((prev) => ({
-      ...prev,
-      type: type, // Update formData accordingly
-    }));
+    // setFormData((prev) => ({
+    //   ...prev,
+    //   type: type, // Update formData accordingly
+    // }));
   };
 
 
@@ -134,6 +134,7 @@ export const Questionnaire1 = ({formData,setFormData}) => {
 
 
   const onNextClick = () => {
+    console.log(formData)
     if (!validateFields()) {
       return; // Stop execution if validation fails
     }

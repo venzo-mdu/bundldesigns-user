@@ -72,7 +72,7 @@
 
     .signup-content{
         width: 100% !important;
-        padding: 2% 3% !important;
+        padding: 2% 6% !important;
     }
     .terms-policy input{
         width: 15px;
@@ -92,7 +92,10 @@
     .signup-content input{
         width: 100%;
     } 
-      
+    .signup-content{
+        width: 100% !important;
+        padding: 2% 6% !important;
+    }
      .loginlogo {
         top: -2%;
         width: 20%;
