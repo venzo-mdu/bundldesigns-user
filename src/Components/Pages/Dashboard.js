@@ -567,12 +567,6 @@ export default function Dashboard() {
                                         </table>
                                     </div> : ''
                                 :
-                                // <div>
-                                //     <div className='flex w-[100%] px-[8%]'>
-                                //         <p className='text-[20px] font-[500] font-Helvetica opacity-50 w-[50%]'>Purchase History</p>
-                                //         <p className='underline text-[20px] font-[500] font-Helvetica text-[#1BA56F] w-[50%] text-right'>See More</p>
-                                //      </div>   
-                                // </div>   
                                     <div className="w-full px-[8%]">
                                         {/* Header */}
                                         <div className="flex justify-between items-center">
@@ -586,7 +580,7 @@ export default function Dashboard() {
                                         </div>
 
                                         {/* Orders List */}
-                                        <div className={`transition-all duration-500 ${showFull ? "h-auto" : "h-[120px] overflow-hidden relative"}`}>
+                                        <div className={`transition-all duration-500 ease-out ${showFull ? "h-auto" : "h-[165px] overflow-hidden relative"}`}>
                                             {purchases.map((order, index) => (
                                                 <div
                                                     key={index}
@@ -610,7 +604,7 @@ export default function Dashboard() {
                                             {/* Gradient Overlay (only when not expanded) */}
                                             {!showFull && (
                                                 //<div className="absolute shadow-lg bottom-0 left-0 w-full h-[60px] bg-gradient-to-t from-white to-transparent pointer-events-none transition-shadow"></div>
-                                                <div className="absolute bottom-0 left-0 w-full h-[80px] bg-gradient-to-t from-white via-white/90 to-transparent shadow-[1px] pointer-events-none"></div>
+                                                <div className="absolute bottom-[-40px] left-0 w-full h-[80px] bg-gradient-to-t from-white via-white/90 to-transparent shadow-[1px] pointer-events-none transition-all duration-500 ease-out "></div>
                                             )}
                                         </div>
                                     </div> 
