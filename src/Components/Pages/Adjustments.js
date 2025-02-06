@@ -59,10 +59,11 @@ export default function Adjustments() {
     const [phoneError, setPhoneError] = useState(false);
     const [showDetails, setDetails] = useState(false)
     const [isMobile, setIsMobile] = useState(window.innerWidth < 475);
+    const [showModal, setShowModal] = useState(false);
 
     const stylesBtn = ["50%", "50%", "50%", "50%", "100%", "50%", "50%", "100%","100%"];
 
-    const stylesBtnAccordian = ["50%", "50%", "50%", "50%", "100%", "50%", "50%"];
+    const stylesBtnAccordian = ["50%", "50%", "50%", "50%", "50%", "50%", "100%"];
 
     useEffect(() => {
         getOrderDetails()
@@ -126,12 +127,21 @@ export default function Adjustments() {
             setTotalTime(total_time);
         }
     }
-    const calculateTotals = (items, adjustments) => {
+    // const calculateTotals = (items, adjustments) => {
+    //     return {
+    //         price: Object.values(items).reduce((acc, item) => acc + item.price * item.qty, 0) +
+    //             Object.values(adjustments).reduce((acc, item) => acc + parseFloat(item.price || 0), 0),
+    //         time: Object.values(items).reduce((acc, item) => acc + item.time * item.qty, 0) +
+    //             Object.values(adjustments).reduce((acc, item) => acc + parseFloat(item.time_limit || 0), 0),
+    //     };
+    // };
+
+    const calculateTotals = (items = {}, adjustments = {}) => {
         return {
-            price: Object.values(items).reduce((acc, item) => acc + item.price * item.qty, 0) +
-                Object.values(adjustments).reduce((acc, item) => acc + parseFloat(item.price || 0), 0),
-            time: Object.values(items).reduce((acc, item) => acc + item.time * item.qty, 0) +
-                Object.values(adjustments).reduce((acc, item) => acc + parseFloat(item.time_limit || 0), 0),
+            price: Object.values(items || {}).reduce((acc, item) => acc + (item.price || 0) * (item.qty || 0), 0) +
+                Object.values(adjustments || {}).reduce((acc, item) => acc + parseFloat(item.price || 0), 0),
+            time: Object.values(items || {}).reduce((acc, item) => acc + (item.time || 0) * (item.qty || 0), 0) +
+                Object.values(adjustments || {}).reduce((acc, item) => acc + parseFloat(item.time_limit || 0), 0),
         };
     };
 
@@ -275,7 +285,20 @@ export default function Adjustments() {
         return true;
     };
 
-
+    const confirmNavigation = () => {
+        setShowModal(false); 
+        // navigateToDetailHistory()
+      };
+    //   const navigateToDetailHistory = () => {
+    //     if(cartDetails.bundle_id){
+    //         navigate(`/bundldetail/${cartDetails.bundle_id}`,{state:{project_name:cartDetails.project_name}})
+    //     }else{
+    //         navigate(`/custombundl`,{state:{project_name:cartDetails.project_name}})
+    //     }
+    //   };
+      const cancelNavigation = () => {
+        setShowModal(false);
+      };
 
     const createAdjustmentOrder = async () => {
         const billingData = {
@@ -340,7 +363,21 @@ export default function Adjustments() {
 
             {
                 window.innerWidth <= 475 ?
-                (<div className='px-[5%] py-4'>
+                page === 'adjustment' ? 
+                <>
+                
+                    {openPopup && <Popup
+                        openpopup={openPopup}
+                        isCancel={false}
+                        setPopup={setOpenPopup}
+                        title={'empty your Cart'}
+                        // subTitle={'Are you sure, you want to empty the cart.'}
+                        onClick={() => createAdjustmentOrder()}
+                        save={'Yes'}
+                        cancel={'Cancel'}
+                    />}
+                
+                <div className='px-[5%] py-4'>
                  <p className='flex text-[18px] items-center pb-2 text-black' onClick={() => { window.location.href = '/dashboard' }}> <ArrowBackIcon style={{ width: '25px', marginRight: '10px' }} /> Back to dashboard </p>
                  <div className=''>
                                     <h1 className='lg:text-[40px] text-[#000] md:text-[32px]'> Adjustments </h1>
@@ -421,7 +458,6 @@ export default function Adjustments() {
                                                 toggleDescription(category)
                                                 setDesignListTab(category)
                                                 const element = document.getElementById(`${index}_list`);
-                                                console.log(`${index}_list`,'ssss')
                                                 element.scrollIntoView({ behavior: 'smooth' })
                                             }
                                             } 
@@ -554,7 +590,211 @@ export default function Adjustments() {
                                         
                                     </div>
                                 </div>
-                </div>)
+                </div> 
+             </>
+                :
+                <>
+                     {showModal && (
+        <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white rounded-lg shadow-lg p-6 max-w-sm">
+            <p className="text-lg font-medium text-gray-900">
+            Your customized package will be reset.
+            Are you sure you want to go back?
+            </p>
+            <div className="mt-4 flex justify-center space-x-4">
+              <button
+                onClick={()=>confirmNavigation()}
+                className="px-4 py-2 bg-[#0BA6C4] text-white rounded "
+              >
+                Yes
+              </button>
+              <button
+                onClick={cancelNavigation}
+                className="px-4 py-2 bg-grey  text-white rounded hover:bg-grey"
+              >
+                No
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+                 <div className='mycart '>
+                 <div className='cart sm:!pb-[170px] !pb-[170px] xs:!pb-[20px]'>
+                     <p className='flex !text-[18px] !font-normal items-center pb-2 cursor-pointer text-black' onClick={() => { setPage('adjustment') }}> <ArrowBackIcon style={{ width: '25px', marginRight: '10px' }} /> Back To Adjustments </p>
+                     <p>Your Cart</p>
+                     {isMobile ? <>
+                        {Object.values(adjustmentData)?.map((row,index) => (
+                            <div className='flex justify-between border-b pb-2 !border-black'> 
+                            <div>
+                            <div className='font-[700] text-[20px]'>{row.qty} x {row.item_name}</div>
+                            <div className='font-[500] ml-8'> {row.unit_price} SAR</div>
+                            </div>
+                            <p className='flex items-center !mb-0 justify-center'><img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'bundle')}/></p>
+                             </div>
+                        ))}
+                    </>
+                    :
+                    <table className='w-full border-none' aria-label="simple table">
+                         <thead>
+                             <tr className='!text-left text-[20px]'>
+                                 <td className='text-left w-[20%] text-[#00000080] pb-3' >Item</td>
+                                 <td className='text-[#00000080] w-[30%] pb-3' align="center">Quantity</td>
+                                 <td className='text-[#00000080] w-[30%]    pb-3' align="center">Price</td>
+                                 <td className='text-[#00000080] w-[20%]    pb-3' align="center">Action</td>
+                             </tr>
+                         </thead>
+                         <tbody>
+
+                             {Object.values(adjustmentData)?.map((row, index) => (
+                                 <tr
+                                     key={row.item_name}
+                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                     className={`text-[#000] font-[700] text-[20px] ${index == Object.values(adjustmentData).length - 1 && (Object.values(itemsList)).length == 0 ? "" : 'border-b border-black'} `}
+                                 >
+                                     <td className=' !py-2' scope="row">
+                                         {row.english_adjustment_name}
+                                     </td>
+                                     <td className=' !py-2' align="center">1</td>
+                                     <td className=' !py-2' align="center">{row.price}</td>
+                                     <td align="center">
+                                         <p className='flex items-center !mb-0 justify-center'><img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'adjustment')} /></p>
+                                     </td>
+                                 </tr>
+                             ))}
+
+                             {(Object.values(itemsList))?.map((row, index) => (
+                                 <tr
+                                     key={row.item_name}
+                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                     className={`text-[#000] font-[700] text-[20px] ${index == (Object.values(itemsList)).length - 1 ? "" : 'border-b border-black'} `}
+                                 >
+                                     <td className=' !py-2' scope="row">
+                                         {row.name_english}
+                                     </td>
+                                     <td className=' !py-2' align="center">{row.qty}</td>
+                                     <td className=' !py-2' align="center" scope="row">{row.price}</td>
+                                     {/* <TableCell align="center"><img style={{width:'23px'}} src={row.DeleteIcon}></img></TableCell> */}
+                                     <td className=' !py-2' align="center" scope="row">
+                                         <p className='flex items-center !mb-0 justify-center'> <img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'addon')} /></p>
+                                     </td>
+                                 </tr>
+                             ))}
+                         </tbody>
+                     </table>}
+                     
+                     <div className='cart-total-container '>
+                         <div className='total justify-between pl-10  mr-4' style={{ display: 'flex' }}>
+                             <p className='!text-[20px]' style={{ width: '50%' }}>Price:</p>
+                             <p className='!text-[20px]  text-right' style={{ width: '50%' }}>{totalPrice} sar</p>
+                         </div>
+                         <div className='total justify-between pl-10 mr-4' style={{ display: 'flex' }}>
+                             <p className='!text-[20px]' style={{ width: '53%' }}>VAT:</p>
+                             <p className='!text-[20px]  text-right' style={{ width: '40%' }}>{tax} sar</p>
+                         </div>
+                         <div>
+                             <div className='justify-between mr-4' style={{ display: 'flex' }}>
+                                 <p className='!text-[20px] ml-[6px]' style={{ width: '50%' }}><img src={BlackDollor} className='inline-block ml-[0px] mr-[18px]'></img>Total Price :</p>
+                                 <p className='!text-[20px] text-right' style={{ width: '40%' }}>{totalPrice} sar</p>
+                             </div>
+                             <div className='justify-between mr-4' style={{ display: 'flex' }}>
+                                 <p className='!text-[20px]' style={{ width: '66%' }}><AccessTimeIcon style={{ marginRight: '4px' }} /> Total Duration :</p>
+                                 <p className='!text-[20px]  text-right' style={{ width: '45%' }}>{totalTime} Days</p>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+                 <div className='billing !px-[2%]'>
+                     <p>Billing Address</p>
+                     <div className="user-name mb-[15px]">
+                         <div className='mr-[4%]'>
+                             <label className={`${'firstName' in error && 'text-[red]'}`}>First Name <span className='text-[red]'>*</span></label>
+                             <input
+                                 name="firstName"
+                                 value={billingInfo.firstName}
+                                 onChange={handleBillingChange}
+                                 className={`${'firstName' in error ? '!border-[red]' : ''}`}
+                             />
+                         </div>
+                         <div className='ml-[4%]' style={{ margin: '0% 0 0 2%' }}>
+                             <label className={`${'lastName' in error && 'text-[red]'}`}>Last Name <span className='text-[red]'>*</span></label>
+                             <input
+                                 name="lastName"
+                                 value={billingInfo.lastName}
+                                 onChange={handleBillingChange}
+                                 className={`${'lastName' in error ? '!border-[red]' : ''}`}
+                             />
+                         </div>
+                     </div>
+                     <div className="email mb-[15px]">
+                         <label className={`${'email' in error && 'text-[red]'}`}>Email <span className='text-[red]'>*</span></label>
+                         <input
+
+                             name="email"
+                             value={billingInfo.email}
+                             onChange={handleBillingChange}
+                             className={`${'email' in error ? '!border-[red]' : ''}`}
+                         />
+                     </div>
+                     <div className="phone mb-[15px]">
+                         <label className={`${'phone' in error && 'text-[red]'}`}>Phone Number <span className='text-[red]'>*</span></label>
+                         <PhoneNumberInput
+                             name="phone"
+                             placeholder="Enter phone number"
+                             value={billingInfo.phone}
+                             status={setBillingInfo}
+                             extraInputClass={`${'phone' in error ? '!border-[red]' : '!border-[#000000]'} text-[18px]`}
+                             setPhoneError={setPhoneError}
+                             setErrors={setError}
+                             formErrors={error}
+                             idName={'vacancySelect'}
+                             className="w-full  text-[18px]  "
+                         />
+                     </div>
+                     <div className="country mb-[15px]">
+                         <div className='mr-[4%]'>
+                             <label className={`${'country' in error && 'text-[red]'}`}>Country <span className='text-[red]'>*</span></label>
+                             <input
+                                 name="country"
+                                 value={billingInfo.country}
+                                 onChange={handleBillingChange}
+                                 className={`${'country' in error ? '!border-[red]' : ''}`}
+                             />
+                         </div>
+                         <div className='mr-[4%] ' style={{ margin: '0% 0 0 2%' }}>
+                             <label className={`${'city' in error && 'text-[red]'}`}>City<span className='text-[red]'>*</span></label>
+                             <input
+                                 name="city"
+                                 value={billingInfo.city}
+                                 onChange={handleBillingChange}
+                                 className={`${'city' in error ? '!border-[red]' : ''}`}
+                             />
+                         </div>
+                     </div>
+                     <div className="postal-code mb-[15px]">
+                         <label className={`${'postalCode' in error && 'text-[red]'}`}>Postal Code<span className='text-[red]'>*</span></label>
+                         <input
+                             name="postalCode"
+                             value={billingInfo.postalCode}
+                             onChange={handleBillingChange}
+                             className={`${'postalCode' in error ? '!border-[red]' : ''}`}
+                         />
+                     </div>
+                     <div className="promo-code mb-[15px]">
+                         <label className={`${'promoCode' in error && 'text-[red]'}`}>Promo Code</label>
+                         <input
+                             name="promoCode"
+                             value={billingInfo.promoCode}
+                             onChange={handleBillingChange}
+                             className={`${'promoCode' in error ? '!border-[red]' : ''}`}
+                         />
+                     </div>
+                     <button onClick={() => createAdjustmentOrder()} className="payment">Make Payment</button>
+                     <p className='text-[red] !text-[20px] !font-[400] !mt-2'>{Object.values(error).map(item => {
+                         return item
+                     })}</p>
+                 </div>
+                </div>
+                </>
                 :
                 page == 'adjustment' ?
                     <>
@@ -651,8 +891,10 @@ export default function Adjustments() {
                                             return <a onClick={() => {
                                                 toggleDescription(category)
                                                 setDesignListTab(category)
+                                                const element = document.getElementById(`${index}_list`);
+                                                element.scrollIntoView({ behavior: 'smooth' })
                                             }
-                                            } href={`#${category.replaceAll(' ', '_')}_list`} className={`lg:px-[2px] min-w-[14%] md:px-[2px] md:py-[5px] 
+                                            }  className={`lg:px-[2px] min-w-[14%] md:px-[2px] md:py-[5px] 
                                                 md:text-[17px] lg:py-[5px] !font[500] text-center font-[500] ${designListTab == category ?
                                                     'text-white bg-[#1BA56F] ' : 'text-[#1BA56F] bg-white '} border-r border-t border-b
                                             ${index == 0 && 'border-l'} ${index == Object.keys(bundlAddons).length && 'border-l-0 border-r'} !border-[#1BA56F]`}
@@ -661,7 +903,7 @@ export default function Adjustments() {
     
                                         <div className='mt-10'>
                                             {Object.keys(bundlAddons).map((category, index) => {
-                                                return <div className='' id={`${category.replaceAll(' ', '_')}_list`}>
+                                                return <div className='' id={`${index}_list`}>
                                                     <p className={`flex justify-between font-semibold text-[24px] pb-2  ${expantedTabs[category] ? '' : 'border-b'} border-[#00000080]`}> {category}      <button
                                                         onClick={() => toggleDescription(category)}
                                                         className="text-blue-500 cursor-pointer"

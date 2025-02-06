@@ -637,7 +637,7 @@ export const Home = () => {
                                     {/* <!-- <div className="pick_design_content"> Pick a design bundle suited to you </div> --> */}
                                 </div>
                                 {/* <!-- table-1 --> */}
-                                <div className="sliding_section border-top1" style={{ display: "flex" }}>
+                                <div className="sliding_section border-top1" style={{ display: "flex" }} id='bundls-first-child'>
                                     <input type="checkbox" id="newbie_no1" className="button_section" />
 
                                     {/* <!-- rotating buiscut --> */}

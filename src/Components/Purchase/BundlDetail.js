@@ -344,7 +344,7 @@ export const BundlDetail = () => {
              <div className='bundl-name '>
                <p className='sm:text-[24px] xs:mb-0 xs:flex xs:justify-between sm:block font-[700] px-0 !mb-2'  >
                <span className='font-normal'>Summary</span>
-               {isMobile && <button onClick={()=> setDetails(!showDetails)} style={{color:`${textColor}`}} className='text-[14px] font-normal underline'>Show Details</button>}
+               {isMobile && <button onClick={()=> setDetails(!showDetails)} style={{color:`${textColor}`}} className='text-[14px] font-normal underline'>{showDetails ? 'Hide Details':'Show Details'}</button>}
                </p>
              </div>
              {!isMobile || isMobile && showDetails ? <>
