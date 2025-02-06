@@ -637,7 +637,7 @@ export const Home = () => {
                                     {/* <!-- <div className="pick_design_content"> Pick a design bundle suited to you </div> --> */}
                                 </div>
                                 {/* <!-- table-1 --> */}
-                                <div className="sliding_section border-top1" style={{ display: "flex" }}>
+                                <div className="sliding_section border-top1" style={{ display: "flex" }} id='bundls-first-child'>
                                     <input type="checkbox" id="newbie_no1" className="button_section" />
 
                                     {/* <!-- rotating buiscut --> */}
@@ -661,7 +661,7 @@ export const Home = () => {
                                             </svg>
                                         </label>
                                     </div>
-                                    <div className="newbie_section">
+                                    <div className="newbie_section" style={window.innerWidth <= 475 ? {padding:'6% 0 2% 2%'}:{}}>
                                         <div className="change_brand">
                                             <div className="table_icon"><img src={QubeIcon} alt="" className="img-fluid"></img></div>
                                             <div className="newbie">The Newbie</div>
@@ -682,7 +682,7 @@ export const Home = () => {
                                                 </ul>
                                             </div>
                                             <div className="box-child">
-                                                <div className="pack-inner-title"><span>Choose Your Add-ons</span></div>
+                                                <div className="pack-inner-title"><span>{window.innerWidth <=475 ? 'Choose from ...' : 'Choose Your Add-ons'}</span></div>
                                                 <ul className="second_brand_list">
                                                     <li>Branding</li>
                                                     <li>E-designs</li>
@@ -760,7 +760,7 @@ export const Home = () => {
                                                 </ul>
                                             </div>
                                             <div className="box-child">
-                                                <div className="pack-inner-title"><span>F&B Collateral</span></div>
+                                                <div className="pack-inner-title"><span>{window.innerWidth <=475 ? 'Choose from ...' : 'F&B Collateral'}</span></div>
                                                 <ul className="second_brand_list">
                                                     <li>1 Page Price List</li>
                                                     <li>Bag</li>
@@ -848,7 +848,7 @@ export const Home = () => {
                                                 </ul>
                                             </div>
                                             <div className="box-child">
-                                                <div className="pack-inner-title"><span>Services Collateral</span></div>
+                                                <div className="pack-inner-title"><span>{window.innerWidth <=475 ? 'Choose from ...' : 'Services Collateral'}</span></div>
                                                 <ul className="second_brand_list">
                                                     <li>1 Page Price List</li>
                                                     <li>Bag</li>
@@ -935,7 +935,7 @@ export const Home = () => {
                                                 </ul>
                                             </div>
                                             <div className="box-child">
-                                                <div className="pack-inner-title"><span>Commerce Collateral</span></div>
+                                                <div className="pack-inner-title"><span>{window.innerWidth <=475 ? 'Choose from ...' : 'Commerce Collateral'}</span></div>
                                                 <ul className="second_brand_list">
                                                     <li>Bag</li>
                                                     <li>Box</li>

@@ -4737,11 +4737,25 @@ font-size: 20px;
   height: 50px;
   }
 .box-child{
-  width:100%
+  width:100%;
+  justify-content: unset !important;
 }
 .navbar-expand-lg{
   padding: 0;
 
+}
+.newbie_section{
+  justify-content: center;
+  padding: 2%;
+}
+.sliding_section {
+  max-height: auto;
+}
+.pack-sub-title {
+  margin: 5% 0 0 0;
+}
+#bundls-first-child{
+  height: 350px;
 }
 }
 @media screen and (max-width:441) {
@@ -4791,6 +4805,8 @@ font-size: 20px;
 .nav-item{
   display: none;
 }
+
+
 }
 
 @media screen and (max-width:390px) {
@@ -4803,6 +4819,16 @@ font-size: 20px;
     /* margin: 0 0 0 10%; */
     line-height: 1.4;
     text-align: center;
+  }
+  .newbie_section{
+    justify-content: center;
+  }
+  .sliding_section {
+    min-height: 350px;
+  }
+  .box-child{
+    width:100%;
+    justify-content: unset !important;
   }
 }
 

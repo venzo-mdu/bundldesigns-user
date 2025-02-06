@@ -184,7 +184,7 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
                       style={{
                         display: 'flex',
                         borderBottom: i === addOnData.designs_details[title].design_list.length - 1 ? 'none' : `1px solid ${textColor}`,
-                        padding: window.innerWidth<=475 ?'5% 0%' :'1% 0',
+                        padding: window.innerWidth<=475 ?'3% 0%' :'1% 0',
                       }}
                       className='items-center flex-wrap'
                     >
