@@ -1128,7 +1128,7 @@ export const Home = () => {
                                                     style={{ transform: `translateX(-${currentWork * 100}%)` }}
                                                 >
                                                     {ourworks.map((item, index) => (
-                                                        <div key={index} className={`relative  flex-shrink-0 xl:w-[84%] xs:w-[84%] xs:mx-[8%] md:w-[99%] md:mx-1 xl:mx-[8%] flex flex-wrap ${item.project_images.length > 2 ? 'sm:h-[900px] xs:h-[350px]' : 'sm:h-[450px] xs:h-[250px]'} justify-center`}>
+                                                        <div key={index} className={`relative  flex-shrink-0 xl:w-[84%] xs:w-[84%] xs:mx-[8%] md:w-[99%] md:mx-1 xl:mx-[8%] flex flex-wrap ${item.project_images.length > 2 ? 'sm:h-[900px] xs:h-[300px]' : 'sm:h-[450px] xs:h-[300px]'} justify-center`}>
                                                             {item.project_images.map((img, imgIndex) => {
                                                                 let borderClasses = "border-black border-solid";
 
@@ -1142,7 +1142,7 @@ export const Home = () => {
                                                                 return (<img
                                                                     key={imgIndex}
                                                                     // className="w-1/3 sm:w-[33%] object-cover border-black border-solid border-[5px]"
-                                                                    className={`w-1/3 sm:w-[33%] object-cover ${borderClasses}`}
+                                                                    className={`lg:w-1/3 md:w-1/3 xs:w-[30%] lg:object-cover md:object-cover xs:object-fill ${borderClasses}`}
                                                                     src={img}
                                                                     alt={`Project ${index + 1}`}
                                                                 />)
