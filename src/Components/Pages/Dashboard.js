@@ -84,7 +84,8 @@ export default function Dashboard() {
             checkPurchase()
         }
         if (response.data) {
-            const resProjects = response.data.data.filter(item => item.order_status != 'completed' && item.order_status != 'in_cart')
+            const resProjects = response.data.data.filter(item => item.order_status != 'in_cart')
+            // const resProjects = response.data.data.filter(item => item.order_status != 'completed' && item.order_status != 'in_cart')
             setProjects(resProjects);
             setPurchases(response.data.data.filter(item => item.order_status != 'in_cart'))
             if (resProjects.length) {
@@ -104,7 +105,7 @@ export default function Dashboard() {
             ];
             setOrder(orderData)
             const index = ProcessIndexDict.indexOf(ProcessIndexDict.find((key) => key == orderData.order_status))
-            if (orderData.order_status == 'in_review') {
+            if (orderData.order_status == 'in_review' || orderData.order_status == 'completed' ) {
                 setProcessIndex(ProcessIndexDict.length - 1)
             } else {
                 setProcessIndex(index)
@@ -122,7 +123,7 @@ export default function Dashboard() {
                 if (orderData.order_status == 'in_progress')
                     setProcessIndex(1)
             }
-            if (orderData.order_status == 'send_for_approval' || orderData.order_status == 'add_ons' || orderData.order_status == 'in_review') {
+            if (orderData.order_status == 'send_for_approval' || orderData.order_status == 'add_ons' || orderData.order_status == 'in_review' || orderData.order_status == 'completed' ) {
                 console.log(response.data.brand_item_management?.delivery_files, 'del')
                 const parts = response.data.brand_item_management?.delivery_files.length ? response.data.brand_item_management?.delivery_files[0].split('/') : null
                 parts && setBrandFile(parts[parts.length - 1])
@@ -172,7 +173,7 @@ export default function Dashboard() {
 
         // Format into HH:mm:ss
         const formattedCounter = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-            
+        console.log(order.order_status)
         switch (order.order_status) {
         // switch ('send_for_approval') {
 
@@ -286,7 +287,7 @@ export default function Dashboard() {
                     </div>
                 );
 
-            case 'in_review':
+            case 'in_review' || 'completed':
                 return (
                     <div className="text-center">
                         <h2 className="lg:text-[22px] md:text-[22px] xs:text-[20px] text-[#000000]">
@@ -299,12 +300,16 @@ export default function Dashboard() {
                             </button>
                         </p>
                         <p>
-                            <button
+                            {
+                                order.order_status === 'completed' ? '' :
+                                <button
                                 onClick={() => { completeOrder() }}
                                 className="bg-[#1BA56F] px-2 py-1 text-[#fff] text-[16px] mt-2"
-                            >
+                                >
                                 {dashboardJson.process_content.mark_complete}
-                            </button>
+                                </button>
+                            }
+                            
                         </p>
                     </div>
                 );
@@ -380,6 +385,11 @@ export default function Dashboard() {
         setProjectName(null)
     }
 
+    const handleSelectChange = async(event) =>{
+        console.log(event.target.value);
+        const id = event.target.value
+        await getOrderDetails(id);
+    }   
     return (
         <>
             {
@@ -430,7 +440,12 @@ export default function Dashboard() {
 
                             {
                                 projects.length ? <div className=' border-black  py-16 lg:px-14 md:px-14 xs:px-2'>
-                                    <h1 className='lg:text-[32px] md:text-[24px] flex mb-4 xs:px-5'>  <span className='mr-2'>{dashboardJson.second_title}</span> <img className='mr-2' src={ltIcon}></img>  <img src={gtIcon}></img> </h1>
+                                    {
+                                        window.innerWidth <=475 ?
+                                        <p className='text-[#000000] opacity-[50%] text-[20px] font-[500] font-Helvetica px-[5%]'>My Bundls</p> 
+                                        :
+                                        <h1 className='lg:text-[32px] md:text-[24px] flex mb-4 xs:px-5'>  <span className='mr-2'>{dashboardJson.second_title}</span> <img className='mr-2' src={ltIcon}></img>  <img src={gtIcon}></img> </h1>
+                                    }
 
                                     <p className='flex overflow-auto mb-0'>
                                     
@@ -463,9 +478,9 @@ export default function Dashboard() {
                                             ) :
                                             // id="websterSelect"
                                             <div className='xs:px-3'>
-                                            <select className='w-[200px] h-[40px] text-[32px] font-[700] outline-none border-none' >
+                                            <select className='w-full h-[40px] text-[32px] font-[700] outline-none border-none' onChange={(e)=>handleSelectChange(e)}>
                                                 {projects?.map((project, index) => (
-                                                    <option className="text-[16px] font-[500]" key={index} value={project.project_name}>
+                                                    <option className="text-[16px] font-[500]" key={index} value={project.id}>
                                                         {project.project_name}
                                                     </option>
                                                 ))}
@@ -495,9 +510,10 @@ export default function Dashboard() {
                                         <div className='lg:w-[80%] md:w-[80%] xs:w-[100%] lg:mx-auto md:mx-auto xs:mx-0'>
 
                                             {order && order.item_details && Array.isArray(order.item_details) && <>
-                                                <p className={`text-[22px] font-bold my-2 ${processIndex < 2 ? 'text-[#00000080]' : 'text-black'}`}>Brand & Visual Identity <span className='text-[#1BA56F] text-[18px] font-[500]'> -
+                                            {order?.brand_identity && <>                                                <p className={`text-[22px] font-bold my-2 ${processIndex < 2 ? 'text-[#00000080]' : 'text-black'}`}>Brand & Visual Identity <span className='text-[#1BA56F] text-[18px] font-[500]'> -
                                                     {processIndex < 2 ? ' ON HOLD' : processIndex >= 4 ? ' COMPLETE' : ' IN PROGRESS'}</span> </p>
-                                                <p className={`font-medium text-[18px] ${processIndex < 2 ? 'text-[#00000080]' : 'text-[#000]'}`}>{order?.brand_identity?.item_name} {processIndex >= 4 && <button className='bg-[#1BA56F] px-2 !py-0  text-[16px] ml-4 text-white font-[400]' onClick={() => { navigate('/adjustment', { state: { orderId: order.id, orderItemId: null } }) }}>Request Edits</button>} </p>
+                                                <p className={`font-medium text-[18px] ${processIndex < 2 ? 'text-[#00000080]' : 'text-[#000]'}`}>{order?.brand_identity?.item_name} {processIndex >= 4 && <button className='bg-[#1BA56F] px-2 !py-0  text-[16px] ml-4 text-white font-[400]' onClick={() => { navigate('/adjustment', { state: { orderId: order.id, orderItemId: null } }) }}>Request Edits</button>} </p></>}
+
                                                 <p className={`text-[22px] ${processIndex < 4 && 'text-[#00000080]'} font-bold my-2`}>Applications
 
                                                     <span className='text-[#1BA56F] text-[18px] font-[500]'> -
@@ -508,7 +524,7 @@ export default function Dashboard() {
                                                     if (item.item__category != 1 && item.type != 'bundl') {
                                                         return <p className={`font-medium ${processIndex < 4 && 'text-[#00000080]'} text-[18px] mx-1 my-2 py-1 
                             ${index != (order?.item_details.length - 1) &&
-                                                            'border-b'} border-[#00000080] flex justify-between`}><span>{item.item_name}</span>
+                                                            'border-b'} border-[#00000080] flex justify-between`}><span className='lg:text-[16px] md:text-[16px] xs:text-[16px]'>{item.item_name}</span>
                                                             <span className='flex items-center text-[#00000080] text-[14px]'>{processIndex >= 4 ? <>
                                                                 {item.status == 'questionnaire required' ? <>
                                                                     <span className='mr-2 font-normal'>Waiting content</span>
