@@ -89,9 +89,9 @@ export const Home = () => {
     // const translateX = activeProcess * (window.innerWidth <= 475 ? activeProcess <= 4 ? 88.5: window.innerWidth <= 390 ? 80 : 80 : window.innerWidth <= 768 ? 150 : activeProcess < 3 ? 200 : 195) + (window.innerWidth > 1450 ? 60 : 0);
     let translateX = 0;
     if (window.innerWidth <= 390) {
-        translateX = activeProcess === 4 ? 300 : activeProcess * 78.5;
+        translateX = activeProcess === 4 ? 285 : activeProcess * 78.5;
     } else if (window.innerWidth <= 475) {
-        translateX = activeProcess * (activeProcess <= 4 ? 88.5 : 80);
+        translateX = activeProcess * (activeProcess <= 3 ? 88.5 : 87);
     } else if (window.innerWidth <= 768) {
         translateX = activeProcess * 150;
     } else if (window.innerWidth <= 1450) {

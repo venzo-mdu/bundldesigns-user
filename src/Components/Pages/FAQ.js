@@ -154,22 +154,22 @@ export default function FAQ() {
               </div>
 
               {/* Right Arrow */}
-             
-            </div>
-            {
-              window.innerWidth <= 768 ? 
-              <div className='flex mt-[5%] w-full'>
-               <div className='w-[50%]' onClick={scrollLeft}>
-                <FaChevronLeft className="text-[#1BA56F] outline-none border-none" />
+              {
+                window.innerWidth <= 768 ? 
+                <div className='flex mt-[1%] w-full absolute'>
+                 <div className='w-[50%]' onClick={scrollLeft}>
+                  <FaChevronLeft className="text-[#000000] opacity-[50%] outline-none border-none" />
+                  </div>
+                  <div className='w-[50%]' onClick={scrollRight}>
+                  <FaChevronRight className="text-[#000000] opacity-[50%] outline-none border-none float-right" />
                 </div>
-                <div className='w-[50%]' onClick={scrollRight}>
-                <FaChevronRight className="text-[#1BA56F] outline-none border-none float-right" />
               </div>
+                 :''
+              }
             </div>
-               :''
-            }
             
-            <div className='sm:mt-12 mt-12 xs:mt-[15%]'>
+            
+            <div className='sm:mt-12 mt-12 xs:mt-[10%]'>
               {currentTab && <h2 className='mb-10 sm:mb-10 xs:mb-8 xs:text-[24px] text-[28px] sm:text-[28px]'>{currentTab}</h2>}
               {
                 faqs.data.map((faq) => {

@@ -3657,12 +3657,12 @@ animation-delay: 2s;
 
 .testimonial-inner .testimonial_content::before {
   top: -10px;
-  left: 0;
+  left: -25px;
 }
 
 .testimonial-inner .testimonial_content::after {
   bottom: -15px;
-  right: 0;
+  right: -20px;
 }
 
 .testimonial-inner .name {

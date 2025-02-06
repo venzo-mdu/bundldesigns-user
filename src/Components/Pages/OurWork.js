@@ -55,7 +55,7 @@ export default function OurWork() {
                 onClick={() => setCurrentTab(key)}>{categories[key]}</button>
             })}
           </div>
-          <div className='mt-8 text-[32px]'>
+          <div className='lg:mt-8 md:mt-8 xs:mt-0 text-[32px]'>
           {projects
   .filter(
     (project) => project.category === currentTab || currentTab === 'all'
