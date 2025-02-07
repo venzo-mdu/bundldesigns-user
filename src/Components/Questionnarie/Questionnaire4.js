@@ -151,12 +151,12 @@ export const Questionnaire4 = ({formData,setFormData}) => {
       updatedColors = ["Surprise"];
     } else {
       // If any other color is selected, remove "Surprise" if it's in the list
-      updatedColors = selectedColors.includes("Surprise")
+      updatedColors = selectedColors?.includes("Surprise")
         ? selectedColors.filter(item => item !== "Surprise") // Remove "Surprise"
         : selectedColors;
   
       // Add the selected color if it's not already in the list
-      if (!updatedColors.includes(color)) {
+      if (!updatedColors?.includes(color)) {
         updatedColors = [...updatedColors, color];
       }
     }
@@ -215,7 +215,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
     setActiveButtons((prevButtons) =>
       font === "Surprise"
         ? ["Surprise"]
-        : prevButtons.includes("Surprise")
+        : prevButtons?.includes("Surprise")
         ? [font] 
         : prevButtons.includes(font)
         ? prevButtons.filter((btn) => btn !== font) 
@@ -338,7 +338,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
         setFormData={setFormData}
         questions={
           <>
-            {questions.map((question, index) => (
+            {questions?.map((question, index) => (
               <div className="questions" key={index}>
                 {
                   question.answer_type === 'shade' ? '' :
@@ -394,7 +394,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                         className='font-grid'
                       >
                         {
-                          textStyle.map((font, index) => {
+                          textStyle?.map((font, index) => {
                             return (
                               <>
                                 <div className='font-background'>
@@ -410,7 +410,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                       <figure className='mt-[5%]'>
                         <b><i className='text-[12px] leading-1 font-[500]'>Not sure ? It's okay!</i></b>
                       </figure>
-                      <button className={`${activeButtons.includes("Surprise") ? 'surprise-active':'surprise'}`} onClick={() => handleButtonClick("", question.id, "Surprise")}>surprise me !</button>
+                      <button className={`${activeButtons?.includes("Surprise") ? 'surprise-active':'surprise'}`} onClick={() => handleButtonClick("", question.id, "Surprise")}>surprise me !</button>
                     </>
                   )
                 }
@@ -428,7 +428,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                         }}
                       >
                   
-                        {displayedColors.map((color, index) => {
+                        {displayedColors?.map((color, index) => {
 
                           const isTopRow = index < 9;
                           const isBottomRow = index >= displayedColors.length - 9;
@@ -469,8 +469,8 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                         }}
                       >
                         {
-                          selectedColors[0] === 'Surprise' ?'' :
-                          selectedColors.map((color, index) => (
+                          selectedColors?.[0] === 'Surprise' ?'' :
+                          selectedColors?.map((color, index) => (
                             <div
                               key={index}
                               className="selected-color"
@@ -536,7 +536,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                         <figure className='mt-[3%]'>
                           <b><i className='text-[12px] leading-1 font-[500]'>Not sure ? It's okay!</i></b>
                         </figure>
-                        <button className={`${selectedColors.includes("Surprise") ? 'surprise-active':'surprise'}`} onClick={() => handleColorClick("Surprise", question.id)}>surprise me !</button>
+                        <button className={`${selectedColors?.includes("Surprise") ? 'surprise-active':'surprise'}`} onClick={() => handleColorClick("Surprise", question.id)}>surprise me !</button>
                       </div>
                     </>
                   )
@@ -553,7 +553,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                             <label for="patterns">
                               <figure className="image-container img-animation">
                                 {
-                                  textureImages1.map((images) => {
+                                  textureImages1?.map((images) => {
                                     return (
                                       <img src={images} alt="Clean"></img>
 
@@ -570,7 +570,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                             <label for="textures">
                               <figure className="image-container img-animation">
                                 {
-                                  textureImages2.map((images) => {
+                                  textureImages2?.map((images) => {
                                     return (
                                       <img src={images} alt="Clean"></img>
 
@@ -587,7 +587,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                             <label for="collages">
                               <figure className="image-container img-animation">
                                 {
-                                  textureImages3.map((images) => {
+                                  textureImages3?.map((images) => {
                                     return (
                                       <img src={images} alt="Clean"></img>
 
@@ -606,7 +606,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                             <label for="cleanvisual">
                               <figure className="image-container img-animation">
                                 {
-                                  textureImages4.map((images) => {
+                                  textureImages4?.map((images) => {
                                     return (
                                       <img src={images} alt="Clean"></img>
 
@@ -625,7 +625,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                             <label for="illustrations">
                               <figure className="image-container img-animation">
                                 {
-                                  textureImages5.map((images) => {
+                                  textureImages5?.map((images) => {
                                     return (
                                       <img src={images} alt="Clean"></img>
 
@@ -644,7 +644,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                             <label for="frames">
                               <figure className="image-container img-animation">
                                 {
-                                  textureImages6.map((images) => {
+                                  textureImages6?.map((images) => {
                                     return (
                                       <img src={images} alt="Clean"></img>
 

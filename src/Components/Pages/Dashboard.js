@@ -447,7 +447,7 @@ export default function Dashboard() {
                                         <h1 className='lg:text-[32px] md:text-[24px] flex mb-4 xs:px-5'>  <span className='mr-2'>{dashboardJson.second_title}</span> <img className='mr-2' src={ltIcon}></img>  <img src={gtIcon}></img> </h1>
                                     }
 
-                                    <p className='flex overflow-auto mb-0'>
+                                    <p className='flex lg:overflow-auto md:overflow-auto xs:overflow-hidden mb-0'>
                                     
                                       {
                                         window.innerWidth > 768 ?
@@ -478,7 +478,7 @@ export default function Dashboard() {
                                             ) :
                                             // id="websterSelect"
                                             <div className='xs:px-3'>
-                                            <select className='w-full h-[40px] text-[32px] font-[700] outline-none border-none' onChange={(e)=>handleSelectChange(e)}>
+                                            <select className='w-full h-[40px] text-[32px] font-[700] outline-none border-none ' onChange={(e)=>handleSelectChange(e)}>
                                                 {projects?.map((project, index) => (
                                                     <option className="text-[16px] font-[500]" key={index} value={project.id}>
                                                         {project.project_name}

@@ -3524,7 +3524,7 @@ animation-delay: 2s;
 #newbie_no5:checked~.newbie_section {
   flex-basis: 56%;
 }
-.pkg-sub-title{font-size:18px; line-height: 1.4;}
+.pkg-sub-title{font-size:17px; line-height: 1.4;}
 .second_section_text {
   font-size: 17px;
 }
@@ -4464,7 +4464,7 @@ font-size: 20px;
   opacity: 1;
 }
 .rocket {
-  left: 24%;
+  left: 23%;
   top:0%;
 }
 .hover-txt { opacity: 0;}
@@ -4596,6 +4596,11 @@ font-size: 20px;
 }
 }
 @media screen and (max-width:441px) {
+
+  .second_brand_list>li {
+    font-size: 10px;
+    line-height: 1.2;
+  }
   .h-list li{
     margin: 10% 0 0 0;
     width: 45px;
@@ -4745,17 +4750,27 @@ font-size: 20px;
 
 }
 .newbie_section{
-  justify-content: center;
+  justify-content: end;
   padding: 2%;
 }
+#newbie_no1:checked~.newbie_section,
+#newbie_no2:checked~.newbie_section,
+#newbie_no3:checked~.newbie_section,
+#newbie_no4:checked~.newbie_section,
+#newbie_no5:checked~.newbie_section {
+  justify-content: center;
+}
 .sliding_section {
-  max-height: auto;
+  min-height: auto;
 }
 .pack-sub-title {
   margin: 5% 0 0 0;
 }
 #bundls-first-child{
-  height: 350px;
+  height: 300px;
+}
+.pack-inner-title {
+  font-size: 12px;
 }
 }
 @media screen and (max-width:441) {
@@ -4824,7 +4839,7 @@ font-size: 20px;
     justify-content: center;
   }
   .sliding_section {
-    min-height: 350px;
+    min-height: auto;
   }
   .box-child{
     width:100%;
@@ -4836,9 +4851,44 @@ font-size: 20px;
   left :'-100px' /* Move 100px to the left */
 }
 
+@media screen and (max-width:375px) {
+  .rocket{
+    left: 0%;
+  }
+  .hero-text h1 {
+    font-size: 24px !important;
+    font-weight: 400;
+    /* margin: 0 0 0 10%; */
+    line-height: 1.4;
+    text-align: center;
+  }
+  .newbie_section{
+    justify-content: end;
+    padding: 2%;
+  }
+  #newbie_no1:checked~.newbie_section,
+  #newbie_no2:checked~.newbie_section,
+  #newbie_no3:checked~.newbie_section,
+  #newbie_no4:checked~.newbie_section,
+  #newbie_no5:checked~.newbie_section {
+    justify-content: center;
+  }
+  .sliding_section {
+    min-height: auto;
+  }
+  .box-child{
+    width:100%;
+    justify-content: unset !important;
+  }
+}
 
-
-
-
+.BIText:hover .brandIdentity{
+  left :'-100px' /* Move 100px to the left */
+}
+@media screen and (max-width:360px) {
+  .rocket{
+    left: -2%;
+  }
+}
 
 

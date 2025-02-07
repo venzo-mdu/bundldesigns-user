@@ -43,13 +43,13 @@ export default function OurWork() {
       <Navbar />
       <div className='font-Helvetica'>
         <div className='text-center py-2 border-b border-black'>
-          <h1 className='text-[40px]'> Our Work </h1>
+          <h1 className='lg:text-[40px] md:text-[40px] xs:text-[30px] lg:mt-[2%] md:mt-[2%] xs:mt-[5%]'> Our Work </h1>
           <p className='text-[20px] text-[#00000080]'>Where we answer all your questions!</p>
         </div>
         <div className=' sm:p-3 border-b px-[3%] border-black'>
           <div className='flex py-4 justify-center sm:w-[80%] xs:w-[100%] mx-auto'>
             {Object.keys(categories).map((key, index) => {
-              return <button className={`basis-1/5 ${currentTab == key ? 'text-white bg-[#1BA56F] ' : 'text-[#1BA56F] bg-white '} py-[5px] font-[500] sm:text-[20px] xs:text-[15px] border-r border-t border-b
+              return <button className={`basis-1/5 ${currentTab == key ? 'text-white bg-[#1BA56F] ' : 'text-[#1BA56F] bg-white '} py-[5px] font-[500] sm:text-[20px] xs:text-[14px] border-r border-t border-b
                            ${index == 0 && 'border-l'} ${index == categories.length && 'border-l-0 border-r'}
                    !border-[#1BA56F]`}
                 onClick={() => setCurrentTab(key)}>{categories[key]}</button>

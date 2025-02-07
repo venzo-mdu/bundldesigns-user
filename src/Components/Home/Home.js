@@ -90,13 +90,20 @@ export const Home = () => {
     let translateX = 0;
     if (window.innerWidth <= 390) {
         translateX = activeProcess === 4 ? 285 : activeProcess * 78.5;
-    } else if (window.innerWidth <= 475) {
+    } 
+    else if (window.innerWidth <= 400) {
+        translateX = activeProcess === 4 ? 315 : activeProcess * 82.5;
+    }
+    else if (window.innerWidth <= 475) {
         translateX = activeProcess * (activeProcess <= 3 ? 88.5 : 87);
-    } else if (window.innerWidth <= 768) {
+    } 
+    else if (window.innerWidth <= 768) {
         translateX = activeProcess * 150;
-    } else if (window.innerWidth <= 1450) {
+    } 
+    else if (window.innerWidth <= 1450) {
         translateX = activeProcess * (activeProcess < 3 ? 200 : 195);
-    } else {
+    } 
+    else {
         translateX = activeProcess * (activeProcess < 3 ? 200 : 195) + 60;
     }
     const bundlImages = [QubeIcon, Diamond, Eye, Food, Money]
@@ -476,7 +483,7 @@ export const Home = () => {
                                         <div className="px-2">
 
                                         </div>
-                                        <h1 className='!text-black sm:px-[9%] xs:px-[12%]  lg:px-[10%] !w-[100%] xs:!text-[28px] sm:!text-[58px] !text-[58px]'><span>Elevating</span> brands & shaping legacies, one <span>extraordinary design</span> at a <i>time.</i></h1>
+                                        <h1 className='!text-black sm:px-[9%] xs:px-[11%]  lg:px-[10%] !w-[100%] xs:!text-[26px] sm:!text-[58px] !text-[58px]'><span>Elevating</span> brands & shaping legacies, one <span>extraordinary design</span> at a <i>time.</i></h1>
                                         <div className="button-container scroller">
                                             <ul className="scroll-button h-[46px] scroller__inner_btn">
                                                 <li><span><a className='text-black' href='#ourBundl'>Shop our Bundls</a></span></li>
@@ -661,7 +668,7 @@ export const Home = () => {
                                             </svg>
                                         </label>
                                     </div>
-                                    <div className="newbie_section" style={window.innerWidth <= 475 ? {padding:'6% 0 2% 2%'}:{}}>
+                                    <div className="newbie_section" style={window.innerWidth <= 475 ? {padding:'5% 0 2% 2%'}:{}}>
                                         <div className="change_brand">
                                             <div className="table_icon"><img src={QubeIcon} alt="" className="img-fluid"></img></div>
                                             <div className="newbie">The Newbie</div>
@@ -682,7 +689,7 @@ export const Home = () => {
                                                 </ul>
                                             </div>
                                             <div className="box-child">
-                                                <div className="pack-inner-title"><span>{window.innerWidth <=475 ? 'Choose from ...' : 'Choose Your Add-ons'}</span></div>
+                                                <div className="pack-inner-title"><span>{window.innerWidth <=475 ? 'Choose Your Add-ons' : 'Choose Your Add-ons'}</span></div>
                                                 <ul className="second_brand_list">
                                                     <li>Branding</li>
                                                     <li>E-designs</li>
@@ -760,7 +767,7 @@ export const Home = () => {
                                                 </ul>
                                             </div>
                                             <div className="box-child">
-                                                <div className="pack-inner-title"><span>{window.innerWidth <=475 ? 'Choose from ...' : 'F&B Collateral'}</span></div>
+                                                <div className="pack-inner-title"><span>{window.innerWidth <=475 ? 'Collateral' : 'F&B Collateral'}</span></div>
                                                 <ul className="second_brand_list">
                                                     <li>1 Page Price List</li>
                                                     <li>Bag</li>
@@ -785,7 +792,7 @@ export const Home = () => {
                                     <div className="newbie_description">
                                         <div className="third_section_toggle">
                                             <div className="brand_identity green-text">Brand Identity + <br />
-                                                Food& Beverage Collateral + <br />
+                                                F & B Collateral + <br />
                                                 Social Media Starter Kit <br />
                                             </div>
                                             <div className="change_brand_name">
@@ -848,7 +855,7 @@ export const Home = () => {
                                                 </ul>
                                             </div>
                                             <div className="box-child">
-                                                <div className="pack-inner-title"><span>{window.innerWidth <=475 ? 'Choose from ...' : 'Services Collateral'}</span></div>
+                                                <div className="pack-inner-title"><span>{window.innerWidth <=475 ? 'Collateral' : 'Services Collateral'}</span></div>
                                                 <ul className="second_brand_list">
                                                     <li>1 Page Price List</li>
                                                     <li>Bag</li>
@@ -935,7 +942,7 @@ export const Home = () => {
                                                 </ul>
                                             </div>
                                             <div className="box-child">
-                                                <div className="pack-inner-title"><span>{window.innerWidth <=475 ? 'Choose from ...' : 'Commerce Collateral'}</span></div>
+                                                <div className="pack-inner-title"><span>{window.innerWidth <=475 ? 'Collateral' : 'Commerce Collateral'}</span></div>
                                                 <ul className="second_brand_list">
                                                     <li>Bag</li>
                                                     <li>Box</li>
@@ -1032,7 +1039,7 @@ export const Home = () => {
                                                 <div className="pack-inner-title"><span>+ Space Design</span></div>
                                             </div>
                                             <div className="box-child box-f-cuztomize-bundl" style={{ display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
-                                                <div className="pack-inner-title mobile-t-25"><span>+ Stationery</span></div>
+                                                <div className="pack-inner-title lg:mobile-t-25 md:mobile-t-25 xs:mt-[7%]"><span>+ Stationery</span></div>
                                             </div>
                                         </div>
                                     </div>
@@ -1221,10 +1228,9 @@ export const Home = () => {
                                 <div className="px-5 mx-auto mt-5 text-center">
                                     <a target='_blank' href="https://www.google.com/search?q=bundldesigns&rlz=1C1OPNX_enIN1088IN1088&oq=bundldesigns&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQRRg8MgYIAhBFGDwyBggDEEUYPDIICAQQRRgnGDsyBggFEEUYPDIGCAYQRRg8MgYIBxBFGDzSAQgzODA5ajBqN6gCALACAA&sourceid=chrome&ie=UTF-8#lrd=0x3e2efdec17da19b7:0xb10d764716306f04,3,,,," className="btn bundl-btn-border">Leave a review</a>
                                 </div>
+
                             </div>
                         </section>
-
-
 
                         <div className="bundledivider"></div>
                         <section className="container-fluid section">

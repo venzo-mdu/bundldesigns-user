@@ -61,14 +61,14 @@ export const AboutUs = () => {
         <div className='flex md:flex sm:block xs:block justify-between text-center '>
           <div className='basis-[50%] border-t border-r border-l relative py-4 !border-black'>
             <h1 className='px-28 text-[32px] !text-black sm:text-[22px] xs:text-[22px]   md:text-[28px]'>Mission</h1>
-            <p className='xl:px-48 md:px-20 xl:text-[20px] md:text-[18px] xs:text-[18px] xs:px-[5%]'>{aboutUs.mission}</p>
+            <p className='xl:px-48 md:px-20 xl:text-[20px] md:text-[18px] xs:text-[16px] xs:px-[5%]'>{aboutUs.mission}</p>
             <img className='absolute md:top-[130px] top-[130px]  xs:top-[-50px] xs:w-[100px] left-0 xl:top-[70px] xl:w-[260px] md:w-[160px]' src={paperPlane}></img>
 
           </div>
           <div className='!z-10 basis-[50%] border-t border-r xs:border-l md:border-l-0  py-4   relative !border-black font-Helvetica'>
 
             <h1 className='px-[8%] md:text-[28px] !tet-black xl:text-[32px]'>Vision</h1>
-            <p className=' xl:px-[200px] md:px-20 md:text-[18px] xl:text-[20px] xs:text[18px] xs:px-[5%] xs:text-[18px]'>{aboutUs.vission}</p>
+            <p className=' xl:px-[200px] md:px-20 md:text-[18px] xl:text-[20px] xs:text[18px] xs:px-[5%] xs:text-[16px]'>{aboutUs.vission}</p>
             <img className='absolute md:top-[-95px] top-[-95px] xs:top-[-60px] xs:w-[100px] xl:bottom-[-25px]  right-[10px] xl:w-[240px] md:w-[160px]' src={glass}></img>
 
           </div>
@@ -95,15 +95,15 @@ export const AboutUs = () => {
       >
         <div className='text-center border py-4 px-3 z-0 !border-black'>
           <h1 className='text-[32px] sm:text-[22px] xs:text-[22px]  md:text-[28px]'>Our Values</h1>
-          <p className='lg:text-[20px] sm:text-[20px] xs:text-[18px]  md:text-[20px]'>{aboutUs.our_values}</p>
+          <p className='lg:text-[20px] sm:text-[20px] xs:text-[16px]  md:text-[20px]'>{aboutUs.our_values}</p>
         </div>
         <div className='text-center text-Helvetica md:pt-[5%] xs:pt-[5%] lg:pt-[3%]'>
           <h2 className='pb-[2%] md:text-[28px] sm:text-[22px] xs:text-[22px] '> The Founders</h2>
-          <p className='xl:w-[38vw] md:w-[57vw] xs:w-[80vw] mx-auto leading-[28px] lg:text-[20px] md:text-[20px] xs:text-[18px]'> {aboutUs.founders} </p>
+          <p className='xl:w-[38vw] md:w-[57vw] xs:w-[80vw] mx-auto leading-[28px] lg:text-[20px] md:text-[20px] xs:text-[16px]'> {aboutUs.founders} </p>
         </div>
         <div className='text-center text-Helvetica md:pt-[4%] lg:pt-[3%] pb-[4%]'>
           <h2 className='pb-[2%] md:text-[28px] sm:text-[22px] xs:text-[22px] '> Our Talents</h2>
-          <p className='xl:w-[38vw] md:w-[56vw] xs:w-[80vw] mx-auto leading-[28px] lg:text-[20px] md:text-[20px] xs:text-[18px]'>{aboutUs.our_talents}</p>
+          <p className='xl:w-[38vw] md:w-[56vw] xs:w-[80vw] mx-auto leading-[28px] lg:text-[20px] md:text-[20px] xs:text-[16px]'>{aboutUs.our_talents}</p>
         </div>
       </div>
 
@@ -128,9 +128,9 @@ export const AboutUs = () => {
                 </div>
                 <div className='basis-3/5 mt-[2%] mb-[3%] text-center text-white'>
                   <h2 className='text-white sm:text-[32px] text-[32px] xs:text-[20px]'>{aboutUs[whatwedo].title}</h2>
-                  <p className='sm:text-[20px] text-[20px] xs:text-[18px] px-2 mb-4'>{aboutUs[whatwedo].content}</p>
-                  <p> <a href='/our-work' className='text-[white] font-[500] sm:text-[20px] text-[20px] xs:text-[18px] hover:text-[white] px-[17px] py-1 !border-white border mr-2'>View Our Work</a>
-                    <a href='/' className={`bg-white text-[${aboutUs[whatwedo].bgColor}] font-[500] border hover:text-[${aboutUs[whatwedo].bgColor}] !border-white px-[17px] sm:text-[20px] text-[20px] xs:text-[18px] py-1 `}>Purchase Now</a> </p>
+                  <p className='sm:text-[20px] text-[20px] xs:text-[16px] px-2 mb-4'>{aboutUs[whatwedo].content}</p>
+                  <p> <a href='/our-work' className='text-[white] font-[500] sm:text-[20px] text-[20px] xs:text-[14px] hover:text-[white] px-[17px] py-1 !border-white border mr-4'>View Our Work</a>
+                    <a href='/' className={`bg-white text-[${aboutUs[whatwedo].bgColor}] font-[500] border hover:text-[${aboutUs[whatwedo].bgColor}] !border-white px-[17px] sm:text-[20px] text-[20px] xs:text-[14px] py-1 `}>Purchase Now</a> </p>
                 </div>
 
               </div>
@@ -253,7 +253,7 @@ export const AboutUs = () => {
         <div>
           <div className='text-[16px] md:w-[40vw] xs:w-[80vw] relative flex mx-auto'>
             <p className='text-[90px] absolute lg:top-[-34px] md:top-[-34px] xs:top-[-55px] xs:left-[-20px] font-bold '>“</p>
-            <p className='lg:px-12 md:px-12 xs:px-[10%] pt-4 lg:text-[20px] md:text-[20px] xs:text-[18px] font-medium'>{testimonials.length ? testimonials[0].description_english : ''}</p>
+            <p className='lg:px-12 md:px-12 xs:px-[10%] pt-4 lg:text-[20px] md:text-[20px] xs:text-[16px] font-medium'>{testimonials.length ? testimonials[0].description_english : ''}</p>
             <p className='text-[90px] right-0 absolute font-bold lg:bottom-[-60px] md:bottom-[-60px] xs:bottom-[-90px] xs:right-[-20px]'>”</p>
           </div>
   

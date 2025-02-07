@@ -157,10 +157,10 @@ export default function FAQ() {
               {
                 window.innerWidth <= 768 ? 
                 <div className='flex mt-[1%] w-full absolute'>
-                 <div className='w-[50%]' onClick={scrollLeft}>
+                 <div className='absolute left-0 top-[-10px]' onClick={scrollLeft}>
                   <FaChevronLeft className="text-[#000000] opacity-[50%] outline-none border-none" />
                   </div>
-                  <div className='w-[50%]' onClick={scrollRight}>
+                  <div className='absolute right-0 top-[-10px]' onClick={scrollRight}>
                   <FaChevronRight className="text-[#000000] opacity-[50%] outline-none border-none float-right" />
                 </div>
               </div>
