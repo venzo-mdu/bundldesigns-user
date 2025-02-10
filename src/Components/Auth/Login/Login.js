@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import '../Login/Login.css';
 import Loginlogo from '../../../Images/Login/loginlogo.svg';
 import Anchor from '../../../Images/Login/anchor.svg';
@@ -28,7 +28,15 @@ export const Login = () => {
 
   const [errors, setErrors] = useState({
   });
-  const [loginError, setLoginError] = useState(false)
+  const [loginError, setLoginError] = useState(false);
+
+  useEffect(()=>{
+    document.documentElement.scrollTo({
+      top: 0,
+      left: 0
+    })
+  },[])
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 

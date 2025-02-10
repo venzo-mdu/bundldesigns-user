@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import axios from 'axios';
 import '../Signup/Signup.css';
 import Loginlogo from '../../../Images/Login/loginlogo.svg';
@@ -29,6 +29,13 @@ export const Signup = () => {
     password: '',
     google:false
   });
+
+  useEffect(()=>{
+    document.documentElement.scrollTo({
+      top: 0,
+      left: 0
+    })
+  },[])
 
   const showToastMessage = () => {
     toast.error("The Value is required!", {

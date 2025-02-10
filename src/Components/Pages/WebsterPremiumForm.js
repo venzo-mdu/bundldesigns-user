@@ -130,7 +130,7 @@ export default function WebsterPremiumForm() {
                   name="project_name"
                   value={formData.project_name}
                   onChange={handleChange} placeholder='Enter the name of your project....'
-                  className='w-full text-[16px] focus:outline-none px-2 sm:py-2  xs:py-4 border !border-[#b0b0b0] mt-3'></input>
+                  className='w-full text-[16px] focus:outline-none px-2 sm:py-2  xs:py-4 border !border-[#b0b0b0] mt-3 !rounded-none'></input>
                 {errors.project_name && <p className="text-red-500 text-sm">{errors.project_name}</p>}
               </div>
               <div className='mb-4 sm:mt-4 xs:mt-6'>
@@ -141,7 +141,7 @@ export default function WebsterPremiumForm() {
                 value={formData.name}
                 placeholder='ex: Nora Albaiz..'
                 onChange={handleChange}
-                className="w-full border text-[16px]  !border-[#b0b0b0] focus:outline-none px-2 sm:py-2  xs:py-3"
+                className="w-full border text-[16px]  !border-[#b0b0b0] focus:outline-none px-2 sm:py-2  xs:py-3 !rounded-none"
               />
               {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
             </div>
@@ -156,7 +156,7 @@ export default function WebsterPremiumForm() {
         status={setFormData}
         extraInputClass={'!border-[#b0b0b0] text-[16px]'}
         setPhoneError={setPhoneError}
-        className="w-full  text-[16px]  "
+        className="w-full  text-[16px]  !rounded-none"
         setErrors = {setErrors}
         formErrors = {errors}
         idName={'websterSelect'}
@@ -174,7 +174,7 @@ export default function WebsterPremiumForm() {
                 placeholder='ex: Nora.m.1999@gmail.com'
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full border text-[16px] !border-[#b0b0b0] focus:outline-none px-2 sm:py-2  xs:py-3"
+                className="w-full border text-[16px] !border-[#b0b0b0] focus:outline-none px-2 sm:py-2  xs:py-3 !rounded-none"
               />
               {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
             </div>
@@ -187,7 +187,7 @@ export default function WebsterPremiumForm() {
                 placeholder='Describe your needs to us...  '
                 value={formData.message}
                 onChange={handleChange}
-                className="w-full border text-[16px] !border-[#b0b0b0] focus:outline-none px-2 sm:py-2  xs:py-3"
+                className="w-full border text-[16px] !border-[#b0b0b0] focus:outline-none px-2 sm:py-2  xs:py-3 !rounded-none"
                 rows={4}
               />
               {errors.message && <p className="text-red-500 text-sm">{errors.message}</p>}

@@ -191,7 +191,7 @@ export default function Career() {
           value={formData.name}
           placeholder='Name'
           onChange={handleChange}
-          className="w-full border !border-black p-2"
+          className="w-full border !border-black p-2 !rounded-none"
         />
         {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
       </div>
@@ -205,7 +205,7 @@ export default function Career() {
         status={setFormData}
         extraInputClass={'!border-black text-[16px]'}
         setPhoneError={setPhoneError}
-        className="w-full  text-[16px]  "
+        className="w-full  text-[16px]  !rounded-none"
         setErrors = {setErrors}
         formErrors = {errors}
         idName={'websterSelect'}
@@ -221,7 +221,7 @@ export default function Career() {
           placeholder='Email'
           value={formData.email}
           onChange={handleChange}
-          className="w-full border !border-black p-2"
+          className="w-full border !border-black p-2 !rounded-none"
         />
         {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
       </div>
@@ -233,7 +233,7 @@ export default function Career() {
           placeholder='Tell us your Thoughts'
           value={formData.message}
           onChange={handleChange}
-          className="w-full border !border-black p-2 rounded-none"
+          className="w-full border !border-black p-2 !rounded-none"
         />
         {errors.message && <p className="text-red-500 text-sm">{errors.message}</p>}
       </div>
@@ -245,7 +245,7 @@ export default function Career() {
           id='vacancySelect'
           value={formData.vacancy}
           onChange={handleChange}
-          className={`w-full border !border-black p-2 ${formData.vacancy?'text-black':'text-[#00000080]'}`}
+          className={`w-full !rounded-none border !border-black p-2 ${formData.vacancy?'text-black':'text-[#00000080]'}`}
         >
             <option  disabled value={''} selected> Choose the vacancy </option>
         {vacancies.map(vacancy => <option className='text-[#000000]' value={vacancy.id}>{vacancy.vacancy_english}</option>)}
@@ -262,6 +262,7 @@ export default function Career() {
         name="file"
         onChange={handleChange}
         hidden
+        className='!rounded-none'
       />
 
       {/* Custom label as trigger */}

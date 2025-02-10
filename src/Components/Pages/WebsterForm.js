@@ -109,7 +109,7 @@ export default function WebsterForm() {
               value={formData.project_name}
               placeholder='Name of Project'
               onChange={handleChange}
-              className="w-full border  p-2"
+              className="w-full border  p-2 !rounded-none"
             />
             {errors.project_name && <p className="text-red-500 text-sm">{errors.project_name}</p>}
           </div>
@@ -121,7 +121,7 @@ export default function WebsterForm() {
               value={formData.name}
               placeholder='Name'
               onChange={handleChange}
-              className="w-full border  p-2"
+              className="w-full border  p-2 !rounded-none"
             />
             {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
           </div>
@@ -133,7 +133,7 @@ export default function WebsterForm() {
       placeholder="Phone"
       value={formData.phone}
       onChange={handlePhone}
-    className="w-full border  p-2"
+    className="w-full border  p-2 !rounded-none"
       />
             {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
           </div>
@@ -146,7 +146,7 @@ export default function WebsterForm() {
               placeholder='Email'
               value={formData.email}
               onChange={handleChange}
-              className="w-full border  p-2"
+              className="w-full border  p-2 !rounded-none"
             />
             {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
           </div>
@@ -158,7 +158,7 @@ export default function WebsterForm() {
               placeholder='Message'
               value={formData.message}
               onChange={handleChange}
-              className="w-full border  p-2"
+              className="w-full border  p-2 !rounded-none"
             />
             {errors.message && <p className="text-red-500 text-sm">{errors.message}</p>}
           </div>

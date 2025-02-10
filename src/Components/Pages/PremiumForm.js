@@ -112,7 +112,7 @@ export default function PremiumForm() {
                 value={formData.project_name}
                 placeholder='Name of Project'
                 onChange={handleChange}
-                className="w-full border  outline-none p-2"
+                className="w-full border  outline-none p-2 !rounded-none"
               />
               {errors.project_name && <p className="text-red-500 text-sm">{errors.project_name}</p>}
             </div>
@@ -124,7 +124,7 @@ export default function PremiumForm() {
                 value={formData.name}
                 placeholder='Name'
                 onChange={handleChange}
-                className="w-full border  outline-none p-2"
+                className="w-full border  outline-none p-2 !rounded-none"
               />
               {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
             </div>
@@ -136,7 +136,7 @@ export default function PremiumForm() {
                 placeholder="Phone"
                 value={formData.phone}
                 onChange={handlePhone}
-                className="w-full border outline-none p-2"
+                className="w-full border outline-none p-2 !rounded-none"
               />
               {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
             </div>
@@ -149,7 +149,7 @@ export default function PremiumForm() {
                 placeholder='Email'
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full border  outline-none p-2"
+                className="w-full border  outline-none p-2 !rounded-none"
               />
               {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
             </div>
@@ -161,7 +161,7 @@ export default function PremiumForm() {
                 placeholder='Message'
                 value={formData.message}
                 onChange={handleChange}
-                className="w-full border  outline-none p-2"
+                className="w-full border  outline-none p-2 !rounded-none"
               />
               {errors.message && <p className="text-red-500 text-sm">{errors.message}</p>}
             </div>

@@ -107,7 +107,7 @@ code {
 /* input{
   border: 1px solid #000000 ;
 } */
-input ,select, textarea {
+/* input ,select, textarea {
   border-radius: 0 !important;
   -webkit-border-radius: 0 !important;
   -webkit-appearance: none !important;
@@ -116,7 +116,7 @@ input ,select, textarea {
 
 input[type="search"] {
   -webkit-appearance: none !important;
-}
+} */
 button:disabled{
   cursor: not-allowed;
 }

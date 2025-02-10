@@ -205,7 +205,7 @@ export default function FAQ() {
                   value={formData.name}
                   placeholder='Name'
                   onChange={handleChange}
-                  className="w-full border !border-[#000000] px-2 py-1"
+                  className="w-full border !border-[#000000] px-2 py-1 !rounded-none"
                 />
                 {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
               </div>
@@ -219,7 +219,7 @@ export default function FAQ() {
         status={setFormData}
         extraInputClass={'!border-black text-[16px]'}
         setPhoneError={setPhoneError}
-        className="w-full  text-[16px]  "
+        className="w-full  text-[16px]  !rounded-none"
         setErrors = {setErrors}
         formErrors = {errors}
         idName={'websterSelect'}
@@ -236,7 +236,7 @@ export default function FAQ() {
                   placeholder='Email'
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full border !border-[#000000]  px-2 py-1"
+                  className="w-full border !border-[#000000]  px-2 py-1 !rounded-none"
                 />
                 {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
               </div>
@@ -248,7 +248,7 @@ export default function FAQ() {
                   placeholder='Tell us your Thoughts'
                   value={formData.thoughts}
                   onChange={handleChange}
-                  className="w-full border !border-[#000000] px-2 py-1"
+                  className="w-full border !border-[#000000] px-2 py-1 !rounded-none"
                 />
                 {errors.thoughts && <p className="text-red-500 text-sm">{errors.thoughts}</p>}
               </div>
