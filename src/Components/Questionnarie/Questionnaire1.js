@@ -77,6 +77,7 @@ export const Questionnaire1 = ({formData,setFormData}) => {
 
 
   const handleInputChange = (questionId, value) => {
+    console.log(value)
     if(questionId=='2' || questionId == '3'){
       if(/[0-9!@#$%^&*(),.?":{}|<>]/g.test(value)){
         setErrors((prev) => ({
@@ -90,28 +91,81 @@ export const Questionnaire1 = ({formData,setFormData}) => {
         setErrors(temp_err)
       }
     }
-    setFormData((prev) => ({
-      ...prev,
-      [questionId]: value,
-    }));
+    if (questionId == 4 || questionId === '4') {
+      if (!activeType) {
+        setErrors((prev) => ({
+          ...prev,
+          [questionId]: 'Please select either "Product" or "Service" first.',
+        }));
+        return;
+      } else {
+        let temp_err = { ...errors };
+        delete temp_err[questionId];
+        setErrors(temp_err);
+      }
+  
+      setFormData((prev) => ({
+        ...prev,
+        [questionId]: {
+          [activeType.toLowerCase()]: value, // Store correctly
+        },
+      }));
+    }
+    else{
+      setFormData((prev) => ({
+        ...prev,
+        [questionId]: value,
+      }));
+    }
+ 
   };
 
-  const getAnswerValue = (questionId) => {
+  // const getAnswerValue = (questionId) => {
 
+  //   const formValue = formData?.[questionId];
+  //   if (formValue !== undefined) {
+  //     return formValue;
+  //   }
+
+  //   const fetchedAnswer = fetchQ1Answers.find((answer) => answer.question_id === questionId)?.answer;
+  //   if (fetchedAnswer !== undefined && formValue === undefined) {
+  //     setFormData((prevFormData) => ({
+  //       ...prevFormData,
+  //       [questionId]: fetchedAnswer,
+  //     }));
+  //   }
+  //   return fetchedAnswer ?? '';
+  // }
+
+  const getAnswerValue = (questionId) => {
     const formValue = formData?.[questionId];
+  
+    // Special handling for questionId 4
+    if (questionId === 4 || questionId === '4') {
+      if (formValue && typeof formValue === 'object' && activeType) {
+        return formValue[activeType.toLowerCase()] || ''; // Return the value of product/service if available
+      }
+      return ''; // Return empty string if no value is found
+    }
+  
+    // Handle other questions normally
     if (formValue !== undefined) {
       return formValue;
     }
-
+  
+    // Check in fetched answers
     const fetchedAnswer = fetchQ1Answers.find((answer) => answer.question_id === questionId)?.answer;
+  
     if (fetchedAnswer !== undefined && formValue === undefined) {
       setFormData((prevFormData) => ({
         ...prevFormData,
         [questionId]: fetchedAnswer,
       }));
     }
+  
     return fetchedAnswer ?? '';
-  }
+  };
+  
 
   const validateFields = () => {
     // Filter required questions that are either unanswered or contain invalid values
