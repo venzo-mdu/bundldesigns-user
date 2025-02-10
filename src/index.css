@@ -107,6 +107,16 @@ code {
 /* input{
   border: 1px solid #000000 ;
 } */
+input ,select, textarea {
+  border-radius: 0 !important;
+  -webkit-border-radius: 0 !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+}
+
+input[type="search"] {
+  -webkit-appearance: none !important;
+}
 button:disabled{
   cursor: not-allowed;
 }

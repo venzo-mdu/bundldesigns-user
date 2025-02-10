@@ -140,7 +140,7 @@ export default function Career() {
     <div className='font-Helvetica'>
         <div className='text-center py-2 border-b border-black'>
             <h1 className='lg:text-[40px] md:text-[40px] xs:text-[30px] lg:mt-[2%] md:mt-[2%] xs:mt-[5%]'> Careers </h1>
-            <p className='text-[20px] font-medium text-[#00000080]'>Where we answer all your questions!</p>
+            <p className='lg:text-[20px] md:text-[20px] xs:text-[18px] text-[#00000080]'>Where we answer all your questions!</p>
         </div>
         <div className='md:p-20 sm:p-3  border-b border-black'>
             {vacancies.map((vacancy,index)=> {
@@ -233,7 +233,7 @@ export default function Career() {
           placeholder='Tell us your Thoughts'
           value={formData.message}
           onChange={handleChange}
-          className="w-full border !border-black p-2"
+          className="w-full border !border-black p-2 rounded-none"
         />
         {errors.message && <p className="text-red-500 text-sm">{errors.message}</p>}
       </div>
@@ -248,7 +248,7 @@ export default function Career() {
           className={`w-full border !border-black p-2 ${formData.vacancy?'text-black':'text-[#00000080]'}`}
         >
             <option  disabled value={''} selected> Choose the vacancy </option>
-        {vacancies.map(vacancy => <option value={vacancy.id}>{vacancy.vacancy_english}</option>)}
+        {vacancies.map(vacancy => <option className='text-[#000000]' value={vacancy.id}>{vacancy.vacancy_english}</option>)}
         </select>
         {errors.vacancy && <p className="text-red-500 text-sm">{errors.vacancy}</p>}
       </div>

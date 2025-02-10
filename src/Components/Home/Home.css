@@ -4772,6 +4772,16 @@ font-size: 20px;
 .pack-inner-title {
   font-size: 12px;
 }
+.newbie{
+  font-size: 18px;
+} 
+.pkg-sub-title{
+  font-size: 14px;
+  padding-top: .2rem;
+}
+.second_section_image img{
+  width: 50px !important;
+}
 }
 @media screen and (max-width:441) {
   .h-list li{

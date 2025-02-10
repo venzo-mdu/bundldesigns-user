@@ -792,7 +792,7 @@ export const Home = () => {
                                     <div className="newbie_description">
                                         <div className="third_section_toggle">
                                             <div className="brand_identity green-text">Brand Identity + <br />
-                                                F & B Collateral + <br />
+                                               { window.innerWidth <= 768 ? ' F&B Collateral +':'Food & Beverage Collateral +'} <br />
                                                 Social Media Starter Kit <br />
                                             </div>
                                             <div className="change_brand_name">
@@ -1226,7 +1226,14 @@ export const Home = () => {
                                     </div>
                                 </div>
                                 <div className="px-5 mx-auto mt-5 text-center">
-                                    <a target='_blank' href="https://www.google.com/search?q=bundldesigns&rlz=1C1OPNX_enIN1088IN1088&oq=bundldesigns&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQRRg8MgYIAhBFGDwyBggDEEUYPDIICAQQRRgnGDsyBggFEEUYPDIGCAYQRRg8MgYIBxBFGDzSAQgzODA5ajBqN6gCALACAA&sourceid=chrome&ie=UTF-8#lrd=0x3e2efdec17da19b7:0xb10d764716306f04,3,,,," className="btn bundl-btn-border">Leave a review</a>
+                                    {/* {
+                                        window.innerWidth <= 768 ?
+                                        <a target='_blank' href="https://www.google.com/search?sca_esv=c4b1341a4b7b7a8e&rlz=1C1OPNX_enIN1088IN1088&sxsrf=AHTn8zpz8heeFIffXtZFmZcBKyfoZlggHQ:1738924330168&q=bundl+designs+reviews&uds=ABqPDvxhviXT310WMxRmyLGmEwIWGxD1D4UaNg1_5mWkuvL-XEHlBMW0Wi5hXsAWml52GBwP0MgahtCC7xIzOfccgCir8jqEM-EUFl8W5TAQZtW1RiBwrQ6eg9Lumr7a35DA3UW1etJjqySLvsDCAu3swGovni-vtvN9dTjA83v60KOxD9627yKA06c5tUy_FosedF9vWioHYMgsreRYsFewxUb2IPmni2ayZr3gorMNTpcZLIypv5tgzZ33pY3Lm3ZXqLhrBu3CF3C_WNhYjJxca9Q4uc_9kNdOSyf491fLCyNbqThFA6O36UEEQF7vrZUZMHWOAEK22_BQhgx5UwnwyKbCztDiilDDN19JaVdNbCZFQpujpiDNHeroUq9oC1G2YdfLrj9V3eKSJf-u1ebBOTQNfuP-WhDcJVPho7PYBp2cmQ0VmhQ&si=APYL9bs7Hg2KMLB-4tSoTdxuOx8BdRvHbByC_AuVpNyh0x2KzfMxsPAhwiZEXurMaV4FghdFjDxW8-kb_wAl5CzlJ4LuB7A7CZCUrHH6TRDNxXAqy2BU86fOeAnWG4ddtnuW93JPkFUY&sa=X&ved=2ahUKEwiZtPb3rbGLAxX_4zgGHfRGAacQk8gLegQIKBAB&ictx=1&biw=393&bih=736&dpr=2.75#ebo=3" className="btn bundl-btn-border">Leave a review</a>
+                                        :
+                                        <a target='_blank' href="https://www.google.com/search?q=bundldesigns&rlz=1C1OPNX_enIN1088IN1088&oq=bundldesigns&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQRRg8MgYIAhBFGDwyBggDEEUYPDIICAQQRRgnGDsyBggFEEUYPDIGCAYQRRg8MgYIBxBFGDzSAQgzODA5ajBqN6gCALACAA&sourceid=chrome&ie=UTF-8#lrd=0x3e2efdec17da19b7:0xb10d764716306f04,3,,,," className="btn bundl-btn-border">Leave a review</a>
+                                    } */}
+                                        <a target='_blank' href="https://www.google.com/search?q=bundldesigns&rlz=1C1OPNX_enIN1088IN1088&oq=bundldesigns&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQRRg8MgYIAhBFGDwyBggDEEUYPDIICAQQRRgnGDsyBggFEEUYPDIGCAYQRRg8MgYIBxBFGDzSAQgzODA5ajBqN6gCALACAA&sourceid=chrome&ie=UTF-8#lrd=0x3e2efdec17da19b7:0xb10d764716306f04,3,,,," className="btn bundl-btn-border">Leave a review</a>
+
                                 </div>
 
                             </div>

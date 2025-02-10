@@ -125,8 +125,8 @@ export default function FAQ() {
         <Navbar />
         <div className='font-Helvetica'>
           <div className='text-center py-2 border-b border-black'>
-            <h1 className='text-[40px]'> FAQs </h1>
-            <p className='text-[20px] font-medium text-[#00000080]'>Where we answer all your questions!</p>
+            <h1 className='lg:text-[40px] md:text-[40px] xs:text-[30px] lg:mt-[2%] md:mt-[2%] xs:mt-[5%]'> FAQs </h1>
+            <p className='lg:text-[20px] md:text-[20px] xs:text-[18px]  text-[#00000080]'>Where we answer all your questions!</p>
           </div>
           <div className='lg:p-20 md:p-10  sm:p-10 xs:p-4 border-b  border-black'>
            <div className="relative flex items-center">

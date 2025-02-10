@@ -67,7 +67,7 @@ export const AboutUs = () => {
           </div>
           <div className='!z-10 basis-[50%] border-t border-r xs:border-l md:border-l-0  py-4   relative !border-black font-Helvetica'>
 
-            <h1 className='px-[8%] md:text-[28px] !tet-black xl:text-[32px]'>Vision</h1>
+            <h1 className='px-[8%] md:text-[28px] !text-black xl:text-[32px] xs:text-[22px]'>Vision</h1>
             <p className=' xl:px-[200px] md:px-20 md:text-[18px] xl:text-[20px] xs:text[18px] xs:px-[5%] xs:text-[16px]'>{aboutUs.vission}</p>
             <img className='absolute md:top-[-95px] top-[-95px] xs:top-[-60px] xs:w-[100px] xl:bottom-[-25px]  right-[10px] xl:w-[240px] md:w-[160px]' src={glass}></img>
 
@@ -94,15 +94,15 @@ export const AboutUs = () => {
       // }}
       >
         <div className='text-center border py-4 px-3 z-0 !border-black'>
-          <h1 className='text-[32px] sm:text-[22px] xs:text-[22px]  md:text-[28px]'>Our Values</h1>
+          <h1 className='text-[32px] sm:text-[22px] xs:text-[22px]  md:text-[28px] text-black'>Our Values</h1>
           <p className='lg:text-[20px] sm:text-[20px] xs:text-[16px]  md:text-[20px]'>{aboutUs.our_values}</p>
         </div>
         <div className='text-center text-Helvetica md:pt-[5%] xs:pt-[5%] lg:pt-[3%]'>
-          <h2 className='pb-[2%] md:text-[28px] sm:text-[22px] xs:text-[22px] '> The Founders</h2>
+          <h2 className='pb-[2%] md:text-[28px] sm:text-[22px] xs:text-[22px] text-black'> The Founders</h2>
           <p className='xl:w-[38vw] md:w-[57vw] xs:w-[80vw] mx-auto leading-[28px] lg:text-[20px] md:text-[20px] xs:text-[16px]'> {aboutUs.founders} </p>
         </div>
         <div className='text-center text-Helvetica md:pt-[4%] lg:pt-[3%] pb-[4%]'>
-          <h2 className='pb-[2%] md:text-[28px] sm:text-[22px] xs:text-[22px] '> Our Talents</h2>
+          <h2 className='pb-[2%] md:text-[28px] sm:text-[22px] xs:text-[22px] text-black'> Our Talents</h2>
           <p className='xl:w-[38vw] md:w-[56vw] xs:w-[80vw] mx-auto leading-[28px] lg:text-[20px] md:text-[20px] xs:text-[16px]'>{aboutUs.our_talents}</p>
         </div>
       </div>
@@ -124,7 +124,7 @@ export const AboutUs = () => {
               </p>
               <div className='sm:flex xs:block mb-2'>
                 <div className='basis-1/5'>
-                  <img className='sm:min-w-[230px] min-w-[230px] mt-3 xs:mx-auto xs:w-[180px]' src={WWDImg}></img>
+                  <img className='sm:min-w-[230px] min-w-[230px] mt-3 xs:mx-auto xs:w-[180px] xs:my-[-6%]' src={WWDImg}></img>
                 </div>
                 <div className='basis-3/5 mt-[2%] mb-[3%] text-center text-white'>
                   <h2 className='text-white sm:text-[32px] text-[32px] xs:text-[20px]'>{aboutUs[whatwedo].title}</h2>
@@ -164,7 +164,7 @@ export const AboutUs = () => {
 
               </div>
               <div className={`sm:basis-[30%] basis-[30%]  !pb-8  lg:!pt-16 md:!pt-16 xs:pt-12 xs:basis-[100%]  ${whatwedo? "xs:!pt-6":"sm:!pt-16"}`}>
-                <h2 className=' mt-2 md:text-[32px] sm:text-[24px] xs:text-[24px]  font-bold pb-[30px]'>What we do</h2>
+                <h2 className=' mt-2 md:text-[32px] sm:text-[24px] xs:text-[24px]  font-bold pb-[30px] text-black'>What we do</h2>
                 <div className='flex mb-2 flex-col'>
                   <p
                     onClick={() => {
@@ -245,7 +245,7 @@ export const AboutUs = () => {
         <p className='text-center flex justify-center'>
           <img src={letterIcon}></img></p>
 
-        <h2 className=' text-[28px] capitalize ' > LOVE LETTERS </h2>
+        <h2 className=' text-[28px] capitalize text-black' > LOVE LETTERS </h2>
         <p className='md:w-[29vw] xs:w-[70vw] mx-auto text-[16px]' > We work hard to bring your brand dreams to life. But don’t take only our word for it! Listen to what our clients have to say about us.</p>
         <img className='absolute md:block md:left-[20vw] md:top-12 left-[24vw] xs:left-[-20px]  xs:top-[10vh] md:w-[140px] xs:w-[100px]' width='140px' height='140px' style={{ transform: 'rotate(320deg)' }} src={paper_plane_rose}></img>
         <img className='absolute md:block xs:!top-[50%] sm:top-0 top-0 sm:left-0 left-0 xs:left-[-41px] w-[320px] sm:w-[320px] xs:w-[150px] ' src={paper_plane_rose}></img>
@@ -294,7 +294,7 @@ export const AboutUs = () => {
 
       </div>
       <div className='text-center py-14 '>
-        <h2 className='sm:w-[600px] w-[50vw] xs:w-[70vw] text-[32px] !mt-6 mx-auto'>Inspired to start your journey to launch your next big thing ?</h2>
+        <h2 className='sm:w-[600px] w-[50vw] xs:w-[70vw] text-[32px] !mt-6 mx-auto text-black'>Inspired to start your journey to launch your next big thing ?</h2>
         <p className='text-center'> <button onClick={() => { window.location.href = '/' }} className='py-1 px-3  !mt-[50px] !mb-8 bg-black text-white'>Get started!</button> </p>
       </div>
       <Footer />

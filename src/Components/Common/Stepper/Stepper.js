@@ -167,7 +167,7 @@ export const Stepper = ({ pageNo ,formData, answersData , fillId }) => {
                 </div>
             ))}
             <svg 
-                className="rocket overlay !left-[9%]"
+                className={`rocket overlay ${activeProcess === 0 ?'!left-[10%]' :'!left-[9%]' }`}
                 style={{ animation: `${animationName} 2s forwards`, margin: '1% -150px 0 0' }}
                 width="103" height="51" viewBox="0 0 103 51" fill="none"
                 xmlns="http://www.w3.org/2000/svg"
