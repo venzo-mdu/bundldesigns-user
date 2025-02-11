@@ -80,7 +80,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
         'rgb(255, 136, 136)':'rgb(221, 45, 45)'
       }
       console.log(currentColor)
-      setShadeBackgroundColor(currentColor);
+      setShadeBackgroundColor(currentColor === undefined ? 'rgb(228, 222, 216)':currentColor);
       setshadeColor(bgcolor[currentColor]);
       setSelectedColors(currentAnswer[19])
     }
@@ -145,6 +145,11 @@ export const Questionnaire4 = ({formData,setFormData}) => {
       });
       setInputValue('');
       return;
+    }
+    if(selectedColors?.includes(color)){
+      toast.error("You have already added!", {
+        position: toast?.POSITION?.TOP_RIGHT,
+      });
     }
     // If "Surprise" is selected, clear all other colors and set only "Surprise"
     if (color === "Surprise") {
@@ -212,13 +217,13 @@ export const Questionnaire4 = ({formData,setFormData}) => {
       };
     });
   
-    setActiveButtons((prevButtons) =>
+    setActiveButtons((prevButtons=[]) =>
       font === "Surprise"
         ? ["Surprise"]
         : prevButtons?.includes("Surprise")
         ? [font] 
-        : prevButtons.includes(font)
-        ? prevButtons.filter((btn) => btn !== font) 
+        : prevButtons?.includes(font)
+        ? prevButtons?.filter((btn) => btn !== font) 
         : [...prevButtons, font] 
     );
   };
@@ -338,11 +343,12 @@ export const Questionnaire4 = ({formData,setFormData}) => {
         setFormData={setFormData}
         questions={
           <>
+          {/* ${question.id == 21 ?'!text-[22px]':''} */}
             {questions?.map((question, index) => (
               <div className="questions" key={index}>
                 {
                   question.answer_type === 'shade' ? '' :
-                  <p className={`questions-title  xs:w-[70%] sm:w-full md:w-full mx-auto ${index === 0 ? 'mt-[1%]' : 'mt-[4%]'} ${question.id == 21 ?'!text-[22px]':''}`}>
+                  <p className={`questions-title  xs:w-[70%] sm:w-full md:w-full mx-auto ${index === 0 ? 'mt-[1%]' : 'mt-[4%]'} `}>
                       {question.question}
                       {
                         question.required && (

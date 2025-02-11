@@ -575,7 +575,7 @@ input::placeholder {
         .miclady{
             position: absolute;
             right: 5%;
-            top: 19%;
+            top: 20%;
             z-index: -1;
         }
         .mouth{
@@ -1048,7 +1048,8 @@ input::placeholder {
     }
     .eyespoon{
         top: 1%;
-        right: -2%;
+        right: 0%; 
+        /* -2% */
     }
     .eyespoon2{
         top: 68%;
@@ -1061,17 +1062,18 @@ input::placeholder {
     .title-questionnaire{
         font-size: 20px;
         line-height: 36px;
-        margin: -55% 0 0 0%;
+        margin: -65% 0 0 0%;
         width: 60%;
     }
     .miclady{
-        top:14%;
+        top:29%;
+        right: 0;
         width: 32%;
         z-index: -1;
     }
     .lips{
-        top: 14%;
-        right: 10%;
+        top: 29%;
+        right: 5%;
         width: 15%;
     }
     .mirror{
@@ -1287,15 +1289,13 @@ input::placeholder {
         padding: 15% 5%;
     }
     .title-questionnaire{
-        font-size: 25px;
-        line-height: 30px;
         font-size: 20px;
-        line-height: 20px;
-        margin: -35% 0 0 29%;
-        width: 50%;
+        margin: -70% 0 0 3%;
+        width: 75%;
+        line-height: 35px;
     }
     .questions-title{
-        font-size: 12px;
+        font-size: 18px;
     }
     .customer-text{
         font-size: 12px;

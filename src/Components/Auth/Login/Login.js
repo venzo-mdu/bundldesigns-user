@@ -9,16 +9,22 @@ import { useDispatch } from 'react-redux';
 import { loginAction } from '../../../Redux/Action';
 import axios from 'axios';
 import { GoogleLogin } from '@react-oauth/google';
+import AppleSignin from 'react-apple-signin-auth';
 import { jwtDecode as jwt_decode } from 'jwt-decode';
 import { base_url } from '../BackendAPIUrl';
 import loginGIF from '../../../Images/loginGIF.gif'
 
+
 export const Login = () => {
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const next_url = searchParams.get("next_url");
+
+  const clientId = process.env.REACT_IOS_CLIENTID
+  const redirectURI = process.env.REACT_IOS_REDIRECT_URL
 
   const [loginData, setLoginData] = useState({
     email: '',
@@ -116,6 +122,45 @@ export const Login = () => {
     }
   }
 
+
+  const handleAppleLoginSuccess = async (response) => {
+    console.log("Apple Login Success:", response);
+  
+    const { authorization, user } = response;
+  
+    if (!authorization?.id_token || !authorization?.code) {
+      console.error("Invalid Apple response:", response);
+      return;
+    }
+
+    const decodedToken = jwt_decode(authorization.id_token);
+    console.log("Decoded Apple ID Token:", decodedToken);
+    const data ={
+      email:decodedToken?.email,
+      full_name:decodedToken?.email?.split("@")[0],
+      password:null,
+      google:true
+    }
+  
+    try {
+      const response = await axios.post(`${base_url}/api/login/`, data);
+      if (response.status === 200) {
+        document.cookie = `token=${response?.data?.data.token || ""}; path=/; SameSite=None; Secure`;
+        dispatch(loginAction(response.data.user));
+       if(next_url){
+        window.location.href =`${process.env.REACT_APP_URL}/${next_url}`
+       }else{ navigate('/');}
+
+      }
+
+    } catch (response) {
+
+      setLoginError(response.response.data.data)
+    }
+   
+  };
+  
+
   const onSubmit = async (e) => {
     e.preventDefault();
 
@@ -175,6 +220,7 @@ export const Login = () => {
             </span> Or  <span className='border-[#F5F5F5] border-b h-[2px] basis-[43%] ml-[2%] border-[1.5px]'></span></p>
             <p className='signinwithgoogle !text-[17px] !font-bold'>
               {/* <img src={Googleicon} alt='google-icon' /> Sign in with Google */}
+              <div className='lg:w-[45%] md:w-[45%] xs:w-[100%]'>
               <GoogleLogin
                 onSuccess={credentialResponse => {
                   const token = credentialResponse.credential;
@@ -195,9 +241,21 @@ export const Login = () => {
                   console.log('Login Failed');
                 }}
               />
-
+              </div>
+              
+              <AppleSignin
+                authOptions={{
+                  clientId:"com.bundldesigns.app.client", 
+                  redirectURI: "https://bundldesigns.web.app/login",
+                  scope: "email name",
+                  usePopup: true,
+                }}
+                className={'lg:w-[50%] md:w-[50%] xs:w-[100%] !lg:text-[18px] !md:text-[18px] !xs:text-[14px]]'}
+                onSuccess={handleAppleLoginSuccess}
+                onError={(error) => console.error("Apple Login Failed:", error)}
+              />
             </p>
-            <p className='dont !mt-2 w-[90%] sm:w-[90%] xs:w-full'>
+            <p className='dont !mt-4 w-[90%] sm:w-[90%] xs:w-full'>
               Don’t Have an account? <span><NavLink className='signup !font-[500]' to={'/signup'}>&nbsp;Sign Up</NavLink></span>
             </p>
           </form>

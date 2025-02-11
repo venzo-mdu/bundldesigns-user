@@ -74,7 +74,7 @@
     font-size: 16px;
     font-weight: 700;
     margin: 2% 0 0 0;
-    width: 90%;
+    width: 100%;
     cursor: pointer;
 }
 .nsm7Bb-HzV7m-LgbsSe .nsm7Bb-HzV7m-LgbsSe-BPrWId {
@@ -103,6 +103,27 @@
 .signup:hover{
     color: #F3B7CE;
 }
+.react-apple-signin-auth-btn-dark {
+    background-color: #000;
+    color: #FFF;
+    border-color: #FFF;
+}
+.react-apple-signin-auth-btn {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    border-radius: 4px;
+    padding: 0 8px 0 2px;
+    font-size: 16px;
+    /* font-size: 1em; */
+    line-height: 1;
+    border: 1px solid #000;
+    overflow: hidden;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
 
 @media screen and (max-width:1705px) and (min-width:1024px) {
     .anchor{
@@ -123,6 +144,9 @@
     .login-content{
         padding: 2% 6%;
     }
+    .react-apple-signin-auth-btn {
+        font-size: 16px;
+    }
 }
 @media screen and (max-width:1024px) and (min-width:768px) {
     .anchor{
@@ -135,6 +159,9 @@
     .loginlogo {
         top: -5vh;
         left: 10vw;
+    }
+    .react-apple-signin-auth-btn {
+        font-size: 16px;
     }
 }
 
@@ -160,6 +187,9 @@
     }
     .login{
         margin: 10% 0 5% 5%;
+    }
+    .react-apple-signin-auth-btn {
+        font-size: 14px;
     }
 }
 @media screen and (max-width:441px) {
@@ -198,6 +228,9 @@
         bottom: -17%;
         width: 25%;
     }
+    .react-apple-signin-auth-btn {
+        font-size: 12px !important;
+    }
 }
 @media screen and (max-width:375px) {
     .login{
@@ -232,6 +265,9 @@
     }
     .anchor1{
         right: 0%;
+    }
+    .react-apple-signin-auth-btn {
+        font-size: 12px !important;
     }
 }
 

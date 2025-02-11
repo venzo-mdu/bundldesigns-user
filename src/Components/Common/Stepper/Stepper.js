@@ -26,8 +26,23 @@ export const Stepper = ({ pageNo ,formData, answersData , fillId }) => {
     const adjustLineWidth = () => {
         let lineWidth;
         let translateXValues = [];
-    
-        if (window.innerWidth <= 600) {
+        if (window.innerWidth <= 375) {
+            lineWidth = 85;
+            translateXValues = [-15, 50, 130, 195, 265];
+        }
+        if (window.innerWidth <= 390) {
+            lineWidth = 85;
+            translateXValues = [-15, 50, 110, 180, 250];
+        }
+        else if (window.innerWidth <= 390) {
+            lineWidth = 85;
+            translateXValues = [-25, 50, 130, 205, 280];
+        }
+        else if (window.innerWidth <= 425) {
+            lineWidth = 85;
+            translateXValues = [-25, 50, 130, 205, 285];
+        }
+        else if (window.innerWidth <= 600) {
             lineWidth = 85;
             translateXValues = [15, 100, 190, 270, 340];
         } else if (window.innerWidth <= 768) {
@@ -167,7 +182,7 @@ export const Stepper = ({ pageNo ,formData, answersData , fillId }) => {
                 </div>
             ))}
             <svg 
-                className={`rocket overlay ${activeProcess === 0 ?'!left-[10%]' :'!left-[9%]' }`}
+                className={`rocket overlay ${activeProcess === 0 ?'!lg:left-[10%] !md:left-[10%] !xs:left-0' :'!left-[9%]' }`}
                 style={{ animation: `${animationName} 2s forwards`, margin: '1% -150px 0 0' }}
                 width="103" height="51" viewBox="0 0 103 51" fill="none"
                 xmlns="http://www.w3.org/2000/svg"

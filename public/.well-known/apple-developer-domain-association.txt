@@ -1,0 +1,12 @@
+{
+  "apple-app-site-association": {
+    "applinks": {
+      "details": [
+        {
+          "appID": "Y6YKC2S8JQ",
+          "paths": ["/"]
+        }
+      ]
+    }
+  }
+}
