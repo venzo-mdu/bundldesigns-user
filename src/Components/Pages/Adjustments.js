@@ -505,7 +505,7 @@ export default function Adjustments() {
                                                 element.scrollIntoView({ behavior: 'smooth' })
                                             }
                                             }
-                                                className={`py-[2%] px-[5%] w-[${stylesBtnAccordian[index]}] !font[500] text-center font-[500] ${designListTab == category ?
+                                                className={`cursor-pointer py-[2%] px-[5%] w-[${stylesBtnAccordian[index]}] !font[500] text-center font-[500] ${designListTab == category ?
                                                     'text-white bg-[#1BA56F] ' : 'text-[#1BA56F] bg-white '} border-[1px]
                                               !border-[#1BA56F]`}
                                             >{category}</a>
@@ -570,7 +570,7 @@ export default function Adjustments() {
                                                     <div className='my-2'>
                                                       
                                                         {Object.values(adjustmentData).map(item => {
-                                                            return <div className='flex items-start'>
+                                                            return <div className='flex items-start border-b-[1px] border-black mt-2'>
                                                                 <p className='mb-0 ml-4 mt-[4px] mr-2 flex items-center'>
                                                                     <img onClick={() => {
                                                                         setAdjustmentTab(item.english_adjustment_name)
@@ -599,7 +599,7 @@ export default function Adjustments() {
                                                             </div>
                                                         })}
                                                           {Object.values(itemsList).map(item => {
-                                                            return <div className='flex items-start'>
+                                                            return <div className='flex items-start border-b-[1px] border-black mt-2'>
                                                                 <p className='mb-0 ml-4 mt-[4px] mr-2 flex items-center'>
                                                                     <a onClick={() => { toggleDescription(item.category) }} href={`#${item.id}_design_list`}><img className='mr-2 w-[18px] cursor-pointer' src={EditIcon}></img></a>
                                                                     <ClearIcon onClick={() => removeItem(item.id, 'items')}
@@ -884,7 +884,7 @@ export default function Adjustments() {
                             <div className='font-Helvetica p-2 md:flex xs:block'>
                                 <div className='basis-[72%] md:px-8 px-8 xs:px-2 mt-4 py-4 border-r'>
                                     <p className='flex text-[18px] items-center pb-2 text-black' onClick={() => { window.location.href = '/dashboard' }}> <ArrowBackIcon style={{ width: '25px', marginRight: '10px' }} /> Back to dashboard </p>
-                                    <div className='pl-14 md:pl-14 xs:pl-2'>
+                                    <div className='lg:px-14 md:px-14 xs:px-2'>
                                         <h1 className='lg:text-[40px] text-[#000] md:text-[32px]'> Adjustments </h1>
                                         <p className='lg:text-[20px] mb-2 md:text-[16px] text-[#00000080]'> Here you can edit your brand and add items to your bundl! </p>
                                         <p className='lg:text-[32px] font-bold md:text-[24px]'>What would you like to edit ?</p>
@@ -965,7 +965,7 @@ export default function Adjustments() {
                                                     const element = document.getElementById(`${index}_list`);
                                                     element.scrollIntoView({ behavior: 'smooth' })
                                                 }
-                                                } className={`lg:px-[2px] min-w-[14%] md:px-[2px] md:py-[5px] 
+                                                } className={`cursor-pointer lg:px-[2px] min-w-[14%] md:px-[2px] md:py-[5px] 
                                                 md:text-[17px] lg:py-[5px] !font[500] text-center font-[500] ${designListTab == category ?
                                                         'text-white bg-[#1BA56F] ' : 'text-[#1BA56F] bg-white '} border-r border-t border-b
                                             ${index == 0 && 'border-l'} ${index == Object.keys(bundlAddons).length && 'border-l-0 border-r'} !border-[#1BA56F]`}
@@ -989,7 +989,7 @@ export default function Adjustments() {
                                                                         <span className='flex items-center w-[150px]'><img src={BlackDollor} className='mr-2'></img> {Math.round(item.price)} SAR </span>
                                                                         <span className='flex items-center w-[120px]'><AccessTimeIcon style={{ marginRight: '5px' }} /> {Math.round(item.time)} Days</span>
                                                                     </p>
-                                                                    <p className='mb-0 basis-[10%] h-[30px] text-[20px] md:text-[20px] xs:text-[16px] flex items-center text-[#1BA56F] border !border-[#1BA56F]'>
+                                                                    <p className='mb-0 lg:basis-[5%] md:basis-[5%] xs:basis-[10%] h-[30px] text-[20px] md:text-[20px] xs:text-[16px] flex items-center text-[#1BA56F] border !border-[#1BA56F]'>
                                                                         <button onClick={() => remove_item(item.id)} className='border-r !border-[#1BA56F] h-full flex items-center'><RemoveIcon /></button>
                                                                         <span className='px-2 !border-[#1BA56F]'> {item.id in itemsList ? itemsList[item.id]['qty'] : 0}</span>
                                                                         <button onClick={() => addItem(index, category, item.id)} className='flex items-center border-l !border-[#1BA56F] h-full'><AddIcon /></button>
@@ -1004,12 +1004,12 @@ export default function Adjustments() {
                                         </div>
                                     </div>
                                 </div>
-                                <div className='basis-[28%] px-3 mt-4 py-2'>
-                                    <p className='text-[18px] font-semibold'>Summary of Edits</p>
+                                <div className='basis-[28%]  mt-4 py-2'>
+                                    <p className='text-[18px] font-semibold px-3'>Summary of Edits</p>
 
                                     <div className='my-2'>
                                         {Object.values(itemsList).map(item => {
-                                            return <div className='flex items-start'>
+                                            return <div className='flex items-start border-b-[1px] border-black mt-2'>
                                                 <p className='mb-0 ml-4 mt-[4px] mr-2 flex items-center'>
                                                     <a onClick={() => { toggleDescription(item.category) }} href={`#${item.id}_design_list`}><img className='mr-2 w-[18px] cursor-pointer' src={EditIcon}></img></a>
                                                     <ClearIcon onClick={() => removeItem(item.id, 'items')}
@@ -1031,7 +1031,7 @@ export default function Adjustments() {
                                             </div>
                                         })}
                                         {Object.values(adjustmentData).map(item => {
-                                            return <div className='flex items-start'>
+                                            return <div className='flex items-start border-b-[1px] border-black mt-2'>
                                                 <p className='mb-0 ml-4 mt-[4px] mr-2 flex items-center'>
                                                     <img onClick={() => {
                                                         setAdjustmentTab(item.english_adjustment_name)

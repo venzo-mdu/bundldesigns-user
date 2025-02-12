@@ -48,6 +48,7 @@ export const Questionnaire1 = ({formData,setFormData}) => {
       try {
         if(location?.state?.orderId != undefined){
         const response = await axios.get(`${base_url}/api/questionnaire/update/${location.state.orderId}`, ConfigToken());
+        console.log(response)
         setFetchQ1Answers(response.data.data)
         }
       } catch (error) {
@@ -155,7 +156,6 @@ export const Questionnaire1 = ({formData,setFormData}) => {
   
     // Check in fetched answers
     const fetchedAnswer = fetchQ1Answers.find((answer) => answer.question_id === questionId)?.answer;
-  
     if (fetchedAnswer !== undefined && formValue === undefined) {
       setFormData((prevFormData) => ({
         ...prevFormData,
@@ -165,6 +165,48 @@ export const Questionnaire1 = ({formData,setFormData}) => {
   
     return fetchedAnswer ?? '';
   };
+
+
+  //   const formValue = formData?.[questionId];
+  
+  //   // Special handling for questionId 4
+  //   if (questionId === 4 || questionId === "4") {
+  //     if (formValue && typeof formValue === "object" && activeType) {
+  //       return formValue[activeType.toLowerCase()] || "";
+  //     }
+  
+  //     // Fetch the answer if not available in formData
+  //     const fetchedAnswer = fetchQ1Answers.find((answer) => answer.question_id === questionId)?.answer;
+  
+  //     if (fetchedAnswer && typeof fetchedAnswer === "object") {
+  //       setFormData((prevFormData) => ({
+  //         ...prevFormData,
+  //         [questionId]: { ...fetchedAnswer }, // Preserve object structure
+  //       }));
+  //       return fetchedAnswer[activeType?.toLowerCase()] || "";
+  //     }
+  
+  //     return "";
+  //   }
+  
+  //   // Handle other questions normally
+  //   if (formValue !== undefined) {
+  //     return formValue;
+  //   }
+  
+  //   // Check in fetched answers for non-object values
+  //   const fetchedAnswer = fetchQ1Answers.find((answer) => answer.question_id === questionId)?.answer;
+  
+  //   if (fetchedAnswer !== undefined && formValue === undefined) {
+  //     setFormData((prevFormData) => ({
+  //       ...prevFormData,
+  //       [questionId]: fetchedAnswer,
+  //     }));
+  //   }
+  
+  //   return fetchedAnswer ?? "";
+  // };
+  
   
 
   const validateFields = () => {
@@ -172,7 +214,7 @@ export const Questionnaire1 = ({formData,setFormData}) => {
     const unansweredRequiredQuestions = questions.filter((q) => {
       return (
         q.required && // Check if the question is marked as required
-        (!formData?.[q.id] || formData?.[q.id].trim() === "") // Check if there's no answer or only whitespace
+        (!formData?.[q.id] || (typeof formData[q.id] === "string" && formData[q.id].trim() === "")) // Check if there's no answer or only whitespace
       );
     });
   

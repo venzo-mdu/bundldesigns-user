@@ -72,12 +72,12 @@ export const Questionnaire4 = ({formData,setFormData}) => {
       setActiveButtons(currentAnswer[17])
       let currentColor = currentAnswer[18]
       if(currentColor =='suprise'){
-        currentColor ='rgb(255, 136, 136)'
+        currentColor ='rgb(255, 45, 45)'
       }
       const bgcolor = {
         'rgb(9, 50, 108)':'rgb(255, 98, 10)',
         'rgb(228, 222, 216)':'rgb(0, 0, 0)',
-        'rgb(255, 136, 136)':'rgb(221, 45, 45)'
+        'rgb(255, 45, 45)':'rgb(221, 124, 124)'
       }
       console.log(currentColor)
       setShadeBackgroundColor(currentColor === undefined ? 'rgb(228, 222, 216)':currentColor);
@@ -137,7 +137,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
 
 
   const handleColorClick = (color, questionId) => {
-    let updatedColors;
+    let updatedColors = [];
     const isHexCode = /^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/.test(color);
     if (!isHexCode && color !== "Surprise") {
       toast.error("Allows only HEX Code!", {
@@ -151,14 +151,15 @@ export const Questionnaire4 = ({formData,setFormData}) => {
         position: toast?.POSITION?.TOP_RIGHT,
       });
     }
+    let colorsArray = selectedColors || [];
     // If "Surprise" is selected, clear all other colors and set only "Surprise"
     if (color === "Surprise") {
       updatedColors = ["Surprise"];
     } else {
       // If any other color is selected, remove "Surprise" if it's in the list
-      updatedColors = selectedColors?.includes("Surprise")
-        ? selectedColors.filter(item => item !== "Surprise") // Remove "Surprise"
-        : selectedColors;
+      updatedColors = colorsArray?.includes("Surprise")
+        ? colorsArray.filter(item => item !== "Surprise") // Remove "Surprise"
+        : [...colorsArray];
   
       // Add the selected color if it's not already in the list
       if (!updatedColors?.includes(color)) {
@@ -381,7 +382,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                           </div>
                           <div className='button-shade-group'>
                             <img src={Color3}></img>
-                            <button className={shadeBackgroundColor === 'rgb(255, 136, 136)' && shadeType !== 'surprise' ? 'shade-btn-active' : 'shade-btn'} onClick={() => handleShadeButtonClick('rgb(255, 45, 45)','rgb(221, 136, 136)' ,'', question.id)}>ONE COLOR SHADES</button>
+                            <button className={shadeBackgroundColor === 'rgb(255, 45, 45)' && shadeType !== 'surprise' ? 'shade-btn-active' : 'shade-btn'} onClick={() => handleShadeButtonClick('rgb(255, 124, 124)','rgb(221, 45, 45)' ,'', question.id)}>ONE COLOR SHADES</button>
                           </div>
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
@@ -449,7 +450,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                           return (
                             <div
                               key={index}
-                              className="specific-color"
+                              className={`specific-color ${selectedColors?.includes(color)?'border-[1px] border-black':''}`}
                               style={{
                                 backgroundColor: `${colorCodes[index]}`,
                                 ...borderRadiusStyle,

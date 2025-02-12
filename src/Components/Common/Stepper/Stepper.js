@@ -53,7 +53,7 @@ export const Stepper = ({ pageNo ,formData, answersData , fillId }) => {
             translateXValues = [0, 340, 395, 575, 780];
         } else if (window.innerWidth <= 1705) {
             lineWidth = 250;
-            translateXValues = [0, 250, 480, 720, 960];
+            translateXValues = [0, 265, 510, 770, 1025];
         } else {
             lineWidth = 365;
             translateXValues = [0, 380, 750,1110 ,1470];

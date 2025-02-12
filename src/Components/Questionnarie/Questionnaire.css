@@ -1052,7 +1052,7 @@ input::placeholder {
         /* -2% */
     }
     .eyespoon2{
-        top: 68%;
+        top: 80%;
         z-index: 1;
     }
     .eyeball{
@@ -1100,23 +1100,23 @@ input::placeholder {
         font-size:16px ;
     }
     .female,.male{
-        height: 30px;
+        height: 40px;
     }
     .female-active,.male-active{
-        height: 30px;
+        height: 40px;
     }
     .product-btn,.service-btn{
-        height: 30px;
+        height: 40px;
         font-size: 14px;
         width: 100px;
     }
     .product-btn.active,.service-btn.active {
-    height: 30px;
+    height: 40px;
     font-size: 14px;
     width: 100px;
 }
     .female-active,.male-active ,.male:hover,.female:hover {
-        height: 30px;
+        height: 40px;
     }
     .female-buttons,.male-buttons{
         padding: 0 0%;
@@ -1213,19 +1213,19 @@ input::placeholder {
             opacity: 1;
         } */
         60%{
-            transform: translate(28%, -80%);
+            transform: translate(28%, -35%);
             opacity: 1;
         }
-        /* 60%{
-            transform: translate(28%, -65%);
-            opacity: 1;
-        } */
+        40%{
+            transform: translate(28%, -35%);
+            /* opacity: 1; */
+        }
         98%{
-            transform: translate(28%, -120%);
-            opacity: 1;
+            transform: translate(28%, -35%);
+            /* opacity: 1; */
         }
         100%{
-            transform: translate(28%, -120%);
+            transform: translate(28%, -35%);
             opacity:0;
         }
     }
@@ -1285,6 +1285,10 @@ input::placeholder {
     }
 }
 @media screen and (max-width:375px) {
+    .eyespoon2{
+        top: 75%;
+        z-index: 1;
+    }
     .questionnaire{
         padding: 15% 5%;
     }
@@ -1366,6 +1370,39 @@ input::placeholder {
     }
     .shade-bundl-text{
         font-size: 52px;
+    }
+    .miclady{
+        top:30%;
+        right: 0;
+        width: 32%;
+        z-index: -1;
+    }
+    @keyframes mirror{
+        0%{
+            transform: translate(28%, 3%);
+            opacity:0;
+        }
+        /* 20%{
+            animation-duration: 5s;
+            transform: translate(28%, -15%);
+            opacity: 1;
+        } */
+        60%{
+            transform: translate(28%, -35%);
+            opacity: 1;
+        }
+        40%{
+            transform: translate(28%, -35%);
+            /* opacity: 1; */
+        }
+        98%{
+            transform: translate(28%, -35%);
+            /* opacity: 1; */
+        }
+        100%{
+            transform: translate(28%, -35%);
+            opacity:0;
+        }
     }
 }
 

@@ -154,7 +154,7 @@ export default function UploadContent() {
 
                                                 {designQuestions[item.item__id]?.attachment && <><p className='font-[500] text-[20px]'>Have something to show us?</p>
                                                     <p
-                                                        className="border-b-2 w-[150px] !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer"
+                                                        className={`border-b-2 ${uploadContent?.[item?.id]?.filename ? 'w-[280px]':'w-[150px]'} !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer`}
                                                         onClick={() => document.getElementById(`file-${item.id}`).click()} // Trigger click on hidden input
                                                     >
                                                         <input
@@ -167,6 +167,10 @@ export default function UploadContent() {
                                                         <img src={uploadIcon} alt="Upload Icon" />
                                                         {uploadContent?.[item?.id]?.filename || 'Upload Content'}
                                                     </p></>}
+                                                    <p className='my-6 flex justify-center'> <button onClick={() => {
+                                                        setSkipId([...skipId, item.id])
+                                                    }} className='text-[#1BA56F] py-1 px-2 border !border-[#1BA56F] mr-2'>Skip For Now</button>
+                                                        <button onClick={() => saveContent(item.id)} className='text-white bg-[#1BA56F] py-1 px-2'>Save & Next</button></p>
                                             </div>
                                         }
                                     })}
@@ -236,7 +240,7 @@ export default function UploadContent() {
 
                                                     {designQuestions[item.item__id]?.attachment && <><p className='mb-0 font-[500] text-[20px]'>Have something to show us?</p>
                                                         <p
-                                                            className="border-b-2 w-[150px] !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer"
+                                                            className={`border-b-2 ${uploadContent?.[item?.id]?.filename ? 'w-[280px]':'w-[150px]'} !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer`}
                                                             onClick={() => document.getElementById(`file-${item.id}`).click()} // Trigger click on hidden input
                                                         >
                                                             <input
@@ -250,7 +254,7 @@ export default function UploadContent() {
                                                             {uploadContent?.[item?.id]?.filename || 'Upload Content'}
                                                         </p></>}
 
-                                                    <p className='my-6 flex justify-center'> <button onClick={() => {
+                                                    <p className='my-6 flex justify-start'> <button onClick={() => {
                                                         setSkipId([...skipId, item.id])
                                                     }} className='text-[#1BA56F] py-1 px-2 border !border-[#1BA56F] mr-2'>Skip For Now</button>
                                                         <button onClick={() => saveContent(item.id)} className='text-white bg-[#1BA56F] py-1 px-2'>Save & Next</button></p>
@@ -304,7 +308,7 @@ export default function UploadContent() {
                                             }
                                             <div className='border-b-[1px] border-black mt-4'></div>
                                             <p className='flex justify-center mt-4 mb-2 text-[#00000080] px-[5%]'> <button onClick={() => saveAllContent('submit')} className='text-[16px] px-4 border !border-[#00000080] font-medium w-full h-[35px]'>  Submit content </button> </p>
-                                            <p className='flex justify-center text-[#1BA56F] px-[5%]'> <button onClick={() => saveAllContent('save_later')} className='text-[16px] px-6 border !border-[#1BA56F] font-medium w-full h-[35px]'> Save for Later </button> </p>
+                                            <p className='flex justify-center text-[#1BA56F] px-[5%]'> <button onClick={() => saveAllContent('save_later')} className='text-[16px] px-4 border !border-[#1BA56F] font-medium w-full h-[35px]'> Save for Later </button> </p>
 
                                         </div>
                                     </div>
@@ -383,7 +387,7 @@ export default function UploadContent() {
 
                                                     {designQuestions[item.item__id]?.attachment && <><p>Have something to show us?</p>
                                                         <p
-                                                            className="border-b-2 w-[150px] !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer"
+                                                            className={`border-b-2 ${uploadContent?.[item?.id]?.filename ? 'w-[280px]':'w-[150px]'} !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer`}
                                                             onClick={() => document.getElementById(`file-${item.id}`).click()} // Trigger click on hidden input
                                                         >
                                                             <input
@@ -396,6 +400,10 @@ export default function UploadContent() {
                                                             <img src={uploadIcon} alt="Upload Icon" />
                                                             {uploadContent?.[item?.id]?.filename || 'Upload Content'}
                                                         </p></>}
+                                                        <p className='my-6 flex justify-start'> <button onClick={() => {
+                                                        setSkipId([...skipId, item.id])
+                                                    }} className='text-[#1BA56F] py-1 px-2 border !border-[#1BA56F] mr-2'>Skip For Now</button>
+                                                        <button onClick={() => saveContent(item.id)} className='text-white bg-[#1BA56F] py-1 px-2'>Save & Next</button></p>
                                                 </div>
                                             }
                                         })}
@@ -459,7 +467,7 @@ export default function UploadContent() {
 
                                                         {designQuestions[item.item__id]?.attachment && <><p className='mb-0'>Have something to show us?</p>
                                                             <p
-                                                                className="border-b-2 w-[150px] !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer"
+                                                                className={`border-b-2 ${uploadContent?.[item?.id]?.filename ? 'w-[280px]':'w-[150px]'} !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer`}
                                                                 onClick={() => document.getElementById(`file-${item.id}`).click()} // Trigger click on hidden input
                                                             >
                                                                 <input
@@ -520,8 +528,8 @@ export default function UploadContent() {
                                     </>
                                 }
 
-                                <p className='flex justify-center mt-4 mb-2 text-[#00000080]'> <button onClick={() => saveAllContent('submit')} className='text-[16px] px-4 border !border-[#00000080] font-medium'>  Submit content </button> </p>
-                                <p className='flex justify-center text-[#1BA56F]'> <button onClick={() => saveAllContent('save_later')} className='text-[16px] px-6 border !border-[#1BA56F] font-medium'> Save for Later </button> </p>
+                                <p className='flex justify-start mt-4 mb-2 text-[#00000080]'> <button onClick={() => saveAllContent('submit')} className='text-[16px] px-4 border !border-[#00000080] font-medium'>  Submit content </button> </p>
+                                <p className='flex justify-start text-[#1BA56F]'> <button onClick={() => saveAllContent('save_later')} className='text-[16px] px-[6.5%] border !border-[#1BA56F] font-medium'> Save for Later </button> </p>
 
                             </div>
                         </div>

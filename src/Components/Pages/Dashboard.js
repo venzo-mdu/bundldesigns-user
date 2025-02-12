@@ -40,6 +40,8 @@ const style = {
     border: '2px solid #000',
     boxShadow: 24,
     display: 'flex',
+    padding:'2% 5%',
+    flexDirection:'column'
 };
 export default function Dashboard() {
 
@@ -124,9 +126,15 @@ export default function Dashboard() {
                     setProcessIndex(1)
             }
             if (orderData.order_status == 'send_for_approval' || orderData.order_status == 'add_ons' || orderData.order_status == 'in_review' || orderData.order_status == 'completed' ) {
-                console.log(response.data.brand_item_management?.delivery_files, 'del')
-                const parts = response.data.brand_item_management?.delivery_files.length ? response.data.brand_item_management?.delivery_files[0].split('/') : null
-                parts && setBrandFile(parts[parts.length - 1])
+                console.log(response.data.order_items_managements[0]?.delivery_files, 'del')
+                // const parts = response.data.order_items_managements[0]?.delivery_files.length ? response.data.order_items_managements[0]?.delivery_files[0].split('/') : null
+                // parts && setBrandFile(parts[parts.length - 1])
+
+                const brandFiles = response.data.order_items_managements
+                .flatMap(item => item?.delivery_files || []) // Flatten the array and remove undefined/null
+                .map(file => file.split('/').pop()); // Get only the file name
+
+                setBrandFile(brandFiles);
             }
         }
     }
@@ -439,12 +447,12 @@ export default function Dashboard() {
                             </div>
 
                             {
-                                projects.length ? <div className=' border-black  py-16 lg:px-14 md:px-14 xs:px-2'>
+                                projects.length ? <div className=' border-black  py-16 lg:px-14 md:px-14 xs:px-0'>
                                     {
                                         window.innerWidth <=475 ?
                                         <p className='text-[#000000] opacity-[50%] text-[20px] font-[500] font-Helvetica px-[5%]'>My Bundls</p> 
                                         :
-                                        <h1 className='lg:text-[32px] md:text-[24px] flex mb-4 xs:px-5'>  <span className='mr-2'>{dashboardJson.second_title}</span> <img className='mr-2' src={ltIcon}></img>  <img src={gtIcon}></img> </h1>
+                                        <h1 className='lg:text-[32px] md:text-[24px] flex mb-4 xs:px-0'>  <span className='mr-2'>{dashboardJson.second_title}</span> <img className='mr-2' src={ltIcon}></img>  <img src={gtIcon}></img> </h1>
                                     }
 
                                     <p className='flex lg:overflow-auto md:overflow-auto xs:overflow-hidden mb-0'>
@@ -454,7 +462,7 @@ export default function Dashboard() {
                                         
                                             projects.map(project => 
                                             <button onClick={(e) => getOrderDetails(project.id)}
-                                                className={`py-1 px-4 min-w-[15%] max-w-[20%] border-[1.5px] !border-[#1BA56F] ${project.id == currentTab ? 'bg-[#1BA56F] text-white' : 'bg-white text-[#1BA56F]'}
+                                                className={`py-1 px-4 min-w-[15%] max-w-[20%] border-[2px] !border-[#1BA56F] ${project.id == currentTab ? 'bg-[#1BA56F] text-white' : 'bg-white text-[#1BA56F]'}
                                                     flex justify-around items-center border-r-0`}>
                                                 {projectToEdit === project.id ? (
                                                     <>
@@ -497,17 +505,17 @@ export default function Dashboard() {
                                             {processIndex + 1}/{dashboardJson.project_process.length} - {dashboardJson.project_process[processIndex]}
                                         </p>
                                     </div>)}
-                                    <div className='border-[1.5px] mt-0  lg:border-black md:border-black border-transparent py-2 px-6'>
-                                        <div className='flex items-center lg:w-[80%] w-[80%] md:w-[92%]  mx-auto lg:mt-10 md:mt-10 xs:mt-2 px-20 xs:w-[100%] xs:px-0'>{renderProcessData()}</div>
-                                        <div className='flex mb-12 lg:w-[80%] w-[80%] md:w-[92%] xs:w-[100%] m-auto'>
+                                    <div className='lg:border-[1.5px] md:border-[1.5px] xs:border-b-[1.5px] mt-0  lg:border-black md:border-black border-transparent py-2 lg:px-6 md:px-6 xs:px-0 xs:border-black'>
+                                        <div className='flex items-center lg:w-[78%] w-[80%] md:w-[89%]  mx-auto lg:mt-10 md:mt-10 xs:mt-2 px-20 xs:w-[100%] xs:px-0'>{renderProcessData()}</div>
+                                        <div className='flex mb-12 lg:w-[90%] w-[80%] md:w-[100%] xs:w-[100%] lg:m-auto md:m-0'>
                                             {window.innerWidth > 768 && dashboardJson.project_process.map((item, index) => {
-                                                return <div className='basis-1/5  text-center text-[16px]'>  <p className={`pb-0 lg:max-w-[60%] md:max-w-[95%] max-w-[95%] mx-auto mb-0 ${index == processIndex && 'font-bold'}`}> {item} </p>
+                                                return <div className='basis-1/5  text-center lg:text-[16px] md:text-[14px]'>  <p className={`pb-0 lg:max-w-[52%] md:max-w-[65%] max-w-[95%] mx-auto mb-0 ${index == processIndex && 'font-bold'}`}> {item} </p>
                                                     {index == processIndex && <p className='text-[#1BA56F] font-[700]'>You’re now Here!</p>}
                                                 </div>
                                             })}
                                         </div>
                                         <div className='my-4'>{renderContent()}</div>
-                                        <div className='lg:w-[80%] md:w-[80%] xs:w-[100%] lg:mx-auto md:mx-auto xs:mx-0'>
+                                        <div className='lg:w-[100%] md:w-[100%] xs:w-[100%] lg:px-[5%] md:px-[5%] xs:mx-0 xs:px-6'>
 
                                             {order && order.item_details && Array.isArray(order.item_details) && <>
                                             {order?.brand_identity && <>                                                <p className={`text-[22px] font-bold my-2 ${processIndex < 2 ? 'text-[#00000080]' : 'text-black'}`}>Brand & Visual Identity <span className='text-[#1BA56F] text-[18px] font-[500]'> -
@@ -637,6 +645,7 @@ export default function Dashboard() {
                             </div>
 
                         </div>
+                        {console.log(brandFile)}
                         <Modal
                             open={showPdf}
                             onClose={() => { setShowPdf(false) }}
@@ -644,11 +653,19 @@ export default function Dashboard() {
                             aria-describedby="modal-modal-description"
                         >
                             <Box sx={style}>
-                                <iframe
+                                Click here - 
+                                {/* <a className='ml-2' target='_blank' href={`${base_url}/api/download/${brandFile}`}>{brandFile}</a> */}
+                                {brandFile?.length > 0 && brandFile.map((file, index) => (
+                                    <a key={index} className="ml-2 underline cursor-pointer" target="_blank" rel="noopener noreferrer" href={`${base_url}/api/download/${file}`}>
+                                        {file}
+                                    </a>
+                                ))}
+
+                                {/* <iframe
                                     src={`${base_url}/api/view_pdf?file=${brandFile}#toolbar=0`}
                                     title="PDF Viewer"
                                     className="flex-grow w-full h-full border-none m-0 p-0"
-                                ></iframe>
+                                ></iframe> */}
                                 <p className='absolute right-[-30px]'>
                                     < ClearIcon onClick={() => { setShowPdf(false) }} style={{ color: 'white', fontSize: '30px', cursor: 'pointer' }} />
                                     <a
