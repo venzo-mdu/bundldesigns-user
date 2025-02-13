@@ -91,7 +91,7 @@ export default function UploadContent() {
                 {
                     window.innerWidth <= 475 ?
                         <div className='px-[4%] py-4 font-Helvetica'>
-                            <p onClick={() => window.location.href = "/dashboard"} className='flex font-[500] cursor-pointer !text-[20px] items-center text-black'> <img src={backIcon} className='mr-2 w-[30px]' ></img> Back to dashboard </p>
+                            <p onClick={() => window.location.href = "/dashboard"} className='flex font-[500] !text-[20px] items-center text-black cursor-pointer'> <img src={backIcon} className='mr-2 w-[30px]' ></img> Back to dashboard </p>
                             <div className='px-2'>
                                 <h3 className='my-4'> Upload Content </h3>
 
@@ -154,7 +154,7 @@ export default function UploadContent() {
 
                                                 {designQuestions[item.item__id]?.attachment && <><p className='font-[500] text-[20px]'>Have something to show us?</p>
                                                     <p
-                                                        className={`border-b-2 ${uploadContent?.[item?.id]?.filename ? 'w-[280px]':'w-[150px]'} !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer`}
+                                                        className={`border-b-2 ${uploadContent?.[item?.id]?.filename ? 'w-fit':'w-[150px]'} !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer`}
                                                         onClick={() => document.getElementById(`file-${item.id}`).click()} // Trigger click on hidden input
                                                     >
                                                         <input
@@ -240,7 +240,7 @@ export default function UploadContent() {
 
                                                     {designQuestions[item.item__id]?.attachment && <><p className='mb-0 font-[500] text-[20px]'>Have something to show us?</p>
                                                         <p
-                                                            className={`border-b-2 ${uploadContent?.[item?.id]?.filename ? 'w-[280px]':'w-[150px]'} !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer`}
+                                                            className={`border-b-2 ${uploadContent?.[item?.id]?.filename ? 'w-fit':'w-[150px]'} !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer`}
                                                             onClick={() => document.getElementById(`file-${item.id}`).click()} // Trigger click on hidden input
                                                         >
                                                             <input
@@ -322,16 +322,17 @@ export default function UploadContent() {
                             </div>
                         </div>
                         :
-                        <div className='font-Helvetica px-6 py-2 flex'>
-                            <div className='basis-3/4  !mt-[26px] border-r border-black'>
+                        <div className='font-Helvetica px-6  flex'>
+                            <div className='basis-3/4 border-r border-black py-4'>
                                 <p onClick={() => { window.location.href = '/dashboard' }} className='flex cursor-pointer text-[18px] items-center text-black'> <img src={backIcon} className='mr-2' ></img> Back to dashboard </p>
-                                <div className='mx-12'>
+                                <div className='mx-12 '>
                                     <h3 className='my-4'> Upload Content </h3>
 
                                     {order && <>
-                                        {order.item_details.bundle_items.map(item => {
-                                            if (item.item__category != 1) {
-                                                return <div className=" border-b !border-black space-x-2">
+                                        {order.item_details.bundle_items
+                                            .filter(item=>item.item__category !== 1)
+                                            .map((item,index,filterArr) => {
+                                                return <div className={`${filterArr.length === 1 || index === filterArr.length - 1 ? '' : 'border-b border-black'} space-x-2 mt-[2%]`}>
                                                     <p className="mb-0 font-semibold text-[22px">{item.item_name}</p>
                                                     {designQuestions[item.item__id]?.language && <p className='mt-2'>
                                                         <label className='mr-6 '>
@@ -387,7 +388,7 @@ export default function UploadContent() {
 
                                                     {designQuestions[item.item__id]?.attachment && <><p>Have something to show us?</p>
                                                         <p
-                                                            className={`border-b-2 ${uploadContent?.[item?.id]?.filename ? 'w-[280px]':'w-[150px]'} !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer`}
+                                                            className={`border-b-2 ${uploadContent?.[item?.id]?.filename ? 'w-fit':'w-[150px]'} !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer`}
                                                             onClick={() => document.getElementById(`file-${item.id}`).click()} // Trigger click on hidden input
                                                         >
                                                             <input
@@ -405,13 +406,14 @@ export default function UploadContent() {
                                                     }} className='text-[#1BA56F] py-1 px-2 border !border-[#1BA56F] mr-2'>Skip For Now</button>
                                                         <button onClick={() => saveContent(item.id)} className='text-white bg-[#1BA56F] py-1 px-2'>Save & Next</button></p>
                                                 </div>
-                                            }
                                         })}
                                         {
-                                            order.item_details.addon_items.map(item => {
-                                                if (!skipId.includes(item.id) && item.status == 'questionnaire required') {
-
-                                                    return <div className=" border-b !border-black space-x-2">
+                                            
+                                            order.item_details.addon_items
+                                            .filter(item => !skipId.includes(item.id) && item.status === 'questionnaire required')
+                                            .map((item,index,filteredArr) => {
+                                                          
+                                                    return <div className={`${( filteredArr.length === 1 || index === filteredArr.length)  ? '' : 'border-b !border-black'} space-x-2 mt-[2%]`}>
                                                         <p className="mb-0 font-semibold text-[22px">{item.item_name}</p>
                                                         {designQuestions[item.item__id]?.language && <p className='mt-2 mb-0'>
                                                             <label className='mr-6 '>
@@ -467,7 +469,7 @@ export default function UploadContent() {
 
                                                         {designQuestions[item.item__id]?.attachment && <><p className='mb-0'>Have something to show us?</p>
                                                             <p
-                                                                className={`border-b-2 ${uploadContent?.[item?.id]?.filename ? 'w-[280px]':'w-[150px]'} !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer`}
+                                                                className={`border-b-2 ${uploadContent?.[item?.id]?.filename ? 'w-fit':'w-[150px]'} !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer`}
                                                                 onClick={() => document.getElementById(`file-${item.id}`).click()} // Trigger click on hidden input
                                                             >
                                                                 <input
@@ -486,7 +488,6 @@ export default function UploadContent() {
                                                         }} className='text-[#1BA56F] py-1 px-2 border !border-[#1BA56F] mr-2'>Skip For Now</button>
                                                             <button onClick={() => saveContent(item.id)} className='text-white bg-[#1BA56F] py-1 px-2'>Save & Next</button></p>
                                                     </div>
-                                                }
 
                                             })
                                         }
@@ -496,7 +497,7 @@ export default function UploadContent() {
                                 </div>
 
                             </div>
-                            <div className='basis-1/4  !mt-[26px] my-2 px-2'>
+                            <div className='basis-1/4   my-2 px-2'>
 
                                 <h3 className='text-[22px] font-bold py-2'>Checklist</h3>
 
@@ -516,7 +517,7 @@ export default function UploadContent() {
                                         {
                                             order.item_details.addon_items.map(item => {
                                                 return <div className="flex items-center space-x-2 text-[#1BA56F]">
-                                                    <div className='w-[23px] flex justify-center'>
+                                                    <div className='flex justify-center'>
                                                         {item.status == 'questionnaire required' ?
                                                             <div className="w-4 h-4 border-2 border-[#1BA56F] rounded-full"></div> :
                                                             <img src={tickCircleIcon}></img>}

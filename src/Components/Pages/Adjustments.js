@@ -65,7 +65,32 @@ export default function Adjustments() {
 
     const stylesBtn = ["50%", "50%", "50%", "50%", "100%", "50%", "50%", "100%", "100%"];
 
-    const stylesBtnAccordian = ["50%", "50%", "50%", "50%", "50%", "50%", "100%"];
+    const stylesBtnAccordian = ["40%", "60%", "60%", "40%", "45%", "55%", "100%"];
+
+    const countries = [
+        "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", 
+        "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", 
+        "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei", "Bulgaria", 
+        "Burkina Faso", "Burundi", "Cabo Verde", "Cambodia", "Cameroon", "Canada", "Central African Republic", "Chad", 
+        "Chile", "China", "Colombia", "Comoros", "Congo (Congo-Brazzaville)", "Costa Rica", "Croatia", "Cuba", "Cyprus", 
+        "Czech Republic", "Democratic Republic of the Congo", "Denmark", "Djibouti", "Dominica", "Dominican Republic", 
+        "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Eswatini", "Ethiopia", "Fiji", 
+        "Finland", "France", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea", 
+        "Guinea-Bissau", "Guyana", "Haiti", "Honduras", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", 
+        "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Korea, North", "Korea, South", 
+        "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", 
+        "Luxembourg", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", 
+        "Mauritius", "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco", "Mozambique", 
+        "Myanmar (formerly Burma)", "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", "Nicaragua", "Niger", 
+        "Nigeria", "North Macedonia", "Norway", "Oman", "Pakistan", "Palau", "Panama", "Papua New Guinea", "Paraguay", 
+        "Peru", "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia", "Rwanda", "Saint Kitts and Nevis", 
+        "Saint Lucia", "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", 
+        "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", 
+        "Somalia", "South Africa", "South Sudan", "Spain", "Sri Lanka", "Sudan", "Suriname", "Sweden", "Switzerland", 
+        "Syria", "Taiwan", "Tajikistan", "Tanzania", "Thailand", "Timor-Leste", "Togo", "Tonga", "Trinidad and Tobago", 
+        "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", 
+        "United States", "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe"
+      ];
 
     useEffect(() => {
         getOrderDetails()
@@ -74,7 +99,13 @@ export default function Adjustments() {
 
 
     const handleBillingChange = (e) => {
+        
         const { name, value } = e.target;
+        if(name === 'country'){
+            let temptax = totalPrice * (value === 'Saudi Arabia'? 0.15 : 0)
+            console.log(temptax)
+            setTax(temptax)
+        }
         setBillingInfo({ ...billingInfo, [name]: value });
     };
 
@@ -192,7 +223,8 @@ export default function Adjustments() {
 
     const updateTotals = (items, adjustments) => {
         const { price, time } = calculateTotals(items, adjustments);
-        let temptax = price * 0.15
+        let temptax = price * (billingInfo.country === 'Saudi Arabia'? 0.15 : 0)
+        console.log(temptax,"tx")
         setTax(temptax)
         setTotalPrice(price);
         setTotalTime(time);
@@ -219,11 +251,15 @@ export default function Adjustments() {
 
     const addItem = (index, key, id) => {
         setItemList(prev => {
+            const current = prev[id] ?prev[id] : bundlAddons[key].design_list[index]
+            const currentTotal = 'qty' in current == false
+            ? parseFloat(current.price || 0)
+            : parseFloat(current.price || 0) + ((parseFloat(current.price || 0) / 100) * (current.price_increment || 0) * (current.qty));
             const updatedList = {
                 ...prev,
                 [id]: prev[id]
-                    ? { ...prev[id], qty: prev[id].qty + 1 }
-                    : { ...bundlAddons[key].design_list[index], qty: 1 },
+                    ? { ...prev[id], qty: prev[id].qty + 1 ,'total_price':currentTotal}
+                    : { ...bundlAddons[key].design_list[index], qty: 1,'total_price':currentTotal },
             };
             updateTotals(updatedList, adjustmentData);
             return updatedList;
@@ -400,7 +436,6 @@ export default function Adjustments() {
         });
     }
 
-
     return (
         <>
             <Navbar />
@@ -422,7 +457,7 @@ export default function Adjustments() {
                             />}
 
                             <div className='px-[5%] py-4'>
-                                <p className='flex text-[18px] items-center pb-2 text-black' onClick={() => { window.location.href = '/dashboard' }}> <ArrowBackIcon style={{ width: '25px', marginRight: '10px' }} /> Back to dashboard </p>
+                                <p className='flex text-[18px] items-center pb-2 text-black cursor-pointer' onClick={() => { window.location.href = '/dashboard' }}> <ArrowBackIcon style={{ width: '25px', marginRight: '10px' }} /> Back to dashboard </p>
                                 <div className=''>
                                     <h1 className='lg:text-[40px] text-[#000] md:text-[32px]'> Adjustments </h1>
                                     <p className='lg:text-[20px] mb-2 md:text-[16px] text-[#00000080]'> Here you can edit your brand and add items to your bundl! </p>
@@ -494,7 +529,7 @@ export default function Adjustments() {
                                             }
                                         })}
                                     </div>
-                                    <div className='mt-16'>
+                                    <div className='lg:mt-16 md:mt-16 xs:mt-8'>
                                         <h2 className='text-[24px] font-[700] font-Helvetica'>Something feels missing ?</h2>
                                         <p className='text-[18px] text-[#00000080]'>Add anything you want to your bundl to fit your brand!</p>
                                         <div className='flex flex-wrap w-[100%]'>  {Object.keys(bundlAddons).map((category, index) => {
@@ -614,7 +649,7 @@ export default function Adjustments() {
                                                                         </p>
                                                                         <p className='flex items-center'>
                                                                             <img width={'18px'} className='mr-[5px] h-[18px]' src={dollorIcon}></img>
-                                                                            <span>{item.price * item.qty} SAR</span>
+                                                                            <span>{item.total_price} SAR</span>
                                                                         </p>
                                                                     </div>
                                                                 </div>
@@ -765,7 +800,7 @@ export default function Adjustments() {
                                         <div>
                                             <div className='justify-between mr-4' style={{ display: 'flex' }}>
                                                 <p className='!text-[20px] ml-[6px]' style={{ width: '50%' }}><img src={BlackDollor} className='inline-block ml-[0px] mr-[18px]'></img>Total Price :</p>
-                                                <p className='!text-[20px] text-right' style={{ width: '40%' }}>{totalPrice} sar</p>
+                                                <p className='!text-[20px] text-right' style={{ width: '40%' }}>{totalPrice + tax} sar</p>
                                             </div>
                                             <div className='justify-between mr-4' style={{ display: 'flex' }}>
                                                 <p className='!text-[20px]' style={{ width: '66%' }}><AccessTimeIcon style={{ marginRight: '4px' }} /> Total Duration :</p>
@@ -824,12 +859,18 @@ export default function Adjustments() {
                                     <div className="country mb-[15px]">
                                         <div className='mr-[4%]'>
                                             <label className={`${'country' in error && 'text-[red]'}`}>Country <span className='text-[red]'>*</span></label>
-                                            <input
-                                                name="country"
-                                                value={billingInfo.country}
-                                                onChange={handleBillingChange}
-                                                className={`${'country' in error ? '!border-[red]' : ''}`}
-                                            />
+                                            <select 
+                                                name="country" 
+                                                // id='vacancySelect'
+                                                value={billingInfo.country|| null} 
+                                                onChange={handleBillingChange} 
+                                                className={`${'country' in error ? '!border-[red]' :''} border !border-black px-2 py-[5px] w-full`}
+                                            >
+                                            <option value={null} disabled selected > </option>
+                                                { countries.map(country=>(
+                                                    <option>{country}</option>
+                                                ))}
+                                            </select>
                                         </div>
                                         <div className='mr-[4%] ' style={{ margin: '0% 0 0 2%' }}>
                                             <label className={`${'city' in error && 'text-[red]'}`}>City<span className='text-[red]'>*</span></label>
@@ -881,9 +922,9 @@ export default function Adjustments() {
                                     cancel={'Cancel'}
                                 />
                             }
-                            <div className='font-Helvetica p-2 md:flex xs:block'>
-                                <div className='basis-[72%] md:px-8 px-8 xs:px-2 mt-4 py-4 border-r'>
-                                    <p className='flex text-[18px] items-center pb-2 text-black' onClick={() => { window.location.href = '/dashboard' }}> <ArrowBackIcon style={{ width: '25px', marginRight: '10px' }} /> Back to dashboard </p>
+                            <div className='font-Helvetica md:flex xs:block'>
+                                <div className='basis-[72%] md:px-8 px-8 xs:px-2  py-4 border-r-[1px] border-black'>
+                                    <p className='flex text-[18px] items-center pb-2 text-black cursor-pointer' onClick={() => { window.location.href = '/dashboard' }}> <ArrowBackIcon style={{ width: '25px', marginRight: '10px' }} /> Back to dashboard </p>
                                     <div className='lg:px-14 md:px-14 xs:px-2'>
                                         <h1 className='lg:text-[40px] text-[#000] md:text-[32px]'> Adjustments </h1>
                                         <p className='lg:text-[20px] mb-2 md:text-[16px] text-[#00000080]'> Here you can edit your brand and add items to your bundl! </p>
@@ -955,7 +996,7 @@ export default function Adjustments() {
                                                 }
                                             })}
                                         </div>
-                                        <div className='mt-16'>
+                                        <div className='lg:mt-16 md:mt-16 xs:mt-8'>
                                             <h2 className='text-[32px]'>Something feels missing ?</h2>
                                             <p className='text-[18px] text-[#00000080]'>Add anything you want to your bundl to fit your brand!</p>
                                             <div className='flex w-[100%]'>  {Object.keys(bundlAddons).map((category, index) => {
@@ -1024,7 +1065,7 @@ export default function Adjustments() {
                                                         </p>
                                                         <p className='flex items-center'>
                                                             <img width={'18px'} className='mr-[5px] h-[18px]' src={dollorIcon}></img>
-                                                            <span>{item.price * item.qty} SAR</span>
+                                                            <span>{item.total_price} SAR</span>
                                                         </p>
                                                     </div>
                                                 </div>
@@ -1145,7 +1186,7 @@ export default function Adjustments() {
                                         <div>
                                             <div className='justify-between mr-4' style={{ display: 'flex' }}>
                                                 <p className='!text-[20px] ml-[6px]' style={{ width: '50%' }}><img src={BlackDollor} className='inline-block ml-[0px] mr-[18px]'></img>Total Price :</p>
-                                                <p className='!text-[20px] text-right' style={{ width: '40%' }}>{totalPrice} sar</p>
+                                                <p className='!text-[20px] text-right' style={{ width: '40%' }}>{totalPrice + tax} sar</p>
                                             </div>
                                             <div className='justify-between mr-4' style={{ display: 'flex' }}>
                                                 <p className='!text-[20px]' style={{ width: '66%' }}><AccessTimeIcon style={{ marginRight: '4px' }} /> Total Duration :</p>
@@ -1204,12 +1245,18 @@ export default function Adjustments() {
                                     <div className="country mb-[15px]">
                                         <div className='mr-[4%]'>
                                             <label className={`${'country' in error && 'text-[red]'}`}>Country <span className='text-[red]'>*</span></label>
-                                            <input
-                                                name="country"
-                                                value={billingInfo.country}
-                                                onChange={handleBillingChange}
-                                                className={`${'country' in error ? '!border-[red]' : ''}`}
-                                            />
+                                            <select 
+                                                name="country" 
+                                                // id='vacancySelect'
+                                                value={billingInfo.country|| null} 
+                                                onChange={handleBillingChange} 
+                                                className={`${'country' in error ? '!border-[red]' :''} border !border-black px-2 py-[5px] w-full`}
+                                            >
+                                            <option value={null} disabled selected > </option>
+                                                { countries.map(country=>(
+                                                    <option>{country}</option>
+                                                ))}
+                                            </select>
                                         </div>
                                         <div className='mr-[4%] ' style={{ margin: '0% 0 0 2%' }}>
                                             <label className={`${'city' in error && 'text-[red]'}`}>City<span className='text-[red]'>*</span></label>
