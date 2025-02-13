@@ -81,7 +81,7 @@ export default function UploadContent() {
             },
         }));
     };
-
+console.log(skipId)
 
     return (
         loading ?
@@ -96,9 +96,11 @@ export default function UploadContent() {
                                 <h3 className='my-4'> Upload Content </h3>
 
                                 {order && <>
-                                    {order.item_details.bundle_items.map(item => {
-                                        if (item.item__category != 1) {
-                                            return <div className="mb-[5%]">
+                                    {order.item_details.bundle_items
+                                        .filter(item=>item.item__category !== 1 && !skipId?.includes(item.id))
+                                        .map((item,index,filterArr) => {
+                                            return <div className={`${( filterArr.length === 1 || index === filterArr.length -1)  ? '' : 'border-b !border-black'} space-x-2 mt-[2%]`}>
+                                            
                                                 <p className="mb-0 font-[700] text-[20px]">{item.item_name}</p>
                                                 {designQuestions[item.item__id]?.language && <p className='mt-2'>
                                                     <label className='mr-6 '>
@@ -167,18 +169,17 @@ export default function UploadContent() {
                                                         <img src={uploadIcon} alt="Upload Icon" />
                                                         {uploadContent?.[item?.id]?.filename || 'Upload Content'}
                                                     </p></>}
-                                                    <p className='my-6 flex justify-center'> <button onClick={() => {
+                                                    <p className='my-6 flex justify-center'> <button onClick={() => { 
                                                         setSkipId([...skipId, item.id])
                                                     }} className='text-[#1BA56F] py-1 px-2 border !border-[#1BA56F] mr-2'>Skip For Now</button>
                                                         <button onClick={() => saveContent(item.id)} className='text-white bg-[#1BA56F] py-1 px-2'>Save & Next</button></p>
                                             </div>
-                                        }
                                     })}
                                     {
-                                        order.item_details.addon_items.map(item => {
-                                            if (!skipId.includes(item.id) && item.status == 'questionnaire required') {
-
-                                                return <div className="">
+                                        order.item_details.addon_items
+                                        .filter(item=>!skipId.includes(item.id) && item.status == 'questionnaire required')
+                                        .map((item,index,filterArr) => {
+                                                return <div className={`${( filterArr.length === 1 || index === filterArr.length)  ? '' : 'border-b !border-black'} space-x-2 mt-[2%]`}>
                                                     <p className="mb-0 font-[700] text-[20px]">{item.item_name}</p>
                                                     {designQuestions[item.item__id]?.language && <p className='mt-2 mb-0'>
                                                         <label className='mr-6 '>
@@ -259,7 +260,6 @@ export default function UploadContent() {
                                                     }} className='text-[#1BA56F] py-1 px-2 border !border-[#1BA56F] mr-2'>Skip For Now</button>
                                                         <button onClick={() => saveContent(item.id)} className='text-white bg-[#1BA56F] py-1 px-2'>Save & Next</button></p>
                                                 </div>
-                                            }
 
                                         })
                                     }
@@ -330,7 +330,7 @@ export default function UploadContent() {
 
                                     {order && <>
                                         {order.item_details.bundle_items
-                                            .filter(item=>item.item__category !== 1)
+                                            .filter(item=>item.item__category !== 1 && !skipId?.includes(item.id))
                                             .map((item,index,filterArr) => {
                                                 return <div className={`${filterArr.length === 1 || index === filterArr.length - 1 ? '' : 'border-b border-black'} space-x-2 mt-[2%]`}>
                                                     <p className="mb-0 font-semibold text-[22px">{item.item_name}</p>

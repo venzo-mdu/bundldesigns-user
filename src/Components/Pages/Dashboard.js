@@ -501,7 +501,7 @@ export default function Dashboard() {
                                             ) :
                                             // id="websterSelect"
                                             <div className='xs:px-3'>
-                                            <select className='w-full h-[40px] text-[32px] font-[700] outline-none border-none ' onChange={(e)=>handleSelectChange(e)}>
+                                            <select className='w-[100%] h-[40px] text-[32px] font-[700] outline-none border-none ' onChange={(e)=>handleSelectChange(e)}>
                                                 {projects?.map((project, index) => (
                                                     <option className="text-[16px] font-[500]" key={index} value={project.id}>
                                                         {project.project_name}
@@ -513,7 +513,7 @@ export default function Dashboard() {
                                       }
                                         
                                        
-                                        <button onClick={() => { window.location.href = '/' }} className='lg:py-2 lg:px-2 lg:sticky lg:right-0 md:sticky md:right-0 flex bg-black text-white items-center lg:text-[32px] md:text-[24px] leading-[0px]  xs:text-[24px] xs:py-4 xs:px-4 xs:relative xs:left-[15%]'>+</button>
+                                        <button onClick={() => { window.location.href = '/' }} className='lg:py-2 lg:px-2 lg:sticky lg:right-0 md:sticky md:right-0 flex bg-black text-white items-center lg:text-[32px] md:text-[24px] leading-[0px]  xs:text-[24px] xs:py-4 xs:px-4 xs:relative xs:left-[0%]'>+</button>
                                     </p>
                                     {window.innerWidth<768 && (<div className='px-3 mt-2 font-Helvetica'>
                                         <p className='px-32text-[18px] font-[400] opacity-50'>
