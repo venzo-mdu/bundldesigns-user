@@ -46,6 +46,7 @@ const style = {
 export default function Dashboard() {
 
     const navigate = useNavigate();
+    const [currentUser , setCurrentUser] = useState([]);
     const [projectName, setProjectName] = useState('')
     const [projectToEdit, setProjectEdit] = useState(null)
     const [loading, setLoading] = useState(true)
@@ -68,7 +69,7 @@ export default function Dashboard() {
     const base_url = process.env.REACT_APP_BACKEND_URL
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
-    const purchase_id = queryParams.get('purchase', null);
+    let purchase_id = queryParams.get('purchase', null);
     const [purchasePopUp, setPurchasePopUp] = useState(purchased == 'done' ? true : false)
     const [showFull, setShowFull] = useState(false);
 
@@ -83,7 +84,7 @@ export default function Dashboard() {
     const getprojects = async (id = null) => {
         const response = await axios.get(`${base_url}/api/order/`, ConfigToken());
         if (purchase_id) {
-            checkPurchase()
+            checkPurchase();
         }
         if (response.data) {
             const resProjects = response.data.data.filter(item => item.order_status != 'in_cart')
@@ -350,7 +351,9 @@ export default function Dashboard() {
             const isLast = index === ProcessIndexDict.length - 1;
 
             // Common classes for the containers
-            const containerClasses = `flex relative mt-[3%] ${!isLast ? 'basis-1/5' : ''} items-start`;
+            // const containerClasses = `flex relative mt-[3%] ${!isLast ? 'basis-1/5' : ''} items-center`;
+            const containerClasses = `flex relative lg:left-[0px] md:left-[30px] xs:left-0 mt-[3%] ${!isLast ? 'lg:basis-[45%] md:basis-[20%]' : 'w-[75px]'} items-center`;
+
 
             // Determine the image and line styles based on process state
             let iconSrc = starIcon; // Default icon
@@ -365,7 +368,7 @@ export default function Dashboard() {
             }
             return (
                 <div className={containerClasses} key={index}>
-                    <img className='m-0' src={iconSrc} alt={`Process Icon ${index}`} />
+                    <img className={`m-0 absolute ${(isPreviousProcess || isCurrentProcess) ? (window.innerWidth<= 475 && isCurrentProcess) ?'top-[-20px] left-[-10px]':'top-[-25px] left-[-10px]':'top-[-10px] left-[-10px]'}`} src={iconSrc} alt={`Process Icon ${index}`} />
                     {!isLast && (
                         <div className="m-auto w-full">
                             <div className={`w-full ${lineClasses} ${lineBorderClass}`}></div>
@@ -403,8 +406,39 @@ export default function Dashboard() {
         return () => clearInterval(timer); // Cleanup on component unmount
     }, [counter]);
 
+    useEffect(() => {
+        const getAuthUser = async () => {
+          try {
+            const response = await axios.get(`${base_url}/api/profile/`, ConfigToken());
+            console.log(response.data);
+      
+            // Function to format the name
+            const formatName = (name) => {
+              return name
+                .split(' ') // Split the name by spaces
+                .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // Capitalize first letter of each word
+                .join(' '); // Join back into a single string
+            };
+      
+            // Format the full name before setting state
+            const formattedUser = {
+              ...response.data,
+              full_name: formatName(response.data?.full_name || "")
+            };
+      
+            setCurrentUser(formattedUser);
+          } catch (error) {
+            console.error("Error fetching user profile:", error);
+          }
+        };
+      
+        getAuthUser();
+      }, []); // Add dependencies if needed
+      
+
     const nameChange = async () => {
         const response = await axios.patch(`${base_url}/api/order-name/${projectToEdit}/`, { 'project_name': projectName }, ConfigToken());
+        purchase_id = null;
         getprojects(projectToEdit)
         setProjectEdit(null)
         setProjectName(null)
@@ -459,7 +493,7 @@ export default function Dashboard() {
                         }
                         <div className='font-Helvetica'>
                             <div className='text-center py-2 border-b border-black'>
-                                <h1 className='lg:text-[40px] text-[#000] md:text-[32px] xs:text-[32px] xs:font-[700] lg:mt-[2%] md:mt-[2%] xs:mt-[5%]'> {dashboardJson.main_title} </h1>
+                                <h1 className='lg:text-[40px] text-[#000] md:text-[32px] xs:text-[32px] xs:font-[700] lg:mt-[2%] md:mt-[2%] xs:mt-[5%]'> {dashboardJson.main_title} {currentUser?.full_name} ! </h1>
                                 <p className='lg:text-[20px] md:text-[16px] text-[#00000080] lg:block md:block xs:hidden sm:hidden'>{dashboardJson.title_content} </p>
                             </div>
 
@@ -523,7 +557,7 @@ export default function Dashboard() {
                                         </p>
                                     </div>)}
                                     <div className='lg:border-[1.5px] md:border-[1.5px] xs:border-b-[1.5px] mt-0  lg:border-black md:border-black border-transparent py-2 lg:px-6 md:px-6 xs:px-0 xs:border-black'>
-                                        <div className='flex items-center lg:w-[78%] w-[80%] md:w-[89%]  mx-auto lg:mt-10 md:mt-10 xs:mt-2 px-20 xs:w-[100%] xs:px-2'>{renderProcessData()}</div>
+                                        <div className='flex items-center lg:w-[78%] w-[80%] md:w-[95%]  lg:mx-auto md:mx-auto lg:mt-10 md:mt-10 xs:mt-2 lg:px-0 xs:w-[100%] xs:px-[0%] xs:ml-[5%]'>{renderProcessData()}</div>
                                         <div className='flex mb-12 lg:w-[90%] w-[80%] md:w-[100%] xs:w-[100%] lg:m-auto md:m-0'>
                                             {window.innerWidth > 768 && dashboardJson.project_process.map((item, index) => {
                                                 return <div className='basis-1/5  text-center lg:text-[16px] md:text-[14px] mt-[2%]'>  <p className={`pb-0 lg:max-w-[52%] md:max-w-[70%] max-w-[95%] mx-auto mb-0 ${index == processIndex && 'font-bold'}`}> {item} </p>
@@ -536,7 +570,7 @@ export default function Dashboard() {
 
                                             {order && order.item_details && Array.isArray(order.item_details) && <>
                                             {order?.brand_identity && <>                                                <p className={`lg:text-[22px] md:text-[22px] xs:text-[18px] font-bold my-2 ${processIndex < 2 ? 'text-[#00000080]' : 'text-black'}`}>Brand & Visual Identity <span className='text-[#1BA56F] lg:text-[18px] md:text-[18px] xs:text-[20px]  font-[500]'> -
-                                                    {processIndex < 2 ? ' ON HOLD' : processIndex >= 4 ? ' COMPLETE' : ' IN PROGRESS'}</span> </p>
+                                                    {processIndex < 2 ? processIndex === 1 ? ' IN PROGRESS':' ON HOLD' : processIndex >= 4 ? ' COMPLETE' : ' IN PROGRESS'}</span> </p>
                                                 <p className={`font-medium lg:text-[18px] md:text-[18px] xs:text-[16px] ${processIndex < 2 ? 'text-[#00000080]' : 'text-[#000]'}`}>{order?.brand_identity?.item_name} {processIndex >= 4 && <button className='bg-[#1BA56F] px-2 !py-0  text-[16px] ml-4 text-white font-[400]' onClick={() => { navigate('/adjustment', { state: { orderId: order.id, orderItemId: null } }) }}>Request Edits</button>} </p></>}
 
                                                 <p className={`text-[22px] ${processIndex < 4 && 'text-[#00000080]'} font-bold my-2`}>Applications

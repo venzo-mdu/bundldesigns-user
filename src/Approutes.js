@@ -1,5 +1,9 @@
-import { useEffect } from "react";
+import React from 'react'
+import axios from 'axios'
+import { ConfigToken } from '../src/Components/Auth/ConfigToken'
+import { useEffect, useState } from "react";
 import { Navigate, useLocation, useRoutes } from "react-router-dom";
+import { base_url } from '../src/Components/Auth/BackendAPIUrl'; 
 import { Home } from '../src/Components/Home/Home';
 import { Login } from '../src/Components/Auth/Login/Login';
 import { Signup } from "./Components/Auth/Signup/Signup";
@@ -28,8 +32,11 @@ const getCookie = (name) => {
 
 
 export default function AppRouter() {
+
+
   const token = getCookie("token");
-  const location = useLocation()
+  const location = useLocation();
+  const [user , setUser] = useState([]);
   const ProtectedRoute = ({ element }) => {
 
     const token = getCookie("token");
@@ -42,6 +49,35 @@ export default function AppRouter() {
       left: 0
     })
   },[token]);
+
+  useEffect(() => {
+    const getAuthUser = async () => {
+      try {
+        const response = await axios.get(`${base_url}/api/profile/`, ConfigToken());
+        console.log(response.data);
+  
+        // Function to format the name
+        const formatName = (name) => {
+          return name
+            .split(' ') // Split the name by spaces
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // Capitalize first letter of each word
+            .join(' '); // Join back into a single string
+        };
+  
+        // Format the full name before setting state
+        const formattedUser = {
+          ...response.data,
+          full_name: formatName(response.data?.full_name || "")
+        };
+  
+        setUser(formattedUser);
+      } catch (error) {
+        console.error("Error fetching user profile:", error);
+      }
+    };
+  
+    getAuthUser();
+  }, []);
   
 
   return useRoutes([
@@ -87,7 +123,7 @@ export default function AppRouter() {
     },
     {
       path:'/adjustment',
-      element:<ProtectedRoute element={<Adjustments />} />
+      element:<ProtectedRoute element={<Adjustments user={user}/>} />
     },
     {
       path:"/aboutus",

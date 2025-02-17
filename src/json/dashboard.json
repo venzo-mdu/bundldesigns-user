@@ -1,9 +1,9 @@
 {
     "english":{
-        "main_title": "Welcome  to your dashboard, Hala!",
+        "main_title": "Welcome  to your dashboard,",
         "title_content":"Here you’ll find all that you need about your bundles and much more.",
         "second_title":"My Bundls",
-        "project_process": ["Purchase bundl", "Fill Questionnaire","Desiging Brand",
+        "project_process": ["Purchase bundl", "Fill Questionnaire","Designing Brand",
         "Adjustment & Brand Approval","Add Ons" ,"Receive Designs"],
         "process_content":{
             "questionnaire":"Fill out questionnaire to continue the design process!",
@@ -30,10 +30,10 @@
         "review_google":"Review us on Google"
     },
     "arabic":{ 
-        "main_title": "Welcome  to your dashboard, Hala!",
+        "main_title": "Welcome  to your dashboard,",
         "title_content":"Here you’ll find all that you need about your bundles and much more.",
         "second_title":"My Bundls",
-        "project_process": ["Purchase bundl", "Fill Questionnaire","DDesiging Brand",
+        "project_process": ["Purchase bundl", "Fill Questionnaire","Designing Brand",
         "Adjustment & Brand Approval","Add Ons" ,"Receive Designs"],
         "process_content":{
             "questionnaire":"Fill out questionnaire to continue the design process!",

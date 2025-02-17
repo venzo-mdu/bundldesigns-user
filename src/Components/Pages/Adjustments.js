@@ -26,13 +26,15 @@ import CloseIcon from '@mui/icons-material/Close';
 
 
 
-export default function Adjustments() {
+export default function Adjustments({user}) {
     const { state } = useLocation();
     const { orderId, orderItemId } = state;
     const [page, setPage] = useState('adjustment')
     const navigate = useNavigate();
     const [itemId, setItemId] = useState()
-    const [adjustmentForm, setAdjustmentForm] = useState({ content: '', file_name: '' })
+    // const [adjustmentForm, setAdjustmentForm] = useState({ content: '', file_name: '' })
+    const [adjustmentForm, setAdjustmentForm] = useState([])
+
     const [openPopup, setOpenPopup] = useState(false)
     const [order, setOrder] = useState()
     const [errorMsg, setErrorMsg] = useState(null)
@@ -49,7 +51,7 @@ export default function Adjustments() {
     const [billingInfo, setBillingInfo] = useState({
         firstName: '',
         lastName: '',
-        email: '',
+        email: user?.email,
         phone: '',
         country: '',
         city: '',
@@ -436,6 +438,7 @@ export default function Adjustments() {
         });
     }
 
+    console.log(itemsList)
     return (
         <>
             <Navbar />
@@ -469,7 +472,7 @@ export default function Adjustments() {
                                      !border-[#1BA56F]`}
                                                     onClick={() => {
                                                         setAdjustmentTab(adjustment.english_adjustment_name)
-                                                        setAdjustmentForm({ content: null, file_name: null })
+                                                        // setAdjustmentForm({ content: null, file_name: null })
                                                     }}>{adjustment.english_adjustment_name}</button>
                                             })}
                                         </div>
@@ -494,15 +497,18 @@ export default function Adjustments() {
                                                     <p className='font-[700] text-[24px] font-Helvetica'>What would you like to change?</p>
                                                     <p ><input id={`${adjustment.id}_content`} onInput={(e) => {
                                                         setAdjustmentForm((prev) => ({
-                                                            ...prev,
-                                                            content: e.target.value
+                                                        ...prev,
+                                                        [adjustment.id]: {
+                                                            ...prev[adjustment.id], // Preserve existing properties
+                                                            content: e.target.value // Update content
+                                                        }
                                                         }));
                                                     }}
                                                         placeholder='Tell us your thoughts...'
-                                                        value={adjustmentForm.content ? adjustmentForm.content : ''}
+                                                        value={adjustmentForm?.[adjustment?.id]?.content ? adjustmentForm?.[adjustment?.id]?.content : ''}
                                                         className='border px-2 py-1 border-[#000000A0]  md:w-[80%] w-[80%] xs:w-[70%]'
                                                     ></input>
-                                                        <button onClick={() => addData(adjustment.id, index)} className='md:w-[20%] w-[20%] xs:w-[30%] py-1 bg-[#1BA56F] text-white '>Submit Edit</button></p>
+                                                        <button onClick={() => addData(adjustment.id, index)} className='md:w-[15%] lg:w-[15%] xs:w-[30%] py-1 bg-[#1BA56F] text-white '>Submit Edit</button></p>
                                                     <p className='font-medium text-[18px]'>Have something to show us?</p>
                                                     <p
                                                         className="border-b-2 w-[150px] !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer"
@@ -609,10 +615,10 @@ export default function Adjustments() {
                                                                 <p className='mb-0 ml-4 mt-[4px] mr-2 flex items-center'>
                                                                     <img onClick={() => {
                                                                         setAdjustmentTab(item.english_adjustment_name)
-                                                                        setAdjustmentForm({
-                                                                            content: item.content ? item.content : null,
-                                                                            file_name: item.file_name ? item.file_name : null
-                                                                        })
+                                                                        // setAdjustmentForm({
+                                                                        //     content: item.content ? item.content : null,
+                                                                        //     file_name: item.file_name ? item.file_name : null
+                                                                        // })
                                                                     }} className='mr-2 w-[18px] cursor-pointer' src={EditIcon}></img>
                                                                     <ClearIcon onClick={() => removeItem(item.id, 'adjustment')}
                                                                         style={{ marginRight: '5px', width: '18px', cursor: 'pointer' }} />
@@ -936,7 +942,7 @@ export default function Adjustments() {
                                     ${index == 0 && 'border-l'} ${index == adjustments.length && 'border-l-0 border-r'} !border-[#1BA56F]`}
                                                         onClick={() => {
                                                             setAdjustmentTab(adjustment.english_adjustment_name)
-                                                            setAdjustmentForm({ content: null, file_name: null })
+                                                            // setAdjustmentForm({ content: null, file_name: null })
                                                         }}>{adjustment.english_adjustment_name}</button>
                                                 })}
                                             </div>
@@ -961,12 +967,15 @@ export default function Adjustments() {
                                                         <p className='font-medium text-[18px]'>What would you like to change?</p>
                                                         <p ><input id={`${adjustment.id}_content`} onInput={(e) => {
                                                             setAdjustmentForm((prev) => ({
-                                                                ...prev,
-                                                                content: e.target.value
+                                                            ...prev,
+                                                            [adjustment.id]: {
+                                                                ...prev[adjustment.id], // Preserve existing properties
+                                                                content: e.target.value // Update content
+                                                            }
                                                             }));
                                                         }}
                                                             placeholder='Tell us your thoughts...'
-                                                            value={adjustmentForm.content ? adjustmentForm.content : ''}
+                                                            value={adjustmentForm?.[adjustment?.id]?.content ? adjustmentForm?.[adjustment?.id]?.content : ''}
                                                             className='border px-2 py-1 border-[#000000A0]  md:w-[80%] w-[80%] xs:w-[70%]'
                                                         ></input>
                                                             <button onClick={() => addData(adjustment.id, index)} className='md:w-[20%] w-[20%] xs:w-[30%] py-1 bg-[#1BA56F] text-white '>Submit Edit</button></p>
@@ -1076,10 +1085,10 @@ export default function Adjustments() {
                                                 <p className='mb-0 ml-4 mt-[4px] mr-2 flex items-center'>
                                                     <img onClick={() => {
                                                         setAdjustmentTab(item.english_adjustment_name)
-                                                        setAdjustmentForm({
-                                                            content: item.content ? item.content : null,
-                                                            file_name: item.file_name ? item.file_name : null
-                                                        })
+                                                        // setAdjustmentForm({
+                                                        //     content: item.content ? item.content : null,
+                                                        //     file_name: item.file_name ? item.file_name : null
+                                                        // })
                                                     }} className='mr-2 w-[18px] cursor-pointer' src={EditIcon}></img>
                                                     <ClearIcon onClick={() => removeItem(item.id, 'adjustment')}
                                                         style={{ marginRight: '5px', width: '18px', cursor: 'pointer' }} />
