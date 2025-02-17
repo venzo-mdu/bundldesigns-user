@@ -928,7 +928,7 @@ export default function Adjustments() {
                                     <div className='lg:px-14 md:px-14 xs:px-2'>
                                         <h1 className='lg:text-[40px] text-[#000] md:text-[32px]'> Adjustments </h1>
                                         <p className='lg:text-[20px] mb-2 md:text-[16px] text-[#00000080]'> Here you can edit your brand and add items to your bundl! </p>
-                                        <p className='lg:text-[32px] font-bold md:text-[24px]'>What would you like to edit ?</p>
+                                        <p className='lg:text-[32px] font-bold md:text-[24px] mt-[2%]'>What would you like to edit ?</p>
                                         <div className=''>
                                             <div className=' flex overflow-auto md:max-w-[62vw] max-w-[62vw] xs:max-w-[100%]'>
                                                 {adjustments.map((adjustment, index) => {
@@ -943,7 +943,7 @@ export default function Adjustments() {
 
                                             {adjustments.map((adjustment, index) => {
                                                 if (adjustment.english_adjustment_name == adjustmenTab) {
-                                                    return <div className='my-6'>
+                                                    return <div className='my-[5%]'>
                                                         <div className='flex justify-between my-1'>
                                                             <span className='font-bold'>{adjustment.english_adjustment_name}</span>
                                                             <p className='flex items-center text-[#1BA56F] !mb-2'>
@@ -1031,9 +1031,9 @@ export default function Adjustments() {
                                                                         <span className='flex items-center w-[120px]'><AccessTimeIcon style={{ marginRight: '5px' }} /> {Math.round(item.time)} Days</span>
                                                                     </p>
                                                                     <p className='mb-0 lg:basis-[5%] md:basis-[5%] xs:basis-[10%] h-[30px] text-[20px] md:text-[20px] xs:text-[16px] flex items-center text-[#1BA56F] border !border-[#1BA56F]'>
-                                                                        <button onClick={() => remove_item(item.id)} className='border-r !border-[#1BA56F] h-full flex items-center'><RemoveIcon /></button>
-                                                                        <span className='px-2 !border-[#1BA56F]'> {item.id in itemsList ? itemsList[item.id]['qty'] : 0}</span>
-                                                                        <button onClick={() => addItem(index, category, item.id)} className='flex items-center border-l !border-[#1BA56F] h-full'><AddIcon /></button>
+                                                                        <button onClick={() => remove_item(item.id)} className='border-r !border-[#1BA56F] h-full flex items-center md:w-[35px] md:pt-[1%] md:px-[5%]'><RemoveIcon /></button>
+                                                                        <span className='px-2 flex justify-center !border-[#1BA56F] md:w-[35px] md:pt-[1%] md:px-[5%]'> {item.id in itemsList ? itemsList[item.id]['qty'] : 0}</span>
+                                                                        <button onClick={() => addItem(index, category, item.id)} className='flex items-center border-l !border-[#1BA56F] h-full md:w-[35px] md:pt-[1%] md:px-[5%]'><AddIcon /></button>
                                                                     </p>
                                                                 </div>
                                                             })}
@@ -1115,7 +1115,7 @@ export default function Adjustments() {
                                         </div>
 
                                         <div >
-                                            <button onClick={() => CheckCart()} className=' w-[90%] m-auto py-1 mt-2 text-[18px] text-white bg-[#1BA56F]'>Proceed Checkout</button>
+                                            <button onClick={() => CheckCart()} className=' w-[90%]  py-1 lg:mt-[8%] md:mt-[12%] text-[18px] text-white bg-[#1BA56F] '>Proceed Checkout</button>
                                             {errorMsg && <p className='pb-0 text-[16px] text-[red]'>{errorMsg}*</p>}
                                         </div>
                                     </div>

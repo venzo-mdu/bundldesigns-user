@@ -248,7 +248,7 @@ export const Login = () => {
                   clientId:"com.bundldesigns.app.client", 
                   redirectURI: "https://bundldesigns.web.app/login",
                   scope: "email name",
-                  usePopup: true,
+                  usePopup: false,
                 }}
                 className={'lg:w-[50%] md:w-[50%] xs:w-[100%] !lg:text-[18px] !md:text-[18px] !xs:text-[14px]]'}
                 onSuccess={handleAppleLoginSuccess}

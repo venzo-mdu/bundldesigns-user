@@ -322,17 +322,17 @@ console.log(skipId)
                             </div>
                         </div>
                         :
-                        <div className='font-Helvetica px-6  flex'>
+                        <div className='font-Helvetica flex'>
                             <div className='basis-3/4 border-r border-black py-4'>
-                                <p onClick={() => { window.location.href = '/dashboard' }} className='flex cursor-pointer text-[18px] items-center text-black'> <img src={backIcon} className='mr-2' ></img> Back to dashboard </p>
-                                <div className='mx-12 '>
-                                    <h3 className='my-4'> Upload Content </h3>
+                                <p onClick={() => { window.location.href = '/dashboard' }} className='flex cursor-pointer text-[18px] items-center text-black px-4'> <img src={backIcon} className='mr-2' ></img> Back to dashboard </p>
+                                <div className=''>
+                                    <h3 className='my-4 px-[5%]'> Upload Content </h3>
 
                                     {order && <>
                                         {order.item_details.bundle_items
                                             .filter(item=>item.item__category !== 1 && !skipId?.includes(item.id))
                                             .map((item,index,filterArr) => {
-                                                return <div className={`${filterArr.length === 1 || index === filterArr.length - 1 ? '' : 'border-b border-black'} space-x-2 mt-[2%]`}>
+                                                return <div className={`${filterArr.length === 1 || index === filterArr.length - 1 ? '' : 'border-b border-black'} px-[5%] space-x-2 mt-[2%]`}>
                                                     <p className="mb-0 font-semibold text-[22px">{item.item_name}</p>
                                                     {designQuestions[item.item__id]?.language && <p className='mt-2'>
                                                         <label className='mr-6 '>
@@ -355,8 +355,8 @@ console.log(skipId)
                                                             />  Arabic  </label>
                                                     </p>}
 
-                                                    {designQuestions[item.item__id]?.content && <p className='flex w-[70%]'>
-                                                        <input placeholder='Slogan & Number....' value={uploadContent?.[item?.id]?.content || ''} onChange={(e) => handleChange(e, item.id, 'content')} className='border !border-black py-2 px-2 ' ></input><button className='bg-black flex text-[16px] items-center px-2 py-1 text-white'> <img className='mr-2' src={starIcon}></img> Suggest  Content </button>
+                                                    {designQuestions[item.item__id]?.content && <p className='flex lg:w-[70%] md:w-[90%]'>
+                                                        <input placeholder='Slogan & Number....' value={uploadContent?.[item?.id]?.content || ''} onChange={(e) => handleChange(e, item.id, 'content')} className='border !border-black py-2 px-2 w-full' ></input><button className='bg-black flex text-[16px] items-center px-2 py-1 text-white  lg:w-[25%] md:w-[30%]'> <img className='mr-2' src={starIcon}></img> Suggest  Content </button>
                                                     </p>}
                                                     {designQuestions[item.item__id]?.measurements && <>
                                                         <p>Measurements</p>
@@ -403,8 +403,8 @@ console.log(skipId)
                                                         </p></>}
                                                         <p className='my-6 flex justify-start'> <button onClick={() => {
                                                         setSkipId([...skipId, item.id])
-                                                    }} className='text-[#1BA56F] py-1 px-2 border !border-[#1BA56F] mr-2'>Skip For Now</button>
-                                                        <button onClick={() => saveContent(item.id)} className='text-white bg-[#1BA56F] py-1 px-2'>Save & Next</button></p>
+                                                    }} className='text-[#1BA56F] py-1 px-2 border !border-[#1BA56F] mr-2 text-[18px] font-[500]'>Skip For Now</button>
+                                                        <button onClick={() => saveContent(item.id)} className='text-white bg-[#1BA56F] py-1 px-2 text-[20px] font-[500]'>Save & Next</button></p>
                                                 </div>
                                         })}
                                         {
@@ -413,7 +413,7 @@ console.log(skipId)
                                             .filter(item => !skipId.includes(item.id) && item.status === 'questionnaire required')
                                             .map((item,index,filteredArr) => {
                                                           
-                                                    return <div className={`${( filteredArr.length === 1 || index === filteredArr.length)  ? '' : 'border-b !border-black'} space-x-2 mt-[2%]`}>
+                                                    return <div className={`${( filteredArr.length === 1 || index === filteredArr.length)  ? '' : 'border-b !border-black'} px-[5%] space-x-2 mt-[2%]`}>
                                                         <p className="mb-0 font-semibold text-[22px">{item.item_name}</p>
                                                         {designQuestions[item.item__id]?.language && <p className='mt-2 mb-0'>
                                                             <label className='mr-6 '>
@@ -436,8 +436,8 @@ console.log(skipId)
                                                                 />  Arabic  </label>
                                                         </p>}
 
-                                                        {designQuestions[item.item__id]?.content && <p className='flex w-[70%] mt-2'>
-                                                            <input placeholder='Slogan & Number....' value={uploadContent?.[item?.id]?.content || ''} onChange={(e) => handleChange(e, item.id, 'content')} className='border !border-black py-2 px-2 ' ></input><button className='bg-black flex text-[16px] items-center px-2 py-1 text-white'> <img className='mr-2' src={starIcon}></img> Suggest  Content </button>
+                                                        {designQuestions[item.item__id]?.content && <p className='flex lg:w-[70%] md:w-[90%] mt-2'>
+                                                            <input placeholder='Slogan & Number....' value={uploadContent?.[item?.id]?.content || ''} onChange={(e) => handleChange(e, item.id, 'content')} className='border !border-black py-2 px-2 ' ></input><button className='bg-black flex text-[16px] items-center px-2 py-1 text-white lg:w-[25%] md:w-[30%]'> <img className='mr-2' src={starIcon}></img> Suggest  Content </button>
                                                         </p>}
                                                         {designQuestions[item.item__id]?.measurement && <>
                                                             <p className='mb-0'>Measurements</p>
@@ -485,8 +485,8 @@ console.log(skipId)
 
                                                         <p className='my-6'> <button onClick={() => {
                                                             setSkipId([...skipId, item.id])
-                                                        }} className='text-[#1BA56F] py-1 px-2 border !border-[#1BA56F] mr-2'>Skip For Now</button>
-                                                            <button onClick={() => saveContent(item.id)} className='text-white bg-[#1BA56F] py-1 px-2'>Save & Next</button></p>
+                                                        }} className='text-[#1BA56F] py-1 px-2 border !border-[#1BA56F] mr-2 text-[18px] font-[500]'>Skip For Now</button>
+                                                            <button onClick={() => saveContent(item.id)} className='text-white bg-[#1BA56F] py-1 px-2 text-[20px] font-[500]'>Save & Next</button></p>
                                                     </div>
 
                                             })

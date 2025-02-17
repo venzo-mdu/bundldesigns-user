@@ -350,7 +350,7 @@ export default function Dashboard() {
             const isLast = index === ProcessIndexDict.length - 1;
 
             // Common classes for the containers
-            const containerClasses = `flex ${!isLast ? 'basis-1/5' : ''} items-start`;
+            const containerClasses = `flex relative mt-[3%] ${!isLast ? 'basis-1/5' : ''} items-start`;
 
             // Determine the image and line styles based on process state
             let iconSrc = starIcon; // Default icon
@@ -375,6 +375,8 @@ export default function Dashboard() {
             );
         })
     }
+
+    
     useEffect(() => {
         // Wait for 2 seconds, then hide the loader
         if (purchase_id) {
@@ -524,7 +526,7 @@ export default function Dashboard() {
                                         <div className='flex items-center lg:w-[78%] w-[80%] md:w-[89%]  mx-auto lg:mt-10 md:mt-10 xs:mt-2 px-20 xs:w-[100%] xs:px-2'>{renderProcessData()}</div>
                                         <div className='flex mb-12 lg:w-[90%] w-[80%] md:w-[100%] xs:w-[100%] lg:m-auto md:m-0'>
                                             {window.innerWidth > 768 && dashboardJson.project_process.map((item, index) => {
-                                                return <div className='basis-1/5  text-center lg:text-[16px] md:text-[14px]'>  <p className={`pb-0 lg:max-w-[52%] md:max-w-[65%] max-w-[95%] mx-auto mb-0 ${index == processIndex && 'font-bold'}`}> {item} </p>
+                                                return <div className='basis-1/5  text-center lg:text-[16px] md:text-[14px] mt-[2%]'>  <p className={`pb-0 lg:max-w-[52%] md:max-w-[70%] max-w-[95%] mx-auto mb-0 ${index == processIndex && 'font-bold'}`}> {item} </p>
                                                     {index == processIndex && <p className='text-[#1BA56F] font-[700]'>You’re now Here!</p>}
                                                 </div>
                                             })}
@@ -533,9 +535,9 @@ export default function Dashboard() {
                                         <div className='lg:w-[100%] md:w-[100%] xs:w-[100%] lg:px-[5%] md:px-[5%] xs:mx-0 xs:px-6'>
 
                                             {order && order.item_details && Array.isArray(order.item_details) && <>
-                                            {order?.brand_identity && <>                                                <p className={`lg:text-[22px] md:text-[22px] xs:text-[18px] font-bold my-2 ${processIndex < 2 ? 'text-[#000000]' : 'text-black'}`}>Brand & Visual Identity <span className='text-[#1BA56F] lg:text-[18px] md:text-[18px] xs:text-[20px]  font-[500]'> -
+                                            {order?.brand_identity && <>                                                <p className={`lg:text-[22px] md:text-[22px] xs:text-[18px] font-bold my-2 ${processIndex < 2 ? 'text-[#00000080]' : 'text-black'}`}>Brand & Visual Identity <span className='text-[#1BA56F] lg:text-[18px] md:text-[18px] xs:text-[20px]  font-[500]'> -
                                                     {processIndex < 2 ? ' ON HOLD' : processIndex >= 4 ? ' COMPLETE' : ' IN PROGRESS'}</span> </p>
-                                                <p className={`font-medium lg:text-[18px] md:text-[18px] xs:text-[16px] ${processIndex < 2 ? 'text-[#00000000]' : 'text-[#000]'}`}>{order?.brand_identity?.item_name} {processIndex >= 4 && <button className='bg-[#1BA56F] px-2 !py-0  text-[16px] ml-4 text-white font-[400]' onClick={() => { navigate('/adjustment', { state: { orderId: order.id, orderItemId: null } }) }}>Request Edits</button>} </p></>}
+                                                <p className={`font-medium lg:text-[18px] md:text-[18px] xs:text-[16px] ${processIndex < 2 ? 'text-[#00000080]' : 'text-[#000]'}`}>{order?.brand_identity?.item_name} {processIndex >= 4 && <button className='bg-[#1BA56F] px-2 !py-0  text-[16px] ml-4 text-white font-[400]' onClick={() => { navigate('/adjustment', { state: { orderId: order.id, orderItemId: null } }) }}>Request Edits</button>} </p></>}
 
                                                 <p className={`text-[22px] ${processIndex < 4 && 'text-[#00000080]'} font-bold my-2`}>Applications
 
