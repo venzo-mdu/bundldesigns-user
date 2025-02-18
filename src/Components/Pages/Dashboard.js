@@ -379,6 +379,8 @@ export default function Dashboard() {
         })
     }
 
+  
+    
     
     useEffect(() => {
         // Wait for 2 seconds, then hide the loader
@@ -513,7 +515,7 @@ export default function Dashboard() {
                                         
                                             projects.map(project => 
                                             <button onClick={(e) => getOrderDetails(project.id)}
-                                                className={`py-1 px-4 min-w-[15%] max-w-[20%] border-[2px] !border-[#1BA56F] ${project.id == currentTab ? 'bg-[#1BA56F] text-white' : 'bg-white text-[#1BA56F]'}
+                                                className={`py-1 px-4 min-w-fit border-[2px] !border-[#1BA56F] ${project.id == currentTab ? 'bg-[#1BA56F] text-white' : 'bg-white text-[#1BA56F]'}
                                                     flex justify-around items-center border-r-0`}>
                                                 {projectToEdit === project.id ? (
                                                     <>
@@ -562,9 +564,9 @@ export default function Dashboard() {
                                     </div>)}
                                     <div className='lg:border-[1.5px] md:border-[1.5px] xs:border-b-[1.5px] mt-0  lg:border-black md:border-black border-transparent py-2 lg:px-6 md:px-6 xs:px-0 xs:border-black'>
                                         <div className='flex items-center lg:w-[78%] w-[80%] md:w-[95%]  lg:mx-auto md:mx-auto lg:mt-10 md:mt-10 xs:mt-2 lg:px-0 xs:w-[100%] xs:px-[5%] xs:ml-[5%]'>{renderProcessData()}</div>
-                                        <div className='flex mb-12 lg:w-[90%] w-[80%] md:w-[100%] xs:w-[100%] lg:m-auto md:m-0'>
+                                        <div className='flex md:p-[15px_15px_0px_35px] mb-12 lg:w-[90%] w-[80%] md:w-[100%] xs:w-[100%] lg:m-auto md:m-0'>
                                             {window.innerWidth > 768 && dashboardJson.project_process.map((item, index) => {
-                                                return <div className='basis-1/5  text-center lg:text-[16px] md:text-[14px] mt-[2%]'>  <p className={`pb-0 lg:max-w-[52%] md:max-w-[70%] max-w-[95%] mx-auto mb-0 ${index == processIndex && 'font-bold'}`}> {item} </p>
+                                                return <div className='lg:basis-[45%] md:basis-[20%] xs:basis-1/5 text-center lg:text-[16px] md:text-[14px] mt-[2%]'>  <p className={`pb-0 lg:max-w-[52%] md:max-w-[70%] max-w-[95%] mx-auto mb-0 ${index == processIndex && 'font-bold'}`}> {item} </p>
                                                     {index == processIndex && <p className='text-[#1BA56F] font-[700]'>You’re now Here!</p>}
                                                 </div>
                                             })}

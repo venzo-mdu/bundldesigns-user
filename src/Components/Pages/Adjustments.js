@@ -278,7 +278,7 @@ export default function Adjustments({user}) {
     }
 
     const removeItem = (id, type) => {
-
+      console.log(id,type)
         if (type == 'adjustment') {
             delete adjustmentData[id]
             setAdjustmentsData(adjustmentData)
@@ -632,7 +632,7 @@ export default function Adjustments({user}) {
                                                                         </p>
                                                                         <p className='flex items-center'>
                                                                             <img width={'18px'} className='mr-[5px] h-[18px]' src={dollorIcon}></img>
-                                                                            <span>{item.price} SAR</span>
+                                                                            <span>{Math.round(item.price)} SAR</span>
                                                                         </p>
                                                                     </div>
                                                                 </div>
@@ -732,7 +732,7 @@ export default function Adjustments({user}) {
                                                     <div className='font-[700] text-[20px]'>{'1'} x {row.english_adjustment_name}</div>
                                                     <div className='font-[500] ml-8'> {Math.round(row.price)} SAR</div>
                                                 </div>
-                                                <p className='flex items-center !mb-0 justify-center'><img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'adjustments')} /></p>
+                                                <p className='flex items-center !mb-0 justify-center'><img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'adjustment')} /></p>
                                             </div>
                                         ))}
                                         {(Object.values(itemsList))?.map((row, index) => (
@@ -767,7 +767,7 @@ export default function Adjustments({user}) {
                                                             {row.english_adjustment_name}
                                                         </td>
                                                         <td className=' !py-2' align="center">1</td>
-                                                        <td className=' !py-2' align="center">{row.price}</td>
+                                                        <td className=' !py-2' align="center">{Math.round(row.price)}</td>
                                                         <td align="center">
                                                             <p className='flex items-center !mb-0 justify-center'><img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'adjustment')} /></p>
                                                         </td>
@@ -784,7 +784,7 @@ export default function Adjustments({user}) {
                                                             {row.name_english}
                                                         </td>
                                                         <td className=' !py-2' align="center">{row.qty}</td>
-                                                        <td className=' !py-2' align="center" scope="row">{row.price}</td>
+                                                        <td className=' !py-2' align="center" scope="row">{Math.round(row.price)}</td>
                                                         {/* <TableCell align="center"><img style={{width:'23px'}} src={row.DeleteIcon}></img></TableCell> */}
                                                         <td className=' !py-2' align="center" scope="row">
                                                             <p className='flex items-center !mb-0 justify-center'> <img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'items')} /></p>
@@ -1102,7 +1102,7 @@ export default function Adjustments({user}) {
                                                         </p>
                                                         <p className='flex items-center'>
                                                             <img width={'18px'} className='mr-[5px] h-[18px]' src={dollorIcon}></img>
-                                                            <span>{item.price} SAR</span>
+                                                            <span>{Math.round(item.price)} SAR</span>
                                                         </p>
                                                     </div>
                                                 </div>
@@ -1157,7 +1157,7 @@ export default function Adjustments({user}) {
                                                         {row.english_adjustment_name}
                                                     </td>
                                                     <td className=' !py-2' align="center">1</td>
-                                                    <td className=' !py-2' align="center">{row.price}</td>
+                                                    <td className=' !py-2' align="center">{Math.round(row.price)}</td>
                                                     <td align="center">
                                                         <p className='flex items-center !mb-0 justify-center'><img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'adjustment')} /></p>
                                                     </td>
@@ -1174,7 +1174,7 @@ export default function Adjustments({user}) {
                                                         {row.name_english}
                                                     </td>
                                                     <td className=' !py-2' align="center">{row.qty}</td>
-                                                    <td className=' !py-2' align="center" scope="row">{row.price}</td>
+                                                    <td className=' !py-2' align="center" scope="row">{Math.round(row.price)}</td>
                                                     {/* <TableCell align="center"><img style={{width:'23px'}} src={row.DeleteIcon}></img></TableCell> */}
                                                     <td className=' !py-2' align="center" scope="row">
                                                         <p className='flex items-center !mb-0 justify-center'> <img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'items')} /></p>
