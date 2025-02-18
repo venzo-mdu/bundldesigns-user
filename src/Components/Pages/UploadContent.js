@@ -129,7 +129,7 @@ console.log(skipId)
                                                 </p>}
 
                                                 {designQuestions[item.item__id]?.content && <p className='w-[100%]'>
-                                                    <input placeholder='Slogan & Number....' value={uploadContent?.[item?.id]?.content || ''} onChange={(e) => handleChange(e, item.id, 'content')} className='border !border-black h-[55px] w-full py-2 px-2 rounded-[5px]' ></input>
+                                                    <input placeholder='Slogan & Number....' value={uploadContent?.[item?.id]?.content || ''} onChange={(e) => handleChange(e, item.id, 'content')} className='border !border-black h-[55px] w-full py-2 px-2 rounded-[5px] ' ></input>
                                                 </p>}
                                                 {designQuestions[item.item__id]?.measurements && <>
                                                     <p>Measurements</p>
@@ -361,8 +361,8 @@ console.log(skipId)
                                                     </p>}
 
                                                     {designQuestions[item.item__id]?.content && <p className='flex lg:w-[70%] md:w-[90%]'>
-                                                        <input placeholder='Slogan & Number....' value={uploadContent?.[item?.id]?.content || ''} onChange={(e) => handleChange(e, item.id, 'content')} className='border !border-black py-2 px-2 w-full rounded-[5px]' ></input><button className='bg-black flex text-[16px] items-center px-2 py-1 text-white  lg:w-[25%] md:w-[30%]'> <img className='mr-2' src={starIcon}></img> Suggest  Content </button>
-                                                    </p>}
+                                                        <input placeholder='Slogan & Number....' value={uploadContent?.[item?.id]?.content || ''} onChange={(e) => handleChange(e, item.id, 'content')} className='border !border-black py-2 px-2 w-full rounded-none ' ></input>
+                                                        </p>}
                                                     {designQuestions[item.item__id]?.measurements && <>
                                                         <p>Measurements</p>
                                                         <p>
@@ -442,7 +442,7 @@ console.log(skipId)
                                                         </p>}
 
                                                         {designQuestions[item.item__id]?.content && <p className='flex lg:w-[70%] md:w-[90%] mt-2'>
-                                                            <input placeholder='Slogan & Number....' value={uploadContent?.[item?.id]?.content || ''} onChange={(e) => handleChange(e, item.id, 'content')} className='border !border-black py-2 px-2 w-full rounded-[5px]' ></input><button className='bg-black flex text-[16px] items-center px-2 py-1 text-white lg:w-[25%] md:w-[30%]'> <img className='mr-2' src={starIcon}></img> Suggest  Content </button>
+                                                            <input placeholder='Slogan & Number....' value={uploadContent?.[item?.id]?.content || ''} onChange={(e) => handleChange(e, item.id, 'content')} className='border !border-black py-2 px-2 w-full rounded-none' ></input>
                                                         </p>}
                                                         {designQuestions[item.item__id]?.measurement && <>
                                                             <p className='mb-0'>Measurements</p>
