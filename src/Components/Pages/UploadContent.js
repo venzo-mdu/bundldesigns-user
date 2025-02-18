@@ -70,7 +70,12 @@ export default function UploadContent() {
 
     console.log(JSON.stringify(uploadContent), 'uppp')
     const handleChange = (e, id, field) => {
-        const newValue = field === 'file' ? e.target.files[0] : e.target.value;
+        console.log(e)
+        let newValue = field === 'file' ? e.target.files[0] : e.target.value;
+
+        if (field === 'height' || field === 'length' || field === 'width') {
+            newValue = newValue.replace(/[^0-9]/g, ''); // Allow only digits
+        }
 
         setUploadContent((prev) => ({
             ...prev,
@@ -124,7 +129,7 @@ console.log(skipId)
                                                 </p>}
 
                                                 {designQuestions[item.item__id]?.content && <p className='w-[100%]'>
-                                                    <input placeholder='Slogan & Number....' value={uploadContent?.[item?.id]?.content || ''} onChange={(e) => handleChange(e, item.id, 'content')} className='border !border-black h-[55px] w-full py-2 px-2' ></input>
+                                                    <input placeholder='Slogan & Number....' value={uploadContent?.[item?.id]?.content || ''} onChange={(e) => handleChange(e, item.id, 'content')} className='border !border-black h-[55px] w-full py-2 px-2 rounded-[5px]' ></input>
                                                 </p>}
                                                 {designQuestions[item.item__id]?.measurements && <>
                                                     <p>Measurements</p>
@@ -147,9 +152,9 @@ console.log(skipId)
                                                             />  Customize  </label>
 
                                                         {uploadContent[item.id]?.measurements === "Customize" && <>
-                                                            <label className='text-[#1BA56F] mr-2'> width : <input type='number' min='0' onChange={(e) => handleChange(e, item.id, 'width')} value={uploadContent?.[item?.id]?.width || ''} className='w-[50px] border !border-[#1BA56F]'></input></label>
-                                                            <label className='text-[#1BA56F] mr-2'> height : <input type='number' min='0' onChange={(e) => handleChange(e, item.id, 'height')} value={uploadContent?.[item?.id]?.height || ''} className='w-[50px] border !border-[#1BA56F]'></input></label>
-                                                            <label className='text-[#1BA56F] mr-2'> length : <input type='number' min='0' onChange={(e) => handleChange(e, item.id, 'length')} value={uploadContent?.[item?.id]?.length || ''} className='w-[50px] border !border-[#1BA56F]'></input></label>
+                                                            <label className='text-[#1BA56F] mr-2'> width : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'width')} value={uploadContent?.[item?.id]?.width || ''} className='w-[50px] border !border-[#1BA56F]'></input></label>
+                                                            <label className='text-[#1BA56F] mr-2'> height : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'height')} value={uploadContent?.[item?.id]?.height || ''} className='w-[50px] border !border-[#1BA56F]'></input></label>
+                                                            <label className='text-[#1BA56F] mr-2'> length : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'length')} value={uploadContent?.[item?.id]?.length || ''} className='w-[50px] border !border-[#1BA56F]'></input></label>
                                                             <span className='text-[#1BA56F] mr-2'> CM </span> </>}
                                                     </p>
                                                 </>}
@@ -203,7 +208,7 @@ console.log(skipId)
                                                     </p>}
 
                                                     {designQuestions[item.item__id]?.content && <p className='w-[100%] mt-2'>
-                                                        <input placeholder='Slogan & Number....' value={uploadContent?.[item?.id]?.content || ''} onChange={(e) => handleChange(e, item.id, 'content')} className='border !border-black h-[55px] w-full py-2 px-2' ></input>
+                                                        <input placeholder='Slogan & Number....' value={uploadContent?.[item?.id]?.content || ''} onChange={(e) => handleChange(e, item.id, 'content')} className='border !border-black h-[55px] w-full py-2 px-2 rounded-[5px]' ></input>
                                                     </p>}
                                                     {designQuestions[item.item__id]?.measurement && <>
                                                         <p className='mb-0 font-[500] text-[20px]'>Measurements</p>
@@ -230,9 +235,9 @@ console.log(skipId)
                                                             {
                                                                 uploadContent[item.id]?.measurements === "Customize" && (
                                                                     <div className='flex'>
-                                                                        <label className='text-[#1BA56F] mr-2'> width : <input type='number' min='0' onChange={(e) => handleChange(e, item.id, 'width')} value={uploadContent?.[item?.id]?.width || ''} className='w-[50px] border !border-[#1BA56F]'></input></label>
-                                                                        <label className='text-[#1BA56F] mr-2'> height : <input type='number' min='0' onChange={(e) => handleChange(e, item.id, 'height')} value={uploadContent?.[item?.id]?.height || ''} className='w-[50px] border !border-[#1BA56F]'></input></label>
-                                                                        <label className='text-[#1BA56F] mr-2'> length : <input type='number' min='0' onChange={(e) => handleChange(e, item.id, 'length')} value={uploadContent?.[item?.id]?.length || ''} className='w-[50px] border !border-[#1BA56F]'></input></label>
+                                                                        <label className='text-[#1BA56F] mr-2'> width : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'width')} value={uploadContent?.[item?.id]?.width || ''} className='w-[50px] border !border-[#1BA56F]'></input></label>
+                                                                        <label className='text-[#1BA56F] mr-2'> height : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'height')} value={uploadContent?.[item?.id]?.height || ''} className='w-[50px] border !border-[#1BA56F]'></input></label>
+                                                                        <label className='text-[#1BA56F] mr-2'> length : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'length')} value={uploadContent?.[item?.id]?.length || ''} className='w-[50px] border !border-[#1BA56F]'></input></label>
                                                                     </div>
                                                                 )
                                                             }
@@ -356,7 +361,7 @@ console.log(skipId)
                                                     </p>}
 
                                                     {designQuestions[item.item__id]?.content && <p className='flex lg:w-[70%] md:w-[90%]'>
-                                                        <input placeholder='Slogan & Number....' value={uploadContent?.[item?.id]?.content || ''} onChange={(e) => handleChange(e, item.id, 'content')} className='border !border-black py-2 px-2 w-full' ></input><button className='bg-black flex text-[16px] items-center px-2 py-1 text-white  lg:w-[25%] md:w-[30%]'> <img className='mr-2' src={starIcon}></img> Suggest  Content </button>
+                                                        <input placeholder='Slogan & Number....' value={uploadContent?.[item?.id]?.content || ''} onChange={(e) => handleChange(e, item.id, 'content')} className='border !border-black py-2 px-2 w-full rounded-[5px]' ></input><button className='bg-black flex text-[16px] items-center px-2 py-1 text-white  lg:w-[25%] md:w-[30%]'> <img className='mr-2' src={starIcon}></img> Suggest  Content </button>
                                                     </p>}
                                                     {designQuestions[item.item__id]?.measurements && <>
                                                         <p>Measurements</p>
@@ -379,9 +384,9 @@ console.log(skipId)
                                                                 />  Customize  </label>
 
                                                             {uploadContent[item.id]?.measurements === "Customize" && <>
-                                                                <label className='text-[#1BA56F] mr-2'> width : <input type='number' min='0' onChange={(e) => handleChange(e, item.id, 'width')} value={uploadContent?.[item?.id]?.width || ''} className='w-[50px] border !border-[#1BA56F]'></input></label>
-                                                                <label className='text-[#1BA56F] mr-2'> height : <input type='number' min='0' onChange={(e) => handleChange(e, item.id, 'height')} value={uploadContent?.[item?.id]?.height || ''} className='w-[50px] border !border-[#1BA56F]'></input></label>
-                                                                <label className='text-[#1BA56F] mr-2'> length : <input type='number' min='0' onChange={(e) => handleChange(e, item.id, 'length')} value={uploadContent?.[item?.id]?.length || ''} className='w-[50px] border !border-[#1BA56F]'></input></label>
+                                                                <label className='text-[#1BA56F] mr-2'> width : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'width')} value={uploadContent?.[item?.id]?.width || ''} className='w-[50px] border !border-[#1BA56F]'></input></label>
+                                                                <label className='text-[#1BA56F] mr-2'> height : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'height')} value={uploadContent?.[item?.id]?.height || ''} className='w-[50px] border !border-[#1BA56F]'></input></label>
+                                                                <label className='text-[#1BA56F] mr-2'> length : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'length')} value={uploadContent?.[item?.id]?.length || ''} className='w-[50px] border !border-[#1BA56F]'></input></label>
                                                                 <span className='text-[#1BA56F] mr-2'> CM </span> </>}
                                                         </p>
                                                     </>}
@@ -437,7 +442,7 @@ console.log(skipId)
                                                         </p>}
 
                                                         {designQuestions[item.item__id]?.content && <p className='flex lg:w-[70%] md:w-[90%] mt-2'>
-                                                            <input placeholder='Slogan & Number....' value={uploadContent?.[item?.id]?.content || ''} onChange={(e) => handleChange(e, item.id, 'content')} className='border !border-black py-2 px-2 w-full' ></input><button className='bg-black flex text-[16px] items-center px-2 py-1 text-white lg:w-[25%] md:w-[30%]'> <img className='mr-2' src={starIcon}></img> Suggest  Content </button>
+                                                            <input placeholder='Slogan & Number....' value={uploadContent?.[item?.id]?.content || ''} onChange={(e) => handleChange(e, item.id, 'content')} className='border !border-black py-2 px-2 w-full rounded-[5px]' ></input><button className='bg-black flex text-[16px] items-center px-2 py-1 text-white lg:w-[25%] md:w-[30%]'> <img className='mr-2' src={starIcon}></img> Suggest  Content </button>
                                                         </p>}
                                                         {designQuestions[item.item__id]?.measurement && <>
                                                             <p className='mb-0'>Measurements</p>
@@ -460,9 +465,9 @@ console.log(skipId)
                                                                     />  Customize  </label>
 
                                                                 {uploadContent[item.id]?.measurements === "Customize" && <>
-                                                                    <label className='text-[#1BA56F] mr-2'> width : <input type='number' min='0' onChange={(e) => handleChange(e, item.id, 'width')} value={uploadContent?.[item?.id]?.width || ''} className='w-[50px] border !border-[#1BA56F]'></input></label>
-                                                                    <label className='text-[#1BA56F] mr-2'> height : <input type='number' min='0' onChange={(e) => handleChange(e, item.id, 'height')} value={uploadContent?.[item?.id]?.height || ''} className='w-[50px] border !border-[#1BA56F]'></input></label>
-                                                                    <label className='text-[#1BA56F] mr-2'> length : <input type='number' min='0' onChange={(e) => handleChange(e, item.id, 'length')} value={uploadContent?.[item?.id]?.length || ''} className='w-[50px] border !border-[#1BA56F]'></input></label>
+                                                                    <label className='text-[#1BA56F] mr-2'> width : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'width')} value={uploadContent?.[item?.id]?.width || ''} className='w-[50px] border !border-[#1BA56F]'></input></label>
+                                                                    <label className='text-[#1BA56F] mr-2'> height : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'height')} value={uploadContent?.[item?.id]?.height || ''} className='w-[50px] border !border-[#1BA56F]'></input></label>
+                                                                    <label className='text-[#1BA56F] mr-2'> length : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'length')} value={uploadContent?.[item?.id]?.length || ''} className='w-[50px] border !border-[#1BA56F]'></input></label>
                                                                     <span className='text-[#1BA56F] mr-2'> CM </span> </>}
                                                             </p>
                                                         </>}

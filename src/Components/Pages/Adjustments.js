@@ -464,7 +464,7 @@ export default function Adjustments({user}) {
                                 <div className=''>
                                     <h1 className='lg:text-[40px] text-[#000] md:text-[32px]'> Adjustments </h1>
                                     <p className='lg:text-[20px] mb-2 md:text-[16px] text-[#00000080]'> Here you can edit your brand and add items to your bundl! </p>
-                                    <p className='font-[700] text-[24px] font-Helvetica'>What would you like to edit ?</p>
+                                    <p className='font-[700] text-[22px] font-Helvetica'>What would you like to edit ?</p>
                                     <div className=''>
                                         <div className=' flex flex-wrap overflow-auto w-full'>
                                             {adjustments.map((adjustment, index) => {
@@ -494,7 +494,7 @@ export default function Adjustments({user}) {
                                                             </p>
                                                         </p>
                                                     </div>
-                                                    <p className='font-[700] text-[24px] font-Helvetica'>What would you like to change?</p>
+                                                    <p className='font-[700] text-[22px] font-Helvetica'>What would you like to change?</p>
                                                     <p ><input id={`${adjustment.id}_content`} onInput={(e) => {
                                                         setAdjustmentForm((prev) => ({
                                                         ...prev,
@@ -537,7 +537,7 @@ export default function Adjustments({user}) {
                                     </div>
                                     <div className='lg:mt-16 md:mt-16 xs:mt-8'>
                                         <h2 className='text-[24px] font-[700] font-Helvetica'>Something feels missing ?</h2>
-                                        <p className='text-[18px] text-[#00000080]'>Add anything you want to your bundl to fit your brand!</p>
+                                        <p className='text-[18px] text-[#00000080] w-[75%]'>Add anything you want to your bundl to fit your brand!</p>
                                         <div className='flex flex-wrap w-[100%]'>  {Object.keys(bundlAddons).map((category, index) => {
                                             return <a onClick={() => {
                                                 toggleDescription(category)

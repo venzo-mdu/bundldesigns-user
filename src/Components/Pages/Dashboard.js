@@ -352,7 +352,7 @@ export default function Dashboard() {
 
             // Common classes for the containers
             // const containerClasses = `flex relative mt-[3%] ${!isLast ? 'basis-1/5' : ''} items-center`;
-            const containerClasses = `flex relative lg:left-[0px] md:left-[30px] xs:left-0 mt-[3%] ${!isLast ? 'lg:basis-[45%] md:basis-[20%]' : 'w-[75px]'} items-center`;
+            const containerClasses = `flex relative lg:left-[0px] md:left-[30px] xs:left-0 mt-[3%] ${!isLast ? 'lg:basis-[45%] md:basis-[20%] xs:basis-1/5' : 'md:w-[75px] lg:w-[165px] xs:w-[75px]'} items-center`;
 
 
             // Determine the image and line styles based on process state
@@ -461,7 +461,7 @@ export default function Dashboard() {
                                 openpopup={openPopup}
                                 isCancel={false}
                                 setPopup={setOpenPopup}
-                                title={'empty your Cart'}
+                                title={'Empty your Cart'}
                                 // subTitle={'Are you sure, you want to empty the cart.'}
                                 onClick={() => reOrder(reOrderId)}
                                 save={'Yes'}
@@ -535,21 +535,25 @@ export default function Dashboard() {
                                             </button>
     
                                             ) :
-                                            // id="websterSelect"
-                                            <div className='xs:px-3'>
-                                            <select className='w-[100%] h-[40px] text-[32px] font-[700] outline-none border-none ' onChange={(e)=>handleSelectChange(e)}>
+                                            <div className='xs:px-[5%] xs:flex xs:w-[100%]'>
+                                            <select id='dashboardSelect' className='w-[60%] h-[40px] text-[32px] font-[700] outline-none border-none px-1' onChange={(e)=>handleSelectChange(e)}>
                                                 {projects?.map((project, index) => (
-                                                    <option className="text-[16px] font-[500]" key={index} value={project.id}>
+                                                    <option className="text-[16px] font-[500] " key={index} value={project.id}>
                                                         {project.project_name}
                                                     </option>
                                                 ))}
                                             </select>
+                                            <div className='w-[40%] text-right mt-[3%]'>
+                                            <button onClick={() => { window.location.href = '/' }} className='bg-black text-white h-[35px] w-[35px] text-[22px]'>+</button>
+                                            </div>
                                         </div>
                                             
                                       }
                                         
-                                       
+                                       {
+                                        window?.innerWidth >=475 && 
                                         <button onClick={() => { window.location.href = '/' }} className='lg:py-2 lg:px-2 lg:sticky lg:right-0 md:sticky md:right-0 flex bg-black text-white items-center lg:text-[32px] md:text-[24px] leading-[0px]  xs:text-[24px] xs:py-4 xs:px-4 xs:relative xs:left-[0%]'>+</button>
+                                       }
                                     </p>
                                     {window.innerWidth<768 && (<div className='px-3 mt-2 font-Helvetica'>
                                         <p className='px-32text-[18px] font-[400] opacity-50'>
@@ -557,7 +561,7 @@ export default function Dashboard() {
                                         </p>
                                     </div>)}
                                     <div className='lg:border-[1.5px] md:border-[1.5px] xs:border-b-[1.5px] mt-0  lg:border-black md:border-black border-transparent py-2 lg:px-6 md:px-6 xs:px-0 xs:border-black'>
-                                        <div className='flex items-center lg:w-[78%] w-[80%] md:w-[95%]  lg:mx-auto md:mx-auto lg:mt-10 md:mt-10 xs:mt-2 lg:px-0 xs:w-[100%] xs:px-[0%] xs:ml-[5%]'>{renderProcessData()}</div>
+                                        <div className='flex items-center lg:w-[78%] w-[80%] md:w-[95%]  lg:mx-auto md:mx-auto lg:mt-10 md:mt-10 xs:mt-2 lg:px-0 xs:w-[100%] xs:px-[5%] xs:ml-[5%]'>{renderProcessData()}</div>
                                         <div className='flex mb-12 lg:w-[90%] w-[80%] md:w-[100%] xs:w-[100%] lg:m-auto md:m-0'>
                                             {window.innerWidth > 768 && dashboardJson.project_process.map((item, index) => {
                                                 return <div className='basis-1/5  text-center lg:text-[16px] md:text-[14px] mt-[2%]'>  <p className={`pb-0 lg:max-w-[52%] md:max-w-[70%] max-w-[95%] mx-auto mb-0 ${index == processIndex && 'font-bold'}`}> {item} </p>

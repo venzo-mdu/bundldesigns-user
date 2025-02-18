@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import Modal from '@mui/material/Modal';
 import Create from '../../../Images/Bundles/create-captivate-elevate.webp'
 import Car from '../../../Images/Bundles/car.webp'
@@ -27,6 +27,31 @@ export const DashboardPopup = ({ title, subTitle, popupType = 'default', onChang
         p: isSmallScreen ? 2 : 4,
         ...sx
     };
+
+
+        useEffect(() => {
+            if (openpopup) {
+              const scrollY = window.scrollY;
+              document.body.style.position = "fixed";
+              document.body.style.top = `-${scrollY}px`;
+              document.body.style.left = "0";
+              document.body.style.width = "100%";
+            } else {
+              const scrollY = parseInt(document.body.style.top || "0") * -1;
+              document.body.style.position = "";
+              document.body.style.top = "";
+              document.body.style.left = "";
+              document.body.style.width = "";
+              window.scrollTo(0, scrollY);
+            }
+        
+            return () => {
+              document.body.style.position = "";
+              document.body.style.top = "";
+              document.body.style.left = "";
+              document.body.style.width = "";
+            };
+          }, [openpopup]);
 
     const getPopupType = () => {
         if (popupType === 'player') {
@@ -62,7 +87,7 @@ export const DashboardPopup = ({ title, subTitle, popupType = 'default', onChang
                     <Typography sx={{color:'black'}} id="modal-modal-title" variant="h6" component="h2">
                         {title}
                     </Typography>
-                    <Typography id="modal-modal-description" sx={{ marginTop:'3px',width:'93%',marginLeft:'auto',marginRight:'auto' , color:'#00000080' }}>
+                    <Typography id="modal-modal-description" sx={{ marginTop:'3px',width:'75%',marginLeft:'auto',marginRight:'auto' , color:'#00000080' }}>
                         {subTitle}
                     </Typography>
 
