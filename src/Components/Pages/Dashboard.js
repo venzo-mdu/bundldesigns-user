@@ -71,7 +71,7 @@ export default function Dashboard() {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     let purchase_id = queryParams.get('purchase', null);
-    const [purchasePopUp, setPurchasePopUp] = useState(true)
+    const [purchasePopUp, setPurchasePopUp] = useState(purchased == 'done' ? true : false)
     const [showFull, setShowFull] = useState(false);
     
 
@@ -524,7 +524,7 @@ const handleDownload = async (file) => {
                                 openpopup={openPopup}
                                 isCancel={false}
                                 setPopup={setOpenPopup}
-                                title={'Empty your Cart'}
+                                title={'Empty your cart'}
                                 // subTitle={'Are you sure, you want to empty the cart.'}
                                 onClick={() => reOrder(reOrderId)}
                                 save={'Yes'}

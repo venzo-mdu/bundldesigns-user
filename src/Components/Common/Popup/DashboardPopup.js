@@ -17,14 +17,14 @@ export const DashboardPopup = ({ title, subTitle, popupType = 'default', onChang
         top: '40%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: isSmallScreen ? '90%' : '30%',
+        width: isSmallScreen ? '90%' : '25%',
         bgcolor: 'background.paper',
         border: '0px',
         borderRadius: '8px',
         boxShadow: 24,
         textAlign: 'center',
         outline: 'none',
-        p: isSmallScreen ? 6 : 8,
+        p: isSmallScreen ? 6 : 5,
         ...sx
     };
 
@@ -133,7 +133,7 @@ export const DashboardPopup = ({ title, subTitle, popupType = 'default', onChang
                                     color: '#000',
                                     border: '#E2E8F0 1px solid',
                                     ml: 2,
-                                    mt: isSmallScreen ? 2 : 0,
+                                    mt: isSmallScreen ? 0 : 0,
                                 }}
                             >
                                 {cancel}
