@@ -1184,6 +1184,7 @@ input::placeholder {
     }
     .thank-you-desc{
         font-size: 20px;
+        text-align: center;
     }
     .back-to-home{
         width: 250px;

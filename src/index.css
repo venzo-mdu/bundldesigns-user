@@ -65,7 +65,30 @@ body {
   cursor: pointer;
   background-position: right 12px bottom 16px; 
 }
+/* .select-container {
+  position: relative;
+  display: inline-block;
+} */
 
+/* #dashboardSelect {
+  width: 100%;
+  padding-right: 40px; /* Prevent text overlap */
+  /* appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none; */
+/* } */ */
+/* .select-container::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 18px;
+  background: url('../src/Images/websterDropdown.svg') no-repeat center;
+  background-size: contain;
+  pointer-events: none;
+} */
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

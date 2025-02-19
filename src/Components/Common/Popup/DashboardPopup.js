@@ -24,7 +24,7 @@ export const DashboardPopup = ({ title, subTitle, popupType = 'default', onChang
         boxShadow: 24,
         textAlign: 'center',
         outline: 'none',
-        p: isSmallScreen ? 2 : 4,
+        p: isSmallScreen ? 6 : 8,
         ...sx
     };
 

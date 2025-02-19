@@ -71,7 +71,7 @@ export default function Dashboard() {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     let purchase_id = queryParams.get('purchase', null);
-    const [purchasePopUp, setPurchasePopUp] = useState(purchased == 'done' ? true : false)
+    const [purchasePopUp, setPurchasePopUp] = useState(true)
     const [showFull, setShowFull] = useState(false);
     
 
@@ -277,7 +277,7 @@ export default function Dashboard() {
             case 'add_ons':
                 return (
                     <div className="text-center">
-                        <h2 className="lg:text-[22px] md:text-[22px] xs:text-[18px] xs:px-[10%] text-[#000000]">
+                        <h2 className="lg:text-[22px] md:text-[22px] xs:text-[18px] xs:px-[10%] text-[#000000] lg:w-[100%] md:w-[100%] xs:w-[400px]">
                             {dashboardJson.process_content.addons}
                         </h2>
                         {order?.bundle_id !== null &&
@@ -556,12 +556,12 @@ const handleDownload = async (file) => {
                         }
                         <div className='font-Helvetica'>
                             <div className='text-center py-2 border-b border-black'>
-                                <h1 className='lg:text-[40px] text-[#000] md:text-[32px] xs:text-[32px] xs:font-[700] lg:mt-[2%] md:mt-[2%] xs:mt-[5%]'> {dashboardJson.main_title} {currentUser?.full_name} ! </h1>
+                                <h1 className='lg:text-[40px] text-[#000] md:text-[32px] xs:text-[32px] xs:font-[700] lg:mt-[2%] md:mt-[2%] xs:mt-[5%]'> {dashboardJson.main_title} {currentUser?.full_name}! </h1>
                                 <p className='lg:text-[20px] md:text-[16px] text-[#00000080] lg:block md:block xs:hidden sm:hidden'>{dashboardJson.title_content} </p>
                             </div>
 
                             {
-                                projects.length ? <div className=' border-black  py-16 lg:px-14 md:px-14 xs:px-0'>
+                                projects.length ? <div className=' border-black  lg:py-16 md:py-16 xs:py-8 lg:px-14 md:px-14 xs:px-0 '>
                                     {
                                         window.innerWidth <=475 ?
                                         <p className='text-[#000000] opacity-[50%] text-[20px] font-[500] font-Helvetica px-[5%]'>My Bundls</p> 
@@ -599,13 +599,15 @@ const handleDownload = async (file) => {
     
                                             ) :
                                             <div className='xs:px-[5%] xs:flex xs:w-[100%]'>
-                                            <select id='dashboardSelect' className='w-fit h-[60px] text-[32px] font-[700] outline-none border-none px-1 rounded-none' onChange={(e)=>handleSelectChange(e)}>
+                                                {/* <div className="select-container"> */}
+                                            <select id='dashboardSelect' className='w-fit h-[60px] text-[32px] font-[700] outline-none border-none px-1 rounded-none ' onChange={(e)=>handleSelectChange(e)}>
                                                 {projects?.map((project, index) => (
                                                     <option className="text-[16px] font-[500] " key={index} value={project.id}>
                                                         {project.project_name}
                                                     </option>
                                                 ))}
                                             </select>
+                                            {/* </div> */}
                                             <div className='w-[40%] text-right mt-[3%]'>
                                             <button onClick={() => { window.location.href = '/' }} className='bg-black text-white h-[35px] w-[35px] text-[22px]'>+</button>
                                             </div>
@@ -636,13 +638,13 @@ const handleDownload = async (file) => {
                                         <div className='lg:w-[100%] md:w-[100%] xs:w-[100%] lg:px-[5%] md:px-[5%] xs:mx-0 xs:px-6'>
 
                                             {order && order.item_details && Array.isArray(order.item_details) && <>
-                                            {order?.brand_identity && <>                                                <p className={`lg:text-[22px] md:text-[22px] xs:text-[18px] font-bold my-2 ${processIndex < 2 ? processIndex === 1 ?'text-black':'text-[#00000080]' : 'text-black'}`}>Brand & Visual Identity <span className='text-[#1BA56F] lg:text-[18px] md:text-[18px] xs:text-[20px]  font-[500]'> -
+                                            {order?.brand_identity && <>                                                <p className={`lg:text-[22px] md:text-[22px] xs:text-[18px] font-bold my-2 ${processIndex < 2 ? processIndex === 1 ?'text-black':'text-[#00000080]' : 'text-black'}`}>Brand & Visual Identity <span className='text-[#1BA56F] lg:text-[18px] md:text-[18px] xs:text-[16px]  font-[500]'> -
                                                     {processIndex < 2 ? processIndex === 1 ? ' IN PROGRESS':' ON HOLD' : processIndex >= 4 ? ' COMPLETE' : ' IN PROGRESS'}</span> </p>
                                                 <p className={`font-medium lg:text-[18px] md:text-[18px] xs:text-[16px] ${processIndex < 2 ? processIndex === 1 ?'text-black': 'text-[#00000080]' : 'text-[#000]'}`}>{order?.brand_identity?.item_name} {processIndex >= 4 && <button className='bg-[#1BA56F] px-2 !py-0  text-[16px] ml-4 text-white font-[400]' onClick={() => { navigate('/adjustment', { state: { orderId: order.id, orderItemId: null } }) }}>Request Edits</button>} </p></>}
 
                                                 <p className={`text-[22px] ${processIndex < 4 && 'text-[#00000080]'} font-bold my-2`}>Applications
 
-                                                    <span className='text-[#1BA56F] lg:text-[18px] md:text-[18px] xs:text-[20px]  font-[500]'> -
+                                                    <span className='text-[#1BA56F] lg:text-[18px] md:text-[18px] xs:text-[16px]  font-[500]'> -
                                                         {processIndex < 4 ? ' ON HOLD' :order.order_status =='completed' ? ' COMPLETE' : ' IN PROGRESS'}</span>
                                                 </p>
 
