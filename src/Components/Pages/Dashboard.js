@@ -56,7 +56,8 @@ export default function Dashboard() {
     const [openPopup, setOpenPopup] = useState(false)
     const [completePopup, setCompletePopup] = useState(false)
     const [currentTab, setCurrentTab] = useState('');
-    const [brandFile, setBrandFile] = useState({})
+    const [Files, setFiles] = useState([]);
+    const [Links , setLinks] = useState([])
     const [showPdf, setShowPdf] = useState(false)
     const [addOnFile, setAddonFile] = useState([])
     const [isEdit, setIsEdit] = useState(false)
@@ -72,6 +73,7 @@ export default function Dashboard() {
     let purchase_id = queryParams.get('purchase', null);
     const [purchasePopUp, setPurchasePopUp] = useState(purchased == 'done' ? true : false)
     const [showFull, setShowFull] = useState(false);
+    
 
     const checkPurchase = async () => {
         const response = await axios.get(`${base_url}/api/order/${purchase_id}/`, ConfigToken());
@@ -119,12 +121,12 @@ export default function Dashboard() {
                 console.log(uploadedDateObj, 'dateee')
                 const oneDayLater = addDays(uploadedDateObj, 1);
                 console.log(oneDayLater, new Date())
-                if (isBefore(new Date(), oneDayLater)) {
+                if (isBefore(new Date(), oneDayLater) && orderData?.next_status !== 'in_progress') {
                     setIsEdit(true)
                     console.log(differenceInSeconds(oneDayLater, new Date()), 'dateeeeee')
                     setCounter(differenceInSeconds(oneDayLater, new Date()))
                 }
-                if (orderData.order_status == 'in_progress')
+                if (orderData.order_status == 'in_progress' && orderData.next_status !== 'in_progress')
                     setProcessIndex(1)
             }
             if (orderData.order_status == 'send_for_approval' || orderData.order_status == 'add_ons' || orderData.order_status == 'in_review' || orderData.order_status == 'completed' ) {
@@ -132,14 +134,25 @@ export default function Dashboard() {
                 // const parts = response.data.order_items_managements[0]?.delivery_files.length ? response.data.order_items_managements[0]?.delivery_files[0].split('/') : null
                 // parts && setBrandFile(parts[parts.length - 1])
 
-                const brandFiles = response.data.order_items_managements
-                .flatMap(item => item?.delivery_files || []) // Flatten the array and remove undefined/null
-                .map(file => file.split('/').pop()); // Get only the file name
-
-                setBrandFile(brandFiles);
+                // const brandFiles = response.data.order_items_managements
+                // .flatMap(item => item?.delivery_files || []) // Flatten the array and remove undefined/null
+                // .map(file => file.split('/').pop()); // Get only the file name
+                let files = [] ; 
+                let links =[];
+                response.data.order_items_managements.forEach(item => {
+                    console.log(item)
+                    if (item.delivery_type === "File" && item.delivery_files) {
+                        files.push(...item?.delivery_files?.map(file => file.split('/').pop()));
+                    } else if (item.delivery_type === "Link" && item.delivery_files) {
+                        links.push(item.delivery_link);
+                    }
+                });
+                setFiles(files); 
+                setLinks(links);
             }
         }
     }
+
 
     const fillQuestionaire = () => {
         navigate('/questionnaire/1', {
@@ -176,14 +189,13 @@ export default function Dashboard() {
     }
 
     const renderContent = () => {
-        const expectedDate = order.content_uploaded_date ? format(addDays(new Date(order.content_uploaded_date), order.total_time), 'dd/MM/yy') : null
+        const expectedDate = order.dead_line ? format(order.dead_line, 'dd/MM/yy') : null
         const hours = Math.floor(counter / 3600);
         const minutes = Math.floor((counter % 3600) / 60);
         const seconds = counter % 60;
-
+         console.log(expectedDate)
         // Format into HH:mm:ss
         const formattedCounter = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-        console.log(order.order_status)
         switch (order.order_status) {
             // switch ('send_for_approval') {
 
@@ -268,12 +280,14 @@ export default function Dashboard() {
                         <h2 className="lg:text-[22px] md:text-[22px] xs:text-[18px] xs:px-[10%] text-[#000000]">
                             {dashboardJson.process_content.addons}
                         </h2>
+                        {order?.bundle_id !== null &&
                         <p className="flex mt-3 justify-center w-full">
                             <button onClick={() => { setShowPdf(true) }} className="border-b-2 border-[#1BA56F] pb-0 font-medium text-[#1BA56F] flex items-center">
                                 <img className="mr-2" src={downloadIcon} alt="Download Icon" />
-                                Click Here to Download
+                               Click Here to Download
                             </button>
                         </p>
+                        }
                         <p>
                             <button
                                 onClick={() => (window.location.href = `/upload-content/${order.id}`)}
@@ -451,6 +465,53 @@ export default function Dashboard() {
         const id = event.target.value
         await getOrderDetails(id);
     }   
+
+//     const handleDownload = (file) => {
+//         // const aTag = document.createElement('a');
+//         // aTag.href = `${base_url}/api/download/${file}`; 
+//         // aTag.target = "_blank";
+//         // aTag.download = file;
+//         // aTag.click()
+
+//         const link = document.createElement("a");
+//   link.href = `${base_url}/api/download/${file}`; // Replace with your file URL
+//   link.download = file; // Suggested file name
+//   document.body.appendChild(link);
+//   link.click();
+//   document.body.removeChild(link);
+//     };
+const handleDownload = async (file) => {
+    try {
+      const response = await fetch(`${base_url}/api/download/${file}`, {
+        method: "GET",
+        headers: {
+          // Add authentication headers if needed
+          // Authorization: `Bearer your_token_here`
+        },
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+  
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = file;
+      link.target="_blank"
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+  
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Download failed:", error);
+    }
+  };
+  
+
     return (
         <>
             {
@@ -477,7 +538,7 @@ export default function Dashboard() {
                                 setPopup={setPurchasePopUp}
                                 title={'Thank you for your purchase'}
                                 subTitle={"We're so happy you're here! Let's create something amazing together."}
-                                onClick={() => { setPurchasePopUp(false) }}
+                                onClick={() => { setPurchasePopUp(false);navigate('/dashboard') }}
                                 save={'Continue to Dashboard'}
                             // cancel={'Cancel'}
                             />
@@ -520,7 +581,7 @@ export default function Dashboard() {
                                                 {projectToEdit === project.id ? (
                                                     <>
                                                         <input
-                                                            className="px-2 py-1 !text-black w-full"
+                                                            className="px-2 py-1 !text-black w-full rounded-none"
                                                             value={projectName}
                                                             onChange={(e) => setProjectName(e.target.value)}
                                                         />
@@ -538,7 +599,7 @@ export default function Dashboard() {
     
                                             ) :
                                             <div className='xs:px-[5%] xs:flex xs:w-[100%]'>
-                                            <select id='dashboardSelect' className='w-[60%] h-[40px] text-[32px] font-[700] outline-none border-none px-1' onChange={(e)=>handleSelectChange(e)}>
+                                            <select id='dashboardSelect' className='w-fit h-[60px] text-[32px] font-[700] outline-none border-none px-1 rounded-none' onChange={(e)=>handleSelectChange(e)}>
                                                 {projects?.map((project, index) => (
                                                     <option className="text-[16px] font-[500] " key={index} value={project.id}>
                                                         {project.project_name}
@@ -564,7 +625,7 @@ export default function Dashboard() {
                                     </div>)}
                                     <div className='lg:border-[1.5px] md:border-[1.5px] xs:border-b-[1.5px] mt-0  lg:border-black md:border-black border-transparent py-2 lg:px-6 md:px-6 xs:px-0 xs:border-black'>
                                         <div className='flex items-center lg:w-[78%] w-[80%] md:w-[95%]  lg:mx-auto md:mx-auto lg:mt-10 md:mt-10 xs:mt-2 lg:px-0 xs:w-[100%] xs:px-[5%] xs:ml-[5%]'>{renderProcessData()}</div>
-                                        <div className='flex md:p-[15px_15px_0px_35px] mb-12 lg:w-[90%] w-[80%] md:w-[100%] xs:w-[100%] lg:m-auto md:m-0'>
+                                        <div className='flex lg:p-[0px_30px_0px_0px] md:p-[15px_15px_0px_35px] mb-12 lg:w-[90%] w-[80%] md:w-[100%] xs:w-[100%] lg:m-auto md:m-0'>
                                             {window.innerWidth > 768 && dashboardJson.project_process.map((item, index) => {
                                                 return <div className='lg:basis-[45%] md:basis-[20%] xs:basis-1/5 text-center lg:text-[16px] md:text-[14px] mt-[2%]'>  <p className={`pb-0 lg:max-w-[52%] md:max-w-[70%] max-w-[95%] mx-auto mb-0 ${index == processIndex && 'font-bold'}`}> {item} </p>
                                                     {index == processIndex && <p className='text-[#1BA56F] font-[700]'>You’re now Here!</p>}
@@ -575,9 +636,9 @@ export default function Dashboard() {
                                         <div className='lg:w-[100%] md:w-[100%] xs:w-[100%] lg:px-[5%] md:px-[5%] xs:mx-0 xs:px-6'>
 
                                             {order && order.item_details && Array.isArray(order.item_details) && <>
-                                            {order?.brand_identity && <>                                                <p className={`lg:text-[22px] md:text-[22px] xs:text-[18px] font-bold my-2 ${processIndex < 2 ? 'text-[#00000080]' : 'text-black'}`}>Brand & Visual Identity <span className='text-[#1BA56F] lg:text-[18px] md:text-[18px] xs:text-[20px]  font-[500]'> -
+                                            {order?.brand_identity && <>                                                <p className={`lg:text-[22px] md:text-[22px] xs:text-[18px] font-bold my-2 ${processIndex < 2 ? processIndex === 1 ?'text-black':'text-[#00000080]' : 'text-black'}`}>Brand & Visual Identity <span className='text-[#1BA56F] lg:text-[18px] md:text-[18px] xs:text-[20px]  font-[500]'> -
                                                     {processIndex < 2 ? processIndex === 1 ? ' IN PROGRESS':' ON HOLD' : processIndex >= 4 ? ' COMPLETE' : ' IN PROGRESS'}</span> </p>
-                                                <p className={`font-medium lg:text-[18px] md:text-[18px] xs:text-[16px] ${processIndex < 2 ? 'text-[#00000080]' : 'text-[#000]'}`}>{order?.brand_identity?.item_name} {processIndex >= 4 && <button className='bg-[#1BA56F] px-2 !py-0  text-[16px] ml-4 text-white font-[400]' onClick={() => { navigate('/adjustment', { state: { orderId: order.id, orderItemId: null } }) }}>Request Edits</button>} </p></>}
+                                                <p className={`font-medium lg:text-[18px] md:text-[18px] xs:text-[16px] ${processIndex < 2 ? processIndex === 1 ?'text-black': 'text-[#00000080]' : 'text-[#000]'}`}>{order?.brand_identity?.item_name} {processIndex >= 4 && <button className='bg-[#1BA56F] px-2 !py-0  text-[16px] ml-4 text-white font-[400]' onClick={() => { navigate('/adjustment', { state: { orderId: order.id, orderItemId: null } }) }}>Request Edits</button>} </p></>}
 
                                                 <p className={`text-[22px] ${processIndex < 4 && 'text-[#00000080]'} font-bold my-2`}>Applications
 
@@ -638,7 +699,7 @@ export default function Dashboard() {
                                                     return <tr className=' '>
                                                         <td className={`lg:text-[20px] font-medium md:text-[16px] pb-2 ${index != purchases.length - 1 ? 'border-b !border-[#00000080]' : ''}`}>{project.id}</td>
                                                         <td className={`lg:text-[20px] font-medium md:text-[16px] pb-2 ${index != purchases.length - 1 ? 'border-b !border-[#00000080]' : ''}`}>{project.project_name}</td>
-                                                        <td className={`lg:text-[20px] font-medium md:text-[16px] pb-2 ${index != purchases.length - 1 ? 'border-b !border-[#00000080]' : ''}`}>{project.grand_total}</td>
+                                                        <td className={`lg:text-[20px] font-medium md:text-[16px] pb-2 ${index != purchases.length - 1 ? 'border-b !border-[#00000080]' : ''}`}>{Math.round(project.grand_total)}</td>
                                                         <td className={`lg:text-[20px] font-medium md:text-[16px] pb-2 ${index != purchases.length - 1 ? 'border-b !border-[#00000080]' : ''} text-[#1BA56F]`}>Completed</td>
                                                         <td onClick={() => CheckCart(project.id)} className={`lg:text-[20px] cursor-pointer font-medium md:text-[16px] pb-2 ${index != purchases.length - 1 ? 'border-b !border-[#00000080]' : ''}`}><img className='lg:w-[30px] md:w-[20px]' src={reload}></img></td>
                                                         <td className={`lg:text-[20px] font-medium md:text-[16px] pb-2 ${index != purchases.length - 1 ? 'border-b !border-[#00000080]' : ''}`}>{format(new Date(project.purchase_date), "dd/MM/yy")}</td>
@@ -702,7 +763,6 @@ export default function Dashboard() {
                             </div>
 
                         </div>
-                        {console.log(brandFile)}
                         <Modal
                             open={showPdf}
                             onClose={() => { setShowPdf(false) }}
@@ -710,29 +770,56 @@ export default function Dashboard() {
                             aria-describedby="modal-modal-description"
                         >
                             <Box sx={style}>
-                                Click here - 
-                                {/* <a className='ml-2' target='_blank' href={`${base_url}/api/download/${brandFile}`}>{brandFile}</a> */}
-                                {brandFile?.length > 0 && brandFile.map((file, index) => (
-                                    <a key={index} className="ml-2 underline cursor-pointer" target="_blank" rel="noopener noreferrer" href={`${base_url}/api/download/${file}`}>
-                                        {file}
-                                    </a>
-                                ))}
 
-                                {/* <iframe
-                                    src={`${base_url}/api/view_pdf?file=${brandFile}#toolbar=0`}
-                                    title="PDF Viewer"
-                                    className="flex-grow w-full h-full border-none m-0 p-0"
-                                ></iframe> */}
-                                <p className='absolute right-[-30px]'>
-                                    < ClearIcon onClick={() => { setShowPdf(false) }} style={{ color: 'white', fontSize: '30px', cursor: 'pointer' }} />
-                                    <a
+                                {(Files.length > 0 || Links.length > 0) && (
+                                    <div>
+                                            <div>
+                                                <strong>Files:</strong>
+                                                {Files.map((item, index) => (
+                                                    <a 
+                                                        key={index} 
+                                                        className="cursor-pointer ml-2 underline block" 
+                                                        onClick={() => handleDownload(item)}
+                                                    >
+                                                        {item}
+                                                    </a>
+                                                ))}
+                                            </div>
+
+                                        {Links.length > 0 && (
+                                            <div>
+                                                <strong>Links:</strong>
+                                                {Links.map((item, index) => {
+                                                    const validUrl = item.startsWith("http://") || item.startsWith("https://") ? item : `https://${item}`;
+
+                                                    return (
+                                                        <a 
+                                                            key={index} 
+                                                            className="cursor-pointer ml-2 underline block" 
+                                                            href={validUrl} 
+                                                            target="_blank" 
+                                                            rel="noopener noreferrer"
+                                                        >
+                                                            {item}
+                                                        </a>
+                                                    );
+                                                })}
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
+
+                                
+                                <p className='absolute right-[-40px] top-[-30px]'>
+                                    < ClearIcon onClick={() => { setShowPdf(false) }} style={{ color: 'white', fontSize: '30px', cursor: 'pointer' }} /> 
+                                    {/* <a
                                         href={`${base_url}/api/download/${brandFile}`}
                                         download
                                         target="_blank"
                                         rel="noopener noreferrer"
                                     >
                                         <img src={downloadBlackIcon} className='w-[30px]' alt="Download Icon" />
-                                    </a>
+                                    </a> */}
 
                                 </p>
                             </Box>

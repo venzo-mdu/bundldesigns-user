@@ -198,6 +198,7 @@ export const Login = () => {
               placeholder="Enter your email"
               value={loginData.email}
               onChange={handleChange}
+              className='rounded-none'
             />
             {errors.email && <p className="error">{errors.email}</p>}
             <label className='xs:mb-2' style={{ marginTop:'3%' }}>Password</label>
@@ -207,6 +208,7 @@ export const Login = () => {
               placeholder="Password"
               value={loginData.password}
               onChange={handleChange}
+              className='rounded-none'
             />
             {errors.password && <p className="error">{errors.password}</p>}
 

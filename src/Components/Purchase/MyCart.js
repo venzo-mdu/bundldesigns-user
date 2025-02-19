@@ -15,12 +15,14 @@ import PhoneNumberInput from '../Pages/PhoneNumberInput';
 import backIcon from "../../Images/backIcon.svg"
 import { useSearchParams } from 'react-router-dom';
 import { Bgloader } from '../Common/Background/Bgloader'
+import ClipLoader from "react-spinners/ClipLoader";
  
 export const MyCart = () => {
     const [searchParams] = useSearchParams();
     const isDirect = searchParams.get('direct') === 'true';
     const [loading,setLoading] = useState(true)
     const navigate = useNavigate();
+    const [paymentLoading , setPaymentLoading] = useState(false);
     const [cartDetails, setCartDetails] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [openPopup , setOpenPopup] = useState(false);
@@ -252,6 +254,7 @@ export const MyCart = () => {
  
     const handlePayment = async (e) => {
         e.preventDefault();
+        setPaymentLoading(true);
         if (validateFields()) {
             if(phoneError == false){
                 try {
@@ -274,9 +277,14 @@ export const MyCart = () => {
                     console.log("Payment successful:", response.data);
                 } catch (error) {
                     console.error("Payment error:", error);
+                }finally {
+                    setPaymentLoading(false);
                 }
             }
-    }
+        }
+        else {
+            setPaymentLoading(false);
+        }
     };
  
     const handleBillingChange = (e) => {
@@ -489,7 +497,7 @@ export const MyCart = () => {
                         name="firstName" 
                         value={billingInfo.firstName} 
                         onChange={handleBillingChange} 
-                        className={`${'firstName' in error ? '!border-[red]' :''}`}
+                        className={`rounded-none ${'firstName' in error ? '!border-[red]' :''}`}
                     />
                 </div>
                 <div className='ml-[4%]' style={{ margin: '0% 0 0 2%' }}>
@@ -498,7 +506,7 @@ export const MyCart = () => {
                         name="lastName" 
                         value={billingInfo.lastName} 
                         onChange={handleBillingChange} 
-                        className={`${'lastName' in error ? '!border-[red]' :''}`}
+                        className={`rounded-none ${'lastName' in error ? '!border-[red]' :''}`}
                     />
                 </div>
             </div>
@@ -509,7 +517,7 @@ export const MyCart = () => {
                     name="email" 
                     value={billingInfo.email} 
                     onChange={handleBillingChange} 
-                    className={`${'email' in error ? '!border-[red]' :''}`}
+                    className={`rounded-none ${'email' in error ? '!border-[red]' :''}`}
                 />
             </div>
             <div className="phonenumber mb-[15px]">
@@ -524,7 +532,7 @@ export const MyCart = () => {
         setErrors = {setError}
         formErrors = {error}
         idName={'vacancySelect'}
-        className="w-full  text-[18px]  "
+        className="w-full  text-[18px]  rounded-none"
       />
             </div>
             <div className="country mb-[15px]">
@@ -535,7 +543,7 @@ export const MyCart = () => {
                         // id='vacancySelect'
                         value={billingInfo.country|| null} 
                         onChange={handleBillingChange} 
-                        className={`${'country' in error ? '!border-[red]' :''} border !border-black px-2 py-[5px] w-full`}
+                        className={`rounded-none ${'country' in error ? '!border-[red]' :''} border !border-black px-2 py-[5px] w-full`}
                     >
                        <option value={null} disabled selected > </option>
                         { countries.map(country=>(
@@ -549,7 +557,7 @@ export const MyCart = () => {
                         name="city" 
                         value={billingInfo.city} 
                         onChange={handleBillingChange} 
-                        className={`${'city' in error ? '!border-[red]' :''}`}
+                        className={`rounded-none ${'city' in error ? '!border-[red]' :''}`}
                     />
                 </div>
             </div>
@@ -559,7 +567,7 @@ export const MyCart = () => {
                     name="postalCode" 
                     value={billingInfo.postalCode} 
                     onChange={handleBillingChange} 
-                    className={`${'postalCode' in error ? '!border-[red]' :''}`}
+                    className={`rounded-none ${'postalCode' in error ? '!border-[red]' :''}`}
                 />
             </div>
             <div className="promo-code mb-[15px]">
@@ -571,7 +579,12 @@ export const MyCart = () => {
                     className={`${'promoCode' in error ? '!border-[red]' :''}`}
                 />
             </div>
-            <button className="payment">Make Payment</button>
+            <button className="payment">{paymentLoading ? 
+            <ClipLoader
+                color={'#FFFFFF'}
+                loading={paymentLoading}
+                size={25}
+            /> : 'Make Payment'}</button>
             <p className='text-[red] !text-[20px] !font-[400] !mt-2'>{Object.values(error).map(item =>{
                 return item
             })}</p>

@@ -138,7 +138,7 @@ export const Navbar = () => {
                         <li >
                           <a onClick={()=>{setSearchShow(!searchShow)}}><img src={Search} alt="" className="navIcons cursor-pointer ml-2"></img> </a>
                           <div ref={searchRef}>
-                           {searchShow ? <input placeholder='Search'  onKeyDown={(e)=>checkEnterKey(e)} className='border-b mt-3 focus:outline-none py-1 px-2 text-black border-black' value={searchQry} onChange={(e)=>setSearchQry(e.target.value)}  />:''}
+                           {searchShow ? <input placeholder='Search'  onKeyDown={(e)=>checkEnterKey(e)} className='border-b mt-3 focus:outline-none py-1 px-2 text-black border-black rounded-none' value={searchQry} onChange={(e)=>setSearchQry(e.target.value)}  />:''}
                           </div>
                         </li>
                         <li className='px-[6px] inner-nav'>
@@ -272,7 +272,7 @@ export const Navbar = () => {
                           <li className='px-[7px]'>
                             <a className="w-[26px] cursor-pointer"  onClick={()=>{setSearchShow(!searchShow)}}><img src={Search} alt="" className="navIcons"></img></a>
                             <div className='absolute' ref={searchRef}>
-                           {searchShow ? <input placeholder='Search'   onKeyDown={(e)=>checkEnterKey(e)} className='border-b mt-3 focus:outline-none py-1 px-2 text-black border-black' value={searchQry} onChange={(e)=>setSearchQry(e.target.value)} />:''}
+                           {searchShow ? <input placeholder='Search'   onKeyDown={(e)=>checkEnterKey(e)} className='border-b mt-3 focus:outline-none py-1 px-2 text-black border-black rounded-none' value={searchQry} onChange={(e)=>setSearchQry(e.target.value)} />:''}
                           </div>
                           </li>
                           

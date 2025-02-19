@@ -133,6 +133,7 @@ export const Popup = ({ title, subTitle, popupType = 'default', onChange, save, 
                     {popupType === 'default' && textArea ? (
                         <Box sx={{ mx: 'auto', textAlign: 'center' }}>
                             <textarea
+                                className='rounded-none'
                                 placeholder="Enter the reason to deactivate"
                                 style={{
                                     width: isSmallScreen ? "90%" : "500px",

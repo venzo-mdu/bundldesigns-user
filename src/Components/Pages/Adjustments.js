@@ -21,7 +21,8 @@ import { Popup } from '../Common/Popup/Popup';
 import DeleteIcon from '../../Images/BundlDetail/deleteicon.svg'
 import PhoneNumberInput from './PhoneNumberInput';
 import CloseIcon from '@mui/icons-material/Close';
-
+import { toast, ToastContainer } from 'react-toastify';
+import ClipLoader from "react-spinners/ClipLoader";
 
 
 
@@ -34,7 +35,7 @@ export default function Adjustments({user}) {
     const [itemId, setItemId] = useState()
     // const [adjustmentForm, setAdjustmentForm] = useState({ content: '', file_name: '' })
     const [adjustmentForm, setAdjustmentForm] = useState([])
-
+    const [loading , setLoading] = useState(false)
     const [openPopup, setOpenPopup] = useState(false)
     const [order, setOrder] = useState()
     const [errorMsg, setErrorMsg] = useState(null)
@@ -269,7 +270,10 @@ export default function Adjustments({user}) {
         setErrorMsg(null)
     };
     const CheckCart = async (id) => {
-        if (Object.values(adjustmentData).length || Object.values(itemsList).length) {
+        if(adjustmentData && Object.values(adjustmentData).length === 0 ){
+           setErrorMsg(`Adjustment cannot be empty`);
+        }
+        else if (Object.values(adjustmentData).length && Object.values(itemsList).length) {
             setPage('cart')
             setErrorMsg(null)
         } else {
@@ -320,6 +324,12 @@ export default function Adjustments({user}) {
     }
     const validateFields = () => {
         let newErrors = {};
+
+        if(adjustmentData && Object.values(adjustmentData).length === 0 ){
+           toast.error('Adjustment cannot be empty',{
+            position: toast?.POSITION?.TOP_RIGHT,
+           })
+        }
 
         if (!billingInfo.firstName.trim()) {
             setError({ firstName: 'Your first name field is empty.' })
@@ -383,6 +393,7 @@ export default function Adjustments({user}) {
     };
 
     const createAdjustmentOrder = async () => {
+        setLoading(true)
         const billingData = {
             ...billingInfo,
             user_name: billingInfo.firstName + ' ' + billingInfo.lastName,
@@ -400,10 +411,21 @@ export default function Adjustments({user}) {
             total_time: totalTime
         }
         if (validateFields()) {
-            const res = await axios.post(`${base_url}/api/adjustment_create/${itemId}/`, formData, ConfigToken())
-            if (res.data) {
-                window.location.href = res.data.data.payment_response.redirect_url
+            try{
+                const res = await axios.post(`${base_url}/api/adjustment_create/${itemId}/`, formData, ConfigToken())
+                if (res.data) {
+                    window.location.href = res.data.data.payment_response.redirect_url
+                }
             }
+            catch(e){
+                console.log(e)
+            }
+            finally{
+                setLoading(false)
+            }
+        }
+        else{
+            setLoading(false)
         }
     }
 
@@ -438,9 +460,10 @@ export default function Adjustments({user}) {
         });
     }
 
-    console.log(itemsList)
+   
     return (
         <>
+             <ToastContainer/>
             <Navbar />
 
             {
@@ -515,6 +538,7 @@ export default function Adjustments({user}) {
                                                         onClick={() => document.getElementById(`file-${adjustment.id}`).click()} // Trigger click on hidden input
                                                     >
                                                         <input
+                                                            className='rounded-none'
                                                             type="file"
                                                             hidden
                                                             name="file"
@@ -598,7 +622,7 @@ export default function Adjustments({user}) {
                                                 </div>
                                             })}
                                         </div>
-                                        <div className={`bundl-summary  border ${showDetails ? 'max-h-[80%]' : 'h-[250px]'} w-full left-0 z-[1]`} >
+                                        <div className={`fixed bg-white bottom-0 xs:p-[5%_0%_12%_0%] overflow-y-scroll  border ${showDetails ? 'h-[500px]' : 'h-[250px]'} w-full left-0 z-[1]`} >
                                             <div className='bundl-name '>
                                                 <p className='sm:text-[24px] xs:mb-0 xs:flex xs:justify-between sm:block font-[700] px-0 py-[5%] !mb-2'>
                                                     <span className='font-[400] text-[16px] font-Helvetica'>Summary</span>
@@ -606,7 +630,7 @@ export default function Adjustments({user}) {
                                                 </p>
                                             </div>
                                             {!isMobile || isMobile && showDetails ? <>
-                                                <div className='px-3 py-2'>
+                                                <div className='px-[0] py-2'>
 
                                                     <div className='my-2'>
                                                       
@@ -824,7 +848,7 @@ export default function Adjustments({user}) {
                                                 name="firstName"
                                                 value={billingInfo.firstName}
                                                 onChange={handleBillingChange}
-                                                className={`${'firstName' in error ? '!border-[red]' : ''}`}
+                                                className={`rounded-none ${'firstName' in error ? '!border-[red]' : ''}`}
                                             />
                                         </div>
                                         <div className='ml-[4%]' style={{ margin: '0% 0 0 2%' }}>
@@ -833,7 +857,7 @@ export default function Adjustments({user}) {
                                                 name="lastName"
                                                 value={billingInfo.lastName}
                                                 onChange={handleBillingChange}
-                                                className={`${'lastName' in error ? '!border-[red]' : ''}`}
+                                                className={`rounded-none ${'lastName' in error ? '!border-[red]' : ''}`}
                                             />
                                         </div>
                                     </div>
@@ -844,7 +868,7 @@ export default function Adjustments({user}) {
                                             name="email"
                                             value={billingInfo.email}
                                             onChange={handleBillingChange}
-                                            className={`${'email' in error ? '!border-[red]' : ''}`}
+                                            className={`rounded-none ${'email' in error ? '!border-[red]' : ''}`}
                                         />
                                     </div>
                                     <div className="phone mb-[15px]">
@@ -859,7 +883,7 @@ export default function Adjustments({user}) {
                                             setErrors={setError}
                                             formErrors={error}
                                             idName={'vacancySelect'}
-                                            className="w-full  text-[18px]  "
+                                            className="w-full  text-[18px]  rounded-none"
                                         />
                                     </div>
                                     <div className="country mb-[15px]">
@@ -870,7 +894,7 @@ export default function Adjustments({user}) {
                                                 // id='vacancySelect'
                                                 value={billingInfo.country|| null} 
                                                 onChange={handleBillingChange} 
-                                                className={`${'country' in error ? '!border-[red]' :''} border !border-black px-2 py-[5px] w-full`}
+                                                className={`rounded-none ${'country' in error ? '!border-[red]' :''} border !border-black px-2 py-[5px] w-full`}
                                             >
                                             <option value={null} disabled selected > </option>
                                                 { countries.map(country=>(
@@ -884,7 +908,7 @@ export default function Adjustments({user}) {
                                                 name="city"
                                                 value={billingInfo.city}
                                                 onChange={handleBillingChange}
-                                                className={`${'city' in error ? '!border-[red]' : ''}`}
+                                                className={`rounded-none ${'city' in error ? '!border-[red]' : ''}`}
                                             />
                                         </div>
                                     </div>
@@ -894,7 +918,7 @@ export default function Adjustments({user}) {
                                             name="postalCode"
                                             value={billingInfo.postalCode}
                                             onChange={handleBillingChange}
-                                            className={`${'postalCode' in error ? '!border-[red]' : ''}`}
+                                            className={`rounded-none ${'postalCode' in error ? '!border-[red]' : ''}`}
                                         />
                                     </div>
                                     <div className="promo-code mb-[15px]">
@@ -903,10 +927,10 @@ export default function Adjustments({user}) {
                                             name="promoCode"
                                             value={billingInfo.promoCode}
                                             onChange={handleBillingChange}
-                                            className={`${'promoCode' in error ? '!border-[red]' : ''}`}
+                                            className={`rounded-none ${'promoCode' in error ? '!border-[red]' : ''}`}
                                         />
                                     </div>
-                                    <button onClick={() => createAdjustmentOrder()} className="payment">Make Payment</button>
+                                    <button onClick={() => createAdjustmentOrder()} className="payment">{loading?<ClipLoader size={25} color={'#FFFFFF'} />:'Make Payment'}</button>
                                     <p className='text-[red] !text-[20px] !font-[400] !mt-2'>{Object.values(error).map(item => {
                                         return item
                                     })}</p>
@@ -978,7 +1002,7 @@ export default function Adjustments({user}) {
                                                             value={adjustmentForm?.[adjustment?.id]?.content ? adjustmentForm?.[adjustment?.id]?.content : ''}
                                                             className='border px-2 py-1 border-[#000000A0]  md:w-[80%] w-[80%] xs:w-[70%]'
                                                         ></input>
-                                                            <button onClick={() => addData(adjustment.id, index)} className='md:w-[20%] w-[20%] xs:w-[30%] py-1 bg-[#1BA56F] text-white '>Submit Edit</button></p>
+                                                            <button onClick={() => addData(adjustment.id, index)} className='md:w-[20%] w-[20%] xs:w-[30%] py-1 px-2 bg-[#1BA56F] text-white text-[17.2px] font-[500]'>Submit Edit</button></p>
                                                         <p className='font-medium text-[18px]'>Have something to show us?</p>
                                                         <p
                                                             className="border-b-2 w-[150px] !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer"
@@ -986,6 +1010,7 @@ export default function Adjustments({user}) {
                                                         >
                                                             <input
                                                                 type="file"
+                                                                className='rounded-none'
                                                                 hidden
                                                                 name="file"
 
@@ -1213,7 +1238,7 @@ export default function Adjustments({user}) {
                                                 name="firstName"
                                                 value={billingInfo.firstName}
                                                 onChange={handleBillingChange}
-                                                className={`${'firstName' in error ? '!border-[red]' : ''}`}
+                                                className={`rounded-none ${'firstName' in error ? '!border-[red]' : ''}`}
                                             />
                                         </div>
                                         <div className='ml-[4%]' style={{ margin: '0% 0 0 2%' }}>
@@ -1222,7 +1247,7 @@ export default function Adjustments({user}) {
                                                 name="lastName"
                                                 value={billingInfo.lastName}
                                                 onChange={handleBillingChange}
-                                                className={`${'lastName' in error ? '!border-[red]' : ''}`}
+                                                className={`rounded-none ${'lastName' in error ? '!border-[red]' : ''}`}
                                             />
                                         </div>
                                     </div>
@@ -1233,7 +1258,7 @@ export default function Adjustments({user}) {
                                             name="email"
                                             value={billingInfo.email}
                                             onChange={handleBillingChange}
-                                            className={`${'email' in error ? '!border-[red]' : ''}`}
+                                            className={`rounded-none ${'email' in error ? '!border-[red]' : ''}`}
                                         />
                                     </div>
                                     <div className="phone mb-[15px]">
@@ -1248,7 +1273,7 @@ export default function Adjustments({user}) {
                                             setErrors={setError}
                                             formErrors={error}
                                             idName={'vacancySelect'}
-                                            className="w-full  text-[18px]  "
+                                            className="w-full  text-[18px]  rounded-none"
                                         />
                                     </div>
                                     <div className="country mb-[15px]">
@@ -1259,7 +1284,7 @@ export default function Adjustments({user}) {
                                                 // id='vacancySelect'
                                                 value={billingInfo.country|| null} 
                                                 onChange={handleBillingChange} 
-                                                className={`${'country' in error ? '!border-[red]' :''} border !border-black px-2 py-[5px] w-full`}
+                                                className={`rounded-none ${'country' in error ? '!border-[red]' :''} border !border-black px-2 py-[5px] w-full`}
                                             >
                                             <option value={null} disabled selected > </option>
                                                 { countries.map(country=>(
@@ -1273,7 +1298,7 @@ export default function Adjustments({user}) {
                                                 name="city"
                                                 value={billingInfo.city}
                                                 onChange={handleBillingChange}
-                                                className={`${'city' in error ? '!border-[red]' : ''}`}
+                                                className={`rounded-none ${'city' in error ? '!border-[red]' : ''}`}
                                             />
                                         </div>
                                     </div>
@@ -1283,19 +1308,19 @@ export default function Adjustments({user}) {
                                             name="postalCode"
                                             value={billingInfo.postalCode}
                                             onChange={handleBillingChange}
-                                            className={`${'postalCode' in error ? '!border-[red]' : ''}`}
+                                            className={`rounded-none ${'postalCode' in error ? '!border-[red]' : ''}`}
                                         />
                                     </div>
                                     <div className="promo-code mb-[15px]">
-                                        <label className={`${'promoCode' in error && 'text-[red]'}`}>Promo Code</label>
+                                        <label className={`rounded-none ${'promoCode' in error && 'text-[red]'}`}>Promo Code</label>
                                         <input
                                             name="promoCode"
                                             value={billingInfo.promoCode}
                                             onChange={handleBillingChange}
-                                            className={`${'promoCode' in error ? '!border-[red]' : ''}`}
+                                            className={`rounded-none ${'promoCode' in error ? '!border-[red]' : ''}`}
                                         />
                                     </div>
-                                    <button onClick={() => createAdjustmentOrder()} className="payment">Make Payment</button>
+                                    <button onClick={() => createAdjustmentOrder()} className="payment"> {loading?<ClipLoader size={25} color={'#FFFFFF'} />:'Make Payment'}</button>
                                     <p className='text-[red] !text-[20px] !font-[400] !mt-2'>{Object.values(error).map(item => {
                                         return item
                                     })}</p>

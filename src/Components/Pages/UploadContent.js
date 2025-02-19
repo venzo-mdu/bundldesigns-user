@@ -12,6 +12,7 @@ import uploadIcon from "../../Images/uploadIcon.svg"
 import { useParams } from "react-router-dom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Bgloader } from '../Common/Background/Bgloader';
+import { toast , ToastContainer } from 'react-toastify';
 
 export default function UploadContent() {
 
@@ -56,12 +57,45 @@ export default function UploadContent() {
         }
     }
 
-    const saveContent = async (itemId) => {
-        const formData = { answers: { [itemId]: uploadContent[itemId] }, orderId: order.id, status: 'save_later' }
-        const response = await axios.post(`${base_url}/api/upload_content/`, formData, ConfigToken());
-        getOrderDetails()
-    }
+    // const saveContent = async (itemId) => {
+    //     if(uploadContent?.[item?.id]?.content){
 
+    //     }
+    //     const formData = { answers: { [itemId]: uploadContent[itemId] }, orderId: order.id, status: 'save_later' }
+    //     const response = await axios.post(`${base_url}/api/upload_content/`, formData, ConfigToken());
+    //     getOrderDetails()
+    // }
+
+    const saveContent = async (itemId) => {
+        try {
+            // Check if content exists before sending request
+            if (!uploadContent?.[itemId]?.content) {
+                console.error("Error: No content to upload for item", itemId);
+                toast.error("Please add content before saving."); // Show user-friendly error
+                return;
+            }
+    
+            const formData = { 
+                answers: { [itemId]: uploadContent[itemId] }, 
+                orderId: order.id, 
+                status: 'save_later' 
+            };
+    
+            const response = await axios.post(`${base_url}/api/upload_content/`, formData, ConfigToken());
+    
+            if (response.status === 201) {
+                console.log("Content saved successfully!");
+                toast.success("Content saved successfully!"); // Notify user
+                getOrderDetails(); // Refresh order details
+            } else {
+                console.error("Unexpected response:", response);
+                toast.error("Something went wrong! Please try again.");
+            }
+        } catch (error) {
+            console.error("Save failed:", error.response?.data || error.message);
+            toast.error(error.response?.data?.message || "Failed to save content. Please try again.");
+        }
+    };
     const saveAllContent = async (status) => {
         const formData = { answers: uploadContent, orderId: order.id, status: status }
         const response = await axios.post(`${base_url}/api/upload_content/`, formData, ConfigToken());
@@ -92,6 +126,7 @@ console.log(skipId)
         loading ?
             <Bgloader /> :
             <>
+                <ToastContainer/>
                 <Navbar />
                 {
                     window.innerWidth <= 475 ?
@@ -273,7 +308,7 @@ console.log(skipId)
 
                             </div>
 
-                            <div className={`bundl-summary  border ${showDetails? 'max-h-[80%]':'h-[200px]'} w-full left-0 z-[1]`} >
+                            <div className={`fixed bg-white bottom-0 overflow-y-scroll xs:p-[5%_5%_12%_5%] border ${showDetails? 'max-h-[80%]':'h-[200px]'} w-full left-0 z-[1]`} >
                                 <div className='bundl-name '>
                                     <p className='sm:text-[24px] xs:mb-0 xs:flex xs:justify-between sm:block font-[700] px-0 !mb-2'>
                                         <span className='font-[400] text-[16px] font-Helvetica'>Checklist</span>
@@ -361,7 +396,7 @@ console.log(skipId)
                                                     </p>}
 
                                                     {designQuestions[item.item__id]?.content && <p className='flex lg:w-[70%] md:w-[90%]'>
-                                                        <input placeholder='Slogan & Number....' value={uploadContent?.[item?.id]?.content || ''} onChange={(e) => handleChange(e, item.id, 'content')} className='border !border-black py-2 px-2 w-full rounded-none ' ></input>
+                                                        <input placeholder='Slogan & Number....' value={uploadContent?.[item?.id]?.content || ''} onChange={(e) => handleChange(e, item.id, 'content')} className='border !border-black py-2 px-2 w-full rounded-none ' required></input>
                                                         </p>}
                                                     {designQuestions[item.item__id]?.measurements && <>
                                                         <p>Measurements</p>
@@ -409,7 +444,7 @@ console.log(skipId)
                                                         <p className='my-6 flex justify-start'> <button onClick={() => {
                                                         setSkipId([...skipId, item.id])
                                                     }} className='text-[#1BA56F] py-1 px-2 border !border-[#1BA56F] mr-2 text-[18px] font-[500]'>Skip For Now</button>
-                                                        <button onClick={() => saveContent(item.id)} className='text-white bg-[#1BA56F] py-1 px-2 text-[20px] font-[500]'>Save & Next</button></p>
+                                                        <button onClick={() => saveContent(item.id)} className='text-white bg-[#1BA56F] py-1 px-2 text-[19px] font-[500]'>Save & Next</button></p>
                                                 </div>
                                         })}
                                         {
@@ -442,7 +477,7 @@ console.log(skipId)
                                                         </p>}
 
                                                         {designQuestions[item.item__id]?.content && <p className='flex lg:w-[70%] md:w-[90%] mt-2'>
-                                                            <input placeholder='Slogan & Number....' value={uploadContent?.[item?.id]?.content || ''} onChange={(e) => handleChange(e, item.id, 'content')} className='border !border-black py-2 px-2 w-full rounded-none' ></input>
+                                                            <input placeholder='Slogan & Number....' value={uploadContent?.[item?.id]?.content || ''} onChange={(e) => handleChange(e, item.id, 'content')} className='border !border-black py-2 px-2 w-full rounded-none' required></input>
                                                         </p>}
                                                         {designQuestions[item.item__id]?.measurement && <>
                                                             <p className='mb-0'>Measurements</p>
@@ -491,7 +526,7 @@ console.log(skipId)
                                                         <p className='my-6'> <button onClick={() => {
                                                             setSkipId([...skipId, item.id])
                                                         }} className='text-[#1BA56F] py-1 px-2 border !border-[#1BA56F] mr-2 text-[18px] font-[500]'>Skip For Now</button>
-                                                            <button onClick={() => saveContent(item.id)} className='text-white bg-[#1BA56F] py-1 px-2 text-[20px] font-[500]'>Save & Next</button></p>
+                                                            <button onClick={() => saveContent(item.id)} className='text-white bg-[#1BA56F] py-1 px-2 text-[19px] font-[500]'>Save & Next</button></p>
                                                     </div>
 
                                             })
@@ -502,7 +537,7 @@ console.log(skipId)
                                 </div>
 
                             </div>
-                            <div className='basis-1/4   my-2 px-2'>
+                            <div className='basis-1/4  my-2 pl-[2%]'>
 
                                 <h3 className='text-[22px] font-bold py-2'>Checklist</h3>
 

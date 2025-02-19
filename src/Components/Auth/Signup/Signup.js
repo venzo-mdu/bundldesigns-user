@@ -222,6 +222,7 @@ export const Signup = () => {
               name='full_name'
               value={registerData.full_name}
               onChange={handleChange}
+              className='rounded-none'
             />
             {errors.full_name && <p className="error first-letter:capitalize">{errors.full_name}</p>}
 
@@ -231,6 +232,7 @@ export const Signup = () => {
               name='email'
               value={registerData.email}
               onChange={handleChange}
+              className='rounded-none'
             />
             {errors.email && <p className="error first-letter:capitalize">{errors.email}</p>}
 
@@ -241,15 +243,17 @@ export const Signup = () => {
               name='password'
               value={registerData.password}
               onChange={handleChange}
+              className='rounded-none'
             />
             {errors.password && <p className="error first-letter:capitalize">{errors.password}</p>}
 
             <label className='terms-policy  flex items-center my-1'>
               <input
-                className='checkbox mr-2  cursor-pointer'
+                className='checkbox mr-2 rounded-none cursor-pointer'
                 type='checkbox'
                 checked={isAgree}
                 onChange={() => setIsAgree(!isAgree)}
+                
               />
               <span className='!text-[16px] cursor-pointer'>I agree to the terms & policy</span>
             </label>
