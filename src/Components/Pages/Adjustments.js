@@ -235,6 +235,11 @@ export default function Adjustments({user}) {
 
     const addData = (id, index) => {
         const elementValue = document.getElementById(`${id}_content`).value;
+        if (!elementValue) {
+            toast.error(`Add your thoughts.`);
+            return;
+        }
+        if (!elementValue) return;
         if (elementValue) {
             setAdjustmentsData(prev => {
                 const updatedData = {
@@ -250,6 +255,9 @@ export default function Adjustments({user}) {
             });
             setErrorMsg(null)
         }
+        toast.success('Updated Successfully',{
+            position: toast?.POSITION?.TOP_RIGHT,
+        })
     };
 
     const addItem = (index, key, id) => {
@@ -529,7 +537,7 @@ export default function Adjustments({user}) {
                                                     }}
                                                         placeholder='Tell us your thoughts...'
                                                         value={adjustmentForm?.[adjustment?.id]?.content ? adjustmentForm?.[adjustment?.id]?.content : ''}
-                                                        className='border px-2 py-1 border-[#000000A0]  md:w-[80%] w-[80%] xs:w-[70%]'
+                                                        className='border px-2 py-1 border-[#000000A0]  md:w-[80%] w-[80%] xs:w-[70%] rounded-none'
                                                     ></input>
                                                         <button onClick={() => addData(adjustment.id, index)} className='md:w-[15%] lg:w-[15%] xs:w-[30%] py-1 bg-[#1BA56F] text-white '>Submit Edit</button></p>
                                                     <p className='font-medium text-[18px]'>Have something to show us?</p>
@@ -1000,7 +1008,7 @@ export default function Adjustments({user}) {
                                                         }}
                                                             placeholder='Tell us your thoughts...'
                                                             value={adjustmentForm?.[adjustment?.id]?.content ? adjustmentForm?.[adjustment?.id]?.content : ''}
-                                                            className='border px-2 py-1 border-[#000000A0]  md:w-[80%] w-[80%] xs:w-[70%]'
+                                                            className='border px-2 py-1 border-[#000000A0]  md:w-[80%] w-[80%] xs:w-[70%] rounded-none'
                                                         ></input>
                                                             <button onClick={() => addData(adjustment.id, index)} className='md:w-[20%] w-[20%] xs:w-[30%] py-1 px-2 bg-[#1BA56F] text-white text-[17.2px] font-[500]'>Submit Edit</button></p>
                                                         <p className='font-medium text-[18px]'>Have something to show us?</p>

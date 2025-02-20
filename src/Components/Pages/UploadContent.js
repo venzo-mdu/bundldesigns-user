@@ -137,7 +137,7 @@ console.log(skipId)
 
                                 {order && <>
                                     {order.item_details.bundle_items
-                                        .filter(item=>item.item__category !== 1 && !skipId?.includes(item.id))
+                                        .filter(item=>item.item__category !== 1 && !skipId?.includes(item.id) && item.status == 'questionnaire required')
                                         .map((item,index,filterArr) => {
                                             return <div className={`${( filterArr.length === 1 || index === filterArr.length -1)  ? '' : 'border-b !border-black'} space-x-2 mt-[2%]`}>
                                             
@@ -370,7 +370,7 @@ console.log(skipId)
 
                                     {order && <>
                                         {order.item_details.bundle_items
-                                            .filter(item=>item.item__category !== 1 && !skipId?.includes(item.id))
+                                            .filter(item=>item.item__category !== 1 && !skipId?.includes(item.id) && item.status == 'questionnaire required')
                                             .map((item,index,filterArr) => {
                                                 return <div className={`${filterArr.length === 1 || index === filterArr.length - 1 ? '' : 'border-b border-black'} px-[5%] space-x-2 mt-[2%]`}>
                                                     <p className="mb-0 font-semibold text-[22px">{item.item_name}</p>
@@ -569,8 +569,8 @@ console.log(skipId)
                                     </>
                                 }
 
-                                <p className='flex justify-start mt-4 mb-2 text-[#00000080]'> <button onClick={() => saveAllContent('submit')} className='text-[16px] px-4 border !border-[#00000080] font-medium'>  Submit content </button> </p>
-                                <p className='flex justify-start text-[#1BA56F]'> <button onClick={() => saveAllContent('save_later')} className='text-[16px] px-[6.5%] border !border-[#1BA56F] font-medium'> Save for Later </button> </p>
+                                <p className='flex justify-start mt-4 mb-2 text-[#00000080]'> <button onClick={() => saveAllContent('submit')} className='text-[16px] lg:px-4 md:px-4 border !border-[#00000080] font-medium'>  Submit content </button> </p>
+                                <p className='flex justify-start text-[#1BA56F]'> <button onClick={() => saveAllContent('save_later')} className='text-[16px] lg:px-[4.8%] md:px-[6.6%] border !border-[#1BA56F] font-medium'> Save for Later </button> </p>
 
                             </div>
                         </div>

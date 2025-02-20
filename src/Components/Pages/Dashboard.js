@@ -645,7 +645,7 @@ const handleDownload = async (file) => {
                                                 <p className={`text-[22px] ${processIndex < 4 && 'text-[#00000080]'} font-bold my-2`}>Applications
 
                                                     <span className='text-[#1BA56F] lg:text-[18px] md:text-[18px] xs:text-[16px]  font-[500]'> -
-                                                        {processIndex < 4 ? ' ON HOLD' :order.order_status =='completed' ? ' COMPLETE' : ' IN PROGRESS'}</span>
+                                                        {processIndex < 4 ? ' ON HOLD' :order.order_status =='completed' || order.order_status =='in_review' ? ' COMPLETE' : ' IN PROGRESS'}</span>
                                                 </p>
 
                                                 {order?.item_details?.map((item, index) => {
