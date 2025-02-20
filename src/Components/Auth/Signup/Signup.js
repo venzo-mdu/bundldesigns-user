@@ -15,12 +15,14 @@ import { ToastContainer, toast } from 'react-toastify';
 import loginGIF from '../../../Images/loginGIF.gif'
 import { useDispatch } from 'react-redux';
 import { loginAction } from '../../../Redux/Action';
+import ClipLoader from "react-spinners/ClipLoader";
 
 export const Signup = () => {
   const { userInfo } = useSelector((state) => state);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const [loading , setLoading] = useState(false);
   const [isAgree, setIsAgree] = useState(false);
   const [submitted, setSubmitted] = useState(false)
   const [errors, setErrors] = useState({});
@@ -134,6 +136,7 @@ export const Signup = () => {
       setSubmitted(true)
       return
     }
+    setLoading(true)
     try {
       const response = await axios.post(`${base_url}/api/register/`, registerData);
       if (response.status === 201) {
@@ -149,6 +152,9 @@ export const Signup = () => {
       );
       console.log(formattedErrors, response.response, 'for')
       setErrors(formattedErrors)
+    }
+    finally{
+      setLoading(false)
     }
   };
   const signupWithGoogle = async (data) => {
@@ -259,7 +265,7 @@ export const Signup = () => {
             </label>
             {(submitted && !isAgree) && <p className="error">Please agree to the terms and conditions.</p>}
             <button type='submit' style={{ margin: "0% 0 0 0" }} className='signin !text-[24px]'>
-              Signup
+              {loading ? <ClipLoader size={25} color={'#FFFFFF'}/>:'Signup'}
             </button>
             <p className='or mt-[4vh] flex items-center ml-2 font-[500] text-[11px]'> <span className='border-[#F5F5F5] border-b h-[2px] basis-[41%] mr-[2%] border-[1.5px]'>
             </span> Or  <span className='border-[#F5F5F5] border-b h-[2px] basis-[43%] ml-[2%] border-[1.5px]'></span></p>

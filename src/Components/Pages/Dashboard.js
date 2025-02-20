@@ -650,10 +650,10 @@ const handleDownload = async (file) => {
 
                                                 {order?.item_details?.map((item, index) => {
                                                     if (item.item__category != 1 && item.type != 'bundl') {
-                                                        return <p className={`font-medium ${processIndex < 4 && 'text-[#00000080]'} text-[18px] mx-1 my-2 py-1 
+                                                        return <p className={`font-medium ${processIndex < 4 && 'text-[#00000080]'} text-[18px] mx-1 lg:my-2 md:my-2 xs:my-0 lg:py-1 md:py-1 xs:py-2 
                             ${index != (order?.item_details.length - 1) &&
                                                             'border-b'} border-[#00000080] flex justify-between`}><span className='lg:text-[16px] md:text-[16px] xs:text-[16px]'>{item.item_name}</span>
-                                                            <span className='flex items-center text-[#00000080] text-[14px]'>{processIndex >= 4 ? <>
+                                                            <span className={`flex lg:items-center md:items-center xs:items-end lg:flex-row md:flex-row ${item.status == 'questionnaire required' || item.status == 'in process'?'xs:flex-row' : 'xs:flex-col-reverse' } text-[#00000080] text-[14px]`}>{processIndex >= 4 ? <>
                                                                 {item.status == 'questionnaire required' ? <>
                                                                     <span className='mr-2 font-normal'>Waiting content</span>
                                                                     <img src={ItemWaitingIcon}></img>
@@ -661,9 +661,12 @@ const handleDownload = async (file) => {
                                                                     <span className='mr-2 font-normal'>In Progress</span>
                                                                     <img src={ItemProgressIcon}></img>
                                                                 </> : <>
-                                                                    <button className='bg-[#1BA56F] mr-10 px-2 !py-0 text-[16px] ml-4 text-white font-[400]' onClick={() => { navigate('/adjustment', { state: { orderId: order.id, orderItemId: item.id } }) }}>Request Edits</button>
-                                                                    <span className='mr-2 font-semibold text-[#1BA56F]'>Finished</span>
+                                                                    <button className='bg-[#1BA56F] lg:mr-5 md:mr-5 xs:mr-0 px-2 !py-0 text-[16px] ml-4 text-white font-[400] lg:mt-0 md:mt-0 xs:mt-[5%]' onClick={() => { navigate('/adjustment', { state: { orderId: order.id, orderItemId: item.id } }) }}>Request Edits</button>
+                                                                    <div className='flex'>
+                                                                    <span className='mr-2 text-[16px] font-semibold text-[#1BA56F] mt-1'>Finished</span>
                                                                     <img src={ItemFinishedIcon}></img>
+                                                                    </div>
+                                                                    
                                                                 </>}
                                                             </> : ''}</span>
                                                         </p>

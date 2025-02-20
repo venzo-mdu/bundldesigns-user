@@ -13,6 +13,7 @@ import AppleSignin from 'react-apple-signin-auth';
 import { jwtDecode as jwt_decode } from 'jwt-decode';
 import { base_url } from '../BackendAPIUrl';
 import loginGIF from '../../../Images/loginGIF.gif'
+import ClipLoader from "react-spinners/ClipLoader";
 
 
 export const Login = () => {
@@ -31,7 +32,7 @@ export const Login = () => {
     password: '',
     google: false
   });
-
+  const [loading , setLoading] = useState(false);
   const [errors, setErrors] = useState({
   });
   const [loginError, setLoginError] = useState(false);
@@ -163,9 +164,8 @@ export const Login = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-
     if (!validateForm()) return;
-
+    setLoading(true)
     try {
       const response = await axios.post(`${base_url}/api/login/`, loginData);
       console.log(response)
@@ -180,6 +180,9 @@ export const Login = () => {
     } catch (response) {
 
       setLoginError(response.response.data.data)
+    }
+    finally{
+      setLoading(false)
     }
   };
 
@@ -216,7 +219,7 @@ export const Login = () => {
             {errors.general && <p className="error">{errors.general}</p>}
             <p className='text-[red] mb-1'>{loginError}</p>
             <button className='signin !text-[24px]' type='submit'>
-              Sign In
+             {loading ? <ClipLoader size={25} color={'#FFFFFF'}/> : 'Sign In'} 
             </button>
             <p className='or mt-[4vh] flex items-center ml-2 font-[500] text-[11px]'> <span className='border-[#F5F5F5] border-b h-[2px] basis-[41%] mr-[2%] border-[1.5px]'>
             </span> Or  <span className='border-[#F5F5F5] border-b h-[2px] basis-[43%] ml-[2%] border-[1.5px]'></span></p>
