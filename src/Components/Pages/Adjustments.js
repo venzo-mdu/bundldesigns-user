@@ -630,7 +630,7 @@ export default function Adjustments({user}) {
                                                 </div>
                                             })}
                                         </div>
-                                        <div className={`fixed bg-white bottom-0 xs:p-[5%_0%_12%_0%] overflow-y-scroll  border ${showDetails ? 'h-[500px]' : 'h-[250px]'} w-full left-0 z-[1]`} >
+                                        <div className={`fixed bg-white bottom-0 xs:p-[5%_0%_12%_0%] transition-all delay-100 duration-300 ease-in-out overflow-y-scroll  border ${showDetails ? 'h-[500px]' : 'h-[250px]'} w-full left-0 z-[1]`} >
                                             <div className='bundl-name '>
                                                 <p className='sm:text-[24px] xs:mb-0 xs:flex xs:justify-between sm:block font-[700] px-0 pt-[5%] !mb-2'>
                                                     <span className='font-[400] text-[16px] font-Helvetica'>Summary</span>

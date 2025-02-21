@@ -168,7 +168,7 @@ console.log(skipId)
                                                     <input placeholder='Slogan & Number....' value={uploadContent?.[item?.id]?.content || ''} onChange={(e) => handleChange(e, item.id, 'content')} className='border !border-black h-[55px] w-full py-2 px-2 rounded-[5px] ' ></input>
                                                 </p>}
                                                 {designQuestions[item.item__id]?.measurement && <>
-                                                    <p>Measurements</p>
+                                                    <p className='mb-2 font-[500] text-[20px]'>Measurements</p>
                                                     <p>
                                                         <label className='mr-6 font-[500]'>
                                                             <input
@@ -247,7 +247,7 @@ console.log(skipId)
                                                         <input placeholder='Slogan & Number....' value={uploadContent?.[item?.id]?.content || ''} onChange={(e) => handleChange(e, item.id, 'content')} className='border !border-black h-[55px] w-full py-2 px-2 rounded-[5px]' ></input>
                                                     </p>}
                                                     {designQuestions[item.item__id]?.measurement && <>
-                                                        <p className='mb-0 font-[500] text-[20px]'>Measurements</p>
+                                                        <p className='mb-2 font-[500] text-[20px]'>Measurements</p>
                                                         <p className='ml-2'>
                                                             <label className='mr-6 font-[500]'>
                                                                 <input
@@ -309,7 +309,12 @@ console.log(skipId)
 
                             </div>
 
-                            <div className={`fixed bg-white bottom-0 overflow-y-scroll xs:p-[5%_5%_12%_5%] border ${showDetails? 'max-h-[80%]':'h-[200px]'} w-full left-0 z-[1]`} >
+                            <div 
+                            style={{
+                                maxHeight: showDetails ? "600px" : "200px",
+                                transition: "all 0.5s ease-in-out",
+                              }}
+                            className={`fixed bg-white bottom-0 overflow-y-scroll xs:p-[5%_5%_12%_5%] border ${showDetails? 'max-h-[80%]':'h-[200px]'} w-full left-0 z-[1]`} >
                                 <div className='bundl-name '>
                                     <p className='sm:text-[24px] xs:mb-0 xs:flex xs:justify-between sm:block font-[700] px-0 !mb-2'>
                                         <span className='font-[400] text-[16px] font-Helvetica'>Checklist</span>

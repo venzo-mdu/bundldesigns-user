@@ -340,7 +340,12 @@ export const BundlDetail = () => {
              <Accordian textColor={textColor} extraQty={extraQty} accordianTitle={'Something feels missing ?'} addOnPayload={setAddonPayLoads} bundlePackageId={packageID} />
            </div>
            {/* // border-black */}
-           <div className='bundl-summary  border max-h-[80%] overflow-y-scroll w-full' >
+           <div 
+           style={{
+            maxHeight: showDetails ? "80%" : "200px", // Ensures smooth collapse
+            transition: "all 0.5s ease-in-out",
+          }}
+           className='bundl-summary  border max-h-[80%] overflow-y-scroll w-full' >
              <div className='bundl-name '>
                <p className='sm:text-[24px] xs:mb-0 xs:flex xs:justify-between sm:block font-[700] px-0 !mb-2'  >
                <span className='font-normal'>Summary</span>

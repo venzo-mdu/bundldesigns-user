@@ -467,6 +467,10 @@
     .proceed{
         width: 350px;
     }
+    .bundl-checkout {
+        padding: 1% 5%;
+        margin: 5% 0 0 0;
+    }
 }
 
 @media screen and (max-width:375px) {

@@ -654,7 +654,7 @@ const handleDownload = async (file) => {
                                                 {order?.item_details?.map((item, index) => {
                                                     if (item.item__category != 1 && item.type != 'bundl') {
                                                         return <p className={`font-medium ${processIndex < 4 && 'text-[#00000080]'} text-[18px] mx-1 lg:my-2 md:my-2 xs:my-0 lg:py-1 md:py-1 xs:py-2 
-                            ${index != (order?.item_details.length - 1) &&
+                            ${index !== (order?.item_details.length - 1) &&
                                                             'border-b'} border-[#00000080] flex justify-between`}><span className='lg:text-[16px] md:text-[16px] xs:text-[16px]'>{item.item_name}</span>
                                                             <span className={`flex lg:items-center md:items-center xs:items-end lg:flex-row md:flex-row ${item.status == 'questionnaire required' || item.status == 'in process'?'xs:flex-row' : 'xs:flex-col-reverse' } text-[#00000080] text-[14px]`}>{processIndex >= 4 ? <>
                                                                 {item.status == 'questionnaire required' ? <>
@@ -716,7 +716,7 @@ const handleDownload = async (file) => {
                                             </tbody>
                                         </table>
                                     </div> : ''
-                                :
+                                    :
                                     <div className="w-full px-[8%]">
                                         {/* Header */}
                                         <div className="flex justify-between items-center">
