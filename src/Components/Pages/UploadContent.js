@@ -6,6 +6,7 @@ import { Footer } from '../Common/Footer/Footer'
 import { Navbar } from '../Common/Navbar/Navbar'
 import { format } from "date-fns";
 import tickCircleIcon from "../../Images/tickCircleIcon.svg"
+import checkboxIcon from "../../Images/Checkboxicon.svg"
 import starIcon from "../../Images/starIcon.svg"
 import backIcon from "../../Images/backIcon.svg"
 import uploadIcon from "../../Images/uploadIcon.svg"
@@ -139,11 +140,11 @@ console.log(skipId)
                                     {order.item_details.bundle_items
                                         .filter(item=>item.item__category !== 1 && !skipId?.includes(item.id) && item.status == 'questionnaire required')
                                         .map((item,index,filterArr) => {
-                                            return <div className={`${( filterArr.length === 1 || index === filterArr.length -1)  ? '' : 'border-b !border-black'} space-x-2 mt-[2%]`}>
+                                            return <div className={`${( filterArr.length === 1 || (index === filterArr.length -1 && order.item_details.addon_items.length === 0 ))  ? '' : 'border-b !border-black'} space-x-2 mt-[2%]`}>
                                             
                                                 <p className="mb-0 font-[700] text-[20px]">{item.item_name}</p>
                                                 {designQuestions[item.item__id]?.language && <p className='mt-2'>
-                                                    <label className='mr-6 '>
+                                                    <label className='mr-6 font-[500]'>
                                                         <input
                                                             type="radio"
                                                             value="English"
@@ -153,7 +154,7 @@ console.log(skipId)
                                                         /> English
 
                                                     </label>
-                                                    <label>
+                                                    <label className='font-[500]'>
                                                         <input
                                                             type="radio"
                                                             value="Arabic"
@@ -166,10 +167,10 @@ console.log(skipId)
                                                 {designQuestions[item.item__id]?.content && <p className='w-[100%]'>
                                                     <input placeholder='Slogan & Number....' value={uploadContent?.[item?.id]?.content || ''} onChange={(e) => handleChange(e, item.id, 'content')} className='border !border-black h-[55px] w-full py-2 px-2 rounded-[5px] ' ></input>
                                                 </p>}
-                                                {designQuestions[item.item__id]?.measurements && <>
+                                                {designQuestions[item.item__id]?.measurement && <>
                                                     <p>Measurements</p>
                                                     <p>
-                                                        <label className='mr-6'>
+                                                        <label className='mr-6 font-[500]'>
                                                             <input
                                                                 type="radio"
                                                                 value="Standard"
@@ -177,7 +178,7 @@ console.log(skipId)
                                                                 onChange={(e) => handleChange(e, item.id, 'measurements')}
                                                                 className="form-radio accent-[#1BA56F] mr-2"
                                                             /> Standard </label>
-                                                        <label className='mr-2'>
+                                                        <label className='mr-2 font-[500]'>
                                                             <input
                                                                 type="radio"
                                                                 value="Customize"
@@ -187,14 +188,14 @@ console.log(skipId)
                                                             />  Customize  </label>
 
                                                         {uploadContent[item.id]?.measurements === "Customize" && <>
-                                                            <label className='text-[#1BA56F] mr-2'> width : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'width')} value={uploadContent?.[item?.id]?.width || ''} className='w-[50px] border !border-[#1BA56F]'></input></label>
-                                                            <label className='text-[#1BA56F] mr-2'> height : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'height')} value={uploadContent?.[item?.id]?.height || ''} className='w-[50px] border !border-[#1BA56F]'></input></label>
-                                                            <label className='text-[#1BA56F] mr-2'> length : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'length')} value={uploadContent?.[item?.id]?.length || ''} className='w-[50px] border !border-[#1BA56F]'></input></label>
+                                                            <label className='text-[#1BA56F] mr-2'> Width : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'width')} value={uploadContent?.[item?.id]?.width || ''} className='w-[55px] h-[25px] border !border-[#1BA56F]'></input></label>
+                                                            <label className='text-[#1BA56F] mr-2'> Height : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'height')} value={uploadContent?.[item?.id]?.height || ''} className='w-[55px] h-[25px] border !border-[#1BA56F]'></input></label>
+                                                            <label className='text-[#1BA56F] mr-2'> Length : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'length')} value={uploadContent?.[item?.id]?.length || ''} className='w-[55px] h-[25px] border !border-[#1BA56F]'></input></label>
                                                             <span className='text-[#1BA56F] mr-2'> CM </span> </>}
                                                     </p>
                                                 </>}
 
-                                                {designQuestions[item.item__id]?.attachment && <><p className='font-[500] text-[20px]'>Have something to show us?</p>
+                                                {designQuestions[item.item__id]?.attachment && <><p className='mb-2 font-[500] text-[20px]'>Have something to show us?</p>
                                                     <p
                                                         className={`border-b-2 ${uploadContent?.[item?.id]?.filename ? 'w-fit':'w-[150px]'} !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer`}
                                                         onClick={() => document.getElementById(`file-${item.id}`).click()} // Trigger click on hidden input
@@ -222,7 +223,7 @@ console.log(skipId)
                                                 return <div className={`${( filterArr.length === 1 || index === filterArr.length)  ? '' : 'border-b !border-black'} space-x-2 mt-[2%]`}>
                                                     <p className="mb-0 font-[700] text-[20px]">{item.item_name}</p>
                                                     {designQuestions[item.item__id]?.language && <p className='mt-2 mb-0'>
-                                                        <label className='mr-6 '>
+                                                        <label className='mr-6 font-[500]'>
                                                             <input
                                                                 type="radio"
                                                                 value="English"
@@ -232,7 +233,7 @@ console.log(skipId)
                                                             /> English
 
                                                         </label>
-                                                        <label>
+                                                        <label className='font-[500]'>
                                                             <input
                                                                 type="radio"
                                                                 value="Arabic"
@@ -248,7 +249,7 @@ console.log(skipId)
                                                     {designQuestions[item.item__id]?.measurement && <>
                                                         <p className='mb-0 font-[500] text-[20px]'>Measurements</p>
                                                         <p className='ml-2'>
-                                                            <label className='mr-6'>
+                                                            <label className='mr-6 font-[500]'>
                                                                 <input
                                                                     type="radio"
                                                                     value="Standard"
@@ -256,7 +257,7 @@ console.log(skipId)
                                                                     onChange={(e) => handleChange(e, item.id, 'measurements')}
                                                                     className="form-radio accent-[#1BA56F] mr-2"
                                                                 /> Standard </label>
-                                                            <label className='mr-2'>
+                                                            <label className='mr-2 font-[500]'>
                                                                 <input
                                                                     type="radio"
                                                                     value="Customize"
@@ -270,16 +271,16 @@ console.log(skipId)
                                                             {
                                                                 uploadContent[item.id]?.measurements === "Customize" && (
                                                                     <div className='flex'>
-                                                                        <label className='text-[#1BA56F] mr-2'> width : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'width')} value={uploadContent?.[item?.id]?.width || ''} className='w-[50px] border !border-[#1BA56F]'></input></label>
-                                                                        <label className='text-[#1BA56F] mr-2'> height : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'height')} value={uploadContent?.[item?.id]?.height || ''} className='w-[50px] border !border-[#1BA56F]'></input></label>
-                                                                        <label className='text-[#1BA56F] mr-2'> length : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'length')} value={uploadContent?.[item?.id]?.length || ''} className='w-[50px] border !border-[#1BA56F]'></input></label>
+                                                                        <label className='text-[#1BA56F] mr-2'> Width : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'width')} value={uploadContent?.[item?.id]?.width || ''} className='w-[55px] h-[25px] border !border-[#1BA56F]'></input></label>
+                                                                        <label className='text-[#1BA56F] mr-2'> Height : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'height')} value={uploadContent?.[item?.id]?.height || ''} className='w-[55px] h-[25px] border !border-[#1BA56F]'></input></label>
+                                                                        <label className='text-[#1BA56F] mr-2'> Length : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'length')} value={uploadContent?.[item?.id]?.length || ''} className='w-[55px] h-[25px] border !border-[#1BA56F]'></input></label>
                                                                     </div>
                                                                 )
                                                             }
                                                         </p>
                                                     </>}
 
-                                                    {designQuestions[item.item__id]?.attachment && <><p className='mb-0 font-[500] text-[20px]'>Have something to show us?</p>
+                                                    {designQuestions[item.item__id]?.attachment && <><p className='mb-2 font-[500] text-[20px]'>Have something to show us?</p>
                                                         <p
                                                             className={`border-b-2 ${uploadContent?.[item?.id]?.filename ? 'w-fit':'w-[150px]'} !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer`}
                                                             onClick={() => document.getElementById(`file-${item.id}`).click()} // Trigger click on hidden input
@@ -322,11 +323,13 @@ console.log(skipId)
                                                 <div className='px-[5%]'>
                                                     {order.item_details.bundle_items.map(item => {
                                                         if (item.item__category != 1) {
-                                                            return <div className="flex items-center  text-[#1BA56F] w-[100%]">
+                                                            return <div className="flex items-center mb-1  text-[#1BA56F] w-[100%]">
                                                                 <p className="mb-0 font-medium w-[95%]">{item.item_name}</p>
 
                                                                 {item.status == 'questionnaire required' ?
-                                                                    <div className="w-4 h-4 border-2 border-[#1BA56F] rounded-full"></div> :
+                                                                    // <div className="w-4 h-4 border-2 border-[#1BA56F] rounded-full"></div> 
+                                                                    <img src={checkboxIcon} width={'26px'}></img>
+                                                                    :
                                                                     <img src={tickCircleIcon}></img>}
                                                             </div>
                                                         }
@@ -334,11 +337,13 @@ console.log(skipId)
                                                     })}
                                                     {
                                                         order.item_details.addon_items.map(item => {
-                                                            return <div className="flex items-center  text-[#1BA56F]">
+                                                            return <div className="flex items-center mb-1 text-[#1BA56F]">
                                                                 <div className='flex  w-[100%]'>
                                                                     <p className="mb-0 font-medium w-[95%]">{item.item_name}</p>
                                                                     {item.status == 'questionnaire required' ?
-                                                                        <div className="w-4 h-4 border-2 border-[#1BA56F] rounded-full"></div> :
+                                                                        // <div className="w-4 h-4 border-2 border-[#1BA56F] rounded-full"></div> 
+                                                                        <img src={checkboxIcon} width={'26px'}></img>
+                                                                        :
                                                                         <img src={tickCircleIcon}></img>}
                                                                 </div>
                                                             </div>
@@ -372,10 +377,10 @@ console.log(skipId)
                                         {order.item_details.bundle_items
                                             .filter(item=>item.item__category !== 1 && !skipId?.includes(item.id) && item.status == 'questionnaire required')
                                             .map((item,index,filterArr) => {
-                                                return <div className={`${filterArr.length === 1 || index === filterArr.length - 1 ? '' : 'border-b border-black'} px-[5%] space-x-2 mt-[2%]`}>
+                                                return <div className={`${filterArr.length === 1 || (index === filterArr.length - 1  && order.item_details.addon_items?.length === 0) ? '' : 'border-b border-black'} px-[5%] space-x-2 mt-[2%]`}>
                                                     <p className="mb-0 font-semibold text-[22px">{item.item_name}</p>
                                                     {designQuestions[item.item__id]?.language && <p className='mt-2'>
-                                                        <label className='mr-6 '>
+                                                        <label className='mr-6 font-[500]'>
                                                             <input
                                                                 type="radio"
                                                                 value="English"
@@ -385,7 +390,7 @@ console.log(skipId)
                                                             /> English
 
                                                         </label>
-                                                        <label>
+                                                        <label className='font-[500]'>
                                                             <input
                                                                 type="radio"
                                                                 value="Arabic"
@@ -398,10 +403,10 @@ console.log(skipId)
                                                     {designQuestions[item.item__id]?.content && <p className='flex lg:w-[70%] md:w-[90%]'>
                                                         <input placeholder='Slogan & Number....' value={uploadContent?.[item?.id]?.content || ''} onChange={(e) => handleChange(e, item.id, 'content')} className='border !border-black py-2 px-2 w-full rounded-none ' required></input>
                                                         </p>}
-                                                    {designQuestions[item.item__id]?.measurements && <>
+                                                    {designQuestions[item.item__id]?.measurement && <>
                                                         <p>Measurements</p>
-                                                        <p>
-                                                            <label className='mr-6'>
+                                                        <p className='mt-2'>
+                                                            <label className='mr-6 font-[500]'>
                                                                 <input
                                                                     type="radio"
                                                                     value="Standard"
@@ -409,7 +414,7 @@ console.log(skipId)
                                                                     onChange={(e) => handleChange(e, item.id, 'measurements')}
                                                                     className="form-radio accent-[#1BA56F] mr-2"
                                                                 /> Standard </label>
-                                                            <label className='mr-2'>
+                                                            <label className='mr-2 font-[500]'>
                                                                 <input
                                                                     type="radio"
                                                                     value="Customize"
@@ -419,14 +424,14 @@ console.log(skipId)
                                                                 />  Customize  </label>
 
                                                             {uploadContent[item.id]?.measurements === "Customize" && <>
-                                                                <label className='text-[#1BA56F] mr-2'> width : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'width')} value={uploadContent?.[item?.id]?.width || ''} className='w-[50px] border !border-[#1BA56F]'></input></label>
-                                                                <label className='text-[#1BA56F] mr-2'> height : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'height')} value={uploadContent?.[item?.id]?.height || ''} className='w-[50px] border !border-[#1BA56F]'></input></label>
-                                                                <label className='text-[#1BA56F] mr-2'> length : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'length')} value={uploadContent?.[item?.id]?.length || ''} className='w-[50px] border !border-[#1BA56F]'></input></label>
+                                                                <label className='text-[#1BA56F] mr-2'> Width : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'width')} value={uploadContent?.[item?.id]?.width || ''} className='w-[55px] h-[25px] border !border-[#1BA56F]'></input></label>
+                                                                <label className='text-[#1BA56F] mr-2'> Height : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'height')} value={uploadContent?.[item?.id]?.height || ''} className='w-[55px] h-[25px] border !border-[#1BA56F]'></input></label>
+                                                                <label className='text-[#1BA56F] mr-2'> Length : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'length')} value={uploadContent?.[item?.id]?.length || ''} className='w-[55px] h-[25px] border !border-[#1BA56F]'></input></label>
                                                                 <span className='text-[#1BA56F] mr-2'> CM </span> </>}
                                                         </p>
                                                     </>}
 
-                                                    {designQuestions[item.item__id]?.attachment && <><p>Have something to show us?</p>
+                                                    {designQuestions[item.item__id]?.attachment && <><p className='mb-2'>Have something to show us?</p>
                                                         <p
                                                             className={`border-b-2 ${uploadContent?.[item?.id]?.filename ? 'w-fit':'w-[150px]'} !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer`}
                                                             onClick={() => document.getElementById(`file-${item.id}`).click()} // Trigger click on hidden input
@@ -453,10 +458,10 @@ console.log(skipId)
                                             .filter(item => !skipId.includes(item.id) && item.status === 'questionnaire required')
                                             .map((item,index,filteredArr) => {
                                                           
-                                                    return <div className={`${( filteredArr.length === 1 || index === filteredArr.length)  ? '' : 'border-b !border-black'} px-[5%] space-x-2 mt-[2%]`}>
+                                                    return <div className={`${( filteredArr.length === 1 || index === filteredArr.length )  ? '' : 'border-b !border-black'} px-[5%] space-x-2 mt-[2%]`}>
                                                         <p className="mb-0 font-semibold text-[22px">{item.item_name}</p>
                                                         {designQuestions[item.item__id]?.language && <p className='mt-2 mb-0'>
-                                                            <label className='mr-6 '>
+                                                            <label className='mr-6 font-[500]'>
                                                                 <input
                                                                     type="radio"
                                                                     value="English"
@@ -466,7 +471,7 @@ console.log(skipId)
                                                                 /> English
 
                                                             </label>
-                                                            <label>
+                                                            <label className='font-[500]'>
                                                                 <input
                                                                     type="radio"
                                                                     value="Arabic"
@@ -481,8 +486,8 @@ console.log(skipId)
                                                         </p>}
                                                         {designQuestions[item.item__id]?.measurement && <>
                                                             <p className='mb-0'>Measurements</p>
-                                                            <p className='ml-2'>
-                                                                <label className='mr-6'>
+                                                            <p className='ml-2 mt-2'>
+                                                                <label className='mr-6 font-[500]'>
                                                                     <input
                                                                         type="radio"
                                                                         value="Standard"
@@ -490,7 +495,7 @@ console.log(skipId)
                                                                         onChange={(e) => handleChange(e, item.id, 'measurements')}
                                                                         className="form-radio accent-[#1BA56F] mr-2"
                                                                     /> Standard </label>
-                                                                <label className='mr-2'>
+                                                                <label className='mr-2 font-[500]'>
                                                                     <input
                                                                         type="radio"
                                                                         value="Customize"
@@ -500,14 +505,14 @@ console.log(skipId)
                                                                     />  Customize  </label>
 
                                                                 {uploadContent[item.id]?.measurements === "Customize" && <>
-                                                                    <label className='text-[#1BA56F] mr-2'> width : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'width')} value={uploadContent?.[item?.id]?.width || ''} className='w-[50px] border !border-[#1BA56F]'></input></label>
-                                                                    <label className='text-[#1BA56F] mr-2'> height : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'height')} value={uploadContent?.[item?.id]?.height || ''} className='w-[50px] border !border-[#1BA56F]'></input></label>
-                                                                    <label className='text-[#1BA56F] mr-2'> length : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'length')} value={uploadContent?.[item?.id]?.length || ''} className='w-[50px] border !border-[#1BA56F]'></input></label>
+                                                                    <label className='text-[#1BA56F] mr-2'> Width : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'width')} value={uploadContent?.[item?.id]?.width || ''} className='w-[55px] h-[25px] border !border-[#1BA56F]'></input></label>
+                                                                    <label className='text-[#1BA56F] mr-2'> Height : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'height')} value={uploadContent?.[item?.id]?.height || ''} className='w-[55px] h-[25px] border !border-[#1BA56F]'></input></label>
+                                                                    <label className='text-[#1BA56F] mr-2'> Length : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'length')} value={uploadContent?.[item?.id]?.length || ''} className='w-[55px] h-[25px] border !border-[#1BA56F]'></input></label>
                                                                     <span className='text-[#1BA56F] mr-2'> CM </span> </>}
                                                             </p>
                                                         </>}
 
-                                                        {designQuestions[item.item__id]?.attachment && <><p className='mb-0'>Have something to show us?</p>
+                                                        {designQuestions[item.item__id]?.attachment && <><p className='mb-2'>Have something to show us?</p>
                                                             <p
                                                                 className={`border-b-2 ${uploadContent?.[item?.id]?.filename ? 'w-fit':'w-[150px]'} !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer`}
                                                                 onClick={() => document.getElementById(`file-${item.id}`).click()} // Trigger click on hidden input
@@ -545,9 +550,12 @@ console.log(skipId)
                                     <>
                                         {order.item_details.bundle_items.map(item => {
                                             if (item.item__category != 1) {
-                                                return <div className="flex items-center space-x-2 text-[#1BA56F]">
+                                                return <div className="flex items-center space-x-2 mb-1  text-[#1BA56F]">
                                                     {item.status == 'questionnaire required' ?
-                                                        <div className="w-4 h-4 border-2 border-[#1BA56F] rounded-full"></div> :
+                                                        // <div className="w-4 h-4 border-2 border-[#1BA56F] rounded-full"></div> 
+                                                        <img src={checkboxIcon} width={'25px'}></img>
+
+                                                        :
                                                         <img src={tickCircleIcon}></img>}
                                                     <p className="mb-0 font-medium">{item.item_name}</p>
                                                 </div>
@@ -556,10 +564,12 @@ console.log(skipId)
                                         })}
                                         {
                                             order.item_details.addon_items.map(item => {
-                                                return <div className="flex items-center space-x-2 text-[#1BA56F]">
+                                                return <div className="flex items-center space-x-2 mb-1 text-[#1BA56F]">
                                                     <div className='flex justify-center'>
                                                         {item.status == 'questionnaire required' ?
-                                                            <div className="w-4 h-4 border-2 border-[#1BA56F] rounded-full"></div> :
+                                                            // <div className="w-4 h-4 border-2 border-[#1BA56F] rounded-full"></div>
+                                                            <img src={checkboxIcon} width={'25px'}></img>
+                                                            :
                                                             <img src={tickCircleIcon}></img>}
                                                     </div>
                                                     <p className="mb-0 font-medium">{item.item_name}</p>

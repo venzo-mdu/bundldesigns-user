@@ -17,7 +17,7 @@ export const DashboardPopup = ({ title, subTitle, popupType = 'default', onChang
         top: '40%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: isSmallScreen ? '90%' : '25%',
+        width: isSmallScreen ? '90%' : window.innerWidth <= 1024 ? '32%' :'23%',
         bgcolor: 'background.paper',
         border: '0px',
         borderRadius: '8px',
@@ -87,7 +87,7 @@ export const DashboardPopup = ({ title, subTitle, popupType = 'default', onChang
                     <Typography sx={{color:'black'}} id="modal-modal-title" variant="h6" component="h2">
                         {title}
                     </Typography>
-                    <Typography id="modal-modal-description" sx={{ marginTop:'3px',width:'75%',marginLeft:'auto',marginRight:'auto' , color:'#00000080' }}>
+                    <Typography id="modal-modal-description" sx={{ marginTop:'3px',width:window.innerWidth<= 475 ?'95%':'75%',marginLeft:'auto',marginRight:'auto' , color:'#00000080' }}>
                         {subTitle}
                     </Typography>
 

@@ -235,8 +235,8 @@ export default function Dashboard() {
                     );
                 }
                 return (
-                    <div className="text-center">
-                        <h2 className="lg:text-[22px] md:text-[22px] xs:text-[18px] xs:px-[10%] text-[#000000]">
+                    <div className="text-center flex items-center flex-col">
+                        <h2 className="lg:text-[22px] md:text-[22px] xs:text-[18px] xs:px-[10%] text-[#000000] lg:w-[100%] md:w-[100%] xs:w-[90%]">
                             {dashboardJson.process_content.design_brand}
                         </h2>
                         <p className="text-[18px] text-[#1BA56F] font-medium">
@@ -313,8 +313,8 @@ export default function Dashboard() {
 
             case 'in_review':
                 return (
-                    <div className="text-center">
-                        <h2 className="lg:text-[22px] md:text-[22px] xs:text-[18px] xs:px-[10%] text-[#000000]">
+                    <div className="text-center flex items-center flex-col">
+                        <h2 className="lg:text-[22px] md:text-[22px] xs:text-[18px] xs:px-[10%] text-[#000000] lg:w-[100%] md:w-[100%] xs:w-[80%]">
                             {dashboardJson.process_content.file_send}
                         </h2>
                         <p className="flex justify-center w-full">
@@ -564,7 +564,12 @@ const handleDownload = async (file) => {
                                 projects.length ? <div className=' border-black  lg:py-16 md:py-16 xs:py-8 lg:px-14 md:px-14 xs:px-0 '>
                                     {
                                         window.innerWidth <=475 ?
-                                        <p className='text-[#000000] opacity-[50%] text-[20px] font-[500] font-Helvetica px-[5%]'>My Bundls</p> 
+                                        <div className='w-[100%] flex px-[5%]'>
+                                        <p className='text-[#000000] opacity-[50%] text-[20px] font-[500] font-Helvetica  w-[70%]'>My Bundls</p> 
+                                        <div className='w-[30%] text-right mt-[0%]'>
+                                            <button onClick={() => { window.location.href = '/' }} className='bg-black text-white h-[35px] w-[35px] text-[22px]'>+</button>
+                                            </div>
+                                        </div>
                                         :
                                         <h1 className='lg:text-[32px] md:text-[24px] flex mb-4 xs:px-0'>  <span className='mr-2'>{dashboardJson.second_title}</span> <img className='mr-2' src={ltIcon}></img>  <img src={gtIcon}></img> </h1>
                                     }
@@ -600,7 +605,7 @@ const handleDownload = async (file) => {
                                             ) :
                                             <div className='xs:px-[5%] xs:flex xs:w-[100%]'>
                                                 {/* <div className="select-container"> */}
-                                            <select id='dashboardSelect' className='w-fit h-[60px] text-[32px] font-[700] outline-none border-none px-1 rounded-none ' onChange={(e)=>handleSelectChange(e)}>
+                                            <select id='dashboardSelect' className='w-full h-[60px] text-[32px] font-[700] outline-none border-none px-0 rounded-none ' onChange={(e)=>handleSelectChange(e)}>
                                                 {projects?.map((project, index) => (
                                                     <option className="text-[16px] font-[500] " key={index} value={project.id}>
                                                         {project.project_name}
@@ -608,9 +613,7 @@ const handleDownload = async (file) => {
                                                 ))}
                                             </select>
                                             {/* </div> */}
-                                            <div className='w-[40%] text-right mt-[3%]'>
-                                            <button onClick={() => { window.location.href = '/' }} className='bg-black text-white h-[35px] w-[35px] text-[22px]'>+</button>
-                                            </div>
+                                            
                                         </div>
                                             
                                       }
@@ -620,17 +623,17 @@ const handleDownload = async (file) => {
                                         <button onClick={() => { window.location.href = '/' }} className='lg:py-2 lg:px-2 lg:sticky lg:right-0 md:sticky md:right-0 flex bg-black text-white items-center lg:text-[32px] md:text-[24px] leading-[0px]  xs:text-[24px] xs:py-4 xs:px-4 xs:relative xs:left-[0%]'>+</button>
                                        }
                                     </p>
-                                    {window.innerWidth<768 && (<div className='px-3 mt-2 font-Helvetica'>
+                                    {window.innerWidth<768 && (<div className='px-[5%] mt-2 font-Helvetica'>
                                         <p className='px-32text-[18px] font-[400] opacity-50'>
                                             {processIndex + 1}/{dashboardJson.project_process.length} - {dashboardJson.project_process[processIndex]}
                                         </p>
                                     </div>)}
                                     <div className='lg:border-[1.5px] md:border-[1.5px] xs:border-b-[1.5px] mt-0  lg:border-black md:border-black border-transparent py-2 lg:px-6 md:px-6 xs:px-0 xs:border-black'>
                                         <div className='flex items-center lg:w-[78%] w-[80%] md:w-[95%]  lg:mx-auto md:mx-auto lg:mt-10 md:mt-10 xs:mt-2 lg:px-0 xs:w-[100%] xs:px-[5%] xs:ml-[5%]'>{renderProcessData()}</div>
-                                        <div className='flex lg:p-[0px_30px_0px_0px] md:p-[15px_15px_0px_35px] mb-12 lg:w-[90%] w-[80%] md:w-[100%] xs:w-[100%] lg:m-auto md:m-0'>
+                                        <div className='flex lg:p-[0px_30px_0px_0px] md:p-[15px_15px_0px_70px] mb-12 lg:w-[90%] w-[80%] md:w-[100%] xs:w-[100%] lg:m-auto md:m-0'>
                                             {window.innerWidth > 768 && dashboardJson.project_process.map((item, index) => {
-                                                return <div className='lg:basis-[45%] md:basis-[20%] xs:basis-1/5 text-center lg:text-[16px] md:text-[14px] mt-[2%]'>  <p className={`pb-0 lg:max-w-[52%] md:max-w-[70%] max-w-[95%] mx-auto mb-0 ${index == processIndex && 'font-bold'}`}> {item} </p>
-                                                    {index == processIndex && <p className='text-[#1BA56F] font-[700]'>You’re now Here!</p>}
+                                                return <div className='lg:basis-[45%] md:basis-[20%] xs:basis-1/5 text-center lg:text-[16px] md:text-[14px] mt-[2%]'>  <p className={`pb-0 lg:max-w-[52%] md:max-w-[75%] max-w-[95%] lg:mx-auto md:mx-0 xs:mx-auto mb-0 ${index == processIndex && 'font-bold'}`}> {item} </p>
+                                                    {index == processIndex && <p className='text-[#1BA56F] font-[700] lg:text-center md:text-justify ml-0'>You’re now Here!</p>}
                                                 </div>
                                             })}
                                         </div>
@@ -735,7 +738,7 @@ const handleDownload = async (file) => {
                                                 >
                                                     {/* Name & Amount */}
                                                     <div className="flex justify-between w-full md:w-[50%]">
-                                                        <p className="text-[22px] font-[700] font-Helvetica">{order.project_name}</p>
+                                                        <p className="text-[22px] font-[700] font-Helvetica">{order.project_name.length > 9 ? order.project_name.substring(0, 5) + " (...)" : order.project_name}</p>
                                                         <p className="text-[22px] font-[700] font-Helvetica">{Math.round(order.grand_total)} SAR</p>
                                                     </div>
 

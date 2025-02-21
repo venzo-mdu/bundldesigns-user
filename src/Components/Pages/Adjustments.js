@@ -281,7 +281,7 @@ export default function Adjustments({user}) {
         if(adjustmentData && Object.values(adjustmentData).length === 0 ){
            setErrorMsg(`Adjustment cannot be empty`);
         }
-        else if (Object.values(adjustmentData).length && Object.values(itemsList).length) {
+        else if (Object.values(adjustmentData).length) {
             setPage('cart')
             setErrorMsg(null)
         } else {
@@ -587,7 +587,7 @@ export default function Adjustments({user}) {
                                         <div className='mt-10'>
                                             {Object.keys(bundlAddons).map((category, index) => {
                                                 return <div className='' id={`${index}_list`}>
-                                                    <p className={`flex justify-between font-semibold text-[24px] pb-2  ${expantedTabs[category] ? '' : 'border-b'} border-[#00000080]`}> {category}      <button
+                                                    <p className={`flex justify-between font-semibold text-[24px] pb-2  ${expantedTabs[category] || category === 'Social Media'  ? '' : 'border-b'} border-[#00000080]`}> {category}      <button
                                                         onClick={() => toggleDescription(category)}
                                                         className="text-blue-500 cursor-pointer"
                                                     >
@@ -632,7 +632,7 @@ export default function Adjustments({user}) {
                                         </div>
                                         <div className={`fixed bg-white bottom-0 xs:p-[5%_0%_12%_0%] overflow-y-scroll  border ${showDetails ? 'h-[500px]' : 'h-[250px]'} w-full left-0 z-[1]`} >
                                             <div className='bundl-name '>
-                                                <p className='sm:text-[24px] xs:mb-0 xs:flex xs:justify-between sm:block font-[700] px-0 py-[5%] !mb-2'>
+                                                <p className='sm:text-[24px] xs:mb-0 xs:flex xs:justify-between sm:block font-[700] px-0 pt-[5%] !mb-2'>
                                                     <span className='font-[400] text-[16px] font-Helvetica'>Summary</span>
                                                     {isMobile && <button onClick={() => setDetails(!showDetails)} className='text-[14px] font-[500] underline text-[#1BA56F]'>{!showDetails ? 'Show Details' : 'Hide Details'}</button>}
                                                 </p>
@@ -1057,8 +1057,8 @@ export default function Adjustments({user}) {
 
                                             <div className='mt-10'>
                                                 {Object.keys(bundlAddons).map((category, index) => {
-                                                    return <div className='' id={`${index}_list`}>
-                                                        <p className={`flex justify-between font-semibold text-[24px] pb-2  ${expantedTabs[category] ? '' : 'border-b'} border-[#00000080]`}> {category}      <button
+                                                    return <div className='' id={`${index}_list`}> 
+                                                        <p className={`flex justify-between font-semibold text-[24px] pb-2  ${expantedTabs[category] || category === 'Social Media' ? '' : 'border-b'} border-[#00000080]`}> {category}      <button
                                                             onClick={() => toggleDescription(category)}
                                                             className="text-blue-500 cursor-pointer"
                                                         >
