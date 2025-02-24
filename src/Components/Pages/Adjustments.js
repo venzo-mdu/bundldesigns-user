@@ -608,7 +608,7 @@ export default function Adjustments({user}) {
                                                               <span className='font-bold text-[18px] text-[#1BA56F] w-[45%]'>{item.name_english}</span>
                                                             <p className='flex items-center !mb-2 w-[55%] '>
                                                             <p className='flex items-center mb-1 sm:min-w-[120px] min-w-[120px] xs:min-w-[100px] font-[500]'>
-                                                                <img src={dollorIcon} alt="Price icon" className="inline-block mr-2" />
+                                                                <img src={BlackDollor} alt="Price icon" className="inline-block mr-2" />
                                                                 {Math.round(item.price)} SAR
                                                             </p>
                                                             <p className='flex items-center mb-1 font-[500] text-right' >

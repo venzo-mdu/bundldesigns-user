@@ -342,7 +342,7 @@ export const BundlDetail = () => {
            {/* // border-black */}
            <div 
            style={{
-            maxHeight: showDetails ? "80%" : "200px", // Ensures smooth collapse
+            // maxHeight: showDetails ? "80%" : "200px", 
             transition: "all 0.5s ease-in-out",
           }}
            className='bundl-summary  border max-h-[80%] overflow-y-scroll w-full' >

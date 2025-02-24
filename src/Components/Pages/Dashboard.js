@@ -632,7 +632,7 @@ const handleDownload = async (file) => {
                                         <div className='flex items-center lg:w-[78%] w-[80%] md:w-[95%]  lg:mx-auto md:mx-auto lg:mt-10 md:mt-10 xs:mt-2 lg:px-0 xs:w-[100%] xs:px-[5%] xs:ml-[5%]'>{renderProcessData()}</div>
                                         <div className='flex lg:p-[0px_30px_0px_0px] md:p-[15px_15px_0px_70px] mb-12 lg:w-[90%] w-[80%] md:w-[100%] xs:w-[100%] lg:m-auto md:m-0'>
                                             {window.innerWidth > 768 && dashboardJson.project_process.map((item, index) => {
-                                                return <div className='lg:basis-[45%] md:basis-[20%] xs:basis-1/5 text-center lg:text-[16px] md:text-[14px] mt-[2%]'>  <p className={`pb-0 lg:max-w-[52%] md:max-w-[75%] max-w-[95%] lg:mx-auto md:mx-0 xs:mx-auto mb-0 ${index == processIndex && 'font-bold'}`}> {item} </p>
+                                                return <div className='lg:basis-[45%] md:basis-[20%] xs:basis-1/5 text-center lg:text-[16px] md:text-[14px] mt-[2%]'>  <p className={`pb-0 lg:max-w-[59%] md:max-w-[75%] max-w-[95%] lg:mx-auto md:mx-0 xs:mx-auto mb-0 ${index == processIndex && 'font-bold'}`}> {item} </p>
                                                     {index == processIndex && <p className='text-[#1BA56F] font-[700] lg:text-center md:text-justify ml-0'>You’re now Here!</p>}
                                                 </div>
                                             })}
@@ -650,13 +650,14 @@ const handleDownload = async (file) => {
                                                     <span className='text-[#1BA56F] lg:text-[18px] md:text-[18px] xs:text-[16px]  font-[500]'> -
                                                         {processIndex < 4 ? ' ON HOLD' :order.order_status =='completed' || order.order_status =='in_review' ? ' COMPLETE' : ' IN PROGRESS'}</span>
                                                 </p>
-
-                                                {order?.item_details?.map((item, index) => {
-                                                    if (item.item__category != 1 && item.type != 'bundl') {
-                                                        return <p className={`font-medium ${processIndex < 4 && 'text-[#00000080]'} text-[18px] mx-1 lg:my-2 md:my-2 xs:my-0 lg:py-1 md:py-1 xs:py-2 
-                            ${index !== (order?.item_details.length - 1) &&
-                                                            'border-b'} border-[#00000080] flex justify-between`}><span className='lg:text-[16px] md:text-[16px] xs:text-[16px]'>{item.item_name}</span>
-                                                            <span className={`flex lg:items-center md:items-center xs:items-end lg:flex-row md:flex-row ${item.status == 'questionnaire required' || item.status == 'in process'?'xs:flex-row' : 'xs:flex-col-reverse' } text-[#00000080] text-[14px]`}>{processIndex >= 4 ? <>
+                                                {order?.item_details
+                                                    ?.filter(item => item.item__category !== 1 && item.type !== 'bundl')
+                                                    ?.map((item, index, filteredArray) => {
+                                                        const isProcessing = processIndex < 4;
+                                                        const isLastItem = index === filteredArray.length - 1;
+                                                        return <p className={`font-medium ${isProcessing && 'text-[#00000080]'} text-[18px] mx-1 lg:my-2 md:my-2 xs:my-0 lg:py-1 md:py-1 xs:py-2 
+                                                        ${!isLastItem &&'border-b'} border-[#00000080] flex justify-between`}><span className='lg:text-[16px] md:text-[16px] xs:text-[16px]'>{item.item_name}</span>
+                                                            <span className={`flex lg:items-center md:items-center xs:items-end lg:flex-row md:flex-row ${item.status == 'questionnaire required' || item.status == 'in process' ? 'xs:flex-row' : 'xs:flex-col-reverse'} text-[#00000080] text-[14px]`}>{processIndex >= 4 ? <>
                                                                 {item.status == 'questionnaire required' ? <>
                                                                     <span className='mr-2 font-normal'>Waiting content</span>
                                                                     <img src={ItemWaitingIcon}></img>
@@ -666,16 +667,16 @@ const handleDownload = async (file) => {
                                                                 </> : <>
                                                                     <button className='bg-[#1BA56F] lg:mr-5 md:mr-5 xs:mr-0 px-2 !py-0 text-[16px] ml-4 text-white font-[400] lg:mt-0 md:mt-0 xs:mt-[5%]' onClick={() => { navigate('/adjustment', { state: { orderId: order.id, orderItemId: item.id } }) }}>Request Edits</button>
                                                                     <div className='flex'>
-                                                                    <span className='mr-2 text-[16px] font-semibold text-[#1BA56F] mt-1'>Finished</span>
-                                                                    <img src={ItemFinishedIcon}></img>
+                                                                        <span className='mr-2 text-[16px] font-semibold text-[#1BA56F] mt-1'>Finished</span>
+                                                                        <img src={ItemFinishedIcon}></img>
                                                                     </div>
-                                                                    
+
                                                                 </>}
                                                             </> : ''}</span>
                                                         </p>
-                                                    }
 
-                                                })}
+                                                    })}
+                                                
                                             </>}
                                         </div>
                                     </div>
@@ -786,7 +787,7 @@ const handleDownload = async (file) => {
                                                 {Files.map((item, index) => (
                                                     <a 
                                                         key={index} 
-                                                        className="cursor-pointer ml-2 underline block" 
+                                                        className="cursor-pointer ml-2 underline block w-fit" 
                                                         onClick={() => handleDownload(item)}
                                                     >
                                                         {item}
@@ -803,7 +804,7 @@ const handleDownload = async (file) => {
                                                     return (
                                                         <a 
                                                             key={index} 
-                                                            className="cursor-pointer ml-2 underline block" 
+                                                            className="cursor-pointer ml-2 underline block w-fit" 
                                                             href={validUrl} 
                                                             target="_blank" 
                                                             rel="noopener noreferrer"
