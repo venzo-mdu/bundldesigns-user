@@ -11,13 +11,12 @@ import popupGIF from '../../../Images/popupGIF.gif'
 
 export const DashboardPopup = ({ title, subTitle, popupType = 'default', onChange, save, cancel, openpopup, textArea, saveBtnBg, setPopup, onClick, sx, values, isCancel }) => {
     const isSmallScreen = useMediaQuery('(max-width:441px)');
-
     const style = {
         position: 'absolute',
         top: '40%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: isSmallScreen ? '95%' : window.innerWidth >= 1024 ? '25%' :'23%',
+        width: isSmallScreen? '95%' :'32%',
         bgcolor: 'background.paper',
         border: '0px',
         borderRadius: '8px',

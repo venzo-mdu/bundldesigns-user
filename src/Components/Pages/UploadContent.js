@@ -68,13 +68,26 @@ export default function UploadContent() {
     // }
 
     const saveContent = async (itemId) => {
+
         try {
-            // Check if content exists before sending request
+
+            if (!uploadContent?.[itemId]?.language) {
+                toast.error("Please choose language before saving."); // Show user-friendly error
+                return;
+            }
             if (!uploadContent?.[itemId]?.content) {
-                console.error("Error: No content to upload for item", itemId);
                 toast.error("Please add content before saving."); // Show user-friendly error
                 return;
             }
+            if (!uploadContent?.[itemId]?.measurements) {
+                toast.error("Please add measurements before saving."); // Show user-friendly error
+                return;
+            }
+            if (!uploadContent?.[itemId]?.filename) {
+                toast.error("Please upload the content."); // Show user-friendly error
+                return;
+            }
+           
     
             const formData = { 
                 answers: { [itemId]: uploadContent[itemId] }, 
@@ -140,7 +153,7 @@ console.log(skipId)
                                     {order.item_details.bundle_items
                                         .filter(item=>item.item__category !== 1 && !skipId?.includes(item.id) && item.status == 'questionnaire required')
                                         .map((item,index,filterArr) => {
-                                            return <div className={`${( filterArr.length === 1 || (index === filterArr.length -1 && order.item_details.addon_items.length === 0 ))  ? '' : 'border-b !border-black'} space-x-2 mt-[2%]`}>
+                                            return <div className={`${( filterArr.length === 1 || (index === filterArr.length -1 && order.item_details.addon_items.length === 0 ))  ? '' : 'border-b !border-black'}mt-[2%]`}>
                                             
                                                 <p className="mb-0 font-[700] text-[20px]">{item.item_name}</p>
                                                 {designQuestions[item.item__id]?.language && <p className='mt-2'>
@@ -220,7 +233,7 @@ console.log(skipId)
                                         order.item_details.addon_items
                                         .filter(item=>!skipId.includes(item.id) && item.status == 'questionnaire required')
                                         .map((item,index,filterArr) => {
-                                                return <div className={`${( filterArr.length === 1 || index === filterArr.length)  ? '' : 'border-b !border-black'} space-x-2 mt-[2%]`}>
+                                                return <div className={`${( filterArr.length === 1 || index === filterArr.length)  ? '' : 'border-b !border-black'} mt-[2%]`}>
                                                     <p className="mb-0 font-[700] text-[20px]">{item.item_name}</p>
                                                     {designQuestions[item.item__id]?.language && <p className='mt-2 mb-0'>
                                                         <label className='mr-6 font-[500]'>

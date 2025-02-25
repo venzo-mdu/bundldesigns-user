@@ -340,13 +340,13 @@ export const Home = () => {
                                             <div className="navbar navbar-expand-lg float-right">
                                                 <ul className=" mr-auto h-list align-items-center ">
                                                     <li className='px-[6px]' >
-                                                        <a onClick={() => { setSearchShow(!searchShow) }} className="cursor-pointer"><img src={Search} alt="" className="navIcons"></img></a>
+                                                        <a onClick={() => { setSearchShow(!searchShow);setProfileVisible(false) }} className="cursor-pointer"><img src={Search} alt="" className="navIcons"></img></a>
                                                         <div className='absolute' ref={searchRef}>
                                                             {searchShow ? <input placeholder='Search' onKeyDown={(e) => checkEnterKey(e)} className='border-b focus:outline-none py-1 px-2 mt-3 text-black border-black' value={searchQry} onChange={(e) => setSearchQry(e.target.value)} /> : ''}
                                                         </div>
                                                     </li>
                                                     <li className='px-[6px] inner-nav'>
-                                                        <a className="" onClick={() => { setProfileVisible(!profileVisible) }}><img src={User} alt="" className="navIcons cursor-pointer"></img></a>
+                                                        <a className="" onClick={() => { setProfileVisible(!profileVisible);setSearchShow(false) }}><img src={User} alt="" className="navIcons cursor-pointer"></img></a>
                                                         <nav className={`w-44 absolute top-full right-[6rem] text-right bg-white py-2 px-3 transition-all duration-300 ease-in-out ${profileVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
                                                             }`}>
                                                             <div ref={popupRef}>
@@ -605,7 +605,7 @@ export const Home = () => {
                                             </div>
                                         ))}
                                     </div>
-                                    <svg className="rocket overlay sm:ml-[-50px] ml-[-50px] xs:ml-[0px]" style={{ transform: `translateX(${translateX}px)` }} width="103" height="51" viewBox="0 0 103 51" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <svg className="rocket overlay sm:ml-[-50px] lg:ml-[-50px] md:ml-[-50px] xs:ml-[0px] custom-margin" style={{ transform: `translateX(${translateX}px)` }} width="103" height="51" viewBox="0 0 103 51" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <g style={{ mixBlendMode: "multiply" }}>
                                             <path d="M17.0243 20.1751L0.10283 39.9605L20.7547 38.3386L33.3441 50.4381L52.0055 44.0664L53.6119 42.9629L58.3442 42.0547L63.9225 39.9665L76.0922 37.2171L100.775 30.1494L102.466 29.1142L102.303 27.853L101.161 27.3343L72.3146 16.0341L49.3982 6.77805L32.8747 0.593947L28.2324 6.28473L25.3511 9.71008L23.2039 11.6917L20.7801 14.6193L19.3632 15.5849L21.3765 19.2735L21.7309 21.025L17.0243 20.1751Z" fill={processData[activeProcess].fill} />
                                         </g>
@@ -1226,13 +1226,13 @@ export const Home = () => {
                                     </div>
                                 </div>
                                 <div className="px-5 mx-auto mt-5 text-center">
-                                    {/* {
+                                    {
                                         window.innerWidth <= 768 ?
                                         <a target='_blank' href="https://www.google.com/search?sca_esv=c4b1341a4b7b7a8e&rlz=1C1OPNX_enIN1088IN1088&sxsrf=AHTn8zpz8heeFIffXtZFmZcBKyfoZlggHQ:1738924330168&q=bundl+designs+reviews&uds=ABqPDvxhviXT310WMxRmyLGmEwIWGxD1D4UaNg1_5mWkuvL-XEHlBMW0Wi5hXsAWml52GBwP0MgahtCC7xIzOfccgCir8jqEM-EUFl8W5TAQZtW1RiBwrQ6eg9Lumr7a35DA3UW1etJjqySLvsDCAu3swGovni-vtvN9dTjA83v60KOxD9627yKA06c5tUy_FosedF9vWioHYMgsreRYsFewxUb2IPmni2ayZr3gorMNTpcZLIypv5tgzZ33pY3Lm3ZXqLhrBu3CF3C_WNhYjJxca9Q4uc_9kNdOSyf491fLCyNbqThFA6O36UEEQF7vrZUZMHWOAEK22_BQhgx5UwnwyKbCztDiilDDN19JaVdNbCZFQpujpiDNHeroUq9oC1G2YdfLrj9V3eKSJf-u1ebBOTQNfuP-WhDcJVPho7PYBp2cmQ0VmhQ&si=APYL9bs7Hg2KMLB-4tSoTdxuOx8BdRvHbByC_AuVpNyh0x2KzfMxsPAhwiZEXurMaV4FghdFjDxW8-kb_wAl5CzlJ4LuB7A7CZCUrHH6TRDNxXAqy2BU86fOeAnWG4ddtnuW93JPkFUY&sa=X&ved=2ahUKEwiZtPb3rbGLAxX_4zgGHfRGAacQk8gLegQIKBAB&ictx=1&biw=393&bih=736&dpr=2.75#ebo=3" className="btn bundl-btn-border">Leave a review</a>
                                         :
                                         <a target='_blank' href="https://www.google.com/search?q=bundldesigns&rlz=1C1OPNX_enIN1088IN1088&oq=bundldesigns&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQRRg8MgYIAhBFGDwyBggDEEUYPDIICAQQRRgnGDsyBggFEEUYPDIGCAYQRRg8MgYIBxBFGDzSAQgzODA5ajBqN6gCALACAA&sourceid=chrome&ie=UTF-8#lrd=0x3e2efdec17da19b7:0xb10d764716306f04,3,,,," className="btn bundl-btn-border">Leave a review</a>
-                                    } */}
-                                        <a target='_blank' href="https://www.google.com/search?q=bundldesigns&rlz=1C1OPNX_enIN1088IN1088&oq=bundldesigns&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQRRg8MgYIAhBFGDwyBggDEEUYPDIICAQQRRgnGDsyBggFEEUYPDIGCAYQRRg8MgYIBxBFGDzSAQgzODA5ajBqN6gCALACAA&sourceid=chrome&ie=UTF-8#lrd=0x3e2efdec17da19b7:0xb10d764716306f04,3,,,," className="btn bundl-btn-border">Leave a review</a>
+                                    }
+                                        {/* <a target='_blank' href="https://www.google.com/search?q=bundldesigns&rlz=1C1OPNX_enIN1088IN1088&oq=bundldesigns&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQRRg8MgYIAhBFGDwyBggDEEUYPDIICAQQRRgnGDsyBggFEEUYPDIGCAYQRRg8MgYIBxBFGDzSAQgzODA5ajBqN6gCALACAA&sourceid=chrome&ie=UTF-8#lrd=0x3e2efdec17da19b7:0xb10d764716306f04,3,,,," className="btn bundl-btn-border">Leave a review</a> */}
 
                                 </div>
 

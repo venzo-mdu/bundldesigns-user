@@ -4902,3 +4902,8 @@ font-size: 20px;
 }
 
 
+@media screen and (min-width: 1024px) and (max-width: 1040px) {
+  .custom-margin {
+    margin-left: -75px !important; /* Adjust for ThinkPad P14s */
+  }
+}

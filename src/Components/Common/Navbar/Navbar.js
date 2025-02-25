@@ -136,14 +136,14 @@ export const Navbar = () => {
                     <div className="navbar  float-right">
                       <ul className=" mr-auto h-list align-items-center ">
                         <li >
-                          <a onClick={()=>{setSearchShow(!searchShow)}}><img src={Search} alt="" className="navIcons cursor-pointer ml-2"></img> </a>
+                          <a onClick={()=>{setSearchShow(!searchShow);setProfileVisible(false)}}><img src={Search} alt="" className="navIcons cursor-pointer ml-2"></img> </a>
                           <div ref={searchRef}>
                            {searchShow ? <input placeholder='Search'  onKeyDown={(e)=>checkEnterKey(e)} className='border-b mt-3 focus:outline-none py-1 px-2 text-black border-black rounded-none' value={searchQry} onChange={(e)=>setSearchQry(e.target.value)}  />:''}
                           </div>
                         </li>
                         <li className='px-[6px] inner-nav'>
 
-                          <a className="" onClick={() => { setProfileVisible(!profileVisible) }}><img src={User} alt="" className="navIcons cursor-pointer"></img></a>
+                          <a className="" onClick={() => { setProfileVisible(!profileVisible);setSearchShow(false) }}><img src={User} alt="" className="navIcons cursor-pointer"></img></a>
                           <nav className={`w-44 inner-nav-item absolute xs:top-[80px] md:top-[50px] shodow-sm right-[6rem] text-right bg-white  py-2 px-3 transition-all duration-300 ease-in-out ${profileVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
                             }`}>
                           
@@ -270,7 +270,7 @@ export const Navbar = () => {
                       <div className="navbar navbar-expand-lg float-right">
                         <ul className="sm:mt-[5vh] xs:mt-0 mr-auto h-list align-items-center ">
                           <li className='px-[7px]'>
-                            <a className="w-[26px] cursor-pointer"  onClick={()=>{setSearchShow(!searchShow)}}><img src={Search} alt="" className="navIcons"></img></a>
+                            <a className="w-[26px] cursor-pointer"  onClick={()=>{setSearchShow(!searchShow);setProfileVisible(false)}}><img src={Search} alt="" className="navIcons"></img></a>
                             <div className='absolute' ref={searchRef}>
                            {searchShow ? <input placeholder='Search'   onKeyDown={(e)=>checkEnterKey(e)} className='border-b mt-3 focus:outline-none py-1 px-2 text-black border-black rounded-none' value={searchQry} onChange={(e)=>setSearchQry(e.target.value)} />:''}
                           </div>
@@ -278,7 +278,7 @@ export const Navbar = () => {
                           
                           <li className='px-[7px] inner-nav'>
 
-                            <a className="w-[26px]" onClick={() => { setProfileVisible(!profileVisible) }}><img src={User} alt="" className="navIcons cursor-pointer"></img></a>
+                            <a className="w-[26px]" onClick={() => { setProfileVisible(!profileVisible);setSearchShow(false)}}><img src={User} alt="" className="navIcons cursor-pointer"></img></a>
                             <nav ref={popupRef} className={`w-44  absolute xs:top-[80px] md:top-[80px] shodow-sm right-[6rem] text-right bg-white py-2 px-3 transition-all duration-300 ease-in-out ${profileVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'}`}>
                             <div >
       {profileVisible && (

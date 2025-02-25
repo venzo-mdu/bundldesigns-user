@@ -139,14 +139,41 @@ export default function Dashboard() {
                 // .map(file => file.split('/').pop()); // Get only the file name
                 let files = [] ; 
                 let links =[];
-                response.data.order_items_managements.forEach(item => {
-                    console.log(item)
-                    if (item.delivery_type === "File" && item.delivery_files) {
-                        files.push(...item?.delivery_files?.map(file => file.split('/').pop()));
-                    } else if (item.delivery_type === "Link" && item.delivery_files) {
+                // response.data.order_items_managements.forEach(item => {
+                //     console.log(item)
+                //     if (item.delivery_type === "File" && item.delivery_files) {
+                //         files.push(...item?.delivery_files?.map(file => decodeURIComponent(file).split('/').pop()));
+                //     } else if (item.delivery_type === "Link" && item.delivery_files) {
+                //         links.push(item.delivery_link);
+                //     }
+                // });
+                const extractFilesAndLinks = (items) => {
+                    items.forEach((item) => {
+                      if (item.delivery_type === "File" && item.delivery_files) {
+                          files.push(...item.delivery_files.map((file) => decodeURIComponent(file).split("/").pop()))
+                        // files.push(
+                        //     ...item.delivery_files.map((file) => {
+                        //       const fileName = decodeURIComponent(file).split("/").pop();
+                        //       console.log( fileName.replace(/-\d{4}-\d{2}-\d{2} \d{6}/, "").trim() )
+                        //       return fileName.replace(/-\d{13,}-\d+/, "").trim(); // Removes timestamp + random number
+                        //     })
+                        //   );
+                          
+                      } else if (item.delivery_type === "Link" && item.delivery_link) {
                         links.push(item.delivery_link);
-                    }
-                });
+                      }
+                    });
+                  };
+                
+                  // Extract from order_items_managements
+                  if (response.data.order_items_managements) {
+                    extractFilesAndLinks(response.data.order_items_managements);
+                  }
+                
+                  // Extract from adjustment_items
+                  if (response.data.adjustment_items) {
+                    extractFilesAndLinks(response.data.adjustment_items);
+                  }
                 setFiles(files); 
                 setLinks(links);
             }
@@ -193,7 +220,7 @@ export default function Dashboard() {
         const hours = Math.floor(counter / 3600);
         const minutes = Math.floor((counter % 3600) / 60);
         const seconds = counter % 60;
-         console.log(expectedDate)
+         
         // Format into HH:mm:ss
         const formattedCounter = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
         switch (order.order_status) {
@@ -305,6 +332,12 @@ export default function Dashboard() {
                         <h2 className="lg:text-[22px] md:text-[22px] xs:text-[18px] xs:px-[10%] text-[#000000]">
                             {dashboardJson.process_content.receive_designs}
                         </h2>
+                        <p className="flex justify-center w-full">
+                            <button onClick={() => { setShowPdf(true) }} className="border-b-2 border-[#1BA56F] pb-0 font-medium text-[#1BA56F] flex items-center">
+                                <img className="mr-2" onClick={() => { }} src={downloadIcon} alt="Download Icon" />
+                                Click Here to Download
+                            </button>
+                        </p>
                         <p className="text-[18px] text-[#1BA56F] font-medium">
                             {dashboardJson.process_content.expected_date} {expectedDate}
                         </p>
@@ -499,7 +532,7 @@ const handleDownload = async (file) => {
   
       const link = document.createElement("a");
       link.href = url;
-      link.download = file;
+      link.download = file.replace(/-\d{13,}-\d+/, "").trim();
       link.target="_blank"
       document.body.appendChild(link);
       link.click();
@@ -632,7 +665,7 @@ const handleDownload = async (file) => {
                                         <div className='flex items-center lg:w-[78%] w-[80%] md:w-[95%]  lg:mx-auto md:mx-auto lg:mt-10 md:mt-10 xs:mt-2 lg:px-0 xs:w-[100%] xs:px-[5%] xs:ml-[5%]'>{renderProcessData()}</div>
                                         <div className='flex lg:p-[0px_30px_0px_0px] md:p-[15px_15px_0px_70px] mb-12 lg:w-[90%] w-[80%] md:w-[100%] xs:w-[100%] lg:m-auto md:m-0'>
                                             {window.innerWidth > 768 && dashboardJson.project_process.map((item, index) => {
-                                                return <div className='lg:basis-[45%] md:basis-[20%] xs:basis-1/5 text-center lg:text-[16px] md:text-[14px] mt-[2%]'>  <p className={`pb-0 lg:max-w-[59%] md:max-w-[75%] max-w-[95%] lg:mx-auto md:mx-0 xs:mx-auto mb-0 ${index == processIndex && 'font-bold'}`}> {item} </p>
+                                                return <div className='lg:basis-[45%] md:basis-[20%] xs:basis-1/5 text-center lg:text-[16px] md:text-[14px] mt-[2%]'>  <p className={`pb-0 lg:max-w-[59%] md:max-w-[140px] max-w-[95%] lg:mx-auto md:mx-0 xs:mx-auto mb-0 ${index == processIndex && 'font-bold'}`}> {item} </p>
                                                     {index == processIndex && <p className='text-[#1BA56F] font-[700] lg:text-center md:text-justify ml-0'>You’re now Here!</p>}
                                                 </div>
                                             })}
@@ -641,9 +674,9 @@ const handleDownload = async (file) => {
                                         <div className='lg:w-[100%] md:w-[100%] xs:w-[100%] lg:px-[5%] md:px-[5%] xs:mx-0 xs:px-6'>
 
                                             {order && order.item_details && Array.isArray(order.item_details) && <>
-                                            {order?.brand_identity && <>                                                <p className={`lg:text-[22px] md:text-[22px] xs:text-[18px] font-bold my-2 ${processIndex < 2 ? processIndex === 1 ?'text-black':'text-[#00000080]' : 'text-black'}`}>Brand & Visual Identity <span className='text-[#1BA56F] lg:text-[18px] md:text-[18px] xs:text-[16px]  font-[500]'> -
-                                                    {processIndex < 2 ? processIndex === 1 ? ' IN PROGRESS':' ON HOLD' : processIndex >= 4 ? ' COMPLETE' : ' IN PROGRESS'}</span> </p>
-                                                <p className={`font-medium lg:text-[18px] md:text-[18px] xs:text-[16px] ${processIndex < 2 ? processIndex === 1 ?'text-black': 'text-[#00000080]' : 'text-[#000]'}`}>{order?.brand_identity?.item_name} {processIndex >= 4 && <button className='bg-[#1BA56F] px-2 !py-0  text-[16px] ml-4 text-white font-[400]' onClick={() => { navigate('/adjustment', { state: { orderId: order.id, orderItemId: null } }) }}>Request Edits</button>} </p></>}
+                                            {order?.brand_identity && <>                                                <p className={`lg:text-[22px] md:text-[22px] xs:text-[18px] font-bold my-2 ${processIndex < 2 ? processIndex === 1 && order?.order_status !== 'in_progress' ?'text-[#00000080]': 'text-black': 'text-black'}`}>Brand & Visual Identity <span className='text-[#1BA56F] lg:text-[18px] md:text-[18px] xs:text-[16px]  font-[500]'> -
+                                                    {processIndex < 2 ? processIndex === 1 && order?.order_status !== 'in_progress' ? ' ON HOLD' :' IN PROGRESS' : processIndex >= 4 ? ' COMPLETE' : ' IN PROGRESS'}</span> </p>
+                                                <p className={`font-medium lg:text-[18px] md:text-[18px] xs:text-[16px] ${processIndex < 2 ? processIndex === 1 && order?.order_status !== 'in_progress' ?'text-[#00000080]' : 'text-black' : 'text-[#000]'}`}>{order?.brand_identity?.item_name} {processIndex >= 4 && <button className='bg-[#1BA56F] px-2 !py-0  text-[16px] ml-4 text-white font-[400]' onClick={() => { navigate('/adjustment', { state: { orderId: order.id, orderItemId: null } }) }}>Request Edits</button>} </p></>}
 
                                                 <p className={`text-[22px] ${processIndex < 4 && 'text-[#00000080]'} font-bold my-2`}>Applications
 
@@ -767,7 +800,12 @@ const handleDownload = async (file) => {
                                 <div className='text-center pt-20 pb-24'>
                                     <h2 className='lg:text-[32px] md:text-[24px] xs:text-[32px] xs:font-[700] xs:px-[15%]'>{dashboardJson.rate_us}</h2>
                                     <p className='lg:text-[20px] text-[#00000080] md:text-[16px] xs:text-[16px] xs:px-[12%]'>{dashboardJson.rate_us_content}</p>
-                                    <a target='_blank' href="https://www.google.com/search?q=bundldesigns&rlz=1C1OPNX_enIN1088IN1088&oq=bundldesigns&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQRRg8MgYIAhBFGDwyBggDEEUYPDIICAQQRRgnGDsyBggFEEUYPDIGCAYQRRg8MgYIBxBFGDzSAQgzODA5ajBqN6gCALACAA&sourceid=chrome&ie=UTF-8#lrd=0x3e2efdec17da19b7:0xb10d764716306f04,3,,,," className='px-12 py-2 lg:text-[20px] md:text-[16px] text-white bg-[#1BA56F]'>{dashboardJson.review_google}</a>
+                                    {
+                                        window?.innerWidth >= 475 ?
+                                        <a target='_blank' href="https://www.google.com/search?q=bundldesigns&rlz=1C1OPNX_enIN1088IN1088&oq=bundldesigns&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQRRg8MgYIAhBFGDwyBggDEEUYPDIICAQQRRgnGDsyBggFEEUYPDIGCAYQRRg8MgYIBxBFGDzSAQgzODA5ajBqN6gCALACAA&sourceid=chrome&ie=UTF-8#lrd=0x3e2efdec17da19b7:0xb10d764716306f04,3,,,," className='px-12 py-2 lg:text-[20px] md:text-[16px] text-white bg-[#1BA56F]'>{dashboardJson.review_google}</a>
+                                        :
+                                        <a target='_blank' href="https://www.google.com/search?sca_esv=c4b1341a4b7b7a8e&rlz=1C1OPNX_enIN1088IN1088&sxsrf=AHTn8zpz8heeFIffXtZFmZcBKyfoZlggHQ:1738924330168&q=bundl+designs+reviews&uds=ABqPDvxhviXT310WMxRmyLGmEwIWGxD1D4UaNg1_5mWkuvL-XEHlBMW0Wi5hXsAWml52GBwP0MgahtCC7xIzOfccgCir8jqEM-EUFl8W5TAQZtW1RiBwrQ6eg9Lumr7a35DA3UW1etJjqySLvsDCAu3swGovni-vtvN9dTjA83v60KOxD9627yKA06c5tUy_FosedF9vWioHYMgsreRYsFewxUb2IPmni2ayZr3gorMNTpcZLIypv5tgzZ33pY3Lm3ZXqLhrBu3CF3C_WNhYjJxca9Q4uc_9kNdOSyf491fLCyNbqThFA6O36UEEQF7vrZUZMHWOAEK22_BQhgx5UwnwyKbCztDiilDDN19JaVdNbCZFQpujpiDNHeroUq9oC1G2YdfLrj9V3eKSJf-u1ebBOTQNfuP-WhDcJVPho7PYBp2cmQ0VmhQ&si=APYL9bs7Hg2KMLB-4tSoTdxuOx8BdRvHbByC_AuVpNyh0x2KzfMxsPAhwiZEXurMaV4FghdFjDxW8-kb_wAl5CzlJ4LuB7A7CZCUrHH6TRDNxXAqy2BU86fOeAnWG4ddtnuW93JPkFUY&sa=X&ved=2ahUKEwiZtPb3rbGLAxX_4zgGHfRGAacQk8gLegQIKBAB&ictx=1&biw=393&bih=736&dpr=2.75#ebo=3" className='px-12 py-2 lg:text-[20px] md:text-[16px] text-white bg-[#1BA56F]'>{dashboardJson.review_google}</a>
+                                    }
                                 </div>
                             </div>
 
@@ -790,7 +828,7 @@ const handleDownload = async (file) => {
                                                         className="cursor-pointer ml-2 underline block w-fit" 
                                                         onClick={() => handleDownload(item)}
                                                     >
-                                                        {item}
+                                                        {item.replace(/-\d{13,}-\d+/, "").trim()}
                                                     </a>
                                                 ))}
                                             </div>
