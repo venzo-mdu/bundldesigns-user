@@ -706,12 +706,12 @@ export default function Adjustments({user}) {
                                                 <div className=' flex items-center mb-1' >
                                                     <img src={BlackDollor} className='ml-[6px] mr-4' alt="Total Price" />
                                                     <p className='basis-3/5 font-bold text-[18px] mb-0'>Total Price:</p>
-                                                    <p className='basis-2/5 font-bold text-[18px]  mb-0'>{totalPrice} SAR</p>
+                                                    <p className='basis-2/5 font-bold text-[18px] mb-0 text-end'>{totalPrice} SAR</p>
                                                 </div>
                                                 <div className=' flex justify-center'>
                                                     <img className='mr-2 ' src={BlackTime} alt="Total Duration" />
                                                     <p className='basis-3/5 text-[18px] mb-0'>Total Duration:</p>
-                                                    <p className='basis-2/5 text-[18px] mb-0'>{totalTime} Days</p>
+                                                    <p className='basis-2/5 text-[18px] mb-0 text-end'>{totalTime} Days</p>
                                                 </div>
 
                                                 <div >

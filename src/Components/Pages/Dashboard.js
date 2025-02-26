@@ -129,7 +129,7 @@ export default function Dashboard() {
                 if (orderData.order_status == 'in_progress' && orderData.next_status !== 'in_progress')
                     setProcessIndex(1)
             }
-            if (orderData.order_status == 'send_for_approval' || orderData.order_status == 'add_ons' || orderData.order_status == 'in_review' || orderData.order_status == 'completed' ) {
+            if (orderData.order_status == 'send_for_approval' || orderData.order_status == 'add_ons' || orderData.order_status == 'in_review' || orderData.order_status == 'completed' || orderData.order_status == 'content_uploaded' ) {
                 console.log(response.data.order_items_managements[0]?.delivery_files, 'del')
                 // const parts = response.data.order_items_managements[0]?.delivery_files.length ? response.data.order_items_managements[0]?.delivery_files[0].split('/') : null
                 // parts && setBrandFile(parts[parts.length - 1])
@@ -138,7 +138,7 @@ export default function Dashboard() {
                 // .flatMap(item => item?.delivery_files || []) // Flatten the array and remove undefined/null
                 // .map(file => file.split('/').pop()); // Get only the file name
                 let files = [] ; 
-                let links =[];
+                let links = [];
                 // response.data.order_items_managements.forEach(item => {
                 //     console.log(item)
                 //     if (item.delivery_type === "File" && item.delivery_files) {
