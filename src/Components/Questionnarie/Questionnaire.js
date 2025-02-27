@@ -44,7 +44,7 @@ export const Questionnaire = ({
     <div>
       <Navbar />
 
-      <div style={window.innerWidth <= 441 ?{  padding: '1% 0%' }:{padding: '1% 5%'}}>
+      <div style={window.innerWidth <= 441 ?{  padding: '1% 0%' }:{padding: '1% 4%'}}>
         <div style={{ padding: '2% 0%', borderBottom: '9px solid #000000' }}>
           <div className=''>
             {/* <p className='title-questionnaire'>{bgTitle}</p> */}

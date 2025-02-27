@@ -363,8 +363,8 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                   question.answer_type === 'shade' && (
                     <>
 
-                      <div className='shade-background py-5' style={{ backgroundColor: shadeBackgroundColor }}>
-                        <p style={{ color: shadeBackgroundColor === 'rgb(228, 222, 216)' ? '' : '#FFFFFF',width:'100%' }} className={`questions-title mb-3 ${index === 0 ? 'mt-[1%]' : 'mt-[4%]'}`}>
+                      <div className='shade-background ' style={{ backgroundColor: shadeBackgroundColor }}>
+                        <p style={{ color: shadeBackgroundColor === 'rgb(228, 222, 216)' ? '' : '#FFFFFF',width:'100%' }} className={`questions-title mb-3 ${index === 0 ? 'mt-[1%]' : 'mt-[2%]'}`}>
                           {question.question}
                           <span>
                             <sup>*</sup>
@@ -387,8 +387,8 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
                           <p className='shade-bundl-text' style={{ color: shadeColor }}>Bundl</p>
-                          <b><p className='text-[12px] leading-1 font-[500]'>Not sure ? It’s okay!</p></b>
-                          <button className={shadeType === 'surprise' ? 'surprise-active' : 'surprise'} onClick={() => handleShadeButtonClick('rgb(228, 222, 216)', 'rgb(0, 0, 0)', 'surprise', question.id)}>surprise me !</button>
+                          <b><p className='lg:text-[24px] md:text-[18px] xs:text-[14px] leading-1 font-[500]'>Not sure ? It’s okay!</p></b>
+                          <button className={`lg:mb-[2%] md:mb-[2%] xs:mb-[2%] ${shadeType === 'surprise' ? 'surprise-active' : 'surprise'}`} onClick={() => handleShadeButtonClick('rgb(228, 222, 216)', 'rgb(0, 0, 0)', 'surprise', question.id)}>surprise me !</button>
                         </div>
                       </div>
                     </>
@@ -415,7 +415,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                         }
                       </div>
                       <figure className='mt-[5%]'>
-                        <b><i className='text-[12px] leading-1 font-[500]'>Not sure ? It's okay!</i></b>
+                        <b><p className='lg:text-[24px] md:text-[18px] xs:text-[14px] leading-1 font-[500]'>Not sure ? It's okay!</p></b>
                       </figure>
                       <button className={`${activeButtons?.includes("Surprise") ? 'surprise-active':'surprise'}`} onClick={() => handleButtonClick("", question.id, "Surprise")}>surprise me !</button>
                     </>
@@ -541,7 +541,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                           <AddCircleRoundedIcon  onClick={()=>handleColorClick(inputValue,question.id)} />
                         </button>
                         <figure className='mt-[3%]'>
-                          <b><i className='text-[12px] leading-1 font-[500]'>Not sure ? It's okay!</i></b>
+                          <b><p className='lg:text-[24px] md:text-[18px] xs:text-[14px] leading-1 font-[500]'>Not sure ? It's okay!</p></b>
                         </figure>
                         <button className={`${selectedColors?.includes("Surprise") ? 'surprise-active':'surprise'}`} onClick={() => handleColorClick("Surprise", question.id)}>surprise me !</button>
                       </div>
@@ -562,7 +562,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                                 {
                                   textureImages1?.map((images) => {
                                     return (
-                                      <img src={images} alt="Clean"></img>
+                                      <img className='!object-none' src={images} alt="Clean"></img>
 
                                     )
                                   })
@@ -579,7 +579,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                                 {
                                   textureImages2?.map((images) => {
                                     return (
-                                      <img src={images} alt="Clean"></img>
+                                      <img className='!object-none' src={images} alt="Clean"></img>
 
                                     )
                                   })
@@ -596,7 +596,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                                 {
                                   textureImages3?.map((images) => {
                                     return (
-                                      <img src={images} alt="Clean"></img>
+                                      <img className='!object-none' src={images} alt="Clean"></img>
 
                                     )
                                   })
@@ -615,7 +615,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                                 {
                                   textureImages4?.map((images) => {
                                     return (
-                                      <img src={images} alt="Clean"></img>
+                                      <img className='!object-none' src={images} alt="Clean"></img>
 
                                     )
                                   })
@@ -634,7 +634,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                                 {
                                   textureImages5?.map((images) => {
                                     return (
-                                      <img src={images} alt="Clean"></img>
+                                      <img className='!object-none' src={images} alt="Clean"></img>
 
                                     )
                                   })
@@ -653,7 +653,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                                 {
                                   textureImages6?.map((images) => {
                                     return (
-                                      <img src={images} alt="Clean"></img>
+                                      <img className='!object-none' src={images} alt="Clean"></img>
 
                                     )
                                   })
@@ -667,7 +667,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
 
                         </ul>
                         <figure className='mt-1'>
-                          <b><i className='text-[12px] leading-1 font-[500]'>Not sure ? It's okay!</i></b>
+                          <b><p className='lg:text-[24px] md:text-[18px] xs:text-[14px] leading-1 font-[500]'>Not sure ? It's okay!</p></b>
                         </figure>
                         <button className={`${formData[question.id]?.includes('Surprise')?'surprise-active':'surprise'}`} onClick={()=>handleTextureChange(null,question.id,true)}>surprise me !</button>
                       </div>

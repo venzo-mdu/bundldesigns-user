@@ -29,7 +29,7 @@ export const Questionnaire3 = ({formData,setFormData}) => {
   ];
 
   const placeHolders = [
-    "",
+    "The story behind the name",
     "BUNDL",
     "(ex: was always passionate about creating my own perfume business)",
   ]
@@ -217,12 +217,14 @@ console.log(formData,'formData')
                     };
                     const leftTextStyle = {
                       textAlign: "left",
-                      fontSize: leftValue > rightValue ? "18px" : "14px", 
+                      fontSize: "18px", 
+                      //fontSize: leftValue > rightValue ? "18px" : "14px",
                     };
                 
                     const rightTextStyle = {
-                      textAlign: "right",
-                      fontSize: rightValue > leftValue ? "18px" : "14px", 
+                      textAlign: "left",
+                      fontSize: "18px",
+                      //fontSize: rightValue > leftValue ? "18px" : "14px", 
                     };
 
                     return (

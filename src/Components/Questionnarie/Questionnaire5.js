@@ -205,22 +205,23 @@ console.log(location.state?.orderId,'orderid')
               <div className="flex items-center justify-center gap-[20px] mt-2">
                 <div>
                   <button
-                    onClick={() => handleLanguageChange("English", question.id)}
-                    className={`font-[18px] h-[45px] w-[150px] border-[1px] border-solid border-[#000000] ${selectedLanguage === "English" ? "bg-[#000000] text-[#FFFFFF]" : "hover:bg-[#000000] hover:text-[#FFFFFF]"
-                      }`}
-                  >
-                    English
-                  </button>
-                </div>
-                <div>
-                  <button
                     onClick={() => handleLanguageChange("Arabic", question.id)}
-                    className={`font-[18px] h-[45px] w-[150px] border-[1px] border-solid border-[#000000] ${selectedLanguage === "Arabic" ? "bg-[#000000] text-[#FFFFFF]" : "hover:bg-[#000000] hover:text-[#FFFFFF]"
+                    className={`uppercase font-[18px] h-[45px] w-[150px] border-[1px] border-solid border-[#000000] ${selectedLanguage === "Arabic" ? "bg-[#000000] text-[#FFFFFF]" : "hover:bg-[#000000] hover:text-[#FFFFFF]"
                       }`}
                   >
                     Arabic
                   </button>
                 </div>
+                <div>
+                  <button
+                    onClick={() => handleLanguageChange("English", question.id)}
+                    className={`uppercase font-[18px] h-[45px] w-[150px] border-[1px] border-solid border-[#000000] ${selectedLanguage === "English" ? "bg-[#000000] text-[#FFFFFF]" : "hover:bg-[#000000] hover:text-[#FFFFFF]"
+                      }`}
+                  >
+                    English
+                  </button>
+                </div>
+                
               </div>
             )}
 

@@ -133,6 +133,7 @@
     font-size: 18px;
     text-transform: uppercase;
     color: #FFFFFF;
+    transition: 1s;
 }
 .product-btn.active,
 .service-btn.active {
@@ -177,6 +178,7 @@
     border: 1px solid #000000;
     text-align: center;
     text-transform: uppercase;
+    transition: 1s;
 }
 
 .male-buttons, .female-buttons {
@@ -203,6 +205,7 @@ input::placeholder {
     background-color: #000000;
     color: #ffffff;
     border: 1px solid #000000;
+    transition: 1s;
 }
  
 .male-btn:disabled{
@@ -255,7 +258,7 @@ input::placeholder {
     font-weight: 400;
     outline: none;
     border: 1px solid #000000;
-    margin: 2% 0 5% 0;
+    margin: 0% 0 5% 0;
 }
 .surprise-active{
     background-color: #000000;
@@ -267,7 +270,7 @@ input::placeholder {
     outline: none;
     border: 1px solid #000000;
     color: #FFFFFF;
-    margin: 2% 0 5% 0;
+    margin: 0% 0 5% 0;
 }
 .surprise:hover{
     background-color: #000000;
@@ -277,6 +280,7 @@ input::placeholder {
     font-size: 20px;
     font-weight: 400;
     color: #ffffff;
+    transition: 1s;
 }
 .font-grid{
     display: grid;
@@ -315,6 +319,7 @@ input::placeholder {
 .font-buttons:hover {
     background-color: #000000;
     color: #ffffff;
+    transition: 1s;
 }
 .font-buttons-active {
     background-color: #000000; /* Active background */
@@ -328,7 +333,7 @@ input::placeholder {
 .progress-text{
     font-size: 200;
     font-size: 16px;
-    font-style: italic;
+    text-transform: uppercase;
     width: 10%;
     margin: 1%;
     height: 20px;
@@ -369,6 +374,7 @@ input::placeholder {
     color: #FFFFFF;
     background-color: #000000;
     font-size: 25px;
+    transition: 1s;
 }
 .button-shade-group{
     display: flex;
@@ -383,7 +389,7 @@ input::placeholder {
     margin: 3% 0 0 0;
 }
 .progress-section-q3{
-    width: 75%;
+    width: 80%;
 }
 
 
@@ -845,9 +851,12 @@ input::placeholder {
     .progress-section-q3{
         width: 90%;
     }
+    .question-progress{
+        width: 70%;
+    }
     .questions-title{
         font-size: 36px;
-        width: 86%;
+        width: 100%;
         line-height: 40px;
     }
     .eyespoon2 {
@@ -1117,6 +1126,7 @@ input::placeholder {
 }
     .female-active,.male-active ,.male:hover,.female:hover {
         height: 40px;
+        transition: 1s;
     }
     .female-buttons,.male-buttons{
         padding: 0 0%;
@@ -1160,6 +1170,7 @@ input::placeholder {
     }
     .shade-btn:hover{
         font-size: 18px;
+        transition: 1s;
     }
     .specific-color{
         height: 25px;
@@ -1346,6 +1357,7 @@ input::placeholder {
     .shade-btn:hover{
         font-size: 18px;
         width: 250px;
+        transition: 1s;
     }
     .specific-color{
         height: 25px;

@@ -27,7 +27,7 @@ export const Questionnaire1 = ({formData,setFormData}) => {
     "(ex:Fashion,Food,Services,Personal Brand,etc...)",
     "(ex:Riyadh , Saudi Arabia)",
     "List them here...",
-    "(ex:Only style in the market , high quality)",
+    "(ex:Best quality, unique design)",
     "Type your website URL",
     "Share your social media link"
   ]
