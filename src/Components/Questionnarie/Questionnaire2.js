@@ -311,7 +311,7 @@ console.log(location.state?.orderId,'orderid')
           {
           questions.map((question, index) => (
           <div className="questions" key={index}>
-            <p className={`questions-title  xs:w-[92%] sm:w-full md:w-full mx-auto ${index === 0 ? 'mt-[1%]' : 'mt-[4%]'}`}>
+            <p className={`questions-title  xs:w-[92%] sm:w-full md:w-full mx-auto ${index === 0 ? 'mt-[1%]' : 'mt-[2%]'}`}>
               {question.question}
               {
                 question.required && (
@@ -324,7 +324,7 @@ console.log(location.state?.orderId,'orderid')
                 <>
                  <div className="ideal-customers">
               {/* <p className='customer-text'>Who is your ideal customer?</p> */}
-              <div style={{ display: 'flex', gap: '25px' }}>
+              <div style={{ display: 'flex', gap: '25px' }} className='mt-[5%]'>
                 <button className={selectedGender === 'female' || selectedGender === 'both' ? 'female-active' : 'female'} value="female" onClick={() => handleGenderChange('female')}>Female</button>
                 <button className={selectedGender === 'male' || selectedGender === 'both' ? 'male-active' : 'male'} value={'male'} onClick={() => handleGenderChange('male')}>Male</button>
               </div>
@@ -345,7 +345,7 @@ console.log(location.state?.orderId,'orderid')
                         />
                         <button
                           key={`female-${index}`}
-                          className={`female-btn ${activeFemaleButtons?.includes(label) ? 'active' : ''}`}
+                          className={`female-btn uppercase ${activeFemaleButtons?.includes(label) ? 'active' : ''}`}
                           onClick={() => handleButtonClick(`female-${index}`,'female',label,question.id)}
                         >
                           {label}
@@ -369,7 +369,7 @@ console.log(location.state?.orderId,'orderid')
                       <button
                         disabled
                         key={`female-${index}`}
-                        className="female-btn"
+                        className="female-btn uppercase"
                       >
                         {label}
                       </button>
@@ -395,7 +395,7 @@ console.log(location.state?.orderId,'orderid')
                         />
                         <button
                           key={`male-${index}`}
-                          className={`male-btn ${activeMaleButtons.includes(label) ? 'active' : ''}`}
+                          className={`male-btn uppercase ${activeMaleButtons.includes(label) ? 'active' : ''}`}
                           onClick={() => handleButtonClick(`male-${index}`,'male',label,question.id)}
                         >
                           {label}
@@ -419,7 +419,7 @@ console.log(location.state?.orderId,'orderid')
                       <button
                         disabled
                         key={`male-${index}`}
-                        className="male-btn"
+                        className="male-btn uppercase"
                       >
                         {label}
                       </button>

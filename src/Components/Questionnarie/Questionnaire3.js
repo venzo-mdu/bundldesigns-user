@@ -29,6 +29,7 @@ export const Questionnaire3 = ({formData,setFormData}) => {
   ];
 
   const placeHolders = [
+    "Your project story",
     "The story behind the name",
     "BUNDL",
     "(ex: was always passionate about creating my own perfume business)",
@@ -182,7 +183,7 @@ console.log(formData,'formData')
         questions={
           questions.map((question, index) => (
             <div className="questions" key={index}>
-              <p className={`questions-title  xs:w-[70%] sm:w-full md:w-full mx-auto ${index === 0 ? 'mt-[1%]' : 'mt-[4%]'}`}>
+              <p className={`questions-title  xs:w-[70%] sm:w-full md:w-full mx-auto ${index === 0 ? 'mt-[1%]' : 'mt-[0%]'}`}>
                 {question.question}
                 {
                   question.required && (

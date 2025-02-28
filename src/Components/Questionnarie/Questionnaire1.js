@@ -304,7 +304,7 @@ console.log(formData,'formdata')
         onSaveLaterClick={onSaveLaterClick}
         questions={questions.map((question, index) => (
           <div className='questions' key={index}>
-            <p className={`questions-title xs:w-[100%] sm:w-full md:w-full mx-auto ${index === 0 ? 'mt-[1%]' : 'mt-[4%]'}`}>
+            <p className={`questions-title xs:w-[100%] sm:w-full md:w-full mx-auto ${index === 0 ? 'mt-[1%]' : 'mt-[3%]'}`}>
               {question.question}
               {
                 question.required && (

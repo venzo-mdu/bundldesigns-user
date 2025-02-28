@@ -193,7 +193,7 @@ console.log(location.state?.orderId,'orderid')
         setFormData={setFormData}
         questions={questions.map((question,index) => (
           <div className="questions" key={question.id}>
-            <p className={`questions-title  xs:w-[70%] sm:w-full md:w-full mx-auto ${index === 0 ? 'mt-[1%]' : 'mt-[4%]'}`}>
+            <p className={`questions-title  xs:w-[70%] sm:w-full md:w-full mx-auto ${index === 0 ? 'mt-[1%]' : 'mt-[2%]'}`}>
               {question.question}
               {question.required && (
                 <span>

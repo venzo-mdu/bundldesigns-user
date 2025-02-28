@@ -349,7 +349,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
               <div className="questions" key={index}>
                 {
                   question.answer_type === 'shade' ? '' :
-                  <p className={`questions-title  xs:w-[70%] sm:w-full md:w-full mx-auto ${index === 0 ? 'mt-[1%]' : 'mt-[4%]'} `}>
+                  <p className={`questions-title  xs:w-[70%] sm:w-full md:w-full mx-auto ${index === 0 ? 'mt-[1.5%]' : 'mt-[2%]'} `}>
                       {question.question}
                       {
                         question.required && (

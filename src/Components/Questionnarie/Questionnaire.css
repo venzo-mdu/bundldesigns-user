@@ -184,7 +184,7 @@
 .male-buttons, .female-buttons {
     display: flex;
     gap: 10px;
-    padding: 0% 20%;
+    padding: 0% 8%;
     margin: 2% 0 0 0;
 }
 input::placeholder {
@@ -192,13 +192,14 @@ input::placeholder {
 }
 
 .male-btn, .female-btn {
-    flex-grow: 1; /* Allows buttons to grow evenly across available space */
-    max-width: 200px; /* Prevents buttons from becoming too large on larger screens */
+    /* flex-grow: 1;  */
+    width: 175px; 
     height: 50px;
     background-color: transparent;
     color: #000000;
     border: 1px solid #000000;
     text-align: center;
+    margin: 5% 0 0 0;
 }
 
 .male-btn:hover, .female-btn:hover {
@@ -220,19 +221,19 @@ input::placeholder {
 .female-image , .male-image{
     cursor: pointer;
     width: 75%;
-    margin: 0 0 0 5%;
+    margin: 0 0 15% 10%;
 }
 .male-image-disable , .female-image-disable{
     cursor: not-allowed;
     opacity: 0.5;
     width: 75%;
-    margin: 0 0 0 5%;
+    margin: 0 0 15% 10%;
 }
 
 .male-btn.active, .female-btn.active {
-    background-color: #000000; /* Active background color */
-    color: #ffffff; /* Active text color */
-    border: 1px solid #000000; /* Active border color */
+    background-color: #000000; 
+    color: #ffffff; 
+    border: 1px solid #000000; 
 }
 .specific-color{
     height: 45px;
@@ -258,7 +259,7 @@ input::placeholder {
     font-weight: 400;
     outline: none;
     border: 1px solid #000000;
-    margin: 0% 0 5% 0;
+    /* margin: 0% 0 5% 0; */
 }
 .surprise-active{
     background-color: #000000;
@@ -270,7 +271,7 @@ input::placeholder {
     outline: none;
     border: 1px solid #000000;
     color: #FFFFFF;
-    margin: 0% 0 5% 0;
+    /* margin: 0% 0 5% 0; */
 }
 .surprise:hover{
     background-color: #000000;
@@ -289,8 +290,8 @@ input::placeholder {
     gap:20px;
 }
 .font-background {
-    height: 163px;
-    width: 350px;
+    height: 175px;
+    width: 385px;
     border: 1px solid #000000;
     background-color: transparent;
     display: flex;
@@ -350,6 +351,7 @@ input::placeholder {
     align-items: center;
     justify-content: center;
     gap: 10px;
+    margin: 6% 0 0 0;
 }
 .shade-btn{
     width: 350px;
@@ -359,6 +361,7 @@ input::placeholder {
     font-weight: 500;
     border: 1px solid #000000;
     outline: none;
+    margin: 5% 0 0 0;
 }
 .shade-btn-active{
     width: 350px;
@@ -369,6 +372,7 @@ input::placeholder {
     color: #FFFFFF;
     background-color: #000000;
     outline: none;
+    margin: 5% 0 0 0;
 }
 .shade-btn:hover{
     color: #FFFFFF;
@@ -842,7 +846,7 @@ input::placeholder {
 
 @media screen and (max-width:1705px) and (min-width:1024px) {
     .title-questionnaire{
-        width: 55%;
+        width: 50%;
         line-height: 75px;
         margin: auto;
         position: absolute;
@@ -862,6 +866,7 @@ input::placeholder {
     .eyespoon2 {
         top: 120%;
         left: -10%;
+        z-index:1 ;
     }
     .mirror{
         transform: translate(28%, 3%);
@@ -873,10 +878,20 @@ input::placeholder {
         top: 54%;
         z-index: -1;
     }
+    .miclady{
+        position: absolute;
+        right: 5%;
+        top: 25%;
+        z-index: -1;
+    }
+    .mouth{
+        bottom:3%;
+        right:3%;
+    }
     .lips {
         width: 8%;
         right: 9%;
-        top: 19%;
+        top: 26%;
         animation: lip 4s ease-in-out infinite forwards;
     }
     @keyframes mirror{
