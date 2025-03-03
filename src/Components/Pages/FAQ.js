@@ -138,7 +138,7 @@ export default function FAQ() {
                 {faqs.categories.map((category, index) => (
                   <button
                     key={category.name_english}
-                    className={`lg:px-[20px] xs:min-w-[100px] sm:min-w-min xs:text-[14px] sm:text-[18px] text-[18px] md:px-[10px] xs:px-[5px] sm:px-[5px] md:py-[3px] md:text-[16px] lg:py-[5px]  
+                    className={`uppercase lg:px-[20px] xs:min-w-[100px] sm:min-w-min xs:text-[14px] sm:text-[18px] text-[18px] md:px-[10px] xs:px-[5px] sm:px-[5px] md:py-[3px] md:text-[16px] lg:py-[5px]  
             ${currentTab === category.name_english
                         ? "text-white bg-[#1BA56F]"
                         : "text-[#1BA56F] bg-white"
@@ -170,7 +170,7 @@ export default function FAQ() {
             
             
             <div className='sm:mt-12 mt-12 xs:mt-[10%]'>
-              {currentTab && <h2 className='mb-10 sm:mb-10 xs:mb-8 xs:text-[24px] text-[28px] sm:text-[28px]'>{currentTab}</h2>}
+              {currentTab && <h2 className='mb-10 sm:mb-10 xs:mb-8 xs:text-[24px] text-[28px] sm:text-[28px] uppercase'>{currentTab}</h2>}
               {
                 faqs.data.map((faq) => {
                   if (faq.category_english == currentTab) {
@@ -193,84 +193,83 @@ export default function FAQ() {
             </div>
           </div>
 
-          <div className='mt-14 mb-10'>
-            <h2 className='text-[32px] mb-3 text-center'>Can’t find what you’re looking for ?</h2>
-            <h3 className='text-[24px] mb-1 mt-4 text-center text-[#1BA56F]'>Contact Us!</h3>
-            <form onSubmit={handleSubmit} className="px-6 pb-6 pt-2 sm:max-w-[90vw] md:max-w-[50vw] mx-auto space-y-4">
-              {/* Name Field */}
-              <div>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  placeholder='Name'
-                  onChange={handleChange}
-                  className="w-full border !border-[#000000] px-2 py-1 !rounded-none"
-                />
-                {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
-              </div>
-
-              {/* Phone Field */}
-              <div>
-              <PhoneNumberInput
-        name="phone"
-        placeholder="ex: 569754639"
-        value={formData.phone}
-        status={setFormData}
-        extraInputClass={'!border-black text-[16px]'}
-        setPhoneError={setPhoneError}
-        className="w-full  text-[16px]  !rounded-none"
-        setErrors = {setErrors}
-        formErrors = {errors}
-        idName={'websterSelect'}
-        successmsg={successMsg}
-      />
-                {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
-              </div>
-
-              {/* Email Field */}
-              <div>
-                <input
-                  type="email"
-                  name="email"
-                  placeholder='Email'
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="w-full border !border-[#000000]  px-2 py-1 !rounded-none"
-                />
-                {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
-              </div>
-
-              {/* Description Field */}
-              <div>
-                <textarea
-                  name="thoughts"
-                  placeholder='Tell us your Thoughts'
-                  value={formData.thoughts}
-                  onChange={handleChange}
-                  className="w-full border !border-[#000000] px-2 py-1 !rounded-none"
-                />
-                {errors.thoughts && <p className="text-red-500 text-sm">{errors.thoughts}</p>}
-              </div>
-              <p className='text-center'> <button
-                type="submit"
-                className="bg-[#1BA56F] text-white p-1 mt-2  px-4 "
-              >
-                Send Message
-              </button></p>
-              <div className='!mt-10'>
-              <p className='text-center flex items-center mb-1  justify-center font-bold'> <MailOutlineIcon style={{ marginRight: '2px' }} /><span className='pl-1'>info@bundldesigns.com</span> </p>
-              <p className='text-center flex items-center my-1 justify-center font-bold'> < WhatsAppIcon /> <span className='pl-1'>+(966) 547754124</span>  </p>
-              </div>
-           
-            </form>
-
-
-
-          </div >
         </div>
         <Footer />
       </>
 
   )
 }
+
+
+
+// <div className='mt-14 mb-10'>
+// <h2 className='text-[32px] mb-3 text-center'>Can’t find what you’re looking for ?</h2>
+// <h3 className='text-[24px] mb-1 mt-4 text-center text-[#1BA56F]'>Contact Us!</h3>
+// <form onSubmit={handleSubmit} className="px-6 pb-6 pt-2 sm:max-w-[90vw] md:max-w-[50vw] mx-auto space-y-4">
+//   <div>
+//     <input
+//       type="text"
+//       name="name"
+//       value={formData.name}
+//       placeholder='Name'
+//       onChange={handleChange}
+//       className="w-full border !border-[#000000] px-2 py-1 !rounded-none"
+//     />
+//     {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
+//   </div>
+
+//   <div>
+//   <PhoneNumberInput
+//     name="phone"
+//     placeholder="ex: 569754639"
+//     value={formData.phone}
+//     status={setFormData}
+//     extraInputClass={'!border-black text-[16px]'}
+//     setPhoneError={setPhoneError}
+//     className="w-full  text-[16px]  !rounded-none"
+//     setErrors = {setErrors}
+//     formErrors = {errors}
+//     idName={'websterSelect'}
+//     successmsg={successMsg}
+//   />
+//     {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
+//   </div>
+
+//   <div>
+//     <input
+//       type="email"
+//       name="email"
+//       placeholder='Email'
+//       value={formData.email}
+//       onChange={handleChange}
+//       className="w-full border !border-[#000000]  px-2 py-1 !rounded-none"
+//     />
+//     {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+//   </div>
+
+//   <div>
+//     <textarea
+//       name="thoughts"
+//       placeholder='Tell us your Thoughts'
+//       value={formData.thoughts}
+//       onChange={handleChange}
+//       className="w-full border !border-[#000000] px-2 py-1 !rounded-none"
+//     />
+//     {errors.thoughts && <p className="text-red-500 text-sm">{errors.thoughts}</p>}
+//   </div>
+//   <p className='text-center'> <button
+//     type="submit"
+//     className="bg-[#1BA56F] text-white p-1 mt-2  px-4 "
+//   >
+//     Send Message
+//   </button></p>
+//   <div className='!mt-10'>
+//   <p className='text-center flex items-center mb-1  justify-center font-bold'> <MailOutlineIcon style={{ marginRight: '2px' }} /><span className='pl-1'>info@bundldesigns.com</span> </p>
+//   <p className='text-center flex items-center my-1 justify-center font-bold'> < WhatsAppIcon /> <span className='pl-1'>+(966) 547754124</span>  </p>
+//   </div>
+
+// </form>
+
+
+
+// </div >

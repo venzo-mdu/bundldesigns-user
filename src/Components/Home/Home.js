@@ -645,7 +645,7 @@ export const Home = () => {
                                 </div>
                                 {/* <!-- table-1 --> */}
                                 <div className="sliding_section border-top1" style={{ display: "flex" }} id='bundls-first-child'>
-                                    <input type="checkbox" id="newbie_no1" className="button_section" />
+                                    <input  type="checkbox" id="newbie_no1" className="button_section" />
 
                                     {/* <!-- rotating buiscut --> */}
                                     <div className="icon_section1">
@@ -668,7 +668,7 @@ export const Home = () => {
                                             </svg>
                                         </label>
                                     </div>
-                                    <div className="newbie_section" style={window.innerWidth <= 475 ? {padding:'5% 0 2% 2%'}:{}}>
+                                    <div className="newbie_section cursor-pointer" onClick={() => addToCart(0)} style={window.innerWidth <= 475 ? {padding:'5% 0 2% 2%'}:{}}>
                                         <div className="change_brand">
                                             <div className="table_icon"><img src={QubeIcon} alt="" className="img-fluid"></img></div>
                                             <div className="newbie">The Newbie</div>
@@ -746,7 +746,7 @@ export const Home = () => {
                                             </svg>
                                         </label>
                                     </div>
-                                    <div className="newbie_section">
+                                    <div className="newbie_section cursor-pointer" onClick={() => addToCart(1)}>
                                         <div className="change_brand">
                                             <div className="table_icon"><img src={Food} alt="" className="img-fluid"></img></div>
                                             <div className="newbie">The Foodie</div>
@@ -834,7 +834,7 @@ export const Home = () => {
                                             </svg>
                                         </label>
                                     </div>
-                                    <div className="newbie_section">
+                                    <div className="newbie_section cursor-pointer" onClick={() => addToCart(2)}>
                                         <div className="change_brand">
                                             <div className="table_icon"><img src={Eye} alt="" className="img-fluid"></img></div>
                                             <div className="newbie">The socialite</div>
@@ -921,7 +921,7 @@ export const Home = () => {
                                             </svg>
                                         </label>
                                     </div>
-                                    <div className="newbie_section">
+                                    <div className="newbie_section cursor-pointer" onClick={() => addToCart(3)}>
                                         <div className="change_brand">
                                             <div className="table_icon"><img src={Diamond} alt="" className="img-fluid"></img></div>
                                             <div className="newbie">The Boutiquer</div>
@@ -1019,7 +1019,7 @@ export const Home = () => {
                                             </svg>
                                         </label>
                                     </div>
-                                    <div className="newbie_section" style={{ justifyContent: "end" }}>
+                                    <div className="newbie_section cursor-pointer" onClick={() =>navigate("/custombundl")} style={{ justifyContent: "end" }}>
                                         <div className="change_brand">
                                             <div className="table_icon"><img src={MaginIcon} alt="" className="img-fluid" /></div>
                                             <div className="newbie">Customized</div>

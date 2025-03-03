@@ -5,6 +5,8 @@ import Message from '../../../Images/Footer/Messageicon.svg'
 import Whatsapp from '../../../Images/Footer/Whatsapp.svg'
 import Linkedin from '../../../Images/Footer/Linkedin.svg'
 import Facebook from '../../../Images/Footer/Facebook.svg'
+import TikTok from '../../../Images/Footer/Tiktok.svg'
+import Pinterest from '../../../Images/Footer/Pinterest.svg'
 import Instagram from '../../../Images/Footer/Instagram.svg'
 import mailIcon from '../../../Images/Footer/mailicon.svg'
 import WhatsappIcon from '../../../Images/Footer/WhatsappBlack.svg'
@@ -37,11 +39,11 @@ export const Footer = () => {
             path:mediaUrls.instagram
         },
         {
-            icon:Facebook,
+            icon:TikTok,
             path:mediaUrls.facebook
         },
         {
-            icon:X,
+            icon:Pinterest,
             path:mediaUrls.twitter
         },
         {

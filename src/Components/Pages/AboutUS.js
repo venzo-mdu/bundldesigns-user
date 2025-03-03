@@ -60,14 +60,14 @@ export const AboutUs = () => {
 
         <div className='flex md:flex sm:block xs:block justify-between text-center '>
           <div className='basis-[50%] border-t border-r border-l relative py-4 !border-black'>
-            <h1 className='px-28 text-[32px] !text-black sm:text-[22px] xs:text-[22px]   md:text-[28px]'>Mission</h1>
+            <h1 className='px-28 text-[32px] !text-black sm:text-[22px] xs:text-[22px]   md:text-[28px] uppercase'>Mission</h1>
             <p className='xl:px-48 md:px-20 xl:text-[20px] md:text-[18px] xs:text-[16px] xs:px-[5%]'>{aboutUs.mission}</p>
             <img className='absolute md:top-[130px] top-[130px]  xs:top-[-50px] xs:w-[100px] left-0 xl:top-[70px] xl:w-[260px] md:w-[160px]' src={paperPlane}></img>
 
           </div>
           <div className='!z-10 basis-[50%] border-t border-r xs:border-l md:border-l-0  py-4   relative !border-black font-Helvetica'>
 
-            <h1 className='px-[8%] md:text-[28px] !text-black xl:text-[32px] xs:text-[22px]'>Vision</h1>
+            <h1 className='px-[8%] md:text-[28px] !text-black xl:text-[32px] xs:text-[22px] uppercase'>Vision</h1>
             <p className=' xl:px-[200px] md:px-20 md:text-[18px] xl:text-[20px] xs:text[18px] xs:px-[5%] xs:text-[16px]'>{aboutUs.vission}</p>
             <img className='absolute md:top-[-95px] top-[-95px] xs:top-[-60px] xs:w-[100px] xl:bottom-[-25px]  right-[10px] xl:w-[240px] md:w-[160px]' src={glass}></img>
 
@@ -94,15 +94,15 @@ export const AboutUs = () => {
       // }}
       >
         <div className='text-center border py-4 px-3 z-0 !border-black'>
-          <h1 className='text-[32px] sm:text-[22px] xs:text-[22px]  md:text-[28px] text-black'>Our Values</h1>
+          <h1 className='text-[32px] sm:text-[22px] xs:text-[22px]  md:text-[28px] text-black uppercase'>Our Values</h1>
           <p className='lg:text-[20px] sm:text-[20px] xs:text-[16px]  md:text-[20px]'>{aboutUs.our_values}</p>
         </div>
         <div className='text-center text-Helvetica md:pt-[5%] xs:pt-[5%] lg:pt-[3%]'>
-          <h2 className='pb-[2%] md:text-[28px] sm:text-[22px] xs:text-[22px] text-black'> The Founders</h2>
+          <h2 className='pb-[2%] md:text-[28px] sm:text-[22px] xs:text-[22px] text-black uppercase'> The Founders</h2>
           <p className='xl:w-[38vw] md:w-[57vw] xs:w-[80vw] mx-auto leading-[28px] lg:text-[20px] md:text-[20px] xs:text-[16px]'> {aboutUs.founders} </p>
         </div>
-        <div className='text-center text-Helvetica md:pt-[4%] lg:pt-[3%] pb-[4%]'>
-          <h2 className='pb-[2%] md:text-[28px] sm:text-[22px] xs:text-[22px] text-black'> Our Talents</h2>
+        <div className='text-center text-Helvetica md:pt-[4%] lg:pt-[3%] pb-[4%]'> 
+          <h2 className='pb-[2%] md:text-[28px] sm:text-[22px] xs:text-[22px] text-black uppercase'> Our Talents</h2>
           <p className='xl:w-[38vw] md:w-[56vw] xs:w-[80vw] mx-auto leading-[28px] lg:text-[20px] md:text-[20px] xs:text-[16px]'>{aboutUs.our_talents}</p>
         </div>
       </div>
@@ -127,10 +127,10 @@ export const AboutUs = () => {
                   <img className='sm:min-w-[230px] min-w-[230px] mt-3 xs:mx-auto xs:w-[180px] xs:my-[-6%]' src={WWDImg}></img>
                 </div>
                 <div className='basis-3/5 mt-[2%] mb-[3%] text-center text-white'>
-                  <h2 className='text-white sm:text-[32px] text-[32px] xs:text-[20px]'>{aboutUs[whatwedo].title}</h2>
+                  <h2 className='text-white sm:text-[32px] text-[32px] xs:text-[20px] '>{aboutUs[whatwedo].title}</h2>
                   <p className='sm:text-[20px] text-[20px] xs:text-[16px] px-2 mb-4'>{aboutUs[whatwedo].content}</p>
-                  <p> <a href='/our-work' className='text-[white] font-[500] sm:text-[20px] text-[20px] xs:text-[14px] hover:text-[white] px-[17px] py-1 !border-white border mr-4'>View Our Work</a>
-                    <a href='/' className={`bg-white text-[${aboutUs[whatwedo].bgColor}] font-[500] border hover:text-[${aboutUs[whatwedo].bgColor}] !border-white px-[17px] sm:text-[20px] text-[20px] xs:text-[14px] py-1 `}>Purchase Now</a> </p>
+                  <p> <a href='/our-work' className='text-[white] font-[500] sm:text-[20px] text-[20px] xs:text-[14px] hover:text-[white] px-[17px] py-1 !border-white border mr-4 uppercase'>View Our Work</a>
+                    <a href='/' className={`bg-white text-[${aboutUs[whatwedo].bgColor}] font-[500] border hover:text-[${aboutUs[whatwedo].bgColor}] !border-white px-[17px] sm:text-[20px] text-[20px] xs:text-[14px] py-1 uppercase`}>Purchase Now</a> </p>
                 </div>
 
               </div>
@@ -164,7 +164,7 @@ export const AboutUs = () => {
 
               </div>
               <div className={`sm:basis-[30%] basis-[30%]  !pb-8  lg:!pt-16 md:!pt-16 xs:pt-12 xs:basis-[100%]  ${whatwedo? "xs:!pt-6":"sm:!pt-16"}`}>
-                <h2 className=' mt-2 md:text-[32px] sm:text-[24px] xs:text-[24px]  font-bold pb-[30px] text-black'>What we do</h2>
+                <h2 className=' mt-2 md:text-[32px] sm:text-[24px] xs:text-[24px]  font-bold pb-[30px] text-black uppercase'>What we do</h2>
                 <div className='flex mb-2 flex-col'>
                   <p
                     onClick={() => {
@@ -295,7 +295,7 @@ export const AboutUs = () => {
       </div>
       <div className='text-center py-14 '>
         <h2 className='sm:w-[600px] w-[50vw] xs:w-[70vw] text-[32px] !mt-6 mx-auto text-black'>Inspired to start your journey to launch your next big thing ?</h2>
-        <p className='text-center'> <button onClick={() => { window.location.href = '/' }} className='py-1 px-3  !mt-[50px] !mb-8 bg-black text-white'>Get started!</button> </p>
+        <p className='text-center'> <button onClick={() => { window.location.href = '/' }} className='py-1 px-3  !mt-[50px] !mb-8 bg-black text-white uppercase'>Get started !</button> </p>
       </div>
       <Footer />
       </>

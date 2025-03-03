@@ -184,7 +184,7 @@
 .male-buttons, .female-buttons {
     display: flex;
     gap: 10px;
-    padding: 0% 8%;
+    padding: 0% 6%;
     margin: 2% 0 0 0;
 }
 input::placeholder {
@@ -1134,6 +1134,11 @@ input::placeholder {
         font-size: 14px;
         width: 100px;
     }
+    .product-btn:hover , .service-btn:hover{
+        height: 40px;
+        font-size: 14px;
+        width: 100px;
+    }
     .product-btn.active,.service-btn.active {
     height: 40px;
     font-size: 14px;
@@ -1144,13 +1149,14 @@ input::placeholder {
         transition: 1s;
     }
     .female-buttons,.male-buttons{
-        padding: 0 0%;
+        padding: 0 10%;
         display: grid;
-        grid-template-columns: repeat(3,1fr);
+        grid-template-columns: repeat(2,1fr);
     }
     .male-btn,.female-btn{
         font-size: 16px;
         height: 40px;
+        width: 165px;
     }
     .question-input{
         font-size: 14px;
@@ -1174,7 +1180,7 @@ input::placeholder {
         font-size:18px ;
     }
     .shade-background{
-        height: 750px;
+        height: 690px;
         margin: 5% 0 0 0;
     }
     .shade-btn{
@@ -1264,27 +1270,27 @@ input::placeholder {
             transform: rotate(0deg);
         }
         20%{
-            top:22%;
+            top:38%;
             left: 15%;
             transform: rotate(0deg);
         }
         30%{
-            top:22%;
+            top:38%;
             left: 15%;
             transform: rotate(0deg);
         }
         40%{
-            top:22%;
+            top:38%;
             left: 15%;
             transform: rotate(0deg);
         }
         50%{
-            top:22%;
+            top:38%;
             left: 15%;
             transform: rotate(0deg);
         }
         60%{
-            top:22%;
+            top:38%;
             left: 15%;
             transform: rotate(0deg);
         }
@@ -1305,7 +1311,7 @@ input::placeholder {
             transform: rotate(-10deg);
         }
         100%{
-            top: 22%;
+            top: 38%;
             left: 75%;
             transform: rotate(12deg);
         }
@@ -1336,9 +1342,9 @@ input::placeholder {
         height: 40px;
         font-size:16px ;
     }
-    .male-btn,.female-btn{
+    /* .male-btn,.female-btn{
         font-size: 10px;
-    }
+    } */
     .question-input{
         font-size: 14px;
         border-bottom: 1px solid black;
@@ -1404,6 +1410,11 @@ input::placeholder {
         right: 0;
         width: 32%;
         z-index: -1;
+    }
+    .female-buttons,.male-buttons{
+        padding: 0 5%;
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
     }
     @keyframes mirror{
         0%{

@@ -44,7 +44,7 @@ export default function OurWork() {
       <div className='font-Helvetica'>
         <div className='text-center py-2 border-b border-black'>
           <h1 className='lg:text-[40px] md:text-[40px] xs:text-[30px] lg:mt-[2%] md:mt-[2%] xs:mt-[5%]'> Our Work </h1>
-          <p className='lg:text-[20px] md:text-[20px] xs:text-[18px] text-[#00000080]'>Where we answer all your questions!</p>
+          <p className='lg:text-[20px] md:text-[20px] xs:text-[18px] text-[#00000080]'>Inspired to start your journey and launch the next big thing</p>
         </div>
         <div className=' sm:p-3 border-b px-[3%] border-black'>
           <div className='flex py-4 justify-center sm:w-[80%] xs:w-[100%] mx-auto'>
