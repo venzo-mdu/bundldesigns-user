@@ -189,7 +189,7 @@ export const Login = () => {
   return (
     <div>
       <div className='login !mb-24 '>
-        <img className='anchor w-[100px]' src={loginGIF} alt='login-anchor' />
+        {/* <img className='anchor w-[100px]' src={loginGIF} alt='login-anchor' /> */}
         <div className='login-content '>
           <p className='welcometext'>Welcome Back!</p>
           <img className='loginlogo' src={Loginlogo} alt='login' />
@@ -255,7 +255,7 @@ export const Login = () => {
                   scope: "email name",
                   usePopup: false,
                 }}
-                className={'lg:w-[50%] md:w-[50%] xs:w-[100%] !lg:text-[18px] !md:text-[18px] !xs:text-[14px]]'}
+                className={'lg:w-[50%] md:w-[50%] xs:w-[100%] !lg:text-[18px] !md:text-[18px] !xs:text-[16px]'}
                 onSuccess={handleAppleLoginSuccess}
                 onError={(error) => console.error("Apple Login Failed:", error)}
               />
@@ -265,7 +265,7 @@ export const Login = () => {
             </p>
           </form>
         </div>
-        <img className='anchor1 w-[160px]' src={loginGIF} alt='login-anchor' />
+        {/* <img className='anchor1 w-[160px]' src={loginGIF} alt='login-anchor' /> */}
       </div>
       <Footer />
     </div>

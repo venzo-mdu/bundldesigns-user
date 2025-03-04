@@ -702,7 +702,7 @@ export default function Adjustments({user}) {
 
 
                                             </> : ''}
-                                            <div className='bundl-checkout mt-[5%]'>
+                                            <div className='bundl-checkout !mt-[0%]'>
                                                 <div className=' flex items-center mb-1' >
                                                     <img src={BlackDollor} className='ml-[6px] mr-4' alt="Total Price" />
                                                     <p className='basis-3/5 font-bold text-[18px] mb-0'>Total Price:</p>

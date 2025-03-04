@@ -152,7 +152,10 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
                 backgroundColor: isDropdown[index] ? textColor : '#fff'
               }}
               className={`!font-[500]  !text-[${textColor}] ${isDropdown[index] ? 'active-button' : 'accordian-button'} accordion-btn-${index+1}`}
-              onClick={() => toggleDropdown(index)}
+              onClick={() => {toggleDropdown(index)
+                const element = document.getElementById(`${index}_list`);
+                element.scrollIntoView({ behavior: 'smooth' })
+              }}
             >
               {title}
             </button>
@@ -165,7 +168,7 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
             boxShadow: 'none !important',
             borderBottom: index === titleArr.length - 1 ? 'none' : '1px solid #000000',
             paddingTop: index == 0 ? '18px' : 'auto'
-          }} key={index} expanded={isDropdown[index]}>
+          }} key={index} expanded={isDropdown[index]} id={`${index}_list`}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon className='text-[#000]' />}
               aria-controls={`panel${index + 1}-content`}
@@ -174,7 +177,7 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
             >
               <Typography className='!font-[700] !text-[24px]'>{title}</Typography>
             </AccordionSummary>
-            <AccordionDetails>
+            <AccordionDetails >
               <Typography>
                 {addOnData && addOnData.designs_details && addOnData.designs_details[title] &&
                   addOnData.designs_details[title].design_list.length > 0 ? (
@@ -208,7 +211,7 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
                         </p>
                         <p className='flex items-center mb-1 font-[500]' >
                           <img src={BlackTime} alt="Time icon" className="inline-block mr-1" />
-                          {Math.round(design.time)} Days
+                          {Math.round(design.time)}Days
 
                         </p>
                       </p>

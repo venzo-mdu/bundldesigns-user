@@ -380,7 +380,7 @@ border-top: 1px solid rgba(0, 0, 0, .1)
   right: 0;
   width: 1px;
   height: 6px;
-  background: #67C1BB;
+  /* background: #67C1BB; */
   transition: all 0.3s ease;
 }
 .inner-nav-li a:before,  .inner-nav-li a:after {
@@ -390,7 +390,7 @@ border-top: 1px solid rgba(0, 0, 0, .1)
   right: 0;
   width: 1px;
   height: 6px;
-  background: #67C1BB;
+  /* background: #67C1BB; */
   transition: all 0.3s ease;
 }
 .inner-nav-li a:after {
@@ -407,23 +407,23 @@ border-top: 1px solid rgba(0, 0, 0, .1)
 
 .inner-nav-item nav li:hover a:before {
   transform: scale(2); /* Scale only */
-  background: yellowgreen;
+  /* background: yellowgreen; */
 }
 
 .inner-nav-item li:hover a:after {
   transform: rotate(90deg) scale(2); /* Rotate and scale */
-  background: yellowgreen;
+  /* background: yellowgreen; */
 
 }
 
 .inner-nav-li:hover a:before {
   transform: scale(2); /* Scale only */
-  background: yellowgreen;
+  /* background: yellowgreen; */
 }
 
 .inner-nav-li:hover a:after {
   transform: rotate(90deg) scale(2); /* Rotate and scale */
-  background: yellowgreen;
+  /* background: yellowgreen; */
 
 }
 
@@ -4597,6 +4597,9 @@ font-size: 20px;
 }
 @media screen and (max-width:441px) {
 
+  .eyeDivider{
+    margin: 15% 0 0 0;
+    }
   .second_brand_list>li {
     font-size: 10px;
     line-height: 1.2;
@@ -4835,6 +4838,9 @@ font-size: 20px;
 }
 
 @media screen and (max-width:390px) {
+  .eyeDivider{
+    margin: 15% 0 0 0;
+    }
   .rocket{
     left: 0%;
   }
@@ -4862,6 +4868,9 @@ font-size: 20px;
 }
 
 @media screen and (max-width:375px) {
+  .eyeDivider{
+    margin: 15% 0 0 0;
+    }
   .rocket{
     left: 0%;
   }
@@ -4896,6 +4905,9 @@ font-size: 20px;
   left :'-100px' /* Move 100px to the left */
 }
 @media screen and (max-width:360px) {
+  .eyeDivider{
+    margin: 15% 0 0 0;
+    }
   .rocket{
     left: -2%;
   }

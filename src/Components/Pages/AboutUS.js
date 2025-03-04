@@ -52,8 +52,8 @@ export const AboutUs = () => {
         }}>
         < Navbar />
 
-        <div className='xl:h-[56vh]  lg:h-[60vh] md:h-[58vh] xs:h-[350px] relative'>
-          <h1 className='font-Helvetica !text-black md:w-[60vw] lg:text-[38px] xs:text-[22px] sm:text-[22px] sm:w-[70vw] xs:w-[70vw] md:text-[36px] xl:w-[50vw] xl:text-[45px] mx-auto py-[8%] lg:py-[6%] md:py-[2%] my-[2%] text-center'>{aboutUs.main_content} </h1>
+        <div className='xl:h-[56vh]  lg:h-[60vh] md:h-[58vh] xs:h-[280px] relative'>
+          <h1 className='font-Helvetica !text-black md:w-[60vw] lg:text-[38px] xs:text-[22px] sm:text-[22px] sm:w-[70vw] xs:w-[100vw] md:text-[36px] xl:w-[50vw] xl:text-[45px] lg:mx-auto md:mx-auto  xs:mx-0 py-[8%] lg:py-[6%] md:py-[2%] my-[2%] text-center'>{aboutUs.main_content} </h1>
           <img className='animate-rotate-animation absolute xs:ml-[36vw] xl:top-[70%] lg:ml-[25vw] md:ml-[25vw] md:top-[60%] lg:top-[50%] xl:ml-[26vw]' width='100px' height='100px' src={loaderSticker}></img>
         </div >
 
@@ -97,13 +97,13 @@ export const AboutUs = () => {
           <h1 className='text-[32px] sm:text-[22px] xs:text-[22px]  md:text-[28px] text-black uppercase'>Our Values</h1>
           <p className='lg:text-[20px] sm:text-[20px] xs:text-[16px]  md:text-[20px]'>{aboutUs.our_values}</p>
         </div>
-        <div className='text-center text-Helvetica md:pt-[5%] xs:pt-[5%] lg:pt-[3%]'>
+        <div className='text-center text-Helvetica md:pt-[5%] xs:pt-[5%]  lg:pt-[3%]'>
           <h2 className='pb-[2%] md:text-[28px] sm:text-[22px] xs:text-[22px] text-black uppercase'> The Founders</h2>
-          <p className='xl:w-[38vw] md:w-[57vw] xs:w-[80vw] mx-auto leading-[28px] lg:text-[20px] md:text-[20px] xs:text-[16px]'> {aboutUs.founders} </p>
+          <p className='xl:w-[38vw] md:w-[57vw] xs:w-[100vw] lg:mx-auto md:mx-auto xs:mx-0 leading-[28px] lg:text-[20px] md:text-[20px]  xs:text-[16px] lg:py-0 lg:px-0 md:py-0 md:px-0 xs:py-[2%] xs:px-[5%]'> {aboutUs.founders} </p>
         </div>
         <div className='text-center text-Helvetica md:pt-[4%] lg:pt-[3%] pb-[4%]'> 
           <h2 className='pb-[2%] md:text-[28px] sm:text-[22px] xs:text-[22px] text-black uppercase'> Our Talents</h2>
-          <p className='xl:w-[38vw] md:w-[56vw] xs:w-[80vw] mx-auto leading-[28px] lg:text-[20px] md:text-[20px] xs:text-[16px]'>{aboutUs.our_talents}</p>
+          <p className='xl:w-[38vw] md:w-[56vw] xs:w-[100vw] lg:mx-auto md:mx-auto xs:mx-0 leading-[28px] lg:text-[20px] md:text-[20px] xs:text-[16px] lg:py-0 lg:px-0 md:py-0 md:px-0 xs:py-[2%] xs:px-[5%]'>{aboutUs.our_talents}</p>
         </div>
       </div>
 
@@ -294,7 +294,7 @@ export const AboutUs = () => {
 
       </div>
       <div className='text-center py-14 '>
-        <h2 className='sm:w-[600px] w-[50vw] xs:w-[70vw] text-[32px] !mt-6 mx-auto text-black'>Inspired to start your journey to launch your next big thing ?</h2>
+        <h2 className='sm:w-[600px] w-[50vw] xs:w-[100vw] text-[32px] !mt-6 lg:mx-auto md:mx-auto xs:mx-0 lg:py-0 lg:px-0 md:py-0 md:px-0 xs:py-[2%] xs:px-[5%]  text-black'>Inspired to start your journey to launch your next big thing ?</h2>
         <p className='text-center'> <button onClick={() => { window.location.href = '/' }} className='py-1 px-3  !mt-[50px] !mb-8 bg-black text-white uppercase'>Get started !</button> </p>
       </div>
       <Footer />

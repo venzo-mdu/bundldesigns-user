@@ -576,7 +576,7 @@ export const MyCart = () => {
                     name="promoCode" 
                     value={billingInfo.promoCode} 
                     onChange={handlePromoChange} 
-                    className={`${'promoCode' in error ? '!border-[red]' :''}`}
+                    className={`rounded-none ${'promoCode' in error ? '!border-[red]' :''}`}
                 />
             </div>
             <button className="payment">{paymentLoading ? 

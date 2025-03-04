@@ -43,6 +43,8 @@ import Linkedin from '../../Images/Bundles/linkedin-icon.png'
 import Instagram from '../../Images/Bundles/instagram-icon.png'
 import X from '../../Images/Bundles/X-icon.png'
 import Facbook from '../../Images/Bundles/facebook-icon.png'
+import Pinterestpng from '../../Images/Home/Pinterestpng.png'
+import Tiktokpng from '../../Images/Home/Tiktokpng.png'
 import { NavLink, useNavigate } from 'react-router-dom'
 import CartIcon from '../../Images/Home/Carticon.svg'
 import axios from 'axios'
@@ -1250,8 +1252,8 @@ export const Home = () => {
                                     <ul className="d-flex justify-content-center">
                                         <li className="social-item"><a href={`${mediaUrls.linked_in}`} target='_blank'><img src={Linkedin} alt="" className="img-fluid social-icon"></img></a></li>
                                         <li className="social-item"><a href={`${mediaUrls.instagram}`} target='_blank'><img src={Instagram} alt="" className="img-fluid social-icon"></img></a></li>
-                                        <li className="social-item"><a href={`${mediaUrls.twitter}`} target='_blank'><img src={X} alt="" className="img-fluid social-icon"></img></a></li>
-                                        <li className="social-item"><a href={`${mediaUrls.facebook}`} target='_blank'><img src={Facbook} alt="" className="img-fluid social-icon"></img></a></li>
+                                        <li className="social-item"><a href={`${'https://www.tiktok.com/@bundl_designs'}`} target='_blank'><img src={Tiktokpng} alt="" className="img-fluid social-icon"></img></a></li>
+                                        <li className="social-item"><a href={`${'https://id.pinterest.com/BundlDesigns/'}`} target='_blank'><img src={Pinterestpng} alt="" className="img-fluid social-icon"></img></a></li>
                                     </ul>
                                 </div>
                             </div>

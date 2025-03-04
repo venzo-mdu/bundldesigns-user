@@ -16,8 +16,35 @@ import loginGIF from '../../../Images/loginGIF.gif'
 import { useDispatch } from 'react-redux';
 import { loginAction } from '../../../Redux/Action';
 import ClipLoader from "react-spinners/ClipLoader";
+import PhoneNumberInput from '../../Pages/PhoneNumberInput';
 
 export const Signup = () => {
+
+  const countries = [
+    "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", 
+    "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", 
+    "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei", "Bulgaria", 
+    "Burkina Faso", "Burundi", "Cabo Verde", "Cambodia", "Cameroon", "Canada", "Central African Republic", "Chad", 
+    "Chile", "China", "Colombia", "Comoros", "Congo (Congo-Brazzaville)", "Costa Rica", "Croatia", "Cuba", "Cyprus", 
+    "Czech Republic", "Democratic Republic of the Congo", "Denmark", "Djibouti", "Dominica", "Dominican Republic", 
+    "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Eswatini", "Ethiopia", "Fiji", 
+    "Finland", "France", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea", 
+    "Guinea-Bissau", "Guyana", "Haiti", "Honduras", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", 
+    "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Korea, North", "Korea, South", 
+    "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", 
+    "Luxembourg", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", 
+    "Mauritius", "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco", "Mozambique", 
+    "Myanmar (formerly Burma)", "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", "Nicaragua", "Niger", 
+    "Nigeria", "North Macedonia", "Norway", "Oman", "Pakistan", "Palau", "Panama", "Papua New Guinea", "Paraguay", 
+    "Peru", "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia", "Rwanda", "Saint Kitts and Nevis", 
+    "Saint Lucia", "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", 
+    "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", 
+    "Somalia", "South Africa", "South Sudan", "Spain", "Sri Lanka", "Sudan", "Suriname", "Sweden", "Switzerland", 
+    "Syria", "Taiwan", "Tajikistan", "Tanzania", "Thailand", "Timor-Leste", "Togo", "Tonga", "Trinidad and Tobago", 
+    "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", 
+    "United States", "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe"
+  ];
+
   const { userInfo } = useSelector((state) => state);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -26,11 +53,15 @@ export const Signup = () => {
   const [isAgree, setIsAgree] = useState(false);
   const [submitted, setSubmitted] = useState(false)
   const [errors, setErrors] = useState({});
+  const [phoneError, setPhoneError] = useState(false);
   const [registerData, setRegisterData] = useState({
     full_name: '',
     email: '',
     password: '',
-    google: false
+    google: false,
+    phone:'',
+    country:'',
+    language:'Arabic'
   });
 
   useEffect(() => {
@@ -114,6 +145,21 @@ export const Signup = () => {
       errors.email = 'Email is required';
     } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(registerData.email)) {
       errors.email = 'Invalid email address';
+    }
+    if (!registerData.phone.trim()) {
+      errors.phone = 'Phone number is required';
+    } else if (!/^\+?[0-9]{7,15}$/.test(registerData.phone_number)) {
+      errors.phone = 'Invalid phone number. Only numbers are allowed (7-15 digits)';
+    }
+    if (!registerData.country.trim()) {
+      errors.country = 'Country is required';
+    } else if (/[^a-zA-Z\s-]/.test(registerData.country)) {
+      errors.country = 'Country name must contain only letters';
+    }
+    if (!registerData.language.trim()) {
+      errors.language = 'Language is required';
+    } else if (/[^a-zA-Z\s-]/.test(registerData.language)) {
+      errors.language = 'Language must contain only letters';
     }
     if (/\s/.test(registerData.password)) {  // Check for spaces
       errors.password = 'Password cannot contain spaces'
@@ -215,7 +261,7 @@ export const Signup = () => {
   return (
     <div>
       <div className='login !mb-24'>
-        <img className='anchor' id='anchor' src={loginGIF} alt='login-anchor' />
+        {/* <img className='anchor' id='anchor' src={loginGIF} alt='login-anchor' /> */}
         <div className='signup-content'>
           <p className='welcometext'>
             Welcome to <span className='bundle-designs'>Bundl Designs</span>
@@ -241,6 +287,50 @@ export const Signup = () => {
               className='rounded-none'
             />
             {errors.email && <p className="error first-letter:capitalize">{errors.email}</p>}
+
+            <div>
+            <label  className='mb-2 mt-[3%]'>Phone Number</label>
+            <PhoneNumberInput
+              className={'rounded-none outline-none h-[45px] lg:w-[525px] md:w-[525px] xs:w-full'}
+              extraInputClass={'h-[50px] rounded-none'}
+              name="phone"
+              placeholder="Enter phone number"
+              value={registerData.phone}
+              status={setRegisterData}
+              setPhoneError={setPhoneError}
+              setErrors={setErrors}
+              formErrors={errors}
+            />
+            {errors.phone && <p className="error first-letter:capitalize mt-2">{errors.phone}</p>}
+            </div>  
+
+           <div className="lg:w-[50%] md:w-[50%] xs:w-[100%] mt-[3%]">
+                <div className='lg:mr-[4%] md:mr-[4%] xs:mr-0'>
+                    <label className='mb-2 mt-[3%]'>Country </label>
+                    <select 
+                        name="country" 
+                        // id='vacancySelect'
+                        value={registerData.country|| null} 
+                        onChange={handleChange} 
+                        className={`rounded-none outline-none h-[50px] lg:w-[525px] md:w-[525px] xs:w-full ${'country' in errors ? '!border-[red]' :''} border !border-[#D9D9D9] px-2 py-[5px] w-full`}
+                    >
+                       <option value={null} disabled selected > </option>
+                        { countries.map(country=>(
+                            <option>{country}</option>
+                        ))}
+                    </select>
+                    {errors.country && <p className="error first-letter:capitalize">{errors.country}</p>}
+                </div>
+            </div>
+
+            <div>
+              <label  className='mb-2 mt-[3%]'>Language</label>
+              <select className='rounded-none outline-none h-[50px] lg:w-[525px] md:w-[525px] xs:w-full border !border-[#D9D9D9] px-2 py-[5px]' onChange={handleChange}>
+              <option value={'English'}>English</option>
+              <option value={'Arabic'}  selected >Arabic</option>
+              </select>
+              {errors.language && <p className="error first-letter:capitalize">{errors.language}</p>}
+            </div>
 
             <label className='mb-2 mt-[3%]' >Password</label>
             <input
@@ -271,7 +361,7 @@ export const Signup = () => {
             </span> Or  <span className='border-[#F5F5F5] border-b h-[2px] basis-[43%] ml-[2%] border-[1.5px]'></span></p>
             <p className='signinwithgoogle'>
               {/* <img src={Googleicon} alt='google-icon' /> Sign in with Google */}
-              <div className='w-[45%]'>
+              <div className='lg:w-[45%] md:w-[45%] xs:w-[100%]'>
               <GoogleLogin
                 onSuccess={credentialResponse => {
                   const token = credentialResponse.credential;
@@ -295,7 +385,7 @@ export const Signup = () => {
                   scope: "email name",
                   usePopup: true,
                 }}
-                className={'w-[50%] !lg:text-[18px] !md:text-[18px] !xs:text-[14px]'}
+                className={'lg:w-[50%] md:w-[50%] xs:w-[100%] !lg:text-[18px] !md:text-[18px] !xs:text-[14px]'}
                 onSuccess={handleAppleSignupSuccess}
                 onError={(error) => console.error("Apple Login Failed:", error)}
               />
@@ -305,7 +395,7 @@ export const Signup = () => {
             </p>
           </form>
         </div>
-        <img className='anchor1 w-[160px]' id='anchor1' src={loginGIF} alt='login-anchor' />
+        {/* <img className='anchor1 w-[160px]' id='anchor1' src={loginGIF} alt='login-anchor' /> */}
       </div>
       <Footer />
     </div>

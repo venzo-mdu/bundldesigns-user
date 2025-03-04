@@ -40,11 +40,13 @@ export const Footer = () => {
         },
         {
             icon:TikTok,
-            path:mediaUrls.facebook
+            path:'https://www.tiktok.com/@bundl_designs'
+            //path:mediaUrls.facebook
         },
         {
             icon:Pinterest,
-            path:mediaUrls.twitter
+            path:'https://id.pinterest.com/BundlDesigns/'
+            //path:mediaUrls.twitter
         },
         {
             icon:Linkedin,
