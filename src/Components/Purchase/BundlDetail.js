@@ -37,13 +37,16 @@ export const BundlDetail = () => {
   const [selectedLanguage, setSelectedLanguage] = useState('English');
   const [firstOrder,setFirstOrder] = useState(true)
   const [actual,setactual] = useState({})
-  const handleRadioChange = (e) => {
-    setSelectedLanguage(e.target.value);
-  };
+  const [routeId , setRouteId] = useState({
+    'newbie':12,
+    'foodie':4,
+    'socialite':22,
+    'boutiquer':13,
+  })
   const [coinIcon,setCoinIcon] = useState(greenIcon)
   const [textColor,setTextColor] = useState('#1BA56F')
-    const [showDetails,setDetails] = useState(false)
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 440);
+  const [showDetails,setDetails] = useState(false)
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 440);
   const selectedItems = bundlAddons.bundle_details?.flatMap(bundle =>
     bundle.design_list.map(design => ({
       ...design,
@@ -70,6 +73,11 @@ export const BundlDetail = () => {
       window.removeEventListener('resize', handleResize);
     };
   },[]);
+
+  const handleRadioChange = (e) => {
+    setSelectedLanguage(e.target.value);
+  };
+
   const validateFields = () => {
 
 
@@ -88,7 +96,7 @@ export const BundlDetail = () => {
     const total_price = parseFloat(packageDetail?.package?.price) +
     addonPayLoads.total_price +
     (selectedLanguage === 'Both' ? 2000 : 0)
-    if(firstOrder && total_price < 4880 && packageID==12){
+    if(firstOrder && total_price < 4880 && packageID=='newbie'){
       toast.error(`Minimum order amount should be 4880`, {
         position: toast?.POSITION?.TOP_RIGHT,
       });
@@ -101,28 +109,32 @@ export const BundlDetail = () => {
   const getBundlData = async () => {
     setLoading(true)
     const colors = {
-      '12':'#f175ad',
-      '4':'#1BA56F',
-      '22':"#00A8C8",
-      '13':'#f175ad',
+      // '12':'#f175ad',
+      // '4':'#1BA56F',
+      // '22':"#00A8C8",
+      // '13':'#f175ad',
+      'newbie':'#f175ad',
+      'foodie':'#1BA56F',
+      'socialite':"#00A8C8",
+      'boutiquer':'#f175ad',
     }
     if(state && 'project_name' in state){
       setBrandInput(state.project_name)
     }
-    if(packageID == '12'){
+    if(packageID == 'newbie'){
       setCoinIcon(pinkIcon)
     }
-    else if(packageID== '4'){
+    else if(packageID== 'foodie'){
       setCoinIcon(greenIcon)
     }
-    else if(packageID == '22'){
+    else if(packageID == 'socialite'){
       setCoinIcon(blueIcon)
     }
-   else if(packageID == '13'){
+   else if(packageID == 'boutiquer'){
     setCoinIcon(pinkIcon)
     }
     setTextColor(colors[packageID])
-    const response = await axios.get(`${base_url}/api/package/?bundle_id=${packageID}`, ConfigToken());
+    const response = await axios.get(`${base_url}/api/package/?bundle_id=${routeId[packageID]}`, ConfigToken());
     setBundlAddons(response.data);
     setPackageDetail(response.data)
     const flatList = response.data?.bundle_details?.flatMap(item => item.design_list);
@@ -190,7 +202,7 @@ export const BundlDetail = () => {
     );
     const payload = {
       order_name: brandInput,
-      bundle_id: packageID,
+      bundle_id: routeId[packageID],
       total_time:  packageDetail?.package?.time + addonPayLoads.total_time,
       total_price: parseFloat(packageDetail?.package?.price) +
       addonPayLoads.total_price +
@@ -232,23 +244,23 @@ export const BundlDetail = () => {
              <p style={{color:textColor}}  className='flex items-center'><img src={coinIcon} alt="Dollar icon" className="inline-block mr-3" /><span>{Math.round(packageDetail?.package?.price) || "3750 SAR"} SAR</span></p>
              <p style={{color:textColor}}  className='items-center flex'><AccessTimeIcon className='mr-1'/><span> {packageDetail?.package?.time || "30 Days"} Days</span></p>
            </div>
-           <p className='bundl-desc-title text-[20px] sm:text-[20px] xs:text-[16px] w-full sm:w-full xs:w-[350px] mx-auto'>Main outcomes: Brand Identity, Commerce Collateral, Social Media Starter Kit.</p>
+           <p className='bundl-desc-title text-[20px] sm:text-[20px] xs:text-[16px] w-full sm:w-full xs:w-[350px] mx-auto'>Outcomes to Brand Identity + Add-ons.</p>
            <p className='bundl-desc'>{packageDetail?.package?.description_english || ''}</p>
            <p className='one-minor my-3'>* This Bundl includes one minor revision</p>
          </div>
  
          <div className='bundl-section'>
            <div className='brand-details lg:!pt-16 md:!pt-[16] xs:!pt-8'>
-             <p style={window.innerWidth <= 441 ? { fontSize: '32px', fontWeight: '700',lineHeight:'1.2' } : { textAlign: 'left', fontSize: '32px', fontWeight: '700' }}>What is the name of your brand?</p>
+             <p style={window.innerWidth <= 441 ? { fontSize: '20px', fontWeight: '700',lineHeight:'1.2' } : { textAlign: 'left', fontSize: '32px', fontWeight: '700' }}>What is the name of your brand?</p>
              <input id='brandInput'  className={`brand-input ${brandError && '!border-[red] rounded-none'}`} value={brandInput} onChange={(e) => {setBrandInput(e.target.value)
            
               setBrandError(false)}} />
                 {brandError && <p className='text-[red]'>Please enter name of the brand</p>}
              <div className='commerce-collateral'>
                {bundlAddons.bundle_details?.map((bundle, index) => {
-                 return <div key={index} className='bundle-section' style={window.innerWidth <= 475 ? { margin: '10% 0 0 0' }:{ margin: '3% 0 0 0' }}>
+                 return <div key={index} className='bundle-section' style={window.innerWidth <= 475 ? { margin: '5% 0 0 0' }:{ margin: '3% 0 0 0' }}>
                    <p className={`collateral-text mb-[2px] leading-[1.2] ${bundle.name_english == 'Social Media Starter Kit'?'w-[80%]': 'w-full'}`}>{bundle.name_english}</p>
-                   <p className='text-[16px] sm:text-[16px] xs:text-[20px]' style={{ opacity: '50%' }}>{bundle.slogan_english}</p>
+                   <p className='text-[16px] sm:text-[16px] xs:text-[18px]' style={{ opacity: '50%' }}>{bundle.slogan_english}</p>
                    {
                      bundle.name_english === "Brand Identity" ? (
                        <div style={window.innerWidth < 441 ? { display: 'flex', width: '100%',flexWrap:'wrap' } : { display: 'flex', width: '100%' ,alignItems:'center',justifyContent:'space-between',flexWrap:'wrap' }}>
@@ -337,7 +349,7 @@ export const BundlDetail = () => {
                  </div>
                })}
              </div>
-             <Accordian textColor={textColor} extraQty={extraQty} accordianTitle={'Something feels missing ?'} addOnPayload={setAddonPayLoads} bundlePackageId={packageID} />
+             <Accordian textColor={textColor} extraQty={extraQty} accordianTitle={'Something feels missing ?'} addOnPayload={setAddonPayLoads} bundlePackageId={routeId[packageID]} />
            </div>
            {/* // border-black */}
            <div 
@@ -410,7 +422,7 @@ export const BundlDetail = () => {
                      <button style={{backgroundColor:textColor}} className={`proceed !bg-[${textColor}]`} disabled>Proceed Checkout</button>
                  }
                </div>
-              {(firstOrder && packageID==12) && <p className='proceed-text'>Your minimum total should be above 4880 SAR</p>}
+              {(firstOrder && packageID=='newbie') && <p className='proceed-text'>Your minimum total should be above 4880 SAR</p>}
              </div>
            </div>
          </div>

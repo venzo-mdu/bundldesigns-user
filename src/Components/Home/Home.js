@@ -63,6 +63,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 
 export const Home = () => {
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const imageArray = [Car, Lemon, Mouth, Rocket, Pinkpaint];
@@ -87,6 +88,12 @@ export const Home = () => {
     const [currentWork, setCurrentWork] = useState(1)
     const [isActiveProcess, setIsActiveProcess] = useState([false, false, false, false, false]);
     const [bundlData, setBundlData] = useState([]);
+    const [routeNames , setRouteNames] = useState({
+        4:'foodie',
+        12:'newbie',
+        13:'boutiquer',
+        22:'socialite'
+      })
     // const translateX = (activeProcess * 200) +60;
     // const translateX = activeProcess * (window.innerWidth <= 475 ? activeProcess <= 4 ? 88.5: window.innerWidth <= 390 ? 80 : 80 : window.innerWidth <= 768 ? 150 : activeProcess < 3 ? 200 : 195) + (window.innerWidth > 1450 ? 60 : 0);
     let translateX = 0;
@@ -282,7 +289,9 @@ export const Home = () => {
                 setSelectedIndex(index)
             } else {
                 setSelectedIndex(null)
-                navigate(`/bundldetail/${bundlData.packages[index].id}`,);
+               navigate(`/bundldetail/${routeNames[bundlData.packages[index].id]}`,);
+                // navigate(`/bundldetail/${bundlData.packages[index].id}`,);
+
             }
         } catch (error) {
             console.error('An error occurred:', error);
@@ -489,12 +498,12 @@ export const Home = () => {
                                         <div className="button-container scroller">
                                             <ul className="scroll-button h-[46px] scroller__inner_btn">
                                                 <li><span><a className='text-black' href='#ourBundl'>Shop our Bundls</a></span></li>
-                                                <li><span><img src={MagicIcon} alt="" className="img-fluid"></img></span></li>
+                                                <li><span><img src={MagicIcon} alt="" className="img-fluid !mt-[25%] !ml-[10%] !w-[30px]"></img></span></li>
+                                                <li><span><a className='text-black' href='#ourBundl'>Shop our Bundls</a></span></li>
+                                                {/* <li><span><img src={MagicIcon} alt="" className="img-fluid"></img></span></li>
                                                 <li><span><a className='text-black' href='#ourBundl'>Shop our Bundls</a></span></li>
                                                 <li><span><img src={MagicIcon} alt="" className="img-fluid"></img></span></li>
-                                                <li><span><a className='text-black' href='#ourBundl'>Shop our Bundls</a></span></li>
-                                                <li><span><img src={MagicIcon} alt="" className="img-fluid"></img></span></li>
-                                                <li><span><a className='text-black' href='#ourBundl'>Shop our Bundls</a></span></li>
+                                                <li><span><a className='text-black' href='#ourBundl'>Shop our Bundls</a></span></li> */}
                                             </ul>
                                             <div className="hover-animation btn-blank-hover">
                                                 <span className="blue"></span>
@@ -716,7 +725,7 @@ export const Home = () => {
                                         </div>
                                         <div className="sar d-flex align-items-center">
                                             {/* <!--<img src="asset/images/money-icon.webp" alt="" className="img-fluid">--> */}
-                                            <span className="sar_text px-2"><span>Starting from</span> 4700 SAR</span>
+                                            <span className="sar_text px-2"><span>Starting from</span> 4880 SAR</span>
                                         </div>
                                         <div className="work_time d-flex align-items-center">
                                             {/* <!--<img src="asset/images/time-icon.webp" alt="" className="ing-fluid">--> */}

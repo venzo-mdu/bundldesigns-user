@@ -32,6 +32,12 @@ export const MyCart = () => {
     const [totalAmount,setTotalAmount] = useState(0)
     const [coupon,setCoupon] = useState(null)
     const [profile,setProfile] = useState({})
+    const [routeNames , setRouteNames] = useState({
+            4:'foodie',
+            12:'newbie',
+            13:'boutiquer',
+            22:'socialite'
+          })
     const countries = [
         "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", 
         "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", 
@@ -364,7 +370,7 @@ export const MyCart = () => {
     
       const navigateToDetailHistory = () => {
         if(cartDetails.bundle_id){
-            navigate(`/bundldetail/${cartDetails.bundle_id}`,{state:{project_name:cartDetails.project_name}})
+            navigate(`/bundldetail/${routeNames[cartDetails.bundle_id]}`,{state:{project_name:cartDetails.project_name}})
         }else{
             navigate(`/custombundl`,{state:{project_name:cartDetails.project_name}})
         }
@@ -418,6 +424,17 @@ export const MyCart = () => {
                             <p className='flex items-center !mb-0 justify-center'><img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'bundle')}/></p>
                              </div>
                         ))}
+
+                        {cartDetails?.item_details?.addon_items?.map((row,index) => (
+
+                            <div className='flex justify-between border-b pb-2 !border-black'>
+                                <div>
+                                    <div className='font-[700] text-[20px]'>{row.qty} x {row.item_name}</div>
+                                    <div className='font-[500] ml-8'> {row.subtotal_price} SAR</div>
+                                </div>
+                                <p className='flex items-center !mb-0 justify-center'><img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'bundle')} /></p>
+                            </div>
+                                ))}
                     </>:<table className='w-full border-none' aria-label="simple table">
                             <thead>
                                 <tr className='!text-left text-[20px]'>

@@ -193,7 +193,7 @@ export const Login = () => {
         <div className='login-content '>
           <p className='welcometext'>Welcome Back!</p>
           <img className='loginlogo' src={Loginlogo} alt='login' />
-          <form onSubmit={onSubmit}>
+          <form onSubmit={onSubmit} className='lg:mt-0 md:mt-0 xs:mt-[8%]'>
             <label className='xs:mb-2'> Email address</label>
             <input
               type="email"

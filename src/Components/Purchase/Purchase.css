@@ -370,6 +370,10 @@
 }
 
 @media screen and (max-width:441px) {
+    .collateral-text {
+        font-size: 20px;
+        font-weight: 700;
+    }
     .navIcons{
         width: 24px;
     }
@@ -432,7 +436,7 @@
         font-size: 20px;
     }
     .accordian-heading{
-        font-size: 27px;
+        font-size: 20px;
     }
     .tab-buttons{
         flex-wrap: wrap;
@@ -481,6 +485,10 @@
     display: flex;
 }
 .accordian-heading{
-    font-size: 26px;
+    font-size: 20px;
+}
+.collateral-text {
+    font-size: 20px;
+    font-weight: 700;
 }
 }

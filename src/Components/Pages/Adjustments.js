@@ -617,7 +617,7 @@ export default function Adjustments({user}) {
                                                             </p>
                                                         </p>
                                                         </div>
-                                                              <p className='mb-3 h-[30px] flex items-center text-[#1BA56F] border !border-[#1BA56F] w-[100%]'>
+                                                              <p className='mb-3 mt-[-3%] h-[30px] flex items-center text-[#1BA56F] border !border-[#1BA56F] w-[100%]'>
                                                               <button onClick={() => remove_item(item.id)} className='border-r !border-[#1BA56F] h-full flex justify-center w-[10%] py-1'><RemoveIcon /></button>
                                                               <span className='px-2 !border-[#1BA56F] w-[80%] flex items-center justify-center'> {item.id in itemsList ? itemsList[item.id]['qty'] : 0}</span>
                                                               <button onClick={() => addItem(index, category, item.id)} className='flex justify-center py-1 border-l !border-[#1BA56F] w-[10%] h-full'><AddIcon /></button>
