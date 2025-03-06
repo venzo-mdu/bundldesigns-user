@@ -199,7 +199,7 @@ input::placeholder {
     color: #000000;
     border: 1px solid #000000;
     text-align: center;
-    margin: 5% 0 0 0;
+    margin: 5% 0 0 10%;
 }
 
 .male-btn:hover, .female-btn:hover {
@@ -436,14 +436,21 @@ input::placeholder {
     font-weight: 700;
 }
 .back-to-home{
-    width: 400px;
+    width: 375px;
     height: 60px;
     background-color: transparent;
     border: 1px solid #000000;
     color: #000000;
-    font-size:24px;
+    font-size:20px;
     font-weight: 500;
-
+    transition: .5s;
+}
+.back-to-home:hover{
+    width: 375px;
+    height: 60px;
+    background-color: black;
+    border: 1px solid #000000;
+    color: white;
 }
 /* THANKYOU CARD*/
 
@@ -678,7 +685,8 @@ input::placeholder {
         }
 
         .animate{
-            animation-duration: 6s;
+            animation-duration: 8s;
+            animation-delay: 3s;
             /* width: 100px;
             height: 100px; */
         }
@@ -852,6 +860,10 @@ input::placeholder {
         position: absolute;
         top: 20%;
     }
+    .male-btn, .female-btn {
+        
+        margin: 5% 0 0 0%;
+    }
     .progress-section-q3{
         width: 90%;
     }
@@ -889,9 +901,9 @@ input::placeholder {
         right:3%;
     }
     .lips {
-        width: 8%;
-        right: 9%;
-        top: 26%;
+        width: 10%;
+        right: 8%;
+        top: 23%;
         animation: lip 4s ease-in-out infinite forwards;
     }
     @keyframes mirror{

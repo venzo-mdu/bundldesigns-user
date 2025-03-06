@@ -32,6 +32,7 @@ export const MyCart = () => {
     const [totalAmount,setTotalAmount] = useState(0)
     const [coupon,setCoupon] = useState(null)
     const [profile,setProfile] = useState({})
+    const [tax , setTax] = useState(false);
     const [routeNames , setRouteNames] = useState({
             4:'foodie',
             12:'newbie',
@@ -73,6 +74,8 @@ export const MyCart = () => {
         city: '',
         postalCode: '',
         promoCode: '',
+        vat_registered:'',
+        trn:''
     });
 
     const [error,setError] = useState({})
@@ -116,7 +119,7 @@ export const MyCart = () => {
  
     const removeItem = async (itemId, itemType) => {
         if(itemType=='bundle'){
-               toast.error(`Package Item Connot removed`, {
+               toast.error(`Package Item Cannot removed`, {
                     position: toast?.POSITION?.TOP_RIGHT,
                   });
                   return;
@@ -230,9 +233,15 @@ export const MyCart = () => {
         return false
     };
         if (!billingInfo.city.trim()) {setError({city:'Your city field is empty.'})
-    
         return false};
+        if (!billingInfo.vat_registered.trim()) {setError({vat_registered:'Your Tax Treatment field is empty.'})
+        return false;
+        }
+        if (!billingInfo.trn.trim() && billingInfo?.vat_registered === 'vat') {
+            setError({ trn_number: 'Your TRN Number field is empty.' })
 
+            return false
+        };
         if (!billingInfo.postalCode.trim()) {
             setError({postalCode:'Your postal code field is empty.'})
             return false
@@ -273,8 +282,11 @@ export const MyCart = () => {
                         grand_total:cartDetails.grand_total,
                         tax_treatment:cartDetails.tax_treatment,
                         tax:cartDetails.tax,
-                        items_to_delete:removedItems
+                        items_to_delete:removedItems,
+                        vat_registered:billingInfo?.vat_registered === 'vat' ? true : false,
+                        trn:billingInfo?.vat_registered === 'non_vat' ? null : billingInfo?.trn
                     }
+
                     const response = await axios.put(`${base_url}/api/order/cart/?initiate=True`, formData,ConfigToken());
                     if(response.data){
                        window.location.href = response.data.data.redirect_url
@@ -295,6 +307,14 @@ export const MyCart = () => {
  
     const handleBillingChange = (e) => {
         const { name, value } = e.target;
+        if(name === 'vat_registered'){
+            if(value === 'vat'){
+                setTax(true)
+            }
+            else{
+                setTax(false)
+            }
+        }
         if(name =='country'){
             getTotal(value.trim())
         }
@@ -587,6 +607,32 @@ export const MyCart = () => {
                     className={`rounded-none ${'postalCode' in error ? '!border-[red]' :''}`}
                 />
             </div>
+            {
+                billingInfo?.country === 'Saudi Arabia' && (
+                    <div className='trn-code mb-[15px]'>
+                    <label className={`${'vat_registered' in error ? 'text-[red]':'opacity-50'}`}>Tax Treatment<span className='text-[red]'>*</span></label>
+                     <select className={`w-[100%] py-[5px] px-2 rounded-none border-[1px] outline-none  ${'vat_registered' in error ? '!border-[red]' :'border-black border-solid'} `} name='vat_registered' onChange={handleBillingChange}>
+                        <option value={null} disabled selected></option>
+                         <option value={'vat'}>VAT Registered</option>
+                         <option value={'non_vat'}>Non-VAT Registered</option>
+                     </select>
+                 </div>
+                )
+            }
+           
+            {
+                tax && (
+                    <div className="trn-code mb-[15px]">
+                    <label className={`${'vat_registered' in error ? 'text-[red]':'opacity-50'}`}>TRN Number<span className='text-[red]'>*</span></label>
+                    <input 
+                    name="trn" 
+                    value={billingInfo.trn} 
+                    onChange={handleBillingChange} 
+                    className={`rounded-none w-[100%] ${'trn' in error ? '!border-[red]' :''}`}
+                />
+                 </div> 
+                )
+            }
             <div className="promo-code mb-[15px]">
                 <label className={`${'promoCode' in error ? 'text-[red]':'opacity-50'}`}>Promo Code</label>
                 <input 

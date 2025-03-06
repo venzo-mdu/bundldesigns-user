@@ -825,7 +825,7 @@ const handleDownload = async (file) => {
                                                 {Files.map((item, index) => (
                                                     <a 
                                                         key={index} 
-                                                        className="cursor-pointer ml-2 underline block w-fit" 
+                                                        className="cursor-pointer ml-2 underline block w-fit break-all" 
                                                         onClick={() => handleDownload(item)}
                                                     >
                                                         {item.replace(/-\d{13,}-\d+/, "").trim()}
@@ -842,7 +842,7 @@ const handleDownload = async (file) => {
                                                     return (
                                                         <a 
                                                             key={index} 
-                                                            className="cursor-pointer ml-2 underline block w-fit" 
+                                                            className="cursor-pointer ml-2 underline block w-fit break-all" 
                                                             href={validUrl} 
                                                             target="_blank" 
                                                             rel="noopener noreferrer"

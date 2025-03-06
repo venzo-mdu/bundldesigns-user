@@ -33,14 +33,14 @@
 
 @media screen and (max-width:1705px) and (min-width:1024px) {
     .signup-content{
-        height: 700px;
+        /* height: 700px; */
         padding: 2% 6%;
     }
 }
 
 @media screen and (max-width:1024px) and (min-width:768px) {
     .signup-content{
-        height: 700px;
+        /* height: 700px; */
     }
     .signup-content input{
         width: 525px;

@@ -164,37 +164,55 @@ console.log(location.state?.orderId,'orderid')
 
   const validateFields = () => {
 
+    // const unansweredRequiredQuestions = questions.filter((q) => {
+    //   if (q.required) {
+    //     console.log('1')
+    //     if (q.answer_type === "age-data") {
+    //       if (
+    //         selectedGender === "female" &&
+    //         (!activeFemaleButtons || activeFemaleButtons.length === 0)
+    //       ) {
+    //         return true;
+    //       }
+    //       if (
+    //         selectedGender === "male" &&
+    //         (!activeMaleButtons || activeMaleButtons.length === 0)
+    //       ) {
+    //         return true;
+    //       }
+    //       return false;
+    //     }
+
+    //     return !formData?.[q.id] || formData?.[q.id].trim() === "";
+    //   }
+    //   return false;
+    // });
     const unansweredRequiredQuestions = questions.filter((q) => {
       if (q.required) {
+        console.log(`Checking: ${q.id}, Type: ${q.answer_type}`);
+    
+        // If it's an age-data question, ensure the correct buttons are selected
         if (q.answer_type === "age-data") {
-          if (
-            selectedGender === "female" &&
-            (!activeFemaleButtons || activeFemaleButtons.length === 0)
-          ) {
-            return true;
+          if (selectedGender === "female") {
+            return !activeFemaleButtons || activeFemaleButtons.length === 0;
           }
-          if (
-            selectedGender === "male" &&
-            (!activeMaleButtons || activeMaleButtons.length === 0)
-          ) {
-            return true;
+          if (selectedGender === "male") {
+            return !activeMaleButtons || activeMaleButtons.length === 0;
           }
-          if (
-            selectedGender === "both" &&
-            ((!activeFemaleButtons || activeFemaleButtons.length === 0) ||
-              (!activeMaleButtons || activeMaleButtons.length === 0))
-          ) {
-            return true;
-          }
-          return false;
         }
-
+    
+        // Default check for other required questions
         return !formData?.[q.id] || formData?.[q.id].trim() === "";
       }
       return false;
     });
+    
 
     if (unansweredRequiredQuestions.length > 0) {
+      const element = document.getElementById(`question_${unansweredRequiredQuestions[0]?.id}`);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth"});
+        }
       showToastMessage();
       return false;
     }
@@ -310,7 +328,7 @@ console.log(location.state?.orderId,'orderid')
           <>
           {
           questions.map((question, index) => (
-          <div className="questions" key={index}>
+          <div className="questions" key={index} id={`question_${question?.id}`}>
             <p className={`questions-title  xs:w-[92%] sm:w-full md:w-full mx-auto ${index === 0 ? 'mt-[1%]' : 'mt-[2%]'}`}>
               {question.question}
               {

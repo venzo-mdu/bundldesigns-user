@@ -92,16 +92,20 @@ export const Questionnaire5 = ({formData,setFormData}) => {
 
 
     if (unansweredRequiredQuestions.length > 0) {
+      const element = document.getElementById(`question_${unansweredRequiredQuestions[0]?.id}`);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth"});
+      }
       showToastMessage(); // Display the error toast
       return false;
     }
 
-    if((answers1 || answers2 || answers3 ||answers4) === null || undefined || {} || [] ){
-      toast.error("You should fill all the mandatory fields", {
-        position: toast?.POSITION?.TOP_RIGHT,
-        style: { width: "400px",margin:'0 0 0 -25%' },
-      });
-    }
+    // if(((answers1 || answers2 || answers3 ||answers4) === null || undefined || {} || [] ) && unansweredRequiredQuestions.length>0){
+    //   toast.error("You should fill all the mandatory fields", {
+    //     position: toast?.POSITION?.TOP_RIGHT,
+    //     style: { width: "400px",margin:'0 0 0 -25%' },
+    //   });
+    // }
 
     return true; // All required fields are valid
   };
@@ -160,7 +164,7 @@ console.log(location.state?.orderId,'orderid')
     }
     try {
       let data = {
-        formData,
+        answers:formData,
         status: 'not submitted',
         orderId: location.state.orderId
       };
@@ -192,7 +196,7 @@ console.log(location.state?.orderId,'orderid')
         formData={formData}
         setFormData={setFormData}
         questions={questions.map((question,index) => (
-          <div className="questions" key={question.id}>
+          <div className="questions" key={question.id} id={`question_${question.id}`}>
             <p className={`questions-title  xs:w-[70%] sm:w-full md:w-full mx-auto ${index === 0 ? 'mt-[1%]' : 'mt-[2%]'}`}>
               {question.question}
               {question.required && (

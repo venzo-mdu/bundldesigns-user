@@ -58,6 +58,8 @@ export default function Adjustments({user}) {
         city: '',
         postalCode: '',
         promoCode: '',
+        vat_registered:'',
+        trn:''
     });
     const [error, setError] = useState({})
     const [errors, setErrors] = useState({});
@@ -65,7 +67,7 @@ export default function Adjustments({user}) {
     const [showDetails, setDetails] = useState(false)
     const [isMobile, setIsMobile] = useState(window.innerWidth < 475);
     const [showModal, setShowModal] = useState(false);
-
+    const [istax , setIsTax] = useState(false);
     const stylesBtn = ["50%", "50%", "50%", "50%", "100%", "50%", "50%", "100%", "100%"];
 
     const stylesBtnAccordian = ["40%", "60%", "60%", "40%", "45%", "55%", "100%"];
@@ -104,6 +106,14 @@ export default function Adjustments({user}) {
     const handleBillingChange = (e) => {
         
         const { name, value } = e.target;
+        if(name === 'vat_registered'){
+            if(value === 'vat'){
+                setIsTax(true)
+            }
+            else{
+                setIsTax(false)
+            }
+        }
         if(name === 'country'){
             let temptax = totalPrice * (value === 'Saudi Arabia'? 0.15 : 0)
             console.log(temptax)
@@ -112,6 +122,7 @@ export default function Adjustments({user}) {
         setBillingInfo({ ...billingInfo, [name]: value });
     };
 
+    console.log(billingInfo,istax)
     const toggleDescription = (id) => {
         setExpantedTabs((prevState) => ({
             ...prevState,
@@ -369,7 +380,16 @@ export default function Adjustments({user}) {
 
             return false
         };
+        if (!billingInfo.vat_registered.trim()) {
+            setError({ vat_registered: 'Your tax treatment field is empty.' })
 
+            return false
+        };
+        if (!billingInfo.trn.trim() && billingInfo?.vat_registered === 'vat') {
+            setError({ trn: 'Your TRN Number field is empty.' })
+
+            return false
+        };
         if (!billingInfo.postalCode.trim()) {
             setError({ postalCode: 'Your postal code field is empty.' })
             return false
@@ -410,7 +430,10 @@ export default function Adjustments({user}) {
             total_amount: totalPrice,
             total_time: totalTime,
             grand_total: totalPrice + tax,
+            vat_registered:billingInfo?.vat_registered === 'vat' ? true : false,
+            trn:billingInfo?.vat_registered === 'non_vat' ? null : billingInfo?.trn
         }
+        console.log(billingData)
         const formData = {
             item_list: itemsList,
             adjustmentList: adjustmentData,
@@ -929,6 +952,32 @@ export default function Adjustments({user}) {
                                             className={`rounded-none ${'postalCode' in error ? '!border-[red]' : ''}`}
                                         />
                                     </div>
+                                    {
+                                         billingInfo?.country === 'Saudi Arabia' && (
+                                        <div className='trn-code mb-[15px]'>
+                                        <label className={`${'vat_registered' in error ? 'text-[red]':'opacity-100'}`}>Tax Treatment<span className='text-[red]'>*</span></label>
+                                            <select className={`w-[100%] py-[5px] px-2 rounded-none border-[1px] outline-none  ${'vat_registered' in error ? '!border-[red]' :'border-black border-solid'} `} name='vat_registered' onChange={handleBillingChange}>
+                                            <option value={null} disabled selected></option>
+                                                <option value={'vat'}>VAT Registered</option>
+                                                <option value={'non_vat'}>Non-VAT Registered</option>
+                                            </select>
+                                        </div>
+                                         )
+                                    }
+                                    
+                                        {
+                                            istax && (
+                                                <div className="trn-code mb-[15px]">
+                                                <label className={`${'vat_registered' in error ? 'text-[red]':'opacity-100'}`}>TRN Number<span className='text-[red]'>*</span></label>
+                                                <input 
+                                                name="trn" 
+                                                value={billingInfo.trn} 
+                                                onChange={handleBillingChange} 
+                                                className={`rounded-none w-[100%] ${'trnNumber' in error ? '!border-[red]' :''}`}
+                                            />
+                                            </div> 
+                                            )
+                                        }
                                     <div className="promo-code mb-[15px]">
                                         <label className={`${'promoCode' in error && 'text-[red]'}`}>Promo Code</label>
                                         <input
@@ -1319,6 +1368,31 @@ export default function Adjustments({user}) {
                                             className={`rounded-none ${'postalCode' in error ? '!border-[red]' : ''}`}
                                         />
                                     </div>
+                                        {
+                                         billingInfo?.country === 'Saudi Arabia' && (
+                                        <div className='trn-code mb-[15px]'>
+                                        <label className={`${'vat_registered' in error ? 'text-[red]':'opacity-100'}`}>Tax Treatment<span className='text-[red]'>*</span></label>
+                                            <select className={`w-[100%] py-[5px] px-2 rounded-none border-[1px] outline-none  ${'vat_registered' in error ? '!border-[red]' :'border-black border-solid'} `} name='vat_registered' onChange={handleBillingChange}>
+                                            <option value={null} disabled selected></option>
+                                                <option value={'vat'}>VAT Registered</option>
+                                                <option value={'non_vat'}>Non-VAT Registered</option>
+                                            </select>
+                                        </div>
+                                         )
+                                        }
+                                        {
+                                            istax && (
+                                                <div className="trn-code mb-[15px]">
+                                                <label className={`${'vat_registered' in error ? 'text-[red]':'opacity-100'}`}>TRN Number<span className='text-[red]'>*</span></label>
+                                                <input 
+                                                name="trn" 
+                                                value={billingInfo.trn} 
+                                                onChange={handleBillingChange} 
+                                                className={`rounded-none w-[100%] ${'trn' in error ? '!border-[red]' :''}`}
+                                            />
+                                            </div> 
+                                            )
+                                        }
                                     <div className="promo-code mb-[15px]">
                                         <label className={`rounded-none ${'promoCode' in error && 'text-[red]'}`}>Promo Code</label>
                                         <input

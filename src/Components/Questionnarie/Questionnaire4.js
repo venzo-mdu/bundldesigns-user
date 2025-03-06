@@ -128,6 +128,11 @@ export const Questionnaire4 = ({formData,setFormData}) => {
 
 
     if (unansweredRequiredQuestions.length > 0) {
+      console.log(unansweredRequiredQuestions,questions)
+      const element = document.getElementById(`question_${unansweredRequiredQuestions[0]?.id}`);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth"});
+      }
       showToastMessage(); // Display the error toast
       return false;
     }
@@ -346,7 +351,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
           <>
           {/* ${question.id == 21 ?'!text-[22px]':''} */}
             {questions?.map((question, index) => (
-              <div className="questions" key={index}>
+              <div className="questions" key={index} id={`question_${question.id}`}>
                 {
                   question.answer_type === 'shade' ? '' :
                   <p className={`questions-title  xs:w-[70%] sm:w-full md:w-full mx-auto ${index === 0 ? 'mt-[1.5%]' : 'mt-[2%]'} `}>
@@ -521,7 +526,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                           placeholder="ex: #E1483D"
                           style={{
                             padding: '8px',
-                            border: '1px solid #ccc',
+                            border: '1px solid #000',
                             outline: 'none',
                             width: window.innerWidth <= 441 ? '250px' : '400px',
                             height: '44.5px'
@@ -690,6 +695,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                     >
                       <input
                         type="text"
+                        placeholder='Links or Pictures'
                         value={getAnswerValue(question.id)}
                         onChange={(e) => handleInputChange(e, question.id)}
                         style={{

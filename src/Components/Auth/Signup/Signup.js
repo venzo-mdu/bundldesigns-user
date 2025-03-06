@@ -148,8 +148,6 @@ export const Signup = () => {
     }
     if (!registerData.phone.trim()) {
       errors.phone = 'Phone number is required';
-    } else if (!/^\+?[0-9]{7,15}$/.test(registerData.phone_number)) {
-      errors.phone = 'Invalid phone number. Only numbers are allowed (7-15 digits)';
     }
     if (!registerData.country.trim()) {
       errors.country = 'Country is required';
@@ -312,7 +310,7 @@ export const Signup = () => {
                         // id='vacancySelect'
                         value={registerData.country|| null} 
                         onChange={handleChange} 
-                        className={`rounded-none outline-none h-[50px] lg:w-[525px] md:w-[525px] xs:w-full ${'country' in errors ? '!border-[red]' :''} border !border-[#D9D9D9] px-2 py-[5px] w-full`}
+                        className={`rounded-none outline-none h-[50px] lg:w-[525px] md:w-[525px] xs:w-full  border !border-[#D9D9D9] px-2 py-[5px] w-full`}
                     >
                        <option value={null} disabled selected > </option>
                         { countries.map(country=>(
@@ -325,7 +323,7 @@ export const Signup = () => {
 
             <div>
               <label  className='mb-2 mt-[3%]'>Language</label>
-              <select className='rounded-none outline-none h-[50px] lg:w-[525px] md:w-[525px] xs:w-full border !border-[#D9D9D9] px-2 py-[5px]' onChange={handleChange}>
+              <select name='language' className='rounded-none outline-none h-[50px] lg:w-[525px] md:w-[525px] xs:w-full border !border-[#D9D9D9] px-2 py-[5px]' onChange={handleChange}>
               <option value={'English'}>English</option>
               <option value={'Arabic'}  selected >Arabic</option>
               </select>

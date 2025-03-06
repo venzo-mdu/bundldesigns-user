@@ -218,8 +218,11 @@ export const Questionnaire1 = ({formData,setFormData}) => {
       );
     });
   
-  
     if (unansweredRequiredQuestions.length > 0) {
+        const element = document.getElementById(`question_${unansweredRequiredQuestions[0]?.id}`);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth"});
+        }
       showToastMessage(); // Display the error toast
       return false;
     }
@@ -303,7 +306,7 @@ console.log(formData,'formdata')
         onNextClick={onNextClick}
         onSaveLaterClick={onSaveLaterClick}
         questions={questions.map((question, index) => (
-          <div className='questions' key={index}>
+          <div className='questions' key={index} id={`question_${question.id}`}>
             <p className={`questions-title xs:w-[100%] sm:w-full md:w-full mx-auto ${index === 0 ? 'mt-[1%]' : 'mt-[3%]'}`}>
               {question.question}
               {

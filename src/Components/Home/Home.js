@@ -295,7 +295,7 @@ export const Home = () => {
             }
         } catch (error) {
             console.error('An error occurred:', error);
-            navigate(`/login?next_url=bundldetail/${bundlData.packages[index].id}`);
+            navigate(`/login?next_url=bundldetail/${routeNames[bundlData.packages[index].id]}`);
         }
     };
 
@@ -358,7 +358,7 @@ export const Home = () => {
                                                     </li>
                                                     <li className='px-[6px] inner-nav'>
                                                         <a className="" onClick={() => { setProfileVisible(!profileVisible);setSearchShow(false) }}><img src={User} alt="" className="navIcons cursor-pointer"></img></a>
-                                                        <nav className={`w-44 absolute top-full right-[6rem] text-right bg-white py-2 px-3 transition-all duration-300 ease-in-out ${profileVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
+                                                        <nav className={`w-44 absolute top-full right-[6rem] text-right bg-white py-2 px-3  ${profileVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
                                                             }`}>
                                                             <div ref={popupRef}>
                                                                 {profileVisible && (
@@ -395,7 +395,7 @@ export const Home = () => {
                                                         <button onClick={toggleMenu} type="button" id="menu-toggle">
                                                             {menuVisible ? <CloseIcon className='!text-[50px]' /> : <MenuIcon className='!text-[50px]' />}
                                                         </button>
-                                                        <nav className={`w-44 absolute top-full -right-2 text-right bg-white p-2 transition-all duration-300 ease-in-out ${menuVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
+                                                        <nav className={`w-44 absolute top-full -right-2 text-right bg-white p-2  ${menuVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
                                                             }`}>
                                                             {/* <ul >
                                                                 <li  className='relative p-1 inner-nav-li'>

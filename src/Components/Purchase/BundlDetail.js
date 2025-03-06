@@ -59,7 +59,7 @@ export const BundlDetail = () => {
   useEffect(() => {
     document.documentElement.scrollTo({ top: 0, left: 0 });
     getBundlData();
-    getprojects()
+    // getprojects()
     
   }, []);
   useEffect(()=>{
@@ -134,7 +134,9 @@ export const BundlDetail = () => {
     setCoinIcon(pinkIcon)
     }
     setTextColor(colors[packageID])
-    const response = await axios.get(`${base_url}/api/package/?bundle_id=${routeId[packageID]}`, ConfigToken());
+    const response = await axios.get(`${base_url}/api/package/?bundle_id=${routeId[packageID]}`, 
+      // ConfigToken()
+    );
     setBundlAddons(response.data);
     setPackageDetail(response.data)
     const flatList = response.data?.bundle_details?.flatMap(item => item.design_list);
@@ -147,15 +149,17 @@ export const BundlDetail = () => {
     setactual(data)
     setLoading(false)
   }
-  const getprojects = async () => {
-    const response = await axios.get(`${base_url}/api/order/`, ConfigToken());
-    if (response.data) {
-        const resProjects = response.data.data.filter(item=> item.order_status!='in_cart')
-        if (resProjects.length) {
-            setFirstOrder(false)
-        }
-    }
-}
+//   const getprojects = async () => {
+//     const response = await axios.get(`${base_url}/api/order/`, 
+//       // ConfigToken()
+//     );
+//     if (response.data) {
+//         const resProjects = response.data.data.filter(item=> item.order_status!='in_cart')
+//         if (resProjects.length) {
+//             setFirstOrder(false)
+//         }
+//     }
+// }
   const handleQuantityChange = (designName, change) => {
     console.log(change,'chabge')
     if (designName in extraQty == false && change<0){
