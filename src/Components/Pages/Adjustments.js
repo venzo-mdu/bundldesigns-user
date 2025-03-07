@@ -380,7 +380,7 @@ export default function Adjustments({user}) {
 
             return false
         };
-        if (!billingInfo.vat_registered.trim()) {
+        if (!billingInfo.vat_registered.trim() && billingInfo?.country === 'Saudi Arabia') {
             setError({ vat_registered: 'Your tax treatment field is empty.' })
 
             return false

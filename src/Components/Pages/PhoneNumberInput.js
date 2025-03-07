@@ -15,9 +15,9 @@ const PhoneNumberInput = ({ name, placeholder, value, status, className,setPhone
   const [selectedCountry, setSelectedCountry] = useState( { code: 'AE', name: 'UAE', countryCode: '+971', phoneLength: 9 });
   const [phoneNumber, setPhoneNumber] = useState(value || '');
   const [error, setError] = useState('');
-  useEffect(()=>{
-    setPhoneNumber(value || '')
-  },[successmsg])
+  useEffect(() => { 
+      setPhoneNumber(value || '');
+  }, [successmsg]);
   // Handles country change
   const handleCountryChange = (event) => {
     const selectedCountry = countries.find(country => country.code === event.target.value);
@@ -31,7 +31,7 @@ const PhoneNumberInput = ({ name, placeholder, value, status, className,setPhone
   // Handles phone number input
   const handlePhoneNumberChange = (event) => {
     const value = event.target.value.replace(/\D/g, ''); // Remove non-digits
-    setPhoneNumber(value);
+    setPhoneNumber(event.target.value.replace(/\D/g, ''));
 
     // Update parent component's formData if status function is provided
     if (status) status((prevData) => ({ ...prevData, [name]: `${selectedCountry?.countryCode}${value}` }));

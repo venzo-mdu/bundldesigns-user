@@ -23,6 +23,10 @@ import UploadContent from "./Components/Pages/UploadContent";
 import Adjustments from "./Components/Pages/Adjustments";
 import WebsterPremiumForm from "./Components/Pages/WebsterPremiumForm";
 import Search from "./Components/Pages/Search";
+import Legal from './Components/Pages/Legal';
+import TermsAndConditions from './Components/Pages/TermsAndConditions';
+import PrivacyPolicy from './Components/Pages/PrivacyPolicy';
+import Profile from './Components/Pages/Profile';
 
 const getCookie = (name) => {
   const value = `; ${document.cookie}`;
@@ -94,6 +98,11 @@ export default function AppRouter() {
       element: <Home />,
     },
     {
+      path: "/profile",
+      element: <Profile user={user}/>,
+      //element: <ProtectedRoute element={<BundlDetail />} />,
+    },
+    {
       path: "/bundldetail/:packageID",
       element: <BundlDetail />,
       //element: <ProtectedRoute element={<BundlDetail />} />,
@@ -158,6 +167,18 @@ export default function AppRouter() {
     {
       path: '/webster-form',
       element: < WebsterForm />
+    },
+    {
+      path:"/terms-and-conditions",
+      element:<TermsAndConditions/>
+    },
+    {
+      path:"/privacy-policy",
+      element:<PrivacyPolicy/>
+    },
+    {
+      path:"/legal",
+      element:<Legal/>
     },
     {
       path: "*",

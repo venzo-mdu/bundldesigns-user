@@ -108,9 +108,10 @@ console.log(formData,'formData')
   const validateFields = () => {
     // Filter required questions that are either unanswered or contain invalid values
     const unansweredRequiredQuestions = questions.filter((q) => {
+      console.log(formData[q.id])
       return (
         q.required && // Check if the question is marked as required
-        (!formData?.[q.id] || formData?.[q.id].trim() === "") // Check if there's no answer or only whitespace
+        (!formData?.[q.id] || (typeof formData[q.id] === "string" && formData?.[q.id].trim() === "")) // Check if there's no answer or only whitespace
       );
     });
 

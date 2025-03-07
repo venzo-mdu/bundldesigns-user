@@ -156,7 +156,7 @@ export const Navbar = () => {
                 <a href="/dashboard" className='!text-black' previewlistener="true">Projects</a>
               </li>
               <li className='relative p-1 inner-nav-li'>
-                <a href="#" className='!text-black' previewlistener="true">Profile</a>
+                <a href="/profile" className='!text-black' previewlistener="true">Profile</a>
               </li>
               <li className='relative p-1 inner-nav-li'>
                 <a className='cursor-pointer !text-black' onClick={() => { Logout() }} previewlistener="true">Logout</a>
@@ -289,7 +289,7 @@ export const Navbar = () => {
                 <a href="/dashboard" className='!text-black' previewlistener="true">Projects</a>
               </li>
               <li className='relative p-1 inner-nav-li'>
-                <a href="#" className='!text-black' previewlistener="true">Profile</a>
+                <a href="/profile" className='!text-black' previewlistener="true">Profile</a>
               </li>
               <li className='relative p-1 inner-nav-li'>
                 <a className='cursor-pointer !text-black' onClick={() => { Logout() }} previewlistener="true">Logout</a>

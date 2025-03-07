@@ -167,13 +167,19 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
           <Accordion sx={{
             boxShadow: 'none !important',
             borderBottom: index === titleArr.length - 1 ? 'none' : '1px solid #000000',
-            paddingTop: index == 0 ? '18px' : 'auto'
+            paddingTop: index == 0 ? '18px' : 'auto',
+            '&::before': {
+      display: 'none' // Hides the default before border
+    }
           }} key={index} expanded={isDropdown[index]} id={`${index}_list`}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon className='text-[#000]' />}
               aria-controls={`panel${index + 1}-content`}
               id={`panel${index + 1}-header`}
               onClick={() => toggleDropdown(index)}
+              sx={{
+                border:'none'
+              }}
             >
               <Typography className='!font-[700] !text-[24px]'>{title}</Typography>
             </AccordionSummary>

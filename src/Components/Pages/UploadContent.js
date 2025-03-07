@@ -181,7 +181,7 @@ console.log(skipId)
                                                     <input placeholder='Slogan & Number....' value={uploadContent?.[item?.id]?.content || ''} onChange={(e) => handleChange(e, item.id, 'content')} className='border !border-black h-[55px] w-full py-2 px-2 rounded-none' ></input>
                                                 </p>}
                                                 {designQuestions[item.item__id]?.measurement && <>
-                                                    <p className='mb-2 font-[500] text-[20px]'>Measurements</p>
+                                                    <p className='mb-2  text-[20px] font-bold'>Measurements</p>
                                                     <p>
                                                         <label className='mr-6 font-[500]'>
                                                             <input
@@ -260,7 +260,7 @@ console.log(skipId)
                                                         <input placeholder='Slogan & Number....' value={uploadContent?.[item?.id]?.content || ''} onChange={(e) => handleChange(e, item.id, 'content')} className='border !border-black h-[55px] w-full py-2 px-2 rounded-none' ></input>
                                                     </p>}
                                                     {designQuestions[item.item__id]?.measurement && <>
-                                                        <p className='mb-2 font-[500] text-[20px]'>Measurements</p>
+                                                        <p className='mb-2 font-[500] text-[20px] font-bold'>Measurements</p>
                                                         <p className='ml-2'>
                                                             <label className='mr-6 font-[500]'>
                                                                 <input
@@ -422,7 +422,7 @@ console.log(skipId)
                                                         <input placeholder='Slogan & Number....' value={uploadContent?.[item?.id]?.content || ''} onChange={(e) => handleChange(e, item.id, 'content')} className='border !border-black py-2 px-2 w-full rounded-none ' required></input>
                                                         </p>}
                                                     {designQuestions[item.item__id]?.measurement && <>
-                                                        <p>Measurements</p>
+                                                        <p className='font-bold'>Measurements</p>
                                                         <p className='mt-2'>
                                                             <label className='mr-6 font-[500]'>
                                                                 <input
@@ -476,7 +476,7 @@ console.log(skipId)
                                             .filter(item => !skipId.includes(item.id) && item.status === 'questionnaire required')
                                             .map((item,index,filteredArr) => {
                                                           
-                                                    return <div className={`${( filteredArr.length === 1 || index === filteredArr.length )  ? '' : 'border-b !border-black'} px-[5%] space-x-2 mt-[2%]`}>
+                                                    return <div className={`${( filteredArr.length === 1 || index === filteredArr.length  && order.item_details.addon_items?.length === 0 )  ? '' : 'border-b !border-black'} px-[5%] space-x-2 mt-[2%]`}>
                                                         <p className="mb-0 font-semibold text-[22px">{item.item_name}</p>
                                                         {designQuestions[item.item__id]?.language && <p className='mt-2 mb-0'>
                                                             <label className='mr-6 font-[500]'>
@@ -503,7 +503,7 @@ console.log(skipId)
                                                             <input placeholder='Slogan & Number....' value={uploadContent?.[item?.id]?.content || ''} onChange={(e) => handleChange(e, item.id, 'content')} className='border !border-black py-2 px-2 w-full rounded-none' required></input>
                                                         </p>}
                                                         {designQuestions[item.item__id]?.measurement && <>
-                                                            <p className='mb-0'>Measurements</p>
+                                                            <p className='mb-0 font-bold'>Measurements</p>
                                                             <p className='ml-2 mt-2'>
                                                                 <label className='mr-6 font-[500]'>
                                                                     <input

@@ -570,7 +570,7 @@ input::placeholder {
             left: -7%;
             transform: translateY(-50%) rotate(280deg);
             animation: move 8s ease-in-out infinite forwards;
-            z-index: 0;
+            z-index: 1;
         }
         /* .eyespoon2 img{
             transform: scaleX(-1);

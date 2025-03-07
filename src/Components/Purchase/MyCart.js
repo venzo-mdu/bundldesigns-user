@@ -16,6 +16,7 @@ import backIcon from "../../Images/backIcon.svg"
 import { useSearchParams } from 'react-router-dom';
 import { Bgloader } from '../Common/Background/Bgloader'
 import ClipLoader from "react-spinners/ClipLoader";
+import Riyal from '../../Images/BundlDetail/riyalnew.png'
  
 export const MyCart = () => {
     const [searchParams] = useSearchParams();
@@ -234,7 +235,7 @@ export const MyCart = () => {
     };
         if (!billingInfo.city.trim()) {setError({city:'Your city field is empty.'})
         return false};
-        if (!billingInfo.vat_registered.trim()) {setError({vat_registered:'Your Tax Treatment field is empty.'})
+        if (!billingInfo.vat_registered.trim()  && billingInfo?.country === 'Saudi Arabia') {setError({vat_registered:'Your Tax Treatment field is empty.'})
         return false;
         }
         if (!billingInfo.trn.trim() && billingInfo?.vat_registered === 'vat') {
@@ -452,7 +453,7 @@ export const MyCart = () => {
                                     <div className='font-[700] text-[20px]'>{row.qty} x {row.item_name}</div>
                                     <div className='font-[500] ml-8'> {row.subtotal_price} SAR</div>
                                 </div>
-                                <p className='flex items-center !mb-0 justify-center'><img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'bundle')} /></p>
+                                <p className='flex items-center !mb-0 justify-center'><img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'addon')} /></p>
                             </div>
                                 ))}
                     </>:<table className='w-full border-none' aria-label="simple table">

@@ -88,7 +88,7 @@ export const Footer = () => {
                             </ul>
                         </div>
                         <div className='contact-us'>
-                            <p className='font-medium !text-[20px] mb-1 mt-1 text-[#ECEAEB]'>Contact Us</p>
+                            <p className='font-medium !text-[20px] mb-1 text-[#ECEAEB]'>Contact Us</p>
                             <div className='xs:mt-3 sm:mt-auto' style={{display:'flex',width:'100%'}}>
                                 {
                                     socialIcons.map((item, index) => {
@@ -108,9 +108,9 @@ export const Footer = () => {
                 <div className='footer-bottom'>
                     <p className='copyright'> 2025 BundlDesigns, All rights reserved.</p>
                     <div className='policies'>
-                        <p className='!text-[14px] !text-[#FFFFFFCC]'>Terms of service</p>
-                        <p className='!text-[14px] !text-[#FFFFFFCC]'>Privacy policy</p>
-                        <p className='!text-[14px] !text-[#FFFFFFCC]'>Legal</p>
+                        <a className='!text-[14px] !text-[#FFFFFFCC]' href='/terms-and-conditions'>Terms & Conditions</a>
+                        <a className='!text-[14px] !text-[#FFFFFFCC]' href='privacy-policy'>Privacy Policy</a>
+                        <a className='!text-[14px] !text-[#FFFFFFCC]' href='/legal'>Legal</a>
                     </div>
                 </div>
             </div>
