@@ -510,17 +510,17 @@ export const MyCart = () => {
                             <p  className='!text-[20px] xs:mb-0 sm:mb-auto text-right' style={{ width: '50%' }}>{Math.round(cartDetails.total_amount)} sar</p>
                         </div>
                         <div className='total justify-between sm:pl-10 xs:pl-1 mr-4' style={{ display: 'flex' }}>
-                            <p  className='!text-[20px]' style={{ width: '53%' }}>VAT:</p>
+                            <p  className='!text-[20px]' style={{ width: '53%' }}>TAX:</p>
                             <p  className='!text-[20px]  text-right' style={{ width: '40%' }}>{Math.round(cartDetails.tax)} sar</p>
                         </div>
-                        <div>
+                        <div className='border-[2px] border-black p-[2%_0_0_2%]'>
                             <div  className='justify-between font-[700] mr-4'  style={{ display: 'flex'}}>
                                 <p className='!text-[20px] xs:mb-0 sm:mb-auto ml-[6px]' style={{ width: '50%' }}><img src={BlackDollor} className='inline-block ml-[0px] mr-[18px]'></img>Total Price :</p>
                                 <p className='!text-[20px] xs:mb-0 sm:mb-auto text-right' style={{ width: '40%' }}>{isNaN(Math.round(cartDetails.grand_total))?0:Math.round(cartDetails.grand_total)} sar</p>
                             </div>
                             <div  className='justify-between  font-[700] mr-4' style={{ display: 'flex' }}>
-                                <p className='!text-[20px]' style={{ width: '67%' }}><img src={BlackTime} className='inline-block mr-3'></img>Total Duration :</p>
-                                <p className='!text-[20px]  text-right' style={{ width: '43%' }}>{isNaN(Math.round(cartDetails.total_time))?0 :Math.round(cartDetails.total_time)} Days</p>
+                                <p className='!text-[20px] mb-0' style={{ width: '67%' }}><img src={BlackTime} className='inline-block mr-3'></img>Total Duration :</p>
+                                <p className='!text-[20px]  text-right ' style={{ width: '43%' }}>{isNaN(Math.round(cartDetails.total_time))?0 :Math.round(cartDetails.total_time)} Days</p>
                             </div>
                         </div>
                     </div>

@@ -27,6 +27,7 @@ import Legal from './Components/Pages/Legal';
 import TermsAndConditions from './Components/Pages/TermsAndConditions';
 import PrivacyPolicy from './Components/Pages/PrivacyPolicy';
 import Profile from './Components/Pages/Profile';
+import ResetPassword from './Components/Auth/ResetPassword';
 
 const getCookie = (name) => {
   const value = `; ${document.cookie}`;
@@ -94,6 +95,10 @@ export default function AppRouter() {
       element:  <Signup />,
     },
     {
+      path: "/reset-password",
+      element:  <ResetPassword />,
+    },
+    {
       path: "/",
       element: <Home />,
     },
@@ -144,7 +149,7 @@ export default function AppRouter() {
       element:<Search/>
     },
     {
-      path:'/career',
+      path:'/jobs',
       element: <Career/>
     },
     {

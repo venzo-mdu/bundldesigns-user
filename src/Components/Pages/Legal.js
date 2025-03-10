@@ -17,7 +17,7 @@ const Legal = () => {
                  <p className='lg:text-[20px] md:text-[20px] xs:text-[14px] '>Riyadh, Kingdom of Saudi Arabia</p>
                  <p className='lg:text-[20px] md:text-[20px] xs:text-[14px] '>https://maroof.sa/209442</p>
               </div>
-          </div>
+       </div>
       <Footer/>
     </div>
   )

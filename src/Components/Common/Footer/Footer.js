@@ -84,7 +84,7 @@ export const Footer = () => {
                             <ul> 
                                 <li>  <a href='/aboutus' className='text-[#ECEAEB] font-normal hover:text-[#f175ad]'> About us</a></li>
                                 <li>  <a href='/faq' className='text-[#ECEAEB] hover:text-[#f175ad]'> FAQs</a></li>
-                                <li>  <a href='/career' className='text-[#ECEAEB] hover:text-[#f175ad]'> Careers</a></li>
+                                <li>  <a href='/jobs' className='text-[#ECEAEB] hover:text-[#f175ad]'> Jobs</a></li>
                             </ul>
                         </div>
                         <div className='contact-us'>

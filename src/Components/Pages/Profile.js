@@ -8,10 +8,11 @@ import axios from 'axios';
 import { base_url } from '../Auth/BackendAPIUrl';
 import { ConfigToken } from '../Auth/ConfigToken';
 import { toast, ToastContainer } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const Profile = ({ user }) => {
 
-    console.log(user);
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({})
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState({});
@@ -95,7 +96,8 @@ const Profile = ({ user }) => {
                     
                     if (response.status === 200) {
                         console.log("Profile updated successfully!", response.data);
-                        toast.success('Profile updated')
+                        toast.success('Profile updated');
+                        navigate("/")
                         // Optionally update UI or show success message
                     }
                 } catch (error) {
@@ -206,7 +208,7 @@ const Profile = ({ user }) => {
                     <button type='submit' className="w-full bg-[#f3b7ce] text-white py-2 ">
                         {isLoading ? <ClipLoader size={25} color='#FFFFFF' /> : 'UPDATE'}
                     </button>
-                    <button className="w-full bg-[#f3b7ce] text-white py-2 mt-4">
+                    <button className="w-full bg-[#f3b7ce] text-white py-2 mt-4" onClick={()=>navigate("/reset-password")}>
                         {/* {isLoading ? <ClipLoader size={25} color='#FFFFFF' /> : 'RESET PASSWORD'} */}
                         RESET PASSWORD
                     </button>

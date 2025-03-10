@@ -139,7 +139,7 @@ export default function Career() {
     <Navbar />
     <div className='font-Helvetica'>
         <div className='text-center py-2 border-b border-black'>
-            <h1 className='lg:text-[40px] md:text-[40px] xs:text-[30px] lg:mt-[2%] md:mt-[2%] xs:mt-[5%]'> Careers </h1>
+            <h1 className='lg:text-[40px] md:text-[40px] xs:text-[30px] lg:mt-[2%] md:mt-[2%] xs:mt-[5%] uppercase'> Jobs </h1>
             <p className='lg:text-[20px] md:text-[20px] xs:text-[18px] text-[#00000080]'>Where we answer all your questions!</p>
         </div>
         <div className='md:p-20 sm:p-3  border-b border-black'>
@@ -284,8 +284,8 @@ export default function Career() {
       >
         Apply
       </button></p>
-            <p className='text-center flex items-center !mb-1 mt-4 justify-center font-bold'> <img className='mr-1' src={emailicon}></img> info@bundldesigns.com</p>
-            <p className='text-center flex items-center mt-1 justify-center font-bold'> <img className='mr-1' src={whatsappicon}></img>+(966) 547754124 </p>
+            {/* <p className='text-center flex items-center !mb-1 mt-4 justify-center font-bold'> <img className='mr-1' src={emailicon}></img> info@bundldesigns.com</p>
+            <p className='text-center flex items-center mt-1 justify-center font-bold'> <img className='mr-1' src={whatsappicon}></img>+(966) 547754124 </p> */}
 
             {successMsg && <p className='bg-green-600 py-1 px-4 flex justify-between items-center rounded text-white'>{successMsg} <CloseIcon onClick={()=>{setSuccessMsg(null)}} className='ml-2 text-white cursor-pointer' /> </p>}
     </form>

@@ -151,7 +151,7 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
                 border: `1px solid ${textColor}`,
                 backgroundColor: isDropdown[index] ? textColor : '#fff'
               }}
-              className={`!font-[500]  !text-[${textColor}] ${isDropdown[index] ? 'active-button' : 'accordian-button'} accordion-btn-${index+1}`}
+              className={`!font-[500] uppercase !text-[${textColor}] ${isDropdown[index] ? 'active-button' : 'accordian-button'} accordion-btn-${index+1}`}
               onClick={() => {toggleDropdown(index)
                 const element = document.getElementById(`${index}_list`);
                 element.scrollIntoView({ behavior: 'smooth' })
@@ -169,7 +169,7 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
             borderBottom: index === titleArr.length - 1 ? 'none' : '1px solid #000000',
             paddingTop: index == 0 ? '18px' : 'auto',
             '&::before': {
-      display: 'none' // Hides the default before border
+            display: 'none' // Hides the default before border
     }
           }} key={index} expanded={isDropdown[index]} id={`${index}_list`}>
             <AccordionSummary
@@ -215,9 +215,9 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
                           <img src={BlackDollor} alt="Price icon" className="inline-block mr-2" />
                           {Math.round(design.price)} SAR
                         </p>
-                        <p className='flex items-center mb-1 font-[500]' >
+                        <p className='flex items-center mb-1 font-[500] uppercase' >
                           <img src={BlackTime} alt="Time icon" className="inline-block mr-1" />
-                          {Math.round(design.time)}Days
+                          {Math.round(design.time)} Days
 
                         </p>
                       </p>

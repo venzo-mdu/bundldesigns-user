@@ -874,7 +874,7 @@ export const Home = () => {
                                             <ul>
                                                 <li><a href="#">Contact us</a></li>
                                                 <li><a href="#">FAQs</a></li>
-                                                <li><a href="#">Careers</a></li>
+                                                <li><a href="#">Jobs</a></li>
                                             </ul>
                                         </div>
                                     </div>

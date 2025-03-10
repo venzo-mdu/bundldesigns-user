@@ -256,7 +256,7 @@ export const BundlDetail = () => {
          <div className='bundl-section'>
            <div className='brand-details lg:!pt-16 md:!pt-[16] xs:!pt-8'>
              <p style={window.innerWidth <= 441 ? { fontSize: '20px', fontWeight: '700',lineHeight:'1.2' } : { textAlign: 'left', fontSize: '32px', fontWeight: '700' }}>What is the name of your brand?</p>
-             <input id='brandInput'  className={`brand-input ${brandError && '!border-[red] rounded-none'}`} value={brandInput} onChange={(e) => {setBrandInput(e.target.value)
+             <input id='brandInput'  className={`brand-input rounded-none ${brandError && '!border-[red] rounded-none'}`} value={brandInput} onChange={(e) => {setBrandInput(e.target.value)
            
               setBrandError(false)}} />
                 {brandError && <p className='text-[red]'>Please enter name of the brand</p>}

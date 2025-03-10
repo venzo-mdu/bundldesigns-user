@@ -500,10 +500,10 @@ export const Home = () => {
                                                 <li><span><a className='text-black' href='#ourBundl'>Shop our Bundls</a></span></li>
                                                 <li><span><img src={MagicIcon} alt="" className="img-fluid !mt-[25%] !ml-[10%] !w-[30px]"></img></span></li>
                                                 <li><span><a className='text-black' href='#ourBundl'>Shop our Bundls</a></span></li>
-                                                {/* <li><span><img src={MagicIcon} alt="" className="img-fluid"></img></span></li>
+                                                <li><span><img src={MagicIcon} alt="" className="img-fluid !mt-[25%] !ml-[10%] !w-[30px]"></img></span></li>
                                                 <li><span><a className='text-black' href='#ourBundl'>Shop our Bundls</a></span></li>
-                                                <li><span><img src={MagicIcon} alt="" className="img-fluid"></img></span></li>
-                                                <li><span><a className='text-black' href='#ourBundl'>Shop our Bundls</a></span></li> */}
+                                                <li><span><img src={MagicIcon} alt="" className="img-fluid !mt-[25%] !ml-[10%] !w-[30px]"></img></span></li>
+                                                <li><span><a className='text-black' href='#ourBundl'>Shop our Bundls</a></span></li>
                                             </ul>
                                             <div className="hover-animation btn-blank-hover">
                                                 <span className="blue"></span>
@@ -725,11 +725,11 @@ export const Home = () => {
                                         </div>
                                         <div className="sar d-flex align-items-center">
                                             {/* <!--<img src="asset/images/money-icon.webp" alt="" className="img-fluid">--> */}
-                                            <span className="sar_text px-2"><span>Starting from</span> 4880 SAR</span>
+                                            <span className="sar_text"><span>Starting from</span> 4880 SAR</span>
                                         </div>
                                         <div className="work_time d-flex align-items-center">
                                             {/* <!--<img src="asset/images/time-icon.webp" alt="" className="ing-fluid">--> */}
-                                            <span className="working_days px-2"><span>Starting from</span> 30 WORKING DAYS</span>
+                                            <span className="working_days"><span>Starting from</span> 30 WORKING DAYS</span>
                                         </div>
                                     </div>
                                 </div>

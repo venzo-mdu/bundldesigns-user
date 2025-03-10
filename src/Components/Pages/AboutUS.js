@@ -95,7 +95,7 @@ export const AboutUs = () => {
       >
         <div className='text-center border py-4 px-3 z-0 !border-black'>
           <h1 className='text-[32px] sm:text-[22px] xs:text-[22px]  md:text-[28px] text-black uppercase'>Our Values</h1>
-          <p className='lg:text-[20px] sm:text-[20px] xs:text-[16px]  md:text-[20px]'>{aboutUs.our_values}</p>
+          <p className='lg:text-[20px] sm:text-[20px] xs:text-[16px]  md:text-[20px] mt-[2%]'>{aboutUs.our_values}</p>
         </div>
         <div className='text-center text-Helvetica md:pt-[5%] xs:pt-[5%]  lg:pt-[3%]'>
           <h2 className='pb-[2%] md:text-[28px] sm:text-[22px] xs:text-[22px] text-black uppercase'> The Founders</h2>

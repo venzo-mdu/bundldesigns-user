@@ -4431,16 +4431,16 @@ font-size: 20px;
   bottom: 6%;
 } */
 .col-lg-6{
-  width: 38%;
+  width: 50%;
 }
 .col-lg-3{
-  width: 31%;
+  width: 25%;
 }
 .header-section .col-lg-6{
-  width: 38%;
+  width: 50%;
 }
 .header-section .col-lg-3{
-  width: 31%;
+  width: 25%;
 }
 /* .header-section{
   height: 95vh;
