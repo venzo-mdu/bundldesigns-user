@@ -20,7 +20,8 @@ export const Questionnaire1 = ({formData,setFormData}) => {
   const [errors,setErrors] = useState({})
   const [activeType, setActiveType] = useState(null);
   const [fetchQ1Answers, setFetchQ1Answers] = useState([]);
-  const [requiredQuestions , setRequiredQuestions] = useState([])
+  const [requiredQuestions , setRequiredQuestions] = useState([]);
+  const [isFilled , setIsFilled] = useState(null)
   const currentAnswer = useSelector((state) => state.questionnaire1)
   const placeHolders = [
     "Project Name",
@@ -62,11 +63,13 @@ export const Questionnaire1 = ({formData,setFormData}) => {
   }, []);
 
   const showToastMessage = () => {
-    toast.error("The Value is required!", {
-      position: toast?.POSITION?.TOP_RIGHT,
-    });
+    if (!toast.isActive('required-value-toast')) {
+      toast.error("The Value is required!", {
+        position: toast?.POSITION?.TOP_RIGHT,
+        toastId: 'required-value-toast',
+      });
+    }
   };
-
   const handleTypeClick = (type) => {
     setActiveType((prevType) => (prevType === type ? null : type)); // Toggle state
     let brandingType = activeType
@@ -121,22 +124,6 @@ export const Questionnaire1 = ({formData,setFormData}) => {
  
   };
 
-  // const getAnswerValue = (questionId) => {
-
-  //   const formValue = formData?.[questionId];
-  //   if (formValue !== undefined) {
-  //     return formValue;
-  //   }
-
-  //   const fetchedAnswer = fetchQ1Answers.find((answer) => answer.question_id === questionId)?.answer;
-  //   if (fetchedAnswer !== undefined && formValue === undefined) {
-  //     setFormData((prevFormData) => ({
-  //       ...prevFormData,
-  //       [questionId]: fetchedAnswer,
-  //     }));
-  //   }
-  //   return fetchedAnswer ?? '';
-  // }
 
   const getAnswerValue = (questionId) => {
     const formValue = formData?.[questionId];
@@ -167,46 +154,6 @@ export const Questionnaire1 = ({formData,setFormData}) => {
   };
 
 
-  //   const formValue = formData?.[questionId];
-  
-  //   // Special handling for questionId 4
-  //   if (questionId === 4 || questionId === "4") {
-  //     if (formValue && typeof formValue === "object" && activeType) {
-  //       return formValue[activeType.toLowerCase()] || "";
-  //     }
-  
-  //     // Fetch the answer if not available in formData
-  //     const fetchedAnswer = fetchQ1Answers.find((answer) => answer.question_id === questionId)?.answer;
-  
-  //     if (fetchedAnswer && typeof fetchedAnswer === "object") {
-  //       setFormData((prevFormData) => ({
-  //         ...prevFormData,
-  //         [questionId]: { ...fetchedAnswer }, // Preserve object structure
-  //       }));
-  //       return fetchedAnswer[activeType?.toLowerCase()] || "";
-  //     }
-  
-  //     return "";
-  //   }
-  
-  //   // Handle other questions normally
-  //   if (formValue !== undefined) {
-  //     return formValue;
-  //   }
-  
-  //   // Check in fetched answers for non-object values
-  //   const fetchedAnswer = fetchQ1Answers.find((answer) => answer.question_id === questionId)?.answer;
-  
-  //   if (fetchedAnswer !== undefined && formValue === undefined) {
-  //     setFormData((prevFormData) => ({
-  //       ...prevFormData,
-  //       [questionId]: fetchedAnswer,
-  //     }));
-  //   }
-  
-  //   return fetchedAnswer ?? "";
-  // };
-  
   
 
   const validateFields = () => {
@@ -220,10 +167,13 @@ export const Questionnaire1 = ({formData,setFormData}) => {
   
     if (unansweredRequiredQuestions.length > 0) {
         const element = document.getElementById(`question_${unansweredRequiredQuestions[0]?.id}`);
+        setIsFilled(unansweredRequiredQuestions[0]?.id)
         if (element) {
           element.scrollIntoView({ behavior: "smooth"});
         }
-      showToastMessage(); // Display the error toast
+        if (!toast.isActive('required-value-toast')) {
+          showToastMessage(); 
+        } 
       return false;
     }
   
@@ -232,7 +182,8 @@ export const Questionnaire1 = ({formData,setFormData}) => {
   
 
 
-  const onNextClick = () => {
+  const onNextClick = (e) => {
+    e.stopPropagation();
     console.log(formData)
     if (!validateFields()) {
       return; // Stop execution if validation fails
@@ -243,7 +194,7 @@ export const Questionnaire1 = ({formData,setFormData}) => {
         orderId:location.state?.orderId
       }});
       window.scrollTo({
-        top: 0,
+        top:0,
         behavior: 'smooth',
       });
     }
@@ -307,7 +258,7 @@ console.log(formData,'formdata')
         onSaveLaterClick={onSaveLaterClick}
         questions={questions.map((question, index) => (
           <div className='questions' key={index} id={`question_${question.id}`}>
-            <p className={`questions-title xs:w-[100%] sm:w-full md:w-full mx-auto ${index === 0 ? 'mt-[1%]' : 'mt-[3%]'}`}>
+            <p className={`questions-title xs:w-[90%] sm:w-full md:w-full mx-auto ${index === 0 ? 'mt-[1%]' : 'mt-[3%]'}`}>
               {question.question}
               {
                 question.required && (
@@ -333,7 +284,7 @@ console.log(formData,'formdata')
             )}
             <input
               type='text'
-              className='question-input'
+              className={`question-input ${isFilled === question?.id ? 'border-red-400 border-b-[2px]':`${window?.innerWidth <= 475 ? 'border-b-[1px]':'border-b-[2px]'} border-black`}`}
               placeholder={placeHolders[index]}
               // value={formData?.[question.id] || fetchQ1Answers[2].answer }
               value={getAnswerValue(question.id)}

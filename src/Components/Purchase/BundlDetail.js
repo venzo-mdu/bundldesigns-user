@@ -82,9 +82,13 @@ export const BundlDetail = () => {
 
 
     if (brandInput == '') {
-      toast.error(`Name your brand`, {
-        position: toast?.POSITION?.TOP_RIGHT,
-      });
+      if (!toast.isActive('required-value-toast')) {
+        toast.error(`Name your brand`, {
+          position: toast?.POSITION?.TOP_RIGHT,
+          toastId: 'required-value-toast',
+        });
+      }
+      
       const element = document.getElementById("brandInput");
       if (element) {
         element.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -99,6 +103,7 @@ export const BundlDetail = () => {
     if(firstOrder && total_price < 4880 && packageID=='newbie'){
       toast.error(`Minimum order amount should be 4880`, {
         position: toast?.POSITION?.TOP_RIGHT,
+        toastId: 'required-value-toast',
       });
       return false;
     }
@@ -173,6 +178,7 @@ export const BundlDetail = () => {
     }
         toast.success(`Cart updated successfully`, {
                 position: toast?.POSITION?.TOP_RIGHT,
+                toastId: 'required-value-toast',
               });
     setExtraQty(prevQuantities => {
       let newQuantity = (prevQuantities[designName] || 0) + change;
@@ -371,7 +377,7 @@ export const BundlDetail = () => {
              {!isMobile || isMobile && showDetails ? <>
              <div style={{ display: 'flex', padding: '1% 5%' }}>
                <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[60%]'>{packageDetail?.package?.name_english ||'' } {packageDetail?.package?.name_english && 'Bundl'}</p>
-               <p className='sm:text-[20px] text-[20px] text-right xs:text-[16px] font-[700] w-[40%]'>{Math.round(packageDetail?.package?.price)} sar</p>
+               <p className='sm:text-[20px] text-[20px] text-right xs:text-[16px] font-[700] w-[40%]'>{Math.round(packageDetail?.package?.price)} SAR</p>
              </div>
              {selectedItems?.map((item, idx) => {
               return <div key={idx} className='one-brand-identity xs:flex sm:block block flex-wrap justify-around'>
@@ -380,10 +386,10 @@ export const BundlDetail = () => {
                    <p className='sm:text-[20px] xs:ml-10 sm:ml-[2px] text-[20px] xs:text-[16px] font-[700] w-[40%]' style={{color:textColor }}>+ {item.total_time} Days</p>
  { item.id =='76' && selectedLanguage == 'Both'? <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[50%]' style={{color:textColor }}>+ {item.quantity == 1
          ? parseFloat(item.price) + 2000 
-         : parseFloat(item.price) + ((parseFloat(item.price) / 100) * item.price_increment * (item.quantity - 1)) + 2000} sar</p>:
+         : parseFloat(item.price) + ((parseFloat(item.price) / 100) * item.price_increment * (item.quantity - 1)) + 2000} SAR</p>:
  <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[40%]' style={{color:textColor }}>+ {item.quantity == 1
          ? parseFloat(item.price)
-         : parseFloat(item.price) + ((parseFloat(item.price) / 100) * item.price_increment * (item.quantity - 1))} sar</p>}
+         : parseFloat(item.price) + ((parseFloat(item.price) / 100) * item.price_increment * (item.quantity - 1))} SAR</p>}
                  </div>
                </div>
  })}
@@ -400,7 +406,7 @@ export const BundlDetail = () => {
                  <p className='text-black sm:text-[20px] text-[20px] xs:text-[16px] font-[700] !mb-1 w-[42%]'>{addon.qty} {addon.addon_name}</p>
                  <div className='flex xs:w-[58%]  sm:w-full w-full' >
                    <p className='sm:text-[20px] xs:ml-10 sm:ml-[2px] text-[20px] xs:text-[16px] font-[700] w-[40%]' style={{color:textColor }} >+ {addon.unit_time * addon.qty} Days</p>
-                   <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[40%]' style={{color:textColor }}>+ {addon.total_price} sar</p>
+                   <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[40%]' style={{color:textColor }}>+ {addon.total_price} SAR</p>
                  </div>
                </div>
              ))}
@@ -412,7 +418,7 @@ export const BundlDetail = () => {
                  <p className='!font-[700] text-end !xs:text-[16px] !sm:text-[20px] sm:mb-3 xs:mb-0'  
                  style={{ width: '40%' }} >{parseFloat(packageDetail?.package?.price) +
                   addonPayLoads.total_price +
-                  (selectedLanguage === 'Both' ? 2000 : 0)} sar</p>
+                  (selectedLanguage === 'Both' ? 2000 : 0)} SAR</p>
                </div>
                <div className='total' style={{ display: 'flex' }}>
                  <p className='!xs:text-[16px] flex items-center !sm:text-[20px]' style={{ width: '60%' }}><img src={BlackTime} alt="Total Duration" className="inline-block" /><span className='xs:ml-4 sm:ml-1 ml-1'>Total Duration :</span></p>

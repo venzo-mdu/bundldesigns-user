@@ -90,6 +90,7 @@ export default function FAQ() {
       if (response.data) {
         toast.success(`Form submitted successfully`, {
           position: toast?.POSITION?.TOP_RIGHT,
+          toastId: 'required-value-toast',
         });
         setSuccessMsg('submitted successfully')
         setFormData({

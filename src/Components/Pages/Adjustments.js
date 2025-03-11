@@ -268,6 +268,7 @@ export default function Adjustments({user}) {
         }
         toast.success('Updated Successfully',{
             position: toast?.POSITION?.TOP_RIGHT,
+            toastId: 'required-value-toast',
         })
     };
 
@@ -347,6 +348,7 @@ export default function Adjustments({user}) {
         if(adjustmentData && Object.values(adjustmentData).length === 0 ){
            toast.error('Adjustment cannot be empty',{
             position: toast?.POSITION?.TOP_RIGHT,
+            toastId: 'required-value-toast',
            })
         }
 
@@ -852,16 +854,16 @@ export default function Adjustments({user}) {
                                     <div className='cart-total-container '>
                                         <div className='total justify-between pl-10  mr-4' style={{ display: 'flex' }}>
                                             <p className='!text-[20px]' style={{ width: '50%' }}>Price:</p>
-                                            <p className='!text-[20px]  text-right' style={{ width: '50%' }}>{totalPrice} sar</p>
+                                            <p className='!text-[20px]  text-right' style={{ width: '50%' }}>{totalPrice} SAR</p>
                                         </div>
                                         <div className='total justify-between pl-10 mr-4' style={{ display: 'flex' }}>
                                             <p className='!text-[20px]' style={{ width: '53%' }}>VAT:</p>
-                                            <p className='!text-[20px]  text-right' style={{ width: '40%' }}>{tax} sar</p>
+                                            <p className='!text-[20px]  text-right' style={{ width: '40%' }}>{tax} SAR</p>
                                         </div>
                                         <div>
                                             <div className='justify-between mr-4' style={{ display: 'flex' }}>
                                                 <p className='!text-[20px] ml-[6px]' style={{ width: '50%' }}><img src={BlackDollor} className='inline-block ml-[0px] mr-[18px]'></img>Total Price :</p>
-                                                <p className='!text-[20px] text-right' style={{ width: '40%' }}>{totalPrice + tax} sar</p>
+                                                <p className='!text-[20px] text-right' style={{ width: '40%' }}>{totalPrice + tax} SAR</p>
                                             </div>
                                             <div className='justify-between mr-4' style={{ display: 'flex' }}>
                                                 <p className='!text-[20px]' style={{ width: '66%' }}><AccessTimeIcon style={{ marginRight: '4px' }} /> Total Duration :</p>
@@ -1268,16 +1270,16 @@ export default function Adjustments({user}) {
                                     <div className='cart-total-container '>
                                         <div className='total justify-between pl-10  mr-4' style={{ display: 'flex' }}>
                                             <p className='!text-[20px]' style={{ width: '50%' }}>Price:</p>
-                                            <p className='!text-[20px]  text-right' style={{ width: '50%' }}>{totalPrice} sar</p>
+                                            <p className='!text-[20px]  text-right' style={{ width: '50%' }}>{totalPrice} SAR</p>
                                         </div>
                                         <div className='total justify-between pl-10 mr-4' style={{ display: 'flex' }}>
                                             <p className='!text-[20px]' style={{ width: '53%' }}>VAT:</p>
-                                            <p className='!text-[20px]  text-right' style={{ width: '40%' }}>{tax} sar</p>
+                                            <p className='!text-[20px]  text-right' style={{ width: '40%' }}>{tax} SAR</p>
                                         </div>
                                         <div>
                                             <div className='justify-between mr-4' style={{ display: 'flex' }}>
                                                 <p className='!text-[20px] ml-[6px]' style={{ width: '50%' }}><img src={BlackDollor} className='inline-block ml-[0px] mr-[18px]'></img>Total Price :</p>
-                                                <p className='!text-[20px] text-right' style={{ width: '40%' }}>{totalPrice + tax} sar</p>
+                                                <p className='!text-[20px] text-right' style={{ width: '40%' }}>{totalPrice + tax} SAR</p>
                                             </div>
                                             <div className='justify-between mr-4' style={{ display: 'flex' }}>
                                                 <p className='!text-[20px]' style={{ width: '66%' }}><AccessTimeIcon style={{ marginRight: '4px' }} /> Total Duration :</p>

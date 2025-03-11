@@ -4596,7 +4596,13 @@ font-size: 20px;
 }
 }
 @media screen and (max-width:441px) {
-
+  .checkbox-btn-img li.checkbox {width: 100%;}
+  .checkbox-btn-img{
+    width: 375px;
+  }
+  .img-animation{
+    height: 120px !important; 
+    }
   .eyeDivider{
     margin: 15% 0 0 0;
     }
@@ -4868,12 +4874,18 @@ font-size: 20px;
 }
 
 @media screen and (max-width:375px) {
+  .checkbox-btn-img{
+    width: 375px;
+  }
   .eyeDivider{
     margin: 15% 0 0 0;
     }
   .rocket{
     left: 0%;
   }
+  .img-animation{
+    height: 110px !important; 
+    }
   .hero-text h1 {
     font-size: 24px !important;
     font-weight: 400;

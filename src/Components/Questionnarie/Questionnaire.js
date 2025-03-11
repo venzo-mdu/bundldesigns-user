@@ -44,17 +44,17 @@ export const Questionnaire = ({
     <div>
       <Navbar />
 
-      <div style={window.innerWidth <= 441 ?{  padding: '1% 0%' }:{padding: '1% 4%'}}>
+      <div style={window.innerWidth <= 441 ?{  padding: '1% 0%' }:{padding: '1% 5%'}}>
         <div style={{ padding: '2% 0%', borderBottom: '9px solid #000000' }}>
           <div className=''>
             {/* <p className='title-questionnaire'>{bgTitle}</p> */}
             <div className=" pic-container position-relative" style={{ zIndex: -1}}>
-              <div className="d-flex flex-row gag1 scroll-ani">
+              <div className="d-flex flex-row gag1 scroll-ani xs:h-[20vh] lg:h-[100%] md:h-[100%]">
                 <img src={Cloud1} alt="Natural" />
                 <img src={Cloud2} alt="Natural" />
               </div>
-              <div className='flex justify-center items-center'>
-              <p className='title-questionnaire sm:!text-[72px] lg:!text-[80px] xs:!text-[34px]'>{bgTitle}</p>
+              <div className='flex justify-center items-center '>
+              <p className='title-questionnaire sm:!text-[72px] lg:!text-[80px] xs:!text-[28px]'>{bgTitle}</p>
               </div>
             </div>
             {

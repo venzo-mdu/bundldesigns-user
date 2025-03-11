@@ -120,7 +120,7 @@ export const Navbar = () => {
                             <a className="nav-link" href="/aboutus">About</a>
                           </li>
                           <li className="nav-item">
-                            <a className="nav-link" href="/">Bundls</a>
+                            <a className="nav-link" href="/#ourBundl">Bundls</a>
                           </li>
                           <li className="nav-item">
                             <a className="nav-link" href="/our-work">Works</a>
@@ -190,7 +190,7 @@ export const Navbar = () => {
                                     menuVisible && (
                                 <ul className=' inner-nav-item'>
                                 <li className='relative p-1 inner-nav-li'>
-                                  <a href="/" className='!text-black' previewlistener="true">Bundls</a>
+                                  <a href="/#ourBundl" className='!text-black' previewlistener="true">Bundls</a>
                                 </li>
                                 <li className='relative p-1 inner-nav-li'>
                                   <a href="/our-work" className='!text-black' previewlistener="true">Our Work</a>
@@ -212,7 +212,7 @@ export const Navbar = () => {
                       <nav className="navigation">
                         <ul className="navbar">
                           <li>
-                            <a href="/" previewlistener="true">Bundls</a>
+                            <a href="/#ourBundl" previewlistener="true">Bundls</a>
                           </li>
                           <li>
                             <a href="/our-work" previewlistener="true">Our Work</a>
@@ -254,7 +254,7 @@ export const Navbar = () => {
                               <a className="nav-link" href="/aboutus">About</a>
                             </li>
                             <li className="nav-item">
-                              <a className="nav-link" href="/">Bundls</a>
+                              <a className="nav-link" href="/#ourBundl">Bundls</a>
                             </li>
                             <li className="nav-item">
                               <a className="nav-link" href="/our-work">Work</a>
@@ -322,7 +322,7 @@ export const Navbar = () => {
                                     menuVisible && (
                                 <ul className=' inner-nav-item'>
                                 <li className='relative p-1 inner-nav-li'>
-                                  <a href="/" className='!text-black' previewlistener="true">Bundls</a>
+                                  <a href="/#ourBundl" className='!text-black' previewlistener="true">Bundls</a>
                                 </li>
                                 <li className='relative p-1 inner-nav-li'>
                                   <a href="/our-work" className='!text-black' previewlistener="true">Our Work</a>
@@ -345,7 +345,7 @@ export const Navbar = () => {
                         <nav className="navigation">
                           <ul className="navbar">
                             <li >
-                              <a href="/" previewlistener="true">Bundls </a>
+                              <a href="/#ourBundl" previewlistener="true">Bundls </a>
                             </li>
                             <li>
                               <a href="/our-work" previewlistener="true">Our Work</a>

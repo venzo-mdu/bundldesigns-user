@@ -81,6 +81,7 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
   const handleQuantityChange = (designName, change) => {
         toast.success(`Cart updated successfully`, {
             position: toast?.POSITION?.TOP_RIGHT,
+            toastId: 'required-value-toast',
           });
     setQuantities((prevQuantities) => {
       const currentQuantity = prevQuantities[designName] || 0; // Default to 0 if not defined

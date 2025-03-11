@@ -145,3 +145,14 @@ button:disabled{
   scrollbar-width: none;
   -ms-overflow-style: none; /* IE and Edge */
 }
+
+@media screen and (max-width:500px) {
+  #vacancySelect {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: url('../src/Images/down-arrow.svg') no-repeat right 5px center;
+    background-size: 30px;
+    cursor: pointer;
+  }
+}

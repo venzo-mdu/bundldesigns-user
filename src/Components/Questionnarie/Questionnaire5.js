@@ -20,6 +20,7 @@ export const Questionnaire5 = ({formData,setFormData}) => {
   const answers4 = useSelector((state) => state.questionnaire4);
   const [questions, setQuestions] = useState([]);
   const [selectedLanguage, setSelectedLanguage] = useState(null);
+  const [isFilled , setIsFilled] = useState(null)
   const [fetchQ5Answers, setFetchQ5Answers] = useState([]);
 
   const placeHolders = [
@@ -78,6 +79,7 @@ export const Questionnaire5 = ({formData,setFormData}) => {
   const showToastMessage = () => {
     toast.error("The Value is required!", {
       position: toast?.POSITION?.TOP_RIGHT,
+      toastId: 'required-value-toast',
     });
   };
 
@@ -93,6 +95,7 @@ export const Questionnaire5 = ({formData,setFormData}) => {
 
     if (unansweredRequiredQuestions.length > 0) {
       const element = document.getElementById(`question_${unansweredRequiredQuestions[0]?.id}`);
+      setIsFilled(unansweredRequiredQuestions[0]?.id)
       if (element) {
         element.scrollIntoView({ behavior: "smooth"});
       }
@@ -197,7 +200,7 @@ console.log(location.state?.orderId,'orderid')
         setFormData={setFormData}
         questions={questions.map((question,index) => (
           <div className="questions" key={question.id} id={`question_${question.id}`}>
-            <p className={`questions-title  xs:w-[70%] sm:w-full md:w-full mx-auto ${index === 0 ? 'mt-[1%]' : 'mt-[2%]'}`}>
+            <p className={`questions-title  xs:w-[90%] sm:w-full md:w-full mx-auto ${index === 0 ? 'mt-[1%]' : 'mt-[2%]'}`}>
               {question.question}
               {question.required && (
                 <span>
@@ -210,7 +213,7 @@ console.log(location.state?.orderId,'orderid')
                 <div>
                   <button
                     onClick={() => handleLanguageChange("Arabic", question.id)}
-                    className={`uppercase font-[18px] h-[45px] w-[150px] border-[1px] border-solid border-[#000000] ${selectedLanguage === "Arabic" ? "bg-[#000000] text-[#FFFFFF]" : "hover:bg-[#000000] hover:text-[#FFFFFF]"
+                    className={`uppercase font-[18px] lg:h-[45px] md:h-[45px] xs:h-[35px] w-[150px] border-[1px] border-solid border-[#000000] ${selectedLanguage === "Arabic" ? "bg-[#000000] text-[#FFFFFF]" : "hover:bg-[#000000] hover:text-[#FFFFFF]"
                       }`}
                   >
                     Arabic
@@ -219,7 +222,7 @@ console.log(location.state?.orderId,'orderid')
                 <div>
                   <button
                     onClick={() => handleLanguageChange("English", question.id)}
-                    className={`uppercase font-[18px] h-[45px] w-[150px] border-[1px] border-solid border-[#000000] ${selectedLanguage === "English" ? "bg-[#000000] text-[#FFFFFF]" : "hover:bg-[#000000] hover:text-[#FFFFFF]"
+                    className={`uppercase font-[18px] lg:h-[45px] md:h-[45px] xs:h-[35px] w-[150px] border-[1px] border-solid border-[#000000] ${selectedLanguage === "English" ? "bg-[#000000] text-[#FFFFFF]" : "hover:bg-[#000000] hover:text-[#FFFFFF]"
                       }`}
                   >
                     English
@@ -232,12 +235,12 @@ console.log(location.state?.orderId,'orderid')
             {
               (question.id === 24) ?
                 (
-                  <div className="w-[100%] xl:h-[2px] lg:h-[2px] md:h-[2px] sm:h-[2px] xs:h-[1px]  bg-black mt-[3%]"></div>
+                  <div className={`w-[100%] xl:h-[2px] lg:h-[2px] md:h-[2px] sm:h-[2px] xs:h-[1px] ${isFilled === question?.id ? 'bg-red-400':'bg-black'} mt-[3%]`}></div>
                 ) :
                 (
                   <input
                     placeholder={question.placeholder}
-                    className="question-input"
+                    className={`question-input ${isFilled === question?.id ? 'border-red-400 border-b-[2px]':`${window?.innerWidth <= 475 ? 'border-b-[1px]':'border-b-[2px]'} border-black`}`}
                     value={getAnswerValue(question.id)}
                     onChange={(e) => handleChange(question.id, e.target.value)}
                   />

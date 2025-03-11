@@ -18,6 +18,7 @@ export const Questionnaire3 = ({formData,setFormData}) => {
   const [questions, setQuestions] = useState([]);
   const [sliderValues, setSliderValues] = useState({});
   const [fetchQ3Answers, setFetchQ3Answers] = useState([]);
+  const [isFilled , setIsFilled] = useState(null)
 
   const progressLabels = [
     { left: "Masculine", right: "Feminine" },
@@ -102,6 +103,7 @@ console.log(formData,'formData')
   const showToastMessage = () => {
     toast.error("The Value is required!", {
       position: toast?.POSITION?.TOP_RIGHT,
+      toastId: 'required-value-toast',
     });
   };
 
@@ -118,6 +120,7 @@ console.log(formData,'formData')
 
     if (unansweredRequiredQuestions.length > 0) {
       const element = document.getElementById(`question_${unansweredRequiredQuestions[0]?.id}`);
+      setIsFilled(unansweredRequiredQuestions[0]?.id)
       if (element) {
         element.scrollIntoView({ behavior: "smooth"});
       }
@@ -188,7 +191,7 @@ console.log(formData,'formData')
         questions={
           questions.map((question, index) => (
             <div className="questions" key={index} id={`question_${question.id}`}>
-              <p className={`questions-title  xs:w-[70%] sm:w-full md:w-full mx-auto ${index === 0 ? 'mt-[1%]' : 'mt-[0%]'}`}>
+              <p className={`questions-title  xs:w-[90%] sm:w-full md:w-full mx-auto ${index === 0 ? 'mt-[1%]' : 'mt-[0%]'}`}>
                 {question.question}
                 {
                   question.required && (
@@ -198,9 +201,11 @@ console.log(formData,'formData')
               </p>
               {
                 question.answer_type === 'bar' ? '' :
-                  <input value={getAnswerValue(question.id)} placeholder={placeHolders[index]} className="question-input" onChange={(e) => handleChange(question.id, e.target.value)} />
+                  <input value={getAnswerValue(question.id)} placeholder={placeHolders[index]} 
+                  className={`question-input ${isFilled === question?.id ? 'border-red-400 border-b-[2px]':`${window?.innerWidth <= 475 ? 'border-b-[1px]':'border-b-[2px]'} border-black`}`}
+                   onChange={(e) => handleChange(question.id, e.target.value)} />
               }
-              <div className=' flex items-center justify-center flex-col w-[100%] md:w-[100% xl:w-[100%] lg:w-[100%] mt-[3%]'>
+              <div className=' flex items-center justify-center flex-col w-[100%] md:w-[100% xl:w-[100%] lg:w-[100%] mt-[3%] px-2'>
 
                 {question.answer_type === 'bar' && (
                   progressLabels.map((data, index) => {
@@ -265,7 +270,7 @@ console.log(formData,'formData')
 
                 {
                   question.answer_type === 'bar' && (
-                    <div className="w-[100%] xl:h-[2px] lg:h-[2px] md:h-[2px] sm:h-[2px] xs:h-[1px] bg-black mt-[3%]"></div>
+                    <div className={`w-[100%] xl:h-[2px] lg:h-[2px] md:h-[2px] sm:h-[2px] xs:h-[1px] ${isFilled === question?.id ? 'bg-red-400':'bg-black'} mt-[3%]`}></div>
                   )
                 }
               </div>

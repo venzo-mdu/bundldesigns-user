@@ -722,7 +722,7 @@ export const textStyle = [
 
         },
         {
-                fontStyle: 'Modern Sans-Serif',
+                fontStyle: 'Modern',
                 img:Font6
 
         },

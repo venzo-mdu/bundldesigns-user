@@ -122,6 +122,7 @@ export const MyCart = () => {
         if(itemType=='bundle'){
                toast.error(`Package Item Cannot removed`, {
                     position: toast?.POSITION?.TOP_RIGHT,
+                    toastId: 'required-value-toast',
                   });
                   return;
         }
@@ -433,7 +434,6 @@ export const MyCart = () => {
       )}
             <div className='mycart '>
                 <div className='cart !xs:border-none  sm:!pb-[170px] !pb-[170px] xs:!pb-[20px]'>
-                     {isDirect == false && <p onClick={()=>handleBackClick()} className='flex font-[500] cursor-pointer !text-[18px] items-center text-black'> <img src={backIcon} className='mr-2 w-[30px]' ></img> Back to Bundl </p>}          
                     <p className='!xs:text-[16px] font-[700] !sm:text-[20px]'>Your Cart</p>
                     {isMobile ? <>
                         {cartDetails?.item_details?.bundle_items?.map((row,index) => (
@@ -507,24 +507,27 @@ export const MyCart = () => {
                     <div className='cart-total-container '>
                         <div className='total justify-between sm:pl-10 xs:pl-1 mr-4' style={{ display: 'flex' }}>
                             <p  className='!text-[20px] xs:mb-0 sm:mb-auto' style={{ width: '50%' }}>Price:</p>
-                            <p  className='!text-[20px] xs:mb-0 sm:mb-auto text-right' style={{ width: '50%' }}>{Math.round(cartDetails.total_amount)} sar</p>
+                            <p  className='!text-[20px] xs:mb-0 sm:mb-auto text-right' style={{ width: '50%' }}>{Math.round(cartDetails.total_amount)} SAR</p>
                         </div>
                         <div className='total justify-between sm:pl-10 xs:pl-1 mr-4' style={{ display: 'flex' }}>
                             <p  className='!text-[20px]' style={{ width: '53%' }}>TAX:</p>
-                            <p  className='!text-[20px]  text-right' style={{ width: '40%' }}>{Math.round(cartDetails.tax)} sar</p>
+                            <p  className='!text-[20px]  text-right' style={{ width: '40%' }}>{Math.round(cartDetails.tax)} SAR</p>
                         </div>
                         <div className='border-[2px] border-black p-[2%_0_0_2%]'>
                             <div  className='justify-between font-[700] mr-4'  style={{ display: 'flex'}}>
                                 <p className='!text-[20px] xs:mb-0 sm:mb-auto ml-[6px]' style={{ width: '50%' }}><img src={BlackDollor} className='inline-block ml-[0px] mr-[18px]'></img>Total Price :</p>
-                                <p className='!text-[20px] xs:mb-0 sm:mb-auto text-right' style={{ width: '40%' }}>{isNaN(Math.round(cartDetails.grand_total))?0:Math.round(cartDetails.grand_total)} sar</p>
+                                <p className='!text-[20px] xs:mb-0 sm:mb-auto text-right' style={{ width: '40%' }}>{isNaN(Math.round(cartDetails.grand_total))?0:Math.round(cartDetails.grand_total)} SAR</p>
                             </div>
                             <div  className='justify-between  font-[700] mr-4' style={{ display: 'flex' }}>
                                 <p className='!text-[20px] mb-0' style={{ width: '67%' }}><img src={BlackTime} className='inline-block mr-3'></img>Total Duration :</p>
                                 <p className='!text-[20px]  text-right ' style={{ width: '43%' }}>{isNaN(Math.round(cartDetails.total_time))?0 :Math.round(cartDetails.total_time)} Days</p>
                             </div>
                         </div>
+                        {isDirect == false && <p onClick={()=>handleBackClick()} className='flex font-[500] cursor-pointer !text-[18px] items-center text-black mt-[2%] float-right'> <img src={backIcon} className='mr-2 w-[30px]' onClick={()=>handleBackClick()}></img> Back to Bundl </p>}          
                     </div>
+
                 </div>
+
                 <div className='billing'>
                     <p>Billing Address</p>
                     <form onSubmit={handlePayment} noValidate>

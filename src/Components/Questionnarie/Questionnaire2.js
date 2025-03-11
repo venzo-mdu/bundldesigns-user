@@ -37,6 +37,7 @@ export const Questionnaire2 = ({formData,setFormData}) => {
   const [activeFemaleButtons, setActiveFemaleButtons] = useState([]);
   const [activeMaleButtons, setActiveMaleButtons] = useState([]);
   const [fetchQ2Answers, setFetchQ2Answers] = useState([]);
+  const [isFilled , setIsFilled] = useState(null)
   const femaleImages = [Female1, Female2, Female3, Female4, Female5, Female6];
   const MaleImages = [Male1, Male2, Male3, Male4, Male5, Male6];
   const placeHolders = [
@@ -141,6 +142,7 @@ console.log(location.state?.orderId,'orderid')
   const showToastMessage = () => {
     toast.error("The Value is required!", {
       position: toast?.POSITION?.TOP_RIGHT,
+      toastId: 'required-value-toast',
     });
   };
 
@@ -210,6 +212,7 @@ console.log(location.state?.orderId,'orderid')
 
     if (unansweredRequiredQuestions.length > 0) {
       const element = document.getElementById(`question_${unansweredRequiredQuestions[0]?.id}`);
+      setIsFilled(unansweredRequiredQuestions[0]?.id)
         if (element) {
           element.scrollIntoView({ behavior: "smooth"});
         }
@@ -329,7 +332,7 @@ console.log(location.state?.orderId,'orderid')
           {
           questions.map((question, index) => (
           <div className="questions" key={index} id={`question_${question?.id}`}>
-            <p className={`questions-title  xs:w-[92%] sm:w-full md:w-full mx-auto ${index === 0 ? 'mt-[1%]' : 'mt-[2%]'}`}>
+            <p className={`questions-title  xs:w-[90%] sm:w-full md:w-full mx-auto ${index === 0 ? 'mt-[1%]' : 'mt-[2%]'}`}>
               {question.question}
               {
                 question.required && (
@@ -354,6 +357,7 @@ console.log(location.state?.orderId,'orderid')
                     {['10 or Less', '11-17', '18-23', '24-30', '41-60', '61+'].map((label, index) => (
 
                       <div style={{ display: 'flex', flexDirection: 'column' }}>
+                         <div className='flex justify-center items-center'>
                         <img
                           key={`female-img-${index}`}
                           src={femaleImages[index]}
@@ -361,6 +365,7 @@ console.log(location.state?.orderId,'orderid')
                           className="female-image"
                           onClick={() => handleButtonClick(`female-${index}`,'female',label,question.id)}
                         />
+                        </div>
                         <button
                           key={`female-${index}`}
                           className={`female-btn uppercase ${activeFemaleButtons?.includes(label) ? 'active' : ''}`}
@@ -378,12 +383,15 @@ console.log(location.state?.orderId,'orderid')
                   {['10 or Less', '11-17', '18-23', '24-30', '41-60', '61+'].map((label, index) => (
 
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
+                      <div className='flex justify-center items-center'>
+
                       <img
                         key={`female-img-${index}`}
                         src={femaleImages[index]}
                         alt={`Female ${index + 1}`}
                         className="female-image-disable"
                       />
+                      </div>
                       <button
                         disabled
                         key={`female-${index}`}
@@ -404,6 +412,7 @@ console.log(location.state?.orderId,'orderid')
                     {['10 or Less', '11-17', '18-23', '24-30', '41-60', '61+'].map((label, index) => (
 
                       <div style={{ display: 'flex', flexDirection: 'column' }}>
+                         <div className='flex justify-center items-center'>
                         <img
                           key={`male-img-${index}`}
                           src={MaleImages[index]}
@@ -411,6 +420,7 @@ console.log(location.state?.orderId,'orderid')
                           className="male-image"
                           onClick={() => handleButtonClick(`male-${index}`,'male',label,question.id)}
                         />
+                        </div>
                         <button
                           key={`male-${index}`}
                           className={`male-btn uppercase ${activeMaleButtons.includes(label) ? 'active' : ''}`}
@@ -428,12 +438,14 @@ console.log(location.state?.orderId,'orderid')
                   {['10 or Less', '11-17', '18-23', '24-30', '41-60', '61+'].map((label, index) => (
 
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
+                       <div className='flex justify-center items-center'>
                       <img
                         key={`male-img-${index}`}
                         src={MaleImages[index]}
                         alt={`Male ${index + 1}`}
                         className="male-image-disable"
                       />
+                      </div>
                       <button
                         disabled
                         key={`male-${index}`}
@@ -450,7 +462,9 @@ console.log(location.state?.orderId,'orderid')
                 </>
               )
             }
-            <input className="question-input" placeholder={placeHolders[index]} value={ question.answer_type === "age-data" ?'':getAnswerValue(question.id)} onChange={(e)=>handleChange(question.id,e.target.value)}/>
+            <input 
+            className={`question-input ${isFilled === question?.id ? 'border-red-400 border-b-[2px]':`${window?.innerWidth <= 475 ? 'border-b-[1px]':'border-b-[2px]'} border-black`}`}
+            placeholder={placeHolders[index]} value={ question.answer_type === "age-data" ?'':getAnswerValue(question.id)} onChange={(e)=>handleChange(question.id,e.target.value)}/>
           </div>
         ))
       }

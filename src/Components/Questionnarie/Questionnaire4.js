@@ -38,6 +38,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
   const [shadeColor, setshadeColor] = useState('rgb(0, 0, 0)');
   const [shadeType, setShadeType] = useState('');
   const [fetchQ4Answers, setFetchQ4Answers] = useState([]);
+  const [isFilled , setIsFilled] = useState(null)
 
   const placeHolders = [
     "BUNDL",
@@ -112,6 +113,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
   const showToastMessage = () => {
     toast.error("The Value is required!", {
       position: toast?.POSITION?.TOP_RIGHT,
+      toastId: 'required-value-toast',
     });
   };
 
@@ -130,6 +132,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
     if (unansweredRequiredQuestions.length > 0) {
       console.log(unansweredRequiredQuestions,questions)
       const element = document.getElementById(`question_${unansweredRequiredQuestions[0]?.id}`);
+      setIsFilled(unansweredRequiredQuestions[0]?.id)
       if (element) {
         element.scrollIntoView({ behavior: "smooth"});
       }
@@ -147,6 +150,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
     if (!isHexCode && color !== "Surprise") {
       toast.error("Allows only HEX Code!", {
         position: toast?.POSITION?.TOP_RIGHT,
+        toastId: 'required-value-toast',
       });
       setInputValue('');
       return;
@@ -154,6 +158,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
     if(selectedColors?.includes(color)){
       toast.error("You have already added!", {
         position: toast?.POSITION?.TOP_RIGHT,
+        toastId: 'required-value-toast',
       });
     }
     let colorsArray = selectedColors || [];
@@ -354,7 +359,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
               <div className="questions" key={index} id={`question_${question.id}`}>
                 {
                   question.answer_type === 'shade' ? '' :
-                  <p className={`questions-title  xs:w-[70%] sm:w-full md:w-full mx-auto ${index === 0 ? 'mt-[1.5%]' : 'mt-[2%]'} `}>
+                  <p className={`questions-title  xs:w-[90%] sm:w-full md:w-full mx-auto ${index === 0 ? 'mt-[1.5%]' : 'mt-[2%]'} `}>
                       {question.question}
                       {
                         question.required && (
@@ -392,7 +397,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
                           <p className='shade-bundl-text' style={{ color: shadeColor }}>Bundl</p>
-                          <b><p className='lg:text-[24px] md:text-[18px] xs:text-[14px] leading-1 font-[500]'>Not sure ? It’s okay!</p></b>
+                          <b><p className='lg:text-[24px] md:text-[18px] xs:text-[14px] leading-1 font-[500] mb-0'>Not sure ? It’s okay!</p></b>
                           <button className={`lg:mb-[2%] md:mb-[2%] xs:mb-[2%] ${shadeType === 'surprise' ? 'surprise-active' : 'surprise'}`} onClick={() => handleShadeButtonClick('rgb(228, 222, 216)', 'rgb(0, 0, 0)', 'surprise', question.id)}>surprise me !</button>
                         </div>
                       </div>
@@ -410,7 +415,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                             return (
                               <>
                                 <div className='font-background'>
-                                  <img style={{ margin: '6% 0 0% 0' }} src={font.img}></img>
+                                  <img className='lg:m-[6%_0_0_0] md:m-[6%_0_0_0] xs:m-[35%_0_0_0] lg:p-0 md:p-0 xs:p-[0_5%]'  src={font.img}></img>
                                   <button className={`font-buttons ${activeButtons?.includes(font?.fontStyle) ? 'font-buttons-active' : ''
                                     }`} onClick={() => handleButtonClick(index, question.id, font.fontStyle)}>{font?.fontStyle}</button>
                                 </div>
@@ -436,7 +441,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                           gridTemplateColumns: 'repeat(9, 1fr)',
                           margin: '2% 0 0 0',
                           padding: '0% 10%',
-                          columnGap: '10px'
+                          columnGap: window?.innerWidth <= 475 ?'13px':'10px'
                         }}
                       >
                   
@@ -470,10 +475,10 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                         className="selected-colors"
                         style={{
                           display: 'flex',
-                          gap: '10px',
+                          gap:window?.innerWidth <= 475 ?'5px':'10px',
                           marginTop: '20px',
                           flexWrap: 'wrap',
-                          width: '100%',
+                          width: window?.innerWidth <= 475 ?'100%':'75%',
                           height: '40px',
                           alignItems: 'center',
                           justifyContent: 'center',
@@ -559,7 +564,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                       <div className="form-group">
                         <span className="font-error valid-error text-purple"></span>
 
-                        <ul className="h-list select-btns grid-view padding-top-20 checkbox-btn-img h-list-check">
+                        <ul style={window?.innerWidth <= 500 ?{display:'grid',gridTemplateColumns:'repeat(3,1fr)'}:{}} className={window?.innerWidth<=500 ? 'checkbox-btn-img':`h-list select-btns grid-view padding-top-20 checkbox-btn-img h-list-check`}>
                           <li className="checkbox checkbox-btn">
                             <input type="checkbox" name="13" checked={formData?.[20]?.includes('patterns') ?true:false} value="patterns" id="patterns" className="validThis" onChange={(e) => handleTextureChange(e, question.id)}></input>
                             <label for="patterns">
@@ -567,7 +572,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                                 {
                                   textureImages1?.map((images) => {
                                     return (
-                                      <img className='!object-none' src={images} alt="Clean"></img>
+                                      <img className={window?.innerWidth >= 475?'!object-none':''} src={images} alt="Clean"></img>
 
                                     )
                                   })
@@ -584,7 +589,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                                 {
                                   textureImages2?.map((images) => {
                                     return (
-                                      <img className='!object-none' src={images} alt="Clean"></img>
+                                      <img className={window?.innerWidth >= 475?'!object-none':''} src={images} alt="Clean"></img>
 
                                     )
                                   })
@@ -601,7 +606,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                                 {
                                   textureImages3?.map((images) => {
                                     return (
-                                      <img className='!object-none' src={images} alt="Clean"></img>
+                                      <img className={window?.innerWidth >= 475?'!object-none':''} src={images} alt="Clean"></img>
 
                                     )
                                   })
@@ -620,7 +625,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                                 {
                                   textureImages4?.map((images) => {
                                     return (
-                                      <img className='!object-none' src={images} alt="Clean"></img>
+                                      <img className={window?.innerWidth >= 475?'!object-none':''} src={images} alt="Clean"></img>
 
                                     )
                                   })
@@ -639,7 +644,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                                 {
                                   textureImages5?.map((images) => {
                                     return (
-                                      <img className='!object-none' src={images} alt="Clean"></img>
+                                      <img className={window?.innerWidth >= 475?'!object-none':''} src={images} alt="Clean"></img>
 
                                     )
                                   })
@@ -658,7 +663,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                                 {
                                   textureImages6?.map((images) => {
                                     return (
-                                      <img className='!object-none' src={images} alt="Clean"></img>
+                                      <img className={window?.innerWidth >= 475?'!object-none':''} src={images} alt="Clean"></img>
 
                                     )
                                   })
@@ -725,11 +730,11 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                     <input
                       placeholder={placeHolders[index]}
                       value={question.id === 21 ? '' : getAnswerValue(question.id)}
-                      className="question-input"
+                      className={`question-input ${isFilled === question?.id ? 'border-red-400 border-b-[2px]':`${window?.innerWidth <= 475 ? 'border-b-[1px]':'border-b-[2px]'} border-black`}`}
                       onChange={(e) => handleChange(question.id, e.target.value)}
                     />
                   ) : (
-                    <div className="w-[100%] xl:h-[2px] lg:h-[2px] md:h-[2px] sm:h-[2px] xs:h-[1px] bg-black mt-[3%]"></div>
+                    <div className={`w-[100%] xl:h-[2px] lg:h-[2px] md:h-[2px] sm:h-[2px] xs:h-[1px] ${isFilled === question?.id ? 'bg-red-400':'bg-black'} mt-[3%]`}></div>
                   )
                 }
 

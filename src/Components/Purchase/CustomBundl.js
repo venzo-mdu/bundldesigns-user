@@ -49,6 +49,7 @@ export const CustomBundl = () => {
     if (brandInput == '') {
       toast.error(`Name your brand`, {
         position: toast?.POSITION?.TOP_RIGHT,
+        toastId: 'required-value-toast',
       });
       const element = document.getElementById("brandInput");
       if (element) {
@@ -60,12 +61,14 @@ export const CustomBundl = () => {
     if(firstOrder && addonPayLoads.total_price < 800){
           toast.error(`Minimum order amount should be 800`, {
             position: toast?.POSITION?.TOP_RIGHT,
+            toastId: 'required-value-toast',
           });
           return false;
         }
     if(addonPayLoads.item_list.length ==0){
       toast.error(`Please add an Item to Checkout`, {
         position: toast?.POSITION?.TOP_RIGHT,
+        toastId: 'required-value-toast',
       });
       return false;
     }
@@ -159,7 +162,7 @@ export const CustomBundl = () => {
                 <p className='text-[#000] sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[45%]' >{addon.qty} {addon.addon_name}</p>
                 <div className='flex xs:w-[55%] sm:w-full w-full'>
                   <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[55%]' >+ {addon.unit_time * addon.qty} Days</p>
-                  <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[45%]'>+ {addon.qty ==1 ? parseFloat(addon.unit_price): parseFloat(addon.unit_price) + ((parseFloat(addon.unit_price) / 100) * addon.price_increment * (addon.qty - 1)) } sar</p>
+                  <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[45%]'>+ {addon.qty ==1 ? parseFloat(addon.unit_price): parseFloat(addon.unit_price) + ((parseFloat(addon.unit_price) / 100) * addon.price_increment * (addon.qty - 1)) } SAR</p>
                 </div>
               </div>
             ))}

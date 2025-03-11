@@ -75,7 +75,7 @@ export const Footer = () => {
                             <ul>
                                 <li>
                                     <a href='/our-work' className='text-[#ECEAEB] hover:text-[#f175ad]'> Our Work</a></li>
-                                <li>   <a href='/' className='text-[#ECEAEB] hover:text-[#f175ad]'> Bundls</a></li>
+                                <li>   <a href='/#ourBundl' className='text-[#ECEAEB] hover:text-[#f175ad]'> Bundls</a></li>
                                 <li>   <a href='/dashboard' className='text-[#ECEAEB] hover:text-[#f175ad]'> Dashboard</a></li>
                             </ul>
                         </div>

@@ -74,6 +74,7 @@ export const Signup = () => {
   const showToastMessage = () => {
     toast.error("The Value is required!", {
       position: toast?.POSITION?.TOP_RIGHT,
+      toastId: 'required-value-toast',
     });
   };
   const setError = (field, errorMessage) => {

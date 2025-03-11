@@ -45,7 +45,7 @@ import X from '../../Images/Bundles/X-icon.png'
 import Facbook from '../../Images/Bundles/facebook-icon.png'
 import Pinterestpng from '../../Images/Home/Pinterestpng.png'
 import Tiktokpng from '../../Images/Home/Tiktokpng.png'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink, useLocation, useNavigate,useParams } from 'react-router-dom'
 import CartIcon from '../../Images/Home/Carticon.svg'
 import axios from 'axios'
 import { base_url } from '../Auth/BackendAPIUrl'
@@ -66,6 +66,8 @@ export const Home = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
+
     const imageArray = [Car, Lemon, Mouth, Rocket, Pinkpaint];
     const [selectedIndex, setSelectedIndex] = useState(null)
     const [searchShow, setSearchShow] = useState(false)
@@ -311,6 +313,16 @@ export const Home = () => {
         const updatedActiveProcess = isActiveProcess.map((_, i) => i <= index);
         setIsActiveProcess(updatedActiveProcess);
     };
+
+
+
+    useEffect(() => {
+        setTimeout(()=>{
+            const element = document.getElementById('ourBundl');
+            element?.scrollIntoView({ behavior: 'smooth' });
+        },1000)
+             
+    }, [location?.hash]);
     return (
         <>
             {
