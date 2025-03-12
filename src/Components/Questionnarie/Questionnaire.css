@@ -1105,13 +1105,13 @@ input::placeholder {
     }
     .miclady {
         top: 21%;
-        right: -13px;
+        right: -3px;
         width: 30%;
         z-index: -1;
     }
     .lips{
         top: 21%;
-        right: 2%;
+        right: 4%;
         width: 15%;
     }
     .mirror{
@@ -1164,7 +1164,7 @@ input::placeholder {
         transition: 1s;
     }
     .female-buttons,.male-buttons{
-        padding: 0 6% 0 4%;
+        padding: 0 0% 0 4%;
         display: grid;
         grid-template-columns: repeat(3,1fr);
     }
@@ -1182,7 +1182,8 @@ input::placeholder {
     .male-btn,.female-btn{
         font-size: 14px;
         height: 35px;
-        width: 100px;
+        width: 110px;
+        margin: 5% 0 0 0;
     }
     .button-shade-group{
         display: flex;
@@ -1224,7 +1225,11 @@ input::placeholder {
         width: 125px;
         font-size:14px;
         height: 35px;
-
+    }
+    .surprise:hover{
+        width: 125px;
+        font-size:14px;
+        height: 35px;
     }
     .shade-background{
         margin: 5% 0 0 0;
@@ -1234,6 +1239,7 @@ input::placeholder {
     }
     .shade-btn-active{
         font-size: 18px;
+        margin: 0% 0 0 0;
     }
     .shade-btn:hover{
         font-size: 18px;
@@ -1293,19 +1299,19 @@ input::placeholder {
             opacity: 1;
         } */
         60%{
-            transform: translate(28%, -80%);
+            transform: translate(28%, -70%);
             opacity: 1;
         }
         40%{
-            transform: translate(28%, -80%);
+            transform: translate(28%, -70%);
             /* opacity: 1; */
         }
         98%{
-            transform: translate(28%, -80%);
+            transform: translate(28%, -70%);
             /* opacity: 1; */
         }
         100%{
-            transform: translate(28%, -80%);
+            transform: translate(28%, -70%);
             opacity:0;
         }
     }
@@ -1374,7 +1380,7 @@ input::placeholder {
     }
     .title-questionnaire{
         font-size: 20px;
-        margin: -70% 0 0 3%;
+        margin: -40% 0 0 3%;
         width: 75%;
         line-height: 35px;
     }
@@ -1389,9 +1395,12 @@ input::placeholder {
         height: 40px;
         font-size:16px ;
     }
-    /* .male-btn,.female-btn{
-        font-size: 10px;
-    } */
+    .male-btn,.female-btn{
+        font-size: 14px;
+        height: 35px;
+        width: 104px;
+        margin: 5% 0 0 0;
+    }
     .question-input{
         font-size: 14px;
         /* border-bottom: 1px solid black; */
@@ -1400,7 +1409,7 @@ input::placeholder {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         margin: 2% 0 0 0;
-        gap:10px;
+        gap:5px;
     }
     .font-background{
         height: 140px;
@@ -1422,7 +1431,7 @@ input::placeholder {
         height: 35px;
     }
     .shade-background{
-        height: 700px;
+        /* height: 700px; */
         margin: 5% 0 0 0;
     }
     .shade-btn{
@@ -1464,15 +1473,20 @@ input::placeholder {
         font-size: 52px;
     }
     .miclady{
-        top:30%;
-        right: 0;
+        top:21%;
+        right: -5px;
         width: 32%;
         z-index: -1;
     }
+    .lips{
+        top: 21%;
+        right: 4%;
+        width: 15%;
+    }
     .female-buttons,.male-buttons{
-        padding: 0 5%;
+        padding: 0 6% 0 4%;
         display: grid;
-        grid-template-columns: repeat(2,1fr);
+        grid-template-columns: repeat(3,1fr);
     }
     @keyframes mirror{
         0%{
@@ -1485,19 +1499,19 @@ input::placeholder {
             opacity: 1;
         } */
         60%{
-            transform: translate(28%, -35%);
+            transform: translate(28%, -70%);
             opacity: 1;
         }
         40%{
-            transform: translate(28%, -35%);
+            transform: translate(28%, -70%);
             /* opacity: 1; */
         }
         98%{
-            transform: translate(28%, -35%);
+            transform: translate(28%, -70%);
             /* opacity: 1; */
         }
         100%{
-            transform: translate(28%, -35%);
+            transform: translate(28%, -70%);
             opacity:0;
         }
     }

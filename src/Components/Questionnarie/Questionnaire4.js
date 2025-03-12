@@ -39,11 +39,29 @@ export const Questionnaire4 = ({formData,setFormData}) => {
   const [shadeType, setShadeType] = useState('');
   const [fetchQ4Answers, setFetchQ4Answers] = useState([]);
   const [isFilled , setIsFilled] = useState(null)
+  const [columnGap, setColumnGap] = useState('10px');
 
   const placeHolders = [
     "BUNDL",
     "(ex: Luxury shopping made easy)",
   ]
+
+  useEffect(() => {
+    const updateColumnGap = () => {
+        if (window.innerWidth <= 375) {
+            setColumnGap('8px');
+        } else if (window.innerWidth >= 375 && window.innerWidth <= 500) {
+            setColumnGap('13px');
+        } else {
+            setColumnGap('10px');
+        }
+    };
+
+    updateColumnGap(); // Initial call
+    window.addEventListener('resize', updateColumnGap);
+
+    return () => window.removeEventListener('resize', updateColumnGap);
+}, [window?.innerWidth]);
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -441,7 +459,8 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                           gridTemplateColumns: 'repeat(9, 1fr)',
                           margin: '2% 0 0 0',
                           padding: '0% 10%',
-                          columnGap: window?.innerWidth <= 475 ?'13px':'10px'
+                          columnGap: columnGap
+
                         }}
                       >
                   
