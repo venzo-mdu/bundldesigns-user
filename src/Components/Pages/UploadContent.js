@@ -260,7 +260,7 @@ console.log(skipId)
                                                         <input placeholder='Slogan & Number....' value={uploadContent?.[item?.id]?.content || ''} onChange={(e) => handleChange(e, item.id, 'content')} className='border !border-black h-[55px] w-full py-2 px-2 rounded-none' ></input>
                                                     </p>}
                                                     {designQuestions[item.item__id]?.measurement && <>
-                                                        <p className='mb-2 font-[500] text-[20px] font-bold'>Measurements</p>
+                                                        <p className='mb-2 text-[20px] font-bold'>Measurements</p>
                                                         <p className='ml-2'>
                                                             <label className='mr-6 font-[500]'>
                                                                 <input

@@ -415,7 +415,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
                           <p className='shade-bundl-text' style={{ color: shadeColor }}>Bundl</p>
-                          <b><p className='lg:text-[24px] md:text-[18px] xs:text-[14px] leading-1 font-[500] mb-0'>Not sure ? It’s okay!</p></b>
+                          <p className='lg:text-[24px] md:text-[18px] xs:text-[14px] leading-1 font-[500] lg:mt-[1%] md:mt-[0%] xs:mt-[1%] mb-[.5rem]'>Not sure ? It’s okay!</p>
                           <button className={`lg:mb-[2%] md:mb-[2%] xs:mb-[2%] ${shadeType === 'surprise' ? 'surprise-active' : 'surprise'}`} onClick={() => handleShadeButtonClick('rgb(228, 222, 216)', 'rgb(0, 0, 0)', 'surprise', question.id)}>surprise me !</button>
                         </div>
                       </div>
@@ -433,7 +433,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                             return (
                               <>
                                 <div className='font-background'>
-                                  <img className='lg:m-[6%_0_0_0] md:m-[6%_0_0_0] xs:m-[35%_0_0_0] lg:p-0 md:p-0 xs:p-[0_5%]'  src={font.img}></img>
+                                  <img className='lg:m-[6%_0_0_0] md:m-[6%_0_0_0] xs:m-[35%_0_0_0] lg:p-0 md:p-0 xs:p-[0_5%]'  src={font.img} onClick={() => handleButtonClick(index, question.id, font.fontStyle)}></img>
                                   <button className={`font-buttons ${activeButtons?.includes(font?.fontStyle) ? 'font-buttons-active' : ''
                                     }`} onClick={() => handleButtonClick(index, question.id, font.fontStyle)}>{font?.fontStyle}</button>
                                 </div>
@@ -442,9 +442,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                           })
                         }
                       </div>
-                      <figure className='mt-[5%]'>
-                        <b><p className='lg:text-[24px] md:text-[18px] xs:text-[14px] leading-1 font-[500]'>Not sure ? It's okay!</p></b>
-                      </figure>
+                        <p className='lg:text-[24px] md:text-[18px] xs:text-[14px] leading-1 font-[500] lg:mt-[4%] md:mt-[5%] xs:mt-[8%] xs:mb-[.5rem]'>Not sure ? It's okay!</p>
                       <button className={`${activeButtons?.includes("Surprise") ? 'surprise-active':'surprise'}`} onClick={() => handleButtonClick("", question.id, "Surprise")}>surprise me !</button>
                     </>
                   )
@@ -543,6 +541,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                         }}
                       >
                         <p className='enter-colors'>OR enter the hex code of colours you want.</p>
+                        <div className='flex justify-center items-center'>
                         <input
                           type="text"
                           value={inputValue}
@@ -553,7 +552,8 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                             border: '1px solid #000',
                             outline: 'none',
                             width: window.innerWidth <= 441 ? '250px' : '400px',
-                            height: '44.5px'
+                            height: '44.5px',
+                            borderRadius:'0px'
                           }}
                         />
                         <button
@@ -564,14 +564,13 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                             color: '#fff',
                             border: 'none',
                             cursor: 'pointer',
-                            margin:window.innerWidth <=441 ?   '-54px 0px 0px 51.5%' :'-54px 0px 0px 52.5%'
+                            margin:window.innerWidth <=441 ?   '0 0 0 -18%' :'0 0px 0px -12%'
                           }}
                         >
                           <AddCircleRoundedIcon  onClick={()=>handleColorClick(inputValue,question.id)} />
                         </button>
-                        <figure className='mt-[3%]'>
-                          <b><p className='lg:text-[24px] md:text-[18px] xs:text-[14px] leading-1 font-[500]'>Not sure ? It's okay!</p></b>
-                        </figure>
+                        </div>
+                          <p className='lg:text-[24px] md:text-[18px] xs:text-[14px] leading-1 font-[500] mb-0 lg:mt-[8%] md:mt-[7%] xs:mt-[8%]'>Not sure ? It's okay!</p>
                         <button className={`${selectedColors?.includes("Surprise") ? 'surprise-active':'surprise'}`} onClick={() => handleColorClick("Surprise", question.id)}>surprise me !</button>
                       </div>
                     </>
@@ -695,9 +694,7 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                           </li>
 
                         </ul>
-                        <figure className='mt-1'>
-                          <b><p className='lg:text-[24px] md:text-[18px] xs:text-[14px] leading-1 font-[500]'>Not sure ? It's okay!</p></b>
-                        </figure>
+                          <p className='lg:text-[24px] md:text-[18px] xs:text-[14px] leading-1 font-[500] lg:mt-[2%] md:mt-[1%] xs:mt-[8%] xs:mb-[.5rem] '>Not sure ? It's okay!</p>
                         <button className={`${formData[question.id]?.includes('Surprise')?'surprise-active':'surprise'}`} onClick={()=>handleTextureChange(null,question.id,true)}>surprise me !</button>
                       </div>
                     </>
@@ -724,9 +721,10 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                         onChange={(e) => handleInputChange(e, question.id)}
                         style={{
                           padding: '8px',
-                          border: '1px solid #ccc',
+                          border: '1px solid #000',
                           outline: 'none',
-                          width: window.innerWidth <= 441 ? '250px' : '400px'
+                          width: window.innerWidth <= 441 ? '250px' : '400px',
+                          borderRadius:'0px'
                         }}
                       />
                       <button

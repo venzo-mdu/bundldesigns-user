@@ -53,7 +53,7 @@ export const Questionnaire = ({
                 <img src={Cloud2} alt="Natural" />
               </div>
               <div className='flex justify-center items-center '>
-              <p className='title-questionnaire sm:!text-[72px] lg:!text-[80px] xs:!text-[28px]'>{bgTitle}</p>
+              <p className='title-questionnaire sm:!text-[72px] lg:!text-[80px] md:!text-[72px] xs:!text-[28px]'>{bgTitle}</p>
               </div>
             </div>
             {
@@ -62,12 +62,12 @@ export const Questionnaire = ({
                   <img width={500} height={500} src={Eyesspoon}></img>
                 </div> : ''
             }
-            {
+            {/* {
               pageNo === 1 ?
                 <div className='eyespoon2'>
                   <img src={Eyesspoon2} width={300} height={500}></img>
                 </div> : ''
-            }
+            } */}
             {
               pageNo === 2 ?
                 <div>

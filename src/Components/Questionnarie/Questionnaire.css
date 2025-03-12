@@ -185,8 +185,10 @@
 .male-buttons, .female-buttons {
     display: flex;
     gap: 10px;
-    padding: 0% 6%;
+    padding: 0% 5%;
     margin: 2% 0 0 0;
+    align-items: center;
+    justify-content: center;
 }
 input::placeholder {
     font-weight: normal; /* Change to 'normal', 'lighter', 'bolder', or a numeric value as needed */
@@ -244,6 +246,7 @@ input::placeholder {
  .enter-colors{
     font-size: 32px;
     font-weight: 700;
+    text-align: center;
  } 
  .not-sure{
     font-size: 24px;
@@ -823,7 +826,7 @@ input::placeholder {
             .rocket-content{font-size: 10px;}            
             .rocket1 svg{width: 17px;}
             .eyespoon{top:-79px}
-            .eyespoon img{width: 200px; height: 200px;}
+            .eyespoon img{width: 180px; height: 180px;}
             .form-group label{font-size: 16px;}
             .rotating-image{width: 100px;}
             .eyespoon2 img{width: 150px; height: 150px;}
@@ -1105,7 +1108,7 @@ input::placeholder {
     }
     .miclady {
         top: 21%;
-        right: -3px;
+        right: 0px;
         width: 30%;
         z-index: -1;
     }
@@ -1115,9 +1118,9 @@ input::placeholder {
         width: 15%;
     }
     .mirror{
-        left: -10%;
+        left: -8%;
         top:30%;
-        width:35%
+        width:30%
     }
     .candy-rocket{
         width: 15%;
@@ -1140,6 +1143,7 @@ input::placeholder {
     }
     .female,.male{
         height: 35px;
+        font-size: 14px;
     }
     .female-active,.male-active{
         height: 35px;
@@ -1153,18 +1157,32 @@ input::placeholder {
         height: 35px;
         font-size: 14px;
         width: 150px;
+        background-color: transparent;
+        color: #000;
     }
     .product-btn.active,.service-btn.active {
     height: 35px;
     font-size: 14px;
     width: 150px;
+    background-color: #000;
+    color: #fff;
 }
-    .female-active,.male-active ,.male:hover,.female:hover {
+    .female-active,.male-active {
         height: 35px;
+        font-size: 14px;
         transition: 1s;
+        background-color: #000;
+        color: #fff;
+    }
+   .male:hover,.female:hover {
+        height: 35px;
+        font-size: 14px;
+        transition: 1s;
+        background-color: transparent;
+        color: #000;
     }
     .female-buttons,.male-buttons{
-        padding: 0 0% 0 4%;
+        padding: 0 4%;
         display: grid;
         grid-template-columns: repeat(3,1fr);
     }
@@ -1191,6 +1209,7 @@ input::placeholder {
         justify-content: center;
         gap: 10px;
         flex-direction: row; 
+        margin: 0 0 5% 0;
     }
     .question-input{
         font-size: 14px;
@@ -1236,6 +1255,7 @@ input::placeholder {
     }
     .shade-btn{
         font-size: 18px;
+        margin: 0% 0 0 0;
     }
     .shade-btn-active{
         font-size: 18px;
@@ -1282,7 +1302,7 @@ input::placeholder {
         margin-bottom: 2%;
     }
     .next,.save,.back{
-        font-size: 18px;
+        font-size: 16px;
     }
     .shade-bundl-text{
         font-size: 52px;
@@ -1394,6 +1414,7 @@ input::placeholder {
         width: 150px;
         height: 40px;
         font-size:16px ;
+        padding: 1%;
     }
     .male-btn,.female-btn{
         font-size: 14px;
@@ -1474,7 +1495,7 @@ input::placeholder {
     }
     .miclady{
         top:21%;
-        right: -5px;
+        right: 0px;
         width: 32%;
         z-index: -1;
     }
@@ -1484,7 +1505,7 @@ input::placeholder {
         width: 15%;
     }
     .female-buttons,.male-buttons{
-        padding: 0 6% 0 4%;
+        padding: 0 4%;
         display: grid;
         grid-template-columns: repeat(3,1fr);
     }
@@ -1521,4 +1542,119 @@ input::placeholder {
 .scroll-ani img{
     max-width: none;
     /* height: auto; */
+}
+@media screen and (max-width: 400px) {
+    .font-background {
+        height: 110px;
+        width: 100px;
+    }
+    .font-buttons{
+        height: 40px;
+        font-size: 10px;
+    }
+    .specific-color {
+        height: 25px;
+        width: 25px;
+    }
+    .checkbox-btn-img {
+        width: 330px;
+    }
+    .button-text{
+      font-size: 10px;
+    }
+    .title-questionnaire {
+        margin: -60% 0 0 3%;
+    }
+    .male-btn, .female-btn {
+        font-size: 10px;
+        height: 35px;
+        width: 90px;
+        margin: 5% 0 0 0;
+    }
+    .male, .female {
+        width: 135px;
+    }   
+    .male-active, .female-active {
+        width: 135px;
+    }  
+    .female-buttons, .male-buttons {
+        padding: 0 3%;
+    }
+}
+@media screen and (max-width: 360px) {
+    .font-background {
+        height: 110px;
+        width: 90px;
+    }
+    .font-buttons{
+        height: 40px;
+        font-size: 10px;
+    }
+    .specific-color {
+        height: 25px;
+        width: 25px;
+    }
+    .checkbox-btn-img {
+        width: 290px;
+    }
+    .button-text{
+      font-size: 10px;
+    }
+    .title-questionnaire {
+        margin: -60% 0 0 3%;
+    }
+    .male-btn, .female-btn {
+        font-size: 10px;
+        height: 35px;
+        width: 90px;
+        margin: 5% 0 0 0;
+    }
+    .male, .female {
+        width: 135px;
+    }   
+    .male-active, .female-active {
+        width: 135px;
+    }  
+    .female-buttons, .male-buttons {
+        padding: 0 3%;
+    }
+}
+
+@media screen and (max-width: 325px) {
+    .font-background {
+        height: 110px;
+        width: 90px;
+    }
+    .font-buttons{
+        height: 40px;
+        font-size: 10px;
+    }
+    .specific-color {
+        height: 25px;
+        width: 25px;
+    }
+    .checkbox-btn-img {
+        width: 290px;
+    }
+    .button-text{
+      font-size: 10px;
+    }
+    .title-questionnaire {
+        margin: -60% 0 0 3%;
+    }
+    .male-btn, .female-btn {
+        font-size: 10px;
+        height: 35px;
+        width: 90px;
+        margin: 5% 0 0 0;
+    }
+    .male, .female {
+        width: 135px;
+    }   
+    .male-active, .female-active {
+        width: 135px;
+    }  
+    .female-buttons, .male-buttons {
+        padding: 0 3%;
+    }
 }

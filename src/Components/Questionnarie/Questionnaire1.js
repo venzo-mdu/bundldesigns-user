@@ -291,11 +291,11 @@ console.log(formData,'formdata')
               onChange={(e) => handleInputChange(question.id, e.target.value)} // Update Redux
             />
             {question.id in errors && <p className='text-[red]'>{errors[question.id]}</p>}
-            {index === 0 ? (
+            {/* {index === 0 ? (
               <div className='img-rotate-qf'>
                 <img className='rotating-image' src={Load} alt="Loading" />
               </div>
-            ) : ''}
+            ) : ''} */}
           </div>
         ))}
       >

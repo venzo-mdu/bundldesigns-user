@@ -235,7 +235,7 @@ console.log(location.state?.orderId,'orderid')
             {
               (question.id === 24) ?
                 (
-                  <div className={`w-[100%] xl:h-[2px] lg:h-[2px] md:h-[2px] sm:h-[2px] xs:h-[1px] ${isFilled === question?.id ? 'bg-red-400':'bg-black'} mt-[3%]`}></div>
+                  <div className={`w-[100%] xl:h-[2px] lg:h-[2px] md:h-[2px] sm:h-[2px] xs:h-[1px] ${isFilled === question?.id ? 'bg-red-400':'bg-black'} lg:mt-[3%] md:mt-[3%] xs:mt-[5%]`}></div>
                 ) :
                 (
                   <input

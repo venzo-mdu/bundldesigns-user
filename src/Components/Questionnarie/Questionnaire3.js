@@ -228,13 +228,13 @@ console.log(formData,'formData')
                     };
                     const leftTextStyle = {
                       textAlign: "left",
-                      fontSize:window?.innerWidth <= 475 ?"14px" :"18px", 
+                      fontSize:window?.innerWidth <= 475 ?"10px" :"18px", 
                       //fontSize: leftValue > rightValue ? "18px" : "14px",
                     };
                 
                     const rightTextStyle = {
                       textAlign: "left",
-                      fontSize:window?.innerWidth <= 475 ?"14px" :"18px", 
+                      fontSize:window?.innerWidth <= 475 ?"10px" :"18px", 
                       //fontSize: rightValue > leftValue ? "18px" : "14px", 
                     };
 
