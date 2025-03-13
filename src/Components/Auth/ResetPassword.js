@@ -70,6 +70,7 @@ const ResetPassword = () => {
                     }
                 } catch (error) {
                     console.error("Error updating Password:", error);
+                    toast.error(error);
                     setError({ submit: "Failed to update Password. Please try again." });
                 }
                 finally{

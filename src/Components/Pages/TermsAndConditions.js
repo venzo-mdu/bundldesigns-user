@@ -16,17 +16,17 @@ const TermsAndConditions = () => {
                         {/* <p className='lg:text-[18px] md:text-[18px] xs:text-[14px] font-[400] lg:w-[40%] md:w-[50%]'>{PrivacyPolicyJson?.privacy_desc}</p> */}
                       </div>
                       <div className='flex flex-col items-center justify-center mx-auto w-full text-left'>
-                        <div className="w-full lg:max-w-[41%] md:max-w-[60%] xs:max-w-[100%] mt-2">
+                        <div className="w-full lg:max-w-[85%] md:max-w-[90%] xs:max-w-[100%] mt-2">
                         <p className='font-[400] lg:text-[18px] md:text-[18px] xs:text-[14px] '>We thank you for shopping at BundlDesigns.com</p>
                         <p className='font-[400] lg:text-[18px] md:text-[18px] xs:text-[14px] '>Please read these Terms and Conditions ("Terms", "Terms and Conditions") carefully before using the http://www.BundlDesigns.com website (the "Service") operated by Bundl ("us", "we", or "our").</p>
                         <p className='font-[400] lg:text-[18px] md:text-[18px] xs:text-[14px] '>Your access to and use of the Service is conditioned on your acceptance of and compliance with these Terms. These Terms apply to all visitors, users and others who access or use the Service.</p>
                         </div>
 
-                        <p className='font-[700] lg:text-[18px] md:text-[18px] xs:text-[14px] lg:w-[41%] md:w-[60%] xs:w-[100%]'>By accessing or using the Service you agree to be bound by these Terms. </p>
+                        <p className='font-[700] lg:text-[18px] md:text-[18px] xs:text-[14px] lg:w-[85%] md:w-[90%] xs:w-[100%]'>By accessing or using the Service you agree to be bound by these Terms. </p>
                         {
                           TermsAndConditionsJson?.terms_and_conditions?.map((items, index) => {
                             return (
-                              <div key={index} className="w-full lg:max-w-[41%] md:max-w-[60%] xs:max-w-[100%] mt-2">
+                              <div key={index} className="w-full lg:max-w-[85%] md:max-w-[90%] xs:max-w-[100%] mt-2">
                                 <p className='font-[700] lg:text-[18px] md:text-[18px] xs:text-[14px] lg:w-[45%] md:w-[45%] xs:w-[100%]'>{items?.title}:</p>
                                 <p className='font-[400] lg:text-[18px] md:text-[18px] xs:text-[14px] '>{items?.content}</p>
                                 {

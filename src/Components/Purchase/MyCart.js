@@ -381,13 +381,15 @@ export const MyCart = () => {
           window.removeEventListener('popstate', handlePopState);
         };
       }, []);
+
+      
     const handleBackClick = () => {
         setShowModal(true);
       };
     
       const confirmNavigation = () => {
         setShowModal(false); 
-        navigateToDetailHistory()
+        navigateToDetailHistory();
       };
     
       const navigateToDetailHistory = () => {
@@ -433,7 +435,9 @@ export const MyCart = () => {
         </div>
       )}
             <div className='mycart '>
+
                 <div className='cart !xs:border-none  sm:!pb-[170px] !pb-[170px] xs:!pb-[20px]'>
+                    {isDirect == false && <p onClick={()=>handleBackClick()} className='flex font-[500] cursor-pointer !text-[18px] items-center text-black mt-[2%]'> <img src={backIcon} className='mr-2 w-[30px]' onClick={()=>handleBackClick()}></img> Back to Bundl </p>}          
                     <p className='!xs:text-[16px] font-[700] !sm:text-[20px]'>Your Cart</p>
                     {isMobile ? <>
                         {cartDetails?.item_details?.bundle_items?.map((row,index) => (
@@ -523,7 +527,6 @@ export const MyCart = () => {
                                 <p className='!text-[20px]  text-right ' style={{ width: '43%' }}>{isNaN(Math.round(cartDetails.total_time))?0 :Math.round(cartDetails.total_time)} Days</p>
                             </div>
                         </div>
-                        {isDirect == false && <p onClick={()=>handleBackClick()} className='flex font-[500] cursor-pointer !text-[18px] items-center text-black mt-[2%] float-right'> <img src={backIcon} className='mr-2 w-[30px]' onClick={()=>handleBackClick()}></img> Back to Bundl </p>}          
                     </div>
 
                 </div>
@@ -584,7 +587,7 @@ export const MyCart = () => {
                         // id='vacancySelect'
                         value={billingInfo.country|| null} 
                         onChange={handleBillingChange} 
-                        className={`rounded-none ${'country' in error ? '!border-[red]' :''} border !border-black px-2 py-[5px] w-full`}
+                        className={`!rounded-none ${'country' in error ? '!border-[red]' :''} border !border-black px-2 py-[5px] w-full`}
                     >
                        <option value={null} disabled selected > </option>
                         { countries.map(country=>(
@@ -615,7 +618,7 @@ export const MyCart = () => {
                 billingInfo?.country === 'Saudi Arabia' && (
                     <div className='trn-code mb-[15px]'>
                     <label className={`${'vat_registered' in error ? 'text-[red]':'opacity-50'}`}>Tax Treatment<span className='text-[red]'>*</span></label>
-                     <select className={`w-[100%] py-[5px] px-2 rounded-none border-[1px] outline-none  ${'vat_registered' in error ? '!border-[red]' :'border-black border-solid'} `} name='vat_registered' onChange={handleBillingChange}>
+                     <select className={`w-[100%] py-[5px] px-2 !rounded-none border-[1px] outline-none  ${'vat_registered' in error ? '!border-[red]' :'border-black border-solid'} `} name='vat_registered' onChange={handleBillingChange}>
                         <option value={null} disabled selected></option>
                          <option value={'vat'}>VAT Registered</option>
                          <option value={'non_vat'}>Non-VAT Registered</option>

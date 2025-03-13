@@ -89,6 +89,7 @@ export const Home = () => {
     const [ourworks, setOurworks] = useState([])
     const [currentWork, setCurrentWork] = useState(1)
     const [isActiveProcess, setIsActiveProcess] = useState([false, false, false, false, false]);
+    const [isbgChecked, setIsbgChecked] = useState([false, false, false, false, false]);
     const [bundlData, setBundlData] = useState([]);
     const [routeNames , setRouteNames] = useState({
         4:'foodie',
@@ -317,11 +318,12 @@ export const Home = () => {
 
 
     useEffect(() => {
-        setTimeout(()=>{
-            const element = document.getElementById('ourBundl');
-            element?.scrollIntoView({ behavior: 'smooth' });
-        },1000)
-             
+        if(location?.hash){
+            setTimeout(()=>{
+                const element = document.getElementById('ourBundl');
+                element?.scrollIntoView({ behavior: 'smooth' });
+            },1000)
+        }
     }, [location?.hash]);
     return (
         <>
@@ -668,7 +670,11 @@ export const Home = () => {
                                 </div>
                                 {/* <!-- table-1 --> */}
                                 <div className="sliding_section border-top1" style={{ display: "flex" }} id='bundls-first-child'>
-                                    <input  type="checkbox" id="newbie_no1" className="button_section" />
+                                    <input checked={isbgChecked[0]}  type="checkbox" id="newbie_no1" className="button_section" onChange={() => setIsbgChecked(prevState => {
+                                        const newState = [...prevState];
+                                        newState[0] = !prevState[0];
+                                        return newState;
+                                    })}/>
 
                                     {/* <!-- rotating buiscut --> */}
                                     <div className="icon_section1">
@@ -691,7 +697,12 @@ export const Home = () => {
                                             </svg>
                                         </label>
                                     </div>
-                                    <div className="newbie_section cursor-pointer" onClick={() => addToCart(0)} style={window.innerWidth <= 475 ? {padding:'5% 0 2% 2%'}:{}}>
+                                    <div className="newbie_section cursor-pointer" 
+                                    onClick={() => setIsbgChecked(prevState => {
+                                        const newState = [...prevState];
+                                        newState[0] = !prevState[0];
+                                        return newState;
+                                    })} style={window.innerWidth <= 475 ? { padding: '5% 0 2% 2%' } : {}}>
                                         <div className="change_brand">
                                             <div className="table_icon"><img src={QubeIcon} alt="" className="img-fluid"></img></div>
                                             <div className="newbie">The Newbie</div>
@@ -747,7 +758,11 @@ export const Home = () => {
                                 </div>
                                 {/* <!-- table-2 --> */}
                                 <div className="sliding_section" style={{ display: "flex" }}>
-                                    <input type="checkbox" id="newbie_no2" className="button_section" />
+                                    <input checked={isbgChecked[1]} type="checkbox" id="newbie_no2" className="button_section" onChange={() => setIsbgChecked(prevState => {
+                                        const newState = [...prevState];
+                                        newState[1] = !prevState[1];
+                                        return newState;
+                                    })}/>
 
                                     {/* <!-- rotating buiscut --> */}
                                     <div className="icon_section2">
@@ -769,7 +784,11 @@ export const Home = () => {
                                             </svg>
                                         </label>
                                     </div>
-                                    <div className="newbie_section cursor-pointer" onClick={() => addToCart(1)}>
+                                    <div className="newbie_section cursor-pointer" onClick={() => setIsbgChecked(prevState => {
+                                        const newState = [...prevState];
+                                        newState[1] = !prevState[1];
+                                        return newState;
+                                    })}>
                                         <div className="change_brand">
                                             <div className="table_icon"><img src={Food} alt="" className="img-fluid"></img></div>
                                             <div className="newbie">The Foodie</div>
@@ -835,7 +854,11 @@ export const Home = () => {
                                 </div>
                                 {/* <!-- table-3 --> */}
                                 <div className="sliding_section" style={{ display: "flex" }}>
-                                    <input type="checkbox" id="newbie_no3" className="button_section" />
+                                    <input checked={isbgChecked[2]} type="checkbox" id="newbie_no3" className="button_section" onChange={() => setIsbgChecked(prevState => {
+                                        const newState = [...prevState];
+                                        newState[2] = !prevState[2];
+                                        return newState;
+                                    })}/>
 
                                     {/* <!-- rotating buiscut --> */}
                                     <div className="icon_section3">
@@ -857,7 +880,11 @@ export const Home = () => {
                                             </svg>
                                         </label>
                                     </div>
-                                    <div className="newbie_section cursor-pointer" onClick={() => addToCart(2)}>
+                                    <div className="newbie_section cursor-pointer" onClick={() => setIsbgChecked(prevState => {
+                                        const newState = [...prevState];
+                                        newState[2] = !prevState[2];
+                                        return newState;
+                                    })}>
                                         <div className="change_brand">
                                             <div className="table_icon"><img src={Eye} alt="" className="img-fluid"></img></div>
                                             <div className="newbie">The socialite</div>
@@ -922,7 +949,11 @@ export const Home = () => {
                                 </div>
                                 {/* <!-- table-4 --> */}
                                 <div className="sliding_section" style={{ display: "flex" }}>
-                                    <input type="checkbox" id="newbie_no4" className="button_section" />
+                                    <input checked={isbgChecked[3]} type="checkbox" id="newbie_no4" className="button_section" onChange={() => setIsbgChecked(prevState => {
+                                        const newState = [...prevState];
+                                        newState[3] = !prevState[3];
+                                        return newState;
+                                    })}/>
 
                                     {/* <!-- rotating buiscut --> */}
                                     <div className="icon_section4">
@@ -944,7 +975,11 @@ export const Home = () => {
                                             </svg>
                                         </label>
                                     </div>
-                                    <div className="newbie_section cursor-pointer" onClick={() => addToCart(3)}>
+                                    <div  className="newbie_section cursor-pointer" onClick={() => setIsbgChecked(prevState => {
+                                        const newState = [...prevState];
+                                        newState[3] = !prevState[3];
+                                        return newState;
+                                    })}>
                                         <div className="change_brand">
                                             <div className="table_icon"><img src={Diamond} alt="" className="img-fluid"></img></div>
                                             <div className="newbie">The Boutiquer</div>
@@ -1009,7 +1044,11 @@ export const Home = () => {
                                 </div>
                                 {/* <!-- table-5 --> */}
                                 <div className="sliding_section" style={{ display: "flex" }}>
-                                    <input type="checkbox" id="newbie_no5" className="button_section" />
+                                    <input checked={isbgChecked[4]} type="checkbox" id="newbie_no5" className="button_section" onChange={() => setIsbgChecked(prevState => {
+                                        const newState = [...prevState];
+                                        newState[4] = !prevState[4];
+                                        return newState;
+                                    })}/>
 
                                     {/* <!-- rotating buiscut --> */}
                                     {/* <div className="icon_section5">
@@ -1042,7 +1081,11 @@ export const Home = () => {
                                             </svg>
                                         </label>
                                     </div>
-                                    <div className="newbie_section cursor-pointer" onClick={() =>navigate("/custombundl")} style={{ justifyContent: "end" }}>
+                                    <div className="newbie_section cursor-pointer" onClick={() => setIsbgChecked(prevState => {
+                                        const newState = [...prevState];
+                                        newState[4] = !prevState[4];
+                                        return newState;
+                                    })}style={{ justifyContent: "end" }}>
                                         <div className="change_brand">
                                             <div className="table_icon"><img src={MaginIcon} alt="" className="img-fluid" /></div>
                                             <div className="newbie">Customized</div>

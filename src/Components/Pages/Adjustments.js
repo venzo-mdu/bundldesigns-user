@@ -524,7 +524,7 @@ export default function Adjustments({user}) {
                                     <div className=''>
                                         <div className=' flex flex-wrap overflow-auto w-full'>
                                             {adjustments.map((adjustment, index) => {
-                                                return <button className={` px-[5%] py-[2%] w-[${stylesBtn[index]}] ${adjustmenTab == adjustment.english_adjustment_name ? 'text-white bg-[#1BA56F] ' : 'text-[#1BA56F] bg-white '}  border-[1px]
+                                                return <button className={`uppercase px-[5%] py-[2%] w-[${stylesBtn[index]}] ${adjustmenTab == adjustment.english_adjustment_name ? 'text-white bg-[#1BA56F] ' : 'text-[#1BA56F] bg-white '}  border-[1px]
                                      !border-[#1BA56F]`}
                                                     onClick={() => {
                                                         setAdjustmentTab(adjustment.english_adjustment_name)
@@ -603,7 +603,7 @@ export default function Adjustments({user}) {
                                                 element.scrollIntoView({ behavior: 'smooth' })
                                             }
                                             }
-                                                className={`cursor-pointer py-[2%] px-[5%] w-[${stylesBtnAccordian[index]}] !font[500] text-center font-[500] ${designListTab == category ?
+                                                className={`uppercase cursor-pointer py-[2%] px-[5%] w-[${stylesBtnAccordian[index]}] !font[500] text-center font-[500] ${designListTab == category ?
                                                     'text-white bg-[#1BA56F] ' : 'text-[#1BA56F] bg-white '} border-[1px]
                                               !border-[#1BA56F]`}
                                             >{category}</a>
@@ -927,7 +927,7 @@ export default function Adjustments({user}) {
                                                 // id='vacancySelect'
                                                 value={billingInfo.country|| null} 
                                                 onChange={handleBillingChange} 
-                                                className={`rounded-none ${'country' in error ? '!border-[red]' :''} border !border-black px-2 py-[5px] w-full`}
+                                                className={`!rounded-none ${'country' in error ? '!border-[red]' :''} border !border-black px-2 py-[5px] w-full`}
                                             >
                                             <option value={null} disabled selected > </option>
                                                 { countries.map(country=>(
@@ -958,7 +958,7 @@ export default function Adjustments({user}) {
                                          billingInfo?.country === 'Saudi Arabia' && (
                                         <div className='trn-code mb-[15px]'>
                                         <label className={`${'vat_registered' in error ? 'text-[red]':'opacity-100'}`}>Tax Treatment<span className='text-[red]'>*</span></label>
-                                            <select className={`w-[100%] py-[5px] px-2 rounded-none border-[1px] outline-none  ${'vat_registered' in error ? '!border-[red]' :'border-black border-solid'} `} name='vat_registered' onChange={handleBillingChange}>
+                                            <select className={`w-[100%] py-[5px] px-2 !rounded-none border-[1px] outline-none  ${'vat_registered' in error ? '!border-[red]' :'border-black border-solid'} `} name='vat_registered' onChange={handleBillingChange}>
                                             <option value={null} disabled selected></option>
                                                 <option value={'vat'}>VAT Registered</option>
                                                 <option value={'non_vat'}>Non-VAT Registered</option>
@@ -1021,7 +1021,7 @@ export default function Adjustments({user}) {
                                         <div className=''>
                                             <div className=' flex overflow-auto md:max-w-[62vw] max-w-[62vw] xs:max-w-[100%]'>
                                                 {adjustments.map((adjustment, index) => {
-                                                    return <button className={`lg:px-[20px] md:px-[10px] basis-[20%] min-w-[100px] md:py-[3px] md:text-[16px] lg:py-[5px]  ${adjustmenTab == adjustment.english_adjustment_name ? 'text-white bg-[#1BA56F] ' : 'text-[#1BA56F] bg-white '} border-r border-t border-b 
+                                                    return <button className={`uppercase lg:px-[20px] md:px-[10px] basis-[20%] min-w-[100px] md:py-[3px] md:text-[16px] lg:py-[5px]  ${adjustmenTab == adjustment.english_adjustment_name ? 'text-white bg-[#1BA56F] ' : 'text-[#1BA56F] bg-white '} border-r border-t border-b 
                                     ${index == 0 && 'border-l'} ${index == adjustments.length && 'border-l-0 border-r'} !border-[#1BA56F]`}
                                                         onClick={() => {
                                                             setAdjustmentTab(adjustment.english_adjustment_name)
@@ -1099,7 +1099,7 @@ export default function Adjustments({user}) {
                                                     const element = document.getElementById(`${index}_list`);
                                                     element.scrollIntoView({ behavior: 'smooth' })
                                                 }
-                                                } className={`cursor-pointer lg:px-[2px] min-w-[14%] md:px-[2px] md:py-[5px] 
+                                                } className={`uppercase cursor-pointer lg:px-[2px] min-w-[14%] md:px-[2px] md:py-[5px] 
                                                 md:text-[17px] lg:py-[5px] !font[500] text-center font-[500] ${designListTab == category ?
                                                         'text-white bg-[#1BA56F] ' : 'text-[#1BA56F] bg-white '} border-r border-t border-b
                                             ${index == 0 && 'border-l'} ${index == Object.keys(bundlAddons).length && 'border-l-0 border-r'} !border-[#1BA56F]`}
@@ -1276,7 +1276,7 @@ export default function Adjustments({user}) {
                                             <p className='!text-[20px]' style={{ width: '53%' }}>VAT:</p>
                                             <p className='!text-[20px]  text-right' style={{ width: '40%' }}>{tax} SAR</p>
                                         </div>
-                                        <div>
+                                        <div className='border-[2px] border-black p-[2%_0_0_2%]'>
                                             <div className='justify-between mr-4' style={{ display: 'flex' }}>
                                                 <p className='!text-[20px] ml-[6px]' style={{ width: '50%' }}><img src={BlackDollor} className='inline-block ml-[0px] mr-[18px]'></img>Total Price :</p>
                                                 <p className='!text-[20px] text-right' style={{ width: '40%' }}>{totalPrice + tax} SAR</p>
@@ -1343,7 +1343,7 @@ export default function Adjustments({user}) {
                                                 // id='vacancySelect'
                                                 value={billingInfo.country|| null} 
                                                 onChange={handleBillingChange} 
-                                                className={`rounded-none ${'country' in error ? '!border-[red]' :''} border !border-black px-2 py-[5px] w-full`}
+                                                className={`!rounded-none ${'country' in error ? '!border-[red]' :''} border !border-black px-2 py-[5px] w-full`}
                                             >
                                             <option value={null} disabled selected > </option>
                                                 { countries.map(country=>(
@@ -1374,7 +1374,7 @@ export default function Adjustments({user}) {
                                          billingInfo?.country === 'Saudi Arabia' && (
                                         <div className='trn-code mb-[15px]'>
                                         <label className={`${'vat_registered' in error ? 'text-[red]':'opacity-100'}`}>Tax Treatment<span className='text-[red]'>*</span></label>
-                                            <select className={`w-[100%] py-[5px] px-2 rounded-none border-[1px] outline-none  ${'vat_registered' in error ? '!border-[red]' :'border-black border-solid'} `} name='vat_registered' onChange={handleBillingChange}>
+                                            <select className={`w-[100%] py-[5px] px-2 !rounded-none border-[1px] outline-none  ${'vat_registered' in error ? '!border-[red]' :'border-black border-solid'} `} name='vat_registered' onChange={handleBillingChange}>
                                             <option value={null} disabled selected></option>
                                                 <option value={'vat'}>VAT Registered</option>
                                                 <option value={'non_vat'}>Non-VAT Registered</option>

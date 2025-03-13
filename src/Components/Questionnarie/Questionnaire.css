@@ -1549,7 +1549,7 @@ input::placeholder {
         width: 100px;
     }
     .font-buttons{
-        height: 40px;
+        height: 25px;
         font-size: 10px;
     }
     .specific-color {
@@ -1563,12 +1563,12 @@ input::placeholder {
       font-size: 10px;
     }
     .title-questionnaire {
-        margin: -60% 0 0 3%;
+        margin: -40% 0 0 3%;
     }
     .male-btn, .female-btn {
         font-size: 10px;
         height: 35px;
-        width: 90px;
+        width: 110px;
         margin: 5% 0 0 0;
     }
     .male, .female {
@@ -1601,12 +1601,12 @@ input::placeholder {
       font-size: 10px;
     }
     .title-questionnaire {
-        margin: -60% 0 0 3%;
+        margin: -48% 0 0 3%;
     }
     .male-btn, .female-btn {
         font-size: 10px;
         height: 35px;
-        width: 90px;
+        width: 100px;
         margin: 5% 0 0 0;
     }
     .male, .female {
@@ -1640,7 +1640,7 @@ input::placeholder {
       font-size: 10px;
     }
     .title-questionnaire {
-        margin: -60% 0 0 3%;
+        margin: -55% 0 0 3%;
     }
     .male-btn, .female-btn {
         font-size: 10px;

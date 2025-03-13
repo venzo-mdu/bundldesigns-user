@@ -14,13 +14,13 @@ const PrivacyPolicy = () => {
         </div>
         <div className='lg:my-[3%] md:my-[5%] xs:my-[5%] lg:p-0 md:p-0 xs:p-[1%_5%]'>
         <div className='flex items-center justify-center mx-auto'>
-          <p className='lg:text-[18px] md:text-[18px] xs:text-[14px] font-[400] lg:w-[40%] md:w-[50%]'>{PrivacyPolicyJson?.privacy_desc}</p>
+          <p className='lg:text-[18px] md:text-[18px] xs:text-[14px] font-[400] lg:w-[85%] md:w-[90%]'>{PrivacyPolicyJson?.privacy_desc}</p>
         </div>
         <div className='flex flex-col items-center justify-center mx-auto w-full text-left'>
           {
             PrivacyPolicyJson?.privacy_policies?.map((items, index) => {
               return (
-                <div key={index} className="w-full lg:max-w-[40%] md:max-w-[50%] xs:max-w-[100%] mt-2">
+                <div key={index} className="w-full lg:max-w-[85%] md:max-w-[90%] xs:max-w-[100%] mt-2">
                   <p className='font-[700] lg:text-[18px] md:text-[18px] xs:text-[14px] lg:w-[45%] md:w-[45%] xs:w-[100%]'>{items?.privacy_policy_title}</p>
                   <p className='font-[400] lg:text-[18px] md:text-[18px] xs:text-[14px] '>{items?.privacy_policy_desc}</p>
                   {
@@ -32,7 +32,7 @@ const PrivacyPolicy = () => {
               )
             })
           }
-        <div className="w-full lg:max-w-[40%] md:max-w-[50%] xs:max-w-[100%]">
+        <div className="w-full lg:max-w-[85%] md:max-w-[90%] xs:max-w-[100%]">
         <p className='font-[700] lg:text-[18px] md:text-[18px] xs:text-[14px] '>{PrivacyPolicyJson?.privacy_policy_contact_title}</p>
         <p className='font-[400] lg:text-[18px] md:text-[18px] xs:text-[14px] '>{PrivacyPolicyJson?.privacy_policy_contact_desc}</p>
         <p className='font-[400] lg:text-[18px] md:text-[18px] xs:text-[14px] '>{PrivacyPolicyJson?.privacy_policy_contact_owner}</p>

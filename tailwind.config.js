@@ -19,7 +19,8 @@ module.exports = {
         lg:'1400px',
         md:'1024px',
         xs: '300px',
-        sm:'800px'
+        sm:'800px',
+        custom:'400px',
       },
       keyframes: {
         'rotate-animation': {

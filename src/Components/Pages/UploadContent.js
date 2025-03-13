@@ -153,7 +153,7 @@ console.log(skipId)
                                     {order.item_details.bundle_items
                                         .filter(item=>item.item__category !== 1 && !skipId?.includes(item.id) && item.status == 'questionnaire required')
                                         .map((item,index,filterArr) => {
-                                            return <div className={`${( filterArr.length === 1 || (index === filterArr.length -1 && order.item_details.addon_items.length === 0 ))  ? '' : 'border-b !border-black'}mt-[2%]`}>
+                                            return <div className={`${( filterArr.length === 1 || (index === filterArr.length -1 || order.item_details.bundle_items.length === 0 ))  ? '' : 'border-b !border-black'}mt-[2%]`}>
                                             
                                                 <p className="mb-0 font-[700] text-[20px]">{item.item_name}</p>
                                                 {designQuestions[item.item__id]?.language && <p className='mt-2'>
@@ -233,7 +233,7 @@ console.log(skipId)
                                         order.item_details.addon_items
                                         .filter(item=>!skipId.includes(item.id) && item.status == 'questionnaire required')
                                         .map((item,index,filterArr) => {
-                                                return <div className={`${( filterArr.length === 1 || index === filterArr.length)  ? '' : 'border-b !border-black'} mt-[2%]`}>
+                                                return <div className={`${( filterArr.length === 1 || (index === filterArr.length -1 || order.item_details.addon_items.length === 0 ))  ? '' : 'border-b !border-black'} mt-[2%]`}>
                                                     <p className="mb-0 font-[700] text-[20px]">{item.item_name}</p>
                                                     {designQuestions[item.item__id]?.language && <p className='mt-2 mb-0'>
                                                         <label className='mr-6 font-[500]'>
@@ -395,7 +395,7 @@ console.log(skipId)
                                         {order.item_details.bundle_items
                                             .filter(item=>item.item__category !== 1 && !skipId?.includes(item.id) && item.status == 'questionnaire required')
                                             .map((item,index,filterArr) => {
-                                                return <div className={`${filterArr.length === 1 || (index === filterArr.length - 1  && order.item_details.addon_items?.length === 0) ? '' : 'border-b border-black'} px-[5%] space-x-2 mt-[2%]`}>
+                                                return <div className={`${filterArr.length === 1 || (index === filterArr.length - 1  || order.item_details.bundle_items?.length === 0) ? '' : 'border-b border-black'} px-[5%] space-x-2 mt-[2%]`}>
                                                     <p className="mb-0 font-semibold text-[22px">{item.item_name}</p>
                                                     {designQuestions[item.item__id]?.language && <p className='mt-2'>
                                                         <label className='mr-6 font-[500]'>
@@ -476,7 +476,7 @@ console.log(skipId)
                                             .filter(item => !skipId.includes(item.id) && item.status === 'questionnaire required')
                                             .map((item,index,filteredArr) => {
                                                           
-                                                    return <div className={`${( filteredArr.length === 1 || index === filteredArr.length  && order.item_details.addon_items?.length === 0 )  ? '' : 'border-b !border-black'} px-[5%] space-x-2 mt-[2%]`}>
+                                                    return <div className={`${( filteredArr.length === 1 || (index === filteredArr.length -1  || order.item_details.addon_items?.length === 0) )  ? '' : 'border-b !border-black'} px-[5%] space-x-2 mt-[2%]`}>
                                                         <p className="mb-0 font-semibold text-[22px">{item.item_name}</p>
                                                         {designQuestions[item.item__id]?.language && <p className='mt-2 mb-0'>
                                                             <label className='mr-6 font-[500]'>
@@ -598,7 +598,7 @@ console.log(skipId)
                                 }
 
                                 <p className='flex justify-start mt-4 mb-2 text-[#00000080]'> <button onClick={() => saveAllContent('submit')} className='text-[16px] lg:px-4 md:px-4 border !border-[#00000080] font-medium'>  Submit content </button> </p>
-                                <p className='flex justify-start text-[#1BA56F]'> <button onClick={() => saveAllContent('save_later')} className='text-[16px] lg:px-[4.8%] md:px-[6.6%] border !border-[#1BA56F] font-medium'> Save for Later </button> </p>
+                                <p className='flex justify-start text-[#1BA56F]'> <button onClick={() => saveAllContent('save_later')} className='text-[16px] lg:px-[1.3rem] md:px-[6.6%] border !border-[#1BA56F] font-medium'> Save for Later </button> </p>
 
                             </div>
                         </div>
