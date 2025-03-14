@@ -360,27 +360,27 @@ export const MyCart = () => {
             setError(errors)
         }
     }
-    useEffect(() => {
-        // Function to handle the back button (popstate)
-        const handlePopState = (event) => {
-          console.log('Back button pressed');
-          setShowModal(true); // Show the modal
-          document.documentElement.scrollTo({ top: 0, left: 0 });
-          // Push the same state back to prevent navigation
-          window.history.pushState(null, '', window.location.href);
-        };
+    // useEffect(() => {
+    //     // Function to handle the back button (popstate)
+    //     const handlePopState = (event) => {
+    //       console.log('Back button pressed');
+    //       setShowModal(true); // Show the modal
+    //       document.documentElement.scrollTo({ top: 0, left: 0 });
+    //       // Push the same state back to prevent navigation
+    //       window.history.pushState(null, '', window.location.href);
+    //     };
     
-        // Push initial state into history when the component mounts
-        window.history.pushState(null, '', window.location.href);
+    //     // Push initial state into history when the component mounts
+    //     window.history.pushState(null, '', window.location.href);
     
-        // Add the event listener for "popstate"
-        window.addEventListener('popstate', handlePopState);
+    //     // Add the event listener for "popstate"
+    //     window.addEventListener('popstate', handlePopState);
     
-        // Cleanup the listener on unmount
-        return () => {
-          window.removeEventListener('popstate', handlePopState);
-        };
-      }, []);
+    //     // Cleanup the listener on unmount
+    //     return () => {
+    //       window.removeEventListener('popstate', handlePopState);
+    //     };
+    //   }, []);
 
       
     const handleBackClick = () => {

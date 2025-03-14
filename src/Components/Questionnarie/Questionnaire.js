@@ -62,12 +62,12 @@ export const Questionnaire = ({
                   <img width={500} height={500} src={Eyesspoon}></img>
                 </div> : ''
             }
-            {/* {
-              pageNo === 1 ?
+            {
+              pageNo === 1 && window.innerWidth >=500 ?
                 <div className='eyespoon2'>
                   <img src={Eyesspoon2} width={300} height={500}></img>
                 </div> : ''
-            } */}
+            }
             {
               pageNo === 2 ?
                 <div>

@@ -7,6 +7,7 @@ function App() {
       left: 0
     })
   },[])
+  
   return (
    <AppRouter/>
   );

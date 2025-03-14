@@ -665,7 +665,7 @@ const handleDownload = async (file) => {
                                         <div className={`flex items-center lg:w-[78%] w-[80%] md:w-[87%]  lg:mx-auto md:mx-auto lg:mt-10 md:mt-10 xs:mt-2 lg:px-0 ${processIndex === 5 ? 'xs:w-[100%]':'xs:w-[108%]'} xs:px-[2%] xs:ml-[2%]`}>{renderProcessData()}</div>
                                         <div className='flex lg:p-[0px_30px_0px_0px] md:p-[15px_15px_0px_70px] mb-12 lg:w-[90%] w-[80%] md:w-[100%] xs:w-[100%] lg:m-auto md:m-0'>
                                             {window.innerWidth > 768 && dashboardJson.project_process.map((item, index) => {
-                                                return <div className='lg:basis-[45%] md:basis-[20%] xs:basis-1/5 text-center lg:text-[16px] md:text-[14px] mt-[2%]'>  <p className={`pb-0 lg:max-w-[70%] md:max-w-[140px] max-w-[95%] lg:mx-auto md:mx-0 xs:mx-auto mb-0 ${index == processIndex && 'font-bold'}`}> {item} </p>
+                                                return <div className='lg:basis-[45%] md:basis-[20%] xs:basis-1/5 text-center lg:text-[16px] md:text-[14px] mt-[2%]'>  <p className={`pb-0 lg:max-w-[75%] md:max-w-[140px] max-w-[95%] lg:mx-auto md:mx-0 xs:mx-auto mb-0 ${index == processIndex && 'font-bold'}`}> {item} </p>
                                                     {index == processIndex && <p className='text-[#1BA56F] font-[700] lg:text-center md:text-justify ml-0'>You’re now Here!</p>}
                                                 </div>
                                             })}

@@ -524,7 +524,7 @@ export default function Adjustments({user}) {
                                     <div className=''>
                                         <div className=' flex flex-wrap overflow-auto w-full'>
                                             {adjustments.map((adjustment, index) => {
-                                                return <button className={`uppercase px-[5%] py-[2%] w-[${stylesBtn[index]}] ${adjustmenTab == adjustment.english_adjustment_name ? 'text-white bg-[#1BA56F] ' : 'text-[#1BA56F] bg-white '}  border-[1px]
+                                                return <button className={`uppercase text-[14px] font-[500] px-[5%] py-[2%] w-[${stylesBtn[index]}] ${adjustmenTab == adjustment.english_adjustment_name ? 'text-white bg-[#1BA56F] ' : 'text-[#1BA56F] bg-white '}  border-[1px]
                                      !border-[#1BA56F]`}
                                                     onClick={() => {
                                                         setAdjustmentTab(adjustment.english_adjustment_name)
@@ -603,7 +603,7 @@ export default function Adjustments({user}) {
                                                 element.scrollIntoView({ behavior: 'smooth' })
                                             }
                                             }
-                                                className={`uppercase cursor-pointer py-[2%] px-[5%] w-[${stylesBtnAccordian[index]}] !font[500] text-center font-[500] ${designListTab == category ?
+                                                className={`uppercase cursor-pointer text-[14px] py-[2%] px-[5%] w-[${stylesBtnAccordian[index]}] !font[500] text-center font-[500] ${designListTab == category ?
                                                     'text-white bg-[#1BA56F] ' : 'text-[#1BA56F] bg-white '} border-[1px]
                                               !border-[#1BA56F]`}
                                             >{category}</a>
@@ -1021,7 +1021,7 @@ export default function Adjustments({user}) {
                                         <div className=''>
                                             <div className=' flex overflow-auto md:max-w-[62vw] max-w-[62vw] xs:max-w-[100%]'>
                                                 {adjustments.map((adjustment, index) => {
-                                                    return <button className={`uppercase lg:px-[20px] md:px-[10px] basis-[20%] min-w-[100px] md:py-[3px] md:text-[16px] lg:py-[5px]  ${adjustmenTab == adjustment.english_adjustment_name ? 'text-white bg-[#1BA56F] ' : 'text-[#1BA56F] bg-white '} border-r border-t border-b 
+                                                    return <button className={`uppercase font-[500] h-[40px] lg:px-[20px] md:px-[10px] basis-[20%] min-w-[100px] md:py-[3px] md:text-[14px] lg:py-[5px]  ${adjustmenTab == adjustment.english_adjustment_name ? 'text-white bg-[#1BA56F] ' : 'text-[#1BA56F] bg-white '} border-r border-t border-b 
                                     ${index == 0 && 'border-l'} ${index == adjustments.length && 'border-l-0 border-r'} !border-[#1BA56F]`}
                                                         onClick={() => {
                                                             setAdjustmentTab(adjustment.english_adjustment_name)
@@ -1093,17 +1093,17 @@ export default function Adjustments({user}) {
                                             <h2 className='text-[32px]'>Something feels missing ?</h2>
                                             <p className='text-[18px] text-[#00000080]'>Add anything you want to your bundl to fit your brand!</p>
                                             <div className='flex w-[100%]'>  {Object.keys(bundlAddons).map((category, index) => {
-                                                return <a onClick={() => {
+                                                return <button onClick={() => {
                                                     toggleDescription(category)
                                                     setDesignListTab(category)
                                                     const element = document.getElementById(`${index}_list`);
                                                     element.scrollIntoView({ behavior: 'smooth' })
                                                 }
-                                                } className={`uppercase cursor-pointer lg:px-[2px] min-w-[14%] md:px-[2px] md:py-[5px] 
-                                                md:text-[17px] lg:py-[5px] !font[500] text-center font-[500] ${designListTab == category ?
+                                                } className={`uppercase h-[40px] cursor-pointer lg:px-[2px] min-w-[14%] md:px-[2px] md:py-[5px] 
+                                                md:text-[14px] lg:py-[5px] !font[500] text-center font-[500] ${designListTab == category ?
                                                         'text-white bg-[#1BA56F] ' : 'text-[#1BA56F] bg-white '} border-r border-t border-b
                                             ${index == 0 && 'border-l'} ${index == Object.keys(bundlAddons).length && 'border-l-0 border-r'} !border-[#1BA56F]`}
-                                                >{category}</a>
+                                                >{category}</button>
                                             })}</div>
 
                                             <div className='mt-10'>
@@ -1207,9 +1207,9 @@ export default function Adjustments({user}) {
                                             <p className='basis-2/5 text-[18px] mb-0'>{totalTime} Days</p>
                                         </div>
 
-                                        <div >
+                                        <div className='flex flex-col justify-center items-center'>
                                             <button onClick={() => CheckCart()} className=' w-[90%]  py-1 lg:mt-[8%] md:mt-[12%] text-[18px] text-white bg-[#1BA56F] '>Proceed Checkout</button>
-                                            {errorMsg && <p className='pb-0 text-[16px] text-[red]'>{errorMsg}*</p>}
+                                            {errorMsg && <p className='pb-0 text-[16px] text-[red] text-left mt-2'>{errorMsg}*</p>}
                                         </div>
                                     </div>
                                 </div>

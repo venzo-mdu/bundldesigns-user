@@ -23,7 +23,7 @@ export const Thankyoucard = () => {
           <img src={workBrandGIF} alt='thank-image' className='lg:w-[8%] md:w-[8%] xs:w-[15%]'></img>
           <p className='thank-you-text'>THANK YOU!</p>
           <p className='thank-you-desc'>We’ll reach out to you at the earliest convenience.</p>
-          <NavLink to={"/"}><button className='back-to-home'>BACK TO HOME PAGE</button></NavLink>
+          <NavLink to={"/dashboard"}><button className='back-to-home'>BACK TO DASHBOARD</button></NavLink>
         </div>
         {/* <Footer/> */}
     </div>

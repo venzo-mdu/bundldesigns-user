@@ -291,7 +291,7 @@ input::placeholder {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     margin: 2% 0 0 0;
-    gap:20px;
+    gap:40px;
 }
 .font-background {
     height: 175px;
@@ -910,6 +910,14 @@ input::placeholder {
         top: 23%;
         animation: lip 4s ease-in-out infinite forwards;
     }
+    /* .font-grid{
+        gap:40px;
+    } */
+    .font-background{
+        height: 175px;
+        width: 363px;
+    }
+    
     @keyframes mirror{
         0%{
             transform: translate(28%, 20%);
