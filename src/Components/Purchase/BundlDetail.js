@@ -367,7 +367,7 @@ export const BundlDetail = () => {
             // maxHeight: showDetails ? "80%" : "200px", 
             transition: "all 0.5s ease-in-out",
           }}
-           className='bundl-summary  border max-h-[80%] overflow-y-scroll w-full' >
+           className='bundl-summary  border max-h-[80%] w-full' >
              <div className='bundl-name '>
                <p className='sm:text-[24px] xs:mb-0 xs:flex xs:justify-between sm:block font-[700] px-0 !mb-2'  >
                <span className='font-normal'>Summary</span>
