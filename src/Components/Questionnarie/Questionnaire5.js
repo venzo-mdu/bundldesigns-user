@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ConfigToken } from '../Auth/ConfigToken';
 import { questionnaireAction5, questionnaireAnswers } from '../../Redux/Action';
 import { ToastContainer, toast } from 'react-toastify';
+import Blackupload from '../../Images/blackupload.svg'
 
 export const Questionnaire5 = ({formData,setFormData}) => {
 
@@ -18,6 +19,7 @@ export const Questionnaire5 = ({formData,setFormData}) => {
   const answers2 = useSelector((state) => state.questionnaire2);
   const answers3 = useSelector((state) => state.questionnaire3);
   const answers4 = useSelector((state) => state.questionnaire4);
+  const [uploadContent , setUploadContent] = useState({});
   const [questions, setQuestions] = useState([]);
   const [selectedLanguage, setSelectedLanguage] = useState(null);
   const [isFilled , setIsFilled] = useState(null)
@@ -129,6 +131,29 @@ export const Questionnaire5 = ({formData,setFormData}) => {
   };
 
 
+  const uploadFile = async (e, id, field) => {
+          if (e.target.files.length) {
+              const formData = new FormData()
+              formData.append('file', e.target.files[0])
+              formData.append('file_name', e.target.files[0]?.name)
+              const response = await axios.post(`${base_url}/api/upload_file/`, formData, ConfigToken());
+              console.log(response.data, 'res');
+              setUploadContent((prev) => ({
+                  ...prev,
+                  [id]: {
+                      ...prev[id], // Preserve other fields for this ID
+                      [field]: response.data.file_url, // Update the file or other field
+                      ...(field === 'file' && { filename: e.target.files[0]?.name || '' }), // Update filename if file is changed
+                  },
+              }));
+              setFormData((prev)=>({
+                  ...prev,
+                  [id]:response.data.file_url
+              }))
+          }
+  }
+
+
   const onBackClick = () => {
     navigate(`/questionnaire/${4}`, { state: { questionnaireData4: answers4,orderId:location.state?.orderId } });
   };
@@ -237,6 +262,35 @@ console.log(location.state?.orderId,'orderid')
                 (
                   <div className={`w-[100%] xl:h-[2px] lg:h-[2px] md:h-[2px] sm:h-[2px] xs:h-[1px] ${isFilled === question?.id ? 'bg-red-400':'bg-black'} lg:mt-[3%] md:mt-[3%] xs:mt-[5%]`}></div>
                 ) :
+                (question?.id === 23) ?
+                <div
+                className={`question-input ${isFilled === question?.id ? 'border-red-400 border-b-[2px]':`${window?.innerWidth <= 475 ? 'border-b-[1px]':'border-b-[2px]'} border-black`}`}
+                >
+               <>
+                    
+                    <p className='text-[#a9a9a9] mt-[-25px] text-[18px]'>{question?.placeholder}</p>
+                    <div className='flex justify-center items-center'>
+                    <p
+                        className={`border-1 
+                            ${uploadContent?.[question?.id]?.filename ? 'w-fit':window?.innerWidth<=500 ? 'w-[75%]':'w-[15%]'} 
+                          !border-[#000000] flex items-center justify-center  text-[#000000] cursor-pointer ml-2 mt-3 p-2 `}
+                        onClick={() => document.getElementById(`file-${question.id}`).click()} 
+                    >
+                        <input
+                            type="file"
+                            hidden
+                            name="file"
+                            id={`file-${question.id}`} // Use a unique ID for each input
+                            onChange={(e) => uploadFile(e, question.id, 'file')}
+                        />
+                        <img className='h-[25px] w-[40px]' src={Blackupload} alt="Upload Icon" />
+                        {uploadContent?.[question?.id]?.filename || 'Upload Content'}
+                    </p>
+                    </div>
+                   
+                    </>
+                </div>
+                :  
                 (
                   <input
                     placeholder={question.placeholder}

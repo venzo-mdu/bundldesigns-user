@@ -17,12 +17,13 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { Bgloader } from '../Common/Background/Bgloader'
+import { Popup } from '../Common/Popup/Popup'
 
 
 export const BundlDetail = () => {
 
   const location = useLocation();
-  const {state} = location
+  const {state} = location;
   const { packageID } = useParams();
   const [packageDetail,setPackageDetail] = useState()
   const navigate = useNavigate();
@@ -37,16 +38,24 @@ export const BundlDetail = () => {
   const [selectedLanguage, setSelectedLanguage] = useState('English');
   const [firstOrder,setFirstOrder] = useState(true)
   const [actual,setactual] = useState({})
+  const [selectedIndex, setSelectedIndex] = useState(null)
   const [routeId , setRouteId] = useState({
     'newbie':12,
     'foodie':4,
     'socialite':22,
     'boutiquer':13,
   })
+  const [routeNames , setRouteNames] = useState({
+          4:'foodie',
+          12:'newbie',
+          13:'boutiquer',
+          22:'socialite'
+        })
   const [coinIcon,setCoinIcon] = useState(greenIcon)
   const [textColor,setTextColor] = useState('#1BA56F')
   const [showDetails,setDetails] = useState(false)
   const [isMobile, setIsMobile] = useState(window.innerWidth < 440);
+  const [openPopup, setOpenPopup] = useState(false);
   const selectedItems = bundlAddons.bundle_details?.flatMap(bundle =>
     bundle.design_list.map(design => ({
       ...design,
@@ -60,7 +69,6 @@ export const BundlDetail = () => {
     document.documentElement.scrollTo({ top: 0, left: 0 });
     getBundlData();
     // getprojects()
-    
   }, []);
   useEffect(()=>{
     const handleResize = () => {
@@ -189,7 +197,12 @@ export const BundlDetail = () => {
     });
   };
 
-
+  const emptyCart = async () => {
+    setOpenPopup(false);
+    await axios.delete(`${base_url}/api/order/cart/`, ConfigToken());
+    // addToCart(selectedIndex)
+    toast.success('Cart emptied,Now Checkout')
+}
 
   const createPayload = async () => {
     if (!validateFields()) return;
@@ -224,19 +237,25 @@ export const BundlDetail = () => {
     };
 
     try {
-      const response = await axios.post(
-        `${base_url}/api/order/create/`,
-        payload,
-        ConfigToken()
-      );
-      if (response.status === 201) {
-        navigate('/mycart', { state: { orderData: response.data.data.data} });
-      }
+        const response = await axios.get(`${base_url}/api/order/cart/`, ConfigToken());
+        if(response?.data?.order_status && !state?.project_name){
+          setOpenPopup(true)
+        }
+        else if (state?.project_name){
+          const createResponse = await axios.post( `${base_url}/api/order/create/`, payload,ConfigToken());
+          navigate('/mycart', { state: { orderData: createResponse.data.data.data } });
+        }
+        else {
+          const createResponse = await axios.post( `${base_url}/api/order/create/`, payload,ConfigToken());
+          navigate('/mycart', { state: { orderData: createResponse.data.data.data } });
+        }
     } catch (error) {
       console.error("Error creating order:", error);
+      navigate(`/login?next_url=bundldetail/${packageID}`,{state:{
+        project_name:brandInput
+      }});
     }
-
-
+   
   };
 
   return (
@@ -439,7 +458,20 @@ export const BundlDetail = () => {
        </div>
        <Footer />
      </div>
+     
     }
+    {
+                openPopup &&
+                <Popup
+                    openpopup={openPopup}
+                    setPopup={setOpenPopup}
+                    title={'Your Cart was already full'}
+                    subTitle={'Are you sure, you want to empty the cart.'}
+                    onClick={emptyCart}
+                    save={'Empty Cart'}
+                    cancel={'Cancel'}
+                />
+            }
     </>
   )
 }

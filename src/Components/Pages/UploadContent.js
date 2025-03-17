@@ -37,7 +37,18 @@ export default function UploadContent() {
 
     useEffect(() => {
         getOrderDetails()
-    }, [])
+    }, []);
+
+    useEffect(()=>{
+        if(localStorage.getItem(orderId)){
+           const data = JSON.parse(localStorage.getItem(orderId));
+           console.log(data);
+           setUploadContent(data?.answers)
+        }
+        else{
+            setUploadContent({})
+        }
+    },[orderId])
 
 
     const uploadFile = async (e, id, field) => {
@@ -116,7 +127,13 @@ export default function UploadContent() {
         window.location.href = '/dashboard'
     }
 
-    console.log(JSON.stringify(uploadContent), 'uppp')
+    const saveForLater = () =>{
+        const formData = { answers: uploadContent, orderId: order.id};
+        localStorage?.setItem(order.id, JSON.stringify(formData));
+        window.location.href = '/dashboard'
+    }
+
+    
     const handleChange = (e, id, field) => {
         console.log(e)
         let newValue = field === 'file' ? e.target.files[0] : e.target.value;
@@ -134,7 +151,6 @@ export default function UploadContent() {
             },
         }));
     };
-console.log(skipId)
 
     return (
         loading ?
@@ -371,7 +387,7 @@ console.log(skipId)
                                             }
                                             <div className='border-b-[1px] border-black mt-4'></div>
                                             <p className='flex justify-center mt-4 mb-2 text-[#00000080] px-[5%]'> <button onClick={() => saveAllContent('submit')} className='text-[16px] px-4 border !border-[#00000080] font-medium w-full h-[35px]'>  Submit content </button> </p>
-                                            <p className='flex justify-center text-[#1BA56F] px-[5%]'> <button onClick={() => saveAllContent('save_later')} className='text-[16px] px-4 border !border-[#1BA56F] font-medium w-full h-[35px]'> Save for Later </button> </p>
+                                            <p className='flex justify-center text-[#1BA56F] px-[5%]'> <button onClick={saveForLater} className='text-[16px] px-4 border !border-[#1BA56F] font-medium w-full h-[35px]'> Save for Later </button> </p>
 
                                         </div>
                                     </div>
@@ -598,7 +614,7 @@ console.log(skipId)
                                 }
 
                                 <p className='flex justify-start mt-4 mb-2 text-[#00000080]'> <button onClick={() => saveAllContent('submit')} className='text-[16px] lg:px-4 md:px-4 border !border-[#00000080] font-medium'>  Submit content </button> </p>
-                                <p className='flex justify-start text-[#1BA56F]'> <button onClick={() => saveAllContent('save_later')} className='text-[16px] lg:px-[1.3rem] md:px-[6.6%] border !border-[#1BA56F] font-medium'> Save for Later </button> </p>
+                                <p className='flex justify-start text-[#1BA56F]'> <button onClick={saveForLater} className='text-[16px] lg:px-[1.3rem] md:px-[6.6%] border !border-[#1BA56F] font-medium'> Save for Later </button> </p>
 
                             </div>
                         </div>

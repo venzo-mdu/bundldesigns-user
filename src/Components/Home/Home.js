@@ -82,7 +82,6 @@ export const Home = () => {
         setMenuVisible(!menuVisible);
     };
     const [loading, setLoading] = useState(false);
-    const [openPopup, setOpenPopup] = useState(false);
     const [slideImage, setSlideImage] = useState(imageArray[0]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [activeProcess, setActiveProcess] = useState(0);
@@ -286,16 +285,15 @@ export const Home = () => {
 
     const addToCart = async (index) => {
         try {
-            const response = await axios.get(`${base_url}/api/order/cart/`, ConfigToken());
-            if (response.data.order_status === 'in_cart') {
-                setOpenPopup(true);
-                setSelectedIndex(index)
-            } else {
+            // const response = await axios.get(`${base_url}/api/order/cart/`, ConfigToken());
+            // if (response.data.order_status === 'in_cart') {
+            //     setOpenPopup(true);
+            //     setSelectedIndex(index)
+            // } else {
                 setSelectedIndex(null)
                navigate(`/bundldetail/${routeNames[bundlData.packages[index].id]}`,);
                 // navigate(`/bundldetail/${bundlData.packages[index].id}`,);
-
-            }
+            // }
         } catch (error) {
             console.error('An error occurred:', error);
             navigate(`/login?next_url=bundldetail/${routeNames[bundlData.packages[index].id]}`);
@@ -303,11 +301,7 @@ export const Home = () => {
     };
 
 
-    const emptyCart = async () => {
-        setOpenPopup(false);
-        await axios.delete(`${base_url}/api/order/cart/`, ConfigToken());
-        addToCart(selectedIndex)
-    }
+
 
 
     const updateActiveProcess = (index) => {
@@ -1328,18 +1322,7 @@ export const Home = () => {
 
 
             }
-            {
-                openPopup &&
-                <Popup
-                    openpopup={openPopup}
-                    setPopup={setOpenPopup}
-                    title={'Your Cart was already full'}
-                    subTitle={'Are you sure, you want to empty the cart.'}
-                    onClick={emptyCart}
-                    save={'Empty Cart'}
-                    cancel={'Cancel'}
-                />
-            }
+            
         </>
     )
 }

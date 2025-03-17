@@ -34,6 +34,8 @@ export const MyCart = () => {
     const [coupon,setCoupon] = useState(null)
     const [profile,setProfile] = useState({})
     const [tax , setTax] = useState(false);
+    const [isBack, setIsBack] = useState(false);
+
     const [routeNames , setRouteNames] = useState({
             4:'foodie',
             12:'newbie',
@@ -381,8 +383,60 @@ export const MyCart = () => {
     //       window.removeEventListener('popstate', handlePopState);
     //     };
     //   }, []);
+    
+    // useEffect(() => {
+    //     function onPopState(event) {
+    //       setTimeout(()=>{
+    //         setShowModal(true)
+    //       },1000)
+    //     }
+    //     window.addEventListener("popstate", (event) => {
+    //         console.log(
+    //           `location: ${document.location}, state: ${JSON.stringify(cartDetails?.project_name)}`,
+    //         );
+    //       });
+    //     return () => {
+    //       setTimeout(() => {
+    //         window.removeEventListener('popstate', onPopState);
+    //       }, 1000);
+    //     };
+    //   });
 
-      
+    // useEffect(() => {
+    //     const handleBackAction = () => {
+    //         window.history.pushState(null, '', window.location.pathname); // Prevent navigation
+    //         handleBackClick();
+    //         console.log('event ')
+    //     };
+    // console.log(showModal)
+
+    //      // Show modal when user goes back
+    //     window.addEventListener('popstate', handleBackAction);
+
+    //     // Push a new state when the page loads to track navigation
+    //     window.history.pushState(null, '', window.location.pathname);
+
+    //     return () => {
+    //         window.removeEventListener('popstate', handleBackAction);
+    //     };
+    // }, []);
+    useEffect(() => {
+        window.history.pushState(null, '', window.location.pathname);
+
+        const handleBackAction = () => {
+            console.log('Event triggered'); // Debugging log
+            setTimeout(() => setShowModal(true), 1000);
+            window.history.pushState(null, '', window.location.pathname); // Prevent back navigation
+        };
+
+        window.addEventListener('popstate', handleBackAction);
+
+        return () => {
+            window.removeEventListener('popstate', handleBackAction);
+        };
+    }, []);
+    // Add an empty dependency array to ensure this runs only once
+    
     const handleBackClick = () => {
         setShowModal(true);
       };
@@ -437,7 +491,8 @@ export const MyCart = () => {
             <div className='mycart '>
 
                 <div className='cart !xs:border-none  sm:!pb-[170px] !pb-[170px] xs:!pb-[20px]'>
-                    {isDirect == false && <p onClick={()=>handleBackClick()} className='flex font-[500] cursor-pointer !text-[18px] items-center text-black mt-[2%]'> <img src={backIcon} className='mr-2 w-[30px]' onClick={()=>handleBackClick()}></img> Back to Bundl </p>}          
+                    <p onClick={()=>handleBackClick()} className='flex font-[500] cursor-pointer !text-[18px] items-center text-black mt-[2%]'> <img src={backIcon} className='mr-2 w-[30px]' onClick={()=>handleBackClick()}></img> Back to Bundl </p>          
+                    {/* {isDirect == false && <p onClick={()=>handleBackClick()} className='flex font-[500] cursor-pointer !text-[18px] items-center text-black mt-[2%]'> <img src={backIcon} className='mr-2 w-[30px]' onClick={()=>handleBackClick()}></img> Back to Bundl </p>}           */}
                     <p className='!xs:text-[16px] font-[700] !sm:text-[20px]'>Your Cart</p>
                     {isMobile ? <>
                         {cartDetails?.item_details?.bundle_items?.map((row,index) => (

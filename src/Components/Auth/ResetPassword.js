@@ -69,8 +69,8 @@ const ResetPassword = () => {
                         navigate("/")
                     }
                 } catch (error) {
-                    console.error("Error updating Password:", error);
-                    toast.error(error);
+                    console.error("Error updating Password:", error?.response);
+                    toast.error(error?.response?.data?.error[0]);
                     setError({ submit: "Failed to update Password. Please try again." });
                 }
                 finally{

@@ -114,7 +114,8 @@ export default function AppRouter() {
     },
     {
       path: "/custombundl",
-      element: <ProtectedRoute element={<CustomBundl />} />,
+      element: <CustomBundl />,
+      // element: <ProtectedRoute element={<CustomBundl />} />,
     },
     {
       path: "/mycart",

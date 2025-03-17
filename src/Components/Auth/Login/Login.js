@@ -23,7 +23,7 @@ export const Login = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const next_url = searchParams.get("next_url");
-
+  const {project_name} = location?.state || {}
   const clientId = process.env.REACT_IOS_CLIENTID
   const redirectURI = process.env.REACT_IOS_REDIRECT_URL
 
@@ -84,7 +84,6 @@ export const Login = () => {
       }
     }
   };
-  console.log(next_url,'next')
   const validateForm = () => {
     const errorMessages = {};
     if (!loginData.email.trim()) {
@@ -111,9 +110,15 @@ export const Login = () => {
       if (response.status === 200) {
         document.cookie = `token=${response?.data?.data.token || ""}; path=/; SameSite=None; Secure`;
         dispatch(loginAction(response.data.user));
-       if(next_url){
-        window.location.href =`${process.env.REACT_APP_URL}/${next_url}`
-       }else{ navigate('/');}
+        console.log(next_url)
+        if(next_url){
+          navigate(`/${next_url}`,{
+            state:{
+              project_name:project_name
+            }
+          })
+         }
+         else{ navigate('/');}
 
       }
 
@@ -149,7 +154,12 @@ export const Login = () => {
         document.cookie = `token=${response?.data?.data.token || ""}; path=/; SameSite=None; Secure`;
         dispatch(loginAction(response.data.user));
        if(next_url){
-        window.location.href =`${process.env.REACT_APP_URL}/${next_url}`
+        navigate(`${process.env.REACT_APP_URL}/${next_url}`,{
+          state:{
+            project_name:project_name
+          }
+        })
+        // window.location.href =`${process.env.REACT_APP_URL}/${next_url}`
        }else{ navigate('/');}
 
       }
@@ -173,7 +183,11 @@ export const Login = () => {
         document.cookie = `token=${response?.data?.data.token || ""}; path=/; SameSite=None; Secure`;
         dispatch(loginAction(response.data.user));
         if(next_url){
-          navigate(`/${next_url}`)
+          navigate(`/${next_url}`,{
+            state:{
+              project_name:project_name
+            }
+          })
          }else{ navigate('/');}
       }
 

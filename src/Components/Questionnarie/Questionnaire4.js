@@ -19,6 +19,7 @@ import Color1 from '../../Images/Questionnaire/img1.png'
 import Color2 from '../../Images/Questionnaire/img2.png'
 import Color3 from '../../Images/Questionnaire/img3.png'
 import Link from '../../Images/Questionnaire/icons8-link-26.png'
+import Blackupload from '../../Images/blackupload.svg'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ConfigToken } from '../Auth/ConfigToken';
 import { ToastContainer, toast } from 'react-toastify';
@@ -29,7 +30,8 @@ export const Questionnaire4 = ({formData,setFormData}) => {
   const location = useLocation();
   const dispatch = useDispatch();
   const answers = useSelector((state) => state.questionnaire3);
-  const currentAnswer = useSelector((state) => state.questionnaire4)
+  const currentAnswer = useSelector((state) => state.questionnaire4);
+  const [uploadContent , setUploadContent] = useState({});
   const [questions, setQuestions] = useState([]);
   const [selectedColors, setSelectedColors] = useState([]); // To store selected color codes
   const [inputValue, setInputValue] = useState(''); // For input field
@@ -313,10 +315,35 @@ export const Questionnaire4 = ({formData,setFormData}) => {
     }
   };
   
-  const onBackClick = () => {
-    navigate(`/questionnaire/${3}`, { state: { questionnaireData3: answers,orderId:location.state?.orderId } });
-  }
-  console.log(location.state?.orderId,'orderid')
+  const uploadFile = async (e, id, field) => {
+    if (e.target.files.length) {
+        const formData = new FormData()
+        formData.append('file', e.target.files[0])
+        formData.append('file_name', e.target.files[0]?.name)
+        const response = await axios.post(`${base_url}/api/upload_file/`, formData, ConfigToken());
+        console.log(response.data, 'res');
+        setUploadContent((prev) => ({
+            ...prev,
+            [id]: {
+                ...prev[id], // Preserve other fields for this ID
+                [field]: response.data.file_url, // Update the file or other field
+                ...(field === 'file' && { filename: e.target.files[0]?.name || '' }), // Update filename if file is changed
+            },
+        }));
+        setFormData((prev)=>({
+          ...prev,
+          [id]:response.data.file_url
+        }))
+    }
+    
+}
+
+
+const onBackClick = () => {
+  navigate(`/questionnaire/${3}`, { state: { questionnaireData3: answers,orderId:location.state?.orderId } });
+}
+
+  
 
   const onNextClick = () => {
     if (!validateFields()) {
@@ -702,6 +729,8 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                 }
                 {
                   question.id === 21 ?
+                  <div className={`${window?.innerWidth<=500 ?'flex-col':'flex-row'} flex w-full justify-center items-center`}>
+
                     <div
                       className="color-input"
                       style={{
@@ -717,14 +746,14 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                       <input
                         type="text"
                         placeholder='Links or Pictures'
-                        value={getAnswerValue(question.id)}
-                        onChange={(e) => handleInputChange(e, question.id)}
+                        // value={getAnswerValue(question.id)}
+                        onChange={(e) => handleChange(question.id, e.target.value)}
                         style={{
                           padding: '8px',
                           border: '1px solid #000',
                           outline: 'none',
-                          width: window.innerWidth <= 441 ? '250px' : '400px',
-                          borderRadius:'0px'
+                          width: window.innerWidth <= 441 ? '250px' : '300px',
+                          borderRadius:'0px',
                         }}
                       />
                       <button
@@ -740,7 +769,29 @@ export const Questionnaire4 = ({formData,setFormData}) => {
                       >
                         <img src={Link}></img>
                       </button>
-                    </div> : ''
+                      
+                    </div> 
+                    <>
+                   
+                    <p
+                        className={`border-1  h-[45px]
+                            ${uploadContent?.[question?.id]?.filename ? 'w-fit':window?.innerWidth<=500 ?'w-[61%]':'w-[10%]'} 
+                          !border-[#000000] flex items-center justify-center text-[#000000] cursor-pointer lg:ml-2 lg:mt-4  md:ml-2 md:mt-3  xs:ml-0 xs:mt-0 p-[5px]`}
+                        onClick={() => document.getElementById(`file-${question.id}`).click()} 
+                    >
+                        <input
+                            type="file"
+                            hidden
+                            name="file"
+                            id={`file-${question.id}`} // Use a unique ID for each input
+                            onChange={(e) => uploadFile(e, question.id, 'file')}
+                        />
+                        <img className='h-[25px] w-[40px]' src={Blackupload} alt="Upload Icon" />
+                        {uploadContent?.[question?.id]?.filename || 'Upload Content'}
+                    </p>
+                    </>
+                    </div>
+                    : ''
                 }
                 {
                   (question.id === 15 || question.id === 16) ? (
