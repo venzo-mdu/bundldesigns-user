@@ -17,6 +17,7 @@ import { useDispatch } from 'react-redux';
 import { loginAction } from '../../../Redux/Action';
 import ClipLoader from "react-spinners/ClipLoader";
 import PhoneNumberInput from '../../Pages/PhoneNumberInput';
+import AppleLogin from 'react-apple-login'
 
 export const Signup = () => {
 
@@ -377,7 +378,7 @@ export const Signup = () => {
                 }}
               />
               </div>
-              <AppleSignin
+              {/* <AppleSignin
                 authOptions={{
                   clientId: "com.bundldesigns.app.client",
                   redirectURI: "https://bundldesigns.web.app/login",
@@ -387,7 +388,34 @@ export const Signup = () => {
                 className={'lg:w-[50%] md:w-[50%] xs:w-[100%] !lg:text-[18px] !md:text-[18px] !xs:text-[14px]'}
                 onSuccess={handleAppleSignupSuccess}
                 onError={(error) => console.error("Apple Login Failed:", error)}
+              /> */}
+              <div className='lg:w-[45%] md:w-[45%] xs:w-[100%]'>
+              <AppleLogin
+                clientId="com.bundldesigns.app.client"
+                redirectURI="https://bundldesigns.web.app/login"
+                usePopup={true}
+                callback={handleAppleSignupSuccess} // Catch the response
+                scope="email name"
+                responseMode="query"
+                render={renderProps => (  //Custom Apple Sign in Button
+                  <button
+                    onClick={renderProps.onClick}
+                    style={{
+                      backgroundColor: "white",
+                      padding: 10,
+                      // border: "1px solid black",
+                      fontFamily: "none",
+                      lineHeight: "25px",
+                      fontSize:window?.innerWidth<=500?"12px":"18px"
+                    }}
+                  >
+                    <i className="fa-brands fa-apple px-2 "></i>
+                    Continue with Apple
+                  </button>
+                )}
               />
+              </div>
+              
             </p>
             <p className='dont !mt-4 w-[90%]'>
               Have an account? <span><NavLink className='signup !font-[500]' to={'/login'}>&nbsp;Sign In</NavLink></span>
