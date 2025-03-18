@@ -53,7 +53,7 @@ export default function AppRouter() {
       top: 0,
       left: 0
     })
-  },[token]);
+  },[]);
 
   useEffect(() => {
     const getAuthUser = async () => {

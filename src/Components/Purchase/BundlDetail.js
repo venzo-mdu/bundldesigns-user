@@ -38,7 +38,8 @@ export const BundlDetail = () => {
   const [selectedLanguage, setSelectedLanguage] = useState('English');
   const [firstOrder,setFirstOrder] = useState(true)
   const [actual,setactual] = useState({})
-  const [selectedIndex, setSelectedIndex] = useState(null)
+  const [selectedIndex, setSelectedIndex] = useState(null);
+  const [isFromLogin , setIsFromLogin] = useState(state?.fromLogin)
   const [routeId , setRouteId] = useState({
     'newbie':12,
     'foodie':4,
@@ -64,12 +65,19 @@ export const BundlDetail = () => {
       total_time: (quantities[design.name_english] || 1) * design.time
     }))
   );
-
+  
   useEffect(() => {
     document.documentElement.scrollTo({ top: 0, left: 0 });
     getBundlData();
     // getprojects()
   }, []);
+
+  useEffect(()=>{
+    if(isFromLogin){
+      setBrandError(state?.project_name && false)
+      createPayload();
+    }
+  })
   useEffect(()=>{
     const handleResize = () => {
       setIsMobile(window.innerWidth < 440);
@@ -85,7 +93,7 @@ export const BundlDetail = () => {
   const handleRadioChange = (e) => {
     setSelectedLanguage(e.target.value);
   };
-
+  console.log(brandInput)
   const validateFields = () => {
 
 
@@ -117,8 +125,6 @@ export const BundlDetail = () => {
     }
     return true;
   };
-
-
   const getBundlData = async () => {
     setLoading(true)
     const colors = {
@@ -201,7 +207,8 @@ export const BundlDetail = () => {
     setOpenPopup(false);
     await axios.delete(`${base_url}/api/order/cart/`, ConfigToken());
     // addToCart(selectedIndex)
-    toast.success('Cart emptied,Now Checkout')
+    toast.success('Cart emptied,Now Checkout');
+    createPayload();
 }
 
   const createPayload = async () => {
@@ -241,12 +248,15 @@ export const BundlDetail = () => {
         if(response?.data?.order_status && !state?.project_name){
           setOpenPopup(true)
         }
+        else if(response?.data?.order_status && state?.project_name && state?.fromLogin){
+          setOpenPopup(true)
+        }
         else if (state?.project_name){
-          const createResponse = await axios.post( `${base_url}/api/order/create/`, payload,ConfigToken());
+          const createResponse = await axios.post(`${base_url}/api/order/create/`, payload,ConfigToken());
           navigate('/mycart', { state: { orderData: createResponse.data.data.data } });
         }
         else {
-          const createResponse = await axios.post( `${base_url}/api/order/create/`, payload,ConfigToken());
+          const createResponse = await axios.post(`${base_url}/api/order/create/`, payload,ConfigToken());
           navigate('/mycart', { state: { orderData: createResponse.data.data.data } });
         }
     } catch (error) {
@@ -386,7 +396,7 @@ export const BundlDetail = () => {
             // maxHeight: showDetails ? "80%" : "200px", 
             transition: "all 0.5s ease-in-out",
           }}
-           className='bundl-summary  border max-h-[80%] w-full' >
+           className='bundl-summary  border max-h-[80%] w-full xs:overflow-y-auto lg:overflow-hidden md:overflow-hidden' >
              <div className='bundl-name '>
                <p className='sm:text-[24px] xs:mb-0 xs:flex xs:justify-between sm:block font-[700] px-0 !mb-2'  >
                <span className='font-normal'>Summary</span>
@@ -394,11 +404,11 @@ export const BundlDetail = () => {
                </p>
              </div>
              {!isMobile || isMobile && showDetails ? <>
-             <div style={{ display: 'flex', padding: '1% 5%' }}>
-               <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[60%]'>{packageDetail?.package?.name_english ||'' } {packageDetail?.package?.name_english && 'Bundl'}</p>
-               <p className='sm:text-[20px] text-[20px] text-right xs:text-[16px] font-[700] w-[40%]'>{Math.round(packageDetail?.package?.price)} SAR</p>
+              <div style={{ display: 'flex', padding: '1% 2%' }} className='border-y-[1px] border-black'>
+               <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[60%] mb-0 pt-0'>{packageDetail?.package?.name_english ||'' } {packageDetail?.package?.name_english && 'Bundl'}</p>
+               <p className='sm:text-[20px] text-[20px] text-right xs:text-[16px] font-[700] w-[40%] mb-0 pt-0'>{Math.round(packageDetail?.package?.price)} SAR</p>
              </div>
-             {selectedItems?.map((item, idx) => {
+             {/* {selectedItems?.map((item, idx) => {
               return <div key={idx} className='one-brand-identity xs:flex sm:block block flex-wrap justify-around'>
                  <p className='text-black sm:text-[20px] text-[20px] xs:text-[16px] font-[700] !mb-1 xs:w-[42%] sm:w-full' >{item.quantity} {item.name_english} <span className='sm:text-[16px] text-[16px] xs:text-[14px]'>{item.id =='76' && (selectedLanguage == 'Both' ? '(English & Arabic)' :`(${selectedLanguage})`)} </span></p>
                  <div className='flex xs:w-[58%]  sm:w-full w-full'>
@@ -415,8 +425,8 @@ export const BundlDetail = () => {
      
            <div className='bundl-name'>
                {
-                 addonPayLoads?.length > 0 && (
-                   <p style={{ fontSize: '24px', fontWeight: '700', padding: '2% 0%' }}>Add ons</p>
+                 addonPayLoads?.item_list?.length > 0 && (
+                   <p className='lg:text-[20px] md:text-[20px] xs:text-[14px] mb-0 font-[700] mt-2'>Add ons</p>
                  )
                }
              </div>
@@ -426,6 +436,76 @@ export const BundlDetail = () => {
                  <div className='flex xs:w-[58%]  sm:w-full w-full' >
                    <p className='sm:text-[20px] xs:ml-10 sm:ml-[2px] text-[20px] xs:text-[16px] font-[700] w-[40%]' style={{color:textColor }} >+ {addon.unit_time * addon.qty} Days</p>
                    <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[40%]' style={{color:textColor }}>+ {addon.total_price} SAR</p>
+                 </div>
+               </div>
+             ))} */}
+
+{bundlAddons?.bundle_details?.map((bundleItem) => (
+                  <div key={bundleItem?.id} className="border-b-[1px] border-black">
+                    <p className="text-black sm:text-[20px] text-[20px] xs:text-[16px] font-[700] !mb-1 w-full px-[2%] mt-[3%]">{bundleItem?.name_english}</p>
+
+                    {/* {bundleItem?.design_list?.map((selectedItem, idx) => (
+                      <div key={idx} className='one-brand-identity xs:flex sm:block block flex-wrap justify-around'>
+                        <div className='flex xs:w-[58%] sm:w-full w-full'>
+                          <p className='text-black sm:text-[20px] text-[20px] xs:text-[16px] font-[700] !mb-1 xs:w-[42%] sm:w-full'>
+                            {selectedItem.quantity} {selectedItem.name_english}
+                            <span className='sm:text-[16px] text-[16px] xs:text-[14px]'>
+                              {selectedItem.id === '76' && (selectedLanguage === 'Both'  ? '(English & Arabic)'  : `(${selectedLanguage})`)}
+                            </span>
+                          </p>
+
+                          {selectedItem.id === '76' && selectedLanguage === 'Both' ? (
+                            <p
+                              className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[50%]'style={{ color: textColor }}>
+                              + {selectedItem.quantity === 1? parseFloat(selectedItem.price) + 2000: parseFloat(selectedItem.price) +((parseFloat(selectedItem.price) / 100) *selectedItem.price_increment *(selectedItem.quantity - 1)) +2000}
+                              SAR
+                            </p>
+                          ) : (
+                            <p
+                              className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[40%]'
+                              style={{ color: textColor }}
+                            >
+                              + {selectedItem.quantity === 1? parseFloat(selectedItem.price): parseFloat(selectedItem.price) +((parseFloat(selectedItem.price) / 100) *selectedItem.price_increment *(selectedItem.quantity - 1))}
+                              SAR
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    ))} */}
+                    {
+                            bundleItem?.design_list?.map((item, idx) => {
+                              return <div key={idx} className='one-brand-identity xs:flex sm:block block flex-wrap justify-around'>
+                                <div className='flex xs:w-[100%]  w-full'>
+                                  {console.log(selectedItems)}
+                                <p className='text-black sm:text-[20px] text-[20px] xs:text-[16px] font-[700] !mb-1 xs:w-[75%] lg:w-full md:w-full sm:w-full' >{item.quantity} {item.name_english} <span className='sm:text-[16px] text-[16px] xs:text-[14px]'>{item.id =='76' && (selectedLanguage == 'Both' ? '(English & Arabic)' :`(${selectedLanguage})`)} </span></p>
+                { item.id =='76' && selectedLanguage == 'Both'? <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[50%]' style={{color:textColor }}>+ {item.quantity == 1
+                        ? parseFloat(item.price) + 2000 
+                        : parseFloat(item.price) + ((parseFloat(item.price) / 100) * item.price_increment * (item.quantity - 1)) + 2000} SAR</p>:
+                <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] lg:w-[40%] md:w-[50%]' style={{color:textColor }}>+ {item.quantity == 1
+                        ? parseFloat(item.price)
+                        : parseFloat(item.price) + ((parseFloat(item.price) / 100) * item.price_increment * (item.quantity - 1))} SAR</p>}
+                                </div>
+                              </div>
+                })}
+                  </div>
+                ))}
+
+
+
+     
+           <div className='bundl-name'>
+               {
+                 addonPayLoads?.item_list?.length > 0 && (
+                   <p className='lg:text-[20px] md:text-[20px] xs:text-[14px] mb-0 font-[700] mt-2'>Add ons</p>
+                 )
+               }
+             </div>
+             {addonPayLoads?.item_list?.map((addon, idx) => (
+               <div key={idx} className={` one-brand-identity ${addonPayLoads?.item_list?.length-1 === idx && 'border-b-[1px] border-black'} xs:flex sm:block block flex-wrap justify-around`}>
+                 <div className='flex xs:w-[100%]  w-full' >
+                 <p className='text-black sm:text-[20px] text-[20px] xs:text-[16px] font-[700] !mb-1 xs:w-[75%]  lg:w-full md:w-full sm:w-full'>{addon.qty} {addon.addon_name}</p>
+                   {/* <p className='sm:text-[20px] xs:ml-10 sm:ml-[2px] text-[20px] xs:text-[16px] font-[700] w-[40%]' style={{color:textColor }} >+ {addon.unit_time * addon.qty} Days</p> */}
+                   <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] lg:w-[40%] md:w-[50%]' style={{color:textColor }}>+ {addon.total_price} SAR</p>
                  </div>
                </div>
              ))}
@@ -456,7 +536,11 @@ export const BundlDetail = () => {
            </div>
          </div>
        </div>
-       <Footer />
+       {
+        window?.innerWidth >= 500 && (
+          <Footer/>
+        )
+       }
      </div>
      
     }
@@ -470,6 +554,7 @@ export const BundlDetail = () => {
                     onClick={emptyCart}
                     save={'Empty Cart'}
                     cancel={'Cancel'}
+                    cancelClick={setIsFromLogin}
                 />
             }
     </>

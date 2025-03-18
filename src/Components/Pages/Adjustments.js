@@ -123,13 +123,18 @@ export default function Adjustments({user}) {
     };
 
     console.log(billingInfo,istax)
+    // const toggleDescription = (id) => {
+    //     setExpantedTabs((prevState) => ({
+    //         ...prevState,
+    //         [id]: !prevState[id] // Toggle the state for the clicked vacancy
+    //     }));
+    // };
     const toggleDescription = (id) => {
         setExpantedTabs((prevState) => ({
-            ...prevState,
-            [id]: !prevState[id] // Toggle the state for the clicked vacancy
+            [id]: !prevState[id] ? true : false  // Toggle only if not already true
         }));
     };
-
+   console.log(expantedTabs)
 
 
     const getOrderDetails = async () => {
@@ -592,7 +597,7 @@ export default function Adjustments({user}) {
                                             }
                                         })}
                                     </div>
-                                    <div className='lg:mt-16 md:mt-16 xs:mt-8'>
+                                    <div className='lg:mt-16 md:mt-16 xs:mt-8 xs:mb-[75%] lg:mb-0 md:mb-0'>
                                         <h2 className='text-[24px] font-[700] font-Helvetica'>Something feels missing ?</h2>
                                         <p className='text-[18px] text-[#00000080] w-[75%]'>Add anything you want to your bundl to fit your brand!</p>
                                         <div className='flex flex-wrap w-[100%]'>  {Object.keys(bundlAddons).map((category, index) => {
@@ -1415,7 +1420,11 @@ export default function Adjustments({user}) {
             }
 
 
-            <Footer />
+            {
+                    window?.innerWidth >= 500 && (
+                      <Footer/>
+                    )
+                   }
 
         </>
 

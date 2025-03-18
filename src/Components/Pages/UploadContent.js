@@ -162,8 +162,8 @@ export default function UploadContent() {
                     window.innerWidth <= 475 ?
                         <div className='px-[4%] py-4 font-Helvetica'>
                             <p onClick={() => window.location.href = "/dashboard"} className='flex font-[500] !text-[20px] items-center text-black cursor-pointer'> <img src={backIcon} className='mr-2 w-[30px]' ></img> Back to dashboard </p>
-                            <div className='px-2'>
-                                <h3 className='my-4'> Upload Content </h3>
+                            <div className='px-2 lg:mb-0 md:mb-0 xs:mb-[55%]'>
+                                <h3 className='my-4'> Upload Document </h3>
 
                                 {order && <>
                                     {order.item_details.bundle_items
@@ -620,7 +620,11 @@ export default function UploadContent() {
                         </div>
                 }
 
-                <Footer />
+               {
+                                   window?.innerWidth >= 500 && (
+                                     <Footer/>
+                                   )
+                                  }
             </>
 
     )

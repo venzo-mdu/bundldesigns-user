@@ -197,7 +197,7 @@
 }
 
 .bundl-name {
-    padding: 0 5%;
+    padding: 0 2%;
 }
 
 .one-heading {
@@ -212,7 +212,7 @@
     color: #1BA56F;
     font-size: 20px;
     font-weight: 700;
-    border-bottom: 1px solid #00000080;
+    /* border-bottom: 1px solid #00000080; */
 }
 
 .bundl-checkout {
@@ -370,6 +370,9 @@
 }
 
 @media screen and (max-width:441px) {
+    .bundl-accordian {
+        margin: 0 0 55% 0;
+    }
     .collateral-text {
         font-size: 20px;
         font-weight: 700;
@@ -490,5 +493,8 @@
 .collateral-text {
     font-size: 20px;
     font-weight: 700;
+}
+.bundl-accordian {
+    margin: 0 0 60% 0;
 }
 }

@@ -17,6 +17,8 @@ import { useSearchParams } from 'react-router-dom';
 import { Bgloader } from '../Common/Background/Bgloader'
 import ClipLoader from "react-spinners/ClipLoader";
 import Riyal from '../../Images/BundlDetail/riyalnew.png'
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
  
 export const MyCart = () => {
     const [searchParams] = useSearchParams();
@@ -249,8 +251,9 @@ export const MyCart = () => {
         if (!billingInfo.postalCode.trim()) {
             setError({postalCode:'Your postal code field is empty.'})
             return false
-        } else if (!/^[0-9]{5,6}$/.test(billingInfo.postalCode)) {
-            setError({postalCode:'Your postal code must be 5 or 6 digits.'})
+        } 
+        else if (!/^[0-9]{2,5}$/.test(billingInfo.postalCode)) {
+            setError({postalCode:'Your postal code must be 2 to 5 digits.'})
             return false
         }
 
@@ -420,22 +423,7 @@ export const MyCart = () => {
     //         window.removeEventListener('popstate', handleBackAction);
     //     };
     // }, []);
-    useEffect(() => {
-        window.history.pushState(null, '', window.location.pathname);
-
-        const handleBackAction = () => {
-            console.log('Event triggered'); // Debugging log
-            setTimeout(() => setShowModal(true), 1000);
-            window.history.pushState(null, '', window.location.pathname); // Prevent back navigation
-        };
-
-        window.addEventListener('popstate', handleBackAction);
-
-        return () => {
-            window.removeEventListener('popstate', handleBackAction);
-        };
-    }, []);
-    // Add an empty dependency array to ensure this runs only once
+    
     
     const handleBackClick = () => {
         setShowModal(true);

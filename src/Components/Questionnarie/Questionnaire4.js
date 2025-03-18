@@ -729,6 +729,7 @@ const onBackClick = () => {
                 }
                 {
                   question.id === 21 ?
+                  <>
                   <div className={`${window?.innerWidth<=500 ?'flex-col':'flex-row'} flex w-full justify-center items-center`}>
 
                     <div
@@ -774,9 +775,9 @@ const onBackClick = () => {
                     <>
                    
                     <p
-                        className={`border-1  h-[45px]
-                            ${uploadContent?.[question?.id]?.filename ? 'w-fit':window?.innerWidth<=500 ?'w-[61%]':'w-[10%]'} 
-                          !border-[#000000] flex items-center justify-center text-[#000000] cursor-pointer lg:ml-2 lg:mt-4  md:ml-2 md:mt-3  xs:ml-0 xs:mt-0 p-[5px]`}
+                        className={`border-1  h-[45px] lg:text-[18px] md:text-[18px] xs:text-[14px] uppercase
+                            ${window?.innerWidth<=500 ?'w-[61%]':'w-[300px]'} 
+                          !border-[#000000] flex items-center justify-center text-[#000000] cursor-pointer lg:ml-2 lg:mt-4  md:ml-2 md:mt-4  xs:ml-0 xs:mt-0 p-[5px]`}
                         onClick={() => document.getElementById(`file-${question.id}`).click()} 
                     >
                         <input
@@ -785,12 +786,15 @@ const onBackClick = () => {
                             name="file"
                             id={`file-${question.id}`} // Use a unique ID for each input
                             onChange={(e) => uploadFile(e, question.id, 'file')}
+                            className=''
                         />
                         <img className='h-[25px] w-[40px]' src={Blackupload} alt="Upload Icon" />
-                        {uploadContent?.[question?.id]?.filename || 'Upload Content'}
+                        {'Upload Content'}
                     </p>
                     </>
                     </div>
+                    {uploadContent?.[question?.id]?.filename}
+</>
                     : ''
                 }
                 {

@@ -9,7 +9,7 @@ import Pinkpaint from '../../../Images/Bundles/pink-paint.webp'
 import { Box, Button, Input, Typography, useMediaQuery } from "@mui/material";
 import popupGIF from '../../../Images/popupGIF.gif'
 
-export const Popup = ({ title, subTitle, popupType = 'default', onChange, save, cancel, openpopup, textArea, saveBtnBg, setPopup, onClick, sx, values, isCancel }) => {
+export const Popup = ({ title, subTitle, popupType = 'default', onChange, save, cancel, openpopup, textArea, saveBtnBg, setPopup, onClick, sx, values, isCancel,cancelClick }) => {
     
     const [currentIndex, setCurrentIndex] = useState(0);
     const isSmallScreen = useMediaQuery('(max-width:441px)');
@@ -165,7 +165,7 @@ export const Popup = ({ title, subTitle, popupType = 'default', onChange, save, 
                         </Button>
                         {!isCancel && (
                             <Button
-                                onClick={() => setPopup(false)}
+                                onClick={() => {setPopup(false);cancelClick(false)}}
                                 sx={{
                                     backgroundColor: '#fff',
                                     color: '#000',

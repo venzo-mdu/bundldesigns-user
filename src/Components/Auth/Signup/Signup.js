@@ -378,19 +378,32 @@ export const Signup = () => {
                 }}
               />
               </div>
-              {/* <AppleSignin
+              <div className='lg:w-[45%] md:w-[45%] xs:w-[100%]'>
+              <AppleSignin
                 authOptions={{
                   clientId: "com.bundldesigns.app.client",
                   redirectURI: "https://bundldesigns.web.app/login",
                   scope: "email name",
-                  usePopup: true,
+                  usePopup: false,
                 }}
                 className={'lg:w-[50%] md:w-[50%] xs:w-[100%] !lg:text-[18px] !md:text-[18px] !xs:text-[14px]'}
                 onSuccess={handleAppleSignupSuccess}
                 onError={(error) => console.error("Apple Login Failed:", error)}
-              /> */}
-              <div className='lg:w-[45%] md:w-[45%] xs:w-[100%]'>
-              <AppleLogin
+                render={(props) => <button {...props}
+                  style={{
+                    backgroundColor: "white",
+                    padding: 10,
+                    // border: "1px solid black",
+                    fontFamily: "none",
+                    lineHeight: "25px",
+                    fontSize:window?.innerWidth<=500?"12px":"18px"
+                  }}
+                >
+                  <i className="fa-brands fa-apple px-2 "></i>
+                  Continue with Apple
+                </button>}
+              />
+              {/* <AppleLogin
                 clientId="com.bundldesigns.app.client"
                 redirectURI="https://bundldesigns.web.app/login"
                 usePopup={true}
@@ -413,7 +426,7 @@ export const Signup = () => {
                     Continue with Apple
                   </button>
                 )}
-              />
+              /> */}
               </div>
               
             </p>

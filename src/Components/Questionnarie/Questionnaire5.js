@@ -263,6 +263,7 @@ console.log(location.state?.orderId,'orderid')
                   <div className={`w-[100%] xl:h-[2px] lg:h-[2px] md:h-[2px] sm:h-[2px] xs:h-[1px] ${isFilled === question?.id ? 'bg-red-400':'bg-black'} lg:mt-[3%] md:mt-[3%] xs:mt-[5%]`}></div>
                 ) :
                 (question?.id === 23) ?
+                <>
                 <div
                 className={`question-input ${isFilled === question?.id ? 'border-red-400 border-b-[2px]':`${window?.innerWidth <= 475 ? 'border-b-[1px]':'border-b-[2px]'} border-black`}`}
                 >
@@ -271,8 +272,8 @@ console.log(location.state?.orderId,'orderid')
                     <p className='text-[#a9a9a9] mt-[-25px] text-[18px]'>{question?.placeholder}</p>
                     <div className='flex justify-center items-center'>
                     <p
-                        className={`border-1 
-                            ${uploadContent?.[question?.id]?.filename ? 'w-fit':window?.innerWidth<=500 ? 'w-[75%]':'w-[15%]'} 
+                        className={`border-1 lg:text-[18px] md:text-[18px] xs:text-[14px] uppercase font-Helvetica font-[400]
+                            ${window?.innerWidth<=500 ? 'w-[75%]':'w-[300px]'} 
                           !border-[#000000] flex items-center justify-center  text-[#000000] cursor-pointer ml-2 mt-3 p-2 `}
                         onClick={() => document.getElementById(`file-${question.id}`).click()} 
                     >
@@ -284,12 +285,14 @@ console.log(location.state?.orderId,'orderid')
                             onChange={(e) => uploadFile(e, question.id, 'file')}
                         />
                         <img className='h-[25px] w-[40px]' src={Blackupload} alt="Upload Icon" />
-                        {uploadContent?.[question?.id]?.filename || 'Upload Content'}
+                        {'Upload Content'}
                     </p>
                     </div>
-                   
+                    <p className='lg:text-[18px] md:text-[18px] xs:text-[14px] font-[400]'>{uploadContent?.[question?.id]?.filename }</p>
                     </>
                 </div>
+                
+                </>
                 :  
                 (
                   <input
