@@ -165,7 +165,7 @@ export const Popup = ({ title, subTitle, popupType = 'default', onChange, save, 
                         </Button>
                         {!isCancel && (
                             <Button
-                                onClick={() => {setPopup(false);cancelClick(false)}}
+                                onClick={() => {setPopup(false);cancelClick(false);localStorage.removeItem('payloads')}}
                                 sx={{
                                     backgroundColor: '#fff',
                                     color: '#000',

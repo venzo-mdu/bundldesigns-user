@@ -69,10 +69,10 @@ export default function OurWork() {
     >
       {/* Left Column */}
       <div className="basis-1/2 sm:ml-[22px] ml-[22px] xs:ml-[0px] w-full">
-        <h2 className="text-[28px]">{project.name_english}</h2>
+        <h2 className="text-[28px] uppercase">{project.name_english}</h2>
         <div className="mb-2">
           <button
-            className="px-[20px] text-[18px] text-white bg-[#1BA56F] py-[5px] !border-[#1BA56F]"
+            className="px-[20px] text-[18px] text-white bg-[#1BA56F] py-[5px] !border-[#1BA56F] uppercase"
           >
             {categories[project.category]}
           </button>
@@ -82,7 +82,7 @@ export default function OurWork() {
           className="!text-[#00000080] lg:w-[70%] md:w-[70%] xs:w-[100%] text-[16px]"
           dangerouslySetInnerHTML={{ __html: project.description_english }}
         />
-        <a  target='_blank' href={`${project.instagram? project.instagram:'https://www.instagram.com/bundl_designs'}`} className="lg:w-[70%] xl:w-[60%] md:w-[80%] text-[16px] px-2 block text-center mt-4 bg-black py-2 text-white">
+        <a  target='_blank' href={`${project.instagram? project.instagram:'https://www.instagram.com/bundl_designs'}`} className="lg:w-[70%] xl:w-[60%] md:w-[80%] text-[16px] px-2 block text-center mt-4 bg-black py-2 text-white uppercase">
           Follow Our Instagram
         </a>
       </div>
@@ -92,7 +92,7 @@ export default function OurWork() {
         {project.project_images.map((img, imgIndex) => (
           <img
             key={imgIndex}
-            className="sm:w-[32%] w-[32%] xs:w-[50%]"
+            className="sm:w-[32%] w-[32%] xs:w-[33%] aspect-square object-cover"
             width="200px"
             src={img}
             alt={`Project ${index} Image ${imgIndex}`}
@@ -108,7 +108,7 @@ export default function OurWork() {
           <div className='w-[48%] text-center mx-auto'>
           <p className='flex justify-center mb-0 mt-0'> <img  className='animate-rotate-animation' width='150px' height='110px' src={workBrandGIF}></img></p>
           <h2 className='text-[40px] xs:text-[24px] sm:text-[40px]'>Inspired to start your journey to launch your next big thing ?</h2>
-          <p> <button onClick={()=>{window.location.href='/'}} className='bg-[#000] mt-4 text-[20px] text-white py-[5px] px-[18px]'>Get started!</button> </p>
+          <p> <button onClick={()=>{window.location.href='/'}} className='bg-[#000] mt-4 text-[20px] text-white py-[5px] px-[18px] uppercase'>Get started!</button> </p>
           </div>
           <img width='300px' className='absolute sm:w-[300px] w-[300px] xs:w-[150px] xs:top-[30%] xs:right-[-14%] sm:top-[14%] sm:right-[3%] right-[3%]' style={{ transform: 'rotate(320deg)'}}  src={workOurGIF}></img>
         </div> 

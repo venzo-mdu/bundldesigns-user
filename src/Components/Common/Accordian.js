@@ -97,7 +97,7 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
     const allDesigns = titleArr.flatMap(
       (title) => addOnData.designs_details?.[title]?.design_list || []
     );
-
+    console.log(allDesigns)
     let total_time = allDesigns
     .filter((design) => (quantities[design.name_english] || 0) + (extraQty[design.name_english] || 0) > 0)
     .reduce((max, design) => {
@@ -122,7 +122,10 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
         price_increment:design.price_increment,
         qty: quantity.toString(),
         item_type: "addon",
-        total_price:current_total
+        total_price:current_total,
+        category: titleArr.find((title) => 
+          addOnData.designs_details?.[title]?.design_list.some((item) => item.id === design.id)
+        ) || ""
       };
     });
     const taxRate = 18; // Define the tax rate

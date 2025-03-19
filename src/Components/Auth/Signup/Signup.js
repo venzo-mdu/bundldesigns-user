@@ -326,7 +326,7 @@ const login = useGoogleLogin({
               setErrors={setErrors}
               formErrors={errors}
             />
-            {errors.phone && <p className="error first-letter:capitalize mt-2">{errors.phone}</p>}
+            {errors.phone && registerData.phone.length === 0 && <p className="error first-letter:capitalize mt-2">{errors.phone}</p>}
             </div>  
 
            <div className="lg:w-[50%] md:w-[50%] xs:w-[100%] mt-[3%]">
@@ -442,7 +442,7 @@ const login = useGoogleLogin({
                   }}
                 >
                   <i className="fa-brands fa-apple px-2 "></i>
-                  Continue with Apple
+                  Signup with Apple
                 </button>}
               />
               {/* <AppleLogin

@@ -352,7 +352,7 @@ export const Login = () => {
                     }}
                   >
                     <i className="fa-brands fa-apple px-2 "></i>
-                    Continue with Apple
+                    Signin with Apple
                   </button>}
                 />
                 {/* <AppleLogin

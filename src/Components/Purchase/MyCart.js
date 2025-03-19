@@ -300,6 +300,7 @@ export const MyCart = () => {
                     }
                     // navigate('/dashboard', { state: { reDirect: true} });
                     console.log("Payment successful:", response.data);
+                    localStorage.removeItem('payloads')
                 } catch (error) {
                     console.error("Payment error:", error);
                 }finally {
