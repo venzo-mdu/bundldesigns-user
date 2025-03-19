@@ -28,6 +28,7 @@ import TermsAndConditions from './Components/Pages/TermsAndConditions';
 import PrivacyPolicy from './Components/Pages/PrivacyPolicy';
 import Profile from './Components/Pages/Profile';
 import ResetPassword from './Components/Auth/ResetPassword';
+import { Purchasehistory } from './Components/Pages/Purchasehistory';
 
 const getCookie = (name) => {
   const value = `; ${document.cookie}`;
@@ -136,6 +137,10 @@ export default function AppRouter() {
     {
       path:'/dashboard',
       element:<ProtectedRoute element={<Dashboard />} />
+    },
+    {
+      path:'/purchase-history',
+      element:<ProtectedRoute element={<Purchasehistory />} />
     },
     {
       path:'/adjustment',

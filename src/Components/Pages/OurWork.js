@@ -32,7 +32,7 @@ export default function OurWork() {
     setLoading(false)
   }
   useEffect(() => {
-    getprojects()
+    getprojects();
   }, [])
 
 

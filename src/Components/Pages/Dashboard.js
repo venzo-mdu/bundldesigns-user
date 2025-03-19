@@ -28,6 +28,7 @@ import { redirect, useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { Bgloader } from '../Common/Background/Bgloader';
 import DoneIcon from '@mui/icons-material/Done';
+import { BorderAllRounded } from '@mui/icons-material';
 
 const style = {
     position: 'absolute',
@@ -37,11 +38,12 @@ const style = {
     width: '80vw',
     height: '80vh',
     bgcolor: 'background.paper',
-    border: '2px solid #000',
+    // border: '2px solid #000',
     boxShadow: 24,
     display: 'flex',
     padding:'2% 5%',
-    flexDirection:'column'
+    flexDirection:'column',
+    borderRadius:'4px'
 };
 export default function Dashboard() {
 
@@ -149,8 +151,14 @@ export default function Dashboard() {
                 // });
                 const extractFilesAndLinks = (items) => {
                     items.forEach((item) => {
+                        const formattedDate = item.created_at 
+                        ? new Date(item.created_at).toLocaleDateString("en-GB") // Format: DD/MM/YYYY
+                        : "-";
                       if (item.delivery_type === "File" && item.delivery_files) {
-                          files.push(...item.delivery_files.map((file) => decodeURIComponent(file).split("/").pop()))
+                          files.push(...item.delivery_files.map((file) => ({
+                            created_at: formattedDate || "",
+                            data: decodeURIComponent(file).split("/").pop()})
+                        ))
                         // files.push(
                         //     ...item.delivery_files.map((file) => {
                         //       const fileName = decodeURIComponent(file).split("/").pop();
@@ -160,7 +168,10 @@ export default function Dashboard() {
                         //   );
                           
                       } else if (item.delivery_type === "Link" && item.delivery_link) {
-                        links.push(item.delivery_link);
+                        links.push(({
+                            created_at: formattedDate || "",
+                            data: item.delivery_link
+                          }));
                       }
                     });
                   };
@@ -662,10 +673,10 @@ const handleDownload = async (file) => {
                                         </p>
                                     </div>)}
                                     <div className='lg:border-[1.5px] md:border-[1.5px] xs:border-b-[1.5px] mt-0  lg:border-black md:border-black border-transparent py-2 lg:px-6 md:px-6 xs:px-0 xs:border-black'>
-                                        <div className={`flex items-center lg:w-[78%] w-[80%] md:w-[87%]  lg:mx-auto md:mx-auto lg:mt-10 md:mt-10 xs:mt-2 lg:px-0 ${processIndex === 5 ? 'xs:w-[100%]':'xs:w-[108%]'} xs:px-[2%] xs:ml-[2%]`}>{renderProcessData()}</div>
-                                        <div className='flex lg:p-[0px_30px_0px_0px] md:p-[15px_15px_0px_70px] mb-12 lg:w-[90%] w-[80%] md:w-[100%] xs:w-[100%] lg:m-auto md:m-0'>
+                                        <div className={`flex items-center lg:w-[78%] w-[80%] md:w-[87%]   lg:mx-auto md:mx-auto lg:mt-10 md:mt-10 xs:mt-2 lg:px-0 ${processIndex === 5 ? 'xs:w-[100%]':'xs:w-[108%]'} xs:px-[2%] xs:ml-[2%]`}>{renderProcessData()}</div>
+                                        <div className='flex lg:p-[0px_30px_0px_0px] md:p-[15px_15px_0px_70px] macm2:p-[0px_35px_0px_0px] mb-12 lg:w-[90%] w-[80%] md:w-[100%] xs:w-[100%] lg:m-auto md:m-0'>
                                             {window.innerWidth > 768 && dashboardJson.project_process.map((item, index) => {
-                                                return <div className='lg:basis-[45%] md:basis-[20%] xs:basis-1/5 text-center lg:text-[16px] md:text-[14px] mt-[2%]'>  <p className={`pb-0 lg:max-w-[75%] md:max-w-[140px] max-w-[95%] lg:mx-auto md:mx-0 xs:mx-auto mb-0 ${index == processIndex && 'font-bold'}`}> {item} </p>
+                                                return <div className='lg:basis-[45%] md:basis-[20%] xs:basis-1/5 text-center lg:text-[16px] md:text-[14px] mt-[2%]'>  <p className={`pb-0 lg:max-w-[75%] md:max-w-[140px] macm2:w-[70%] max-w-[95%] lg:mx-auto md:mx-0 xs:mx-auto mb-0 ${index == processIndex && 'font-bold'}`}> {item} </p>
                                                     {index == processIndex && <p className='text-[#1BA56F] font-[700] lg:text-center md:text-justify ml-0'>You’re now Here!</p>}
                                                 </div>
                                             })}
@@ -722,7 +733,7 @@ const handleDownload = async (file) => {
                                     </div>
                             }
 
-                            {
+                            {/* {
                                 window.innerWidth > 768 ?
                                 
                                     purchases.length ? <div className='px-14 mt-4 mb-4'>
@@ -752,7 +763,6 @@ const handleDownload = async (file) => {
                                     </div> : ''
                                     :
                                     <div className="w-full px-[8%]">
-                                        {/* Header */}
                                         <div className="flex justify-between items-center">
                                             <p className="text-[20px] font-[500] font-Helvetica opacity-50">Purchase History</p>
                                             <p
@@ -763,20 +773,17 @@ const handleDownload = async (file) => {
                                             </p>
                                         </div>
 
-                                        {/* Orders List */}
                                         <div className={`transition-all duration-500 ease-out ${showFull ? "h-auto" : "h-[165px] overflow-hidden relative"}`}>
                                             {purchases.map((order, index) => (
                                                 <div
                                                     key={index}
                                                     className="border-b border-gray-300 py-2 flex flex-col md:flex-row md:items-center justify-between"
                                                 >
-                                                    {/* Name & Amount */}
                                                     <div className="flex justify-between w-full md:w-[50%]">
                                                         <p className="text-[22px] font-[700] font-Helvetica">{order.project_name.length > 9 ? order.project_name.substring(0, 5) + " (...)" : order.project_name}</p>
                                                         <p className="text-[22px] font-[700] font-Helvetica">{Math.round(order.grand_total)} SAR</p>
                                                     </div>
 
-                                                    {/* ID, Date & Status */}
                                                     <div className="flex justify-between w-full md:w-[50%] mt-1 md:mt-0">
                                                         <p className="text-[20px] font-[500] text-gray-500 font-Helvetica">{order.id}</p>
                                                         <p className="text-[20px] font-[500] text-gray-500 font-Helvetica">{format(new Date(order.purchase_date), "dd/MM/yy")}</p>
@@ -785,14 +792,12 @@ const handleDownload = async (file) => {
                                                 </div>
                                             ))}
 
-                                            {/* Gradient Overlay (only when not expanded) */}
                                             {!showFull && (
-                                                //<div className="absolute shadow-lg bottom-0 left-0 w-full h-[60px] bg-gradient-to-t from-white to-transparent pointer-events-none transition-shadow"></div>
                                                 <div className="absolute bottom-[-40px] left-0 w-full h-[80px] bg-gradient-to-t from-white via-white/90 to-transparent shadow-[1px] pointer-events-none transition-all duration-500 ease-out "></div>
                                             )}
                                         </div>
                                     </div> 
-                            }
+                            } */}
 
                             
 
@@ -817,44 +822,70 @@ const handleDownload = async (file) => {
                             aria-describedby="modal-modal-description"
                         >
                             <Box sx={style}>
-
-                                {(Files.length > 0 || Links.length > 0) && (
-                                    <div>
+                                      <div className='min-h-[450px] overflow-y-auto border-[1px] border-black pt-2'>
+                                        <p className='px-2 text-[20px] font-[500] font-Helvetica'>Artworks</p>
+                                      {(Files.length > 0 || Links.length > 0) && (
+                                    <div> 
                                             <div>
-                                                <strong>Files:</strong>
-                                                {Files.map((item, index) => (
-                                                    <a 
-                                                        key={index} 
-                                                        className="cursor-pointer ml-2 underline block w-fit break-all" 
-                                                        onClick={() => handleDownload(item)}
-                                                    >
-                                                        {item.replace(/-\d{13,}-\d+/, "").trim()}
-                                                    </a>
-                                                ))}
+                                                <strong className='px-2'>Files:</strong>
+                                                {
+                                                    Files?.length > 0 ?
+                                                    Files.map((item, index) => (
+                                                        // <a 
+                                                        //     key={index} 
+                                                        //     className="cursor-pointer ml-2 underline block w-fit break-all" 
+                                                        //     onClick={() => handleDownload(item.data)}
+                                                        // >
+                                                        //     {item.data.replace(/-\d{13,}-\d+/, "").trim()}
+                                                        // </a>
+    
+                                                        <div className={`${Files?.length - 1 !== index && 'border-b border-black'} mt-2 px-2`}>
+                                                            <p>Date : {item?.created_at}</p>
+                                                            <p>Title : File</p>
+                                                            <p onClick={() => handleDownload(item.data)}>Link : <span className='text-blue-500 cursor-pointer underline'>{item.data.replace(/-\d{13,}-\d+/, "").trim()}</span> </p>
+                                                        </div>
+                                                    )):'No Files Found'
+                                                }
+                                                
                                             </div>
 
                                         {Links.length > 0 && (
                                             <div>
-                                                <strong>Links:</strong>
-                                                {Links.map((item, index) => {
-                                                    const validUrl = item.startsWith("http://") || item.startsWith("https://") ? item : `https://${item}`;
-
-                                                    return (
-                                                        <a 
-                                                            key={index} 
-                                                            className="cursor-pointer ml-2 underline block w-fit break-all" 
-                                                            href={validUrl} 
-                                                            target="_blank" 
-                                                            rel="noopener noreferrer"
-                                                        >
-                                                            {item}
-                                                        </a>
-                                                    );
-                                                })}
+                                                <strong className='px-2'>Links:</strong>
+                                                {
+                                                    Links?.length > 0 ? 
+                                                    Links.map((item, index) => {
+                                                        const validUrl = item?.data.startsWith("http://") || item?.data.startsWith("https://") ? item?.data : `https://${item?.data}`;
+    
+                                                        return (
+                                                           
+                                                            <div className={`${Links?.length - 1 !== index && 'border-b border-black'} mt-2 px-2`}>
+                                                            <p>Date : {item?.created_at}</p>
+                                                            <p>Title : Link</p>
+                                                            {/* <p onClick={() => handleDownload(item.data)}>Link : <span className='text-blue-500 cursor-pointer underline'>{item.data.replace(/-\d{13,}-\d+/, "").trim()}</span> </p> */}
+                                                            <p className='flex'>
+                                                                Link :
+                                                             <a 
+                                                                 key={index} 
+                                                                 className="cursor-pointer ml-2 underline block w-fit break-all" 
+                                                                 href={validUrl} 
+                                                                 target="_blank" 
+                                                                 rel="noopener noreferrer"
+                                                             >
+                                                                 {item?.data}
+                                                             </a>
+                                                            </p>
+                                                           </div>
+                                                        );
+                                                    }) :'No Links Found'
+                                                }
+                                                
                                             </div>
                                         )}
                                     </div>
                                 )}
+                                      </div>
+                                
 
                                 
                                 <p className='absolute right-[-40px] top-[-30px]'>

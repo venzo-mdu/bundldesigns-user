@@ -291,12 +291,12 @@ export const Home = () => {
             //     setSelectedIndex(index)
             // } else {
                 setSelectedIndex(null)
-               navigate(`/bundldetail/${routeNames[bundlData.packages[index].id]}`,);
+               navigate(`/bundldetail/${routeNames[bundlData?.packages[index]?.id]}`,);
                 // navigate(`/bundldetail/${bundlData.packages[index].id}`,);
             // }
         } catch (error) {
             console.error('An error occurred:', error);
-            navigate(`/login?next_url=bundldetail/${routeNames[bundlData.packages[index].id]}`);
+            navigate(`/login?next_url=bundldetail/${routeNames[bundlData?.packages[index]?.id]}`);
         }
     };
 
@@ -375,6 +375,9 @@ export const Home = () => {
                                                                             <>
                                                                                 <li className='relative p-1 inner-nav-li'>
                                                                                     <a href="/dashboard" className='!text-black' previewlistener="true">Projects</a>
+                                                                                </li>
+                                                                                <li className='relative p-1 inner-nav-li'>
+                                                                                    <a href="/purchase-history" className='!text-black' previewlistener="true">History</a>
                                                                                 </li>
                                                                                 <li className='relative p-1 inner-nav-li'>
                                                                                     <a href="/profile" className='!text-black' previewlistener="true">Profile</a>

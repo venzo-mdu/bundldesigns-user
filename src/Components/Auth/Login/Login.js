@@ -12,10 +12,11 @@ import { GoogleLogin } from '@react-oauth/google';
 import AppleSignin from 'react-apple-signin-auth';
 import { jwtDecode as jwt_decode } from 'jwt-decode';
 import { base_url } from '../BackendAPIUrl';
+import { useGoogleLogin } from '@react-oauth/google';
 import loginGIF from '../../../Images/loginGIF.gif'
 import ClipLoader from "react-spinners/ClipLoader";
 import AppleLogin from 'react-apple-login'
-
+import GoogleIcon from "../../../Images/Login/icons8-google.svg"
 
 export const Login = () => {
 
@@ -43,8 +44,54 @@ export const Login = () => {
       top: 0,
       left: 0
     })
-  }, [])
+  }, []);
 
+
+  // const login = useGoogleLogin({
+  //   onSuccess: (tokenResponse) => {
+  //     const token = tokenResponse.credential;
+  //     const userDetails = jwt_decode(token);
+  //     console.log('User Details:', userDetails);
+  //     console.log('Name:', userDetails.name);
+  //     console.log('Email:', userDetails.email);
+  //     console.log('Profile Picture:', userDetails.picture);
+
+  //     loginWithGoogle({
+  //       email: userDetails.email,
+  //       full_name: userDetails.name,
+  //       password: null,
+  //       google: true
+  //     });
+  //   },
+  //   onError: () => {
+  //     console.log('Login Failed');
+  //   },
+  // });
+
+
+  const login = useGoogleLogin({
+    onSuccess: (tokenResponse) => {
+      console.log('Token Response:', tokenResponse);
+
+      const accessToken = tokenResponse.access_token; // Correct way to extract token
+      fetch(`https://www.googleapis.com/oauth2/v3/userinfo?access_token=${accessToken}`)
+        .then((res) => res.json())
+        .then((userDetails) => {
+          console.log('User Details:', userDetails);
+
+          loginWithGoogle({
+            email: userDetails.email,
+            full_name: userDetails.name,
+            password: null,
+            google: true
+          });
+        })
+        .catch((err) => console.error('Error fetching user details:', err));
+    },
+    onError: () => {
+      console.log('Login Failed');
+    },
+  });
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -116,7 +163,7 @@ export const Login = () => {
           navigate(`/${next_url}`, {
             state: {
               project_name: project_name,
-              fromLogin:true,
+              fromLogin: true,
             }
           })
         }
@@ -159,7 +206,7 @@ export const Login = () => {
           navigate(`${process.env.REACT_APP_URL}/${next_url}`, {
             state: {
               project_name: project_name,
-              fromLogin:true,
+              fromLogin: true,
             }
           })
           // window.location.href =`${process.env.REACT_APP_URL}/${next_url}`
@@ -189,7 +236,7 @@ export const Login = () => {
           navigate(`/${next_url}`, {
             state: {
               project_name: project_name,
-              fromLogin:true,
+              fromLogin: true,
             }
           })
         } else { navigate('/'); }
@@ -206,7 +253,7 @@ export const Login = () => {
 
   return (
     <div>
-      <div className='login !mb-24 '>
+      <div className='login !mb-[8rem] '>
         {/* <img className='anchor w-[100px]' src={loginGIF} alt='login-anchor' /> */}
         <div className='login-content '>
           <p className='welcometext'>Welcome Back!</p>
@@ -244,7 +291,7 @@ export const Login = () => {
             <p className='signinwithgoogle !text-[17px] !font-bold'>
               {/* <img src={Googleicon} alt='google-icon' /> Sign in with Google */}
               <div className='lg:w-[45%] md:w-[45%] xs:w-[100%]'>
-                <GoogleLogin
+                {/* <GoogleLogin
                   onSuccess={credentialResponse => {
                     const token = credentialResponse.credential;
                     const userDetails = jwt_decode(token);
@@ -263,35 +310,52 @@ export const Login = () => {
                   onError={() => {
                     console.log('Login Failed');
                   }}
-                />
-              </div>
-              <div className='lg:w-[45%] md:w-[45%] xs:w-[100%] ml-[5%]'>
-
-              <AppleSignin
-                authOptions={{
-                  clientId:"com.bundldesigns.app.client", 
-                  redirectURI: "https://bundldesigns.web.app/login",
-                  scope: "email name",
-                  usePopup: false,
-                }}
-                className={'lg:w-[50%] md:w-[50%] xs:w-[100%] !lg:text-[18px] !md:text-[18px] !xs:text-[16px]'}
-                onSuccess={handleAppleLoginSuccess}
-                onError={(error) => console.error("Apple Login Failed:", error)}
-                render={(props) => <button {...props}
+                /> */}
+                <button
+                  onClick={login}
                   style={{
                     backgroundColor: "white",
                     padding: 10,
-                    // border: "1px solid black",
                     fontFamily: "none",
                     lineHeight: "25px",
-                    fontSize:window?.innerWidth<=500?"12px":"18px"
+                    fontSize: window?.innerWidth <= 500 ? "12px" : "18px",
+                    border: '1px solid #D9D9D9',
+                    borderRadius: '0px'
                   }}
                 >
-                  <i className="fa-brands fa-apple px-2 "></i>
-                  Continue with Apple
-                </button>}
-              />
-              {/* <AppleLogin
+                  {/* <img src={GoogleIcon} className='w-[25px] mr-2'></img> */}
+                  <i class="fab fa-google mr-2"></i>
+                  Sign in with Google
+                </button>
+              </div>
+              <div className='lg:w-[45%] md:w-[45%] xs:w-[100%] ml-[5%]'>
+
+                <AppleSignin
+                  authOptions={{
+                    clientId: "com.bundldesigns.app.client",
+                    redirectURI: "https://bundldesigns.web.app/login",
+                    scope: "email name",
+                    usePopup: false,
+                  }}
+                  className={'lg:w-[50%] md:w-[50%] xs:w-[100%] !lg:text-[18px] !md:text-[18px] !xs:text-[16px]'}
+                  onSuccess={handleAppleLoginSuccess}
+                  onError={(error) => console.error("Apple Login Failed:", error)}
+                  render={(props) => <button {...props}
+                    style={{
+                      backgroundColor: "white",
+                      padding: 10,
+                      fontFamily: "none",
+                      lineHeight: "25px",
+                      fontSize: window?.innerWidth <= 500 ? "12px" : "18px",
+                      border: '1px solid #D9D9D9',
+                      borderRadius: '0px'
+                    }}
+                  >
+                    <i className="fa-brands fa-apple px-2 "></i>
+                    Continue with Apple
+                  </button>}
+                />
+                {/* <AppleLogin
                 clientId="com.bundldesigns.app.client"
                 redirectURI="https://bundldesigns.web.app/login"
                 app
@@ -316,7 +380,7 @@ export const Login = () => {
                   </button>
                 )}
               /> */}
-             </div>
+              </div>
             </p>
             <p className='dont !mt-4 w-[90%] sm:w-[90%] xs:w-full'>
               Don’t Have an account? <span><NavLink className='signup !font-[500]' to={'/signup'}>&nbsp;Sign Up</NavLink></span>

@@ -746,7 +746,7 @@ const onBackClick = () => {
                     >
                       <input
                         type="text"
-                        placeholder='Links or Pictures'
+                        placeholder='Links'
                         // value={getAnswerValue(question.id)}
                         onChange={(e) => handleChange(question.id, e.target.value)}
                         style={{

@@ -479,7 +479,7 @@ export const MyCart = () => {
             <div className='mycart '>
 
                 <div className='cart !xs:border-none  sm:!pb-[170px] !pb-[170px] xs:!pb-[20px]'>
-                    <p onClick={()=>handleBackClick()} className='flex font-[500] cursor-pointer !text-[18px] items-center text-black mt-[2%]'> <img src={backIcon} className='mr-2 w-[30px]' onClick={()=>handleBackClick()}></img> Back to Bundl </p>          
+                    <p  className='flex font-[500]  !text-[18px] items-center text-black mt-[2%]'> <img src={backIcon} className='mr-2 w-[30px] cursor-pointer' onClick={()=>handleBackClick()}></img><span className='cursor-pointer' onClick={()=>handleBackClick()}> Back to Bundl</span> </p>          
                     {/* {isDirect == false && <p onClick={()=>handleBackClick()} className='flex font-[500] cursor-pointer !text-[18px] items-center text-black mt-[2%]'> <img src={backIcon} className='mr-2 w-[30px]' onClick={()=>handleBackClick()}></img> Back to Bundl </p>}           */}
                     <p className='!xs:text-[16px] font-[700] !sm:text-[20px]'>Your Cart</p>
                     {isMobile ? <>
@@ -698,7 +698,7 @@ export const MyCart = () => {
                 loading={paymentLoading}
                 size={25}
             /> : 'Make Payment'}</button>
-            <p className='text-[red] !text-[20px] !font-[400] !mt-2'>{Object.values(error).map(item =>{
+            <p className='text-[red] !text-[18px] !font-[400] !mt-2'>{Object.values(error).map(item =>{
                 return item
             })}</p>
         </form>

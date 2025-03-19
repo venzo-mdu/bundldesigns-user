@@ -77,7 +77,7 @@ export const BundlDetail = () => {
       setBrandError(state?.project_name && false)
       createPayload();
     }
-  })
+  },[])
   useEffect(()=>{
     const handleResize = () => {
       setIsMobile(window.innerWidth < 440);
@@ -97,7 +97,7 @@ export const BundlDetail = () => {
   const validateFields = () => {
 
 
-    if (brandInput == '') {
+    if (brandInput.trim() == '') {
       if (!toast.isActive('required-value-toast')) {
         toast.error(`Name your brand`, {
           position: toast?.POSITION?.TOP_RIGHT,
@@ -406,7 +406,7 @@ export const BundlDetail = () => {
              {!isMobile || isMobile && showDetails ? <>
               <div style={{ display: 'flex', padding: '1% 2%' }} className='border-y-[1px] border-black'>
                <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[60%] mb-0 pt-0'>{packageDetail?.package?.name_english ||'' } {packageDetail?.package?.name_english && 'Bundl'}</p>
-               <p className='sm:text-[20px] text-[20px] text-right xs:text-[16px] font-[700] w-[40%] mb-0 pt-0'>{Math.round(packageDetail?.package?.price)} SAR</p>
+               <p className='sm:text-[20px] text-[20px] text-right xs:text-[16px] font-[700] w-[38%] mb-0 pt-0'>{Math.round(packageDetail?.package?.price)} SAR</p>
              </div>
              {/* {selectedItems?.map((item, idx) => {
               return <div key={idx} className='one-brand-identity xs:flex sm:block block flex-wrap justify-around'>
@@ -474,14 +474,14 @@ export const BundlDetail = () => {
                     ))} */}
                     {
                             bundleItem?.design_list?.map((item, idx) => {
-                              return <div key={idx} className='one-brand-identity xs:flex sm:block block flex-wrap justify-around'>
+                              return <div key={idx} className={`one-brand-identity ${idx !== bundleItem?.design_list?.length-1 && 'h-[25px]' } xs:flex sm:block block flex-wrap justify-around`}>
                                 <div className='flex xs:w-[100%]  w-full'>
-                                  {console.log(selectedItems)}
-                                <p className='text-black sm:text-[20px] text-[20px] xs:text-[16px] font-[700] !mb-1 xs:w-[75%] lg:w-full md:w-full sm:w-full' >{item.quantity} {item.name_english} <span className='sm:text-[16px] text-[16px] xs:text-[14px]'>{item.id =='76' && (selectedLanguage == 'Both' ? '(English & Arabic)' :`(${selectedLanguage})`)} </span></p>
+                                  
+                                <p className='text-black sm:text-[18px] text-[18px] xs:text-[16px] font-[700] !mb-1 xs:w-[75%] lg:w-full md:w-full sm:w-full ' >{item.quantity} {item.name_english} <span className='sm:text-[16px] text-[16px] xs:text-[14px]'>{item.id =='76' && (selectedLanguage == 'Both' ? '(English & Arabic)' :`(${selectedLanguage})`)} </span></p>
                 { item.id =='76' && selectedLanguage == 'Both'? <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[50%]' style={{color:textColor }}>+ {item.quantity == 1
                         ? parseFloat(item.price) + 2000 
                         : parseFloat(item.price) + ((parseFloat(item.price) / 100) * item.price_increment * (item.quantity - 1)) + 2000} SAR</p>:
-                <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] lg:w-[40%] md:w-[50%]' style={{color:textColor }}>+ {item.quantity == 1
+                <p className='sm:text-[20px] text-[18px] xs:text-[16px] font-[700] lg:w-[40%] md:w-[50%]  text-right' style={{color:textColor }}>+ {item.quantity == 1
                         ? parseFloat(item.price)
                         : parseFloat(item.price) + ((parseFloat(item.price) / 100) * item.price_increment * (item.quantity - 1))} SAR</p>}
                                 </div>
@@ -501,11 +501,11 @@ export const BundlDetail = () => {
                }
              </div>
              {addonPayLoads?.item_list?.map((addon, idx) => (
-               <div key={idx} className={` one-brand-identity ${addonPayLoads?.item_list?.length-1 === idx && 'border-b-[1px] border-black'} xs:flex sm:block block flex-wrap justify-around`}>
+               <div key={idx} className={` one-brand-identity ${idx !== addonPayLoads?.item_list?.length-1 && 'h-[25px]' } ${addonPayLoads?.item_list?.length-1 === idx && 'border-b-[1px] border-black'} xs:flex sm:block block flex-wrap justify-around`}>
                  <div className='flex xs:w-[100%]  w-full' >
-                 <p className='text-black sm:text-[20px] text-[20px] xs:text-[16px] font-[700] !mb-1 xs:w-[75%]  lg:w-full md:w-full sm:w-full'>{addon.qty} {addon.addon_name}</p>
+                 <p className='text-black sm:text-[18px] text-[18px] xs:text-[16px] font-[700] !mb-1 xs:w-[75%]  lg:w-full md:w-full sm:w-full'>{addon.qty} {addon.addon_name}</p>
                    {/* <p className='sm:text-[20px] xs:ml-10 sm:ml-[2px] text-[20px] xs:text-[16px] font-[700] w-[40%]' style={{color:textColor }} >+ {addon.unit_time * addon.qty} Days</p> */}
-                   <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] lg:w-[40%] md:w-[50%]' style={{color:textColor }}>+ {addon.total_price} SAR</p>
+                   <p className='sm:text-[20px] text-[18px] xs:text-[16px] font-[700] lg:w-[40%] md:w-[50%] xs:w-[25%] text-right' style={{color:textColor }}>+ {addon.total_price} SAR</p>
                  </div>
                </div>
              ))}
@@ -514,7 +514,7 @@ export const BundlDetail = () => {
              <div className='bundl-checkout sm:mt-3'>
                <div className='total !font-[700]' style={{ display: 'flex' }}>
                  <p className='sm:mb-3 xs:mb-0 flex items-center !xs:text-[16px] !sm:text-[20px]' style={{ width: '60%' }}><img src={BlackDollor} alt="Total Price" className="inline-block !font-[700] sm:ml-1 xs:ml-2" /><span className='sm:ml-3 xs:ml-5 !font-[700]'>Total Price :</span></p>
-                 <p className='!font-[700] text-end !xs:text-[16px] !sm:text-[20px] sm:mb-3 xs:mb-0'  
+                 <p className='!font-[700] text-end !xs:text-[16px] !sm:text-[20px] sm:mb-3 xs:mb-0 '  
                  style={{ width: '40%' }} >{parseFloat(packageDetail?.package?.price) +
                   addonPayLoads.total_price +
                   (selectedLanguage === 'Both' ? 2000 : 0)} SAR</p>

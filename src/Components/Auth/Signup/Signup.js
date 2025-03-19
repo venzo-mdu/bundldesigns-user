@@ -18,6 +18,7 @@ import { loginAction } from '../../../Redux/Action';
 import ClipLoader from "react-spinners/ClipLoader";
 import PhoneNumberInput from '../../Pages/PhoneNumberInput';
 import AppleLogin from 'react-apple-login'
+import { useGoogleLogin } from '@react-oauth/google';
 
 export const Signup = () => {
 
@@ -84,6 +85,30 @@ export const Signup = () => {
       [field]: errorMessage,
     }));
   };
+
+
+const login = useGoogleLogin({
+  onSuccess: (tokenResponse) => {
+    const token = tokenResponse.credential;
+    const accessToken = tokenResponse.access_token; // Correct way to extract token
+    fetch(`https://www.googleapis.com/oauth2/v3/userinfo?access_token=${accessToken}`)
+      .then((res) => res.json())
+      .then((userDetails) => {
+        console.log('User Details:', userDetails);
+
+        signupWithGoogle({
+          email: userDetails.email,
+          full_name: userDetails.name,
+          password: null,
+          google: true
+        });
+      })
+      .catch((err) => console.error('Error fetching user details:', err));
+    },
+  onError: () => {
+    console.log('Login Failed');
+  },
+});
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -362,7 +387,7 @@ export const Signup = () => {
             <p className='signinwithgoogle'>
               {/* <img src={Googleicon} alt='google-icon' /> Sign in with Google */}
               <div className='lg:w-[45%] md:w-[45%] xs:w-[100%]'>
-              <GoogleLogin
+              {/* <GoogleLogin
                 onSuccess={credentialResponse => {
                   const token = credentialResponse.credential;
                   const userDetails = jwt_decode(token);
@@ -376,7 +401,23 @@ export const Signup = () => {
                 onError={() => {
                   console.log('Login Failed');
                 }}
-              />
+              /> */}
+              <button
+                  onClick={login}
+                  style={{
+                    backgroundColor: "white",
+                    padding: 10,
+                    fontFamily: "none",
+                    lineHeight: "25px",
+                    fontSize: window?.innerWidth <= 500 ? "14px" : "18px",
+                    border: '1px solid #D9D9D9',
+                    borderRadius: '0px'
+                  }}
+                >
+                  {/* <img src={GoogleIcon} className='w-[25px] mr-2'></img> */}
+                  <i class="fab fa-google mr-2"></i>
+                  Sign in with Google
+                </button>
               </div>
               <div className='lg:w-[45%] md:w-[45%] xs:w-[100%]'>
               <AppleSignin
@@ -393,10 +434,11 @@ export const Signup = () => {
                   style={{
                     backgroundColor: "white",
                     padding: 10,
-                    // border: "1px solid black",
+                    border: '1px solid #D9D9D9',
+                    borderRadius: '0px',
                     fontFamily: "none",
                     lineHeight: "25px",
-                    fontSize:window?.innerWidth<=500?"12px":"18px"
+                    fontSize:window?.innerWidth<=500?"14px":"18px"
                   }}
                 >
                   <i className="fa-brands fa-apple px-2 "></i>

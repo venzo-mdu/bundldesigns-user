@@ -27,7 +27,7 @@ export const Questionnaire5 = ({formData,setFormData}) => {
 
   const placeHolders = [
     "",
-    "insert the link below or send it to our email info@bundldesigns.com",
+    "Upload the file/document or send it to our email info@bundldesigns.com",
     ""
   ];
 

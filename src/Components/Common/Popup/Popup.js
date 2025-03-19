@@ -18,7 +18,7 @@ export const Popup = ({ title, subTitle, popupType = 'default', onChange, save, 
 
     const style = {
         position: 'absolute',
-        top: '30%',
+        top: '35%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
         width: isSmallScreen ? '90%' : 565,

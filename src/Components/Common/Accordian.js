@@ -41,7 +41,9 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
         ? `${base_url}/api/package/`
         : `${base_url}/api/package/?bundle_id=${bundlePackageId}`;
   
-      const response = await axios.get(url, ConfigToken());
+      const response = await axios.get(url
+        // , ConfigToken()
+      );
   
       if (response.data) {
         setAddonData(response.data);
