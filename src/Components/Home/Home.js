@@ -1212,7 +1212,8 @@ export const Home = () => {
                                                                 return (<img
                                                                     key={imgIndex}
                                                                     // className="w-1/3 sm:w-[33%] object-cover border-black border-solid border-[5px]"
-                                                                    className={`lg:w-1/3 md:w-1/3 xs:w-[30%] lg:object-cover md:object-cover xs:object-fill ${borderClasses}`}
+                                                                    // className={`lg:w-1/3 md:w-1/3 xs:w-[30%] lg:object-cover md:object-cover xs:object-fill aspect-square ${borderClasses}`}
+                                                                    className={`sm:w-[32%] w-[32%] xs:w-[33%] aspect-square object-cover ${borderClasses}`}
                                                                     src={img}
                                                                     alt={`Project ${index + 1}`}
                                                                 />)

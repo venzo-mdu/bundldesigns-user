@@ -105,6 +105,7 @@ export const BundlDetail = () => {
         toast.error(`Name your brand`, {
           position: toast?.POSITION?.TOP_RIGHT,
           toastId: 'required-value-toast',
+          autoClose: 500
         });
       }
       
@@ -122,7 +123,7 @@ export const BundlDetail = () => {
     if(firstOrder && total_price < 4880 && packageID=='newbie'){
       toast.error(`Minimum order amount should be 4880`, {
         position: toast?.POSITION?.TOP_RIGHT,
-        toastId: 'required-value-toast',
+        toastId: 'required-value-toast2',
       });
       return false;
     }
@@ -195,7 +196,8 @@ export const BundlDetail = () => {
     }
         toast.success(`Cart updated successfully`, {
                 position: toast?.POSITION?.TOP_RIGHT,
-                toastId: 'required-value-toast',
+                toastId: 'required-value-toast1',
+                autoClose: 500
               });
     setExtraQty(prevQuantities => {
       let newQuantity = (prevQuantities[designName] || 0) + change;
@@ -311,7 +313,7 @@ export const BundlDetail = () => {
                        <div style={window.innerWidth < 441 ? { display: 'flex', width: '100%',flexWrap:'wrap' } : { display: 'flex', width: '100%' ,alignItems:'center',justifyContent:'space-between',flexWrap:'wrap' }}>
                          <p className='logo-design xs:basis-[100%] sm:basis-1/4'>Logo design</p>
                            <p className='mr-3'>
-                             <label className='cursor-pointer flex items-center mb-0'>
+                             <label className='cursor-pointer flex items-center leading-none mb-0'>
                                <input
                                  type="radio"
                                  name="language"
@@ -325,7 +327,7 @@ export const BundlDetail = () => {
                            </p>
  
                            <p className='mr-3'>
-                             <label  className='cursor-pointer flex items-center  mb-0'>
+                             <label  className='cursor-pointer flex items-center leading-none mb-0'>
                                <input
                                  type="radio"
                                  name="language"
@@ -339,7 +341,7 @@ export const BundlDetail = () => {
                            </p>
  
                            <p className='mr-3'>
-                             <label  className='cursor-pointer flex items-center  mb-0'>
+                             <label  className='cursor-pointer flex items-center leading-none mb-0'>
                                <input
                                  type="radio"
                                  name="language"

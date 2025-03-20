@@ -320,7 +320,9 @@ export const Login = () => {
                     lineHeight: "25px",
                     fontSize: window?.innerWidth <= 500 ? "12px" : "18px",
                     border: '1px solid #D9D9D9',
-                    borderRadius: '0px'
+                    borderRadius: '0px',
+                    fontFamily:'Helvetica',
+                    fontWeight:'400'
                   }}
                 >
                   {/* <img src={GoogleIcon} className='w-[25px] mr-2'></img> */}
@@ -348,11 +350,13 @@ export const Login = () => {
                       lineHeight: "25px",
                       fontSize: window?.innerWidth <= 500 ? "12px" : "18px",
                       border: '1px solid #D9D9D9',
-                      borderRadius: '0px'
+                      borderRadius: '0px',
+                      fontFamily:'Helvetica',
+                      fontWeight:'400'
                     }}
                   >
                     <i className="fa-brands fa-apple px-2 "></i>
-                    Signin with Apple
+                    Sign in with Apple
                   </button>}
                 />
                 {/* <AppleLogin

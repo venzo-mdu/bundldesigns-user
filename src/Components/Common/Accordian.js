@@ -97,7 +97,6 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
     const allDesigns = titleArr.flatMap(
       (title) => addOnData.designs_details?.[title]?.design_list || []
     );
-    console.log(allDesigns)
     let total_time = allDesigns
     .filter((design) => (quantities[design.name_english] || 0) + (extraQty[design.name_english] || 0) > 0)
     .reduce((max, design) => {

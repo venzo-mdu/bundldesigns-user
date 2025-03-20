@@ -407,7 +407,8 @@ const login = useGoogleLogin({
                   style={{
                     backgroundColor: "white",
                     padding: 10,
-                    fontFamily: "none",
+                    fontFamily:'Helvetica',
+                    fontWeight:'400',
                     lineHeight: "25px",
                     fontSize: window?.innerWidth <= 500 ? "14px" : "18px",
                     border: '1px solid #D9D9D9',
@@ -436,7 +437,8 @@ const login = useGoogleLogin({
                     padding: 10,
                     border: '1px solid #D9D9D9',
                     borderRadius: '0px',
-                    fontFamily: "none",
+                    fontFamily:'Helvetica',
+                    fontWeight:'400',
                     lineHeight: "25px",
                     fontSize:window?.innerWidth<=500?"14px":"18px"
                   }}
