@@ -29,6 +29,7 @@ import PrivacyPolicy from './Components/Pages/PrivacyPolicy';
 import Profile from './Components/Pages/Profile';
 import ResetPassword from './Components/Auth/ResetPassword';
 import { Purchasehistory } from './Components/Pages/Purchasehistory';
+import { Contactus } from './Components/Pages/Contactus';
 
 const getCookie = (name) => {
   const value = `; ${document.cookie}`;
@@ -176,6 +177,10 @@ export default function AppRouter() {
     {
       path: '/premium-form',
       element: < PremiumForm />
+    },
+    {
+      path: '/contact-us',
+      element: <Contactus />
     },
     {
       path:'/form/:form_type',

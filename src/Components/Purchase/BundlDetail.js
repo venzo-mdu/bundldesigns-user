@@ -105,7 +105,7 @@ export const BundlDetail = () => {
         toast.error(`Name your brand`, {
           position: toast?.POSITION?.TOP_RIGHT,
           toastId: 'required-value-toast',
-          autoClose: 500
+          autoClose: 700
         });
       }
       
@@ -197,7 +197,7 @@ export const BundlDetail = () => {
         toast.success(`Cart updated successfully`, {
                 position: toast?.POSITION?.TOP_RIGHT,
                 toastId: 'required-value-toast1',
-                autoClose: 500
+                autoClose: 1000
               });
     setExtraQty(prevQuantities => {
       let newQuantity = (prevQuantities[designName] || 0) + change;

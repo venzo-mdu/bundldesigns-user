@@ -349,7 +349,7 @@ export const Home = () => {
                                                             <a className="nav-link" href="/our-work">Work</a>
                                                         </li>
                                                         <li className="nav-item">
-                                                            <a className="nav-link" href="#">Contact Us</a>
+                                                            <a className="nav-link" href="/contact-us">Contact Us</a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -437,7 +437,7 @@ export const Home = () => {
                                                                                 <a href="/aboutus" className='!text-black' previewlistener="true">About Us</a>
                                                                             </li>
                                                                             <li className='relative p-1 inner-nav-li'>
-                                                                                <a href="#" className='!text-black' previewlistener="true">Contact Us</a>
+                                                                                <a href="/contact-us" className='!text-black' previewlistener="true">Contact Us</a>
                                                                             </li>
                                                                         </ul>
                                                                     )

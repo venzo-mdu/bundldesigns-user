@@ -188,7 +188,7 @@ export const Home = () => {
                                                             <a className="nav-link" href="/our-work">Work</a>
                                                         </li>
                                                         <li className="nav-item">
-                                                            <a className="nav-link" >Contact Us</a>
+                                                            <a className="nav-link" href="/contact-us">Contact Us</a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -233,7 +233,7 @@ export const Home = () => {
                                                         </li>
                                                         <li>
                                                             {/* <!-- <a href="">Contact Us</a> --> */}
-                                                            <a href="#" previewlistener="true">Contact Us</a>
+                                                            <a href="/contact-us" previewlistener="true">Contact Us</a>
 
                                                         </li>
 
@@ -308,6 +308,7 @@ export const Home = () => {
                                                 <li><span><img src={MagicIcon} alt="" className="img-fluid"></img></span></li>
                                                 <li><span>Shop our Bundls</span></li>
                                             </ul>
+                                            
                                             <div className="hover-animation btn-blank-hover">
                                                 <span className="blue"></span>
                                                 <span className="green"></span>

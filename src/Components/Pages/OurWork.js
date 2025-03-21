@@ -9,6 +9,10 @@ import paperplane from '../../Images/our-work.gif'
 import { Bgloader } from '../Common/Background/Bgloader';
 import workOurGIF from '../../Images/ourWorkGIF.gif'
 import workBrandGIF from '../../Images/ourWorkBranding.gif'
+import { Paper, Button } from '@mui/material';
+import Carousel from 'react-material-ui-carousel'
+import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
+import ArrowBackIosRoundedIcon from '@mui/icons-material/ArrowBackIosRounded';
 
 export default function OurWork() {
   const [loading,setLoading] = useState(true)
@@ -88,17 +92,40 @@ export default function OurWork() {
       </div>
 
       {/* Right Column */}
-      <div className="flex flex-wrap basis-1/2 xs:mt-6 w-full">
-        {project.project_images.map((img, imgIndex) => (
-          <img
-            key={imgIndex}
-            className="sm:w-[32%] w-[32%] xs:w-[33%] aspect-square object-cover"
-            width="200px"
-            src={img}
-            alt={`Project ${index} Image ${imgIndex}`}
-          />
-        ))}
-      </div>
+      {
+        window?.innerWidth<= 500 ?
+        <Carousel 
+        // NextIcon={<ArrowForwardIosRoundedIcon/>}
+        PrevIcon={<ArrowBackIosRoundedIcon/>}
+        autoPlay={true} duration={200}>
+        {
+            project.project_images.map( (item, i) => 
+               <div key={i} style={{margin:'5% 0 0 0',display:'flex',justifyContent:'center'}}>
+                  <img
+                     key={i}
+                     className="aspect-square object-cover w-[100%]"
+                     width="200px"
+                     src={item}
+                     alt={`Project ${index} Image ${i}`}
+                   />
+               </div>
+            )
+        }
+    </Carousel> :
+   <div className="flex flex-wrap basis-1/2 xs:mt-6 w-full">
+   {project.project_images.map((img, imgIndex) => (
+     <img
+       key={imgIndex}
+       className="sm:w-[32%] w-[32%] xs:w-[33%] aspect-square object-cover"
+       width="200px"
+       src={img}
+      // alt={`Project ${imgIndex} Image ${imgIndex}`}
+     />
+   ))}
+ </div>
+      }
+   
+     
     </div>
   ))}
           </div>
