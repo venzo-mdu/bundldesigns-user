@@ -97,7 +97,7 @@ export default function OurWork() {
         <Carousel 
         // NextIcon={<ArrowForwardIosRoundedIcon/>}
         PrevIcon={<ArrowBackIosRoundedIcon/>}
-        autoPlay={true} duration={200}>
+        autoPlay={false} duration={200}>
         {
             project.project_images.map( (item, i) => 
                <div key={i} style={{margin:'5% 0 0 0',display:'flex',justifyContent:'center'}}>
