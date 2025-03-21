@@ -105,7 +105,12 @@ export const BundlDetail = () => {
         toast.error(`Name your brand`, {
           position: toast?.POSITION?.TOP_RIGHT,
           toastId: 'required-value-toast',
-          autoClose: 700
+          autoClose: 3000,
+          icon:false,
+          style:{
+            color:'#D83D99',
+            fontWeight:'700'
+          }
         });
       }
       
@@ -124,6 +129,12 @@ export const BundlDetail = () => {
       toast.error(`Minimum order amount should be 4880`, {
         position: toast?.POSITION?.TOP_RIGHT,
         toastId: 'required-value-toast2',
+          icon:false,
+          style:{
+              color:'#D83D99',
+              fontWeight:'700'
+          }
+        
       });
       return false;
     }
@@ -197,7 +208,12 @@ export const BundlDetail = () => {
         toast.success(`Cart updated successfully`, {
                 position: toast?.POSITION?.TOP_RIGHT,
                 toastId: 'required-value-toast1',
-                autoClose: 1000
+                autoClose: 3000,
+                icon: false,
+                style: {
+                  color: "#1BA56F",
+                  fontWeight:"700" // White text
+                },
               });
     setExtraQty(prevQuantities => {
       let newQuantity = (prevQuantities[designName] || 0) + change;
@@ -212,7 +228,15 @@ export const BundlDetail = () => {
     setOpenPopup(false);
     await axios.delete(`${base_url}/api/order/cart/`, ConfigToken());
     // addToCart(selectedIndex)
-    toast.success('Cart emptied,Now Checkout');
+    toast.success('Cart emptied,Now Checkout',
+      {
+        icon: false,
+        style: {
+          color: "#1BA56F",
+          fontWeight:"700" // White text
+        },
+      }
+    );
     createPayload();
 }
 
@@ -288,7 +312,7 @@ export const BundlDetail = () => {
          <div className='xs:px-2 sm:px-auto px-auto' style={{ borderBottom: '1.5px solid #000000', width: '100%' }}>
            <h2 className='sm:text-[40px] text-[40px] xs:text-[32px]'>{packageDetail?.package?.name_english||  ''}</h2>
            <div className='bundl-amount'>
-             <p style={{color:textColor}}  className='flex items-center'><img src={coinIcon} alt="Dollar icon" className="inline-block mr-3" /><span>{Math.round(packageDetail?.package?.price) || "3750 SAR"} SAR</span></p>
+             <p style={{color:textColor}}  className='flex items-center'><img src={coinIcon} alt="Dollar icon" className="inline-block mr-3" /><span> <span className='mr-0 font-[400]'>{packageID=='newbie' && 'Starting from'}</span> { packageID=='newbie' ? '4880' : Math.round(packageDetail?.package?.price) || "3750 SAR"} SAR</span></p>
              <p style={{color:textColor}}  className='items-center flex'><AccessTimeIcon className='mr-1'/><span> {packageDetail?.package?.time || "30 Days"} Days</span></p>
            </div>
            <p className='bundl-desc-title text-[20px] sm:text-[20px] xs:text-[16px] w-full sm:w-full xs:w-[350px] mx-auto'>Outcomes to Brand Identity + Add-ons.</p>
@@ -408,7 +432,7 @@ export const BundlDetail = () => {
              <div className='bundl-name '>
                <p className='sm:text-[24px] xs:mb-0 xs:flex xs:justify-between sm:block font-[700] px-0 !mb-2'  >
                <span className='font-normal'>Summary</span>
-               {isMobile && <button onClick={()=> setDetails(!showDetails)} style={{color:`${textColor}`}} className='text-[14px] font-normal underline'>{showDetails ? 'Hide Details':'Show Details'}</button>}
+               {isMobile && <button onClick={()=> setDetails(!showDetails)} style={{color:`${textColor}`}} className='text-[14px] font-normal underline uppercase'>{showDetails ? 'Hide Details':'Show Details'}</button>}
                </p>
              </div>
              {!isMobile || isMobile && showDetails ? <>
@@ -486,10 +510,10 @@ export const BundlDetail = () => {
                                 <div className='flex xs:w-[100%]  w-full'>
                                   
                                 <p className='text-black sm:text-[18px] text-[18px] xs:text-[16px] font-[400] !mb-1 xs:w-[75%] lg:w-full md:w-full sm:w-full ' >{item.quantity} {item.name_english} <span className='sm:text-[16px] text-[16px] xs:text-[14px]'>{item.id =='76' && (selectedLanguage == 'Both' ? '(English & Arabic)' :`(${selectedLanguage})`)} </span></p>
-                { item.id =='76' && selectedLanguage == 'Both'? <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[50%]' style={{color:textColor }}>+ {item.quantity == 1
+                { item.id =='76' && selectedLanguage == 'Both'? <p className='sm:text-[18px] text-[18px] xs:text-[16px] font-[400] w-[50%]' style={{color:textColor }}>+ {item.quantity == 1
                         ? parseFloat(item.price) + 2000 
                         : parseFloat(item.price) + ((parseFloat(item.price) / 100) * item.price_increment * (item.quantity - 1)) + 2000} SAR</p>:
-                <p className='sm:text-[20px] text-[18px] xs:text-[16px] font-[700] lg:w-[40%] md:w-[50%]  text-right' style={{color:textColor }}>+ {item.quantity == 1
+                <p className='sm:text-[20px] text-[18px] xs:text-[16px] font-[400] lg:w-[40%] md:w-[50%]  text-right' style={{color:textColor }}>+ {item.quantity == 1
                         ? parseFloat(item.price)
                         : parseFloat(item.price) + ((parseFloat(item.price) / 100) * item.price_increment * (item.quantity - 1))} SAR</p>}
                                 </div>
@@ -542,7 +566,7 @@ export const BundlDetail = () => {
                           {addon.qty} {addon.addon_name}
                         </p>
                         <p 
-                        className='sm:text-[20px] text-[18px] xs:text-[16px] font-[700] lg:w-[40%] md:w-[50%] xs:w-[25%] text-right' style={{color:textColor }}
+                        className='sm:text-[18px] text-[18px] xs:text-[16px] font-[400] lg:w-[40%] md:w-[50%] xs:w-[25%] text-right' style={{color:textColor }}
                         >
                           + {addon.total_price} SAR
                         </p>
@@ -570,8 +594,8 @@ export const BundlDetail = () => {
                <div className='flex justify-center items-center'>
                  {
                    (parseFloat(packageDetail?.package?.price) + addonPayLoads.total_price) > 700 ?
-                     <button style={{backgroundColor:textColor}} className={`proceed !bg-[${textColor}]`}  onClick={createPayload} >Proceed Checkout</button> :
-                     <button style={{backgroundColor:textColor}} className={`proceed !bg-[${textColor}]`} disabled>Proceed Checkout</button>
+                     <button style={{backgroundColor:textColor}} className={`proceed uppercase !bg-[${textColor}]`}  onClick={createPayload} >Proceed Checkout</button> :
+                     <button style={{backgroundColor:textColor}} className={`proceed uppercase !bg-[${textColor}]`} disabled>Proceed Checkout</button>
                  }
                </div>
               {(firstOrder && packageID=='newbie') && <p className='proceed-text'>Your minimum total should be above 4880 SAR</p>}

@@ -167,7 +167,7 @@ export default function WebsterForm() {
           {/* Submit Button */}
           <p className='text-center'> <button
             type="submit"
-            className="bg-[#1BA56F] text-white p-1  px-4 "
+            className="bg-[#1BA56F] text-white p-1 uppercase px-4 "
           >
            Submit Form
           </button></p>

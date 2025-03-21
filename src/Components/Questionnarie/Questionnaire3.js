@@ -104,6 +104,11 @@ console.log(formData,'formData')
     toast.error("The Value is required!", {
       position: toast?.POSITION?.TOP_RIGHT,
       toastId: 'required-value-toast',
+      icon:false,
+          style:{
+              color:'#D83D99',
+              fontWeight:'700'
+          }
     });
   };
 

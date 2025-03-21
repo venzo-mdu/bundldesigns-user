@@ -65,12 +65,26 @@ const ResetPassword = () => {
                     
                     if (response.status === 200) {
                         console.log("Password updated successfully!", response.data);
-                        toast.success('Password updated');
+                        toast.success('Password updated',
+                            {
+                                icon: false,
+                                style: {
+                                  color: "#1BA56F",
+                                  fontWeight:"700" // White text
+                                },
+                              }
+                        );
                         navigate("/")
                     }
                 } catch (error) {
                     console.error("Error updating Password:", error?.response);
-                    toast.error(error?.response?.data?.error[0]);
+                    toast.error(error?.response?.data?.error[0],{
+                        icon:false,
+                        style:{
+                            color:'#D83D99',
+                            fontWeight:'700'
+                        }
+                    });
                     setError({ submit: "Failed to update Password. Please try again." });
                 }
                 finally{

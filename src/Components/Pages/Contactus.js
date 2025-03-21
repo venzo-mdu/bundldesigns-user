@@ -82,6 +82,11 @@ export const Contactus = () => {
             toast.success(`Form submitted successfully`, {
                       position: toast?.POSITION?.TOP_RIGHT,
                       toastId: 'required-value-toast',
+                      icon: false,
+                      style: {
+                        color: "#1BA56F",
+                        fontWeight:"700" // White text
+                      },
                     });
           }
           setErrors({})
@@ -196,7 +201,7 @@ export const Contactus = () => {
                 {/* Submit Button */}
                 <p className='text-center !sm:my-8 '> <button
                 onClick={(e)=>handleSubmit(e)}
-                  className="bg-[#F3B7CE] text-[24px] w-full text-white py-2"
+                  className="bg-[#F3B7CE] text-[24px] w-full text-white py-2 uppercase"
                 >
                  Submit Contact Request
                 </button></p>

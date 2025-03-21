@@ -50,6 +50,11 @@ export const CustomBundl = () => {
       toast.error(`Name your brand`, {
         position: toast?.POSITION?.TOP_RIGHT,
         toastId: 'required-value-toast',
+        icon:false,
+          style:{
+              color:'#D83D99',
+              fontWeight:'700'
+          }
       });
       const element = document.getElementById("brandInput");
       if (element) {
@@ -62,6 +67,11 @@ export const CustomBundl = () => {
           toast.error(`Minimum order amount should be 800`, {
             position: toast?.POSITION?.TOP_RIGHT,
             toastId: 'required-value-toast',
+            icon:false,
+            style:{
+                color:'#D83D99',
+                fontWeight:'700'
+            }
           });
           return false;
         }
@@ -69,6 +79,11 @@ export const CustomBundl = () => {
       toast.error(`Please add an Item to Checkout`, {
         position: toast?.POSITION?.TOP_RIGHT,
         toastId: 'required-value-toast',
+        icon:false,
+          style:{
+              color:'#D83D99',
+              fontWeight:'700'
+          }
       });
       return false;
     }
@@ -145,7 +160,7 @@ export const CustomBundl = () => {
             <div className='bundl-name'>
               <p className='sm:text-[24px] xs:mb-0 xs:flex xs:justify-between sm:block' style={{ fontWeight: '700', padding: '2% 0%' }}>
                <span>Summary</span>
-    {isMobile && <button onClick={()=> setDetails(!showDetails)} className='text-[14px] text-[#1BA56F] font-normal underline'>Show Details</button>}
+    {isMobile && <button onClick={()=> setDetails(!showDetails)} className='text-[14px] text-[#1BA56F] font-normal underline uppercase'>Show Details</button>}
               </p>
 
             </div>
@@ -178,7 +193,7 @@ export const CustomBundl = () => {
               </div>
 
               <div className='proceed-checkout'>
-                 <button onClick={createPayload} className='proceed  bg-[#1BA56F]'>Proceed Checkout</button> 
+                 <button onClick={createPayload} className='proceed  bg-[#1BA56F] uppercase'>Proceed Checkout</button> 
               </div>
               {firstOrder && <p className='proceed-text'>Your minimum total should be above 800 SAR</p>}
             </div>

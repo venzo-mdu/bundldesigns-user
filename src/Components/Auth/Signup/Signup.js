@@ -77,6 +77,11 @@ export const Signup = () => {
     toast.error("The Value is required!", {
       position: toast?.POSITION?.TOP_RIGHT,
       toastId: 'required-value-toast',
+      icon:false,
+          style:{
+            color:'#D83D99',
+            fontWeight:'700'
+          }
     });
   };
   const setError = (field, errorMessage) => {
@@ -379,7 +384,7 @@ const login = useGoogleLogin({
               <span className='!text-[16px] cursor-pointer'>I agree to the terms & policy</span>
             </label>
             {(submitted && !isAgree) && <p className="error">Please agree to the terms and conditions.</p>}
-            <button type='submit' style={{ margin: "0% 0 0 0" }} className='signin !text-[24px]'>
+            <button type='submit' style={{ margin: "0% 0 0 0" }} className='signin !text-[24px] uppercase'>
               {loading ? <ClipLoader size={25} color={'#FFFFFF'}/>:'Signup'}
             </button>
             <p className='or mt-[4vh] flex items-center ml-2 font-[500] text-[11px]'> <span className='border-[#F5F5F5] border-b h-[2px] basis-[41%] mr-[2%] border-[1.5px]'>

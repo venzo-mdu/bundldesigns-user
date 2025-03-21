@@ -78,8 +78,13 @@ export default function WebsterPremiumForm() {
         if (response.data) {
           setSuccessMsg('Submitted Successfully')
           toast.success(`Form submitted successfully`, {
-                    position: toast?.POSITION?.TOP_RIGHT,
-                    toastId: 'required-value-toast',
+            position: toast?.POSITION?.TOP_RIGHT,
+            toastId: 'required-value-toast',
+            icon: false,
+            style: {
+              color: "#1BA56F",
+              fontWeight: "700" // White text
+            },
                   });
         }
         setErrors({})
@@ -198,7 +203,7 @@ export default function WebsterPremiumForm() {
             {/* Submit Button */}
             <p className='text-center !sm:my-8 '> <button
             onClick={(e)=>handleSubmit(e)}
-              className="bg-[#F3B7CE] text-[24px] w-full text-white py-2"
+              className="bg-[#F3B7CE] text-[24px] w-full uppercase text-white py-2"
             >
              Submit Contact Request
             </button></p>

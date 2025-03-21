@@ -134,6 +134,11 @@ export const Questionnaire4 = ({formData,setFormData}) => {
     toast.error("The Value is required!", {
       position: toast?.POSITION?.TOP_RIGHT,
       toastId: 'required-value-toast',
+      icon:false,
+          style:{
+              color:'#D83D99',
+              fontWeight:'700'
+          }
     });
   };
 
@@ -171,6 +176,11 @@ export const Questionnaire4 = ({formData,setFormData}) => {
       toast.error("Allows only HEX Code!", {
         position: toast?.POSITION?.TOP_RIGHT,
         toastId: 'required-value-toast',
+        icon:false,
+          style:{
+              color:'#D83D99',
+              fontWeight:'700'
+          }
       });
       setInputValue('');
       return;
@@ -179,6 +189,11 @@ export const Questionnaire4 = ({formData,setFormData}) => {
       toast.error("You have already added!", {
         position: toast?.POSITION?.TOP_RIGHT,
         toastId: 'required-value-toast',
+        icon:false,
+          style:{
+              color:'#D83D99',
+              fontWeight:'700'
+          }
       });
     }
     let colorsArray = selectedColors || [];

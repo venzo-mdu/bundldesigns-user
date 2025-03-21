@@ -84,6 +84,11 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
         toast.success(`Cart updated successfully`, {
             position: toast?.POSITION?.TOP_RIGHT,
             toastId: 'required-value-toast',
+              icon: false,
+              style: {
+                color: "#1BA56F",
+                fontWeight:"700" // White text
+            }
           });
     setQuantities((prevQuantities) => {
       const currentQuantity = prevQuantities[designName] || 0; // Default to 0 if not defined

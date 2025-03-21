@@ -83,19 +83,49 @@ export default function UploadContent() {
         try {
 
             if (!uploadContent?.[itemId]?.language) {
-                toast.error("Please choose language before saving."); // Show user-friendly error
+                toast.error("Please choose language before saving.",{
+                    icon:false,
+                    style:{
+                        color:'#D83D99',
+                        fontWeight:'700'
+                    }
+            }); // Show user-friendly error
                 return;
             }
             if (!uploadContent?.[itemId]?.content) {
-                toast.error("Please add content before saving."); // Show user-friendly error
+                toast.error("Please add content before saving.",{
+                    icon:false,
+                    style:{
+                        color:'#D83D99',
+                        fontWeight:'700'
+                    }
+            }); // Show user-friendly error
                 return;
             }
-            if (!uploadContent?.[itemId]?.measurements) {
-                toast.error("Please add measurements before saving."); // Show user-friendly error
+            if (!uploadContent?.[itemId]?.measurements,{
+                icon:false,
+                style:{
+                    color:'#D83D99',
+                    fontWeight:'700'
+                }
+        }) {
+                toast.error("Please add measurements before saving.",{
+                    icon:false,
+                    style:{
+                        color:'#D83D99',
+                        fontWeight:'700'
+                    }
+            }); // Show user-friendly error
                 return;
             }
             if (!uploadContent?.[itemId]?.filename) {
-                toast.error("Please upload the content."); // Show user-friendly error
+                toast.error("Please upload the content.",{
+                    icon:false,
+                    style:{
+                        color:'#D83D99',
+                        fontWeight:'700'
+                    }
+            }); // Show user-friendly error
                 return;
             }
            
@@ -110,15 +140,35 @@ export default function UploadContent() {
     
             if (response.status === 201) {
                 console.log("Content saved successfully!");
-                toast.success("Content saved successfully!"); // Notify user
+                toast.success("Content saved successfully!",
+                    {
+                        icon: false,
+                        style: {
+                            color: "#1BA56F",
+                            fontWeight: "700" // White text
+                        },
+                    }
+                ); // Notify user
                 getOrderDetails(); // Refresh order details
             } else {
                 console.error("Unexpected response:", response);
-                toast.error("Something went wrong! Please try again.");
+                toast.error("Something went wrong! Please try again.",{
+                    icon:false,
+                    style:{
+                        color:'#D83D99',
+                        fontWeight:'700'
+                    }
+            });
             }
         } catch (error) {
             console.error("Save failed:", error.response?.data || error.message);
-            toast.error(error.response?.data?.message || "Failed to save content. Please try again.");
+            toast.error(error.response?.data?.message || "Failed to save content. Please try again.",{
+                icon:false,
+                style:{
+                    color:'#D83D99',
+                    fontWeight:'700'
+                }
+        });
         }
     };
     const saveAllContent = async (status) => {
@@ -241,8 +291,8 @@ export default function UploadContent() {
                                                     </p></>}
                                                     <p className='my-6 flex justify-center'> <button onClick={() => { 
                                                         setSkipId([...skipId, item.id])
-                                                    }} className='text-[#1BA56F] py-1 px-2 border !border-[#1BA56F] mr-2'>Skip For Now</button>
-                                                        <button onClick={() => saveContent(item.id)} className='text-white bg-[#1BA56F] py-1 px-2'>Save & Next</button></p>
+                                                    }} className='text-[#1BA56F] py-1 px-2 border !border-[#1BA56F] mr-2 uppercase'>Skip For Now</button>
+                                                        <button onClick={() => saveContent(item.id)} className='text-white bg-[#1BA56F] py-1 px-2 uppercase'>Save & Next</button></p>
                                             </div>
                                     })}
                                     {
@@ -327,8 +377,8 @@ export default function UploadContent() {
 
                                                     <p className='my-6 flex justify-start'> <button onClick={() => {
                                                         setSkipId([...skipId, item.id])
-                                                    }} className='text-[#1BA56F] py-1 px-2 border !border-[#1BA56F] mr-2'>Skip For Now</button>
-                                                        <button onClick={() => saveContent(item.id)} className='text-white bg-[#1BA56F] py-1 px-2'>Save & Next</button></p>
+                                                    }} className='text-[#1BA56F] py-1 px-2 border !border-[#1BA56F] mr-2 uppercase'>Skip For Now</button>
+                                                        <button onClick={() => saveContent(item.id)} className='text-white bg-[#1BA56F] py-1 px-2 uppercase'>Save & Next</button></p>
                                                 </div>
 
                                         })
@@ -386,8 +436,8 @@ export default function UploadContent() {
                                                 </div>
                                             }
                                             <div className='border-b-[1px] border-black mt-4'></div>
-                                            <p className='flex justify-center mt-4 mb-2 text-[#00000080] px-[5%]'> <button onClick={() => saveAllContent('submit')} className='text-[16px] px-4 border !border-[#00000080] font-medium w-full h-[35px]'>  Submit content </button> </p>
-                                            <p className='flex justify-center text-[#1BA56F] px-[5%]'> <button onClick={saveForLater} className='text-[16px] px-4 border !border-[#1BA56F] font-medium w-full h-[35px]'> Save for Later </button> </p>
+                                            <p className='flex justify-center mt-4 mb-2 text-[#00000080] px-[5%]'> <button onClick={() => saveAllContent('submit')} className='text-[16px] px-4 border !border-[#00000080] font-medium w-full h-[35px] uppercase'>  Submit content </button> </p>
+                                            <p className='flex justify-center text-[#1BA56F] px-[5%]'> <button onClick={saveForLater} className='text-[16px] px-4 border !border-[#1BA56F] font-medium w-full h-[35px] uppercase'> Save for Later </button> </p>
 
                                         </div>
                                     </div>
@@ -482,8 +532,8 @@ export default function UploadContent() {
                                                         </p></>}
                                                         <p className='my-6 flex justify-start'> <button onClick={() => {
                                                         setSkipId([...skipId, item.id])
-                                                    }} className='text-[#1BA56F] py-1 px-2 border !border-[#1BA56F] mr-2 text-[18px] font-[500]'>Skip For Now</button>
-                                                        <button onClick={() => saveContent(item.id)} className='text-white bg-[#1BA56F] py-1 px-2 text-[19px] font-[500]'>Save & Next</button></p>
+                                                    }} className='text-[#1BA56F] py-1 px-2 border !border-[#1BA56F] mr-2 text-[18px] font-[500] uppercase'>Skip For Now</button>
+                                                        <button onClick={() => saveContent(item.id)} className='text-white bg-[#1BA56F] py-1 px-2 text-[19px] font-[500] uppercase'>Save & Next</button></p>
                                                 </div>
                                         })}
                                         {
@@ -564,8 +614,8 @@ export default function UploadContent() {
 
                                                         <p className='my-6'> <button onClick={() => {
                                                             setSkipId([...skipId, item.id])
-                                                        }} className='text-[#1BA56F] py-1 px-2 border !border-[#1BA56F] mr-2 text-[18px] font-[500]'>Skip For Now</button>
-                                                            <button onClick={() => saveContent(item.id)} className='text-white bg-[#1BA56F] py-1 px-2 text-[19px] font-[500]'>Save & Next</button></p>
+                                                        }} className='text-[#1BA56F] py-1 px-2 border !border-[#1BA56F] mr-2 text-[18px] font-[500] uppercase'>Skip For Now</button>
+                                                            <button onClick={() => saveContent(item.id)} className='text-white bg-[#1BA56F] py-1 px-2 text-[19px] font-[500] uppercase'>Save & Next</button></p>
                                                     </div>
 
                                             })
@@ -613,8 +663,8 @@ export default function UploadContent() {
                                     </>
                                 }
 
-                                <p className='flex justify-start mt-4 mb-2 text-[#00000080]'> <button onClick={() => saveAllContent('submit')} className='text-[16px] lg:px-4 md:px-4 border !border-[#00000080] font-medium'>  Submit content </button> </p>
-                                <p className='flex justify-start text-[#1BA56F]'> <button onClick={saveForLater} className='text-[16px] lg:px-[1.3rem] md:px-[6.6%] border !border-[#1BA56F] font-medium'> Save for Later </button> </p>
+                                <p className='flex justify-start mt-4 mb-2 text-[#00000080]'> <button onClick={() => saveAllContent('submit')} className='text-[16px] lg:px-4 md:px-4 border !border-[#00000080] font-medium uppercase'>  Submit content </button> </p>
+                                <p className='flex justify-start text-[#1BA56F]'> <button onClick={saveForLater} className='text-[16px] lg:px-[1.3rem] md:px-[6.6%] border !border-[#1BA56F] font-medium uppercase'> Save for Later </button> </p>
 
                             </div>
                         </div>

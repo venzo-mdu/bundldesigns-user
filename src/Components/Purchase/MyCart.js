@@ -127,6 +127,11 @@ export const MyCart = () => {
                toast.error(`Package Item Cannot removed`, {
                     position: toast?.POSITION?.TOP_RIGHT,
                     toastId: 'required-value-toast',
+                    icon:false,
+                    style:{
+                        color:'#D83D99',
+                        fontWeight:'700'
+                    }
                   });
                   return;
         }
@@ -463,13 +468,13 @@ export const MyCart = () => {
             <div className="mt-4 flex justify-center space-x-4">
               <button
                 onClick={()=>confirmNavigation()}
-                className="px-4 py-2 bg-[#0BA6C4] text-white rounded "
+                className="px-4 py-2 bg-[#0BA6C4] text-white rounded-none uppercase"
               >
                 Yes
               </button>
               <button
                 onClick={cancelNavigation}
-                className="px-4 py-2 bg-grey  text-white rounded hover:bg-grey"
+                className="px-4 py-2 bg-grey  text-white rounded-none hover:bg-grey uppercase"
               >
                 No
               </button>
@@ -693,7 +698,7 @@ export const MyCart = () => {
                     className={`rounded-none ${'promoCode' in error ? '!border-[red]' :''}`}
                 />
             </div>
-            <button className="payment">{paymentLoading ? 
+            <button className="payment uppercase">{paymentLoading ? 
             <ClipLoader
                 color={'#FFFFFF'}
                 loading={paymentLoading}

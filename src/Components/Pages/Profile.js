@@ -96,7 +96,15 @@ const Profile = ({ user }) => {
                     
                     if (response.status === 200) {
                         console.log("Profile updated successfully!", response.data);
-                        toast.success('Profile updated');
+                        toast.success('Profile updated',
+                            {
+                            icon: false,
+                            style: {
+                            color: "#1BA56F",
+                            fontWeight:"700" // White text
+                            },
+                        }
+                        );
                         navigate("/")
                         // Optionally update UI or show success message
                     }

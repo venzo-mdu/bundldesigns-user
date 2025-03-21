@@ -91,6 +91,11 @@ export default function FAQ() {
         toast.success(`Form submitted successfully`, {
           position: toast?.POSITION?.TOP_RIGHT,
           toastId: 'required-value-toast',
+          icon: false,
+                style: {
+                  color: "#1BA56F",
+                  fontWeight:"700" // White text
+                },
         });
         setSuccessMsg('submitted successfully')
         setFormData({

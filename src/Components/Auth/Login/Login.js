@@ -283,7 +283,7 @@ export const Login = () => {
             {/* General error message */}
             {errors.general && <p className="error">{errors.general}</p>}
             <p className='text-[red] mb-1'>{loginError}</p>
-            <button className='signin !text-[24px]' type='submit'>
+            <button className='signin !text-[24px] uppercase' type='submit'>
               {loading ? <ClipLoader size={25} color={'#FFFFFF'} /> : 'Sign In'}
             </button>
             <p className='or mt-[4vh] flex items-center ml-2 font-[500] text-[11px]'> <span className='border-[#F5F5F5] border-b h-[2px] basis-[41%] mr-[2%] border-[1.5px]'>

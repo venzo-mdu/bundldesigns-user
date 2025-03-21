@@ -66,7 +66,7 @@ const reOrder = async (id) => {
                                         window.innerWidth > 768 ?
                                         
                                             purchases.length > 0 ? <div className='px-14 mt-4 mb-4'>
-                                                <h2 className='lg:text-[32px] text-[#000] md:text-[24px]'>{dashboardJson.third_title}</h2>
+                                                <h2 className='lg:text-[32px] text-[#000] md:text-[24px] uppercase'>{dashboardJson.third_title}</h2>
             
                                                 <table className='w-full !border-[#00000080] border-separate border-spacing-y-2 border-spacing-x-0'>
                                                     <thead>

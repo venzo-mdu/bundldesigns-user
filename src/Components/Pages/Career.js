@@ -280,7 +280,7 @@ export default function Career() {
       {/* Submit Button */}
       <p className='text-center !mt-10'> <button
         type="submit"
-        className="bg-[#1BA56F] text-white py-1 my-2   px-12"
+        className="bg-[#1BA56F] text-white py-1 my-2 uppercase  px-12"
       >
         Apply
       </button></p>

@@ -252,7 +252,13 @@ export default function Adjustments({user}) {
     const addData = (id, index) => {
         const elementValue = document.getElementById(`${id}_content`).value;
         if (!elementValue) {
-            toast.error(`Add your thoughts.`);
+            toast.error(`Add your thoughts.`,{
+                    icon:false,
+                    style:{
+                        color:'#D83D99',
+                        fontWeight:'700'
+                    }
+            } );
             return;
         }
         if (!elementValue) return;
@@ -274,6 +280,11 @@ export default function Adjustments({user}) {
         toast.success('Updated Successfully',{
             position: toast?.POSITION?.TOP_RIGHT,
             toastId: 'required-value-toast',
+                icon: false,
+                style: {
+                  color: "#1BA56F",
+                  fontWeight:"700" // White text
+                },
         })
     };
 
@@ -354,6 +365,11 @@ export default function Adjustments({user}) {
            toast.error('Adjustment cannot be empty',{
             position: toast?.POSITION?.TOP_RIGHT,
             toastId: 'required-value-toast',
+                icon:false,
+                style:{
+                    color:'#D83D99',
+                    fontWeight:'700'
+                }
            })
         }
 
@@ -745,7 +761,7 @@ export default function Adjustments({user}) {
                                                 </div>
 
                                                 <div >
-                                                    <button onClick={() => CheckCart()} className=' w-[100%] m-auto py-1 mt-2 text-[18px] text-white bg-[#1BA56F]'>Proceed Checkout</button>
+                                                    <button onClick={() => CheckCart()} className=' w-[100%] m-auto py-1 mt-2 text-[18px] text-white bg-[#1BA56F] uppercase'>Proceed Checkout</button>
                                                     {errorMsg && <p className='pb-0 text-[16px] text-[red]'>{errorMsg}*</p>}
                                                 </div>
                                             </div>
@@ -768,13 +784,13 @@ export default function Adjustments({user}) {
                                         <div className="mt-4 flex justify-center space-x-4">
                                             <button
                                                 onClick={() => confirmNavigation()}
-                                                className="px-4 py-2 bg-[#0BA6C4] text-white rounded "
+                                                className="px-4 py-2 bg-[#0BA6C4] text-white rounded uppercase"
                                             >
                                                 Yes
                                             </button>
                                             <button
                                                 onClick={cancelNavigation}
-                                                className="px-4 py-2 bg-grey  text-white rounded hover:bg-grey"
+                                                className="px-4 py-2 bg-grey  text-white rounded hover:bg-grey uppercase"
                                             >
                                                 No
                                             </button>
@@ -994,7 +1010,7 @@ export default function Adjustments({user}) {
                                             className={`rounded-none ${'promoCode' in error ? '!border-[red]' : ''}`}
                                         />
                                     </div>
-                                    <button onClick={() => createAdjustmentOrder()} className="payment">{loading?<ClipLoader size={25} color={'#FFFFFF'} />:'Make Payment'}</button>
+                                    <button onClick={() => createAdjustmentOrder()} className="payment uppercase">{loading?<ClipLoader size={25} color={'#FFFFFF'} />:'Make Payment'}</button>
                                     <p className='text-[red] !text-[20px] !font-[400] !mt-2'>{Object.values(error).map(item => {
                                         return item
                                     })}</p>
@@ -1066,7 +1082,7 @@ export default function Adjustments({user}) {
                                                             value={adjustmentForm?.[adjustment?.id]?.content ? adjustmentForm?.[adjustment?.id]?.content : ''}
                                                             className='border px-2 py-1 border-[#000000A0]  md:w-[80%] w-[80%] xs:w-[70%] rounded-none'
                                                         ></input>
-                                                            <button onClick={() => addData(adjustment.id, index)} className='md:w-[20%] w-[20%] xs:w-[30%] py-1 px-2 bg-[#1BA56F] text-white text-[17.2px] font-[500]'>Submit Edit</button></p>
+                                                            <button onClick={() => addData(adjustment.id, index)} className='md:w-[20%] w-[20%] xs:w-[30%] py-1 px-2 bg-[#1BA56F] text-white text-[17.2px] font-[500] uppercase'>Submit Edit</button></p>
                                                         <p className='font-medium text-[18px]'>Have something to show us?</p>
                                                         <p
                                                             className="border-b-2 w-[150px] !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer"
@@ -1114,7 +1130,7 @@ export default function Adjustments({user}) {
                                             <div className='mt-10'>
                                                 {Object.keys(bundlAddons).map((category, index) => {
                                                     return <div className='' id={`${index}_list`}> 
-                                                        <p className={`flex justify-between font-semibold text-[24px] pb-2  ${expantedTabs[category] || category === 'Social Media' ? '' : 'border-b'} border-[#00000080]`}> {category}      <button
+                                                        <p className={`flex justify-between font-semibold text-[24px] pb-2 uppercase  ${expantedTabs[category] || category === 'Social Media' ? '' : 'border-b'} border-[#00000080]`}> {category}      <button
                                                             onClick={() => toggleDescription(category)}
                                                             className="text-blue-500 cursor-pointer"
                                                         >
@@ -1213,7 +1229,7 @@ export default function Adjustments({user}) {
                                         </div>
 
                                         <div className='flex flex-col justify-center items-center'>
-                                            <button onClick={() => CheckCart()} className=' w-[90%]  py-1 lg:mt-[8%] md:mt-[12%] text-[18px] text-white bg-[#1BA56F] '>Proceed Checkout</button>
+                                            <button onClick={() => CheckCart()} className=' w-[90%]  py-1 lg:mt-[8%] md:mt-[12%] text-[18px] text-white bg-[#1BA56F] uppercase'>Proceed Checkout</button>
                                             {errorMsg && <p className='pb-0 text-[16px] text-[red] text-left mt-2'>{errorMsg}*</p>}
                                         </div>
                                     </div>
@@ -1409,7 +1425,7 @@ export default function Adjustments({user}) {
                                             className={`rounded-none ${'promoCode' in error ? '!border-[red]' : ''}`}
                                         />
                                     </div>
-                                    <button onClick={() => createAdjustmentOrder()} className="payment"> {loading?<ClipLoader size={25} color={'#FFFFFF'} />:'Make Payment'}</button>
+                                    <button onClick={() => createAdjustmentOrder()} className="payment uppercase"> {loading?<ClipLoader size={25} color={'#FFFFFF'} />:'Make Payment'}</button>
                                     <p className='text-[red] !text-[20px] !font-[400] !mt-2'>{Object.values(error).map(item => {
                                         return item
                                     })}</p>

@@ -32,11 +32,11 @@ import { BorderAllRounded } from '@mui/icons-material';
 
 const style = {
     position: 'absolute',
-    top: '10vh',
-    left: '10vw',
-    //   transform: 'translate(-50%, -50%)',
-    width: '80vw',
-    height: '80vh',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width:window?.innerWidth<=500 ?'90%': '50%',
+    height: '75vh',
     bgcolor: 'background.paper',
     // border: '2px solid #000',
     boxShadow: 24,
@@ -245,7 +245,7 @@ export default function Dashboard() {
                         </h2>
                         <button
                             onClick={() => fillQuestionaire()}
-                            className="bg-[#1BA56F] px-2 py-1 text-[#fff] text-[16px] mt-2 xs:min-w-[200px] lg:min-w-0 md:min-w-0"
+                            className="bg-[#1BA56F] px-2 py-1 text-[#fff] text-[16px] mt-2 xs:min-w-[200px] lg:min-w-0 md:min-w-0 uppercase"
                         >
                             {dashboardJson.process_content.questionnaire_fill}
                         </button>
@@ -265,7 +265,7 @@ export default function Dashboard() {
                             </p>
                             <button
                                 onClick={() => fillQuestionaire()}
-                                className="bg-[#1BA56F] px-2 py-1 text-[#fff] text-[16px] mt-2"
+                                className="bg-[#1BA56F] px-2 py-1 text-[#fff] text-[16px] mt-2 uppercase"
                             >
                                 {dashboardJson.process_content.questionnaire_edit_action}
                             </button>
@@ -290,7 +290,7 @@ export default function Dashboard() {
                             {dashboardJson.process_content.approve_brand_content}
                         </h2>
                         <p className="flex justify-center w-full">
-                            <button onClick={() => { setShowPdf(true) }} className="border-b-2 border-[#1BA56F] pb-0 font-medium text-[#1BA56F] flex items-center">
+                            <button onClick={() => { setShowPdf(true) }} className="border-b-2 border-[#1BA56F] pb-0 font-medium text-[#1BA56F] flex items-center uppercase">
                                 <img className="mr-2" src={downloadIcon} alt="Download Icon" />
                                 Click Here to Download
                             </button>
@@ -304,7 +304,7 @@ export default function Dashboard() {
                             </button>
                             <button
                                 onClick={() => approveBrand()}
-                                className="bg-[#1BA56F] px-3 py-1 font-[500] text-[#fff] text-[16px] mt-2"
+                                className="bg-[#1BA56F] px-3 py-1 font-[500] text-[#fff] text-[16px] mt-2 uppercase"
                             >
                                 {dashboardJson.process_content.approve_brand}
                             </button>
@@ -320,7 +320,7 @@ export default function Dashboard() {
                         </h2>
                         {order?.bundle_id !== null &&
                         <p className="flex mt-3 justify-center w-full">
-                            <button onClick={() => { setShowPdf(true) }} className="border-b-2 border-[#1BA56F] pb-0 font-medium text-[#1BA56F] flex items-center">
+                            <button onClick={() => { setShowPdf(true) }} className="border-b-2 border-[#1BA56F] pb-0 font-medium text-[#1BA56F] flex items-center uppercase">
                                 <img className="mr-2" src={downloadIcon} alt="Download Icon" />
                                Click Here to Download
                             </button>
@@ -329,7 +329,7 @@ export default function Dashboard() {
                         <p>
                             <button
                                 onClick={() => (window.location.href = `/upload-content/${order.id}`)}
-                                className="bg-[#1BA56F] lg:px-4 md:px-4 xs:px-[10%] py-1 text-[#fff] text-[16px] mt-2"
+                                className="bg-[#1BA56F] lg:px-4 md:px-4 xs:px-[10%] py-1 text-[#fff] text-[16px] mt-2 uppercase"
                             >
                                 {dashboardJson.process_content.upload_content}
                             </button>
@@ -344,7 +344,7 @@ export default function Dashboard() {
                             {dashboardJson.process_content.receive_designs}
                         </h2>
                         <p className="flex justify-center w-full">
-                            <button onClick={() => { setShowPdf(true) }} className="border-b-2 border-[#1BA56F] pb-0 font-medium text-[#1BA56F] flex items-center">
+                            <button onClick={() => { setShowPdf(true) }} className="border-b-2 border-[#1BA56F] pb-0 font-medium text-[#1BA56F] flex items-center uppercase">
                                 <img className="mr-2" onClick={() => { }} src={downloadIcon} alt="Download Icon" />
                                 Click Here to Download
                             </button>
@@ -362,7 +362,7 @@ export default function Dashboard() {
                             {dashboardJson.process_content.file_send}
                         </h2>
                         <p className="flex justify-center w-full">
-                            <button onClick={() => { setShowPdf(true) }} className="border-b-2 border-[#1BA56F] pb-0 font-medium text-[#1BA56F] flex items-center">
+                            <button onClick={() => { setShowPdf(true) }} className="border-b-2 border-[#1BA56F] pb-0 font-medium text-[#1BA56F] flex items-center uppercase">
                                 <img className="mr-2" onClick={() => { }} src={downloadIcon} alt="Download Icon" />
                                 Click Here to Download
                             </button>
@@ -372,7 +372,7 @@ export default function Dashboard() {
                                 order.order_status === 'completed' ? '' :
                                     <button
                                         onClick={() => { completeOrder() }}
-                                        className="bg-[#1BA56F] px-2 py-1 text-[#fff] text-[16px] mt-2"
+                                        className="bg-[#1BA56F] px-2 py-1 text-[#fff] text-[16px] mt-2 uppercase"
                                     >
                                         {dashboardJson.process_content.mark_complete}
                                     </button>
@@ -388,7 +388,7 @@ export default function Dashboard() {
                             {dashboardJson.process_content.file_send}
                         </h2>
                         <p className="flex justify-center w-full">
-                            <button onClick={() => { setShowPdf(true) }} className="border-b-2 border-[#1BA56F] pb-0 font-medium text-[#1BA56F] flex items-center">
+                            <button onClick={() => { setShowPdf(true) }} className="border-b-2 border-[#1BA56F] pb-0 font-medium text-[#1BA56F] flex items-center uppercase">
                                 <img className="mr-2" onClick={() => { }} src={downloadIcon} alt="Download Icon" />
                                 Click Here to Download
                             </button>
@@ -687,7 +687,7 @@ const handleDownload = async (file) => {
                                             {order && order.item_details && Array.isArray(order.item_details) && <>
                                             {order?.brand_identity && <>                                                <p className={`lg:text-[22px] md:text-[22px] xs:text-[18px] font-bold my-2 ${processIndex < 2 ? processIndex === 1 && order?.order_status !== 'in_progress' ?'text-[#00000080]': 'text-black': 'text-black'}`}>Brand & Visual Identity <span className='text-[#1BA56F] lg:text-[18px] md:text-[18px] xs:text-[16px]  font-[500]'> -
                                                     {processIndex < 2 ? processIndex === 1 && order?.order_status !== 'in_progress' ? ' ON HOLD' :' IN PROGRESS' : processIndex >= 4 ? ' COMPLETE' : ' IN PROGRESS'}</span> </p>
-                                                <p className={`font-medium lg:text-[18px] md:text-[18px] xs:text-[16px] ${processIndex < 2 ? processIndex === 1 && order?.order_status !== 'in_progress' ?'text-[#00000080]' : 'text-black' : 'text-[#000]'}`}>{order?.brand_identity?.item_name} {processIndex >= 4 && <button className='bg-[#1BA56F] px-2 !py-0  text-[16px] ml-4 text-white font-[400]' onClick={() => { navigate('/adjustment', { state: { orderId: order.id, orderItemId: null } }) }}>Request Edits</button>} </p></>}
+                                                <p className={`font-medium lg:text-[18px] md:text-[18px] xs:text-[16px] ${processIndex < 2 ? processIndex === 1 && order?.order_status !== 'in_progress' ?'text-[#00000080]' : 'text-black' : 'text-[#000]'}`}>{order?.brand_identity?.item_name} {processIndex >= 4 && <button className='bg-[#1BA56F] px-2 !py-0  text-[16px] ml-4 text-white font-[400] uppercase' onClick={() => { navigate('/adjustment', { state: { orderId: order.id, orderItemId: null } }) }}>Request Edits</button>} </p></>}
 
                                                 <p className={`text-[22px] ${processIndex < 4 && 'text-[#00000080]'} font-bold my-2`}>Applications
 
@@ -709,7 +709,7 @@ const handleDownload = async (file) => {
                                                                     <span className='mr-2 font-normal'>In Progress</span>
                                                                     <img src={ItemProgressIcon}></img>
                                                                 </> : <>
-                                                                    <button className='bg-[#1BA56F] lg:mr-5 md:mr-5 xs:mr-0 px-2 !py-0 text-[16px] ml-4 text-white font-[400] lg:mt-0 md:mt-0 xs:mt-[5%]' onClick={() => { navigate('/adjustment', { state: { orderId: order.id, orderItemId: item.id } }) }}>Request Edits</button>
+                                                                    <button className='bg-[#1BA56F] lg:mr-5 md:mr-5 xs:mr-0 px-2 !py-0 text-[16px] ml-4 text-white font-[400] lg:mt-0 md:mt-0 xs:mt-[5%] uppercase' onClick={() => { navigate('/adjustment', { state: { orderId: order.id, orderItemId: item.id } }) }}>Request Edits</button>
                                                                     <div className='flex'>
                                                                         <span className='mr-2 text-[16px] font-semibold text-[#1BA56F] mt-1'>Finished</span>
                                                                         <img src={ItemFinishedIcon}></img>
@@ -822,12 +822,11 @@ const handleDownload = async (file) => {
                             aria-describedby="modal-modal-description"
                         >
                             <Box sx={style}>
-                                      <div className='min-h-[450px] overflow-y-auto border-[1px] border-black pt-2'>
-                                        <p className='px-2 text-[20px] font-[500] font-Helvetica'>Artworks</p>
+                                      <div className='min-h-[450px] overflow-y-auto border-[1px] border-black pt-2 font-Helvetica'>
+                                        <p className='px-2 text-[20px] font-[500] font-Helvetica text-[#1BA56F]'>Artworks</p>
                                       {(Files.length > 0 || Links.length > 0) && (
                                     <div> 
-                                            <div>
-                                                <strong className='px-2'>Files:</strong>
+                                            <div className='px-2'>
                                                 {
                                                     Files?.length > 0 ?
                                                     Files.map((item, index) => (
@@ -850,8 +849,7 @@ const handleDownload = async (file) => {
                                             </div>
 
                                         {Links.length > 0 && (
-                                            <div>
-                                                <strong className='px-2'>Links:</strong>
+                                            <div className='px-2'>
                                                 {
                                                     Links?.length > 0 ? 
                                                     Links.map((item, index) => {
@@ -888,7 +886,7 @@ const handleDownload = async (file) => {
                                 
 
                                 
-                                <p className='absolute right-[-40px] top-[-30px]'>
+                                <p className='absolute lg:right-[-40px] lg:top-[-30px] md:right-[-40px] md:top-[-30px] xs:right-[0px] xs:top-[-40px]'>
                                     < ClearIcon onClick={() => { setShowPdf(false) }} style={{ color: 'white', fontSize: '30px', cursor: 'pointer' }} /> 
                                     {/* <a
                                         href={`${base_url}/api/download/${brandFile}`}
