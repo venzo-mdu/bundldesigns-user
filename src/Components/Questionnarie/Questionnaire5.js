@@ -7,7 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ConfigToken } from '../Auth/ConfigToken';
 import { questionnaireAction5, questionnaireAnswers } from '../../Redux/Action';
 import { ToastContainer, toast } from 'react-toastify';
-import Blackupload from '../../Images/blackupload.svg'
+import Blackupload from '../../Images/Questionnaire/upload.svg'
+
 
 export const Questionnaire5 = ({formData,setFormData}) => {
 

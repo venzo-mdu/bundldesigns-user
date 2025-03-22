@@ -19,7 +19,7 @@ import Color1 from '../../Images/Questionnaire/img1.png'
 import Color2 from '../../Images/Questionnaire/img2.png'
 import Color3 from '../../Images/Questionnaire/img3.png'
 import Link from '../../Images/Questionnaire/icons8-link-26.png'
-import Blackupload from '../../Images/blackupload.svg'
+import Blackupload from '../../Images/Questionnaire/upload.svg'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ConfigToken } from '../Auth/ConfigToken';
 import { ToastContainer, toast } from 'react-toastify';
