@@ -77,7 +77,7 @@ export default function UploadContent() {
     //     const response = await axios.post(`${base_url}/api/upload_content/`, formData, ConfigToken());
     //     getOrderDetails()
     // }
-
+    
     const saveContent = async (itemId) => {
 
         try {
@@ -85,47 +85,45 @@ export default function UploadContent() {
             if (!uploadContent?.[itemId]?.language) {
                 toast.error("Please choose language before saving.",{
                     icon:false,
+                    toastId: 'required-value-toast1',
                     style:{
                         color:'#D83D99',
                         fontWeight:'700'
                     }
-            }); // Show user-friendly error
+            }); 
                 return;
             }
             if (!uploadContent?.[itemId]?.content) {
                 toast.error("Please add content before saving.",{
                     icon:false,
+                    toastId: 'required-value-toast2',
                     style:{
                         color:'#D83D99',
                         fontWeight:'700'
                     }
-            }); // Show user-friendly error
+            }); 
                 return;
             }
-            if (!uploadContent?.[itemId]?.measurements,{
-                icon:false,
-                style:{
-                    color:'#D83D99',
-                    fontWeight:'700'
-                }
-        }) {
+            if (!uploadContent?.[itemId]?.measurements) {
                 toast.error("Please add measurements before saving.",{
                     icon:false,
+                    toastId: 'required-value-toast3',
                     style:{
                         color:'#D83D99',
                         fontWeight:'700'
                     }
-            }); // Show user-friendly error
+            }); 
                 return;
             }
             if (!uploadContent?.[itemId]?.filename) {
                 toast.error("Please upload the content.",{
                     icon:false,
+                    toastId: 'required-value-toast4',
                     style:{
                         color:'#D83D99',
                         fontWeight:'700'
                     }
-            }); // Show user-friendly error
+            }); 
                 return;
             }
            
@@ -143,17 +141,19 @@ export default function UploadContent() {
                 toast.success("Content saved successfully!",
                     {
                         icon: false,
+                        toastId: 'required-value-toast5',
                         style: {
                             color: "#1BA56F",
-                            fontWeight: "700" // White text
+                            fontWeight: "700" 
                         },
                     }
-                ); // Notify user
-                getOrderDetails(); // Refresh order details
+                ); 
+                getOrderDetails(); 
             } else {
                 console.error("Unexpected response:", response);
                 toast.error("Something went wrong! Please try again.",{
                     icon:false,
+                    toastId: 'required-value-toast6',
                     style:{
                         color:'#D83D99',
                         fontWeight:'700'
@@ -164,6 +164,7 @@ export default function UploadContent() {
             console.error("Save failed:", error.response?.data || error.message);
             toast.error(error.response?.data?.message || "Failed to save content. Please try again.",{
                 icon:false,
+                toastId: 'required-value-toast7',
                 style:{
                     color:'#D83D99',
                     fontWeight:'700'

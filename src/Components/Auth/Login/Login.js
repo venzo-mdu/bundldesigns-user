@@ -286,11 +286,11 @@ export const Login = () => {
             <button className='signin !text-[24px] uppercase' type='submit'>
               {loading ? <ClipLoader size={25} color={'#FFFFFF'} /> : 'Sign In'}
             </button>
-            <p className='or mt-[4vh] flex items-center ml-2 font-[500] text-[11px]'> <span className='border-[#F5F5F5] border-b h-[2px] basis-[41%] mr-[2%] border-[1.5px]'>
+            <p className='or mt-[4vh] flex items-center justify-center ml-2 font-[500] text-[11px]'> <span className='border-[#F5F5F5] border-b h-[2px] basis-[41%] mr-[2%] border-[1.5px]'>
             </span> Or  <span className='border-[#F5F5F5] border-b h-[2px] basis-[43%] ml-[2%] border-[1.5px]'></span></p>
             <p className='signinwithgoogle !text-[17px] !font-bold'>
               {/* <img src={Googleicon} alt='google-icon' /> Sign in with Google */}
-              <div className='lg:w-[45%] md:w-[45%] xs:w-[100%]'>
+              <div className='lg:w-[50%] md:w-[45%] xs:w-[100%]'>
                 {/* <GoogleLogin
                   onSuccess={credentialResponse => {
                     const token = credentialResponse.credential;
@@ -322,7 +322,8 @@ export const Login = () => {
                     border: '1px solid #D9D9D9',
                     borderRadius: '0px',
                     fontFamily:'Helvetica',
-                    fontWeight:'400'
+                    fontWeight:'400',
+                    width:'100%'
                   }}
                 >
                   {/* <img src={GoogleIcon} className='w-[25px] mr-2'></img> */}
@@ -330,7 +331,7 @@ export const Login = () => {
                   Sign in with Google
                 </button>
               </div>
-              <div className='lg:w-[45%] md:w-[45%] xs:w-[100%] ml-[5%]'>
+              <div className='lg:w-[50%] md:w-[45%] xs:w-[100%] ml-[5%]'>
 
                 <AppleSignin
                   authOptions={{
@@ -339,7 +340,7 @@ export const Login = () => {
                     scope: "email name",
                     usePopup: false,
                   }}
-                  className={'lg:w-[50%] md:w-[50%] xs:w-[100%] !lg:text-[18px] !md:text-[18px] !xs:text-[16px]'}
+                  // className={'lg:w-[50%] md:w-[50%] xs:w-[100%] !lg:text-[18px] !md:text-[18px] !xs:text-[16px]'}
                   onSuccess={handleAppleLoginSuccess}
                   onError={(error) => console.error("Apple Login Failed:", error)}
                   render={(props) => <button {...props}
@@ -352,7 +353,8 @@ export const Login = () => {
                       border: '1px solid #D9D9D9',
                       borderRadius: '0px',
                       fontFamily:'Helvetica',
-                      fontWeight:'400'
+                      fontWeight:'400',
+                      width:'100%'
                     }}
                   >
                     <i className="fa-brands fa-apple px-2 "></i>

@@ -199,6 +199,24 @@ export const Home = () => {
             }
         }
     };
+
+    // useEffect(() => {
+    //     const fetchInstagramPosts = async () => {
+    //       try {
+    //         const response = await fetch(
+    //           `https://graph.instagram.com/me/media?fields=id,caption,media_url,media_type,permalink&access_token=YOUR_ACCESS_TOKEN`
+    //         );
+    //         const data = await response.json();
+    //         console.log(data)
+    //         setPosts(data.data.slice(0, 9)); // Get the last 9 posts
+    //       } catch (error) {
+    //         console.error("Error fetching Instagram posts:", error);
+    //       }
+    //     };
+    
+    //     fetchInstagramPosts();
+    //   }, []);
+
     useEffect(() => {
 
         // Add an event listener for changes in the hash

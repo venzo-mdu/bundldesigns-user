@@ -20,8 +20,9 @@ import { Bgloader } from '../Common/Background/Bgloader'
 import { Popup } from '../Common/Popup/Popup'
 
 
-export const BundlDetail = () => {
+export const BundlDetail = ({user}) => {
 
+ 
   const location = useLocation();
   const {state} = location;
   const { packageID } = useParams();
@@ -72,9 +73,15 @@ export const BundlDetail = () => {
     // getprojects()
   }, []);
 
+  useEffect(()=>{
+    if(user?.is_active){
+      getprojects();
+    }
+  },[user])
+
   useEffect(() => {
-    setBrandError(false);
         if (isFromLogin) {
+            setBrandError(false);
             console?.log(JSON.parse(localStorage.getItem('payloads')))
             setBrandError(state?.project_name && false);
             createPayload();
@@ -96,7 +103,7 @@ export const BundlDetail = () => {
   const handleRadioChange = (e) => {
     setSelectedLanguage(e.target.value);
   };
-  console.log(brandInput)
+
   const validateFields = () => {
 
 
@@ -122,22 +129,9 @@ export const BundlDetail = () => {
       return false;
     }
 
-    const total_price = parseFloat(packageDetail?.package?.price) +
-    addonPayLoads.total_price +
-    (selectedLanguage === 'Both' ? 2000 : 0)
-    if(firstOrder && total_price < 4880 && packageID=='newbie'){
-      toast.error(`Minimum order amount should be 4880`, {
-        position: toast?.POSITION?.TOP_RIGHT,
-        toastId: 'required-value-toast2',
-          icon:false,
-          style:{
-              color:'#D83D99',
-              fontWeight:'700'
-          }
-        
-      });
-      return false;
-    }
+    
+   
+   
     return true;
   };
   const getBundlData = async () => {
@@ -183,17 +177,39 @@ export const BundlDetail = () => {
     setactual(data)
     setLoading(false)
   }
-//   const getprojects = async () => {
-//     const response = await axios.get(`${base_url}/api/order/`, 
-//       // ConfigToken()
-//     );
-//     if (response.data) {
-//         const resProjects = response.data.data.filter(item=> item.order_status!='in_cart')
-//         if (resProjects.length) {
-//             setFirstOrder(false)
-//         }
-//     }
-// }
+  const getprojects = async () => {
+
+    const total_price = parseFloat(packageDetail?.package?.price) +
+    addonPayLoads.total_price +
+    (selectedLanguage === 'Both' ? 2000 : 0)
+    
+    try{
+      const response = await axios.get(`${base_url}/api/order/`, 
+        ConfigToken()
+      );
+      if (response.data) {
+          const resProjects = response.data.data.filter(item=> item.order_status!='in_cart')
+            if(resProjects?.length && total_price < 4880 && packageID=='newbie'){
+              toast.error(`Minimum order amount should be 4880`, {
+                position: toast?.POSITION?.TOP_RIGHT,
+                toastId: 'required-value-toast2',
+                  icon:false,
+                  style:{
+                      color:'#D83D99',
+                      fontWeight:'700'
+                  }
+                
+              });
+              return false;
+            }
+      }
+    }catch(e){
+      navigate(`/login?next_url=bundldetail/${packageID}`,{state:{
+        project_name:brandInput
+      }});
+    }
+    
+}
   const handleQuantityChange = (designName, change) => {
     console.log(change,'chabge')
     if (designName in extraQty == false && change<0){
@@ -509,11 +525,11 @@ export const BundlDetail = () => {
                               return <div key={idx} className={`one-brand-identity ${idx !== bundleItem?.design_list?.length-1 && 'h-[25px]' } xs:flex sm:block block flex-wrap justify-around`}>
                                 <div className='flex xs:w-[100%]  w-full'>
                                   
-                                <p className='text-black sm:text-[18px] text-[18px] xs:text-[16px] font-[400] !mb-1 xs:w-[75%] lg:w-full md:w-full sm:w-full ' >{item.quantity} {item.name_english} <span className='sm:text-[16px] text-[16px] xs:text-[14px]'>{item.id =='76' && (selectedLanguage == 'Both' ? '(English & Arabic)' :`(${selectedLanguage})`)} </span></p>
+                                <p className='text-black sm:text-[18px] text-[18px] xs:text-[16px] font-[400] !mb-1 xs:w-[75%] lg:w-full md:w-full sm:w-full mt-[3px]' >{item.quantity} {item.name_english} <span className='sm:text-[16px] text-[16px] xs:text-[14px]'>{item.id =='76' && (selectedLanguage == 'Both' ? '(English & Arabic)' :`(${selectedLanguage})`)} </span></p>
                 { item.id =='76' && selectedLanguage == 'Both'? <p className='sm:text-[18px] text-[18px] xs:text-[16px] font-[400] w-[50%]' style={{color:textColor }}>+ {item.quantity == 1
                         ? parseFloat(item.price) + 2000 
                         : parseFloat(item.price) + ((parseFloat(item.price) / 100) * item.price_increment * (item.quantity - 1)) + 2000} SAR</p>:
-                <p className='sm:text-[20px] text-[18px] xs:text-[16px] font-[400] lg:w-[40%] md:w-[50%]  text-right' style={{color:textColor }}>+ {item.quantity == 1
+                <p className='sm:text-[18px] text-[18px] xs:text-[16px] font-[400] lg:w-[40%] md:w-[50%]  text-right' style={{color:textColor }}>+ {item.quantity == 1
                         ? parseFloat(item.price)
                         : parseFloat(item.price) + ((parseFloat(item.price) / 100) * item.price_increment * (item.quantity - 1))} SAR</p>}
                                 </div>
@@ -562,7 +578,7 @@ export const BundlDetail = () => {
                       }
                     >
                       <div className='flex xs:w-[100%] w-full'>
-                        <p className='text-black sm:text-[18px] text-[18px] xs:text-[16px] font-[400] !mb-1 xs:w-[75%]  lg:w-full md:w-full sm:w-full'>
+                        <p className='text-black sm:text-[18px] text-[18px] xs:text-[16px] font-[400] !mb-1 xs:w-[75%]  lg:w-full md:w-full sm:w-full mt-[3px]'>
                           {addon.qty} {addon.addon_name}
                         </p>
                         <p 

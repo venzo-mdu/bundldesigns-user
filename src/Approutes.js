@@ -118,7 +118,7 @@ export default function AppRouter() {
     },
     {
       path: "/bundldetail/:packageID",
-      element: <BundlDetail />,
+      element: <BundlDetail user={user}/>,
       //element: <ProtectedRoute element={<BundlDetail />} />,
     },
     {

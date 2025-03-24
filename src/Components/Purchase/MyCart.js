@@ -199,7 +199,7 @@ export const MyCart = () => {
             }
 
             const updatedGrandTotal = parseFloat(updatedTotalAmount) + updatedTax;
-            console.log(updatedTax,updatedGrandTotal,'asdfsad')
+            
                 setCartDetails((prevCartDetails) => ({
                     ...prevCartDetails,
                     item_details: updatedItemDetails,
@@ -305,7 +305,6 @@ export const MyCart = () => {
                     }
                     // navigate('/dashboard', { state: { reDirect: true} });
                     console.log("Payment successful:", response.data);
-                    localStorage.removeItem('payloads')
                 } catch (error) {
                     console.error("Payment error:", error);
                 }finally {
@@ -429,6 +428,152 @@ export const MyCart = () => {
     //         window.removeEventListener('popstate', handleBackAction);
     //     };
     // }, []);
+
+
+
+
+
+    // const handleQuantityChange = async (addonId, change) => {
+    //     try {
+    //       // Validate the new quantity before proceeding
+    //       let newQty;
+    //       let errorRaised = false;
+      
+    //       setCartDetails((prevCartDetails) => {
+    //         let updatedDetails = { ...prevCartDetails };
+      
+    //         updatedDetails.item_details.addon_items = updatedDetails.item_details.addon_items.map((addon) => {
+    //           if (addon.id === addonId) {
+    //             newQty = addon.qty + change; // Calculate the new quantity
+      
+    //             // Check if the new quantity is below the minimum limit (0 in this case)
+    //             if (newQty < 0) {
+    //               return addon; // Do not update the quantity
+    //             }
+      
+    //             return { ...addon, qty: newQty }; // Update the quantity in the local state
+    //           }
+    //           return addon;
+    //         });
+      
+    //         return updatedDetails;
+    //       });
+      
+    //       // If error is raised (newQty < 0), stop execution
+    //       if (errorRaised) return;
+      
+    //       // Make the API call to sync changes
+    //       const response = await axios.put(
+    //         `${base_url}/api/order-item/${addonId}/`,
+    //         {
+    //           qty: newQty, // Pass the updated quantity
+    //         },
+    //         ConfigToken() // Pass configuration like headers here
+    //       );
+      
+    //       // Handle success
+    //       console.log("Addon updated successfully:", response.data);
+    //       toast.success("Cart updated successfully", {
+    //         position: toast?.POSITION?.TOP_RIGHT,
+    //         toastId:'required-toast-qty',
+    //         autoClose: 3000,
+    //         style: {
+    //           color: "#1BA56F",
+    //           fontWeight: "700",
+    //         },
+    //       });
+    //     } catch (error) {
+    //       // Handle API errors
+    //       console.error("Error updating addon:", error);
+    //     }
+    //   };
+      
+
+    const handleQuantityChange = async (addonId, change) => {
+        try {
+          let newQty;
+          let priceDifference = 0;
+      
+          // Update the local state for the specific addon and adjust grand total
+          setCartDetails((prevCartDetails) => {
+            const updatedDetails = { ...prevCartDetails };
+      
+            updatedDetails.item_details.addon_items = updatedDetails.item_details.addon_items.map((addon) => {
+              if (addon.id === addonId) {
+                newQty = addon.qty + change; // Calculate the new quantity
+      
+                // Validate the new quantity (minimum limit is 0)
+                if (newQty < 0) {
+                  toast.error("Minimum quantity cannot be decreased", {
+                    position: toast?.POSITION?.TOP_RIGHT,
+                    autoClose: 3000,
+                    style: {
+                      color: "#D83D99",
+                      fontWeight: "700",
+                    },
+                  });
+                  return addon; // Do not update the quantity
+                }
+      
+                // Calculate price difference for grand total update
+                priceDifference = addon.unit_price * change;
+      
+                // Update quantity, subtotal price, and subtotal time
+                return {
+                  ...addon,
+                  qty: newQty,
+                  subtotal_price: addon.unit_price * newQty, // Recalculate subtotal price
+                  subtotal_time: addon.unit_time * newQty,   // Recalculate subtotal time
+                };
+              }
+              return addon;
+            });
+      
+            // Update grand total by adding the price difference
+      
+            return updatedDetails;
+          });
+      
+          // If newQty is invalid (negative), stop execution
+          if (newQty < 0) return;
+      
+          // Make the API call to sync changes
+          const response = await axios.put(
+            `${base_url}/api/order-item/${addonId}/`,
+            {
+              qty: newQty, // Pass the updated quantity
+            },
+            ConfigToken() // Pass configuration like headers here
+          );
+      
+          // Handle success
+          console.log("Addon updated successfully:", response.data);
+          toast.success("Cart updated successfully", {
+            position: toast?.POSITION?.TOP_RIGHT,
+            toastId: "required-toast-qty",
+            autoClose: 3000,
+            style: {
+              color: "#1BA56F",
+              fontWeight: "700",
+            },
+          });
+        } catch (error) {
+          // Handle API errors
+          console.error("Error updating addon:", error);
+          toast.error("Failed to update addon on the server", {
+            position: toast?.POSITION?.TOP_RIGHT,
+            autoClose: 3000,
+            style: {
+              color: "#D83D99",
+              fontWeight: "700",
+            },
+          });
+        }
+      };
+      
+      
+      
+      
     
     
     const handleBackClick = () => {
@@ -488,54 +633,108 @@ export const MyCart = () => {
                     <p  className='flex font-[500]  !text-[18px] items-center text-black mt-[2%]'> <img src={backIcon} className='mr-2 w-[30px] cursor-pointer' onClick={()=>handleBackClick()}></img><span className='cursor-pointer' onClick={()=>handleBackClick()}> Back to Bundl</span> </p>          
                     {/* {isDirect == false && <p onClick={()=>handleBackClick()} className='flex font-[500] cursor-pointer !text-[18px] items-center text-black mt-[2%]'> <img src={backIcon} className='mr-2 w-[30px]' onClick={()=>handleBackClick()}></img> Back to Bundl </p>}           */}
                     <p className='!xs:text-[16px] font-[700] !sm:text-[20px]'>Your Cart</p>
-                    {isMobile ? <>
-                        {cartDetails?.item_details?.bundle_items?.map((row,index) => (
+                    {isMobile ? 
+                    <>
                             <div className='flex justify-between border-b pb-2 !border-black'> 
                             <div>
-                            <div className='font-[700] text-[20px]'>{row.qty} x {row.item_name}</div>
+                            <div className='font-[700] text-[20px]'>{cartDetails?.bundl_english}</div>
+                            <div className='font-[500] ml-8'> {Math.round(cartDetails.grand_total)} SAR</div>
+                            </div>
+                            {/* <p className='flex items-center !mb-0 justify-center'><img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(cartDetails.id, 'bundle')}/></p> */}
+                             </div>
+                        {/* {cartDetails?.item_details?.bundle_items?.map((row,index) => (
+                            <div className='flex justify-between border-b pb-2 !border-black'> 
+                            <div>
+                            <div className='font-[700] text-[20px]'>{row.item_name}</div>
                             <div className='font-[500] ml-8'> {row.unit_price} SAR</div>
                             </div>
                             <p className='flex items-center !mb-0 justify-center'><img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'bundle')}/></p>
                              </div>
-                        ))}
+                        ))} */}
+                                   <div className='mt-3'>
 
+                                        {cartDetails?.item_details?.bundle_items?.map((row,index) => (
+                                             <div className={`flex ${index === cartDetails?.item_details?.bundle_items?.length -1 && 'border-b border-black'} w-full`}> 
+                                                <div className='font-[700] '> {row.qty} </div>
+                                                <div className='font-[700] text-[20px] ml-2'>{row.item_name}</div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    {
+                                        cartDetails?.item_details?.addon_items?.length >0 &&(
+                                    <div className='font-[700] text-[20px] mt-2'>Add ons</div>
+                                )
+                                    }
                         {cartDetails?.item_details?.addon_items?.map((row,index) => (
-
-                            <div className='flex justify-between border-b pb-2 !border-black'>
-                                <div>
-                                    <div className='font-[700] text-[20px]'>{row.qty} x {row.item_name}</div>
-                                    <div className='font-[500] ml-8'> {row.subtotal_price} SAR</div>
+                            <div className={`flex ${index === cartDetails?.item_details?.addon_items?.length -1 && 'border-b border-black'} w-full mt-2`}>
+                                <div className='w-[70%]'>
+                                <div className='font-[700] text-[20px] '>{row.item_name}</div>
+                                <div className='font-[500] '> {row.subtotal_price} SAR</div>
                                 </div>
-                                <p className='flex items-center !mb-0 justify-center'><img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'addon')} /></p>
+                                <p  className={`xs:order-2 sm:order-3 sm:w-[29%] w-[29%] xs:w-[29%] max-h-[36px] !mb-2 flex justify-end`}>
+                                            <button style={{
+                                            borderColor: 'black',
+                                            borderStyle: 'solid',
+                                            borderWidth: '1px',
+                                            }} 
+                                            onClick={() => handleQuantityChange(row?.id, -1)} 
+                                            className={` !border-r-0 !py-[17px]  px-1  flex  items-center`}>
+                                                <RemoveIcon />
+                                            </button>
+                                            <span style={{
+                                            borderColor: 'black',
+                                            borderStyle: 'solid',
+                                            borderWidth: '1px',
+                                            }} className={`!border-r-0 px-2 !text-[20px]`}> {row?.qty || 0}</span>
+                                            <button style={{
+                                            borderColor: 'black',
+                                            borderStyle: 'solid',
+                                            borderWidth: '1px',
+                                            }} 
+                                            onClick={() => handleQuantityChange(row?.id, 1)} 
+                                            className={`flex  items-center px-1  !py-[5px] `}><AddIcon /></button>
+                                        </p>
                             </div>
                                 ))}
-                    </>:<table className='w-full border-none' aria-label="simple table">
+                    </>
+                    :
+                    <table className='w-full border-none' aria-label="simple table">
                             <thead>
                                 <tr className='!text-left text-[20px]'>
                                     <td className= 'text-left w-[20%] text-[#00000080] pb-3' >Item</td>
-                                    <td className='text-[#00000080] w-[30%] pb-3'  align="center">Quantity</td>
+                                    {/* <td className='text-[#00000080] w-[30%] pb-3'  align="center">Quantity</td> */}
                                     <td className='text-[#00000080] w-[30%]    pb-3' align="center">Price</td>
                                     <td className='text-[#00000080] w-[20%]    pb-3'  align="center">Action</td>
                                 </tr>
                             </thead>
                             <tbody>
-                                {cartDetails?.item_details?.bundle_items?.map((row,index) => (
+                                {/* <p className='text-[#000] font-[700] text-[20px]'>{cartDetails?.bundl_english}</p> */}
+                                    <>
                                     <tr
-                                        key={row.item_name}
-                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                        className={`text-[#000] font-[700] text-[20px] ${index == (cartDetails?.item_details?.bundle_items.length-1) && cartDetails?.item_details?.addon_items.length ==0? '':'border-b border-black'} mb-2 `}
+                                        className={`text-[#000] font-[700] text-[20px] border-b border-black mb-2 `}
                                     >
                                         <td className='text-left !py-2' scope="row">
-                                            {row.item_name}
+                                        {cartDetails?.bundl_english}
                                         </td>
-                                        <td className=' !py-2' align="center">{row.qty}</td>
-                                        <td className=' !py-2' align="center">{row.unit_price}</td>
+                                        {/* <td className=' !py-2' align="center">{row.qty}</td> */}
+                                        <td className=' !py-2' align="center"> {Math.round(cartDetails?.grand_total)}</td>
                                         {/* <TableCell align="center"><img style={{width:'23px'}} src={row.DeleteIcon}></img></TableCell> */}
                                         <td className=' !py-2' align="center">
-                                            <p className='flex items-center !mb-0 justify-center'><img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'bundle')}/></p>
+                                            {/* <p className='flex items-center !mb-0 justify-center'><img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(cartDetails.id, 'bundle')}/></p> */}
                                         </td>
                                     </tr>
-                                ))}
+                                 
+                                    </>
+                                    
+                                        {cartDetails?.item_details?.bundle_items?.map((row,index) => (
+                                            <tr className={` ${index === cartDetails?.item_details?.bundle_items?.length -1 && 'border-b border-black'} w-full`}>
+                                            <td className='text-[#000] font-[700] !text-[18px] !px-[2%] !py-1'>{row.qty} {row?.item_name}</td>    
+                                            </tr>
+                                        ))}
+                                            
+                                   
+                                
+
                                 {cartDetails?.item_details?.addon_items?.map((row,index) => (
                                     <tr
                                         key={row.item_name}
@@ -545,12 +744,35 @@ export const MyCart = () => {
                                         <td className=' !py-2' scope="row">
                                             {row.item_name}
                                         </td>
-                                        <td className=' !py-2' align="center">{row.qty}</td>
+                                        {/* <td className=' !py-2' align="center">{row.qty}</td> */}
                                         <td className=' !py-2' align="center">{row.subtotal_price}</td>
                                         {/* <TableCell align="center"><img style={{width:'23px'}} src={row.DeleteIcon}></img></TableCell> */}
                                         <td align="center">
                                             {/* <img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'addon')}/> */}
-                                            <p className='flex items-center !mb-0 justify-center'><img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'addon')}/></p>
+                                            {/* <p className='flex items-center !mb-0 justify-center'><img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'addon')}/></p> */}
+                                            <p  className={`xs:order-2 sm:order-3 sm:w-[29%] w-[29%] xs:w-[29%] max-h-[36px] !mb-2 flex justify-end  mt-2`}>
+                                            <button style={{
+                                            borderColor: 'black',
+                                            borderStyle: 'solid',
+                                            borderWidth: '1px',
+                                            }} 
+                                            onClick={() => handleQuantityChange(row?.id, -1)} 
+                                            className={` !border-r-0 !py-[17px]  px-1  flex  items-center`}>
+                                                <RemoveIcon />
+                                            </button>
+                                            <span style={{
+                                            borderColor: 'black',
+                                            borderStyle: 'solid',
+                                            borderWidth: '1px',
+                                            }} className={`!border-r-0 px-2 !text-[20px]`}> {row?.qty || 0}</span>
+                                            <button style={{
+                                            borderColor: 'black',
+                                            borderStyle: 'solid',
+                                            borderWidth: '1px',
+                                            }} 
+                                            onClick={() => handleQuantityChange(row?.id, 1)} 
+                                            className={`flex  items-center px-1  !py-[5px] `}><AddIcon /></button>
+                                        </p>
                                         </td>
                                     </tr>
                                 ))}

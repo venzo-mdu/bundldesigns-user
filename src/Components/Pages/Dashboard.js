@@ -41,7 +41,7 @@ const style = {
     // border: '2px solid #000',
     boxShadow: 24,
     display: 'flex',
-    padding:'2% 5%',
+    padding:'2% 2%',
     flexDirection:'column',
     borderRadius:'4px'
 };
@@ -822,13 +822,12 @@ const handleDownload = async (file) => {
                             aria-describedby="modal-modal-description"
                         >
                             <Box sx={style}>
-                                      <div className='min-h-[450px] overflow-y-auto border-[1px] border-black pt-2 font-Helvetica'>
-                                        <p className='px-2 text-[20px] font-[500] font-Helvetica text-[#1BA56F]'>Artworks</p>
-                                      {(Files.length > 0 || Links.length > 0) && (
+                                      <div className='min-h-[inherit] overflow-y-auto border-[1px] border-black pt-2 font-Helvetica'>
+                                        <p className='px-2 text-[20px] font-[500] font-Helvetica text-[#1BA56F] uppercase'>Artworks</p>
+                                      {(Files.length > 0 || Links.length > 0) ? (
                                     <div> 
                                             <div className='px-2'>
                                                 {
-                                                    Files?.length > 0 ?
                                                     Files.map((item, index) => (
                                                         // <a 
                                                         //     key={index} 
@@ -838,12 +837,12 @@ const handleDownload = async (file) => {
                                                         //     {item.data.replace(/-\d{13,}-\d+/, "").trim()}
                                                         // </a>
     
-                                                        <div className={`${Files?.length - 1 !== index && 'border-b border-black'} mt-2 px-2`}>
+                                                        <div className={`${(Files?.length - 1 !== index || Links?.length > 0 )&& 'border-b border-black'} mt-2 px-2`}>
                                                             <p>Date : {item?.created_at}</p>
                                                             <p>Title : File</p>
                                                             <p onClick={() => handleDownload(item.data)}>Link : <span className='text-blue-500 cursor-pointer underline'>{item.data.replace(/-\d{13,}-\d+/, "").trim()}</span> </p>
                                                         </div>
-                                                    )):'No Files Found'
+                                                    ))
                                                 }
                                                 
                                             </div>
@@ -851,7 +850,6 @@ const handleDownload = async (file) => {
                                         {Links.length > 0 && (
                                             <div className='px-2'>
                                                 {
-                                                    Links?.length > 0 ? 
                                                     Links.map((item, index) => {
                                                         const validUrl = item?.data.startsWith("http://") || item?.data.startsWith("https://") ? item?.data : `https://${item?.data}`;
     
@@ -875,13 +873,18 @@ const handleDownload = async (file) => {
                                                             </p>
                                                            </div>
                                                         );
-                                                    }) :'No Links Found'
+                                                    }) 
                                                 }
                                                 
                                             </div>
                                         )}
                                     </div>
-                                )}
+                                ) :
+                                <div className='flex justify-center items-center'>
+                                    <p className='text-[18px] font-[500]'> No results Found</p>
+                                </div>
+                               
+                            }
                                       </div>
                                 
 
