@@ -21,7 +21,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 import { Bgloader } from '../Common/Background/Bgloader'
 
 
-export const AboutUs = () => {
+export const AboutUs = ({lang,setLang}) => {
     const [loading, setLoading] = useState(true)
   const [testimonials, setTestimonials] = useState([])
   const [whatwedo, setWhatwedo] = useState(null)
@@ -39,6 +39,13 @@ export const AboutUs = () => {
     getTestimonials()
   }, [])
 
+    useEffect(() => {
+        const direction = lang === 'ar' ? 'rtl' : 'ltr';
+        if (document.body.dir !== direction) {
+            document.body.dir = direction;
+        }
+    }, [lang]);
+
 
   return (
     <>
@@ -50,7 +57,7 @@ export const AboutUs = () => {
         style={{
           backgroundImage: `url(${cloud_bg})`,
         }}>
-        < Navbar />
+        <Navbar isLang={lang} setIsLang={setLang}/>
 
         <div className='xl:h-[56vh]  lg:h-[60vh] md:h-[58vh] xs:h-[280px] relative'>
           <h1 className='font-Helvetica !text-black md:w-[60vw] lg:text-[38px] xs:text-[22px] sm:text-[22px] sm:w-[70vw] xs:w-[100vw] md:text-[36px] xl:w-[50vw] xl:text-[45px] lg:mx-auto md:mx-auto  xs:mx-0 py-[8%] lg:py-[6%] md:py-[2%] my-[2%] text-center'>{aboutUs.main_content} </h1>

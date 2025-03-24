@@ -49,6 +49,7 @@ export default function AppRouter() {
 
 
   const token = getCookie("token");
+  const [transLanguage , setTransLanguage] = useState('');
   const location = useLocation();
   const [user , setUser] = useState([]);
   const ProtectedRoute = ({ element }) => {
@@ -62,7 +63,8 @@ export default function AppRouter() {
       top: 0,
       left: 0
     })
-  },[]);
+    setTransLanguage(localStorage?.getItem('lang'));
+  },[transLanguage]);
 
   useEffect(() => {
     const getAuthUser = async () => {
@@ -97,11 +99,11 @@ export default function AppRouter() {
   return useRoutes([
     {
       path: "/login",
-      element:  <Login />,
+      element:  <Login lang={transLanguage}/>,
     },
     {
       path: "/signup",
-      element:  <Signup />,
+      element:  <Signup lang={transLanguage}/>,
     },
     {
       path: "/reset-password",
@@ -109,7 +111,7 @@ export default function AppRouter() {
     },
     {
       path: "/",
-      element: <Home />,
+      element: <Home lang={transLanguage} setLang={setTransLanguage}/>,
     },
     {
       path: "/profile",
@@ -156,7 +158,7 @@ export default function AppRouter() {
     },
     {
       path:"/aboutus",
-      element:<AboutUs/>
+      element:<AboutUs lang={transLanguage} setLang={setTransLanguage}/>
     },
     {
       path:"/search",

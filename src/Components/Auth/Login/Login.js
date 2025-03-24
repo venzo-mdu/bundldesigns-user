@@ -18,7 +18,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import AppleLogin from 'react-apple-login'
 import GoogleIcon from "../../../Images/Login/icons8-google.svg"
 
-export const Login = () => {
+export const Login = ({lang}) => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -45,6 +45,13 @@ export const Login = () => {
       left: 0
     })
   }, []);
+
+  useEffect(() => {
+      const direction = lang === 'ar' ? 'rtl' : 'ltr';
+      if (document.body.dir !== direction) {
+          document.body.dir = direction;
+      }
+  }, [lang]);
 
 
   // const login = useGoogleLogin({
@@ -251,15 +258,17 @@ export const Login = () => {
     }
   };
 
+  
+
   return (
     <div>
       <div className='login !mb-[8rem] '>
         {/* <img className='anchor w-[100px]' src={loginGIF} alt='login-anchor' /> */}
         <div className='login-content '>
-          <p className='welcometext'>Welcome Back!</p>
+          <p className='welcometext'>{lang === 'ar' ? 'مرحبابك مف يبند لديزاين ز !' :'Welcome Back!'}</p>
           <img className='loginlogo' src={Loginlogo} alt='login' />
           <form onSubmit={onSubmit} className='lg:mt-0 md:mt-0 xs:mt-[8%]'>
-            <label className='xs:mb-2'> Email address</label>
+            <label className='xs:mb-2'> اسم</label>
             <input
               type="email"
               name="email"

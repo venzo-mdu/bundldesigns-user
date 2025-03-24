@@ -62,7 +62,7 @@ import plusImage from '../../Images/Bundles/plus-icon.png'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 
-export const Home = () => {
+export const Home = ({lang,setLang}) => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -181,6 +181,11 @@ export const Home = () => {
             console.log(err)
         }
     }
+
+    const changeLanguage = (lang) =>{
+        localStorage?.setItem('lang',lang)
+        setLang(lang);
+    }
     const getCookie = (name) => {
         const value = `; ${document.cookie}`;
         const parts = value.split(`; ${name}=`);
@@ -227,6 +232,14 @@ export const Home = () => {
             window.removeEventListener('hashchange', handleScroll);
         };
     }, []);
+
+
+    useEffect(() => {
+        const direction = lang === 'ar' ? 'rtl' : 'ltr';
+        if (document.body.dir !== direction) {
+            document.body.dir = direction;
+        }
+    }, [lang]);
 
 
     useEffect(() => {
@@ -374,7 +387,7 @@ export const Home = () => {
                                             </div>
                                         </div>
                                         <div className="col-7 relative !mt-4 col-md-8 col-lg-3 text-end ">
-                                            <div className="navbar navbar-expand-lg float-right">
+                                            <div className={`navbar navbar-expand-lg ${lang !== 'ar' && 'float-right'}`}>
                                                 <ul className=" mr-auto h-list align-items-center ">
                                                     <li className='px-[6px]' >
                                                         <a onClick={() => { setSearchShow(!searchShow);setProfileVisible(false) }} className="cursor-pointer"><img src={Search} alt="" className="navIcons"></img></a>
@@ -418,7 +431,7 @@ export const Home = () => {
                                                         <a className="" href="/mycart?direct=true"><img src={Cart} alt="" className="navIcons"></img></a>
                                                     </li>
                                                     <li className='px-[6px]'>
-                                                        <a className="" href="#"><img src={Language} alt="" className="navIcons"></img></a>
+                                                        <a className="" onClick={()=>changeLanguage(lang == 'ar' ? 'En' :'ar')}><img src={Language} alt="" className="navIcons"></img></a>
                                                     </li>
                                                     <li className="nav-item xs:!block sm:!hidden  inner-nav text-center !hidden menu mr-auto">
                                                         <button onClick={toggleMenu} type="button" id="menu-toggle">
