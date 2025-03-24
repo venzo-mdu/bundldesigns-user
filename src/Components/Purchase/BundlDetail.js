@@ -529,7 +529,7 @@ export const BundlDetail = ({user}) => {
                 { item.id =='76' && selectedLanguage == 'Both'? <p className='sm:text-[18px] text-[18px] xs:text-[16px] font-[400] w-[50%]' style={{color:textColor }}>+ {item.quantity == 1
                         ? parseFloat(item.price) + 2000 
                         : parseFloat(item.price) + ((parseFloat(item.price) / 100) * item.price_increment * (item.quantity - 1)) + 2000} SAR</p>:
-                <p className='sm:text-[18px] text-[18px] xs:text-[16px] font-[400] lg:w-[40%] md:w-[50%]  text-right' style={{color:textColor }}>+ {item.quantity == 1
+                <p className='sm:text-[18px] text-[18px] xs:text-[16px] font-[400] lg:w-[40%] md:w-[50%] xs:w-[25%]  text-right' style={{color:textColor }}>+ {item.quantity == 1
                         ? parseFloat(item.price)
                         : parseFloat(item.price) + ((parseFloat(item.price) / 100) * item.price_increment * (item.quantity - 1))} SAR</p>}
                                 </div>

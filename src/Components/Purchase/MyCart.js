@@ -488,89 +488,177 @@ export const MyCart = () => {
     //     }
     //   };
       
+    // const handleQuantityChange = async (addonId, change) => {
+    //     try {
+    //         let newQty;
 
+    //         setCartDetails((prevCartDetails) => {
+    //             const updatedDetails = { ...prevCartDetails };
+
+    //             updatedDetails.item_details.addon_items = updatedDetails.item_details.addon_items.map((addon) => {
+    //                 if (addon.id === addonId) {
+    //                     newQty = addon.qty + change;
+
+    //                     if (newQty < 0) {
+
+    //                         return addon;
+    //                     }
+
+    //                     return {
+    //                         ...addon,
+    //                         qty: newQty,
+    //                     };
+    //                 }
+    //                 return addon;
+    //             });
+
+    //             return updatedDetails;
+    //         });
+
+    //         if (newQty === 0) {
+    //             removeItem(addonId, 'addon')
+    //         };
+
+    //         const response = await axios.put(
+    //             `${base_url}/api/order-item/${addonId}/`,
+    //             { qty: newQty }, // Send the new quantity
+    //             ConfigToken() // Include necessary headers
+    //         );
+
+    //         // Use API response to update the state
+    //         const responseData = response.data;
+
+    //         setCartDetails((prevCartDetails) => {
+    //             const updatedDetails = { ...prevCartDetails };
+
+    //             // Update the specific addon details
+    //             updatedDetails.item_details.addon_items = updatedDetails.item_details.addon_items.map((addon) => {
+    //                 if (addon.id === responseData.data.id) {
+    //                     return {
+    //                         ...addon,
+    //                         qty: responseData.data.qty,
+    //                         status: responseData.data.status,
+    //                         subtotal_price: parseFloat(responseData.data.subtotal_price), // Set subtotal price from response
+    //                     };
+    //                 }
+    //                 return addon;
+    //             });
+
+    //             // Update totals from the response
+    //             updatedDetails.grand_total = responseData.grand_total;
+    //             updatedDetails.total_amount = responseData.total_amount;
+    //             updatedDetails.total_time = responseData.total_time;
+
+    //             return updatedDetails;
+    //         });
+
+    //         // Show success toast
+    //         toast.success("Cart updated successfully", {
+    //             position: toast?.POSITION?.TOP_RIGHT,
+    //             toastId: "required-toast-qty",
+    //             autoClose: 3000,
+    //             style: {
+    //                 color: "#1BA56F",
+    //                 fontWeight: "700",
+    //             },
+    //         });
+    //     } catch (error) {
+    //         // Handle errors
+    //         console.error("Error updating addon:", error);
+
+    //     }
+    // };
+      
     const handleQuantityChange = async (addonId, change) => {
         try {
-          let newQty;
-          let priceDifference = 0;
-      
-          // Update the local state for the specific addon and adjust grand total
-          setCartDetails((prevCartDetails) => {
-            const updatedDetails = { ...prevCartDetails };
-      
-            updatedDetails.item_details.addon_items = updatedDetails.item_details.addon_items.map((addon) => {
-              if (addon.id === addonId) {
-                newQty = addon.qty + change; // Calculate the new quantity
-      
-                // Validate the new quantity (minimum limit is 0)
-                if (newQty < 0) {
-                  toast.error("Minimum quantity cannot be decreased", {
-                    position: toast?.POSITION?.TOP_RIGHT,
-                    autoClose: 3000,
-                    style: {
-                      color: "#D83D99",
-                      fontWeight: "700",
-                    },
-                  });
-                  return addon; // Do not update the quantity
-                }
-      
-                // Calculate price difference for grand total update
-                priceDifference = addon.unit_price * change;
-      
-                // Update quantity, subtotal price, and subtotal time
-                return {
-                  ...addon,
-                  qty: newQty,
-                  subtotal_price: addon.unit_price * newQty, // Recalculate subtotal price
-                  subtotal_time: addon.unit_time * newQty,   // Recalculate subtotal time
-                };
-              }
-              return addon;
+            let newQty;
+            let updatedDetails;
+
+            // Optimized state update
+            setCartDetails((prevCartDetails) => {
+                updatedDetails = { ...prevCartDetails };
+
+                // Update addon items
+                updatedDetails.item_details.addon_items = updatedDetails.item_details.addon_items.map((addon) => {
+                    if (addon.id === addonId) {
+                        newQty = addon.qty + change;
+
+                        // Exit early if new quantity is invalid
+                        if (newQty < 0) {
+                            newQty = addon.qty; // Keep the same quantity
+                            return addon;
+                        }
+
+                        return {
+                            ...addon,
+                            qty: newQty,
+                        };
+                    }
+                    return addon;
+                });
+
+                // Return updated details
+                return updatedDetails;
             });
-      
-            // Update grand total by adding the price difference
-      
-            return updatedDetails;
-          });
-      
-          // If newQty is invalid (negative), stop execution
-          if (newQty < 0) return;
-      
-          // Make the API call to sync changes
-          const response = await axios.put(
-            `${base_url}/api/order-item/${addonId}/`,
-            {
-              qty: newQty, // Pass the updated quantity
-            },
-            ConfigToken() // Pass configuration like headers here
-          );
-      
-          // Handle success
-          console.log("Addon updated successfully:", response.data);
-          toast.success("Cart updated successfully", {
-            position: toast?.POSITION?.TOP_RIGHT,
-            toastId: "required-toast-qty",
-            autoClose: 3000,
-            style: {
-              color: "#1BA56F",
-              fontWeight: "700",
-            },
-          });
+
+            // Remove item if quantity becomes 0
+            if (newQty === 0) {
+                removeItem(addonId, "addon");
+                return;
+            }
+
+            setLoading(true)
+            const response = await axios.put(
+                `${base_url}/api/order-item/${addonId}/`,
+                { qty: newQty }, // Send the new quantity
+                ConfigToken() // Include necessary headers
+            );
+
+            // Process API response
+            const responseData = response.data;
+
+            setCartDetails((prevCartDetails) => {
+                const updatedDetails = { ...prevCartDetails };
+
+                // Update specific addon item
+                updatedDetails.item_details.addon_items = updatedDetails.item_details.addon_items.map((addon) => {
+                    if (addon.id === responseData.data.id) {
+                        return {
+                            ...addon,
+                            qty: responseData.data.qty,
+                            status: responseData.data.status,
+                            subtotal_price: parseFloat(responseData.data.subtotal_price), // Set subtotal price from response
+                        };
+                    }
+                    return addon;
+                });
+
+                // Update totals from the response
+                updatedDetails.grand_total = responseData.grand_total;
+                updatedDetails.total_amount = responseData.total_amount;
+                updatedDetails.total_time = responseData.total_time;
+
+                return updatedDetails;
+            });
+
+            // Show success toast
+            toast.success("Cart updated successfully", {
+                position: toast?.POSITION?.TOP_RIGHT,
+                toastId: "required-toast-qty",
+                autoClose: 3000,
+                style: {
+                    color: "#1BA56F",
+                    fontWeight: "700",
+                },
+            });
         } catch (error) {
-          // Handle API errors
-          console.error("Error updating addon:", error);
-          toast.error("Failed to update addon on the server", {
-            position: toast?.POSITION?.TOP_RIGHT,
-            autoClose: 3000,
-            style: {
-              color: "#D83D99",
-              fontWeight: "700",
-            },
-          });
+            // Log and display error feedback
+            console.error("Error updating addon:", error);
+        }finally{
+            setLoading(false)
         }
-      };
-      
+    };
+
       
       
       
@@ -638,7 +726,7 @@ export const MyCart = () => {
                             <div className='flex justify-between border-b pb-2 !border-black'> 
                             <div>
                             <div className='font-[700] text-[20px]'>{cartDetails?.bundl_english}</div>
-                            <div className='font-[500] ml-8'> {Math.round(cartDetails.grand_total)} SAR</div>
+                            <div className='font-[500] ml-8'> {Math.round(cartDetails.total_amount)} SAR</div>
                             </div>
                             {/* <p className='flex items-center !mb-0 justify-center'><img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(cartDetails.id, 'bundle')}/></p> */}
                              </div>
@@ -717,7 +805,7 @@ export const MyCart = () => {
                                         {cartDetails?.bundl_english}
                                         </td>
                                         {/* <td className=' !py-2' align="center">{row.qty}</td> */}
-                                        <td className=' !py-2' align="center"> {Math.round(cartDetails?.grand_total)}</td>
+                                        <td className=' !py-2' align="center"> {Math.round(cartDetails?.total_amount)}</td>
                                         {/* <TableCell align="center"><img style={{width:'23px'}} src={row.DeleteIcon}></img></TableCell> */}
                                         <td className=' !py-2' align="center">
                                             {/* <p className='flex items-center !mb-0 justify-center'><img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(cartDetails.id, 'bundle')}/></p> */}
