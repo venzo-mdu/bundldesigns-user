@@ -1,6 +1,6 @@
 import React from 'react'
 import '../Background/Bgloader.css'
-import Loader from "../../../Images/Background/loadsticker.svg"
+import Loader from "../../../Images/Home/load sticker.png"
 export const Bgloader = () => {
   return (
     <div className='loader-bg'>

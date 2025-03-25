@@ -695,10 +695,13 @@ export const Home = () => {
                                     <div className="icon_section1">
                                         <div className="subzero1">
 
-                                            <span onClick={() => addToCart(0)} className="buiscut_layer1">
+                                            {/* <span onClick={() => addToCart(0)} className="buiscut_layer1">
                                                 <img style={{ width: '30%' }} src={CartIcon} alt='cart-icon'></img>
-                                                ADD TO <br></br>CART</span>
-                                            <div onClick={() => addToCart(0)} className="main_inside1"></div>
+                                                ADD TO <br></br>CART</span> */}
+                                                <span onClick={() => addToCart(0)} className="buiscut_layer1">
+                                                {/* <img style={{ width: '30%' }} src={CartIcon} alt='cart-icon'></img> */}
+                                                </span>
+                                            <div onClick={() => addToCart(0)} className="main_inside1 cursor-pointer"></div>
                                         </div>
                                     </div>
 
@@ -783,9 +786,10 @@ export const Home = () => {
                                     <div className="icon_section2">
                                         <div className="subzero2">
                                             <span onClick={() => addToCart(1)} className="buiscut_layer2">
-                                                <img style={{ width: '30%' }} src={CartIcon} alt='cart-icon'></img>
-                                                ADD TO <br></br>CART</span>
-                                            <div onClick={() => addToCart(1)} className="main_inside2"></div>
+                                                {/* <img style={{ width: '30%' }} src={CartIcon} alt='cart-icon'></img>
+                                                ADD TO <br></br>CART */}
+                                                </span>
+                                            <div onClick={() => addToCart(1)} className="main_inside2 cursor-pointer"></div>
                                         </div>
                                     </div>
 
@@ -879,9 +883,10 @@ export const Home = () => {
                                     <div className="icon_section3">
                                         <div className="subzero3">
                                             <span onClick={() => addToCart(2)} className="buiscut_layer3">
-                                                <img style={{ width: '30%' }} src={CartIcon} alt='cart-icon'></img>
-                                                ADD TO <br></br>CART</span>
-                                            <div onClick={() => addToCart(2)} className="main_inside3"></div>
+                                                {/* <img style={{ width: '30%' }} src={CartIcon} alt='cart-icon'></img>
+                                                ADD TO <br></br>CART */}
+                                                </span>
+                                            <div onClick={() => addToCart(2)} className="main_inside3 cursor-pointer"></div>
                                         </div>
                                     </div>
 
@@ -974,9 +979,10 @@ export const Home = () => {
                                     <div className="icon_section4">
                                         <div className="subzero4">
                                             <span onClick={() => addToCart(3)} className="buiscut_layer4">
-                                                <img style={{ width: '30%' }} src={CartIcon} alt='cart-icon'></img>
-                                                ADD TO <br></br>CART</span>
-                                            <div onClick={() => addToCart(3)} className="main_inside4"></div>
+                                                {/* <img style={{ width: '30%' }} src={CartIcon} alt='cart-icon'></img>
+                                                ADD TO <br></br>CART */}
+                                                </span>
+                                            <div onClick={() => addToCart(3)} className="main_inside4 cursor-pointer"></div>
                                         </div>
                                     </div>
 
@@ -1077,12 +1083,12 @@ export const Home = () => {
                                         <div className="subzero5">
 
                                             <span className="buiscut_layer5">
-                                                <img style={{ width: '30%' }} src={CartIcon} alt='cart-icon'></img>
-                                                <NavLink style={{ color: 'white' }} to="/custombundl" state={{ title: 'Custom Bundl' }}>
+                                                {/* <img style={{ width: '30%' }} src={CartIcon} alt='cart-icon'></img> */}
+                                                {/* <NavLink style={{ color: 'white' }} to="/custombundl" state={{ title: 'Custom Bundl' }}>
                                                     ADD TO <br></br>CART
-                                                </NavLink>
+                                                </NavLink> */}
                                             </span>
-                                            <div className="main_inside5"></div>
+                                            <div className="main_inside5 cursor-pointer" onClick={()=>navigate('/custombundl',{state:{title: 'Custom Bundl'}})}></div>
                                         </div>
                                     </div>
 

@@ -726,7 +726,7 @@ export const MyCart = () => {
                             <div className='flex justify-between border-b pb-2 !border-black'> 
                             <div>
                             <div className='font-[700] text-[20px]'>{cartDetails?.bundl_english}</div>
-                            <div className='font-[500] ml-8'> {Math.round(cartDetails.total_amount)} SAR</div>
+                            {/* <div className='font-[500] ml-8'> {Math.round(cartDetails.total_amount)} SAR</div> */}
                             </div>
                             {/* <p className='flex items-center !mb-0 justify-center'><img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(cartDetails.id, 'bundle')}/></p> */}
                              </div>
@@ -757,7 +757,7 @@ export const MyCart = () => {
                             <div className={`flex ${index === cartDetails?.item_details?.addon_items?.length -1 && 'border-b border-black'} w-full mt-2`}>
                                 <div className='w-[70%]'>
                                 <div className='font-[700] text-[20px] '>{row.item_name}</div>
-                                <div className='font-[500] '> {row.subtotal_price} SAR</div>
+                                {/* <div className='font-[500] '> {row.subtotal_price} SAR</div> */}
                                 </div>
                                 <p  className={`xs:order-2 sm:order-3 sm:w-[29%] w-[29%] xs:w-[29%] max-h-[36px] !mb-2 flex justify-end`}>
                                             <button style={{
