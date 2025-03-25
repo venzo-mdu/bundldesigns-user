@@ -1352,7 +1352,7 @@ export const Home = ({lang,setLang}) => {
                             </div>
                         </section>
 
-                        <Footer />
+                        <Footer isLang={lang}/>
                     </div>
 
 

@@ -20,7 +20,7 @@ import PhoneNumberInput from '../../Pages/PhoneNumberInput';
 import AppleLogin from 'react-apple-login'
 import { useGoogleLogin } from '@react-oauth/google';
 
-export const Signup = () => {
+export const Signup = ({lang}) => {
 
   const countries = [
     "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", 
@@ -294,13 +294,13 @@ const login = useGoogleLogin({
         {/* <img className='anchor' id='anchor' src={loginGIF} alt='login-anchor' /> */}
         <div className='signup-content'>
           <p className='welcometext'>
-            Welcome to <span className='bundle-designs'>Bundl Designs</span>
+           {lang == 'ar' ? 'مرحبًا بك' :'Welcome to'}  <span className='bundle-designs'>{lang === 'ar' ? 'مف يبند لديزاين' :'Bundl Designs'} </span>
           </p>
           <img className='loginlogo' src={Loginlogo} alt='login' />
           <form onSubmit={signUp}>
-            <label className='mb-2' style={{ width: '100%' }}>Name</label>
+            <label className='mb-2' style={{ width: '100%' }}>{lang === 'ar' ? 'اYسم':'Name'}</label>
             <input
-              placeholder='Enter your name'
+              placeholder={lang === 'ar' ? 'أدخل اسمك' :'Enter your name'}
               name='full_name'
               value={registerData.full_name}
               onChange={handleChange}
@@ -308,9 +308,9 @@ const login = useGoogleLogin({
             />
             {errors.full_name && <p className="error first-letter:capitalize">{errors.full_name}</p>}
 
-            <label className='mb-2 mt-[3%]' style={{ marginTop: '3%' }}>Email address</label>
+            <label className='mb-2 mt-[3%]' style={{ marginTop: '3%' }}>{lang === 'ar' ? 'البريدا|لكترون ي':'Email address'}</label>
             <input
-              placeholder='Enter your email'
+              placeholder={lang === 'ar' ? 'أدخل بريدك الإلكتروني': 'Enter your email'}
               name='email'
               value={registerData.email}
               onChange={handleChange}
@@ -319,12 +319,12 @@ const login = useGoogleLogin({
             {errors.email && <p className="error first-letter:capitalize">{errors.email}</p>}
 
             <div>
-            <label  className='mb-2 mt-[3%]'>Phone Number</label>
+            <label  className='mb-2 mt-[3%]'>{lang === 'ar' ?'رقمالهات ف':'Phone Number'}</label>
             <PhoneNumberInput
               className={'rounded-none outline-none h-[45px] lg:w-[525px] md:w-[525px] xs:w-full'}
               extraInputClass={'h-[50px] rounded-none'}
               name="phone"
-              placeholder="Enter phone number"
+              placeholder={lang==='ar'?'أدخل رقم هاتفك':"Enter your phone number"} 
               value={registerData.phone}
               status={setRegisterData}
               setPhoneError={setPhoneError}
@@ -335,8 +335,8 @@ const login = useGoogleLogin({
             </div>  
 
            <div className="lg:w-[50%] md:w-[50%] xs:w-[100%] mt-[3%]">
-                <div className='lg:mr-[4%] md:mr-[4%] xs:mr-0'>
-                    <label className='mb-2 mt-[3%]'>Country </label>
+                <div className={`${lang === 'ar' ? 'lg:ml-[4%] md:ml-[4%] xs:ml-0':'lg:mr-[4%] md:mr-[4%] xs:mr-0'}`}>
+                    <label className='mb-2 mt-[3%]'>{lang==='ar'?'دولة':'Country'} </label>
                     <select 
                         name="country" 
                         // id='vacancySelect'
@@ -354,7 +354,7 @@ const login = useGoogleLogin({
             </div>
 
             <div>
-              <label  className='mb-2 mt-[3%]'>Language</label>
+              <label  className='mb-2 mt-[3%]'>{lang==='ar'?'اللغة':'Language'}</label>
               <select name='language' className='rounded-none outline-none h-[50px] lg:w-[525px] md:w-[525px] xs:w-full border !border-[#D9D9D9] px-2 py-[5px]' onChange={handleChange}>
               <option value={'English'}>English</option>
               <option value={'Arabic'}  selected >Arabic</option>
@@ -362,10 +362,10 @@ const login = useGoogleLogin({
               {errors.language && <p className="error first-letter:capitalize">{errors.language}</p>}
             </div>
 
-            <label className='mb-2 mt-[3%]' >Password</label>
+            <label className='mb-2 mt-[3%]' >{lang === 'ar' ? 'كلمة المرور':'Password'}</label>
             <input
               type='password'
-              placeholder='Password'
+              placeholder= {lang === 'ar' ? 'أدخل كلمة المرور الخاصة بك':'Enter your Password'}
               name='password'
               value={registerData.password}
               onChange={handleChange}
@@ -375,23 +375,23 @@ const login = useGoogleLogin({
 
             <label className='terms-policy  flex items-center my-1'>
               <input
-                className='checkbox mr-2 rounded-none cursor-pointer'
+                className={`checkbox ${lang === 'ar' ? 'ml-2' :'mr-2'} rounded-none cursor-pointer`}
                 type='checkbox'
                 checked={isAgree}
                 onChange={() => setIsAgree(!isAgree)}
                 
               />
-              <span className='!text-[16px] cursor-pointer'>I agree to the terms & policy</span>
+              <span className='!text-[16px] cursor-pointer'>{lang === 'ar' ?'أوافقعل ىالشر وطواYحكا م' :'I agree to the terms & policy'}</span>
             </label>
             {(submitted && !isAgree) && <p className="error">Please agree to the terms and conditions.</p>}
             <button type='submit' style={{ margin: "0% 0 0 0" }} className='signin !text-[24px] uppercase'>
-              {loading ? <ClipLoader size={25} color={'#FFFFFF'}/>:'Signup'}
+              {loading ? <ClipLoader size={25} color={'#FFFFFF'}/>:lang === 'ar'?'تسجيل':'Signup'}
             </button>
-            <p className='or mt-[4vh] flex items-center ml-2 font-[500] text-[11px]'> <span className='border-[#F5F5F5] border-b h-[2px] basis-[41%] mr-[2%] border-[1.5px]'>
-            </span> Or  <span className='border-[#F5F5F5] border-b h-[2px] basis-[43%] ml-[2%] border-[1.5px]'></span></p>
+            <p className={`or mt-[4vh] flex items-center justify-center ${lang === 'ar' ? 'mr-2':'ml-2'} font-[500] text-[11px]`}> <span className='border-[#F5F5F5] border-b h-[2px] basis-[41%] mr-[2%] border-[1.5px]'>
+            </span>{lang === 'ar' ? 'أو' :'Or'}<span className={`border-[#F5F5F5] border-b h-[2px] basis-[43%] ${lang === 'ar' ?'mr-[2%]' :'ml-[2%]'} border-[1.5px]`}></span></p>
             <p className='signinwithgoogle'>
               {/* <img src={Googleicon} alt='google-icon' /> Sign in with Google */}
-              <div className='lg:w-[45%] md:w-[45%] xs:w-[100%]'>
+              <div className='lg:w-[50%] md:w-[45%] xs:w-[100%]'>
               {/* <GoogleLogin
                 onSuccess={credentialResponse => {
                   const token = credentialResponse.credential;
@@ -417,15 +417,16 @@ const login = useGoogleLogin({
                     lineHeight: "25px",
                     fontSize: window?.innerWidth <= 500 ? "14px" : "18px",
                     border: '1px solid #D9D9D9',
-                    borderRadius: '0px'
+                    borderRadius: '0px',
+                    width:'100%'
                   }}
                 >
                   {/* <img src={GoogleIcon} className='w-[25px] mr-2'></img> */}
-                  <i class="fab fa-google mr-2"></i>
-                  Sign in with Google
+                  <i class={`fab fa-google ${lang === 'ar' ?'ml-2':'mr-2'}`}></i>
+                 {lang === 'ar' ? 'تقم بالتسجيل مع جوجل ':'Sign up with Google'} 
                 </button>
               </div>
-              <div className='lg:w-[45%] md:w-[45%] xs:w-[100%]'>
+              <div className={`lg:w-[50%] md:w-[45%] xs:w-[100%] ${lang == 'ar' ? 'mr-[5%]' : 'ml-[5%]'}`}>
               <AppleSignin
                 authOptions={{
                   clientId: "com.bundldesigns.app.client",
@@ -433,7 +434,7 @@ const login = useGoogleLogin({
                   scope: "email name",
                   usePopup: false,
                 }}
-                className={'lg:w-[50%] md:w-[50%] xs:w-[100%] !lg:text-[18px] !md:text-[18px] !xs:text-[14px]'}
+                // className={'lg:w-[50%] md:w-[50%] xs:w-[100%] !lg:text-[18px] !md:text-[18px] !xs:text-[14px]'}
                 onSuccess={handleAppleSignupSuccess}
                 onError={(error) => console.error("Apple Login Failed:", error)}
                 render={(props) => <button {...props}
@@ -445,11 +446,12 @@ const login = useGoogleLogin({
                     fontFamily:'Helvetica',
                     fontWeight:'400',
                     lineHeight: "25px",
-                    fontSize:window?.innerWidth<=500?"14px":"18px"
+                    fontSize:window?.innerWidth<=500?"14px":"18px",
+                    width:'100%'
                   }}
                 >
                   <i className="fa-brands fa-apple px-2 "></i>
-                  Signup with Apple
+                  {lang === 'ar' ? 'قم بالتسجيل مع أبل' : 'Sign up with Apple'}
                 </button>}
               />
               {/* <AppleLogin
@@ -480,13 +482,13 @@ const login = useGoogleLogin({
               
             </p>
             <p className='dont !mt-4 w-[90%]'>
-              Have an account? <span><NavLink className='signup !font-[500]' to={'/login'}>&nbsp;Sign In</NavLink></span>
+             {lang === 'ar' ? 'لديك حساب' :' Have an account'} ?<span><NavLink className='signup !font-[500]' to={'/login'}>&nbsp;{lang === 'ar' ? 'التسجيل' :'Sign In'}</NavLink></span>
             </p>
           </form>
         </div>
         {/* <img className='anchor1 w-[160px]' id='anchor1' src={loginGIF} alt='login-anchor' /> */}
       </div>
-      <Footer />
+      <Footer isLang={lang}/>
     </div>
   );
 };

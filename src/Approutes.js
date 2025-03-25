@@ -66,6 +66,13 @@ export default function AppRouter() {
     setTransLanguage(localStorage?.getItem('lang'));
   },[transLanguage]);
 
+    useEffect(() => {
+        const direction = localStorage?.getItem('lang') === 'ar' ? 'rtl' : 'ltr';
+        if (document.body.dir !== direction) {
+            document.body.dir = direction;
+        }
+    }, [localStorage?.getItem('lang')]);
+
   useEffect(() => {
     const getAuthUser = async () => {
       try {
