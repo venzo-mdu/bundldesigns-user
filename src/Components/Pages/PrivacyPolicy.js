@@ -3,11 +3,11 @@ import { Navbar } from '../Common/Navbar/Navbar'
 import { Footer } from '../Common/Footer/Footer'
 import PrivacyPolicyJson from '../../json/privacyPolicy.json'
 
-const PrivacyPolicy = () => {
+const PrivacyPolicy = ({lang,setLang}) => {
 
   return (
     <div>
-      <Navbar />
+      <Navbar isLang={lang} setIsLang={setLang}/>
       <div className='font-Helvetica'>
         <div className='text-center py-2 border-b border-black'>
           <h1 className='lg:text-[40px] md:text-[40px] xs:text-[30px] lg:mt-[2%] md:mt-[2%] xs:mt-[5%] uppercase'> Privacy Policy </h1>
@@ -43,7 +43,7 @@ const PrivacyPolicy = () => {
       
 
       </div>
-      <Footer />
+      <Footer isLang={lang}/>
     </div>
   )
 }

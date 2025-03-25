@@ -123,35 +123,45 @@ export const Home = ({lang,setLang}) => {
     const processData = [
         {
             title: "BUY A BUNDL",
+            arabic_title:"إشتري بندل",
             description: "Choose from our tailored Bundls, or customize your very own according to your project needs.",
+            arabic_description:"اختر البندل المناسب لمشروعك. لم تجد ما تبحث عنه؟ صمم البندل الملائم لك",
             imgSrc: BuyBundl,
             fill: '#4FA472',
             color: '#000',
         },
         {
             title: "FILL A QUESTIONARE",
+            arabic_title:"املأ الاستبيان",
             description: "Tell us about your project and what you need. Not sure what you want? Our questionnaire will help you.",
+            arabic_description:"أخبرنا عن مشروعك وما تريد تصميمه. لست متأكد مما تريد؟ سوف يساعدك استبياننا",
             imgSrc: FillQuestionnarie,
             fill: '#00A8C8',
             color: '#000',
         },
         {
             title: "APPROVE EDIT",
+            arabic_title:"الموافقة / التعديل",
             description: "Your brand logo will be sent for your approval. Need something changed? Just Add-on an adjustment.",
+            arabic_description:"سيتم إرسال تصميم هويتك للحصول على موافقتك. تحتاج إلى تغيير شيء؟ فقط قم بإضافة تعديل",
             imgSrc: Approve,
             fill: '#F175AD',
             color: '#000',
         },
         {
             title: "UPLOAD CONTENT",
+            arabic_title:"تحميل المحتوى",
             description: "You can easily upload the contents for the items in your bundl, to be designed following your approved brand.",
+            arabic_description:"يمكنك بسهولة تحميل محتويات المواد الموجودة في البندل الخاصة بك. ستتبع جميع التصاميم ارشادات تصميم هويتك الموافق عليها.",
             imgSrc: UploadContent,
             fill: '#4FA472',
             color: '#000',
         },
         {
             title: "GET DESIGNS",
+            arabic_title:"احصل \عدل تصاميمك",
             description: "Your designs will be sent to your account. Need more items? some adjustments? Just Add-on to your bundl.",
+            arabic_description:"سيتم إرسال تصاميمك إلى حسابك. هل تحتاج إلى المزيد؟ بعض التعديلات؟ فقط اضف ما تريد إلى البندل الخاصة بك",
             imgSrc: Getthedesign,
             fill: '#00A8C8',
             color: '#000',
@@ -366,21 +376,26 @@ export const Home = ({lang,setLang}) => {
 
                                             </div>
                                         </div>
+                                      
                                         <div className="col-1 col-md-1 col-lg-6">
                                             <div className="navbar navbar-expand-lg justify-content-end">
                                                 <div className=" navbar-collapse !mt-4" id="mainNav">
                                                     <ul className=" mx-auto flex align-items-center ">
                                                         <li className="nav-item">
-                                                            <a className="nav-link" href="/aboutus">About</a>
+                                                            <a className="nav-link" href="/aboutus">{lang === 'ar' ? 'عن بندل' : 'About'}</a>
+
                                                         </li>
                                                         <li className="nav-item">
-                                                            <a className="nav-link" href="#ourBundl">Bundls</a>
+                                                            <a className="nav-link" href="/#ourBundl">{lang === 'ar' ? 'باقاتنا' : 'Bundls'}</a>
+
                                                         </li>
                                                         <li className="nav-item">
-                                                            <a className="nav-link" href="/our-work">Work</a>
+                                                            <a className="nav-link" href="/our-work">{lang === 'ar' ? 'مشاريعنا' : 'Work'}</a>
+
                                                         </li>
                                                         <li className="nav-item">
-                                                            <a className="nav-link" href="/contact-us">Contact Us</a>
+                                                            <a className="nav-link" href="/contact-us">{lang === 'ar' ? 'تواصل معنا ' : 'Contact Us'}</a>
+
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -564,7 +579,7 @@ export const Home = ({lang,setLang}) => {
                             <div className="container-fluid">
                                 <div className="row justify-content-center mb-4">
                                     <div className="col-md-5 text-center">
-                                        <h2 className="sub-headeing text-black xs:mt-">Our Process</h2>
+                                        <h2 className="sub-headeing text-black xs:mt-">{lang === 'ar' ? 'آليتنا ':'Our Process'}</h2>
                                         {/* <p className="p-24">We, at Bundl, understand the design complexities that can trip up even the most seasoned brand. That's why we cut through the clutter and empower a smooth, collaborative journey for our clients.</p> */}
                                     </div>
                                 </div>
@@ -609,7 +624,7 @@ export const Home = ({lang,setLang}) => {
                                                     key={index}
                                                     className={`process_title xs:text-[30px] sm:text-[30px] font-[700] ${activeProcess === index ? "title-active" : ""}`}
                                                 >
-                                                    {process.title}
+                                                    {lang === 'ar' ? process.arabic_title:process.title}
                                                 </div>
                                             ))}
                                         </div>
@@ -620,7 +635,7 @@ export const Home = ({lang,setLang}) => {
                                                     className={`process_description f-20 text-center ${activeProcess === index ? "desc-active" : ""}`}
                                                 >
 
-                                                    {process.description}
+                                                    { lang === 'ar' ? process.arabic_description : process.description }
                                                 </div>
                                             ))}
                                         </div>
@@ -651,7 +666,7 @@ export const Home = ({lang,setLang}) => {
                                                 }
 
                                                 <div className="content_section !cursor-pointer" style={{ transition: '1s', opacity: isActiveProcess[index] ? 1 : 0.3 }}>
-                                                    {process.title.split("  ").map((word, i) => (
+                                                    {(lang === 'ar' ? process.arabic_title : process.title).split("  ").map((word, i) => (
                                                         <span key={i}>{word}</span>
                                                     ))}
                                                 </div>
@@ -1175,18 +1190,18 @@ export const Home = ({lang,setLang}) => {
 
                         <div className="bunbl-box-news-section">
                             <div className="row justify-content-center bt-1">
-                                <div className="col-md-6 center-block text-center border-black lg:border-r-[1px] md:border-r-[1px] xs:border-r-0">
+                                <div className={`col-md-6 center-block text-center border-black ${lang === 'ar' ?'lg:border-l-[1px] md:border-l-[1px] xs:border-l-0':'lg:border-r-[1px] md:border-r-[1px] xs:border-r-0' }`}>
                                     <div className="bundl-box-inner">
                                         <div className="icon">
                                             <img src={GrownIcon} alt="" className="img-fluid"></img>
                                         </div>
                                         <div className="title">
-                                            Premium Section
+                                          {lang === 'ar' ? 'بندل بريميوم ' :'Premium Section'}  
                                         </div>
                                         <div className="desc">
-                                            Prefer a one-on-one design experience?
+                                           {lang === 'ar' ? 'تفضل تجربة تصميم مخصصة لك؟' :'Prefer a one-on-one design experience?'} 
                                         </div>
-                                        <a href="/form/premium" className="btn bundl-btn bt-1">Send us a message</a>
+                                        <a href="/form/premium" className="btn bundl-btn bt-1">{lang === 'ar' ? 'تواصل معنا':'Send us a message'}</a>
                                     </div>
                                 </div>
                                 <div className="col-md-6 text-center">
@@ -1195,12 +1210,12 @@ export const Home = ({lang,setLang}) => {
                                             <img src={SystemIcon} alt="" className="img-fluid"></img>
                                         </div>
                                         <div className="title">
-                                            website section
+                                           {lang === 'ar' ? 'متاجر الكترونية' :'website section'}  
                                         </div>
                                         <div className="desc">
-                                            Dreaming of a perfect website?
+                                            {lang === 'ar' ? 'تحتاج متجر الكتروني مثالي لمشروعك؟':'Dreaming of a perfect website?'} 
                                         </div>
-                                        <a href="/form/webster" className="btn bundl-btn bt-1">Send us a message</a>
+                                        <a href="/form/webster" className="btn bundl-btn bt-1">{lang === 'ar' ? 'تواصل معنا':'Send us a message'}</a>
                                     </div>
                                 </div>
                             </div>
@@ -1226,7 +1241,7 @@ export const Home = ({lang,setLang}) => {
                                                 {/* Carousel Content */}
                                                 <div
                                                     className="flex transition-transform duration-500"
-                                                    style={{ transform: `translateX(-${currentWork * 100}%)` }}
+                                                    style={lang === 'ar' ? { transform: `translateX(${currentWork * 100}%)` }:{ transform: `translateX(-${currentWork * 100}%)` }}
                                                 >
                                                     {ourworks.map((item, index) => (
                                                         <div key={index} className={`relative  flex-shrink-0 xl:w-[84%] xs:w-[84%] xs:mx-[8%] md:w-[99%] md:mx-1 xl:mx-[8%] flex flex-wrap ${item.project_images.length > 2 ? 'sm:h-[900px] xs:h-[300px]' : 'sm:h-[450px] xs:h-[300px]'} justify-center`}>
@@ -1283,9 +1298,9 @@ export const Home = ({lang,setLang}) => {
 
                         <section className="container-fluid section fact-section">
                             <div className="container">
-                                <h2 className="sub-head  text-upper">SO FAR WE’ve completed </h2>
+                                <h2 className="sub-head  text-upper">{lang === 'ar' ? 'حتى الآن، أكملنا' :'SO FAR WE’ve completed'} </h2>
                                 <h2 className="title">{bundlData.noOfProjects || 1}</h2>
-                                <h3 className="desc text-upper">projects for happy clients</h3>
+                                <h3 className="desc text-upper">{lang === 'ar' ? 'مشروعًا ' :'projects for happy clients'}</h3>
                             </div>
                         </section>
 

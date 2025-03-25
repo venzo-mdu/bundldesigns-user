@@ -206,7 +206,7 @@ export default function AppRouter() {
     },
     {
       path:"/privacy-policy",
-      element:<PrivacyPolicy/>
+      element:<PrivacyPolicy lang={transLanguage} setLang={setTransLanguage}/>
     },
     {
       path:"/legal",

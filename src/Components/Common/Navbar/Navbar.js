@@ -261,23 +261,23 @@ export const Navbar = ({isLang,setIsLang}) => {
                         <div className=" navbar-collapse" id="mainNav">
                           <ul className="navbar-nav mt-[3%] mx-auto align-items-center ">
                             <li className="nav-item">
-                              <a className="nav-link" href="/aboutus">About</a>
+                              <a className="nav-link" href="/aboutus">{isLang === 'ar' ? 'عن بندل' :'About'}</a>
                             </li>
                             <li className="nav-item">
-                              <a className="nav-link" href="/#ourBundl">Bundls</a>
+                              <a className="nav-link" href="/#ourBundl">{isLang === 'ar' ? 'باقاتنا' :'Bundls'}</a>
                             </li>
                             <li className="nav-item">
-                              <a className="nav-link" href="/our-work">Work</a>
+                              <a className="nav-link" href="/our-work">{isLang === 'ar' ? 'مشاريعنا' :'Work'}</a>
                             </li>
                             <li className="nav-item">
-                              <a className="nav-link" href="/contact-us">Contact Us</a>
+                              <a className="nav-link" href="/contact-us">{isLang === 'ar' ? 'تواصل معنا ' :'Contact Us'}</a>
                             </li>
                           </ul>
                         </div>
                       </div>
                     </div>
                     <div className="col-7 relative col-md-8  col-lg-3 text-end ">
-                      <div className={`navbar navbar-expand-lg ${isLang !== 'ar' && 'float-right'}`}>
+                      <div className={`navbar navbar-expand-lg ${(isLang !== 'ar') && 'float-right'}`}>
                         <ul className="sm:mt-[5vh] xs:mt-0 mr-auto h-list align-items-center ">
                           <li className='px-[7px]'>
                             <a className="w-[26px] cursor-pointer"  onClick={()=>{setSearchShow(!searchShow);setProfileVisible(false)}}><img src={Search} alt="" className="navIcons"></img></a>

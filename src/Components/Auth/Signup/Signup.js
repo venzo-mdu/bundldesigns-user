@@ -298,7 +298,7 @@ const login = useGoogleLogin({
           </p>
           <img className='loginlogo' src={Loginlogo} alt='login' />
           <form onSubmit={signUp}>
-            <label className='mb-2' style={{ width: '100%' }}>{lang === 'ar' ? 'اYسم':'Name'}</label>
+            <label className='mb-2' style={{ width: '100%' }}>{lang === 'ar' ? 'الأسم':'Name'}</label>
             <input
               placeholder={lang === 'ar' ? 'أدخل اسمك' :'Enter your name'}
               name='full_name'
@@ -308,7 +308,7 @@ const login = useGoogleLogin({
             />
             {errors.full_name && <p className="error first-letter:capitalize">{errors.full_name}</p>}
 
-            <label className='mb-2 mt-[3%]' style={{ marginTop: '3%' }}>{lang === 'ar' ? 'البريدا|لكترون ي':'Email address'}</label>
+            <label className='mb-2 mt-[3%]' style={{ marginTop: '3%' }}>{lang === 'ar' ? 'البريد الالكتروني':'Email address'}</label>
             <input
               placeholder={lang === 'ar' ? 'أدخل بريدك الإلكتروني': 'Enter your email'}
               name='email'
@@ -319,7 +319,7 @@ const login = useGoogleLogin({
             {errors.email && <p className="error first-letter:capitalize">{errors.email}</p>}
 
             <div>
-            <label  className='mb-2 mt-[3%]'>{lang === 'ar' ?'رقمالهات ف':'Phone Number'}</label>
+            <label  className='mb-2 mt-[3%]'>{lang === 'ar' ?' رقم الهاتف':'Phone Number'}</label>
             <PhoneNumberInput
               className={'rounded-none outline-none h-[45px] lg:w-[525px] md:w-[525px] xs:w-full'}
               extraInputClass={'h-[50px] rounded-none'}
@@ -336,7 +336,7 @@ const login = useGoogleLogin({
 
            <div className="lg:w-[50%] md:w-[50%] xs:w-[100%] mt-[3%]">
                 <div className={`${lang === 'ar' ? 'lg:ml-[4%] md:ml-[4%] xs:ml-0':'lg:mr-[4%] md:mr-[4%] xs:mr-0'}`}>
-                    <label className='mb-2 mt-[3%]'>{lang==='ar'?'دولة':'Country'} </label>
+                    <label className='mb-2 mt-[3%]'>{lang==='ar'?'الدولة':'Country'} </label>
                     <select 
                         name="country" 
                         // id='vacancySelect'
@@ -381,11 +381,11 @@ const login = useGoogleLogin({
                 onChange={() => setIsAgree(!isAgree)}
                 
               />
-              <span className='!text-[16px] cursor-pointer'>{lang === 'ar' ?'أوافقعل ىالشر وطواYحكا م' :'I agree to the terms & policy'}</span>
+              <span className='!text-[16px] cursor-pointer'>{lang === 'ar' ?' أوافق على الشروط والأحكام' :'I agree to the terms & policy'}</span>
             </label>
             {(submitted && !isAgree) && <p className="error">Please agree to the terms and conditions.</p>}
             <button type='submit' style={{ margin: "0% 0 0 0" }} className='signin !text-[24px] uppercase'>
-              {loading ? <ClipLoader size={25} color={'#FFFFFF'}/>:lang === 'ar'?'تسجيل':'Signup'}
+              {loading ? <ClipLoader size={25} color={'#FFFFFF'}/>:lang === 'ar'? 'تسجيل حساب':'Signup'}
             </button>
             <p className={`or mt-[4vh] flex items-center justify-center ${lang === 'ar' ? 'mr-2':'ml-2'} font-[500] text-[11px]`}> <span className='border-[#F5F5F5] border-b h-[2px] basis-[41%] mr-[2%] border-[1.5px]'>
             </span>{lang === 'ar' ? 'أو' :'Or'}<span className={`border-[#F5F5F5] border-b h-[2px] basis-[43%] ${lang === 'ar' ?'mr-[2%]' :'ml-[2%]'} border-[1.5px]`}></span></p>
@@ -482,7 +482,7 @@ const login = useGoogleLogin({
               
             </p>
             <p className='dont !mt-4 w-[90%]'>
-             {lang === 'ar' ? 'لديك حساب' :' Have an account'} ?<span><NavLink className='signup !font-[500]' to={'/login'}>&nbsp;{lang === 'ar' ? 'التسجيل' :'Sign In'}</NavLink></span>
+             {lang === 'ar' ? 'لديك حساب' :' Have an account'} ?<span><NavLink className='signup !font-[500]' to={'/login'}>&nbsp;{lang === 'ar' ? 'تسجيل دخول' :'Sign In'}</NavLink></span>
             </p>
           </form>
         </div>

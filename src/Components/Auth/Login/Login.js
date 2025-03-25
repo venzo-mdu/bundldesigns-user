@@ -265,10 +265,10 @@ export const Login = ({lang}) => {
       <div className='login !mb-[8rem] '>
         {/* <img className='anchor w-[100px]' src={loginGIF} alt='login-anchor' /> */}
         <div className='login-content '>
-          <p className='welcometext'>{lang === 'ar' ? 'مرحبابك مف يبند لديزاين ز !' :'Welcome Back!'}</p>
+          <p className='welcometext'>{lang === 'ar' ? 'مرحبا بكم مجددا' :'Welcome Back!'}</p>
           <img className='loginlogo' src={Loginlogo} alt='login' />
           <form onSubmit={onSubmit} className='lg:mt-0 md:mt-0 xs:mt-[8%]'>
-            <label className='xs:mb-2'>{lang === 'ar' ? 'عنوان البريد الإلكتروني':'Email address'} </label>
+            <label className='xs:mb-2'>{lang === 'ar' ? 'البريد الإلكتروني':'Email address'} </label>
             <input
               type="email"
               name="email"
@@ -293,7 +293,7 @@ export const Login = ({lang}) => {
             {errors.general && <p className="error">{errors.general}</p>}
             <p className='text-[red] mb-1'>{loginError}</p>
             <button className='signin !text-[24px] uppercase' type='submit'>
-              {loading ? <ClipLoader size={25} color={'#FFFFFF'} /> :lang === 'ar' ? 'التسجيل' : 'Sign In'}
+              {loading ? <ClipLoader size={25} color={'#FFFFFF'} /> :lang === 'ar' ? 'تسجيل دخول' : 'Sign In'}
             </button> 
             <p className={`or mt-[4vh] flex items-center justify-center ${lang === 'ar' ? 'mr-2':'ml-2'} font-[500] text-[11px]`}> <span className='border-[#F5F5F5] border-b h-[2px] basis-[41%] mr-[2%] border-[1.5px]'>
             </span>{lang === 'ar' ? 'أو' :'Or'}<span className={`border-[#F5F5F5] border-b h-[2px] basis-[43%] ${lang === 'ar' ?'mr-[2%]' :'ml-[2%]'} border-[1.5px]`}></span></p>
@@ -337,7 +337,7 @@ export const Login = ({lang}) => {
                 >
                   {/* <img src={GoogleIcon} className='w-[25px] mr-2'></img> */}
                   <i class={`fab fa-google ${lang === 'ar' ?'ml-2':'mr-2'}`}></i>
-                 {lang === 'ar' ? 'تسجيل الدخول باستخدام جوجل' :'Sign in with Google'} 
+                 {lang === 'ar' ? 'تسجيل دخول جوجل':'Sign in with Google'} 
                 </button>
               </div>
               <div className={`lg:w-[50%] md:w-[45%] xs:w-[100%] ${lang == 'ar' ? 'mr-[5%]' : 'ml-[5%]'}`}>
@@ -367,7 +367,7 @@ export const Login = ({lang}) => {
                     }}
                   >
                     <i className="fa-brands fa-apple px-2 "></i>
-                    {lang === 'ar' ? 'تسجيل الدخول مع آبل' : 'Sign in with Apple'}
+                    {lang === 'ar' ? 'تسجيل دخول أبل': 'Sign in with Apple'}
                  </button>}
                 />
                 {/* <AppleLogin
@@ -398,7 +398,7 @@ export const Login = ({lang}) => {
               </div>
             </p>
             <p className='dont !mt-4 w-[90%] sm:w-[90%] xs:w-full'>
-              {lang === 'ar' ? 'هل لديك حساب؟ تسجيل الدخول':'Don’t Have an account'}? <span><NavLink className='signup !font-[500]' to={'/signup'}>&nbsp;{lang === 'ar' ? 'تسجيل' :'Sign Up'}</NavLink></span>
+              {lang === 'ar' ? 'ليس لديك حساب؟':'Don’t Have an account ?'} <span><NavLink className='signup !font-[500]' to={'/signup'}>&nbsp;{lang === 'ar' ? 'تسجيل حساب' :'Sign Up'}</NavLink></span>
             </p>
           </form>
         </div>

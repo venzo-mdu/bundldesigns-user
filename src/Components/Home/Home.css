@@ -1791,8 +1791,19 @@ height: 100%;
 justify-content: end;
 display: flex;
 flex-direction: column;
-
 }
+
+body[dir="rtl"] .newbie_description {
+  border-right: 1px solid black;
+  border-left: 0px ;
+  flex: 1;
+  /* align-self: last baseline; */
+  height: 100%;
+  justify-content: end;
+  display: flex;
+  flex-direction: column;
+}
+
 
 .third_section_toggle {
 margin-top: 77px;
@@ -2102,9 +2113,13 @@ scale: .7;
 .icon_section1 {
 position: absolute;
 top: -10px;
-right: 0%;
+inset-inline-end: 0;
 }
-
+body[dir="rtl"] .icon_section1 {
+  position: absolute;
+  top: -10px;
+  left: 0%;
+  }
 .subzero1 {
 width: 230px;
 height: 230px;
@@ -2168,9 +2183,13 @@ height: 100%;
 .icon_section2 {
 position: absolute;
 top: 0px;
-right: 0%;
+inset-inline-end: 0;
 }
-
+body[dir="rtl"] .icon_section2 {
+  position: absolute;
+  top: 0px;
+  left: 0%;
+  }
 .subzero2 {
 width: 230px;
 height: 230px;
@@ -2208,9 +2227,13 @@ height: 100%;
 .icon_section3 {
 position: absolute;
 top: 0;
-right: 0%;
+inset-inline-end: 0;
 }
-
+body[dir="rtl"] .icon_section3 {
+  position: absolute;
+  top: 0px;
+  left: 0%;
+  }
 .subzero3 {
 width: 230px;
 height: 230px;
@@ -2248,9 +2271,13 @@ height: 100%;
 .icon_section4 {
 position: absolute;
 top: 0;
-right: 0%;
+inset-inline-end: 0;
 }
-
+body[dir="rtl"] .icon_section4 {
+  position: absolute;
+  top: 0px;
+  left: 0%;
+  }
 .subzero4 {
 width: 230px;
 height: 230px;
@@ -2288,9 +2315,13 @@ height: 100%;
 .icon_section5 {
 position: absolute;
 top: 0;
-right: 0%;
+inset-inline-end: 0;
 }
-
+body[dir="rtl"] .icon_section5 {
+  position: absolute;
+  top: 0px;
+  left: 0%;
+  }
 .subzero5 {
 width: 230px;
 height: 230px;
