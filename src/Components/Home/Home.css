@@ -1227,6 +1227,13 @@ margin: 3% 0 0 0;
 transform: scale(0.3);
 opacity: .3;
 }
+body[dir = "rtl"] .slide {
+  width: 20%;
+  transition: 2s;
+  margin: 3% 0 0 0;
+  transform: scale(0.3);
+  opacity: 0;
+  }
 .active-slide{
   width: 20%;
   transition: 2s;
@@ -1322,7 +1329,15 @@ top:15%;
 transform: translateX(50%);
 opacity:.3;
 }
-
+body[dir="rtl"] .dotted-line{
+  position: absolute;
+  top:15%;
+  /* left: 45%; */
+  /* width:100%; */
+  transform: translateX(-50%);
+  opacity:.3;
+  }
+  
 .rocket {
 position: absolute;
 transition: 1s;
@@ -1332,7 +1347,16 @@ top: 0%;
 width: 102.041px;
 height: 40.43px;
 }
-
+body[dir="rtl"] .rocket {
+  position: absolute;
+  transition: 1s;
+  z-index: 2;
+  right: 24%;
+  top: 0%;
+  left: 0;
+  width: 102.041px;
+  height: 40.43px;
+  }
 .overlay {
 /* position: absolute;
 top: 0;
@@ -1696,6 +1720,59 @@ right: 10px;
 stroke: #010101;
 }
 
+
+
+body[dir="rtl"] 
+.open_arrow1>label>svg {
+  transform: rotate(180deg);
+  /* Initial state, you can set other properties as needed */
+  transition: transform 0.3s ease;
+  /* Transition property */
+  position: absolute;
+  right: 10px;
+  stroke: #010101;
+  }
+  body[dir="rtl"] 
+  .open_arrow2>label>svg {
+  transform: rotate(180deg);
+  /* Initial state, you can set other properties as needed */
+  transition: transform 0.3s ease;
+  /* Transition property */
+  position: absolute;
+  right: 10px;
+  stroke: #010101;
+  }
+  body[dir="rtl"] 
+  .open_arrow3>label>svg {
+  transform: rotate(180deg);
+  /* Initial state, you can set other properties as needed */
+  transition: transform 0.3s ease;
+  /* Transition property */
+  position: absolute;
+  right: 10px;
+  stroke: #010101;
+  }
+  body[dir="rtl"] 
+  .open_arrow4>label>svg {
+  transform: rotate(180deg);
+  /* Initial state, you can set other properties as needed */
+  transition: transform 0.3s ease;
+  /* Transition property */
+  position: absolute;
+  right: 10px;
+  stroke: #010101;
+  }
+  body[dir="rtl"] 
+  .open_arrow5>label>svg {
+  transform: rotate(180deg);
+  /* Initial state, you can set other properties as needed */
+  transition: transform 0.3s ease;
+  /* Transition property */
+  position: absolute;
+  right: 10px;
+  stroke: #010101;
+  }
+
 .sliding_section {
 border-bottom: 1px solid black;
 position: relative;
@@ -1782,6 +1859,17 @@ padding-left: 1rem;
 /* border-right: 1px solid #000; */
 transition: all 400ms ease-in-out;
 }
+body[dir="rtl"] .newbie_section {
+  flex-basis: 47.9%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  padding-top: 2rem;
+  padding-bottom: 1rem;
+  padding-right: 1rem;
+  /* border-right: 1px solid #000; */
+  transition: all 400ms ease-in-out;
+  }
 
 .newbie_description {
 border-left: 1px solid black;
@@ -1791,8 +1879,19 @@ height: 100%;
 justify-content: end;
 display: flex;
 flex-direction: column;
-
 }
+
+body[dir="rtl"] .newbie_description {
+  border-right: 1px solid black;
+  border-left: 0px ;
+  flex: 1;
+  /* align-self: last baseline; */
+  height: 100%;
+  justify-content: end;
+  display: flex;
+  flex-direction: column;
+}
+
 
 .third_section_toggle {
 margin-top: 77px;
@@ -1822,7 +1921,26 @@ left: -200px;
 position: absolute;
 left: -200px;
 }
-
+body[dir="rtl"] 
+#newbie_no1 {
+ display: none; 
+  }
+  body[dir="rtl"] 
+  #newbie_no2 {
+    display: none; 
+  }
+  body[dir="rtl"] 
+  #newbie_no3 {
+    display: none; 
+  }
+  body[dir="rtl"] 
+  #newbie_no4 {
+    display: none; 
+  }
+  body[dir="rtl"] 
+  #newbie_no5 {
+    display: none; 
+  }
 .bg_color1 {
 position: absolute;
 inset: 0;
@@ -1875,6 +1993,13 @@ gap: 1.2rem;
 padding-left: .8rem;
 display: none;
 }
+body[dir="rtl"] .second_brand_section {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 1.2rem;
+  padding-right: .8rem;
+  display: none;
+  }
 .pack-sub-title{
 position: absolute;
 top: 10px;
@@ -1930,6 +2055,15 @@ animation: fade 2.2s ease-in-out;
 border-right: 1px solid #000000;
 margin-top: 8px;
 }
+body[dir="rtl"] #newbie_no1:checked~.open_arrow1>label,
+body[dir="rtl"] #newbie_no2:checked~.open_arrow2>label,
+body[dir="rtl"] #newbie_no3:checked~.open_arrow3>label,
+body[dir="rtl"] #newbie_no4:checked~.open_arrow4>label,
+body[dir="rtl"] #newbie_no5:checked~.open_arrow5>label{
+border-left: 1px solid #000000;
+border-right: 0px;
+margin-top: 8px;
+}
 #newbie_no1:checked~.open_arrow1>label>svg,
 #newbie_no2:checked~.open_arrow2>label>svg,
 #newbie_no3:checked~.open_arrow3>label>svg,
@@ -1937,6 +2071,15 @@ margin-top: 8px;
 #newbie_no5:checked~.open_arrow5>label>svg {
 flex-basis: 66%;
 transform: rotate(180deg);
+stroke: #fff;
+}
+body[dir="rtl"] #newbie_no1:checked~.open_arrow1>label>svg,
+body[dir="rtl"] #newbie_no2:checked~.open_arrow2>label>svg,
+body[dir="rtl"] #newbie_no3:checked~.open_arrow3>label>svg,
+body[dir="rtl"] #newbie_no4:checked~.open_arrow4>label>svg,
+body[dir="rtl"] #newbie_no5:checked~.open_arrow5>label>svg {
+flex-basis: 66%;
+transform: rotate(0deg);
 stroke: #fff;
 }
 
@@ -2102,9 +2245,13 @@ scale: .7;
 .icon_section1 {
 position: absolute;
 top: -10px;
-right: 0%;
+inset-inline-end: 0;
 }
-
+body[dir="rtl"] .icon_section1 {
+  position: absolute;
+  top: -10px;
+  left: 0%;
+  }
 .subzero1 {
 width: 230px;
 height: 230px;
@@ -2168,9 +2315,13 @@ height: 100%;
 .icon_section2 {
 position: absolute;
 top: 0px;
-right: 0%;
+inset-inline-end: 0;
 }
-
+body[dir="rtl"] .icon_section2 {
+  position: absolute;
+  top: 0px;
+  left: 0%;
+  }
 .subzero2 {
 width: 230px;
 height: 230px;
@@ -2208,9 +2359,13 @@ height: 100%;
 .icon_section3 {
 position: absolute;
 top: 0;
-right: 0%;
+inset-inline-end: 0;
 }
-
+body[dir="rtl"] .icon_section3 {
+  position: absolute;
+  top: 0px;
+  left: 0%;
+  }
 .subzero3 {
 width: 230px;
 height: 230px;
@@ -2248,9 +2403,13 @@ height: 100%;
 .icon_section4 {
 position: absolute;
 top: 0;
-right: 0%;
+inset-inline-end: 0;
 }
-
+body[dir="rtl"] .icon_section4 {
+  position: absolute;
+  top: 0px;
+  left: 0%;
+  }
 .subzero4 {
 width: 230px;
 height: 230px;
@@ -2288,9 +2447,13 @@ height: 100%;
 .icon_section5 {
 position: absolute;
 top: 0;
-right: 0%;
+inset-inline-end: 0;
 }
-
+body[dir="rtl"] .icon_section5 {
+  position: absolute;
+  top: 0px;
+  left: 0%;
+  }
 .subzero5 {
 width: 230px;
 height: 230px;
@@ -3597,14 +3760,19 @@ animation-delay: 2s;
   margin-top: 0px;
 }
 
+
 .icon_section1,
 .icon_section2,
 .icon_section3,
 .icon_section4,
 .icon_section5 {
-  right: 15px;
+  /* right: 15px; */
   top: -10px;
+  /* left: 0px; */
+  inset-inline-end: 15px;
 }
+
+
 
 .buiscut_layer1,
 .buiscut_layer2,

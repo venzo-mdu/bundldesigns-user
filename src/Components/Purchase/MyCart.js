@@ -20,7 +20,7 @@ import Riyal from '../../Images/BundlDetail/riyalnew.png'
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
  
-export const MyCart = () => {
+export const MyCart = ({lang,setLang}) => {
     const [searchParams] = useSearchParams();
     const isDirect = searchParams.get('direct') === 'true';
     const [loading,setLoading] = useState(true)
@@ -690,7 +690,7 @@ export const MyCart = () => {
             loading ? <Bgloader /> :        
         <div>
             <ToastContainer />
-            <Navbar />
+            <Navbar isLang={lang} setIsLang={setLang}/>
             {showModal && (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
           <div className="bg-white rounded-lg shadow-lg p-6 max-w-sm">
@@ -1020,7 +1020,7 @@ export const MyCart = () => {
         </form>
                 </div>
             </div>
-            <Footer />
+            <Footer isLang={lang}/>
             {
                 openPopup &&
                 <Popup

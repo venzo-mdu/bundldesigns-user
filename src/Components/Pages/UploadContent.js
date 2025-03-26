@@ -15,7 +15,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Bgloader } from '../Common/Background/Bgloader';
 import { toast , ToastContainer } from 'react-toastify';
 
-export default function UploadContent() {
+export default function UploadContent({lang,setLang}) {
 
     const { orderId } = useParams();
     const [loading, setLoading] = useState(false)
@@ -208,7 +208,7 @@ export default function UploadContent() {
             <Bgloader /> :
             <>
                 <ToastContainer/>
-                <Navbar />
+                <Navbar isLang={lang} setIsLang={setLang}/>
                 {
                     window.innerWidth <= 475 ?
                         <div className='px-[4%] py-4 font-Helvetica'>
@@ -673,7 +673,7 @@ export default function UploadContent() {
 
                {
                                    window?.innerWidth >= 500 && (
-                                     <Footer/>
+                                     <Footer isLang={lang}/>
                                    )
                                   }
             </>

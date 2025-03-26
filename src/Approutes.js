@@ -49,6 +49,7 @@ export default function AppRouter() {
 
 
   const token = getCookie("token");
+  const [transLanguage , setTransLanguage] = useState('');
   const location = useLocation();
   const [user , setUser] = useState([]);
   const ProtectedRoute = ({ element }) => {
@@ -62,7 +63,15 @@ export default function AppRouter() {
       top: 0,
       left: 0
     })
-  },[]);
+    setTransLanguage(localStorage?.getItem('lang'));
+  },[transLanguage]);
+
+    useEffect(() => {
+        const direction = localStorage?.getItem('lang') === 'ar' ? 'rtl' : 'ltr';
+        if (document.body.dir !== direction) {
+            document.body.dir = direction;
+        }
+    }, [localStorage?.getItem('lang')]);
 
   useEffect(() => {
     const getAuthUser = async () => {
@@ -97,111 +106,111 @@ export default function AppRouter() {
   return useRoutes([
     {
       path: "/login",
-      element:  <Login />,
+      element:  <Login lang={transLanguage}/>,
     },
     {
       path: "/signup",
-      element:  <Signup />,
+      element:  <Signup lang={transLanguage}/>,
     },
     {
       path: "/reset-password",
-      element:  <ResetPassword />,
+      element:  <ResetPassword lang={transLanguage}/>,
     },
     {
       path: "/",
-      element: <Home />,
+      element: <Home lang={transLanguage} setLang={setTransLanguage}/>,
     },
     {
       path: "/profile",
-      element: <Profile user={user}/>,
+      element: <Profile user={user} lang={transLanguage} setLang={setTransLanguage}/>,
       //element: <ProtectedRoute element={<BundlDetail />} />,
     },
     {
       path: "/bundldetail/:packageID",
-      element: <BundlDetail user={user}/>,
+      element: <BundlDetail user={user} lang={transLanguage} setLang={setTransLanguage}/>,
       //element: <ProtectedRoute element={<BundlDetail />} />,
     },
     {
       path: "/custombundl",
-      element: <CustomBundl />,
+      element: <CustomBundl lang={transLanguage} setLang={setTransLanguage} />,
       // element: <ProtectedRoute element={<CustomBundl />} />,
     },
     {
       path: "/mycart",
-      element: <ProtectedRoute element={<MyCart />} />,
+      element: <ProtectedRoute element={<MyCart lang={transLanguage} setLang={setTransLanguage}/>} />,
     },
     {
       path:"/questionnaire/:pageno",
-      element:<ProtectedRoute element={<QuestionnaireLayout/>} />
+      element:<ProtectedRoute element={<QuestionnaireLayout lang={transLanguage} setLang={setTransLanguage}/>} />
     },
     {
       path:"/thankyou",
-      element:<ProtectedRoute element={<Thankyoucard/>} />
+      element:<ProtectedRoute element={<Thankyoucard lang={transLanguage} setLang={setTransLanguage}/>} />
     },
     {
       path :"/upload-content/:orderId",
-      element:<ProtectedRoute element={<UploadContent />} />
+      element:<ProtectedRoute element={<UploadContent lang={transLanguage} setLang={setTransLanguage}/>} />
     },
     {
       path:'/dashboard',
-      element:<ProtectedRoute element={<Dashboard />} />
+      element:<ProtectedRoute element={<Dashboard lang={transLanguage} setLang={setTransLanguage}/>} />
     },
     {
       path:'/purchase-history',
-      element:<ProtectedRoute element={<Purchasehistory />} />
+      element:<ProtectedRoute element={<Purchasehistory lang={transLanguage} setLang={setTransLanguage}/>} />
     },
     {
       path:'/adjustment',
-      element:<ProtectedRoute element={<Adjustments user={user}/>} />
+      element:<ProtectedRoute element={<Adjustments user={user} lang={transLanguage} setLang={setTransLanguage}/>} />
     },
     {
       path:"/aboutus",
-      element:<AboutUs/>
+      element:<AboutUs lang={transLanguage} setLang={setTransLanguage}/>
     },
     {
       path:"/search",
-      element:<Search/>
+      element:<Search lang={transLanguage} setLang={setTransLanguage}/>
     },
     {
       path:'/jobs',
-      element: <Career/>
+      element: <Career lang={transLanguage} setLang={setTransLanguage}/>
     },
     {
       path:'/faq',
-      element:<FAQ />
+      element:<FAQ lang={transLanguage} setLang={setTransLanguage}/>
     },
     {
       path:'/our-work',
-      element: <OurWork />
+      element: <OurWork lang={transLanguage} setLang={setTransLanguage}/>
     },
     {
       path: '/premium-form',
-      element: < PremiumForm />
+      element: < PremiumForm lang={transLanguage} setLang={setTransLanguage}/>
     },
     {
       path: '/contact-us',
-      element: <Contactus />
+      element: <Contactus lang={transLanguage} setLang={setTransLanguage}/>
     },
     {
       path:'/form/:form_type',
-      element:<WebsterPremiumForm />
+      element:<WebsterPremiumForm lang={transLanguage} setLang={setTransLanguage}/>
 
     },
     {
       path: '/webster-form',
-      element: < WebsterForm />
+      element: < WebsterForm lang={transLanguage} setLang={setTransLanguage}/>
     },
     {
       path:"/terms-and-conditions",
-      element:<TermsAndConditions/>
+      element:<TermsAndConditions lang={transLanguage} setLang={setTransLanguage}/>
     },
     {
       path:"/privacy-policy",
-      element:<PrivacyPolicy/>
+      element:<PrivacyPolicy lang={transLanguage} setLang={setTransLanguage}/>
     },
     {
       path:"/legal",
-      element:<Legal/>
+      element:<Legal lang={transLanguage} setLang={setTransLanguage}/>
     },
     {
       path: "*",

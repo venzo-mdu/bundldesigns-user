@@ -20,7 +20,7 @@ import { Bgloader } from '../Common/Background/Bgloader'
 import { Popup } from '../Common/Popup/Popup'
 
 
-export const BundlDetail = ({user}) => {
+export const BundlDetail = ({user,lang,setLang}) => {
 
  
   const location = useLocation();
@@ -323,7 +323,7 @@ export const BundlDetail = ({user}) => {
        <Bgloader /> : 
        <div>
        <ToastContainer />
-       <Navbar />
+       <Navbar isLang={lang} setIsLang={setLang}/>
        <div className='bundl-detail mt-3'>
          <div className='xs:px-2 sm:px-auto px-auto' style={{ borderBottom: '1.5px solid #000000', width: '100%' }}>
            <h2 className='sm:text-[40px] text-[40px] xs:text-[32px]'>{packageDetail?.package?.name_english||  ''}</h2>
@@ -621,7 +621,7 @@ export const BundlDetail = ({user}) => {
        </div>
        {
         window?.innerWidth >= 500 && (
-          <Footer/>
+          <Footer isLang={lang}/>
         )
        }
      </div>

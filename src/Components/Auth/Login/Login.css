@@ -41,6 +41,10 @@
     top: -5%;
     left: 0%;
 }
+body[dir="rtl"] .loginlogo {
+    transform: rotate(30deg); /* Reset left */
+    right: 8%; /* Align to the right */
+}
 
 .login-content input{
     width: 525px;
@@ -160,6 +164,10 @@
         top: -5vh;
         left: 10vw;
     }
+    body[dir="rtl"] .loginlogo {
+        transform: rotate(30deg); /* Reset left */
+        right: 8%; /* Align to the right */
+    }
     .react-apple-signin-auth-btn {
         font-size: 16px;
     }
@@ -193,6 +201,9 @@
     }
 }
 @media screen and (max-width:441px) {
+    .signinwithgoogle{
+      width: 100%;
+    }
     .login{
         margin: 15% 0 15% 0%;
     }
@@ -236,6 +247,9 @@
     .login{
         margin: 30% 0 15% 0;
     }
+    .signinwithgoogle{
+        width: 100%;
+      }
     .login-content{
         width: 100%;
         padding: 2% 6%;
@@ -277,4 +291,7 @@
         width: 25%;
         left: 8vw;
     }
+    .signinwithgoogle{
+        width: 100%;
+      }
 }

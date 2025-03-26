@@ -18,7 +18,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import AppleLogin from 'react-apple-login'
 import GoogleIcon from "../../../Images/Login/icons8-google.svg"
 
-export const Login = () => {
+export const Login = ({lang}) => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -45,6 +45,13 @@ export const Login = () => {
       left: 0
     })
   }, []);
+
+  useEffect(() => {
+      const direction = lang === 'ar' ? 'rtl' : 'ltr';
+      if (document.body.dir !== direction) {
+          document.body.dir = direction;
+      }
+  }, [lang]);
 
 
   // const login = useGoogleLogin({
@@ -251,29 +258,31 @@ export const Login = () => {
     }
   };
 
+  
+
   return (
     <div>
       <div className='login !mb-[8rem] '>
         {/* <img className='anchor w-[100px]' src={loginGIF} alt='login-anchor' /> */}
         <div className='login-content '>
-          <p className='welcometext'>Welcome Back!</p>
+          <p className='welcometext'>{lang === 'ar' ? 'مرحبا بكم مجددا' :'Welcome Back!'}</p>
           <img className='loginlogo' src={Loginlogo} alt='login' />
           <form onSubmit={onSubmit} className='lg:mt-0 md:mt-0 xs:mt-[8%]'>
-            <label className='xs:mb-2'> Email address</label>
+            <label className='xs:mb-2'>{lang === 'ar' ? 'البريد الإلكتروني':'Email address'} </label>
             <input
               type="email"
               name="email"
-              placeholder="Enter your email"
+              placeholder= {lang === 'ar' ? ' بريد إلكتروني':"Enter your email"}
               value={loginData.email}
               onChange={handleChange}
               className='rounded-none'
             />
             {errors.email && <p className="error">{errors.email}</p>}
-            <label className='xs:mb-2' style={{ marginTop: '3%' }}>Password</label>
+            <label className='xs:mb-2' style={{ marginTop: '3%' }}>{lang === 'ar' ? 'كلمة المرور':'Password'}</label>
             <input
               type="password"
               name="password"
-              placeholder="Password"
+              placeholder= {lang === 'ar' ?' كلمة المرور':"Password"}
               value={loginData.password}
               onChange={handleChange}
               className='rounded-none'
@@ -284,10 +293,10 @@ export const Login = () => {
             {errors.general && <p className="error">{errors.general}</p>}
             <p className='text-[red] mb-1'>{loginError}</p>
             <button className='signin !text-[24px] uppercase' type='submit'>
-              {loading ? <ClipLoader size={25} color={'#FFFFFF'} /> : 'Sign In'}
-            </button>
-            <p className='or mt-[4vh] flex items-center justify-center ml-2 font-[500] text-[11px]'> <span className='border-[#F5F5F5] border-b h-[2px] basis-[41%] mr-[2%] border-[1.5px]'>
-            </span> Or  <span className='border-[#F5F5F5] border-b h-[2px] basis-[43%] ml-[2%] border-[1.5px]'></span></p>
+              {loading ? <ClipLoader size={25} color={'#FFFFFF'} /> :lang === 'ar' ? 'تسجيل دخول' : 'Sign In'}
+            </button> 
+            <p className={`or mt-[4vh] flex items-center justify-center ${lang === 'ar' ? 'mr-2':'ml-2'} font-[500] text-[11px]`}> <span className='border-[#F5F5F5] border-b h-[2px] basis-[41%] mr-[2%] border-[1.5px]'>
+            </span>{lang === 'ar' ? 'أو' :'Or'}<span className={`border-[#F5F5F5] border-b h-[2px] basis-[43%] ${lang === 'ar' ?'mr-[2%]' :'ml-[2%]'} border-[1.5px]`}></span></p>
             <p className='signinwithgoogle !text-[17px] !font-bold'>
               {/* <img src={Googleicon} alt='google-icon' /> Sign in with Google */}
               <div className='lg:w-[50%] md:w-[45%] xs:w-[100%]'>
@@ -327,11 +336,11 @@ export const Login = () => {
                   }}
                 >
                   {/* <img src={GoogleIcon} className='w-[25px] mr-2'></img> */}
-                  <i class="fab fa-google mr-2"></i>
-                  Sign in with Google
+                  <i class={`fab fa-google ${lang === 'ar' ?'ml-2':'mr-2'}`}></i>
+                 {lang === 'ar' ? 'تسجيل دخول جوجل':'Sign in with Google'} 
                 </button>
               </div>
-              <div className='lg:w-[50%] md:w-[45%] xs:w-[100%] ml-[5%]'>
+              <div className={`lg:w-[50%] md:w-[45%] xs:w-[100%] ${lang == 'ar' ? 'mr-[5%]' : 'ml-[5%]'}`}>
 
                 <AppleSignin
                   authOptions={{
@@ -358,8 +367,8 @@ export const Login = () => {
                     }}
                   >
                     <i className="fa-brands fa-apple px-2 "></i>
-                    Sign in with Apple
-                  </button>}
+                    {lang === 'ar' ? 'تسجيل دخول أبل': 'Sign in with Apple'}
+                 </button>}
                 />
                 {/* <AppleLogin
                 clientId="com.bundldesigns.app.client"
@@ -389,13 +398,13 @@ export const Login = () => {
               </div>
             </p>
             <p className='dont !mt-4 w-[90%] sm:w-[90%] xs:w-full'>
-              Don’t Have an account? <span><NavLink className='signup !font-[500]' to={'/signup'}>&nbsp;Sign Up</NavLink></span>
+              {lang === 'ar' ? 'ليس لديك حساب؟':'Don’t Have an account ?'} <span><NavLink className='signup !font-[500]' to={'/signup'}>&nbsp;{lang === 'ar' ? 'تسجيل حساب' :'Sign Up'}</NavLink></span>
             </p>
           </form>
         </div>
         {/* <img className='anchor1 w-[160px]' src={loginGIF} alt='login-anchor' /> */}
       </div>
-      <Footer />
+      <Footer isLang={lang}/>
     </div>
   );
 };

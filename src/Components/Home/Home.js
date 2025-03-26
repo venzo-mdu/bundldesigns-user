@@ -62,7 +62,7 @@ import plusImage from '../../Images/Bundles/plus-icon.png'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 
-export const Home = () => {
+export const Home = ({lang,setLang}) => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -99,23 +99,30 @@ export const Home = () => {
     // const translateX = (activeProcess * 200) +60;
     // const translateX = activeProcess * (window.innerWidth <= 475 ? activeProcess <= 4 ? 88.5: window.innerWidth <= 390 ? 80 : 80 : window.innerWidth <= 768 ? 150 : activeProcess < 3 ? 200 : 195) + (window.innerWidth > 1450 ? 60 : 0);
     let translateX = 0;
+    let translateX_arabic = 0;
     if (window.innerWidth <= 390) {
         translateX = activeProcess === 4 ? 285 : activeProcess * 78.5;
+        translateX_arabic = activeProcess === 4 ? -190 : activeProcess * -78.5 + 100;
     } 
     else if (window.innerWidth <= 400) {
         translateX = activeProcess === 4 ? 315 : activeProcess * 82.5;
+        translateX_arabic = activeProcess === 4 ? -210 : activeProcess * -82.5 + 100;
     }
     else if (window.innerWidth <= 475) {
         translateX = activeProcess * (activeProcess <= 3 ? 88.5 : 87);
+        translateX_arabic = activeProcess * (activeProcess <= 3 ? -88.5 : -87) + 100;
     } 
     else if (window.innerWidth <= 768) {
         translateX = activeProcess * 150;
+        translateX_arabic = activeProcess * 150;
     } 
     else if (window.innerWidth <= 1450) {
         translateX = activeProcess * (activeProcess < 3 ? 200 : 195);
+        translateX_arabic = activeProcess * (activeProcess < 3 ? -196 : -195) + 80; 
     } 
     else {
         translateX = activeProcess * (activeProcess < 3 ? 200 : 195) + 60;
+        translateX_arabic = activeProcess * (activeProcess < 3 ? -200 : -195) + -60;
     }
     const bundlImages = [QubeIcon, Diamond, Eye, Food, Money]
     const textColor = ["pink-text", "green-text", "blue-text", "pink-text"]
@@ -123,35 +130,45 @@ export const Home = () => {
     const processData = [
         {
             title: "BUY A BUNDL",
+            arabic_title:"إشتري بندل",
             description: "Choose from our tailored Bundls, or customize your very own according to your project needs.",
+            arabic_description:"اختر البندل المناسب لمشروعك. لم تجد ما تبحث عنه؟ صمم البندل الملائم لك",
             imgSrc: BuyBundl,
             fill: '#4FA472',
             color: '#000',
         },
         {
             title: "FILL A QUESTIONARE",
+            arabic_title:"املأ الاستبيان",
             description: "Tell us about your project and what you need. Not sure what you want? Our questionnaire will help you.",
+            arabic_description:"أخبرنا عن مشروعك وما تريد تصميمه. لست متأكد مما تريد؟ سوف يساعدك استبياننا",
             imgSrc: FillQuestionnarie,
             fill: '#00A8C8',
             color: '#000',
         },
         {
             title: "APPROVE EDIT",
+            arabic_title:"الموافقة / التعديل",
             description: "Your brand logo will be sent for your approval. Need something changed? Just Add-on an adjustment.",
+            arabic_description:"سيتم إرسال تصميم هويتك للحصول على موافقتك. تحتاج إلى تغيير شيء؟ فقط قم بإضافة تعديل",
             imgSrc: Approve,
             fill: '#F175AD',
             color: '#000',
         },
         {
             title: "UPLOAD CONTENT",
+            arabic_title:"تحميل المحتوى",
             description: "You can easily upload the contents for the items in your bundl, to be designed following your approved brand.",
+            arabic_description:"يمكنك بسهولة تحميل محتويات المواد الموجودة في البندل الخاصة بك. ستتبع جميع التصاميم ارشادات تصميم هويتك الموافق عليها.",
             imgSrc: UploadContent,
             fill: '#4FA472',
             color: '#000',
         },
         {
             title: "GET DESIGNS",
+            arabic_title:"احصل \عدل تصاميمك",
             description: "Your designs will be sent to your account. Need more items? some adjustments? Just Add-on to your bundl.",
+            arabic_description:"سيتم إرسال تصاميمك إلى حسابك. هل تحتاج إلى المزيد؟ بعض التعديلات؟ فقط اضف ما تريد إلى البندل الخاصة بك",
             imgSrc: Getthedesign,
             fill: '#00A8C8',
             color: '#000',
@@ -180,6 +197,11 @@ export const Home = () => {
         } catch (err) {
             console.log(err)
         }
+    }
+
+    const changeLanguage = (lang) =>{
+        localStorage?.setItem('lang',lang)
+        setLang(lang);
     }
     const getCookie = (name) => {
         const value = `; ${document.cookie}`;
@@ -227,6 +249,14 @@ export const Home = () => {
             window.removeEventListener('hashchange', handleScroll);
         };
     }, []);
+
+
+    useEffect(() => {
+        const direction = lang === 'ar' ? 'rtl' : 'ltr';
+        if (document.body.dir !== direction) {
+            document.body.dir = direction;
+        }
+    }, [lang]);
 
 
     useEffect(() => {
@@ -353,28 +383,33 @@ export const Home = () => {
 
                                             </div>
                                         </div>
+                                      
                                         <div className="col-1 col-md-1 col-lg-6">
                                             <div className="navbar navbar-expand-lg justify-content-end">
                                                 <div className=" navbar-collapse !mt-4" id="mainNav">
                                                     <ul className=" mx-auto flex align-items-center ">
                                                         <li className="nav-item">
-                                                            <a className="nav-link" href="/aboutus">About</a>
+                                                            <a className="nav-link" href="/aboutus">{lang === 'ar' ? 'عن بندل' : 'About'}</a>
+
                                                         </li>
                                                         <li className="nav-item">
-                                                            <a className="nav-link" href="#ourBundl">Bundls</a>
+                                                            <a className="nav-link" href="/#ourBundl">{lang === 'ar' ? 'باقاتنا' : 'Bundls'}</a>
+
                                                         </li>
                                                         <li className="nav-item">
-                                                            <a className="nav-link" href="/our-work">Work</a>
+                                                            <a className="nav-link" href="/our-work">{lang === 'ar' ? 'مشاريعنا' : 'Work'}</a>
+
                                                         </li>
                                                         <li className="nav-item">
-                                                            <a className="nav-link" href="/contact-us">Contact Us</a>
+                                                            <a className="nav-link" href="/contact-us">{lang === 'ar' ? 'تواصل معنا ' : 'Contact Us'}</a>
+
                                                         </li>
                                                     </ul>
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="col-7 relative !mt-4 col-md-8 col-lg-3 text-end ">
-                                            <div className="navbar navbar-expand-lg float-right">
+                                            <div className={`navbar navbar-expand-lg ${lang !== 'ar' && 'float-right'}`}>
                                                 <ul className=" mr-auto h-list align-items-center ">
                                                     <li className='px-[6px]' >
                                                         <a onClick={() => { setSearchShow(!searchShow);setProfileVisible(false) }} className="cursor-pointer"><img src={Search} alt="" className="navIcons"></img></a>
@@ -418,7 +453,7 @@ export const Home = () => {
                                                         <a className="" href="/mycart?direct=true"><img src={Cart} alt="" className="navIcons"></img></a>
                                                     </li>
                                                     <li className='px-[6px]'>
-                                                        <a className="" href="#"><img src={Language} alt="" className="navIcons"></img></a>
+                                                        <a className="cursor-pointer" onClick={()=>changeLanguage(lang == 'ar' ? 'En' :'ar')}><img src={Language} alt="" className="navIcons"></img></a>
                                                     </li>
                                                     <li className="nav-item xs:!block sm:!hidden  inner-nav text-center !hidden menu mr-auto">
                                                         <button onClick={toggleMenu} type="button" id="menu-toggle">
@@ -551,7 +586,7 @@ export const Home = () => {
                             <div className="container-fluid">
                                 <div className="row justify-content-center mb-4">
                                     <div className="col-md-5 text-center">
-                                        <h2 className="sub-headeing text-black xs:mt-">Our Process</h2>
+                                        <h2 className="sub-headeing text-black xs:mt-">{lang === 'ar' ? 'آليتنا ':'Our Process'}</h2>
                                         {/* <p className="p-24">We, at Bundl, understand the design complexities that can trip up even the most seasoned brand. That's why we cut through the clutter and empower a smooth, collaborative journey for our clients.</p> */}
                                     </div>
                                 </div>
@@ -596,7 +631,7 @@ export const Home = () => {
                                                     key={index}
                                                     className={`process_title xs:text-[30px] sm:text-[30px] font-[700] ${activeProcess === index ? "title-active" : ""}`}
                                                 >
-                                                    {process.title}
+                                                    {lang === 'ar' ? process.arabic_title:process.title}
                                                 </div>
                                             ))}
                                         </div>
@@ -607,7 +642,7 @@ export const Home = () => {
                                                     className={`process_description f-20 text-center ${activeProcess === index ? "desc-active" : ""}`}
                                                 >
 
-                                                    {process.description}
+                                                    { lang === 'ar' ? process.arabic_description : process.description }
                                                 </div>
                                             ))}
                                         </div>
@@ -638,20 +673,20 @@ export const Home = () => {
                                                 }
 
                                                 <div className="content_section !cursor-pointer" style={{ transition: '1s', opacity: isActiveProcess[index] ? 1 : 0.3 }}>
-                                                    {process.title.split("  ").map((word, i) => (
+                                                    {(lang === 'ar' ? process.arabic_title : process.title).split("  ").map((word, i) => (
                                                         <span key={i}>{word}</span>
                                                     ))}
                                                 </div>
                                             </div>
                                         ))}
                                     </div>
-                                    <svg className="rocket overlay sm:ml-[-50px] lg:ml-[-50px] md:ml-[-50px] xs:ml-[0px]" style={{ transform: `translateX(${translateX}px)` }} width="103" height="51" viewBox="0 0 103 51" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <svg className="rocket overlay sm:ml-[-50px] lg:ml-[-50px] md:ml-[-50px] xs:ml-[0px]" style={lang === 'ar' ? { transform: `translateX(${translateX_arabic}px) scaleX(-1)`, } :{ transform: `translateX(${translateX}px)` }} width="103" height="51" viewBox="0 0 103 51" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <g style={{ mixBlendMode: "multiply" }}>
                                             <path d="M17.0243 20.1751L0.10283 39.9605L20.7547 38.3386L33.3441 50.4381L52.0055 44.0664L53.6119 42.9629L58.3442 42.0547L63.9225 39.9665L76.0922 37.2171L100.775 30.1494L102.466 29.1142L102.303 27.853L101.161 27.3343L72.3146 16.0341L49.3982 6.77805L32.8747 0.593947L28.2324 6.28473L25.3511 9.71008L23.2039 11.6917L20.7801 14.6193L19.3632 15.5849L21.3765 19.2735L21.7309 21.025L17.0243 20.1751Z" fill={processData[activeProcess].fill} />
                                         </g>
                                     </svg>
                                 </div>
-                            </div>
+                            </div> 
                         </section>
                         <div className="plus relative plus-deivide">
                             <img className='w-[50px] h-[50px] mx-auto relative -top-[30px]' src={plusImage}></img>
@@ -1168,18 +1203,18 @@ export const Home = () => {
 
                         <div className="bunbl-box-news-section">
                             <div className="row justify-content-center bt-1">
-                                <div className="col-md-6 center-block text-center border-black lg:border-r-[1px] md:border-r-[1px] xs:border-r-0">
+                                <div className={`col-md-6 center-block text-center border-black ${lang === 'ar' ?'lg:border-l-[1px] md:border-l-[1px] xs:border-l-0':'lg:border-r-[1px] md:border-r-[1px] xs:border-r-0' }`}>
                                     <div className="bundl-box-inner">
                                         <div className="icon">
                                             <img src={GrownIcon} alt="" className="img-fluid"></img>
                                         </div>
                                         <div className="title">
-                                            Premium Section
+                                          {lang === 'ar' ? 'بندل بريميوم ' :'Premium Section'}  
                                         </div>
                                         <div className="desc">
-                                            Prefer a one-on-one design experience?
+                                           {lang === 'ar' ? 'تفضل تجربة تصميم مخصصة لك؟' :'Prefer a one-on-one design experience?'} 
                                         </div>
-                                        <a href="/form/premium" className="btn bundl-btn bt-1">Send us a message</a>
+                                        <a href="/form/premium" className="btn bundl-btn bt-1">{lang === 'ar' ? 'تواصل معنا':'Send us a message'}</a>
                                     </div>
                                 </div>
                                 <div className="col-md-6 text-center">
@@ -1188,12 +1223,12 @@ export const Home = () => {
                                             <img src={SystemIcon} alt="" className="img-fluid"></img>
                                         </div>
                                         <div className="title">
-                                            website section
+                                           {lang === 'ar' ? 'متاجر الكترونية' :'website section'}  
                                         </div>
                                         <div className="desc">
-                                            Dreaming of a perfect website?
+                                            {lang === 'ar' ? 'تحتاج متجر الكتروني مثالي لمشروعك؟':'Dreaming of a perfect website?'} 
                                         </div>
-                                        <a href="/form/webster" className="btn bundl-btn bt-1">Send us a message</a>
+                                        <a href="/form/webster" className="btn bundl-btn bt-1">{lang === 'ar' ? 'تواصل معنا':'Send us a message'}</a>
                                     </div>
                                 </div>
                             </div>
@@ -1219,7 +1254,7 @@ export const Home = () => {
                                                 {/* Carousel Content */}
                                                 <div
                                                     className="flex transition-transform duration-500"
-                                                    style={{ transform: `translateX(-${currentWork * 100}%)` }}
+                                                    style={lang === 'ar' ? { transform: `translateX(${currentWork * 100}%)` }:{ transform: `translateX(-${currentWork * 100}%)` }}
                                                 >
                                                     {ourworks.map((item, index) => (
                                                         <div key={index} className={`relative  flex-shrink-0 xl:w-[84%] xs:w-[84%] xs:mx-[8%] md:w-[99%] md:mx-1 xl:mx-[8%] flex flex-wrap ${item.project_images.length > 2 ? 'sm:h-[900px] xs:h-[300px]' : 'sm:h-[450px] xs:h-[300px]'} justify-center`}>
@@ -1276,9 +1311,9 @@ export const Home = () => {
 
                         <section className="container-fluid section fact-section">
                             <div className="container">
-                                <h2 className="sub-head  text-upper">SO FAR WE’ve completed </h2>
+                                <h2 className="sub-head  text-upper">{lang === 'ar' ? 'حتى الآن، أكملنا' :'SO FAR WE’ve completed'} </h2>
                                 <h2 className="title">{bundlData.noOfProjects || 1}</h2>
-                                <h3 className="desc text-upper">projects for happy clients</h3>
+                                <h3 className="desc text-upper">{lang === 'ar' ? 'مشروعًا ' :'projects for happy clients'}</h3>
                             </div>
                         </section>
 
@@ -1291,8 +1326,8 @@ export const Home = () => {
                                 <div className="row justify-content-center">
                                     <div className="col-md-8">
                                         <div className="section-head">
-                                            <h2 className="sub-headeing text-black text-center">love letters</h2>
-                                            <p className="f-20 text-center">We work hard to bring your brand dreams to life. But don’t take only our word for it! Listen to what our clients have to say about us.</p>
+                                            <h2 className="sub-headeing text-black text-center">{lang === 'ar' ? 'رسائل حب' : 'love letters'} </h2>
+                                            <p className="f-20 text-center">{lang === 'ar' ? 'نحن نعمل بجد لتحقيق أحلام علامتك التجارية في الحياة .لكن لا تأخذ كلمتنا فقط !استمع إلى ما يقوله عملاؤنا عنا' : 'We work hard to bring your brand dreams to life. But don’t take only our word for it! Listen to what our clients have to say about us.'}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -1345,7 +1380,7 @@ export const Home = () => {
                             </div>
                         </section>
 
-                        <Footer />
+                        <Footer isLang={lang}/>
                     </div>
 
 

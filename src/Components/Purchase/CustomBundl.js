@@ -11,7 +11,7 @@ import { base_url } from '../Auth/BackendAPIUrl'
 import { ToastContainer, toast } from 'react-toastify'
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 
-export const CustomBundl = () => {
+export const CustomBundl = ({lang,setLang}) => {
 
   const navigate = useNavigate();
       const [searchParams] = useSearchParams();
@@ -127,7 +127,7 @@ export const CustomBundl = () => {
   return (
     <div>
       <ToastContainer />
-      <Navbar />
+      <Navbar isLang={lang} setIsLang={setLang}/>
       <div className='bundl-detail mt-3'>
         <div style={{ borderBottom: '1.5px solid #000000', width: '100%' }}>
           <h2>{location?.state?.title || 'Custom Bundl' }</h2>
@@ -200,7 +200,7 @@ export const CustomBundl = () => {
           </div>
         </div>
       </div>
-      <Footer />
+      <Footer isLang={lang}/>
     </div>
   )
 }

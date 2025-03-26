@@ -13,7 +13,7 @@ import { Bgloader } from '../Common/Background/Bgloader';
 import DoneIcon from '@mui/icons-material/Done';
 import { BorderAllRounded } from '@mui/icons-material';
 
-export const Purchasehistory = () => {
+export const Purchasehistory = ({lang,setLang}) => {
 
       const navigate = useNavigate();
       const [loading, setLoading] = useState(true)
@@ -61,7 +61,7 @@ const reOrder = async (id) => {
     <Bgloader/>
     :
     <div>
-        <Navbar/>
+        <Navbar isLang={lang} setIsLang={setLang}/>
                                     {
                                         window.innerWidth > 768 ?
                                         
@@ -133,7 +133,7 @@ const reOrder = async (id) => {
                                                 </div>
                                             </div> 
                                     }
-        <Footer/>
+        <Footer isLang={lang}/>
         {
                                     openPopup && <DashboardPopup
                                         openpopup={openPopup}

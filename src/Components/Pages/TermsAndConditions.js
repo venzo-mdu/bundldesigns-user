@@ -3,10 +3,10 @@ import {Navbar} from '../Common/Navbar/Navbar'
 import {Footer} from '../Common/Footer/Footer'
 import TermsAndConditionsJson from '../../json/termsandConditions.json'
 
-const TermsAndConditions = () => {
+const TermsAndConditions = ({lang,setLang}) => {
   return (
     <div>
-    <Navbar/>
+    <Navbar isLang={lang} setIsLang={setLang}/>
        <div className='font-Helvetica'>
               <div className='text-center py-2 border-b border-black'>
                   <h1 className='lg:text-[40px] md:text-[40px] xs:text-[30px] lg:mt-[2%] md:mt-[2%] xs:mt-[5%] uppercase'> Terms & Conditions </h1>
@@ -15,7 +15,7 @@ const TermsAndConditions = () => {
                       <div className='flex items-center justify-center mx-auto'>
                         {/* <p className='lg:text-[18px] md:text-[18px] xs:text-[14px] font-[400] lg:w-[40%] md:w-[50%]'>{PrivacyPolicyJson?.privacy_desc}</p> */}
                       </div>
-                      <div className='flex flex-col items-center justify-center mx-auto w-full text-left'>
+                      <div className={`flex flex-col items-center justify-center mx-auto w-full ${lang === 'ar'?'text-right':'text-left'}`}>
                         <div className="w-full lg:max-w-[85%] md:max-w-[90%] xs:max-w-[100%] mt-2">
                         <p className='font-[400] lg:text-[18px] md:text-[18px] xs:text-[14px] '>We thank you for shopping at BundlDesigns.com</p>
                         <p className='font-[400] lg:text-[18px] md:text-[18px] xs:text-[14px] '>Please read these Terms and Conditions ("Terms", "Terms and Conditions") carefully before using the http://www.BundlDesigns.com website (the "Service") operated by Bundl ("us", "we", or "our").</p>
@@ -42,7 +42,7 @@ const TermsAndConditions = () => {
                       </div>
                       </div>
           </div>
-      <Footer/>
+      <Footer isLang={lang}/>
     </div>
   )
 }

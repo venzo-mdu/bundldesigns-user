@@ -27,7 +27,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 
 
 
-export default function Adjustments({user}) {
+export default function Adjustments({user ,lang ,setLang}) {
     const { state } = useLocation();
     const { orderId, orderItemId } = state;
     const [page, setPage] = useState('adjustment')
@@ -518,7 +518,7 @@ export default function Adjustments({user}) {
     return (
         <>
              <ToastContainer/>
-            <Navbar />
+            <Navbar isLang={lang} setIsLang={setLang}/>
 
             {
                 window.innerWidth <= 475 ?
@@ -1438,7 +1438,7 @@ export default function Adjustments({user}) {
 
             {
                     window?.innerWidth >= 500 && (
-                      <Footer/>
+                      <Footer isLang={lang}/>
                     )
                    }
 

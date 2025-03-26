@@ -16,7 +16,7 @@
 }
 .right-content li{
     list-style-type: none;
-    text-align: left;
+    text-align: start;
 }
 .right-content ul{
     padding: 0;

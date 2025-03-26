@@ -11,6 +11,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 #description p{
   font-family:'Helvetica' !important;
   font-size: 18px !important;
@@ -55,12 +56,27 @@ input::-webkit-contacts-auto-fill-button {
   background-size: 30px;
   cursor: pointer;
 }
-
+body[dir="rtl"] #vacancySelect {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: url('../src/Images/down-arrow.svg') no-repeat left 16px center;
+  background-size: 30px;
+  cursor: pointer;
+}
 #websterSelect{
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
   background: url('../src/Images/websterDropdown.svg') no-repeat right 12px center;
+  background-size: 18px;
+  cursor: pointer;
+}
+body[dir="rtl"] #websterSelect{
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: url('../src/Images/websterDropdown.svg') no-repeat left 12px center;
   background-size: 18px;
   cursor: pointer;
 }
