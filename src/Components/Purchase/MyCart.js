@@ -805,7 +805,7 @@ export const MyCart = ({lang,setLang}) => {
                                         {cartDetails?.bundl_english}
                                         </td>
                                         {/* <td className=' !py-2' align="center">{row.qty}</td> */}
-                                        <td className=' !py-2' align="center"> {Math.round(cartDetails?.total_amount)}</td>
+                                        <td className=' !py-2' align="center"> {Math.round(cartDetails?.bundle_price)}</td>
                                         {/* <TableCell align="center"><img style={{width:'23px'}} src={row.DeleteIcon}></img></TableCell> */}
                                         <td className=' !py-2' align="center">
                                             {/* <p className='flex items-center !mb-0 justify-center'><img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(cartDetails.id, 'bundle')}/></p> */}
