@@ -820,20 +820,24 @@ export const MyCart = ({lang,setLang}) => {
                                             </tr>
                                         ))}
                                             
-                                   
-                                
-
+                                            <tr
+                                        className={`text-[#000] font-[700] text-[20px] mb-2 mt-4`}
+                                    >
+                                        <td className='text-left !py-2' scope="row">
+                                        {cartDetails?.item_details?.addon_items?.length > 0 && "Add ons"}
+                                        </td>
+                                    </tr>
                                 {cartDetails?.item_details?.addon_items?.map((row,index) => (
                                     <tr
                                         key={row.item_name}
                                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                                                                className={`text-[#000] font-[700] text-[20px] ${index == cartDetails?.item_details?.addon_items.length-1 ?"": 'border-b border-black'} `}
+                                                                                className={`text-[#000] font-[700] text-[18px] h-inherit ${index == cartDetails?.item_details?.addon_items.length-1 ?"": 'border-b border-black'} `}
                                     >
-                                        <td className=' !py-2' scope="row">
+                                        <td className=' !py-2 w-[35%] !px-[2%]' scope="row">
                                             {row.item_name}
                                         </td>
                                         {/* <td className=' !py-2' align="center">{row.qty}</td> */}
-                                        <td className=' !py-2' align="center">{row.subtotal_price}</td>
+                                        <td className=' !py-2 ' align="center">{row.subtotal_price}</td>
                                         {/* <TableCell align="center"><img style={{width:'23px'}} src={row.DeleteIcon}></img></TableCell> */}
                                         <td align="center">
                                             {/* <img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'addon')}/> */}
