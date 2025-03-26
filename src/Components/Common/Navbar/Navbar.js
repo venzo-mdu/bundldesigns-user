@@ -322,7 +322,7 @@ export const Navbar = ({isLang,setIsLang}) => {
                             <a className="w-[26px]" href="/mycart?direct=true"><img src={Cart} alt="" className="navIcons"></img></a>
                           </li>
                           <li className='px-[7px]'>
-                            <a className="w-[26px]" onClick={()=>changeLanguage(isLang == 'ar' ? 'En' :'ar')}><img src={Language} alt="" className="navIcons"></img></a>
+                            <a className="w-[26px] cursor-pointer" onClick={()=>changeLanguage(isLang == 'ar' ? 'En' :'ar')}><img src={Language} alt="" className="navIcons"></img></a>
                           </li>
                           <li className="nav-item xs:!block sm:!hidden  inner-nav text-center !hidden menu mr-auto">
                             <button onClick={toggleMenu} type="button" id="menu-toggle">

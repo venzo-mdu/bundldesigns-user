@@ -13,7 +13,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import PhoneNumberInput from './PhoneNumberInput';
 
 
-export default function Career() {
+export default function Career({lang,setLang}) {
   const  [vacancies,setVacancies] =  useState([])
   const [expandedVacancies, setExpandedVacancies] = useState({});
   const [successMsg,setSuccessMsg] = useState('')
@@ -136,11 +136,11 @@ export default function Career() {
 
   return (
     <>
-    <Navbar />
+    <Navbar isLang={lang} setIsLang={setLang}/>
     <div className='font-Helvetica'>
         <div className='text-center py-2 border-b border-black'>
-            <h1 className='lg:text-[40px] md:text-[40px] xs:text-[30px] lg:mt-[2%] md:mt-[2%] xs:mt-[5%] uppercase'> Jobs </h1>
-            <p className='lg:text-[20px] md:text-[20px] xs:text-[18px] text-[#00000080]'>Where we answer all your questions!</p>
+            <h1 className='lg:text-[40px] md:text-[40px] xs:text-[30px] lg:mt-[2%] md:mt-[2%] xs:mt-[5%] uppercase'>{lang === 'ar' ?'الوظائف المتاحة ':'Jobs'}  </h1>
+            <p className='lg:text-[20px] md:text-[20px] xs:text-[18px] text-[#00000080]'>{lang === 'ar'?'حيث نجيب على جميع أسئلتك !':'Where we answer all your questions!'}</p>
         </div>
         <div className='md:p-20 sm:p-3  border-b border-black'>
             {vacancies.map((vacancy,index)=> {
@@ -180,7 +180,7 @@ export default function Career() {
         </div>
 
         <div className='mt-24  mb-20'>
-            <h2 className='lg:text-[32px] md:text-[32px] xs:text-[22px] text-[#000]  mb-2 text-center'>See something you like? send us your CV & Recent Work</h2>
+            <h2 className='lg:text-[32px] md:text-[32px] xs:text-[22px] text-[#000]  mb-2 text-center'>{lang === 'ar' ?'تحب تنضم الى أسرة بندل؟ ارسلك سيرتك وملف اعمالك ':'See something you like? send us your CV & Recent Work'}</h2>
             <h3 className='text-[24px] mb-1 mt-4 text-center text-[#1BA56F]'>Join Us!</h3>
         <form onSubmit={handleSubmit} className="px-6 pb-6 pt-1 sm:max-w-[90vw] md:max-w-[50vw] mx-auto space-y-4">
       {/* Name Field */}
@@ -189,7 +189,7 @@ export default function Career() {
           type="text"
           name="name"
           value={formData.name}
-          placeholder='Name'
+          placeholder={lang === 'ar' ?'اسم':'Name'}
           onChange={handleChange}
           className="w-full border !border-black p-2 !rounded-none"
         />
@@ -200,7 +200,7 @@ export default function Career() {
       <div  className='mt-3 mb-3'>
       <PhoneNumberInput
         name="phone"
-        placeholder="ex: 569754639"
+        placeholder={lang==='ar'?'رقم الهاتف':'ex: 569754639'}
         value={formData.phone}
         status={setFormData}
         extraInputClass={'!border-black text-[16px]'}
@@ -218,7 +218,7 @@ export default function Career() {
         <input
           type="email"
           name="email"
-          placeholder='Email'
+          placeholder={lang === 'ar' ?'البريد الإلكتروني':'Email'} 
           value={formData.email}
           onChange={handleChange}
           className="w-full border !border-black p-2 !rounded-none"
@@ -230,7 +230,7 @@ export default function Career() {
       <div  className='mt-3 mb-1'>
         <textarea
           name="message"
-          placeholder='Tell us your Thoughts'
+          placeholder={lang==='ar'?'أخبرنا بأفكارك':'Tell us your Thoughts'}
           value={formData.message}
           onChange={handleChange}
           className="w-full border !border-black p-2 !rounded-none"
@@ -247,7 +247,7 @@ export default function Career() {
           onChange={handleChange}
           className={`w-full !rounded-none border !border-black p-2 ${formData.vacancy?'text-black':'text-[#00000080]'}`}
         >
-            <option  disabled value={''} selected> Choose the vacancy </option>
+            <option  disabled value={''} selected>{lang === 'ar' ? 'اختر الوظيفة الشاغرة':' Choose the vacancy'} </option>
         {vacancies.map(vacancy => <option className='text-[#000000]' value={vacancy.id}>{vacancy.vacancy_english}</option>)}
         </select>
         {errors.vacancy && <p className="text-red-500 text-sm">{errors.vacancy}</p>}
@@ -269,7 +269,7 @@ export default function Career() {
       <label htmlFor="file" className="cursor-pointer border !border-black !border-dashed p-3 flex flex-col items-center">
     
           <img src={fileUploadIcon} alt="Upload Icon" className='w-[24px]' />
-        <p className='text-[20px] text-gray-500'>Drop your files here</p>
+        <p className='text-[20px] text-gray-500'>{lang === 'ar' ?'أسقط ملفاتك هنا' :'Drop your files here'}</p>
         {formData.file && <p className="text-gray-600 text-sm mt-2">Selected: {formData.file.name}</p>}
       </label>
 
@@ -291,7 +291,7 @@ export default function Career() {
     </form>
         </div >
     </div>
-    <Footer />
+    <Footer isLang={lang}/>
     </>
   )
 }

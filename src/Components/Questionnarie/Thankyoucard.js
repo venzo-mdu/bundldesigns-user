@@ -15,10 +15,10 @@ import Thankyou from '../../Images/Bundles/load_sticker.webp'
 import workBrandGIF from '../../Images/ourWorkBranding.gif'
 import { useSelector } from 'react-redux'
 
-export const Thankyoucard = () => {
+export const Thankyoucard = ({lang,setLang}) => {
   return (
     <div>
-        <Navbar/>
+        <Navbar isLang={lang} setIsLang={setLang}/>
         <div className='thankyou-card'>
           <img src={workBrandGIF} alt='thank-image' className='lg:w-[8%] md:w-[8%] xs:w-[15%]'></img>
           <p className='thank-you-text'>THANK YOU!</p>

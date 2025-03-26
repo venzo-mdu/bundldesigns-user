@@ -14,7 +14,7 @@ import paperPlaneReverse from '../../Images/ourWorkGIFReverse.gif'
 import 'react-phone-number-input/style.css';
 import CloseIcon from '@mui/icons-material/Close';
 
-export const Contactus = () => {
+export const Contactus = ({lang,setLang}) => {
 
 
     const { form_type } = useParams();
@@ -110,7 +110,7 @@ export const Contactus = () => {
           <Bgloader /> :
           <>
           <ToastContainer />
-            <Navbar />
+            <Navbar isLang={lang} setIsLang={setLang}/>
             <div className=' font-Helvetica flex sm:pt-10 xs:pt-0 pt-10 xs:block sm:flex sm:pb-24 xs:pb-2 pb-24 overflow-hidden'>
               <div className='basis-1/4 relative xs:pb-8'>
                 <img className='sm:!w-[200px] !w-[200px] xs:!w-[130px] top-[15%] sm:right-[10%] xs:right-0 right-[10%] left- absolute xs:hidden sm:absolute sm:block' src={ paperPlaneGif}></img>
@@ -215,7 +215,7 @@ export const Contactus = () => {
               </div>
     
             </div>
-            <Footer />
+            <Footer isLang={lang}/>
           </>
       )
 }

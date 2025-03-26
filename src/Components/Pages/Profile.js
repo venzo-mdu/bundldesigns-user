@@ -10,7 +10,7 @@ import { ConfigToken } from '../Auth/ConfigToken';
 import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
-const Profile = ({ user }) => {
+const Profile = ({ user ,lang,setLang }) => {
 
     const navigate = useNavigate();
     const [formData, setFormData] = useState({})
@@ -132,7 +132,7 @@ const Profile = ({ user }) => {
     return (
         <div>
             <ToastContainer/>
-            <Navbar />
+            <Navbar isLang={lang} setIsLang={setLang}/>
             <div className='text-center py-2 border-b border-black'>
                   <h1 className='lg:text-[40px] md:text-[40px] xs:text-[30px] lg:mt-[2%] md:mt-[2%] xs:mt-[5%] uppercase'> Profile </h1>
               </div>
@@ -222,7 +222,7 @@ const Profile = ({ user }) => {
                     </button>
                 </form>
             </div>
-            <Footer />
+            <Footer isLang={lang}/>
         </div>
     )
 }

@@ -2,10 +2,10 @@ import React from 'react'
 import {Navbar} from '../Common/Navbar/Navbar'
 import {Footer} from '../Common/Footer/Footer'
 
-const Legal = () => {
+const Legal = ({lang,setLang}) => {
   return (
     <div>
-      <Navbar/>
+      <Navbar isLang={lang} setIsLang={setLang}/>
        <div className='font-Helvetica'>
               <div className='text-center py-2 border-b border-black'>
                   <h1 className='lg:text-[40px] md:text-[40px] xs:text-[30px] lg:mt-[2%] md:mt-[2%] xs:mt-[5%] uppercase'> Legal </h1>
@@ -18,7 +18,7 @@ const Legal = () => {
                  <p className='lg:text-[20px] md:text-[20px] xs:text-[14px] '>https://maroof.sa/209442</p>
               </div>
        </div>
-      <Footer/>
+      <Footer isLang={lang}/>
     </div>
   )
 }

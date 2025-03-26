@@ -10,7 +10,7 @@ import { ToastContainer } from 'react-toastify';
 import { Footer } from '../Common/Footer/Footer';
 import CloseIcon from '@mui/icons-material/Close';
 
-export default function Search() {
+export default function Search({lang,setLang}) {
     const [searchParams] = useSearchParams();
     const query = searchParams.get('query')
     const [loading, setLoading] = useState(false)
@@ -37,7 +37,7 @@ export default function Search() {
                 loading ? <Bgloader /> :
                     <div>
                         <ToastContainer />
-                        <Navbar />
+                        <Navbar isLang={lang} setIsLang={setLang}/>
                         <div className='pb-20 font-Helvetica'>
                             {/* <div className='xl:w-[50%] xs:w-[70%] pb-[20px] m-auto text-center border-b-[2px] border-black  relative '>
                                 <h1 className='text-center inline md:tracking-[20px] sm:tracking-[10px] xs:tracking-[1px] md:text-[45px] sm:text-[35px] xs:text-[25px]'>RESULTS </h1>
@@ -76,7 +76,7 @@ export default function Search() {
                                         </div>}
                             </div>
                         </div>
-                        <Footer />
+                        <Footer isLang={lang} />
                     </div>
             }
         </>

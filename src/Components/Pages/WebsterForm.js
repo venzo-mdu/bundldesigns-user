@@ -10,7 +10,7 @@ import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'
 import { Bgloader } from '../Common/Background/Bgloader';
 
-export default function WebsterForm() {
+export default function WebsterForm({lang,setLang}) {
   const [loading,setLoading] = useState(false)
         const [formData, setFormData] = useState({
             project_name : '',
@@ -94,7 +94,7 @@ export default function WebsterForm() {
         loading ?
         <Bgloader />:
         <>
-        <Navbar />
+        <Navbar isLang={lang} setIsLang={setLang}/>
         <div className='font-Helvetica'>
     
             <div className='mt-12 mb-10'>
@@ -179,7 +179,7 @@ export default function WebsterForm() {
         </form>
             </div >
         </div>
-        <Footer />
+        <Footer isLang={lang}/>
         </>
     
       )

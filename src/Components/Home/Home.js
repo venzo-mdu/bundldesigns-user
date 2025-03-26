@@ -99,23 +99,30 @@ export const Home = ({lang,setLang}) => {
     // const translateX = (activeProcess * 200) +60;
     // const translateX = activeProcess * (window.innerWidth <= 475 ? activeProcess <= 4 ? 88.5: window.innerWidth <= 390 ? 80 : 80 : window.innerWidth <= 768 ? 150 : activeProcess < 3 ? 200 : 195) + (window.innerWidth > 1450 ? 60 : 0);
     let translateX = 0;
+    let translateX_arabic = 0;
     if (window.innerWidth <= 390) {
         translateX = activeProcess === 4 ? 285 : activeProcess * 78.5;
+        translateX_arabic = activeProcess === 4 ? -190 : activeProcess * -78.5 + 100;
     } 
     else if (window.innerWidth <= 400) {
         translateX = activeProcess === 4 ? 315 : activeProcess * 82.5;
+        translateX_arabic = activeProcess === 4 ? -210 : activeProcess * -82.5 + 100;
     }
     else if (window.innerWidth <= 475) {
         translateX = activeProcess * (activeProcess <= 3 ? 88.5 : 87);
+        translateX_arabic = activeProcess * (activeProcess <= 3 ? -88.5 : -87) + 100;
     } 
     else if (window.innerWidth <= 768) {
         translateX = activeProcess * 150;
+        translateX_arabic = activeProcess * 150;
     } 
     else if (window.innerWidth <= 1450) {
         translateX = activeProcess * (activeProcess < 3 ? 200 : 195);
+        translateX_arabic = activeProcess * (activeProcess < 3 ? -196 : -195) + 80; 
     } 
     else {
         translateX = activeProcess * (activeProcess < 3 ? 200 : 195) + 60;
+        translateX_arabic = activeProcess * (activeProcess < 3 ? -200 : -195) + -60;
     }
     const bundlImages = [QubeIcon, Diamond, Eye, Food, Money]
     const textColor = ["pink-text", "green-text", "blue-text", "pink-text"]
@@ -446,7 +453,7 @@ export const Home = ({lang,setLang}) => {
                                                         <a className="" href="/mycart?direct=true"><img src={Cart} alt="" className="navIcons"></img></a>
                                                     </li>
                                                     <li className='px-[6px]'>
-                                                        <a className="" onClick={()=>changeLanguage(lang == 'ar' ? 'En' :'ar')}><img src={Language} alt="" className="navIcons"></img></a>
+                                                        <a className="cursor-pointer" onClick={()=>changeLanguage(lang == 'ar' ? 'En' :'ar')}><img src={Language} alt="" className="navIcons"></img></a>
                                                     </li>
                                                     <li className="nav-item xs:!block sm:!hidden  inner-nav text-center !hidden menu mr-auto">
                                                         <button onClick={toggleMenu} type="button" id="menu-toggle">
@@ -673,13 +680,13 @@ export const Home = ({lang,setLang}) => {
                                             </div>
                                         ))}
                                     </div>
-                                    <svg className="rocket overlay sm:ml-[-50px] lg:ml-[-50px] md:ml-[-50px] xs:ml-[0px]" style={{ transform: `translateX(${translateX}px)` }} width="103" height="51" viewBox="0 0 103 51" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <svg className="rocket overlay sm:ml-[-50px] lg:ml-[-50px] md:ml-[-50px] xs:ml-[0px]" style={lang === 'ar' ? { transform: `translateX(${translateX_arabic}px) scaleX(-1)`, } :{ transform: `translateX(${translateX}px)` }} width="103" height="51" viewBox="0 0 103 51" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <g style={{ mixBlendMode: "multiply" }}>
                                             <path d="M17.0243 20.1751L0.10283 39.9605L20.7547 38.3386L33.3441 50.4381L52.0055 44.0664L53.6119 42.9629L58.3442 42.0547L63.9225 39.9665L76.0922 37.2171L100.775 30.1494L102.466 29.1142L102.303 27.853L101.161 27.3343L72.3146 16.0341L49.3982 6.77805L32.8747 0.593947L28.2324 6.28473L25.3511 9.71008L23.2039 11.6917L20.7801 14.6193L19.3632 15.5849L21.3765 19.2735L21.7309 21.025L17.0243 20.1751Z" fill={processData[activeProcess].fill} />
                                         </g>
                                     </svg>
                                 </div>
-                            </div>
+                            </div> 
                         </section>
                         <div className="plus relative plus-deivide">
                             <img className='w-[50px] h-[50px] mx-auto relative -top-[30px]' src={plusImage}></img>
@@ -1313,8 +1320,8 @@ export const Home = ({lang,setLang}) => {
                                 <div className="row justify-content-center">
                                     <div className="col-md-8">
                                         <div className="section-head">
-                                            <h2 className="sub-headeing text-black text-center">love letters</h2>
-                                            <p className="f-20 text-center">We work hard to bring your brand dreams to life. But don’t take only our word for it! Listen to what our clients have to say about us.</p>
+                                            <h2 className="sub-headeing text-black text-center">{lang === 'ar' ? 'رسائل حب' : 'love letters'} </h2>
+                                            <p className="f-20 text-center">{lang === 'ar' ? 'نحن نعمل بجد لتحقيق أحلام علامتك التجارية في الحياة .لكن لا تأخذ كلمتنا فقط !استمع إلى ما يقوله عملاؤنا عنا' : 'We work hard to bring your brand dreams to life. But don’t take only our word for it! Listen to what our clients have to say about us.'}</p>
                                         </div>
                                     </div>
                                 </div>

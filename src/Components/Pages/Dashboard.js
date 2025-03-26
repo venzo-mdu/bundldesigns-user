@@ -45,7 +45,7 @@ const style = {
     flexDirection:'column',
     borderRadius:'4px'
 };
-export default function Dashboard() {
+export default function Dashboard({lang,setLang}) {
 
     const navigate = useNavigate();
     const [currentUser , setCurrentUser] = useState([]);
@@ -426,7 +426,7 @@ export default function Dashboard() {
             }
             return (
                 <div className={containerClasses} key={index}>
-                    <img className={`m-0 absolute ${(isPreviousProcess || isCurrentProcess) ? (window.innerWidth<= 475 && isCurrentProcess) ?'top-[-20px] left-[-10px]':'top-[-25px] left-[-10px]':'top-[-10px] left-[-10px]'}`} src={iconSrc} alt={`Process Icon ${index}`} />
+                    <img className={`m-0 absolute ${(isPreviousProcess || isCurrentProcess) ? (window.innerWidth<= 475 && isCurrentProcess) ?`top-[-20px] ${lang === 'ar' ?'right-[-10px]':'left-[-10px]'}`:`top-[-25px] ${lang === 'ar' ?'right-[-10px]':'left-[-10px]'}`:`top-[-10px] ${lang === 'ar' ?'right-[-10px]':'left-[-10px]'}`}`} src={iconSrc} alt={`Process Icon ${index}`} />
                     {!isLast && (
                         <div className="m-auto w-full">
                             <div className={`w-full ${lineClasses} ${lineBorderClass}`}></div>
@@ -562,7 +562,7 @@ const handleDownload = async (file) => {
                 loading ?
                     <Bgloader /> :
                     <>
-                        <Navbar />
+                        <Navbar isLang={lang} setIsLang={setLang}/>
                         {
                             openPopup && <DashboardPopup
                                 openpopup={openPopup}
@@ -674,7 +674,7 @@ const handleDownload = async (file) => {
                                     </div>)}
                                     <div className='lg:border-[1.5px] md:border-[1.5px] xs:border-b-[1.5px] mt-0  lg:border-black md:border-black border-transparent py-2 lg:px-6 md:px-6 xs:px-0 xs:border-black'>
                                         <div className={`flex items-center macm1:w-[80%] lg:w-[78%] w-[80%] md:w-[87%]   lg:mx-auto md:mx-auto lg:mt-10 md:mt-10 xs:mt-2 lg:px-0 ${processIndex === 5 ? 'xs:w-[100%]':'xs:w-[108%]'} xs:px-[2%] xs:ml-[2%]`}>{renderProcessData()}</div>
-                                        <div className='flex macm1:p-[0px_40px_0px_0px] lg:p-[0px_30px_0px_0px] md:p-[15px_15px_0px_70px] macm2:p-[0px_35px_0px_0px] mb-12 lg:w-[90%] w-[80%] md:w-[100%] xs:w-[100%] lg:m-auto md:m-0'>
+                                        <div className={`flex ${lang === 'ar' ?' macm1:p-[0px_0px_0px_40px] lg:p-[0px_0px_0px_30px] md:p-[15px_70px_0px_15px] macm2:p-[0px_0px_0px_35px]':'macm1:p-[0px_40px_0px_0px] lg:p-[0px_30px_0px_0px] md:p-[15px_15px_0px_70px] macm2:p-[0px_35px_0px_0px]'}  mb-12 lg:w-[90%] w-[80%] md:w-[100%] xs:w-[100%] lg:m-auto md:m-0`}>
                                             {window.innerWidth > 768 && dashboardJson.project_process.map((item, index) => {
                                                 return <div className='lg:basis-[45%] md:basis-[20%] xs:basis-1/5 text-center lg:text-[16px] md:text-[14px] mt-[2%]'>  <p className={`pb-0 lg:max-w-[75%] md:max-w-[75%] macm2:w-[70%] max-w-[95%] lg:mx-auto md:mx-0 xs:mx-auto mb-0 ${index == processIndex && 'font-bold'}`}> {item} </p>
                                                     {index == processIndex && <p className='text-[#1BA56F] font-[700] lg:text-center md:text-justify ml-0'>You’re now Here!</p>}
@@ -903,7 +903,7 @@ const handleDownload = async (file) => {
                                 </p>
                             </Box>
                         </Modal>
-                        <Footer />
+                        <Footer isLang={lang}/>
                     </>
 
             }

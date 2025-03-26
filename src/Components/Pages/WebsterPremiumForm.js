@@ -14,7 +14,7 @@ import paperPlaneReverse from '../../Images/ourWorkGIFReverse.gif'
 import 'react-phone-number-input/style.css';
 import CloseIcon from '@mui/icons-material/Close';
 
-export default function WebsterPremiumForm() {
+export default function WebsterPremiumForm({lang,setLang}) {
   const { form_type } = useParams();
   const [phoneError,setPhoneError] = useState(false)
   const [formData, setFormData] = useState({
@@ -110,7 +110,7 @@ export default function WebsterPremiumForm() {
       <Bgloader /> :
       <>
       <ToastContainer />
-        <Navbar />
+        <Navbar isLang={lang} setIsLang={setLang}/>
         <div className=' font-Helvetica flex sm:pt-10 xs:pt-0 pt-10 xs:block sm:flex sm:pb-24 xs:pb-2 pb-24 overflow-hidden'>
           <div className='basis-1/4 relative xs:pb-8'>
           {form_type=="premium"?<img className='sm:!w-[200px] !w-[200px] xs:!w-[130px] top-[15%] sm:right-[10%] xs:right-0 right-[10%] left- absolute xs:hidden sm:absolute sm:block' src={ paperPlaneGif}></img>
@@ -219,7 +219,7 @@ export default function WebsterPremiumForm() {
           </div>
 
         </div>
-        <Footer />
+        <Footer isLang={lang}/>
       </>
   )
 }

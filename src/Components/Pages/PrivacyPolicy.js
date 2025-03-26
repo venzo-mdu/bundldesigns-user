@@ -16,7 +16,7 @@ const PrivacyPolicy = ({lang,setLang}) => {
         <div className='flex items-center justify-center mx-auto'>
           <p className='lg:text-[18px] md:text-[18px] xs:text-[14px] font-[400] lg:w-[85%] md:w-[90%]'>{PrivacyPolicyJson?.privacy_desc}</p>
         </div>
-        <div className='flex flex-col items-center justify-center mx-auto w-full text-left'>
+        <div className={`flex flex-col items-center justify-center mx-auto w-full ${lang === 'ar'?'text-right':'text-left'}`}>
           {
             PrivacyPolicyJson?.privacy_policies?.map((items, index) => {
               return (

@@ -9,11 +9,10 @@ import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'
 import { Bgloader } from '../Common/Background/Bgloader';
 
-export default function PremiumForm() {
-
+export default function PremiumForm({lang,setLang}) {
   const [formData, setFormData] = useState({
     project_name: '',
-    name: '',
+    name: '', 
     phone: '',
     email: '',
     message: ''
@@ -97,7 +96,7 @@ export default function PremiumForm() {
     loading?
     <Bgloader />:
     <>
-      <Navbar />
+      <Navbar isLang={lang} setIsLang={setLang}/>
       <div className='font-Helvetica'>
 
         <div className='mt-12 mb-10'>
@@ -182,7 +181,7 @@ export default function PremiumForm() {
           </form>
         </div >
       </div>
-      <Footer />
+      <Footer isLang={lang}/>
     </>
 
   )
