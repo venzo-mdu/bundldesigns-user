@@ -558,7 +558,8 @@ export const Home = ({lang,setLang}) => {
                                         <div className="px-2">
 
                                         </div>
-                                        <h1 className='!text-black sm:px-[9%] xs:px-[11%]  lg:px-[10%] !w-[100%] xs:!text-[26px] sm:!text-[58px] !text-[58px]'><span>Elevating</span> brands & shaping legacies, one <span>extraordinary design</span> at a <i>time.</i></h1>
+                                        <h1 className='!text-black sm:px-[9%] xs:px-[11%]  lg:px-[10%] !w-[100%] xs:!text-[26px] sm:!text-[58px] !text-[58px]'><span>هوية بصرية تصميم جرافيكي متاجر
+                    الكترونية​ Elevating</span> brands & shaping legacies, one <span>extraordinary design</span> at a <i>time.</i></h1>
                                         <div className="button-container scroller">
                                             <ul className="scroll-button h-[46px] scroller__inner_btn">
                                                 <li><span><a className='text-black' href='#ourBundl'>Shop our Bundls</a></span></li>

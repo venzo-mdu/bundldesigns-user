@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import aboutUs from '../../json/aboutUs.json'
-import cloud_bg from '../../Images/bg-cloud.png'
+// import cloud_bg from '../../Images/bg-cloud.png'
+import cloud_bg from '../../Images/imageoptimize/bg-cloud.png'
+import cloud_bg_arabic from '../../Images/imageoptimize/bg-cloud-arabic.webp'
 import gray_bg from '../../Images/Background/grey_cloud.svg'
 import loaderSticker from '../../Images/load sticker.svg'
 import paperPlane from '../../Images/Background/paper plane.svg'
@@ -55,13 +57,14 @@ export const AboutUs = ({ lang, setLang }) => {
           <>
             <div id='AboutusContainer' className={`bg-cover  md:bg-[100%_7%] lg:bg-[100%_7%] xs:[120%_10%] font-Helvetica`}
               style={{
-                backgroundImage: `url(${cloud_bg})`,
-              }}>
+                backgroundImage: `url(${lang=== 'ar' ?cloud_bg_arabic:cloud_bg})`,
+              }}
+              >
               <Navbar isLang={lang} setIsLang={setLang} />
 
               <div className='xl:h-[56vh]  lg:h-[60vh] md:h-[58vh] xs:h-[280px] relative'>
                 <h1 className='font-Helvetica !text-black md:w-[60vw] lg:text-[38px] xs:text-[22px] sm:text-[22px] sm:w-[70vw] xs:w-[100vw] md:text-[36px] xl:w-[50vw] xl:text-[45px] lg:mx-auto md:mx-auto  xs:mx-0 py-[8%] lg:py-[6%] md:py-[2%] my-[2%] text-center'>{lang === 'ar' ? aboutUs.main_content_arabic : aboutUs.main_content} </h1>
-                <img className='animate-rotate-animation absolute xs:ml-[36vw] xl:top-[70%] lg:ml-[25vw] md:ml-[25vw] md:top-[60%] lg:top-[50%] xl:ml-[26vw]' width='100px' height='100px' src={loaderSticker}></img>
+                <img className={`animate-rotate-animation absolute   ${lang === 'ar' ?'xl:top-[65%] xs:mr-[36vw] lg:mr-[25vw] md:mr-[25vw] xl:mr-[26vw]':' xl:top-[70%] xs:ml-[36vw] lg:ml-[25vw] md:ml-[25vw] xl:ml-[26vw]'} md:top-[60%] lg:top-[50%] `} width='100px' height='100px' src={loaderSticker}></img>
               </div >
 
 
@@ -69,14 +72,14 @@ export const AboutUs = ({ lang, setLang }) => {
                 <div className='basis-[50%] border-t border-r border-l relative py-4 !border-black'>
                   <h1 className='px-28 text-[32px] !text-black sm:text-[22px] xs:text-[22px]   md:text-[28px] uppercase'>{lang === 'ar' ? 'مهمتنا' : 'Mission'}</h1>
                   <p className='xl:px-48 md:px-20 xl:text-[20px] md:text-[18px] xs:text-[16px] xs:px-[5%]'>{lang === 'ar' ? aboutUs?.mission_arabic : aboutUs.mission}</p>
-                  <img className={`absolute md:top-[130px] top-[130px]  xs:top-[-50px] xs:w-[100px] ${lang === 'ar' ? 'right-0 scale-x-[-1]':'left-0'} xl:top-[70px] xl:w-[260px] md:w-[160px]`} src={paperPlane}></img>
+                  <img className={`absolute lg:top-[130px] md:top-[50px] top-[130px]  xs:top-[-50px] xs:w-[100px] ${lang === 'ar' ? 'right-0 scale-x-[-1] xl:top-[10px]':'left-0'} xl:top-[70px] xl:w-[260px] md:w-[160px]`} src={paperPlane}></img>
 
                 </div>
                 <div className='!z-10 basis-[50%] border-t border-r xs:border-l md:border-l-0  py-4   relative !border-black font-Helvetica'>
 
                   <h1 className='px-[8%] md:text-[28px] !text-black xl:text-[32px] xs:text-[22px] uppercase'>{lang === 'ar' ? 'رؤيتنا' : 'Vision'}</h1>
                   <p className=' xl:px-[200px] md:px-20 md:text-[18px] xl:text-[20px] xs:text[18px] xs:px-[5%] xs:text-[16px]'>{lang === 'ar' ? aboutUs?.vission_arabic : aboutUs.vission}</p>
-                  <img className={`absolute  xs:w-[100px] xl:bottom-[-25px]  ${lang === 'ar' ?'left-[5px] rotate-[90deg] md:top-[-145px] top-[-95px] xs:top-[-60px]':'right-[10px] md:top-[-95px] top-[-95px] xs:top-[-60px]'} xl:w-[240px] md:w-[160px]`} src={glass}></img>
+                  <img className={`absolute  xs:w-[100px] xl:bottom-[-25px]  ${lang === 'ar' ?'left-[-45px] rotate-[90deg] lg:top-[-165px] md:top-[-105px] top-[-95px] xs:top-[-60px]':'right-[10px] md:top-[-95px] top-[-95px] xs:top-[-60px]'} xl:w-[240px] md:w-[160px]`} src={glass}></img>
 
                 </div>
 
@@ -149,7 +152,7 @@ export const AboutUs = ({ lang, setLang }) => {
                         className={`w-[320px] absolute brandIdentity transition-all top-[10%] transform duration-700 ease-out 
                 ${isHovered === 'socialMedia' || isHovered === 'socialMedia_arabic'
                             ? lang === 'ar'
-                              ? 'right-[-140px] opacity-100'
+                              ? 'right-[-140px] opacity-100 scale-x-[-1]'
                               : 'left-[-140px] opacity-100'
                             : lang === 'ar'
                               ? 'right-[-330px] opacity-0'
@@ -228,7 +231,7 @@ export const AboutUs = ({ lang, setLang }) => {
                         className={`w-[320px] absolute brandIdentity transition-all top-[10%] transform duration-700 ease-out 
                 ${isHovered === 'socialMedia' || isHovered === 'socialMedia_arabic'
                             ? lang === 'ar'
-                              ? 'left-[-100px] opacity-100'
+                              ? 'left-[-100px] opacity-100 scale-x-[-1]'
                               : 'right-[-100px] opacity-100'
                             : lang === 'ar'
                               ? 'left-[-330px] opacity-0'
@@ -268,9 +271,9 @@ export const AboutUs = ({ lang, setLang }) => {
 
               <h2 className=' text-[28px] capitalize text-black' >{lang === 'ar' ? 'رسائل حب' : 'LOVE LETTERS'}  </h2>
               <p className='md:w-[29vw] xs:w-[70vw] mx-auto text-[16px]' >{lang === 'ar' ? 'نحن نعمل بجد لتحقيق أحلام علامتك التجارية في الحياة .لكن لا تأخذ كلمتنا فقط !استمع إلى ما يقوله عملاؤنا عنا' : 'We work hard to bring your brand dreams to life. But don’t take only our word for it! Listen to what our clients have to say about us.'} </p>
-              <img className='absolute md:block md:left-[20vw] md:top-12 left-[24vw] xs:left-[-20px]  xs:top-[10vh] md:w-[140px] xs:w-[100px]' width='140px' height='140px' style={{ transform: 'rotate(320deg)' }} src={paper_plane_rose}></img>
-              <img className='absolute md:block xs:!top-[50%] sm:top-0 top-0 sm:left-0 left-0 xs:left-[-41px] w-[320px] sm:w-[320px] xs:w-[150px] ' src={paper_plane_rose}></img>
-              <img className='absolute md:block top-16 sm:top-16 xs:top-0 w-[320px] sm:w-[320px] xs:w-[160px] right-[16vw] sm:right-[16vw] xs:right-[-36px] md:right-10' style={{ transform: 'rotate(320deg)' }} src={paper_plane_rose}></img>
+              <img className={`absolute md:block  md:top-12 ${lang === 'ar' ? 'md:right-[20vw] right-[24vw] xs:right-[-20px] ':'md:left-[20vw] left-[24vw] xs:left-[-20px] '} xs:top-[10vh] md:w-[140px] xs:w-[100px]`} width='140px' height='140px' style={lang === 'ar'?{transform: 'rotate(390deg) scaleX(-1)',}:{ transform: 'rotate(320deg)' }} src={paper_plane_rose}></img>
+              <img className={`absolute md:block xs:!top-[50%] sm:top-0 top-0 ${lang === 'ar' ?'sm:right-0 right-0 xs:right-[-41px] scale-x-[-1]':'sm:left-0 left-0 xs:left-[-41px]'}  w-[320px] sm:w-[320px] xs:w-[150px] `} src={paper_plane_rose}></img>
+              <img className={`absolute md:block top-16 sm:top-16 xs:top-0 w-[320px] sm:w-[320px] xs:w-[160px] ${lang === 'ar' ?'left-[16vw] sm:left-[16vw] xs:left-[-36px] md:left-10':'right-[16vw] sm:right-[16vw] xs:right-[-36px] md:right-10'}` } style={lang === 'ar'?{transform: 'rotate(390deg) scaleX(-1)',}:{ transform: 'rotate(320deg)' }} src={paper_plane_rose}></img>
               <div>
                 <div className='text-[16px] md:w-[40vw] xs:w-[80vw] relative flex mx-auto'>
                   <p className='text-[90px] absolute lg:top-[-34px] md:top-[-34px] xs:top-[-55px] xs:left-[-20px] font-bold '>“</p>
