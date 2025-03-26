@@ -586,7 +586,8 @@ border-top: 1px solid #000000;
 /* hero section */
 .header-section {
 background: #fff;
-background-image: url('../../Images/Background/skybg.png');
+/* background-image: url('../../Images/Background/skybg.png'); */
+background-image: url('../../Images/imageoptimize/skybg.png');
 background-position: top center;
 background-repeat: no-repeat;
 background-size: cover;
@@ -751,7 +752,18 @@ width: max-content;
 flex-wrap: nowrap;
 animation: scroll var(--_animation-duration, 9s) var(--_animation-direction, reverse) linear infinite;
 }
+body[dir="rtl"] .scroller .scroller__inner {
+  width: max-content;
+  flex-wrap: nowrap;
+  align-items: center;
+  animation: scroll_arabic var(--_animation-duration, 75s) var(--_animation-direction,forwards) linear infinite;
+  }
 
+  body[dir="rtl"]  .scroller[data-animated="true"] .scroller__inner_btn {
+  width: max-content;
+  flex-wrap: nowrap;
+  animation: scroll_arabic var(--_animation-duration, 9s) var(--_animation-direction, forwards) linear infinite;
+  }
 .scroller[data-direction="right"] {
 --_animation-direction: reverse;
 }
@@ -852,6 +864,12 @@ padding-inline: 0;
 list-style: none;
 animation: scroll var(--_animation-duration, 1s) var(--_animation-direction, forwards) linear infinite;
 }
+body [dir="rtl"] .scroll-button {
+  margin: 0;
+  padding-inline: 0;
+  list-style: none;
+  animation: scroll_arabic var(--_animation-duration, 1s) var(--_animation-direction, forwards) linear infinite;
+  }
 .scroll-ani {animation: scroll var(--_animation-duration, 25s) var(--_animation-direction, forwards) linear infinite;}
 
 .scroll-button li {
@@ -4443,6 +4461,15 @@ animation: scroll var(--_animation-duration, 40s)
   }
 }
 
+@keyframes scroll_arabic {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(60%);
+  }
+}
+
 /* general styles */
 .tag-list {
 margin: 0;
@@ -4502,6 +4529,13 @@ list-style: none;
 animation: scroll var(--_animation-duration, 5s)
   var(--_animation-direction, forwards) linear infinite;
 }
+body[dir="rtl"] .scroll-button {
+  margin: 0;
+  padding-inline: 0;
+  list-style: none;  
+  animation: scroll_arabic var(--_animation-duration, 5s)
+    var(--_animation-direction, forwards) linear infinite;
+  }
 .scroll-button li{
 padding: 0 .3rem;
 }
