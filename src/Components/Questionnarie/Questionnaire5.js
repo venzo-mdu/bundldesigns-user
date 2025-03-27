@@ -50,6 +50,11 @@ export const Questionnaire5 = ({formData,setFormData,changeLang,setChangeLang}) 
         if(location.state.orderId != undefined){
         const response = await axios.get(`${base_url}/api/questionnaire/update/${location.state.orderId}`, ConfigToken());
         setFetchQ5Answers(response.data.data)
+         
+        const question24Answer = response.data.data.find(
+          (answer) => answer.question_id === 24
+        )?.answer;
+        setSelectedLanguage(question24Answer.toLowerCase())
         }
       } catch (error) {
         console.error("Error fetching questions:", error);
@@ -163,8 +168,9 @@ export const Questionnaire5 = ({formData,setFormData,changeLang,setChangeLang}) 
   const onBackClick = () => {
     navigate(`/questionnaire/${4}`, { state: { questionnaireData4: answers4,orderId:location.state?.orderId } });
   };
-console.log(location.state?.orderId,'orderid')
-  const FinishClick = async () => {
+  const FinishClick = async (
+
+  ) => {
     if (!validateFields()) {
       return;
     }
@@ -245,8 +251,8 @@ console.log(location.state?.orderId,'orderid')
               <div className="flex items-center justify-center gap-[20px] mt-2">
                 <div>
                   <button
-                    onClick={() => handleLanguageChange("Arabic", question.id)}
-                    className={`uppercase font-[18px] lg:h-[45px] md:h-[45px] xs:h-[35px] w-[150px] border-[1px] border-solid border-[#000000] ${selectedLanguage === "Arabic" ? "bg-[#000000] text-[#FFFFFF]" : "hover:bg-[#000000] hover:text-[#FFFFFF]"
+                    onClick={() => handleLanguageChange("arabic", question.id)}
+                    className={`uppercase font-[18px] lg:h-[45px] md:h-[45px] xs:h-[35px] w-[150px] border-[1px] border-solid border-[#000000] ${selectedLanguage === "arabic" ? "bg-[#000000] text-[#FFFFFF]" : "hover:bg-[#000000] hover:text-[#FFFFFF]"
                       }`}
                   >
                     Arabic
@@ -254,8 +260,8 @@ console.log(location.state?.orderId,'orderid')
                 </div>
                 <div>
                   <button
-                    onClick={() => handleLanguageChange("English", question.id)}
-                    className={`uppercase font-[18px] lg:h-[45px] md:h-[45px] xs:h-[35px] w-[150px] border-[1px] border-solid border-[#000000] ${selectedLanguage === "English" ? "bg-[#000000] text-[#FFFFFF]" : "hover:bg-[#000000] hover:text-[#FFFFFF]"
+                    onClick={() => handleLanguageChange("english", question.id)}
+                    className={`uppercase font-[18px] lg:h-[45px] md:h-[45px] xs:h-[35px] w-[150px] border-[1px] border-solid border-[#000000] ${selectedLanguage === "english" ? "bg-[#000000] text-[#FFFFFF]" : "hover:bg-[#000000] hover:text-[#FFFFFF]"
                       }`}
                   >
                     English

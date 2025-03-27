@@ -33,7 +33,7 @@ export const Questionnaire2 = ({formData,setFormData,changeLang,setChangeLang}) 
   const currentAnswer = useSelector((state) => state.questionnaire2)
 
   const [questions, setQuestions] = useState([]);
-  const [selectedGender, setSelectedGender] = useState('');
+  const [selectedGender, setSelectedGender] = useState([]);
   const [activeFemaleButtons, setActiveFemaleButtons] = useState([]);
   const [activeMaleButtons, setActiveMaleButtons] = useState([]);
   const [fetchQ2Answers, setFetchQ2Answers] = useState([]);
@@ -48,60 +48,130 @@ export const Questionnaire2 = ({formData,setFormData,changeLang,setChangeLang}) 
 
   ]
 
+  // useEffect(() => {
+  //   const fetchQuestions = async () => {
+  //     try {
+  //       const response = await axios.get(`${base_url}/api/content?section=brand_questions&page=2`);
+       
+  //       setQuestions(response.data);
+  //     } catch (error) {
+  //       console.error("Error fetching questions:", error);
+  //     }
+  //   };
+  //   setFormData(location.state?.questionnaireData2)
+  //   const fetchAnswers = async () => {
+  //     try {
+  //       if(location.state.orderId != undefined){
+
+  //       const response = await axios.get(`${base_url}/api/questionnaire/update/${location.state.orderId}`, ConfigToken());
+  //       setFetchQ2Answers(response.data.data)
+  //       const ageDataQuestion = response.data.data.find(
+  //         (item) => item.answer_type === "age-data"
+  //       );
+        
+  //       if (ageDataQuestion?.answer?.female) {
+  //         setActiveFemaleButtons(ageDataQuestion.answer.female);
+  //         setSelectedGender((...prev)=>[...prev,"female"])
+  //       }
+  //       if(ageDataQuestion?.answer?.male){
+  //         setActiveMaleButtons(ageDataQuestion.answer.male);
+  //         setSelectedGender((...prev)=>[...prev,"male"])
+  //       }  
+  //     }
+  //     } catch (error) {
+  //       console.error("Error fetching questions:", error);
+  //     }
+  //   }
+  //   setFormData(currentAnswer)
+
+  //   if ('10' in currentAnswer) {
+  //     const answer = currentAnswer['10'];
+  //     setActiveMaleButtons(answer['male'])
+  //     setActiveFemaleButtons(answer['female'])
+  //    if (answer['female'].length && answer['male'].length) {
+  //     setSelectedGender((...prev)=>[...prev,"both"])
+  //     }else if(answer['male'].length) {
+  //       setSelectedGender((...prev)=>[...prev,"male"])
+  //     }
+  //      else {
+  //       setSelectedGender((...prev)=>[...prev,"female"])
+  //     }
+  // }
+  //   fetchQuestions();
+  //   fetchAnswers();
+  // }, []);
+
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const response = await axios.get(`${base_url}/api/content?section=brand_questions&page=2`);
-       
+        const response = await axios.get(
+          `${base_url}/api/content?section=brand_questions&page=2`
+        );
         setQuestions(response.data);
       } catch (error) {
         console.error("Error fetching questions:", error);
       }
     };
-    setFormData(location.state?.questionnaireData2)
+  
     const fetchAnswers = async () => {
       try {
-        if(location.state.orderId != undefined){
-
-        const response = await axios.get(`${base_url}/api/questionnaire/update/${location.state.orderId}`, ConfigToken());
-        setFetchQ2Answers(response.data.data)
-        const ageDataQuestion = response.data.data.find(
-          (item) => item.answer_type === "age-data"
-        );
-        
-        if (ageDataQuestion?.answer?.female) {
-          setActiveFemaleButtons(ageDataQuestion.answer.female);
-          setSelectedGender("female");
+        if (location.state?.orderId) {
+          const response = await axios.get(
+            `${base_url}/api/questionnaire/update/${location.state.orderId}`,
+            ConfigToken()
+          );
+          const answers = response.data.data;
+          setFetchQ2Answers(answers);
+  
+          // Extract age-data answer
+          const ageDataQuestion = answers.find(
+            (item) => item.answer_type === "age-data"
+          );
+  
+          if (ageDataQuestion?.answer?.female) {
+            setActiveFemaleButtons(ageDataQuestion.answer.female);
+            setSelectedGender((prev) =>
+              prev.includes("female") ? prev : [...prev, "female"]
+            );
+          }
+          if (ageDataQuestion?.answer?.male) {
+            setActiveMaleButtons(ageDataQuestion.answer.male);
+            setSelectedGender((prev) =>
+              prev.includes("male") ? prev : [...prev, "male"]
+            );
+          }
         }
-        if(ageDataQuestion?.answer?.male){
-          setActiveMaleButtons(ageDataQuestion.answer.male);
-          setSelectedGender("male");
-        }  
-      }
       } catch (error) {
-        console.error("Error fetching questions:", error);
+        console.error("Error fetching answers:", error);
       }
-    }
-    setFormData(currentAnswer)
-  console.log(currentAnswer,'10' in currentAnswer,'apppp')
-    if ('10' in currentAnswer) {
-      const answer = currentAnswer['10'];
-      setActiveMaleButtons(answer['male'])
-      setActiveFemaleButtons(answer['female'])
-     if (answer['female'].length && answer['male'].length) {
-          setSelectedGender('both');
-      }else if(answer['male'].length) {
-        setSelectedGender('male');
+    };
+  
+    // Process currentAnswer if available
+    const processCurrentAnswer = () => {
+      if ("10" in currentAnswer) {
+        const answer = currentAnswer["10"];
+        setActiveMaleButtons(answer.male || []);
+        setActiveFemaleButtons(answer.female || []);
+  
+        if (answer.female?.length && answer.male?.length) {
+          setSelectedGender(["both"]);
+        } else if (answer.male?.length) {
+          setSelectedGender(["male"]);
+        } else if (answer.female?.length) {
+          setSelectedGender(["female"]);
+        }
       }
-       else {
-          setSelectedGender('female');
-      }
-  }
+    };
+  
+    // Initialize form data
+    setFormData(location.state?.questionnaireData2 || currentAnswer);
+  
+    // Fetch data
     fetchQuestions();
     fetchAnswers();
-  }, []);
-console.log(location.state?.orderId,'orderid')
-
+    processCurrentAnswer();
+  }, [location.state?.orderId, currentAnswer]);
+  
   
   const getAnswerValue = (questionId) => {
 
@@ -120,25 +190,47 @@ console.log(location.state?.orderId,'orderid')
     return fetchedAnswer ?? '';
   };
   
+  // const handleGenderChange = (selected) => {
+  //   if (selectedGender === 'both') {
+  //     if (selected === 'male') {
+  //       setSelectedGender((...prev)=>[...prev,"female"])
+  //     } else if (selected === 'female') {
+  //       setSelectedGender((...prev)=>[...prev,"male"])
+  //     }
+  //   } else if (selected === selectedGender) {
+  //     setSelectedGender([]);
+  //   } else if (
+  //     (selected === 'male' && selectedGender === 'female') ||
+  //     (selected === 'female' && selectedGender === 'male')
+  //   ) {
+  //     setSelectedGender((...prev)=>[...prev,"both"])
+  //   } else {
+  //     setSelectedGender((prev) => [...prev, selected]);
+  //   }
+  // };
+
   const handleGenderChange = (selected) => {
-    if (selectedGender === 'both') {
-      if (selected === 'male') {
-        setSelectedGender('female');
-      } else if (selected === 'female') {
-        setSelectedGender('male');
+    if (selectedGender.includes("both")) {
+      // If "both" is selected, toggle individual genders
+      if (selected === "male") {
+        setSelectedGender(["female"]); // Keep only "female"
+      } else if (selected === "female") {
+        setSelectedGender(["male"]); // Keep only "male"
       }
-    } else if (selected === selectedGender) {
-      setSelectedGender('');
+    } else if (selectedGender.includes(selected)) {
+      // Remove the selected value
+      setSelectedGender((prev) => prev.filter((gender) => gender !== selected));
     } else if (
-      (selected === 'male' && selectedGender === 'female') ||
-      (selected === 'female' && selectedGender === 'male')
+      (selected === "male" && selectedGender.includes("female")) ||
+      (selected === "female" && selectedGender.includes("male"))
     ) {
-      setSelectedGender('both');
+      // If both genders are selected, set "both"
+      setSelectedGender(["both"]);
     } else {
-      setSelectedGender(selected);
+      // Add the selected value
+      setSelectedGender((prev) => [...prev, selected]);
     }
   };
-
   const showToastMessage = () => {
     toast.error("The Value is required!", {
       position: toast?.POSITION?.TOP_RIGHT,
@@ -196,14 +288,12 @@ console.log(location.state?.orderId,'orderid')
     // });
     const unansweredRequiredQuestions = questions.filter((q) => {
       if (q.required) {
-        console.log(`Checking: ${q.id}, Type: ${q.answer_type}`);
-    
         // If it's an age-data question, ensure the correct buttons are selected
         if (q.answer_type === "age-data") {
-          if (selectedGender === "female") {
+          if (selectedGender?.includes( "female")) {
             return !activeFemaleButtons || activeFemaleButtons.length === 0;
           }
-          if (selectedGender === "male") {
+          if (selectedGender?.includes("male")) {
             return !activeMaleButtons || activeMaleButtons.length === 0;
           }
         }
@@ -271,7 +361,7 @@ console.log(location.state?.orderId,'orderid')
     });
   };
   
-  console.log(formData,'form')
+  
   const handleChange = (questionId , value) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -353,15 +443,15 @@ console.log(location.state?.orderId,'orderid')
                  <div className="ideal-customers">
               {/* <p className='customer-text'>Who is your ideal customer?</p> */}
               <div style={{ display: 'flex', gap: '25px' }} className='mt-[5%]'>
-                <button className={selectedGender === 'female' || selectedGender === 'both' ? 'female-active' : 'female'} value="female" onClick={() => handleGenderChange('female')}>Female</button>
-                <button className={selectedGender === 'male' || selectedGender === 'both' ? 'male-active' : 'male'} value={'male'} onClick={() => handleGenderChange('male')}>Male</button>
+                <button className={selectedGender.includes("female") || selectedGender.includes("both") ? 'female-active' : 'female'} value="female" onClick={() => handleGenderChange('female')}>Female</button>
+                <button className={selectedGender.includes("male") || selectedGender.includes("both") ? 'male-active' : 'male'} value={'male'} onClick={() => handleGenderChange('male')}>Male</button>
               </div>
               <div className='border-b-[1px] border-solid border-[#000000] mb-4'>
-              {(selectedGender === 'female' || selectedGender === 'both') ? (
+              {(selectedGender.includes("female") || selectedGender.includes("both")) ? (
                 <div className="female-section mb-[5%]">
                   {/* Render female images */}
                   <div className="female-buttons">
-                    {['10 or Less', '11-17', '18-23', '24-30', '41-60', '61+'].map((label, index) => (
+                    {['10 or Less', '11-17', '18-23', '24-30', '31-40', '41-60+'].map((label, index) => (
 
                       <div style={{ display: 'flex', flexDirection: 'column' }}>
                          <div className='flex justify-center items-center'>
@@ -387,7 +477,7 @@ console.log(location.state?.orderId,'orderid')
               ) : (
                 <div className="female-section mb-[5%]">
                 <div className="female-buttons">
-                  {['10 or Less', '11-17', '18-23', '24-30', '41-60', '61+'].map((label, index) => (
+                  {['10 or Less', '11-17', '18-23', '24-30', '31-40', '41-60+'].map((label, index) => (
 
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
                       <div className='flex justify-center items-center'>
@@ -412,11 +502,11 @@ console.log(location.state?.orderId,'orderid')
                 </div>
               )}
               </div>
-              {(selectedGender === 'male' || selectedGender === 'both') ? (
+              {(selectedGender.includes("male") || selectedGender.includes("both")) ? (
                 <div className="male-section">
                   {/* Render female images */}
                   <div className="male-buttons">
-                    {['10 or Less', '11-17', '18-23', '24-30', '41-60', '61+'].map((label, index) => (
+                    {['10 or Less', '11-17', '18-23', '24-30',  '31-40', '41-60+'].map((label, index) => (
 
                       <div style={{ display: 'flex', flexDirection: 'column' }}>
                          <div className='flex justify-center items-center'>
@@ -442,7 +532,7 @@ console.log(location.state?.orderId,'orderid')
               ) : (
                 <div className='male-section'>
                 <div className="male-buttons">
-                  {['10 or Less', '11-17', '18-23', '24-30', '41-60', '61+'].map((label, index) => (
+                  {['10 or Less', '11-17', '18-23', '24-30',  '31-40', '41-60+'].map((label, index) => (
 
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
                        <div className='flex justify-center items-center'>

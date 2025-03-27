@@ -130,15 +130,67 @@ export const Questionnaire1 = ({formData,setFormData,changeLang,setChangeLang}) 
   };
 
 
+  // const getAnswerValue = (questionId) => {
+  //   const formValue = formData?.[questionId];
+  
+  //   // Special handling for questionId 4
+  //   if (questionId === 4 || questionId === '4') {
+  //     if (formValue && typeof formValue === 'object' && activeType) {
+  //       return formValue[activeType.toLowerCase()] || ''; // Return the value of product/service if available
+  //     }
+  //     return ''; // Return empty string if no value is found
+  //   }
+  
+  //   // Handle other questions normally
+  //   if (formValue !== undefined) {
+  //     return formValue;
+  //   }
+  
+  //   // Check in fetched answers
+  //   const fetchedAnswer = fetchQ1Answers.find((answer) => answer.question_id === questionId)?.answer;
+  //   if (fetchedAnswer !== undefined && formValue === undefined) {
+  //     setFormData((prevFormData) => ({
+  //       ...prevFormData,
+  //       [questionId]: fetchedAnswer,
+  //     }));
+  //   }
+  //   return fetchedAnswer ?? '';
+  // };
+
   const getAnswerValue = (questionId) => {
     const formValue = formData?.[questionId];
-  
-    // Special handling for questionId 4
+    
     if (questionId === 4 || questionId === '4') {
       if (formValue && typeof formValue === 'object' && activeType) {
-        return formValue[activeType.toLowerCase()] || ''; // Return the value of product/service if available
+        return formValue[activeType.toLowerCase()] || ''; 
       }
-      return ''; // Return empty string if no value is found
+  
+      // Check in fetched answers and parse if necessary
+      const fetchedAnswer = fetchQ1Answers.find((answer) => Number(answer.question_id) === Number(questionId))?.answer;
+  
+      if (fetchedAnswer) {
+        try {
+          // Parse the stringified object
+          const parsedAnswer = JSON.parse(fetchedAnswer.replace(/'/g, '"')); 
+          if (!activeType && typeof parsedAnswer === 'object') {
+            if (parsedAnswer.product) {
+              setActiveType("product");
+            } else if (parsedAnswer.service) {
+              setActiveType("service");
+            }
+          }
+          setFormData((prevFormData) => ({
+            ...prevFormData,
+            [questionId]: activeType ? parsedAnswer[activeType.toLowerCase()] || '' : JSON.stringify(parsedAnswer),
+          }))
+          return activeType ? parsedAnswer[activeType.toLowerCase()] || '' : JSON.stringify(parsedAnswer); 
+        } catch (error) {
+          console.error('Failed to parse fetchedAnswer:', error);
+          return '';
+        }
+      }
+  
+      return '';
     }
   
     // Handle other questions normally
@@ -146,8 +198,9 @@ export const Questionnaire1 = ({formData,setFormData,changeLang,setChangeLang}) 
       return formValue;
     }
   
-    // Check in fetched answers
-    const fetchedAnswer = fetchQ1Answers.find((answer) => answer.question_id === questionId)?.answer;
+    // Check in fetched answers for other questionIds
+    const fetchedAnswer = fetchQ1Answers.find((answer) => Number(answer.question_id) === Number(questionId))?.answer;
+  
     if (fetchedAnswer !== undefined && formValue === undefined) {
       setFormData((prevFormData) => ({
         ...prevFormData,
@@ -156,8 +209,12 @@ export const Questionnaire1 = ({formData,setFormData,changeLang,setChangeLang}) 
     }
   
     return fetchedAnswer ?? '';
-  };
+  }; 
 
+
+  
+  
+  console.log(formData)
 
   
 
@@ -235,18 +292,15 @@ export const Questionnaire1 = ({formData,setFormData,changeLang,setChangeLang}) 
   const getOrderDetails = async () => {
     if(location.state?.orderId){
       const response = await axios.get(`${base_url}/api/order/${ location.state?.orderId}/`, ConfigToken());
-      console.log(formData,'formData')
        setFormData((prev) => ({
          ...prev,
          1: response.data.data.project_name, 
        }));
     }
-        console.log(location.state?.questionnaireData1,'questionaire1s')
   }
   useEffect(()=>{
     getOrderDetails()
   },[])
-console.log(formData,'formdata')
 
 
   return (
@@ -276,14 +330,14 @@ console.log(formData,'formdata')
             {question.answer_type === "brand" && (
               <div style={{ display: 'flex', gap: '10px',marginBottom:'3%' }}>
                 <button
-                  className={`product-btn ${activeType === 'Product' ? 'active' : ''}`}
-                  onClick={() => handleTypeClick('Product')}
+                  className={`product-btn ${activeType === 'product' ? 'active' : ''}`}
+                  onClick={() => handleTypeClick('product')}
                 >
                   Product
                 </button>
                 <button
-                  className={`service-btn ${activeType === 'Service' ? 'active' : ''}`}
-                  onClick={() => handleTypeClick('Service')}
+                  className={`service-btn ${activeType === 'service' ? 'active' : ''}`}
+                  onClick={() => handleTypeClick('service')}
                 >
                   Service
                 </button>

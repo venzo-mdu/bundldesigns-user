@@ -575,7 +575,7 @@ export const Home = ({lang,setLang}) => {
                                                 <span className="blue"></span>
                                                 <span className="green"></span>
                                                 <span className="pink"></span>
-                                                <span className="hover-txt"> <a className='sm:text-white hover:text-white xs:text-black' href='#ourBundl'>Shop our Bundls</a></span>
+                                                <span className="hover-txt"> <a className='sm:text-white hover:text-white xs:text-black' href='#ourBundl'>{lang === 'ar' ?'باقاتنا تصفح':'Shop our Bundls'}</a></span>
                                             </div>
                                         </div>
                                     </div>

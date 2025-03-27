@@ -44,7 +44,6 @@ console.log(formData,'formData')
         const response = await axios.get(
           `${base_url}/api/content?section=brand_questions&page=3`
         );
-
         // Initialize sliderValues for all questions with "bar" answer_type
         // const initialSliderValues = response.data
         //   .filter((q) => q.answer_type === 'bar')
@@ -65,6 +64,20 @@ console.log(formData,'formData')
         if(location.state.orderId != undefined){
           const response = await axios.get(`${base_url}/api/questionnaire/update/${location.state.orderId}`, ConfigToken());
           setFetchQ3Answers(response.data.data)
+          const question14Answer = response.data.data.find(
+            (answer) => answer.question_id === 14
+          )?.answer;
+  
+          if (question14Answer && typeof question14Answer === "object") {
+            setSliderValues((prev) => ({
+              ...prev,
+              ...question14Answer, 
+            }));
+          }
+          setFormData((prev)=>({
+            ...prev,
+            [14]:question14Answer
+          }))
         }
       } catch (error) {
         console.error("Error fetching questions:", error);
@@ -115,7 +128,7 @@ console.log(formData,'formData')
   const validateFields = () => {
     // Filter required questions that are either unanswered or contain invalid values
     const unansweredRequiredQuestions = questions.filter((q) => {
-      console.log(formData[q.id])
+      console.log(formData[q.id],q.id)
       return (
         q.required && // Check if the question is marked as required
         (!formData?.[q.id] || (typeof formData[q.id] === "string" && formData?.[q.id].trim() === "")) // Check if there's no answer or only whitespace
@@ -153,7 +166,7 @@ console.log(formData,'formData')
       behavior: 'smooth',
     });
   }
-  console.log(location.state?.orderId,'orderid')
+  
 
   const onSaveLaterClick = async () => {
     if (!validateFields()) {

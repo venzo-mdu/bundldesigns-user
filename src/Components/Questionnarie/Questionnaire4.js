@@ -82,13 +82,58 @@ export const Questionnaire4 = ({formData,setFormData,changeLang,setChangeLang}) 
         if(location.state.orderId != undefined){
         const response = await axios.get(`${base_url}/api/questionnaire/update/${location.state.orderId}`, ConfigToken());
         setFetchQ4Answers(response.data.data)
+        const answers = response.data.data;
+      
+      answers.forEach((item) => {
+        const { question_id, answer, answer_type } = item;
+
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          [question_id]: answer,
+        }));
+
+        switch (question_id) {
+          case 17: // Font selection
+            setActiveButtons(answer); // Assuming the answer for question 17 is an array or string
+            break;
+
+          case 18: // Shade (color)
+            const bgcolor = {
+              'rgb(9, 50, 108)': 'rgb(255, 98, 10)',
+              'rgb(228, 222, 216)': 'rgb(0, 0, 0)',
+              'rgb(255, 45, 45)': 'rgb(221, 124, 124)',
+              'rgb(255, 124, 124)': 'rgb(200, 100, 100)', // Add mappings as needed
+            };
+            setShadeBackgroundColor(answer); // Set the main background color
+            setshadeColor(bgcolor[answer] || 'rgb(228, 222, 216)'); // Set a mapped or default color
+            break;
+
+          case 19: // Colors (array of hex values)
+            if (Array.isArray(answer)) {
+              setSelectedColors(answer); // Update selected colors
+            }
+            break;
+
+          case 20: // Textures (array of strings)
+            if (Array.isArray(answer)) {
+              setFormData((prevFormData) => ({
+                ...prevFormData,
+                [question_id]: answer, // Set the answer directly in formData
+              })); // Assume a `setSelectedTextures` state handler
+            }
+            break;
+
+          default:
+            console.warn(`Unhandled question_id: ${question_id}`);
+            break;
+        }
+      });
         }
       } catch (error) {
         console.error("Error fetching questions:", error);
       }
     }
     setFormData(currentAnswer)
-    console.log(Object.values(currentAnswer),'swwwewe')
     if(Object.values(currentAnswer).length){
       setActiveButtons(currentAnswer[17])
       let currentColor = currentAnswer[18]
@@ -100,7 +145,6 @@ export const Questionnaire4 = ({formData,setFormData,changeLang,setChangeLang}) 
         'rgb(228, 222, 216)':'rgb(0, 0, 0)',
         'rgb(255, 45, 45)':'rgb(221, 124, 124)'
       }
-      console.log(currentColor)
       setShadeBackgroundColor(currentColor === undefined ? 'rgb(228, 222, 216)':currentColor);
       setshadeColor(bgcolor[currentColor]);
       setSelectedColors(currentAnswer[19])
@@ -141,31 +185,42 @@ export const Questionnaire4 = ({formData,setFormData,changeLang,setChangeLang}) 
           }
     });
   };
-
   const validateFields = () => {
     // Filter required questions that are either unanswered or contain invalid data
     const unansweredRequiredQuestions = questions.filter((q) => {
       const answer = formData?.[q.id];
+      console.log(formData[q?.id],q.id)
       if (!q.required) {
         return false;
       }
 
-      return !answer || answer.toString().trim() === "";
+      // return !answer || answer.toString().trim() === "";
+      if (
+        answer === undefined || 
+        answer === null || 
+        (typeof answer === "string" && answer.trim() === "") || 
+        (Array.isArray(answer) && answer.length === 0) || 
+        (typeof answer === "object" && !Array.isArray(answer) && Object.keys(answer).length === 0) 
+      ) {
+        return true;
+      }
+  
+      return false; // Valid answer
     });
 
 
-    if (unansweredRequiredQuestions.length > 0) {
+    if (unansweredRequiredQuestions?.length > 0) {
       console.log(unansweredRequiredQuestions,questions)
       const element = document.getElementById(`question_${unansweredRequiredQuestions[0]?.id}`);
       setIsFilled(unansweredRequiredQuestions[0]?.id)
       if (element) {
         element.scrollIntoView({ behavior: "smooth"});
       }
-      showToastMessage(); // Display the error toast
+      showToastMessage(); 
       return false;
     }
 
-    return true; // All required fields are valid
+    return true; 
   };
 
 
@@ -274,6 +329,7 @@ export const Questionnaire4 = ({formData,setFormData,changeLang,setChangeLang}) 
     );
   };
 
+  
   const handleShadeButtonClick = (color, textColor, type, questionId) => {
     setShadeBackgroundColor(color);
     setshadeColor(textColor);
@@ -454,7 +510,7 @@ const onBackClick = () => {
                           </div>
                           <div className='button-shade-group'>
                             <img src={Color3}></img>
-                            <button className={shadeBackgroundColor === 'rgb(255, 45, 45)' && shadeType !== 'surprise' ? 'shade-btn-active' : 'shade-btn'} onClick={() => handleShadeButtonClick('rgb(255, 124, 124)','rgb(221, 45, 45)' ,'', question.id)}>ONE COLOR SHADES</button>
+                            <button className={shadeBackgroundColor === 'rgb(255, 124, 124)' && shadeType !== 'surprise' ? 'shade-btn-active' : 'shade-btn'} onClick={() => handleShadeButtonClick('rgb(255, 124, 124)','rgb(221, 45, 45)' ,'', question.id)}>ONE COLOR SHADES</button>
                           </div>
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
@@ -764,7 +820,7 @@ const onBackClick = () => {
                       <input
                         type="text"
                         placeholder='Links'
-                        // value={getAnswerValue(question.id)}
+                        value={getAnswerValue(question.id)}
                         onChange={(e) => handleChange(question.id, e.target.value)}
                         style={{
                           padding: '8px',
