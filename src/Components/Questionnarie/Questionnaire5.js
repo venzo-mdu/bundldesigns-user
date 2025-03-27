@@ -10,7 +10,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import Blackupload from '../../Images/Questionnaire/upload.svg'
 
 
-export const Questionnaire5 = ({formData,setFormData}) => {
+export const Questionnaire5 = ({formData,setFormData,changeLang,setChangeLang}) => {
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -222,6 +222,8 @@ console.log(location.state?.orderId,'orderid')
       <ToastContainer />
       <Questionnaire
         pageNo={5}
+        Qlang={changeLang}
+        setQLang={setChangeLang}
         storeAnswers={answers4}
         orderId={location.state?.orderId}
         onBackClick={onBackClick}

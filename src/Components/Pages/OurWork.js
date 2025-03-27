@@ -84,7 +84,7 @@ export default function OurWork({lang,setLang}) {
         <div
           id="description"
           className="!text-[#00000080] lg:w-[70%] md:w-[70%] xs:w-[100%] text-[16px]"
-          dangerouslySetInnerHTML={{ __html: project.description_english }}
+          dangerouslySetInnerHTML={{ __html:lang === 'ar' ? project?.description_arabic : project.description_english }}
         />
         <a  target='_blank' href={`${project.instagram? project.instagram:'https://www.instagram.com/bundl_designs'}`} className="lg:w-[70%] xl:w-[60%] md:w-[80%] text-[16px] px-2 block text-center mt-4 bg-black py-2 text-white uppercase">
          {lang === 'ar' ?'اتبع إنستاغارم لدينا':'Follow Our Instagram'} 

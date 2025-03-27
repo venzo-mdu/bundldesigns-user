@@ -33,7 +33,9 @@ export const Questionnaire = ({
   storeAnswers,
   formData,
   setFormData,
-  orderId
+  orderId,
+  Qlang,
+  setQLang
 }) => {
 
   const navigate = useNavigate();
@@ -42,7 +44,7 @@ export const Questionnaire = ({
   const bgColors = ['#F3B7CE', '#1BA56F', '#00A8C8', '#F3B7CE']
   return (
     <div>
-      <Navbar />
+      <Navbar isLang={Qlang} setIsLang={setQLang}/>
       <div style={window.innerWidth <= 441 ?{  padding: '1% 2%' }:{padding: '1% 5%'}}>
         <div style={{ padding: '2% 0%', borderBottom: '9px solid #000000' }}>
           <div >

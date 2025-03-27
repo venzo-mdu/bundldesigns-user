@@ -10,7 +10,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ConfigToken } from '../Auth/ConfigToken'
 
-export const Questionnaire1 = ({formData,setFormData}) => {
+export const Questionnaire1 = ({formData,setFormData,changeLang,setChangeLang}) => {
 
   const location = useLocation();
   const [questions, setQuestions] = useState([]);
@@ -253,9 +253,11 @@ console.log(formData,'formdata')
     <div>
       <ToastContainer />
       <Questionnaire
+        Qlang={changeLang}
+        setQLang={setChangeLang}
         pageNo={1}
         storeAnswers={location.state?.questionnaireData1}
-        orderId={location.state?.orderId}
+        orderId={location.state?.orderId} 
         bgTitle={'About your business'}
         formData={formData}
         setFormData={setFormData}

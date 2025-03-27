@@ -427,21 +427,21 @@ export const Home = ({lang,setLang}) => {
                                                                         {token ? (
                                                                             <>
                                                                                 <li className='relative p-1 inner-nav-li'>
-                                                                                    <a href="/dashboard" className='!text-black' previewlistener="true">Projects</a>
+                                                                                    <a href="/dashboard" className='!text-black' previewlistener="true">{lang === 'ar' ?'مشاريعنا':'Projects'}</a>
                                                                                 </li>
                                                                                 <li className='relative p-1 inner-nav-li'>
-                                                                                    <a href="/purchase-history" className='!text-black' previewlistener="true">History</a>
+                                                                                    <a href="/purchase-history" className='!text-black' previewlistener="true">{lang === 'ar' ?'سابقة طلبات ':'History'}</a>
                                                                                 </li>
                                                                                 <li className='relative p-1 inner-nav-li'>
-                                                                                    <a href="/profile" className='!text-black' previewlistener="true">Profile</a>
+                                                                                    <a href="/profile" className='!text-black' previewlistener="true">{lang === 'ar' ? 'حسابك' :'Profile'}</a>
                                                                                 </li>
                                                                                 <li className='relative p-1 inner-nav-li'>
-                                                                                    <a className='cursor-pointer !text-black' onClick={() => { Logout() }} previewlistener="true">Logout</a>
+                                                                                    <a className='cursor-pointer !text-black' onClick={() => { Logout() }} previewlistener="true">{lang === 'ar' ? 'خروج تسجيل ':'Logout'}</a>
                                                                                 </li>
                                                                             </>
                                                                         ) : (
                                                                             <li className='relative p-1 inner-nav-li'>
-                                                                                <a href="/login" className='!text-black' previewlistener="true">Login</a>
+                                                                                <a href="/login" className='!text-black' previewlistener="true">{lang === 'ar' ?'تسجيل الدخول':'Login'}</a>
                                                                             </li>
                                                                         )}
                                                                     </ul>
@@ -453,7 +453,7 @@ export const Home = ({lang,setLang}) => {
                                                         <a className="" href="/mycart?direct=true"><img src={Cart} alt="" className="navIcons"></img></a>
                                                     </li>
                                                     <li className='px-[6px]'>
-                                                        <a className="cursor-pointer" onClick={()=>changeLanguage(lang == 'ar' ? 'En' :'ar')}><img src={Language} alt="" className="navIcons"></img></a>
+                                                        <a className="cursor-pointer" onClick={()=>changeLanguage(lang == 'ar' ? 'En' :'ar')}>{lang === 'ar' ?<p className='mb-0 font-[700] text-[32px] text-black'>En</p>:<img src={Language} alt="" className="navIcons"></img>}</a>
                                                     </li>
                                                     <li className="nav-item xs:!block sm:!hidden  inner-nav text-center !hidden menu mr-auto">
                                                         <button onClick={toggleMenu} type="button" id="menu-toggle">
@@ -510,41 +510,41 @@ export const Home = ({lang,setLang}) => {
                                 <div className="scroller bg-grey">
                                     <ul className="tag-list h-[46px] scroller__inner">
                                         <img src={CarMarquee} className="slidee  w-[54px]"></img>
-                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">BRAND identity</span>
+                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">{lang === 'ar' ?'بصرية هوية':'BRAND identity'}</span>
                                         <img src={LemonMarquee} alt="" className="img-fluid w-[41px] slidee"></img>
-                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">web design</span>
+                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">{lang === 'ar' ? 'الكترونية متاجر':'web design'}</span>
                                         <img src={MouthMarquee} alt="" className="img-fluid w-[30px] slidee"></img>
-                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">graphic design</span>
+                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">{lang === 'ar' ?'جرافيكي تصميم':'graphic design'}</span>
                                         <img src={RocketMarquee} alt="" className="img-fluid w-[70px] slidee"></img>
-                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">BRAND identity</span>
+                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">{lang === 'ar' ?'بصرية هوية':'BRAND identity'}</span>
                                         <img src={EyeMarquee} alt="" className="img-fluid w-[47px] slidee"></img>
-                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">web design</span>
+                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">{lang === 'ar' ? 'الكترونية متاجر':'web design'}</span>
                                         <img src={PaintMarquee} alt="" className="img-fluid w-[56px] slidee"></img>
-                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">graphic design</span>
+                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">{lang === 'ar' ?'جرافيكي تصميم':'graphic design'}</span>
                                         <img src={CarMarquee} className="img-fluid w-[54px] slidee"></img>
-                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">BRAND identity</span>
+                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">{lang === 'ar' ?'بصرية هوية':'BRAND identity'}</span>
                                         <img src={LemonMarquee} alt="" className="img-fluid w-[41px] slidee"></img>
-                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">web design</span>
+                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">{lang === 'ar' ? 'الكترونية متاجر':'web design'}</span>
                                         <img src={MouthMarquee} alt="" className="img-fluid w-[30px] slidee"></img>
-                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">graphic design</span>
+                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">{lang === 'ar' ?'جرافيكي تصميم':'graphic design'}</span>
                                         <img src={RocketMarquee} alt="" className="img-fluid w-[70px] slidee"></img>
-                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">BRAND identity</span>
+                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">{lang === 'ar' ?'بصرية هوية':'BRAND identity'}</span>
                                         <img src={EyeMarquee} alt="" className="img-fluid w-[47px] slidee"></img>
-                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">web design</span>
+                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">{lang === 'ar' ? 'الكترونية متاجر':'web design'}</span>
                                         <img src={PaintMarquee} alt="" className="img-fluid w-[56px] slidee"></img>
-                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">graphic design</span>
+                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">{lang === 'ar' ?'جرافيكي تصميم':'graphic design'}</span>
                                         <img src={RocketMarquee} alt="" className="img-fluid w-[70px] slidee"></img>
-                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">BRAND identity</span>
+                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">{lang === 'ar' ?'بصرية هوية':'BRAND identity'}</span>
                                         <img src={LemonMarquee} alt="" className="img-fluid w-[41px] slidee"></img>
-                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">web design</span>
+                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">{lang === 'ar' ? 'الكترونية متاجر':'web design'}</span>
                                         <img src={MouthMarquee} alt="" className="img-fluid w-[30px] slidee"></img>
-                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">graphic design</span>
+                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">{lang === 'ar' ?'جرافيكي تصميم':'graphic design'}</span>
                                         <img src={RocketMarquee} alt="" className="img-fluid w-[70px] slidee"></img>
-                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">BRAND identity</span>
+                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">{lang === 'ar' ?'بصرية هوية':'BRAND identity'}</span>
                                         <img src={EyeMarquee} alt="" className="img-fluid w-[47px] slidee"></img>
-                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">web design</span>
+                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">{lang === 'ar' ? 'الكترونية متاجر':'web design'}</span>
                                         <img src={PaintMarquee} alt="" className="img-fluid w-[56px] slidee"></img>
-                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">graphic design</span>
+                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">{lang === 'ar' ?'جرافيكي تصميم':'graphic design'}</span>
 
                                     </ul>
                                 </div>
@@ -558,17 +558,18 @@ export const Home = ({lang,setLang}) => {
                                         <div className="px-2">
 
                                         </div>
-                                        <h1 className='!text-black sm:px-[9%] xs:px-[11%]  lg:px-[10%] !w-[100%] xs:!text-[26px] sm:!text-[58px] !text-[58px]'><span>هوية بصرية تصميم جرافيكي متاجر
-                    الكترونية​ Elevating</span> brands & shaping legacies, one <span>extraordinary design</span> at a <i>time.</i></h1>
+                                        {/* <h1 className='!text-black sm:px-[9%] xs:px-[11%]  lg:px-[10%] !w-[100%] xs:!text-[26px] sm:!text-[58px] !text-[58px]'><span>هوية بصرية تصميم جرافيكي متاجر
+                    الكترونية​ Elevating</span> brands & shaping legacies, one <span>extraordinary design</span> at a <i>time.</i></h1> */}
+                      <h1 className='!text-black sm:px-[9%] xs:px-[11%]  lg:px-[10%] !w-[100%] xs:!text-[26px] sm:!text-[58px] !text-[58px]'><span>Elevating</span> brands & shaping legacies, one <span>extraordinary design</span> at a <i>time.</i></h1>
                                         <div className="button-container scroller">
                                             <ul className="scroll-button h-[46px] scroller__inner_btn">
-                                                <li><span><a className='text-black' href='#ourBundl'>Shop our Bundls</a></span></li>
+                                                <li><span><a className='text-black' href='#ourBundl'>{lang === 'ar' ?'باقاتنا تصفح':'Shop our Bundls'}</a></span></li>
                                                 <li><span><img src={MagicIcon} alt="" className="img-fluid !mt-[25%] !ml-[10%] !w-[30px]"></img></span></li>
-                                                <li><span><a className='text-black' href='#ourBundl'>Shop our Bundls</a></span></li>
+                                                <li><span><a className='text-black' href='#ourBundl'>{lang === 'ar' ?'باقاتنا تصفح':'Shop our Bundls'}</a></span></li>
                                                 <li><span><img src={MagicIcon} alt="" className="img-fluid !mt-[25%] !ml-[10%] !w-[30px]"></img></span></li>
-                                                <li><span><a className='text-black' href='#ourBundl'>Shop our Bundls</a></span></li>
+                                                <li><span><a className='text-black' href='#ourBundl'>{lang === 'ar' ?'باقاتنا تصفح':'Shop our Bundls'}</a></span></li>
                                                 <li><span><img src={MagicIcon} alt="" className="img-fluid !mt-[25%] !ml-[10%] !w-[30px]"></img></span></li>
-                                                <li><span><a className='text-black' href='#ourBundl'>Shop our Bundls</a></span></li>
+                                                <li><span><a className='text-black' href='#ourBundl'>{lang === 'ar' ?'باقاتنا تصفح':'Shop our Bundls'}</a></span></li>
                                             </ul>
                                             <div className="hover-animation btn-blank-hover">
                                                 <span className="blue"></span>
@@ -1242,7 +1243,7 @@ export const Home = ({lang,setLang}) => {
                                 <div className="section-head">
                                     <div className="row justify-content-center">
                                         <div className="col-md-7">
-                                            <h2 className="sub-headeing text-black text-center">Our Work</h2>
+                                            <h2 className="sub-headeing text-black text-center">{lang === 'ar' ?'أعمالنا':'Our Work'}</h2>
                                             {/* <p className="f-20 text-center">We, at Bundl, understand the design complexities that can trip up even the most seasoned brand. That's why we cut through the clutter and empower a smooth, collaborative journey for our clients.</p> */}
                                         </div>
                                     </div>
@@ -1303,7 +1304,7 @@ export const Home = ({lang,setLang}) => {
                                             </div>
                                         </div>
                                         <div className="social-cta text-center">
-                                            <a target='_blank' href={`${mediaUrls.instagram}`} className="btn bundl-btn-border text-upper mt-5">Follow us on instagram</a>
+                                            <a target='_blank' href={`${mediaUrls.instagram}`} className="btn bundl-btn-border text-upper mt-5">{lang === 'ar' ? 'اتبع إنستاغارم لدينا' :'Follow us on instagram'}</a>
                                         </div>
                                     </div>
                                 </div>
@@ -1367,8 +1368,8 @@ export const Home = ({lang,setLang}) => {
                         <section className="container-fluid section">
                             <div className="container">
                                 <div className="quetions-container">
-                                    <h2 className="sub-headeing text-upper text-black text-center mb-3">HAVE A QUESTION OR IDEA ?</h2>
-                                    <h4 className="h3 text-upper !text-black text-center mb-4">let’s discuss</h4>
+                                    <h2 className="sub-headeing text-upper text-black text-center mb-3">{lang === 'ar' ? 'فكره أو سؤال عندك ':'HAVE A QUESTION OR IDEA ?'}</h2>
+                                    <h4 className="h3 text-upper !text-black text-center mb-4">{lang === 'ar' ?'معنا تواصل':'let’s discuss'}</h4>
                                 </div>
                                 <div className="social-link  align-items-center">
                                     <ul className="d-flex justify-content-center">

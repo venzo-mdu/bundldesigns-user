@@ -2038,7 +2038,11 @@ color: var(--white-color);
 padding-left: 1rem;
 list-style-type: disc;
 }
-
+body[dir="rtl"] .second_brand_list {
+  padding-right: 1rem;
+  padding-left: 0rem;
+  list-style-type: disc;
+  }
 .second_brand_list>li {
 color: var(--black-color);
 font-size: 15px;

@@ -24,7 +24,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { ConfigToken } from '../Auth/ConfigToken';
 import { ToastContainer, toast } from 'react-toastify';
 
-export const Questionnaire4 = ({formData,setFormData}) => {
+export const Questionnaire4 = ({formData,setFormData,changeLang,setChangeLang}) => {
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -405,6 +405,8 @@ const onBackClick = () => {
       <ToastContainer />
       <Questionnaire
         pageNo={4}
+        Qlang={changeLang}
+        setQLang={setChangeLang}
         storeAnswers={answers}
         orderId={location.state?.orderId}
         onBackClick={onBackClick}

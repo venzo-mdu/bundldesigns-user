@@ -24,7 +24,7 @@ import { questionnaireAction2 } from '../../Redux/Action';
 import { ConfigToken } from '../Auth/ConfigToken';
 
 
-export const Questionnaire2 = ({formData,setFormData}) => {
+export const Questionnaire2 = ({formData,setFormData,changeLang,setChangeLang}) => {
  
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -325,6 +325,8 @@ console.log(location.state?.orderId,'orderid')
       <ToastContainer />
       <Questionnaire
         pageNo={2}
+        Qlang={changeLang}
+        setQLang={setChangeLang}
         orderId={location.state?.orderId}
         onBackClick={onBackClick}
         onNextClick={onNextClick}

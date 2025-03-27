@@ -278,7 +278,7 @@ export const Navbar = ({isLang,setIsLang}) => {
                     </div>
                     <div className="col-7 relative col-md-8  col-lg-3 text-end ">
                       <div className={`navbar navbar-expand-lg ${(isLang !== 'ar') && 'float-right'}`}>
-                        <ul className="sm:mt-[5vh] xs:mt-0 mr-auto h-list align-items-center ">
+                        <ul className={`${isLang === 'ar' ? 'sm:mt-[3vh]':'sm:mt-[4vh]'} xs:mt-0 mr-auto h-list align-items-center `}>
                           <li className='px-[7px]'>
                             <a className="w-[26px] cursor-pointer"  onClick={()=>{setSearchShow(!searchShow);setProfileVisible(false)}}><img src={Search} alt="" className="navIcons"></img></a>
                             <div className='absolute' ref={searchRef}>
@@ -296,21 +296,21 @@ export const Navbar = ({isLang,setIsLang}) => {
           {token ? (
             <>
               <li className='relative p-1 inner-nav-li'>
-                <a href="/dashboard" className='!text-black' previewlistener="true">Projects</a>
+                <a href="/dashboard" className='!text-black' previewlistener="true">{isLang === 'ar' ?'مشاريعنا':'Projects'}</a>
               </li>
               <li className='relative p-1 inner-nav-li'>
-                <a href="/purchase-history" className='!text-black' previewlistener="true">History</a>
+                <a href="/purchase-history" className='!text-black' previewlistener="true">{isLang === 'ar' ?'سابقة طلبات ':'History'}</a>
               </li>
               <li className='relative p-1 inner-nav-li'>
-                <a href="/profile" className='!text-black' previewlistener="true">Profile</a>
+                <a href="/profile" className='!text-black' previewlistener="true">{isLang === 'ar' ? 'حسابك' :'Profile'}</a>
               </li>
               <li className='relative p-1 inner-nav-li'>
-                <a className='cursor-pointer !text-black' onClick={() => { Logout() }} previewlistener="true">Logout</a>
+                <a className='cursor-pointer !text-black' onClick={() => { Logout() }} previewlistener="true">{isLang === 'ar' ? 'خروج تسجيل ':'Logout'}</a>
               </li>
             </>
           ) : (
             <li className='relative p-1 inner-nav-li'>
-              <a href="/login" className='!text-black' previewlistener="true">Login</a>
+              <a href="/login" className='!text-black' previewlistener="true">{isLang === 'ar' ?'تسجيل الدخول':'Login'}</a>
             </li>
           )}
         </ul>
@@ -322,7 +322,7 @@ export const Navbar = ({isLang,setIsLang}) => {
                             <a className="w-[26px]" href="/mycart?direct=true"><img src={Cart} alt="" className="navIcons"></img></a>
                           </li>
                           <li className='px-[7px]'>
-                            <a className="w-[26px] cursor-pointer" onClick={()=>changeLanguage(isLang == 'ar' ? 'En' :'ar')}><img src={Language} alt="" className="navIcons"></img></a>
+                            <a className="w-[26px] cursor-pointer" onClick={()=>changeLanguage(isLang == 'ar' ? 'En' :'ar')}>{isLang === 'ar' ?<p className='mb-0 font-[700] text-[32px] text-black'>En</p>:<img src={Language} alt="" className="navIcons"></img>}</a>
                           </li>
                           <li className="nav-item xs:!block sm:!hidden  inner-nav text-center !hidden menu mr-auto">
                             <button onClick={toggleMenu} type="button" id="menu-toggle">

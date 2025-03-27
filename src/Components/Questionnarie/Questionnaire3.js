@@ -8,7 +8,7 @@ import { questionnaireAction3 } from '../../Redux/Action';
 import { ConfigToken } from "../Auth/ConfigToken"
 import { ToastContainer, toast } from 'react-toastify';
 
-export const Questionnaire3 = ({formData,setFormData}) => {
+export const Questionnaire3 = ({formData,setFormData,changeLang,setChangeLang}) => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -185,6 +185,8 @@ console.log(formData,'formData')
       <ToastContainer />
       <Questionnaire
         pageNo={3}
+        Qlang={changeLang}
+        setQLang={setChangeLang}
         storeAnswers={answers}
         orderId={location.state?.orderId}
         onBackClick={onBackClick}
