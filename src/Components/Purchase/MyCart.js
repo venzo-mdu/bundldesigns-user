@@ -803,11 +803,11 @@ export const MyCart = ({lang,setLang}) => {
                 </div>
 
                 <div className='billing'>
-                    <p>Billing Address</p>
+                    <p>{lang === 'ar' ?'عنوان الفواتير' :'Billing Address'}</p>
                     <form onSubmit={handlePayment} noValidate>
             <div className="user-name mb-[15px]">
-                <div className='mr-[4%]'>
-                    <label className={`${'firstName' in error ? 'text-[red]':'opacity-50'}`}>First Name <span className='text-[red]'>*</span></label>
+                <div className={`${lang === 'ar' ? 'ml-[4%]' :'mr-[4%]'}`}>
+                    <label className={`${'firstName' in error ? 'text-[red]':'opacity-50'}`}>{lang === 'ar' ? 'الاسم الأول':'First Name'} <span className='text-[red]'>*</span></label>
                     <input 
                         name="firstName" 
                         value={billingInfo.firstName} 
@@ -815,8 +815,8 @@ export const MyCart = ({lang,setLang}) => {
                         className={`rounded-none ${'firstName' in error ? '!border-[red]' :''}`}
                     />
                 </div>
-                <div className='ml-[4%]' style={{ margin: '0% 0 0 2%' }}>
-                    <label  className={`${'lastName' in error ? 'text-[red]':'opacity-50'}`}>Last Name <span className='text-[red]'>*</span></label>
+                <div className={`${lang === 'ar' ?'mr-[4%]':'ml-[4%]'}`} style={lang === 'ar'?{ margin: '0% 2% 0 0%' }:{ margin: '0% 0 0 2%' }}>
+                    <label  className={`${'lastName' in error ? 'text-[red]':'opacity-50'}`}>{lang === 'ar' ? 'اسم العائلة' :'Last Name'} <span className='text-[red]'>*</span></label>
                     <input 
                         name="lastName" 
                         value={billingInfo.lastName} 
@@ -826,7 +826,7 @@ export const MyCart = ({lang,setLang}) => {
                 </div>
             </div>
             <div className="email mb-[15px]">
-                <label  className={`${'email' in error ? 'text-[red]':'opacity-50'}`}>Email <span className='text-[red]'>*</span></label>
+                <label  className={`${'email' in error ? 'text-[red]':'opacity-50'}`}>{lang === 'ar' ?'البريد الإلكتروني' :'Email'} <span className='text-[red]'>*</span></label>
                 <input 
 
                     name="email" 
@@ -836,10 +836,10 @@ export const MyCart = ({lang,setLang}) => {
                 />
             </div>
             <div className="phonenumber mb-[15px]">
-                <label className={`${'phone' in error ? 'text-[red]':'opacity-50'}`}>Phone Number <span className='text-[red]'>*</span></label>
+                <label className={`${'phone' in error ? 'text-[red]':'opacity-50'}`}>{lang === 'ar'?'رقم الهاتف':'Phone Number'} <span className='text-[red]'>*</span></label>
                 <PhoneNumberInput
         name="phone"
-        placeholder="Enter phone number"
+        placeholder={lang === 'ar'?'رقم الهاتف':'Enter Phone Number'}
         value={billingInfo.phone}
         status={setBillingInfo}
         extraInputClass={`${'phone' in error ? '!border-[red]':'!border-[#000000]'} text-[18px]`}
@@ -851,8 +851,8 @@ export const MyCart = ({lang,setLang}) => {
       />
             </div>
             <div className="country mb-[15px]">
-                <div className='mr-[4%]'>
-                    <label className={`${'country' in error ? 'text-[red]':'opacity-50'}`}>Country <span className='text-[red]'>*</span></label>
+            <div className={`${lang === 'ar' ? 'ml-[4%]' :'mr-[4%]'}`}>
+                    <label className={`${'country' in error ? 'text-[red]':'opacity-50'}`}>{lang=== 'ar' ? 'بلد':'Country'} <span className='text-[red]'>*</span></label>
                     <select 
                         name="country" 
                         // id='vacancySelect'
@@ -866,8 +866,8 @@ export const MyCart = ({lang,setLang}) => {
                         ))}
                     </select>
                 </div>
-                <div className='mr-[4%]' style={{ margin: '0% 0 0 2%' }}>
-                    <label className={`${'city' in error ? 'text-[red]':'opacity-50'}`}>City<span className='text-[red]'>*</span></label>
+                <div className={`${lang === 'ar' ? 'ml-[4%]' :'mr-[4%]'}`} style={lang === 'ar' ?{ margin: '0% 2% 0 0%' }:{ margin: '0% 0 0 2%' }}>
+                    <label className={`${'city' in error ? 'text-[red]':'opacity-50'}`}>{lang === 'ar' ? 'مدينة':'City'}<span className='text-[red]'>*</span></label>
                     <input 
                         name="city" 
                         value={billingInfo.city} 
@@ -877,7 +877,7 @@ export const MyCart = ({lang,setLang}) => {
                 </div>
             </div>
             <div className="postal-code mb-[15px]">
-                <label className={`${'postalCode' in error ? 'text-[red]':'opacity-50'}`}>Postal Code<span className='text-[red]'>*</span></label>
+                <label className={`${'postalCode' in error ? 'text-[red]':'opacity-50'}`}>{lang === 'ar' ? 'الرمز البريدي' :'Postal Code'}<span className='text-[red]'>*</span></label>
                 <input 
                     name="postalCode" 
                     value={billingInfo.postalCode} 
@@ -912,7 +912,7 @@ export const MyCart = ({lang,setLang}) => {
                 )
             }
             <div className="promo-code mb-[15px]">
-                <label className={`${'promoCode' in error ? 'text-[red]':'opacity-50'}`}>Promo Code</label>
+                <label className={`${'promoCode' in error ? 'text-[red]':'opacity-50'}`}>{lang === 'ar' ? 'الرمز الترويجي':'Promo Code'}</label>
                 <input 
                     name="promoCode" 
                     value={billingInfo.promoCode} 
@@ -925,7 +925,7 @@ export const MyCart = ({lang,setLang}) => {
                 color={'#FFFFFF'}
                 loading={paymentLoading}
                 size={25}
-            /> : 'Make Payment'}</button>
+            /> : lang === 'ar' ? 'جعل الدفع' : 'Make Payment'}</button>
             <p className='text-[red] !text-[18px] !font-[400] !mt-2'>{Object.values(error).map(item =>{
                 return item
             })}</p>
