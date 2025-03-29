@@ -698,7 +698,7 @@ export const MyCart = ({lang,setLang}) => {
             Your customized package will be reset.
             Are you sure you want to go back?
             </p>
-            <div className="mt-4 flex justify-center space-x-4">
+            <div className="mt-4 flex justify-center gap-3">
               <button
                 onClick={()=>confirmNavigation()}
                 className="px-4 py-2 bg-[#0BA6C4] text-white rounded-none uppercase"
@@ -718,10 +718,10 @@ export const MyCart = ({lang,setLang}) => {
             <div className='mycart '>
 
                 <div className='cart !xs:border-none  sm:!pb-[170px] !pb-[170px] xs:!pb-[20px]'>
-                    <p  className='flex font-[500]  !text-[18px] items-center text-black mt-[2%]'> <img src={backIcon} className='mr-2 w-[30px] cursor-pointer' onClick={()=>handleBackClick()}></img><span className='cursor-pointer' onClick={()=>handleBackClick()}> Back to Bundl</span> </p>          
+                    <p  className='flex font-[500]  !text-[18px] items-center text-black mt-[2%]'> <img src={backIcon} className={`${lang === 'ar' ?'ml-2 scale-x-[-1]':'mr-2'} w-[30px] cursor-pointer`} onClick={()=>handleBackClick()}></img><span className='cursor-pointer' onClick={()=>handleBackClick()}> Back to Bundl</span> </p>          
                     {/* {isDirect == false && <p onClick={()=>handleBackClick()} className='flex font-[500] cursor-pointer !text-[18px] items-center text-black mt-[2%]'> <img src={backIcon} className='mr-2 w-[30px]' onClick={()=>handleBackClick()}></img> Back to Bundl </p>}           */}
-                    <p className='!xs:text-[16px] font-[700] !sm:text-[20px]'>Your Cart</p>
-                    {isMobile ? 
+                    <p className='!xs:text-[16px] font-[700] !sm:text-[20px]'>{lang === 'ar' ? 'عربة التسوق الخاصة بك':'Your Cart'}</p>
+                    {isMobile  ? 
                     <>
                             <div className='flex justify-between border-b pb-2 !border-black'> 
                             <div>
@@ -788,11 +788,11 @@ export const MyCart = ({lang,setLang}) => {
                     :
                     <table className='w-full border-none' aria-label="simple table">
                             <thead>
-                                <tr className='!text-left text-[20px]'>
-                                    <td className= 'text-left w-[20%] text-[#00000080] pb-3' >Item</td>
+                                <tr className={`${lang === 'ar' ? '!text-right' :'!text-left'} text-[20px]`}>
+                                    <td className={ `${lang === 'ar' ? 'text-right':'text-left'} w-[20%] text-[#00000080] pb-3`} >{lang === 'ar' ? 'بند':'Item'}</td>
                                     {/* <td className='text-[#00000080] w-[30%] pb-3'  align="center">Quantity</td> */}
-                                    <td className='text-[#00000080] w-[30%]    pb-3' align="center">Price</td>
-                                    <td className='text-[#00000080] w-[20%]    pb-3'  align="center">Action</td>
+                                    <td className='text-[#00000080] w-[30%]    pb-3' align="center">{lang === 'ar' ?'ثمن' :'Price'}</td>
+                                    <td className='text-[#00000080] w-[20%]    pb-3'  align="center">{lang === 'ar' ? 'فعل' :'Action'}</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -801,7 +801,7 @@ export const MyCart = ({lang,setLang}) => {
                                     <tr
                                         className={`text-[#000] font-[700] text-[20px] border-b border-black mb-2 `}
                                     >
-                                        <td className='text-left !py-2' scope="row">
+                                        <td className={`${lang === 'ar' ? 'text-right':'textleft'} !py-2`} scope="row">
                                         {cartDetails?.bundl_english}
                                         </td>
                                         {/* <td className=' !py-2' align="center">{row.qty}</td> */}
@@ -873,21 +873,21 @@ export const MyCart = ({lang,setLang}) => {
                         
                     <div className='cart-total-container '>
                         <div className='total justify-between sm:pl-10 xs:pl-1 mr-4' style={{ display: 'flex' }}>
-                            <p  className='!text-[20px] xs:mb-0 sm:mb-auto' style={{ width: '50%' }}>Price:</p>
-                            <p  className='!text-[20px] xs:mb-0 sm:mb-auto text-right' style={{ width: '50%' }}>{Math.round(cartDetails.total_amount)} SAR</p>
+                            <p  className='!text-[20px] xs:mb-0 sm:mb-auto' style={{ width: '50%' }}>{lang === 'ar' ? 'ثمن :' :'Price:'}</p>
+                            <p  className='!text-[20px] xs:mb-0 sm:mb-auto text-right' style={{ width: '50%' }}>{Math.round(cartDetails.total_amount)} {lang === 'ar' ? 'ريال' :'SAR'}</p>
                         </div>
                         <div className='total justify-between sm:pl-10 xs:pl-1 mr-4' style={{ display: 'flex' }}>
-                            <p  className='!text-[20px]' style={{ width: '53%' }}>TAX:</p>
-                            <p  className='!text-[20px]  text-right' style={{ width: '40%' }}>{Math.round(cartDetails.tax)} SAR</p>
+                            <p  className='!text-[20px]' style={{ width: '53%' }}>{lang === 'ar' ? 'ضريبه القيمه المضافه:':'TAX:'}</p>
+                            <p  className='!text-[20px]  text-right' style={{ width: '40%' }}>{Math.round(cartDetails.tax)} {lang === 'ar' ? 'ريال' :'SAR'}</p>
                         </div>
                         <div className='border-[2px] border-black p-[2%_0_0_2%]'>
                             <div  className='justify-between font-[700] mr-4'  style={{ display: 'flex'}}>
-                                <p className='!text-[20px] xs:mb-0 sm:mb-auto ml-[6px]' style={{ width: '50%' }}><img src={BlackDollor} className='inline-block ml-[0px] mr-[18px]'></img>Total Price :</p>
-                                <p className='!text-[20px] xs:mb-0 sm:mb-auto text-right' style={{ width: '40%' }}>{isNaN(Math.round(cartDetails.grand_total))?0:Math.round(cartDetails.grand_total)} SAR</p>
+                                <p className='!text-[20px] xs:mb-0 sm:mb-auto ml-[6px]' style={{ width: '50%' }}><img src={BlackDollor} className={`inline-block  ${lang === 'ar' ?'ml-[18px]':'mr-[18px]'}`}></img>{lang === 'ar' ?'السعر الإجمالي :':'Total Price :'}</p>
+                                <p className='!text-[20px] xs:mb-0 sm:mb-auto text-right' style={{ width: '40%' }}>{isNaN(Math.round(cartDetails.grand_total))?0:Math.round(cartDetails.grand_total)} {lang === 'ar' ? 'ريال' :'SAR'} </p>
                             </div>
                             <div  className='justify-between  font-[700] mr-4' style={{ display: 'flex' }}>
-                                <p className='!text-[20px] mb-0' style={{ width: '67%' }}><img src={BlackTime} className='inline-block mr-3'></img>Total Duration :</p>
-                                <p className='!text-[20px]  text-right ' style={{ width: '43%' }}>{isNaN(Math.round(cartDetails.total_time))?0 :Math.round(cartDetails.total_time)} Days</p>
+                                <p className='!text-[20px] mb-0' style={{ width: '67%' }}><img src={BlackTime} className={`inline-block ${lang === 'ar' ? 'ml-3 mr-[-5px]':'mr-3'}`}></img>{lang === 'ar' ? 'المدة الإجمالية :':'Total Duration :'}</p> 
+                                <p className='!text-[20px]  text-right ' style={{ width: '43%' }}>{isNaN(Math.round(cartDetails.total_time))?0 :Math.round(cartDetails.total_time)} {lang === 'ar' ?'يوما':'Days'}</p>
                             </div>
                         </div>
                     </div>
