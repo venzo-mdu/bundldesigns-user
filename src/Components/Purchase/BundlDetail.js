@@ -328,8 +328,8 @@ export const BundlDetail = ({user,lang,setLang}) => {
          <div className='xs:px-2 sm:px-auto px-auto' style={{ borderBottom: '1.5px solid #000000', width: '100%' }}>
            <h2 className='sm:text-[40px] text-[40px] xs:text-[32px]'>{packageDetail?.package?.name_english||  ''}</h2>
            <div className='bundl-amount'>
-             <p style={{color:textColor}}  className='flex items-center'><img src={coinIcon} alt="Dollar icon" className="inline-block mr-3" /><span> <span className='mr-0 font-[400]'>{packageID=='newbie' && 'Starting from'}</span> { packageID=='newbie' ? '4880' : Math.round(packageDetail?.package?.price) || "3750 SAR"} {lang === 'ar' ? 'ريال' :'SAR'}</span></p>
-             <p style={{color:textColor}}  className='items-center flex'><AccessTimeIcon className='mr-1'/><span> {packageDetail?.package?.time || "30 Days"} {lang === 'ar' ?'يوما':'Days'}</span></p>
+             <p style={{color:textColor}}  className='flex items-center'><img src={coinIcon} alt="Dollar icon" className={`inline-block ${lang === 'ar' ? 'ml-3' :'mr-3'}`} /><span> <span className='mr-0 font-[400]'>{packageID=='newbie' && 'Starting from'}</span> { packageID=='newbie' ? '4880' : Math.round(packageDetail?.package?.price) || "3750 SAR"} {lang === 'ar' ? 'ريال' :'SAR'}</span></p>
+             <p style={{color:textColor}}  className='items-center flex'><AccessTimeIcon className={`${lang === 'ar' ? 'ml-1' :'mr-1'}`}/><span> {packageDetail?.package?.time || "30 Days"} {lang === 'ar' ?'يوما':'Days'}</span></p>
            </div>
            <p className='bundl-desc-title text-[20px] sm:text-[20px] xs:text-[16px] w-full sm:w-full xs:w-[350px] mx-auto'>Outcomes to Brand Identity + Add-ons.</p>
            <p className='bundl-desc'>{packageDetail?.package?.description_english || ''}</p>
@@ -338,7 +338,7 @@ export const BundlDetail = ({user,lang,setLang}) => {
  
          <div className='bundl-section'>
            <div className='brand-details lg:!pt-16 md:!pt-[16] xs:!pt-8'>
-             <p style={window.innerWidth <= 441 ? lang === 'ar' ? { fontSize: '20px', fontWeight: '700',lineHeight:'1.2',textAlign:'right' } : { fontSize: '20px', fontWeight: '700',lineHeight:'1.2' } : { textAlign: lang === 'ar' ? 'right' : 'left', fontSize: '32px', fontWeight: '700' }}>What is the name of your brand?</p>
+             <p style={window.innerWidth <= 441 ? lang === 'ar' ? { fontSize: '20px', fontWeight: '700',lineHeight:'1.2',textAlign:'right' } : { fontSize: '20px', fontWeight: '700',lineHeight:'1.2' } : { textAlign: lang === 'ar' ? 'right' : 'left', fontSize: '32px', fontWeight: '700' }}>{lang === 'ar' ? 'ما هو اسم علامتك التجارية؟' :'What is the name of your brand?'}</p>
              <input id='brandInput'  className={`brand-input rounded-none ${brandError && '!border-[red] rounded-none'}`} value={brandInput} onChange={(e) => {setBrandInput(e.target.value)
            
               setBrandError(false)}} />
@@ -436,7 +436,7 @@ export const BundlDetail = ({user,lang,setLang}) => {
                  </div>
                })}
              </div>
-             <Accordian textColor={textColor} extraQty={extraQty} accordianTitle={'Something feels missing ?'} addOnPayload={setAddonPayLoads} bundlePackageId={routeId[packageID]} isLang={lang}/>
+             <Accordian textColor={textColor} extraQty={extraQty} accordianTitle={lang === 'ar' ? 'عداد المفقودين؟':'Something feels missing ?'} addOnPayload={setAddonPayLoads} bundlePackageId={routeId[packageID]} isLang={lang}/>
            </div>
            {/* // border-black */}
            <div 
@@ -446,8 +446,8 @@ export const BundlDetail = ({user,lang,setLang}) => {
           }}
            className='bundl-summary  border max-h-[80%] w-full xs:overflow-y-auto lg:overflow-hidden md:overflow-hidden' >
              <div className='bundl-name '>
-               <p className='sm:text-[24px] xs:mb-0 xs:flex xs:justify-between sm:block font-[700] px-0 !mb-2'  >
-               <span className='font-normal'>Summary</span>
+               <p className={`sm:text-[24px] xs:mb-0 xs:flex xs:justify-between sm:block font-[700] px-0 !mb-2 ${lang === 'ar' ? 'text-right':'text-left'}`}>
+               <span className='font-normal'>{lang === 'ar' ? 'ملخص' :'Summary'}</span>
                {isMobile && <button onClick={()=> setDetails(!showDetails)} style={{color:`${textColor}`}} className='text-[14px] font-normal underline uppercase'>{showDetails ? 'Hide Details':'Show Details'}</button>}
                </p>
              </div>
@@ -597,14 +597,14 @@ export const BundlDetail = ({user,lang,setLang}) => {
              <div className='bundl-checkout sm:mt-3'>
                <div className='total !font-[700]' style={{ display: 'flex' }}>
                  <p className='sm:mb-3 xs:mb-0 flex items-center !xs:text-[16px] !sm:text-[20px]' style={{ width: '60%' }}><img src={BlackDollor} alt="Total Price" className="inline-block !font-[700] sm:ml-1 xs:ml-2" /><span className='sm:ml-3 xs:ml-5 !font-[700]'>{lang === 'ar' ?'السعر الإجمالي :':'Total Price :'}</span></p>
-                 <p className='!font-[700] text-end !xs:text-[16px] !sm:text-[20px] sm:mb-3 xs:mb-0 '  
+                 <p className={`!font-[700] ${lang === 'ar' ? 'text-start':'text-end'} !xs:text-[16px] !sm:text-[20px] sm:mb-3 xs:mb-0`} 
                  style={{ width: '40%' }} >{parseFloat(packageDetail?.package?.price) +
                   addonPayLoads.total_price +
                   (selectedLanguage === 'Both' ? 2000 : 0)} {lang === 'ar' ? 'ريال' :'SAR'}</p>
                </div>
                <div className='total' style={{ display: 'flex' }}>
                  <p className='!xs:text-[16px] flex items-center !sm:text-[20px]' style={{ width: '60%' }}><img src={BlackTime} alt="Total Duration" className="inline-block" /><span className='xs:ml-4 sm:ml-1 ml-1'>{lang === 'ar' ? 'المدة الإجمالية :':'Total Duration :'}</span></p>
-                 <p className='!xs:text-[16px] text-end !sm:text-[20px]'  style={{ width: '40%' }}>{packageDetail?.package?.time + addonPayLoads.total_time} {lang === 'ar' ?'يوما':'Days'}</p>
+                 <p className={`!xs:text-[16px] ${lang === 'ar' ? 'text-start':'text-end'} !sm:text-[20px]`}  style={{ width: '40%' }}>{packageDetail?.package?.time + addonPayLoads.total_time} {lang === 'ar' ?'يوما':'Days'}</p>
                </div>
  
                <div className='flex justify-center items-center'>

@@ -760,12 +760,12 @@ export const Home = ({lang,setLang}) => {
                                     })} style={window.innerWidth <= 475 ? { padding: '5% 0 2% 2%' } : {}}>
                                         <div className="change_brand">
                                             <div className="table_icon"><img src={QubeIcon} alt="" className="img-fluid"></img></div>
-                                            <div className="newbie">The Newbie</div>
-                                            <div className="pkg-sub-title">Just to get started</div>
+                                            <div className="newbie">{lang === 'ar' ? 'النيوبي' : 'The Newbie'}</div>
+                                            <div className="pkg-sub-title">{lang === 'ar' ? 'بداية مثالية للانطلاق':'Just to get started'}</div>
                                         </div>
                                         <div className="second_brand_section">
                                             <div className="box-child">
-                                                <div className="pack-inner-title"><span>Brand Identity</span></div>
+                                                <div className="pack-inner-title"><span>{lang === 'ar' ? 'تصميم االهوية':'Brand Identity'}</span></div>
                                                 <ul className="second_brand_list">
                                                     <li>Brand Concept</li>
                                                     <li>Brand Direction</li>
@@ -780,34 +780,34 @@ export const Home = ({lang,setLang}) => {
                                             <div className="box-child">
                                                 <div className="pack-inner-title"><span>{window.innerWidth <=475 ? 'Choose Your Add-ons' : 'Choose Your Add-ons'}</span></div>
                                                 <ul className="second_brand_list">
-                                                    <li>Branding</li>
-                                                    <li>E-designs</li>
-                                                    <li>Products</li>
-                                                    <li>Publications</li>
-                                                    <li>Social Media</li>
-                                                    <li>Space Design</li>
-                                                    <li>Stationery</li>
+                                                    <li>{lang === 'ar' ? 'التصميمات الإلكترونية' :'Branding'}</li>
+                                                    <li>{lang === 'ar' ? 'القرطاسية' :'E-designs'}</li>
+                                                    <li>{lang === 'ar' ? 'المطبوعات' :'Products'}</li>
+                                                    <li>{lang === 'ar' ? 'المنتجات' :'Publications'}</li>
+                                                    <li>{lang === 'ar' ? 'الهوية البصرية' :'Social Media'}</li>
+                                                    <li>{lang === 'ar' ? 'تصميم مساحات' :'Space Design'}</li>
+                                                    <li>{lang === 'ar' ? 'سوشال ميديا' :'Stationery'}</li>
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="newbie_description">
                                         <div className="third_section_toggle">
-                                            <div className="brand_identity pink-text">Brand Identity + <br />
-                                                Add-Ons To Your Bundl
+                                            <div className="brand_identity pink-text">{lang === 'ar' ? 'تصميم االهوية' : 'Brand Identity'} + <br />
+                                               {lang === 'ar' ? 'إضافات إلى بندل' : 'Add-Ons To Your Bundl'} 
                                             </div>
                                             <div className="change_brand_name">
                                                 <div className="second_section_image"><img src={QubeIcon} alt="" className="img-fluid"></img></div>
-                                                <div className="second_section_text" style={{ paddingTop: "10px" }}>The Newbie</div>
+                                                <div className="second_section_text" style={{ paddingTop: "10px" }}>{lang === 'ar' ? 'النيوبي' : 'The Newbie'}</div>
                                             </div>
                                         </div>
                                         <div className="sar d-flex align-items-center">
                                             {/* <!--<img src="asset/images/money-icon.webp" alt="" className="img-fluid">--> */}
-                                            <span className="sar_text"><span>Starting from</span> 4880 SAR</span>
+                                            <span className="sar_text"><span>{lang === 'ar' ? 'بدءا من' : 'Starting from'}</span> 4880 {lang === 'ar' ? 'ريال' :'SAR'}</span>
                                         </div>
                                         <div className="work_time d-flex align-items-center">
                                             {/* <!--<img src="asset/images/time-icon.webp" alt="" className="ing-fluid">--> */}
-                                            <span className="working_days"><span>Starting from</span> 30 WORKING DAYS</span>
+                                            <span className="working_days"><span>{lang === 'ar' ? 'بدءا من' : 'Starting from'}</span> 30 {lang === 'ar' ? 'أيام عمل':'WORKING DAYS'}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -847,12 +847,12 @@ export const Home = ({lang,setLang}) => {
                                     })}>
                                         <div className="change_brand">
                                             <div className="table_icon"><img src={Food} alt="" className="img-fluid"></img></div>
-                                            <div className="newbie">The Foodie</div>
-                                            <div className="pkg-sub-title xs:!pr-8">For Restaurants and Cafés</div>
+                                            <div className="newbie">{lang === 'ar' ? 'الفودي' :'The Foodie'}</div>
+                                            <div className={`pkg-sub-title ${lang === 'ar' ? 'xs:!pl-8' :'xs:!pr-8'}`}>{lang === 'ar' ? 'للمطاعم والمقاهي ' :'For Restaurants and Cafés'}</div>
                                         </div>
                                         <div className="second_brand_section">
                                             <div className="box-child">
-                                                <div className="pack-inner-title"><span>Brand Identity</span></div>
+                                                <div className="pack-inner-title"><span>{lang === 'ar' ? 'تصميم االهوية' : 'Brand Identity'}</span></div>
                                                 <ul className="second_brand_list">
                                                     <li>Brand Concept</li>
                                                     <li>Brand Direction</li>
@@ -865,46 +865,46 @@ export const Home = ({lang,setLang}) => {
                                                 </ul>
                                             </div>
                                             <div className="box-child">
-                                                <div className="pack-inner-title"><span>{window.innerWidth <=475 ? 'Collateral' : 'F&B Collateral'}</span></div>
+                                                <div className="pack-inner-title"><span>{window.innerWidth <=475 ? lang === 'ar' ? 'تصاميم للمطاعم والمقاهي' : 'Collateral' : lang === 'ar' ? 'تصاميم للمطاعم والمقاهي' : 'F&B Collateral'}</span></div>
                                                 <ul className="second_brand_list">
-                                                    <li>1 Page Price List</li>
-                                                    <li>Bag</li>
-                                                    <li>Box</li>
-                                                    <li>Paper Cup</li>
-                                                    <li>Sticker</li>
-                                                    <li>Wet wipes</li>
-                                                    <li>Wrapping Paper</li>
+                                                    <li>{lang === 'ar' ? 'قائمة الأسعار (للصفحة الواحدة)' : '1 Page Price List'}</li>
+                                                    <li>{lang === 'ar' ? 'كيس' : 'Bag'}</li>
+                                                    <li>{lang === 'ar' ? 'علبة' : 'Box'}</li>
+                                                    <li>{lang === 'ar' ? 'كوب ورقي' : 'Paper Cup'}</li>
+                                                    <li>{lang === 'ar' ? 'ستيكر' : 'Sticker'}</li>
+                                                    <li>{lang === 'ar' ? 'مناديل مبللة' : 'Wet wipes'}</li>
+                                                    <li>{lang === 'ar' ? 'ورق تغليف' : 'Wrapping Paper'}</li>
                                                 </ul>
                                             </div>
                                             <div className="box-child">
-                                                <div className="pack-inner-title"><span>Social Media Starter Kit </span></div>
+                                                <div className="pack-inner-title"><span>{lang === 'ar' ? 'مجموعة السوشال ميديا' : 'Social Media Starter Kit'} </span></div>
                                                 <ul className="second_brand_list">
-                                                    <li>GIF Post</li>
-                                                    <li>4 Highlight Cover</li>
-                                                    <li>Profile Cover</li>
-                                                    <li>3 Static Post</li>
+                                                    <li>{lang === 'ar' ? 'بوست GIF' : 'GIF Post'}</li>
+                                                    <li>{lang === 'ar' ? '4 غلاف هايلايت' : '4 Highlight Cover'}</li>
+                                                    <li>{lang === 'ar' ? 'غلاف سوشال ميديا' : 'Profile Cover'}</li>
+                                                    <li>{lang === 'ar' ? '3 بوست ثابت' : '3 Static Post'}</li>
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="newbie_description">
                                         <div className="third_section_toggle">
-                                            <div className="brand_identity green-text">Brand Identity + <br />
-                                               { window.innerWidth <= 768 ? ' F&B Collateral +':'Food & Beverage Collateral +'} <br />
-                                                Social Media Starter Kit <br />
+                                            <div className="brand_identity green-text">{lang === 'ar' ? 'تصميم االهوية' : 'Brand Identity'} + <br />
+                                               { window.innerWidth <= 768 ? lang === 'ar' ? 'تصاميم للمطاعم والمقاهي' : '  F&B Collateral +': lang === 'ar' ? 'تصاميم للمطاعم والمقاهي' : 'Food & Beverage Collateral +'} <br />
+                                               {lang === 'ar' ? 'مجموعة السوشال ميديا' : 'Social Media Starter Kit '} <br />
                                             </div>
                                             <div className="change_brand_name">
                                                 <div className="second_section_image"><img src={Food} alt="" className="img-fluid"></img></div>
-                                                <div className="second_section_text" style={{ paddingTop: "10px" }}>The Foodie</div>
+                                                <div className="second_section_text" style={{ paddingTop: "10px" }}>{lang === 'ar' ? 'الفودي' :'The Foodie'}</div>
                                             </div>
                                         </div>
                                         <div className="sar d-flex align-items-center">
                                             {/* <!--<img src="asset/images/money-icon.webp" alt="" className="img-fluid">--> */}
-                                            <span className="sar_text">8000 SAR</span>
+                                            <span className="sar_text">8000 {lang === 'ar' ? 'ريال' :'SAR'}</span>
                                         </div>
                                         <div className="work_time d-flex align-items-center">
                                             {/* <!--<img src="asset/images/time-icon.webp" alt="" className="ing-fluid">--> */}
-                                            <span className="working_days">40 WORKING DAYS</span>
+                                            <span className="working_days">40 {lang === 'ar' ? 'أيام عمل':'WORKING DAYS'}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -944,12 +944,12 @@ export const Home = ({lang,setLang}) => {
                                     })}>
                                         <div className="change_brand">
                                             <div className="table_icon"><img src={Eye} alt="" className="img-fluid"></img></div>
-                                            <div className="newbie">The socialite</div>
-                                            <div className="pkg-sub-title">For Salons and Other Services</div>
+                                            <div className="newbie">{lang === 'ar' ? 'السوشلايت' : 'The socialite'}</div>
+                                            <div className="pkg-sub-title">{lang === 'ar' ? 'للصالونات ومشاريع الخدمات' :'For Salons and Other Services'}</div>
                                         </div>
                                         <div className="second_brand_section">
                                             <div className="box-child">
-                                                <div className="pack-inner-title"><span>Brand Identity</span></div>
+                                                <div className="pack-inner-title"><span>{lang === 'ar' ? 'تصميم االهوية' : 'Brand Identity'}</span></div>
                                                 <ul className="second_brand_list">
                                                     <li>Brand Concept</li>
                                                     <li>Brand Direction</li>
@@ -962,45 +962,45 @@ export const Home = ({lang,setLang}) => {
                                                 </ul>
                                             </div>
                                             <div className="box-child">
-                                                <div className="pack-inner-title"><span>{window.innerWidth <=475 ? 'Collateral' : 'Services Collateral'}</span></div>
+                                                <div className="pack-inner-title"><span>{window.innerWidth <=475 ? lang === 'ar' ? 'تصاميم الخدمات' : 'Collateral' : lang === 'ar' ? 'تصاميم الخدمات' : 'Services Collateral'}</span></div>
                                                 <ul className="second_brand_list">
-                                                    <li>1 Page Price List</li>
-                                                    <li>Bag</li>
-                                                    <li>Business Card</li>
-                                                    <li>Loyalty Card</li>
-                                                    <li>Paper Cup</li>
-                                                    <li>Towel</li>
+                                                    <li>{lang === 'ar' ? 'قائمة الأسعار (للصفحة الواحدة)' : '1 Page Price List'}</li>
+                                                    <li>{lang === 'ar' ? 'كيس' : 'Bag'}</li>
+                                                    <li>{lang === 'ar' ? 'بطاقة عمل' : 'Business Card'}</li>
+                                                    <li>{lang === 'ar' ? 'بطاقة الولاء' : 'Loyalty Card'}</li> 
+                                                    <li>{lang === 'ar' ? 'كوب ورقي' : 'Paper Cup'}</li>
+                                                    <li>{lang === 'ar' ? 'منشفة' : 'Towel'}</li>
                                                 </ul>
                                             </div>
                                             <div className="box-child">
-                                                <div className="pack-inner-title"><span>Social Media Starter Kit </span></div>
+                                                <div className="pack-inner-title"><span> {lang === 'ar' ? 'مجموعة السوشال ميديا' :'Social Media Starter Kit'}  </span></div>
                                                 <ul className="second_brand_list">
-                                                    <li>GIF Post</li>
-                                                    <li>4 Highlight Cover</li>
-                                                    <li>Profile Cover</li>
-                                                    <li>3 Static Post</li>
+                                                    <li>{lang === 'ar' ? 'بوست GIF' : 'GIF Post'}</li>
+                                                    <li>{lang === 'ar' ? '4 غلاف هايلايت' : '4 Highlight Cover'}</li>
+                                                    <li>{lang === 'ar' ? 'غلاف سوشال ميديا' : 'Profile Cover'}</li>
+                                                    <li>{lang === 'ar' ? '3 بوست ثابت' : '3 Static Post'}</li>
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="newbie_description">
                                         <div className="third_section_toggle">
-                                            <div className="brand_identity blue-text">Brand Identity + <br />
-                                                Services Collateral + <br />
-                                                Social Media Starter Kit
+                                            <div className="brand_identity blue-text">{lang === 'ar' ? 'تصميم االهوية' : 'Brand Identity'} + <br />
+                                               {lang === 'ar' ? 'تصاميم الخدمات' : 'Services Collateral'}  + <br />
+                                              {lang === 'ar' ? 'مجموعة السوشال ميديا' :'Social Media Starter Kit'}  
                                             </div>
                                             <div className="change_brand_name">
                                                 <div className="second_section_image"><img src={Eye} alt="" className="img-fluid"></img></div>
-                                                <div className="second_section_text" style={{ paddingTop: "10px" }}>The socialite</div>
+                                                <div className="second_section_text" style={{ paddingTop: "10px" }}>{lang === 'ar' ? 'السوشلايت' : 'The socialite'}</div>
                                             </div>
                                         </div>
                                         <div className="sar d-flex align-items-center">
                                             {/* <!--<img src="asset/images/money-icon.webp" alt="" className="img-fluid">--> */}
-                                            <span className="sar_text">8000 SAR</span>
+                                            <span className="sar_text">8000 {lang === 'ar' ? 'ريال' :'SAR'}</span>
                                         </div>
                                         <div className="work_time d-flex align-items-center">
                                             {/* <!--<img src="asset/images/time-icon.webp" alt="" className="ing-fluid">-->  */}
-                                            <span className="working_days">40 WORKING DAYS</span>
+                                            <span className="working_days">40 {lang === 'ar' ? 'أيام عمل':'WORKING DAYS'}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -1040,12 +1040,12 @@ export const Home = ({lang,setLang}) => {
                                     })}>
                                         <div className="change_brand">
                                             <div className="table_icon"><img src={Diamond} alt="" className="img-fluid"></img></div>
-                                            <div className="newbie">The Boutiquer</div>
-                                            <div className="pkg-sub-title">For Shops and Online Stores </div>
+                                            <div className="newbie">{lang === 'ar' ? 'البوتيكر' :'The Boutiquer'}</div>
+                                            <div className="pkg-sub-title">{lang === 'ar' ? 'للمتاجر' :'For Shops and Online Stores '}</div>
                                         </div>
                                         <div className="second_brand_section">
                                             <div className="box-child">
-                                                <div className="pack-inner-title"><span>Brand Identity</span></div>
+                                                <div className="pack-inner-title"><span>{lang === 'ar' ? 'تصميم االهوية' : 'Brand Identity'}</span></div>
                                                 <ul className="second_brand_list">
                                                     <li>Brand Concept</li>
                                                     <li>Brand Direction</li>
@@ -1058,45 +1058,45 @@ export const Home = ({lang,setLang}) => {
                                                 </ul>
                                             </div>
                                             <div className="box-child">
-                                                <div className="pack-inner-title"><span>{window.innerWidth <=475 ? 'Collateral' : 'Commerce Collateral'}</span></div>
+                                                <div className="pack-inner-title"><span>{window.innerWidth <=475 ? lang === 'ar' ? 'تصاميم للتجارة' : 'Collateral' : lang === 'ar' ? 'تصاميم للتجارة' : 'Commerce Collateral'}</span></div>
                                                 <ul className="second_brand_list">
-                                                    <li>Bag</li>
-                                                    <li>Box</li>
-                                                    <li>Business Card</li>
-                                                    <li>Sticker</li>
-                                                    <li>Thank you Card</li>
-                                                    <li>Wrapping Paper</li>
+                                                    <li>{lang === 'ar' ? 'كيس' : 'Bag'}</li>
+                                                    <li>{lang === 'ar' ? 'علبة' : 'Box'}</li>
+                                                    <li>{lang === 'ar' ? 'بطاقة عمل' : 'Business Card'}</li>
+                                                    <li>{lang === 'ar' ? 'ستيكر' : 'Sticker'}</li>
+                                                    <li>{lang === 'ar' ? 'كرت شكر' : 'Thank you Card'}</li>
+                                                    <li>{lang === 'ar' ? 'ورق تغليف' : 'Wrapping Paper'}</li>
                                                 </ul>
                                             </div>
                                             <div className="box-child">
-                                                <div className="pack-inner-title"><span>Social Media Starter Kit </span></div>
+                                                <div className="pack-inner-title"><span>{lang === 'ar' ? 'مجموعة السوشال ميديا' :'Social Media Starter Kit'} </span></div>
                                                 <ul className="second_brand_list">
-                                                    <li>GIF Post</li>
-                                                    <li>4 Highlight Cover</li>
-                                                    <li>Profile Cover</li>
-                                                    <li>3 Static Post</li>
+                                                    <li>{lang === 'ar' ? 'بوست GIF' : 'GIF Post'}</li>
+                                                    <li>{lang === 'ar' ? '4 غلاف هايلايت' : '4 Highlight Cover'}</li>
+                                                    <li>{lang === 'ar' ? 'غلاف سوشال ميديا' : 'Profile Cover'}</li>
+                                                    <li>{lang === 'ar' ? '3 بوست ثابت' : '3 Static Post'}</li>
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="newbie_description">
                                         <div className="third_section_toggle">
-                                            <div className="brand_identity pink-text">Brand Identity + <br />
-                                                Commerce Collateral + <br />
-                                                Social Media Starter Kit
+                                            <div className="brand_identity pink-text">{lang === 'ar' ? 'تصميم االهوية' : 'Brand Identity'} + <br />
+                                            { lang === 'ar' ? 'تصاميم للتجارة' : 'Commerce Collateral'} + <br />
+                                                {lang === 'ar' ? 'مجموعة السوشال ميديا' :'Social Media Starter Kit'}
                                             </div>
                                             <div className="change_brand_name">
                                                 <div className="second_section_image"><img src={Diamond} alt="" className="img-fluid"></img></div>
-                                                <div className="second_section_text" style={{ paddingTop: "10px" }}>The Boutiquer</div>
+                                                <div className="second_section_text" style={{ paddingTop: "10px" }}>{lang === 'ar' ? 'البوتيكر' :'The Boutiquer'}</div>
                                             </div>
                                         </div>
                                         <div className="sar d-flex align-items-center">
                                             {/* <!--<img src="asset/images/money-icon.webp" alt="" className="img-fluid">--> */}
-                                            <span className="sar_text">8000 SAR</span>
+                                            <span className="sar_text">8000 {lang === 'ar' ? 'ريال' :'SAR'}</span>
                                         </div>
                                         <div className="work_time d-flex align-items-center">
                                             {/* <!--<img src="asset/images/time-icon.webp" alt="" className="ing-fluid">--> */}
-                                            <span className="working_days">40 WORKING DAYS</span>
+                                            <span className="working_days">40 {lang === 'ar' ? 'أيام عمل':'WORKING DAYS'}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -1147,23 +1147,23 @@ export const Home = ({lang,setLang}) => {
                                         <div className="change_brand">
                                             <div className="table_icon"><img src={MaginIcon} alt="" className="img-fluid" /></div>
                                             <div className="newbie">Customized</div>
-                                            <div className="pkg-sub-title">Customize your Bundl</div>
+                                            <div className="pkg-sub-title">{lang === 'ar' ? 'صمم البندل الخاص بك' : 'Customize your Bundl'}</div>
                                         </div>
 
                                         <div className="second_brand_section" style={{ height: "75%" }}>
                                             <span className="pack-sub-title">Choose from</span>
                                             <div className="box-child box-f-cuztomize-bundl" style={{ display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
-                                                <div className="pack-inner-title"><span>+ Branding</span></div>
-                                                <div className="pack-inner-title"><span>+ E-designs</span></div>
-                                                <div className="pack-inner-title"><span>+ Products</span></div>
+                                                <div className="pack-inner-title"><span>+ {lang === 'ar' ? 'التصميمات الإلكترونية' :'Branding'}</span></div>
+                                                <div className="pack-inner-title"><span>+ {lang === 'ar' ? 'القرطاسية' :'E-designs'}</span></div>
+                                                <div className="pack-inner-title"><span>+ {lang === 'ar' ? 'المطبوعات' :'Products'}</span></div>
                                             </div>
                                             <div className="box-child box-f-cuztomize-bundl" style={{ display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
-                                                <div className="pack-inner-title"><span>+ Publications</span></div>
-                                                <div className="pack-inner-title"><span>+ Social Media</span></div>
-                                                <div className="pack-inner-title"><span>+ Space Design</span></div>
+                                                <div className="pack-inner-title"><span>+ {lang === 'ar' ? 'المنتجات' :'Publications'}</span></div>
+                                                <div className="pack-inner-title"><span>+ {lang === 'ar' ? 'الهوية البصرية' :'Social Media'}</span></div>
+                                                <div className="pack-inner-title"><span>+ {lang === 'ar' ? 'تصميم مساحات' :'Space Design'}</span></div>
                                             </div>
                                             <div className="box-child box-f-cuztomize-bundl" style={{ display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
-                                                <div className="pack-inner-title lg:mobile-t-25 md:mobile-t-25 xs:mt-[7%]"><span>+ Stationery</span></div>
+                                                <div className="pack-inner-title lg:mobile-t-25 md:mobile-t-25 xs:mt-[7%]"><span>+ {lang === 'ar' ? 'سوشال ميديا' :'Stationery'}</span></div>
                                             </div>
                                         </div>
                                     </div>
@@ -1171,8 +1171,8 @@ export const Home = ({lang,setLang}) => {
                                         <div className="third_section_toggle">
                                             <div className="brand_identity">
                                                 <div className="block">
-                                                    <span className="newbie">Mix & Match</span>
-                                                    <div className="pkg-sub-title" style={{ opacity: 0 }}>Customize your Bundl</div>
+                                                    <span className="newbie">{lang === 'ar' ? 'طابق & اخلط' :'Mix & Match'}</span>
+                                                    <div className="pkg-sub-title" style={{ opacity: 0 }}>{lang === 'ar' ? 'صمم البندل الخاص بك' : 'Customize your Bundl'}</div>
                                                 </div>
                                             </div>
                                             <div className="change_brand_name">

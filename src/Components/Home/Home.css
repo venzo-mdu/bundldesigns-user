@@ -3762,7 +3762,11 @@ animation-delay: 2s;
   padding-left: 0;
   flex-wrap: wrap;
 }
-
+body[dir="rtl"] .second_brand_section {
+  gap: .7rem;
+  padding-left: 0;
+  flex-wrap: wrap;
+}
 .second_brand_section .box-child {
   flex-grow: 1;
   flex-basis: calc(33.33% - 10px);
