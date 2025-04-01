@@ -56,6 +56,13 @@
     border-right: 1px solid #000000;
     text-align: left;
 }
+body[dir="rtl"] .brand-details {
+    width: 70%;
+    padding: 2% 6%;
+    border-left: 1px solid #000000;
+    border-right: 0;
+    text-align: left;
+}
 
 .brand-input {
     width: 100%;
@@ -350,7 +357,10 @@
         width: 100%;
         border-right: 0;
     }
-
+    body[dir="rtl"]  .brand-details {
+        width: 100%;
+        border-right: 0;
+    }
     .bundl-summary {
         width: 100%;
     }
@@ -387,6 +397,10 @@
         flex-direction: column;
     }
     .brand-details {
+        width: 100%;
+        border-right: 0;
+    }
+    body[dir="rtl"] .brand-details {
         width: 100%;
         border-right: 0;
     }

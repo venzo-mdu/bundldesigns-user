@@ -13,7 +13,7 @@ import { ConfigToken } from '../Auth/ConfigToken';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 
-export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackageId, textColor,searchParams=null }) => {
+export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackageId, textColor,searchParams=null,isLang }) => {
   const [isDropdown, setIsDropdown] = useState([false, false, false, false, false, false, false]);
   const [addOnData, setAddonData] = useState({});
   const [quantities, setQuantities] = useState({});
@@ -150,8 +150,8 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
   return (
     <div>
       <div className='bundl-accordian'>
-        <p className='accordian-heading mb-1  leading-[1.2] '>{accordianTitle}</p>
-        <p className='xs:tesxt-[20px] sm:text-[16px] text-[16px] xs:w-full sm:w-full w-full' style={{ opacity: '50%' }}>Add anything you want to your bundle to fit your brand!</p>
+        <p className={`accordian-heading mb-1  leading-[1.2] ${isLang === 'ar' ?'text-right':'text-left'}`}>{accordianTitle}</p>
+        <p className={`xs:tesxt-[20px] sm:text-[16px] text-[16px] xs:w-full sm:w-full w-full ${isLang === 'ar' ?'text-right':'text-left'}`} style={{ opacity: '50%' }}>Add anything you want to your bundle to fit your brand!</p>
         <div className='tab-buttons !border-b-0'>
           {titleArr.map((title, index) => (
             <button
@@ -216,18 +216,18 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
 
                           fontWeight: '500'
                         }}
-                        className='sm:basis-[35%] basis-[35%] xs:basis-[69%] '
+                        className={`sm:basis-[35%] basis-[35%] xs:basis-[69%] ${isLang === 'ar' ?'text-right':'text-left'}`}
                       >
                         {design.name_english}
                       </Typography>
                       <p className={`flex xs:order-3 sm:order-2 items-center sm:w-[35%] w-[35%] xs:w-[100%] !mb-2 ${bundlePackageId && 'xs:hidden sm:flex'}`}>
                         <p className='flex items-center mb-1 sm:min-w-[120px] min-w-[120px] xs:min-w-[100px] font-[500]'>
-                          <img src={BlackDollor} alt="Price icon" className="inline-block mr-2" />
-                          {Math.round(design.price)} SAR
+                          <img src={BlackDollor} alt="Price icon" className={`inline-block ${isLang === 'ar' ? 'ml-2':'mr-2'}`} />
+                          {Math.round(design.price)} {isLang === 'ar' ? 'ريال' :'SAR'}
                         </p>
                         <p className='flex items-center mb-1 font-[500] uppercase' >
-                          <img src={BlackTime} alt="Time icon" className="inline-block mr-1" />
-                          {Math.round(design.time)} Days
+                          <img src={BlackTime} alt="Time icon" className={`inline-block ${isLang === 'ar' ?'ml-1':'mr-1'}`} /> 
+                          {Math.round(design.time)} {isLang === 'ar' ?'يوما':'Days'}
 
                         </p>
                       </p>
@@ -235,14 +235,14 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
                       <p style={{ color: textColor }} className={`xs:order-2 sm:order-3 sm:w-[29%] w-[29%] xs:w-[29%] max-h-[36px] !mb-2 flex justify-end text-[${textColor}] `}>
                         <button style={{
                           borderColor: textColor,
-                          borderStyle: 'solid',
+                          borderStyle: 'solid', 
                           borderWidth: '1px',
-                        }} onClick={() => handleQuantityChange(design.name_english, -1)} className={` !border-r-0 !py-[17px]  px-1  flex  items-center`}><RemoveIcon /></button>
+                        }} onClick={() => handleQuantityChange(design.name_english, -1)} className={`${isLang === 'ar' ?'!border-l-0':'!border-r-0'}  !py-[17px]  px-1  flex  items-center`}><RemoveIcon /></button>
                         <span style={{
                           borderColor: textColor,
                           borderStyle: 'solid',
                           borderWidth: '1px',
-                        }} className={`!border-r-0 px-2 !text-[20px]`}> {quantities[design.name_english] || 0}</span>
+                        }} className={`${isLang === 'ar' ?'!border-l-0':'!border-r-0'} px-2 !text-[20px]`}> {quantities[design.name_english] || 0}</span>
                         <button style={{
                           borderColor: textColor,
                           borderStyle: 'solid',

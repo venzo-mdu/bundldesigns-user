@@ -12,6 +12,12 @@
     padding: 2% 3%;
     border-right: 1px solid #000000;
 }
+body[dir="rtl"] .cart{
+    width: 70%;
+    padding: 2% 3%;
+    border-left: 1px solid #000000; 
+    border-right: 0;
+}
 .billing{
     width: 30%;
     padding: 2% 3%;
@@ -106,7 +112,11 @@ form{
         padding: 2% 3%;
         border-bottom: 1px solid #000000;
     }
-   
+    body[dir="rtl"] .cart{
+        width: 100%;
+        padding: 2% 3%;
+        border-bottom: 1px solid #000000;
+    }
     .billing{
         width: 100%;
         padding: 2% 3%;
@@ -122,6 +132,11 @@ form{
     background: url('../../../src/Images/down-arrow.svg') no-repeat right 3px center;
     }
     .cart{
+        width: 100%;
+        padding: 2% 3%;
+        border-right: 0;
+    }
+    body[dir="rtl"]  .cart{
         width: 100%;
         padding: 2% 3%;
         border-right: 0;
