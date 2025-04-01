@@ -534,6 +534,7 @@ export default function Adjustments({user ,lang ,setLang}) {
                                 onClick={() => createAdjustmentOrder()}
                                 save={'Yes'}
                                 cancel={'Cancel'}
+                                isLang={lang}
                             />}
 
                             <div className='px-[5%] py-4'>
@@ -1030,6 +1031,7 @@ export default function Adjustments({user ,lang ,setLang}) {
                                     onClick={() => createAdjustmentOrder()}
                                     save={'Yes'}
                                     cancel={'Cancel'}
+                                    isLang={lang}
                                 />
                             }
                             <div className='font-Helvetica md:flex xs:block'>

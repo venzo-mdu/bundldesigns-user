@@ -1036,6 +1036,7 @@ export const MyCart = ({lang,setLang}) => {
                     onClick={()=>navigate('/')}
                     save={'Continue to Homepage'}
                     // cancel={'Cancel'}
+                    isLang={lang}
                 />
            }
         </div>

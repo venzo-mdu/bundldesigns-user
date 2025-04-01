@@ -9,7 +9,7 @@ import Pinkpaint from '../../../Images/Bundles/pink-paint.webp'
 import { Box, Button, Input, Typography, useMediaQuery } from "@mui/material";
 import popupGIF from '../../../Images/popupGIF.gif'
 
-export const Popup = ({ title, subTitle, popupType = 'default', onChange, save, cancel, openpopup, textArea, saveBtnBg, setPopup, onClick, sx, values, isCancel,cancelClick }) => {
+export const Popup = ({ title, subTitle, popupType = 'default', onChange, save, cancel, openpopup, textArea, saveBtnBg, setPopup, onClick, sx, values, isCancel,cancelClick,isLang }) => {
     
     const [currentIndex, setCurrentIndex] = useState(0);
     const isSmallScreen = useMediaQuery('(max-width:441px)');
@@ -170,8 +170,9 @@ export const Popup = ({ title, subTitle, popupType = 'default', onChange, save, 
                                     backgroundColor: '#fff',
                                     color: '#000',
                                     border: '#E2E8F0 1px solid',
-                                    ml: 2,
-                                    mt: isSmallScreen ? 2 : 0,
+                                    ml: isLang === 'ar' ? 0 : 2,
+                                    mr: isLang === 'ar' ? 2 : 0,
+                                    mt: isSmallScreen ? 0 : 0,
                                     width:'40%' 
                                 }}
                             >

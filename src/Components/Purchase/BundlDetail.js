@@ -638,6 +638,7 @@ export const BundlDetail = ({user,lang,setLang}) => {
                     save={'Empty Cart'}
                     cancel={'Cancel'}
                     cancelClick={setIsFromLogin}
+                    isLang={lang}
                 />
             }
     </>
