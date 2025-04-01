@@ -319,7 +319,7 @@ export const AboutUs = ({ lang, setLang }) => {
             </div>
             <div className='text-center py-14 '>
               <h2 className='sm:w-[600px] w-[50vw] xs:w-[100vw] text-[32px] !mt-6 lg:mx-auto md:mx-auto xs:mx-0 lg:py-0 lg:px-0 md:py-0 md:px-0 xs:py-[2%] xs:px-[5%]  text-black'>{lang === 'ar' ? 'جاهز تبدأ رحلتك الابداعية معنا؟ ' : 'Inspired to start your journey to launch your next big thing ?'}</h2>
-              <p className='text-center'> <button onClick={() => { window.location.href = '/' }} className='py-1 px-3  !mt-[50px] !mb-8 bg-black text-white uppercase'>{lang === 'ar' ? 'ابدأ !' : 'Get started !'}</button> </p>
+              <p className='text-center'> <button onClick={() => { window.location.href = '/' }} className='py-1 px-3  !mt-[50px] border-black border-[1px] !mb-8 bg-white hover:!bg-black text-black uppercase  hover:text-white'>{lang === 'ar' ? 'ابدأ !' : 'Get started !'}</button> </p>
             </div>
             <Footer isLang={lang} />
           </>

@@ -545,7 +545,18 @@ export const Home = ({lang,setLang}) => {
                                         <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">{lang === 'ar' ? 'الكترونية متاجر':'web design'}</span>
                                         <img src={PaintMarquee} alt="" className="img-fluid w-[56px] slidee"></img>
                                         <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">{lang === 'ar' ?'جرافيكي تصميم':'graphic design'}</span>
-
+                                        <img src={CarMarquee} className="slidee  w-[54px]"></img>
+                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">{lang === 'ar' ?'بصرية هوية':'BRAND identity'}</span>
+                                        <img src={LemonMarquee} alt="" className="img-fluid w-[41px] slidee"></img>
+                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">{lang === 'ar' ? 'الكترونية متاجر':'web design'}</span>
+                                        <img src={MouthMarquee} alt="" className="img-fluid w-[30px] slidee"></img>
+                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">{lang === 'ar' ?'جرافيكي تصميم':'graphic design'}</span>
+                                        <img src={RocketMarquee} alt="" className="img-fluid w-[70px] slidee"></img>
+                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">{lang === 'ar' ?'بصرية هوية':'BRAND identity'}</span>
+                                        <img src={EyeMarquee} alt="" className="img-fluid w-[47px] slidee"></img>
+                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">{lang === 'ar' ? 'الكترونية متاجر':'web design'}</span>
+                                        <img src={PaintMarquee} alt="" className="img-fluid w-[56px] slidee"></img>
+                                        <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">{lang === 'ar' ?'جرافيكي تصميم':'graphic design'}</span>
                                     </ul>
                                 </div>
                                 {/* <div className="img-rotate">
@@ -575,7 +586,7 @@ export const Home = ({lang,setLang}) => {
                                                 <span className="blue"></span>
                                                 <span className="green"></span>
                                                 <span className="pink"></span>
-                                                <span className="hover-txt"> <a className='sm:text-white hover:text-white xs:text-black' href='#ourBundl'>{lang === 'ar' ?'باقاتنا تصفح':'Shop our Bundls'}</a></span>
+                                                <span className="hover-txt"> <a className='sm:text-white hover:!text-white xs:text-black' href='#ourBundl'>{lang === 'ar' ?'باقاتنا تصفح':'Shop our Bundls'}</a></span>
                                             </div>
                                         </div>
                                     </div>
@@ -699,7 +710,7 @@ export const Home = ({lang,setLang}) => {
                             <div className="container">
                                 <div className="row justify-content-center bundl-pack-head">
                                     <div className="col-md-11 col-lg-9">
-                                        <h4 className="sub-headeing mb-4 text-center text-black">Our Bundls</h4>
+                                        <h4 className="sub-headeing mb-4 text-center text-black">{lang === 'ar' ? 'باقاتنا' :'Our Bundls'}</h4>
                                         {/* <!-- <div className="our-bundles text-center">
                         <div className="text-animation">
                             WE <div className="bunl"><img src="asset/images/bundl-sticker.png" alt="" className="img-fluie"></div>DESIGN TO MAKE YOUR BRAND 
@@ -757,7 +768,7 @@ export const Home = ({lang,setLang}) => {
                                         const newState = [...prevState];
                                         newState[0] = !prevState[0];
                                         return newState;
-                                    })} style={window.innerWidth <= 475 ? { padding: '5% 0 2% 2%' } : {}}>
+                                    })} style={window.innerWidth <= 475 ? lang === 'ar' ? {padding: '5% 3% 2% 0%'} : { padding: '5% 0 2% 2%' } : {}}>
                                         <div className="change_brand">
                                             <div className="table_icon"><img src={QubeIcon} alt="" className="img-fluid"></img></div>
                                             <div className="newbie">{lang === 'ar' ? 'النيوبي' : 'The Newbie'}</div>
@@ -769,7 +780,7 @@ export const Home = ({lang,setLang}) => {
                                                 <ul className="second_brand_list">
                                                     <li>Brand Concept</li>
                                                     <li>Brand Direction</li>
-                                                    <li>Logo Design</li>
+                                                    <li>{lang === 'ar' ? 'تصميم الشعار' :'Logo Design'}</li>
                                                     <li>Logo Variations</li>
                                                     <li>Color Palette</li>
                                                     <li>Typography</li>
@@ -856,7 +867,7 @@ export const Home = ({lang,setLang}) => {
                                                 <ul className="second_brand_list">
                                                     <li>Brand Concept</li>
                                                     <li>Brand Direction</li>
-                                                    <li>Logo Design</li>
+                                                    <li>{lang === 'ar' ? 'تصميم الشعار' :'Logo Design'}</li>
                                                     <li>Logo Variations</li>
                                                     <li>Color Palette</li>
                                                     <li>Typography</li>
@@ -953,7 +964,7 @@ export const Home = ({lang,setLang}) => {
                                                 <ul className="second_brand_list">
                                                     <li>Brand Concept</li>
                                                     <li>Brand Direction</li>
-                                                    <li>Logo Design</li>
+                                                    <li>{lang === 'ar' ? 'تصميم الشعار' :'Logo Design'}</li>
                                                     <li>Logo Variations</li>
                                                     <li>Color Palette</li>
                                                     <li>Typography</li>
@@ -1049,7 +1060,7 @@ export const Home = ({lang,setLang}) => {
                                                 <ul className="second_brand_list">
                                                     <li>Brand Concept</li>
                                                     <li>Brand Direction</li>
-                                                    <li>Logo Design</li>
+                                                    <li>{lang === 'ar' ? 'تصميم الشعار' :'Logo Design'}</li>
                                                     <li>Logo Variations</li>
                                                     <li>Color Palette</li>
                                                     <li>Typography</li>

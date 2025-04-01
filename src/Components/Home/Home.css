@@ -4914,7 +4914,8 @@ font-size: 20px;
 
 .hover-txt{opacity: 1;}
 .btn-blank-hover:hover{background-color: rgba(0, 0, 0, 1); color: #ffffff;}
-.btn-blank-hover:hover .hover-txt{opacity: 1;}
+.btn-blank-hover:hover .hover-txt  a{ color: #ffffff;}
+.btn-blank-hover:hover .hover-txt  a{opacity: 1;}
 .rocket{
   left: -2%;
 }
