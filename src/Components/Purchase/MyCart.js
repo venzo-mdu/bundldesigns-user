@@ -744,7 +744,7 @@ export const MyCart = ({lang,setLang}) => {
                                         {cartDetails?.item_details?.bundle_items?.map((row,index) => (
                                              <div className={`flex ${index === cartDetails?.item_details?.bundle_items?.length -1 && 'border-b border-black'} w-full`}> 
                                                 <div className='font-[700] '> {row.qty} </div>
-                                                <div className='font-[700] text-[20px] ml-2'>{row.item_name}</div>
+                                                <div className='font-[700] text-[20px] ml-2'>{lang === 'ar' ? row.item__name_arabic : row.item_name}</div>
                                             </div>
                                         ))}
                                     </div>
@@ -756,7 +756,7 @@ export const MyCart = ({lang,setLang}) => {
                         {cartDetails?.item_details?.addon_items?.map((row,index) => (
                             <div className={`flex ${index === cartDetails?.item_details?.addon_items?.length -1 && 'border-b border-black'} w-full mt-2`}>
                                 <div className='w-[70%]'>
-                                <div className='font-[700] text-[20px] '>{row.item_name}</div>
+                                <div className='font-[700] text-[20px] '>{lang === 'ar' ? row.item__name_arabic : row.item_name}</div>
                                 {/* <div className='font-[500] '> {row.subtotal_price} SAR</div> */}
                                 </div>
                                 <p  className={`xs:order-2 sm:order-3 sm:w-[29%] w-[29%] xs:w-[29%] max-h-[36px] !mb-2 flex justify-end`}>
@@ -816,7 +816,7 @@ export const MyCart = ({lang,setLang}) => {
                                     
                                         {cartDetails?.item_details?.bundle_items?.map((row,index) => (
                                             <tr className={` ${index === cartDetails?.item_details?.bundle_items?.length -1 && 'border-b border-black'} w-full`}>
-                                            <td className='text-[#000] font-[700] !text-[18px] !px-[2%] !py-1'>{row.qty} {row?.item_name}</td>    
+                                            <td className='text-[#000] font-[700] !text-[18px] !px-[2%] !py-1'>{row.qty} {lang === 'ar' ? row.item__name_arabic : row?.item_name}</td>    
                                             </tr>
                                         ))}
                                             
@@ -829,12 +829,12 @@ export const MyCart = ({lang,setLang}) => {
                                     </tr>
                                 {cartDetails?.item_details?.addon_items?.map((row,index) => (
                                     <tr
-                                        key={row.item_name}
+                                        key={lang === 'ar' ? row.item__name_arabic : row.item_name}
                                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                                                                 className={`text-[#000] font-[700] text-[18px] h-inherit ${index == cartDetails?.item_details?.addon_items.length-1 ?"": 'border-b border-black'} `}
                                     >
                                         <td className=' !py-2 w-[35%] !px-[2%]' scope="row">
-                                            {row.item_name}
+                                            {lang === 'ar' ? row.item__name_arabic :row.item_name}
                                         </td>
                                         {/* <td className=' !py-2' align="center">{row.qty}</td> */}
                                         <td className=' !py-2 ' align="center">{row.subtotal_price}</td>

@@ -51,7 +51,7 @@ export default function UploadContent({lang,setLang}) {
     },[orderId])
 
 
-    const uploadFile = async (e, id, field) => {
+    const uploadFile = async (e, id, field,name,idx) => {
         if (e.target.files.length) {
             const formData = new FormData()
             formData.append('file', e.target.files[0])
@@ -62,8 +62,12 @@ export default function UploadContent({lang,setLang}) {
                 ...prev,
                 [id]: {
                     ...prev[id], // Preserve other fields for this ID
-                    [field]: response.data.file_url, // Update the file or other field
-                    ...(field === 'file' && { filename: e.target.files[0]?.name || '' }), // Update filename if file is changed
+                    [idx]:{
+                      ...prev[id]?.[idx],
+                    [field]: field === 'file' && response.data.file_url, 
+                    ...(field === 'file' && { filename: e.target.files[0]?.name || '' }), 
+                    item_sub_name: name, 
+                    }
                 },
             }));
         }
@@ -78,11 +82,11 @@ export default function UploadContent({lang,setLang}) {
     //     getOrderDetails()
     // }
     
-    const saveContent = async (itemId) => {
+    const saveContent = async (itemId,idx) => {
 
         try {
 
-            if (!uploadContent?.[itemId]?.language) {
+            if (!uploadContent?.[itemId]?.[idx]?.language) {
                 toast.error("Please choose language before saving.",{
                     icon:false,
                     toastId: 'required-value-toast1',
@@ -93,7 +97,7 @@ export default function UploadContent({lang,setLang}) {
             }); 
                 return;
             }
-            if (!uploadContent?.[itemId]?.content) {
+            if (!uploadContent?.[itemId]?.[idx]?.content) {
                 toast.error("Please add content before saving.",{
                     icon:false,
                     toastId: 'required-value-toast2',
@@ -104,7 +108,7 @@ export default function UploadContent({lang,setLang}) {
             }); 
                 return;
             }
-            if (!uploadContent?.[itemId]?.measurements) {
+            if (!uploadContent?.[itemId]?.[idx]?.measurements) {
                 toast.error("Please add measurements before saving.",{
                     icon:false,
                     toastId: 'required-value-toast3',
@@ -115,7 +119,7 @@ export default function UploadContent({lang,setLang}) {
             }); 
                 return;
             }
-            if (!uploadContent?.[itemId]?.filename) {
+            if (!uploadContent?.[itemId]?.[idx]?.filename) {
                 toast.error("Please upload the content.",{
                     icon:false,
                     toastId: 'required-value-toast4',
@@ -129,7 +133,11 @@ export default function UploadContent({lang,setLang}) {
            
     
             const formData = { 
-                answers: { [itemId]: uploadContent[itemId] }, 
+                answers: { 
+                    [itemId]: { 
+                        [idx]: uploadContent?.[itemId]?.[idx] || {} 
+                    } 
+                }, 
                 orderId: order.id, 
                 status: 'save_later' 
             };
@@ -185,8 +193,7 @@ export default function UploadContent({lang,setLang}) {
     }
 
     
-    const handleChange = (e, id, field) => {
-        console.log(e)
+    const handleChange = (e, id, field,name,idx) => {
         let newValue = field === 'file' ? e.target.files[0] : e.target.value;
 
         if (field === 'height' || field === 'length' || field === 'width') {
@@ -197,12 +204,17 @@ export default function UploadContent({lang,setLang}) {
             ...prev,
             [id]: {
                 ...prev[id], // Preserve other fields for this ID
+                [idx]:{
+                ...prev[id]?.[idx],
                 [field]: newValue, // Update the file or other field
-                ...(field === 'file' && { filename: e.target.files[0]?.name || '' }), // Update filename if file is changed
+                ...(field === 'file' && { filename: e.target.files[0]?.name || '' }), 
+                item_sub_name:name,
+                }
             },
         }));
     };
 
+    console.log(uploadContent,"upload content")
     return (
         loading ?
             <Bgloader /> :
@@ -219,17 +231,19 @@ export default function UploadContent({lang,setLang}) {
                                 {order && <>
                                     {order.item_details.bundle_items
                                         .filter(item=>item.item__category !== 1 && !skipId?.includes(item.id) && item.status == 'questionnaire required')
-                                        .map((item,index,filterArr) => {
-                                            return <div className={`${( filterArr.length === 1 || (index === filterArr.length -1 || order.item_details.bundle_items.length === 0 ))  ? '' : 'border-b !border-black'}mt-[2%]`}>
+                                        .map((item,index,filterArr) => 
+                                            Array.from({ length: Math.max(1, item.qty) }, (_, qtyIndex) => {
+                                            const hasMultipleQty = item.qty < 1;
+                                            return (<div className={`${( filterArr.length === 1 || (index === filterArr.length -1 || order.item_details.bundle_items.length === 0 )) && hasMultipleQty ? '' : 'border-b !border-black'} mt-[2%]`}>
                                             
-                                                <p className="mb-0 font-[700] text-[20px]">{item.item_name}</p>
+                                                <p className="mb-0 font-[700] text-[20px]">{item.item_name} {item?.qty > 1 && qtyIndex + 1 }</p>
                                                 {designQuestions[item.item__id]?.language && <p className='mt-2'>
                                                     <label className='mr-6 font-[500]'>
                                                         <input
                                                             type="radio"
                                                             value="English"
-                                                            checked={uploadContent[item.id]?.language === "English"}
-                                                            onChange={(e) => handleChange(e, item.id, 'language')}
+                                                            checked={uploadContent[item.id]?.[qtyIndex + 1]?.language === "English"}
+                                                            onChange={(e) => handleChange(e, item.id, 'language',item.item_name + "-" + (qtyIndex + 1),qtyIndex + 1)}
                                                             className="form-radio accent-[#1BA56F] mr-2"
                                                         /> English
 
@@ -238,14 +252,14 @@ export default function UploadContent({lang,setLang}) {
                                                         <input
                                                             type="radio"
                                                             value="Arabic"
-                                                            checked={uploadContent[item.id]?.language === "Arabic"}
-                                                            onChange={(e) => handleChange(e, item.id, 'language')}
+                                                            checked={uploadContent[item.id]?.[qtyIndex + 1]?.language === "Arabic"}
+                                                            onChange={(e) => handleChange(e, item.id, 'language',item.item_name + "-" + (qtyIndex + 1),qtyIndex + 1)}
                                                             className="form-radio accent-[#1BA56F] mr-2"
                                                         />  Arabic  </label>
                                                 </p>}
 
                                                 {designQuestions[item.item__id]?.content && <p className='w-[100%]'>
-                                                    <input placeholder='Slogan & Number....' value={uploadContent?.[item?.id]?.content || ''} onChange={(e) => handleChange(e, item.id, 'content')} className='border !border-black h-[55px] w-full py-2 px-2 rounded-none' ></input>
+                                                    <input placeholder='Slogan & Number....' value={uploadContent?.[item?.id]?.[qtyIndex + 1]?.content || ''} onChange={(e) => handleChange(e, item.id, 'content',item.item_name + "-" + (qtyIndex + 1),qtyIndex + 1)} className='border !border-black h-[55px] w-full py-2 px-2 rounded-none' ></input>
                                                 </p>}
                                                 {designQuestions[item.item__id]?.measurement && <>
                                                     <p className='mb-2  text-[20px] font-bold'>Measurements</p>
@@ -254,61 +268,69 @@ export default function UploadContent({lang,setLang}) {
                                                             <input
                                                                 type="radio"
                                                                 value="Standard"
-                                                                checked={uploadContent[item.id]?.measurements === "Standard"}
-                                                                onChange={(e) => handleChange(e, item.id, 'measurements')}
+                                                                checked={uploadContent[item.id]?.[qtyIndex + 1]?.measurements === "Standard"}
+                                                                onChange={(e) => handleChange(e, item.id, 'measurements',item.item_name + "-" + (qtyIndex + 1),qtyIndex + 1)}
                                                                 className="form-radio accent-[#1BA56F] mr-2"
                                                             /> Standard </label>
                                                         <label className='mr-2 font-[500]'>
                                                             <input
                                                                 type="radio"
                                                                 value="Customize"
-                                                                checked={uploadContent[item.id]?.measurements === "Customize"}
-                                                                onChange={(e) => handleChange(e, item.id, 'measurements')}
+                                                                checked={uploadContent[item.id]?.[qtyIndex + 1]?.measurements === "Customize"}
+                                                                onChange={(e) => handleChange(e, item.id, 'measurements',item.item_name + "-" + (qtyIndex + 1),qtyIndex + 1)}
                                                                 className="form-radio accent-[#1BA56F] mr-2"
                                                             />  Customize  </label>
-
-                                                        {uploadContent[item.id]?.measurements === "Customize" && <>
-                                                            <label className='text-[#1BA56F] mr-2'> Width : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'width')} value={uploadContent?.[item?.id]?.width || ''} className='w-[55px] h-[25px] border !border-[#1BA56F] rounded-none'></input></label>
-                                                            <label className='text-[#1BA56F] mr-2'> Height : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'height')} value={uploadContent?.[item?.id]?.height || ''} className='w-[55px] h-[25px] border !border-[#1BA56F] rounded-none'></input></label>
-                                                            <label className='text-[#1BA56F] mr-2'> Length : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'length')} value={uploadContent?.[item?.id]?.length || ''} className='w-[55px] h-[25px] border !border-[#1BA56F] rounded-none'></input></label>
-                                                            <span className='text-[#1BA56F] mr-2'> CM </span> </>}
+                                                        {
+                                                            uploadContent[item.id]?.[qtyIndex + 1]?.measurements === "Customize" && <>
+                                                                <span className='text-[#1BA56F] mr-2'> CM </span> </>
+                                                        }
+                                                        {uploadContent[item.id]?.[qtyIndex + 1]?.measurements === "Customize" && 
+                                                            <div className='flex'>
+                                                            <label className='text-[#1BA56F] mr-2'> Width : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'width',item.item_name + "-" + (qtyIndex + 1),qtyIndex + 1)} value={uploadContent?.[item?.id]?.[qtyIndex + 1]?.width || ''} className='w-[55px] h-[25px] border !border-[#1BA56F] rounded-none'></input></label>
+                                                            <label className='text-[#1BA56F] mr-2'> Height : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'height',item.item_name + "-" + (qtyIndex + 1),qtyIndex + 1)} value={uploadContent?.[item?.id]?.[qtyIndex + 1]?.height || ''} className='w-[55px] h-[25px] border !border-[#1BA56F] rounded-none'></input></label>
+                                                            <label className='text-[#1BA56F] mr-2'> Length : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'length',item.item_name + "-" + (qtyIndex + 1),qtyIndex + 1)} value={uploadContent?.[item?.id]?.[qtyIndex + 1]?.length || ''} className='w-[55px] h-[25px] border !border-[#1BA56F] rounded-none'></input></label>
+                                                            </div>
+                                                        }
                                                     </p>
                                                 </>}
 
                                                 {designQuestions[item.item__id]?.attachment && <><p className='mb-2 font-[500] text-[20px]'>Have something to show us?</p>
                                                     <p
-                                                        className={`border-b-2 ${uploadContent?.[item?.id]?.filename ? 'w-fit':'w-[150px]'} !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer`}
-                                                        onClick={() => document.getElementById(`file-${item.id}`).click()} // Trigger click on hidden input
+                                                        className={`border-b-2 ${uploadContent?.[item?.id]?.[qtyIndex + 1]?.filename ? 'w-fit':'w-[150px]'} !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer`}
+                                                        onClick={() => document.getElementById(`file-${item.id}_${qtyIndex + 1}`).click()} // Trigger click on hidden input
                                                     >
                                                         <input
                                                             type="file"
                                                             hidden
                                                             name="file"
-                                                            id={`file-${item.id}`} // Use a unique ID for each input
-                                                            onChange={(e) => uploadFile(e, item.id, 'file')}
+                                                            id={`file-${item.id}_${qtyIndex + 1}`} // Use a unique ID for each input
+                                                            onChange={(e) => uploadFile(e, item.id, 'file',item.item_name + "-" + (qtyIndex + 1),qtyIndex + 1)}
                                                         />
                                                         <img src={uploadIcon} alt="Upload Icon" />
-                                                        {uploadContent?.[item?.id]?.filename || 'Upload Content'}
+                                                        {uploadContent?.[item?.id]?.[qtyIndex + 1]?.filename || 'Upload Content'}
                                                     </p></>}
                                                     <p className='my-6 flex justify-center'> <button onClick={() => { 
                                                         setSkipId([...skipId, item.id])
                                                     }} className='text-[#1BA56F] py-1 px-2 border !border-[#1BA56F] mr-2 uppercase'>Skip For Now</button>
-                                                        <button onClick={() => saveContent(item.id)} className='text-white bg-[#1BA56F] py-1 px-2 uppercase'>Save & Next</button></p>
-                                            </div>
-                                    })}
+                                                        <button onClick={() => saveContent(item.id,qtyIndex + 1)} className='text-white bg-[#1BA56F] py-1 px-2 uppercase'>Save & Next</button></p>
+                                            </div>)
+                                                })
+                                    )}
                                     {
                                         order.item_details.addon_items
                                         .filter(item=>!skipId.includes(item.id) && item.status == 'questionnaire required')
-                                        .map((item,index,filterArr) => {
-                                                return <div className={`${( filterArr.length === 1 || (index === filterArr.length -1 || order.item_details.addon_items.length === 0 ))  ? '' : 'border-b !border-black'} mt-[2%]`}>
-                                                    <p className="mb-0 font-[700] text-[20px]">{item.item_name}</p>
+                                        .map((item,index,filterArr) => 
+                                            Array.from({ length: Math.max(1, item.qty) }, (_, qtyIndex) => {
+                                                const hasMultipleQty = item.qty < 1;
+                                                return (<div className={`${( filterArr.length === 1 || (index === filterArr.length -1 || order.item_details.addon_items.length === 0 ))  && hasMultipleQty ? '' : 'border-b !border-black'} mt-[2%]`}>
+                                                    <p className="mb-0 font-[700] text-[20px]">{item.item_name} {item?.qty > 1 && qtyIndex + 1 }</p>
                                                     {designQuestions[item.item__id]?.language && <p className='mt-2 mb-0'>
                                                         <label className='mr-6 font-[500]'>
                                                             <input
                                                                 type="radio"
                                                                 value="English"
-                                                                checked={uploadContent[item.id]?.language === "English"}
-                                                                onChange={(e) => handleChange(e, item.id, 'language')}
+                                                                checked={uploadContent[item.id]?.[qtyIndex + 1]?.language === "English"}
+                                                                onChange={(e) => handleChange(e, item.id, 'language',item.item_name + "-" + (qtyIndex + 1),qtyIndex + 1)}
                                                                 className="form-radio accent-[#1BA56F] mr-2"
                                                             /> English
 
@@ -317,14 +339,14 @@ export default function UploadContent({lang,setLang}) {
                                                             <input
                                                                 type="radio"
                                                                 value="Arabic"
-                                                                checked={uploadContent[item.id]?.language === "Arabic"}
-                                                                onChange={(e) => handleChange(e, item.id, 'language')}
+                                                                checked={uploadContent[item.id]?.[qtyIndex + 1]?.language === "Arabic"}
+                                                                onChange={(e) => handleChange(e, item.id, 'language',item.item_name + "-" + (qtyIndex + 1),qtyIndex + 1)}
                                                                 className="form-radio accent-[#1BA56F] mr-2"
                                                             />  Arabic  </label>
                                                     </p>}
 
                                                     {designQuestions[item.item__id]?.content && <p className='w-[100%] mt-2'>
-                                                        <input placeholder='Slogan & Number....' value={uploadContent?.[item?.id]?.content || ''} onChange={(e) => handleChange(e, item.id, 'content')} className='border !border-black h-[55px] w-full py-2 px-2 rounded-none' ></input>
+                                                        <input placeholder='Slogan & Number....' value={uploadContent?.[item?.id]?.[qtyIndex + 1]?.content || ''} onChange={(e) => handleChange(e, item.id, 'content',item.item_name + "-" + (qtyIndex + 1),qtyIndex + 1)} className='border !border-black h-[55px] w-full py-2 px-2 rounded-none' ></input>
                                                     </p>}
                                                     {designQuestions[item.item__id]?.measurement && <>
                                                         <p className='mb-2 text-[20px] font-bold'>Measurements</p>
@@ -333,27 +355,29 @@ export default function UploadContent({lang,setLang}) {
                                                                 <input
                                                                     type="radio"
                                                                     value="Standard"
-                                                                    checked={uploadContent[item.id]?.measurements === "Standard"}
-                                                                    onChange={(e) => handleChange(e, item.id, 'measurements')}
+                                                                    checked={uploadContent[item.id]?.[qtyIndex + 1]?.measurements === "Standard"}
+                                                                    onChange={(e) => handleChange(e, item.id, 'measurements',item.item_name + "-" + (qtyIndex + 1),qtyIndex + 1)}
                                                                     className="form-radio accent-[#1BA56F] mr-2"
                                                                 /> Standard </label>
                                                             <label className='mr-2 font-[500]'>
                                                                 <input
                                                                     type="radio"
                                                                     value="Customize"
-                                                                    checked={uploadContent[item.id]?.measurements === "Customize"}
-                                                                    onChange={(e) => handleChange(e, item.id, 'measurements')}
+                                                                    checked={uploadContent[item.id]?.[qtyIndex + 1]?.measurements === "Customize"}
+                                                                    onChange={(e) => handleChange(e, item.id, 'measurements',item.item_name + "-" + (qtyIndex + 1),qtyIndex + 1)}
                                                                     className="form-radio accent-[#1BA56F] mr-2"
                                                                 />  Customize  </label>
 
-                                                            {uploadContent[item.id]?.measurements === "Customize" && <>
-                                                                <span className='text-[#1BA56F] mr-2'> CM </span> </>}
                                                             {
-                                                                uploadContent[item.id]?.measurements === "Customize" && (
+                                                            uploadContent[item.id]?.[qtyIndex + 1]?.measurements === "Customize" && <>
+                                                                <span className='text-[#1BA56F] mr-2'> CM </span> </>
+                                                            }
+                                                            {
+                                                                uploadContent[item.id]?.[qtyIndex + 1]?.measurements === "Customize" && (
                                                                     <div className='flex'>
-                                                                        <label className='text-[#1BA56F] mr-2'> Width : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'width')} value={uploadContent?.[item?.id]?.width || ''} className='w-[55px] h-[25px] border !border-[#1BA56F] rounded-none'></input></label>
-                                                                        <label className='text-[#1BA56F] mr-2'> Height : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'height')} value={uploadContent?.[item?.id]?.height || ''} className='w-[55px] h-[25px] border !border-[#1BA56F] rounded-none'></input></label>
-                                                                        <label className='text-[#1BA56F] mr-2'> Length : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'length')} value={uploadContent?.[item?.id]?.length || ''} className='w-[55px] h-[25px] border !border-[#1BA56F] rounded-none'></input></label>
+                                                                        <label className='text-[#1BA56F] mr-2'> Width : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'width',item.item_name + "-" + (qtyIndex + 1),qtyIndex + 1)} value={uploadContent?.[item?.id]?.[qtyIndex + 1]?.width || ''} className='w-[55px] h-[25px] border !border-[#1BA56F] rounded-none'></input></label>
+                                                                        <label className='text-[#1BA56F] mr-2'> Height : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'height',item.item_name + "-" + (qtyIndex + 1),qtyIndex + 1)} value={uploadContent?.[item?.id]?.[qtyIndex + 1]?.height || ''} className='w-[55px] h-[25px] border !border-[#1BA56F] rounded-none'></input></label>
+                                                                        <label className='text-[#1BA56F] mr-2'> Length : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'length',item.item_name + "-" + (qtyIndex + 1),qtyIndex + 1)} value={uploadContent?.[item?.id]?.[qtyIndex + 1]?.length || ''} className='w-[55px] h-[25px] border !border-[#1BA56F] rounded-none'></input></label>
                                                                     </div>
                                                                 )
                                                             }
@@ -362,27 +386,27 @@ export default function UploadContent({lang,setLang}) {
 
                                                     {designQuestions[item.item__id]?.attachment && <><p className='mb-2 font-[500] text-[20px]'>Have something to show us?</p>
                                                         <p
-                                                            className={`border-b-2 ${uploadContent?.[item?.id]?.filename ? 'w-fit':'w-[150px]'} !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer`}
-                                                            onClick={() => document.getElementById(`file-${item.id}`).click()} // Trigger click on hidden input
+                                                            className={`border-b-2 ${uploadContent?.[item?.id]?.[qtyIndex + 1]?.filename ? 'w-fit':'w-[150px]'} !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer`}
+                                                            onClick={() => document.getElementById(`file-${item.id}_${qtyIndex + 1}`).click()} // Trigger click on hidden input
                                                         >
                                                             <input
                                                                 type="file"
                                                                 hidden
                                                                 name="file"
-                                                                id={`file-${item.id}`} // Use a unique ID for each input
-                                                                onChange={(e) => uploadFile(e, item.id, 'file')}
+                                                                id={`file-${item.id}_${qtyIndex + 1}`} // Use a unique ID for each input
+                                                                onChange={(e) => uploadFile(e, item.id, 'file',item.item_name + "-" + (qtyIndex + 1),qtyIndex + 1)}
                                                             />
                                                             <img src={uploadIcon} alt="Upload Icon" />
-                                                            {uploadContent?.[item?.id]?.filename || 'Upload Content'}
+                                                            {uploadContent?.[item?.id]?.[qtyIndex + 1]?.filename || 'Upload Content'}
                                                         </p></>}
 
-                                                    <p className='my-6 flex justify-start'> <button onClick={() => {
+                                                    <p className='my-6 flex justify-center'> <button onClick={() => {
                                                         setSkipId([...skipId, item.id])
                                                     }} className='text-[#1BA56F] py-1 px-2 border !border-[#1BA56F] mr-2 uppercase'>Skip For Now</button>
-                                                        <button onClick={() => saveContent(item.id)} className='text-white bg-[#1BA56F] py-1 px-2 uppercase'>Save & Next</button></p>
-                                                </div>
-
-                                        })
+                                                        <button onClick={() => saveContent(item.id,qtyIndex + 1)} className='text-white bg-[#1BA56F] py-1 px-2 uppercase'>Save & Next</button></p>
+                                                </div>)}
+                                                )     
+                                    )
                                     }
                                 </>
                                 }
@@ -406,25 +430,36 @@ export default function UploadContent({lang,setLang}) {
                                         <div className='!mt-[15px] my-2 w-full'>
                                             {order &&
                                                 <div className='px-[5%]'>
-                                                    {order.item_details.bundle_items.map(item => {
+                                                    {order.item_details.bundle_items.map((item, itemIndex) => {
                                                         if (item.item__category != 1) {
-                                                            return <div className="flex items-center mb-1  text-[#1BA56F] w-[100%]">
-                                                                <p className="mb-0 font-medium w-[95%]">{item.item_name}</p>
+                                                            return (
+                                                             <div key={itemIndex}>
+                                                                {Array.from({ length: Math.max(1, item.qty) }, (_, qtyIndex) => (
+                                                           <div  key={`${item.id}_${qtyIndex}`}  className="flex items-center mb-1  text-[#1BA56F] w-[100%]">
+                                                                <p className="mb-0 font-medium w-[95%]">{item.item_name} {item.qty > 1 && qtyIndex + 1}</p>
 
                                                                 {item.status == 'questionnaire required' ?
                                                                     // <div className="w-4 h-4 border-2 border-[#1BA56F] rounded-full"></div> 
-                                                                    <img src={checkboxIcon} width={'26px'}></img>
+                                                                   ( <img src={checkboxIcon} width={'26px'}></img>)
                                                                     :
-                                                                    <img src={tickCircleIcon}></img>}
+                                                                    (<img src={tickCircleIcon}></img>)}
                                                             </div>
+                                                         ) )}
+                                                             </div>
+                                                            );
+                                                            
                                                         }
-
+                                                        return null;
                                                     })}
+
+                                                    
                                                     {
-                                                        order.item_details.addon_items.map(item => {
-                                                            return <div className="flex items-center mb-1 text-[#1BA56F]">
+                                                        order.item_details.addon_items.map(item => 
+                                                            Array.from({ length: Math.max(1, item.qty) }, (_, qtyIndex) => {
+                                                            return (
+                                                            <div className="flex items-center mb-1 text-[#1BA56F]">
                                                                 <div className='flex  w-[100%]'>
-                                                                    <p className="mb-0 font-medium w-[95%]">{item.item_name}</p>
+                                                                    <p className="mb-0 font-medium w-[95%]">{item.item_name} {item?.qty > 1 && qtyIndex + 1}</p>
                                                                     {item.status == 'questionnaire required' ?
                                                                         // <div className="w-4 h-4 border-2 border-[#1BA56F] rounded-full"></div> 
                                                                         <img src={checkboxIcon} width={'26px'}></img>
@@ -432,7 +467,9 @@ export default function UploadContent({lang,setLang}) {
                                                                         <img src={tickCircleIcon}></img>}
                                                                 </div>
                                                             </div>
+                                                            )
                                                         })
+                                                        )
                                                     }
                                                 </div>
                                             }
@@ -461,16 +498,18 @@ export default function UploadContent({lang,setLang}) {
                                     {order && <>
                                         {order.item_details.bundle_items
                                             .filter(item=>item.item__category !== 1 && !skipId?.includes(item.id) && item.status == 'questionnaire required')
-                                            .map((item,index,filterArr) => {
-                                                return <div className={`${filterArr.length === 1 || (index === filterArr.length - 1  || order.item_details.bundle_items?.length === 0) ? '' : 'border-b border-black'} px-[5%] space-x-2 mt-[2%]`}>
-                                                    <p className="mb-0 font-semibold text-[22px">{item.item_name}</p>
+                                            .map((item,index,filterArr) => 
+                                                Array.from({ length: Math.max(1, item.qty) }, (_, qtyIndex) => {
+                                                const hasMultipleQty = item.qty < 1;
+                                                return (<div className={`${filterArr.length === 1 || (index === filterArr.length - 1  || order.item_details.bundle_items?.length === 0) && hasMultipleQty ? '' : 'border-b border-black'} px-[5%] space-x-2 mt-[2%]`}>
+                                                    <p className="mb-0 font-semibold text-[22px">{item.item_name} {item?.qty > 1 && qtyIndex + 1 }</p>
                                                     {designQuestions[item.item__id]?.language && <p className='mt-2'>
                                                         <label className='mr-6 font-[500]'>
                                                             <input
                                                                 type="radio"
                                                                 value="English"
-                                                                checked={uploadContent[item.id]?.language === "English"}
-                                                                onChange={(e) => handleChange(e, item.id, 'language')}
+                                                                checked={uploadContent[item.id]?.[qtyIndex + 1]?.language === "English"}
+                                                                onChange={(e) => handleChange(e, item.id, 'language',item.item_name + "-" + (qtyIndex + 1),qtyIndex + 1)}
                                                                 className="form-radio accent-[#1BA56F] mr-2"
                                                             /> English
 
@@ -479,14 +518,14 @@ export default function UploadContent({lang,setLang}) {
                                                             <input
                                                                 type="radio"
                                                                 value="Arabic"
-                                                                checked={uploadContent[item.id]?.language === "Arabic"}
-                                                                onChange={(e) => handleChange(e, item.id, 'language')}
+                                                                checked={uploadContent[item.id]?.[qtyIndex + 1]?.language === "Arabic"}
+                                                                onChange={(e) => handleChange(e, item.id, 'language',item.item_name + "-" + (qtyIndex + 1),qtyIndex + 1)}
                                                                 className="form-radio accent-[#1BA56F] mr-2"
                                                             />  Arabic  </label>
                                                     </p>}
 
                                                     {designQuestions[item.item__id]?.content && <p className='flex lg:w-[70%] md:w-[90%]'>
-                                                        <input placeholder='Slogan & Number....' value={uploadContent?.[item?.id]?.content || ''} onChange={(e) => handleChange(e, item.id, 'content')} className='border !border-black py-2 px-2 w-full rounded-none ' required></input>
+                                                        <input placeholder='Slogan & Number....' value={uploadContent?.[item?.id]?.[qtyIndex + 1]?.content || ''} onChange={(e) => handleChange(e, item.id, 'content',item.item_name + "-" + (qtyIndex + 1),qtyIndex + 1)} className='border !border-black py-2 px-2 w-full rounded-none ' required></input>
                                                         </p>}
                                                     {designQuestions[item.item__id]?.measurement && <>
                                                         <p className='font-bold'>Measurements</p>
@@ -495,23 +534,106 @@ export default function UploadContent({lang,setLang}) {
                                                                 <input
                                                                     type="radio"
                                                                     value="Standard"
-                                                                    checked={uploadContent[item.id]?.measurements === "Standard"}
-                                                                    onChange={(e) => handleChange(e, item.id, 'measurements')}
+                                                                    checked={uploadContent[item.id]?.[qtyIndex + 1]?.measurements === "Standard"}
+                                                                    onChange={(e) => handleChange(e, item.id, 'measurements',item.item_name + "-" + (qtyIndex + 1),qtyIndex + 1)}
                                                                     className="form-radio accent-[#1BA56F] mr-2"
                                                                 /> Standard </label>
                                                             <label className='mr-2 font-[500]'>
                                                                 <input
                                                                     type="radio"
                                                                     value="Customize"
-                                                                    checked={uploadContent[item.id]?.measurements === "Customize"}
-                                                                    onChange={(e) => handleChange(e, item.id, 'measurements')}
+                                                                    checked={uploadContent[item.id]?.[qtyIndex + 1]?.measurements === "Customize"}
+                                                                    onChange={(e) => handleChange(e, item.id, 'measurements',item.item_name + "-" + (qtyIndex + 1),qtyIndex + 1)}
                                                                     className="form-radio accent-[#1BA56F] mr-2"
                                                                 />  Customize  </label>
 
                                                             {uploadContent[item.id]?.measurements === "Customize" && <>
-                                                                <label className='text-[#1BA56F] mr-2'> Width : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'width')} value={uploadContent?.[item?.id]?.width || ''} className='w-[55px] h-[25px] border !border-[#1BA56F] rounded-none'></input></label>
-                                                                <label className='text-[#1BA56F] mr-2'> Height : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'height')} value={uploadContent?.[item?.id]?.height || ''} className='w-[55px] h-[25px] border !border-[#1BA56F] rounded-none'></input></label>
-                                                                <label className='text-[#1BA56F] mr-2'> Length : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'length')} value={uploadContent?.[item?.id]?.length || ''} className='w-[55px] h-[25px] border !border-[#1BA56F] rounded-none'></input></label>
+                                                                <label className='text-[#1BA56F] mr-2'> Width : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'width',item.item_name + "-" + (qtyIndex + 1),qtyIndex + 1)} value={uploadContent?.[item?.id]?.[qtyIndex + 1]?.width || ''} className='w-[55px] h-[25px] border !border-[#1BA56F] rounded-none'></input></label>
+                                                                <label className='text-[#1BA56F] mr-2'> Height : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'height',item.item_name + "-" + (qtyIndex + 1),qtyIndex + 1)} value={uploadContent?.[item?.id]?.[qtyIndex + 1]?.height || ''} className='w-[55px] h-[25px] border !border-[#1BA56F] rounded-none'></input></label>
+                                                                <label className='text-[#1BA56F] mr-2'> Length : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'length',item.item_name + "-" + (qtyIndex + 1),qtyIndex + 1)} value={uploadContent?.[item?.id]?.[qtyIndex + 1]?.length || ''} className='w-[55px] h-[25px] border !border-[#1BA56F] rounded-none'></input></label>
+                                                                <span className='text-[#1BA56F] mr-2'> CM </span> </>}
+                                                        </p>
+                                                    </>}
+
+                                                    {designQuestions[item.item__id]?.attachment && <><p className='mb-2'>Have something to show us?</p>
+                                                        <p
+                                                            className={`border-b-2 ${uploadContent?.[item?.id]?.[qtyIndex + 1]?.filename ? 'w-fit':'w-[150px]'} !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer`}
+                                                            onClick={() => document.getElementById(`file-${item.id}_${qtyIndex + 1}`).click()} // Trigger click on hidden input
+                                                        >
+                                                            <input
+                                                                type="file"
+                                                                hidden
+                                                                name="file"
+                                                                id={`file-${item.id}_${qtyIndex + 1}`} // Use a unique ID for each input
+                                                                onChange={(e) => uploadFile(e, item.id, 'file',item.item_name + "-" + (qtyIndex + 1),qtyIndex + 1)}
+                                                            />
+                                                            <img src={uploadIcon} alt="Upload Icon" />
+                                                            {uploadContent?.[item?.id]?.[qtyIndex + 1]?.filename || 'Upload Content'}
+                                                        </p></>}
+                                                        <p className='my-6 flex justify-start'> <button onClick={() => {
+                                                        setSkipId([...skipId, item.id])
+                                                    }} className='text-[#1BA56F] py-1 px-2 border !border-[#1BA56F] mr-2 text-[18px] font-[500] uppercase'>Skip For Now</button>
+                                                        <button onClick={() => saveContent(item.id,qtyIndex + 1)} className='text-white bg-[#1BA56F] py-1 px-2 text-[19px] font-[500] uppercase'>Save & Next</button></p>
+                                                </div>)
+                                         })
+                                    )}
+                                        {
+                                            
+                                            order.item_details.addon_items
+                                            .filter(item => !skipId.includes(item.id) && item.status === 'questionnaire required')
+                                            .map((item,index,filteredArr) =>
+                                                Array.from({ length: Math.max(1, item.qty) }, (_, qtyIndex) => {
+                                                    const hasMultipleQty = item.qty < 1;
+                                                    return( <div  className={`${( filteredArr.length === 1 || (index === filteredArr.length -1  || order.item_details.addon_items?.length === 0) ) && hasMultipleQty  ? '' : 'border-b !border-black'} px-[5%] space-x-2 mt-[2%]`} key={`${item.qty}_${index}`}>
+                                                    <p className="mb-0 font-semibold text-[22px">{item.item_name} {item?.qty > 1 && qtyIndex + 1 }</p>
+                                                    {designQuestions[item.item__id]?.language && <p className='mt-2 mb-0'>
+                                                        <label className='mr-6 font-[500]'>
+                                                            <input
+                                                                type="radio"
+                                                                value="English"
+                                                                checked={uploadContent[item.id]?.[qtyIndex + 1]?.language === "English"}
+                                                                onChange={(e) => handleChange(e, item.id, 'language',item.item_name + "-" + (qtyIndex + 1),qtyIndex + 1)}
+                                                                className="form-radio accent-[#1BA56F] mr-2"
+                                                            /> English
+
+                                                        </label>
+                                                        <label className='font-[500]'>
+                                                            <input
+                                                                type="radio"
+                                                                value="Arabic"
+                                                                checked={uploadContent[item.id]?.[qtyIndex + 1]?.language === "Arabic"}
+                                                                onChange={(e) => handleChange(e, item.id, 'language',item.item_name + "-" + (qtyIndex + 1),qtyIndex + 1)}
+                                                                className="form-radio accent-[#1BA56F] mr-2"
+                                                            />  Arabic  </label>
+                                                    </p>}
+
+                                                    {designQuestions[item.item__id]?.content && <p className='flex lg:w-[70%] md:w-[90%] mt-2'>
+                                                        <input placeholder='Slogan & Number....' value={uploadContent?.[item?.id]?.[qtyIndex + 1]?.content || ''} onChange={(e) => handleChange(e, item.id, 'content',item.item_name + "-" + (qtyIndex + 1),qtyIndex + 1)} className='border !border-black py-2 px-2 w-full rounded-none' required></input>
+                                                    </p>}
+                                                    {designQuestions[item.item__id]?.measurement && <>
+                                                        <p className='mb-0 font-bold'>Measurements</p>
+                                                        <p className='ml-2 mt-2'>
+                                                            <label className='mr-6 font-[500]'>
+                                                                <input
+                                                                    type="radio"
+                                                                    value="Standard"
+                                                                    checked={uploadContent[item.id]?.[qtyIndex + 1]?.measurements === "Standard"}
+                                                                    onChange={(e) => handleChange(e, item.id, 'measurements',item.item_name + "-" + (qtyIndex + 1),qtyIndex + 1)}
+                                                                    className="form-radio accent-[#1BA56F] mr-2"
+                                                                /> Standard </label>
+                                                            <label className='mr-2 font-[500]'>
+                                                                <input
+                                                                    type="radio"
+                                                                    value="Customize"
+                                                                    checked={uploadContent[item.id]?.[qtyIndex + 1]?.measurements === "Customize"}
+                                                                    onChange={(e) => handleChange(e, item.id, 'measurements',item.item_name + "-" + (qtyIndex + 1),qtyIndex + 1)}
+                                                                    className="form-radio accent-[#1BA56F] mr-2"
+                                                                />  Customize  </label>
+
+                                                            {uploadContent[item.id]?.[qtyIndex + 1]?.measurements === "Customize" && <>
+                                                                <label className='text-[#1BA56F] mr-2'> Width : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'width',item.item_name + "-" + (qtyIndex + 1),qtyIndex + 1)} value={uploadContent?.[item?.id]?.[qtyIndex + 1]?.width || ''} className='w-[55px] h-[25px] border !border-[#1BA56F] rounded-none'></input></label>
+                                                                <label className='text-[#1BA56F] mr-2'> Height : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'height',item.item_name + "-" + (qtyIndex + 1),qtyIndex + 1)} value={uploadContent?.[item?.id]?.[qtyIndex + 1]?.height || ''} className='w-[55px] h-[25px] border !border-[#1BA56F] rounded-none'></input></label>
+                                                                <label className='text-[#1BA56F] mr-2'> Length : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'length',item.item_name + "-" + (qtyIndex + 1),qtyIndex + 1)} value={uploadContent?.[item?.id]?.[qtyIndex + 1]?.length || ''} className='w-[55px] h-[25px] border !border-[#1BA56F] rounded-none'></input></label>
                                                                 <span className='text-[#1BA56F] mr-2'> CM </span> </>}
                                                         </p>
                                                     </>}
@@ -519,108 +641,35 @@ export default function UploadContent({lang,setLang}) {
                                                     {designQuestions[item.item__id]?.attachment && <><p className='mb-2'>Have something to show us?</p>
                                                         <p
                                                             className={`border-b-2 ${uploadContent?.[item?.id]?.filename ? 'w-fit':'w-[150px]'} !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer`}
-                                                            onClick={() => document.getElementById(`file-${item.id}`).click()} // Trigger click on hidden input
+                                                            onClick={() => document.getElementById(`file-${item.id}_${qtyIndex + 1}`).click()} // Trigger click on hidden input
                                                         >
                                                             <input
                                                                 type="file"
                                                                 hidden
                                                                 name="file"
-                                                                id={`file-${item.id}`} // Use a unique ID for each input
-                                                                onChange={(e) => uploadFile(e, item.id, 'file')}
+                                                                id={`file-${item.id}_${qtyIndex + 1}`} // Use a unique ID for each input
+                                                                onChange={(e) => uploadFile(e, item.id, 'file',item.item_name + "-" + (qtyIndex + 1),qtyIndex + 1)}
                                                             />
                                                             <img src={uploadIcon} alt="Upload Icon" />
-                                                            {uploadContent?.[item?.id]?.filename || 'Upload Content'}
+                                                            {uploadContent?.[item?.id]?.[qtyIndex + 1]?.filename || 'Upload Content'}
                                                         </p></>}
-                                                        <p className='my-6 flex justify-start'> <button onClick={() => {
+
+                                                    <p className='my-6'> <button onClick={() => {
                                                         setSkipId([...skipId, item.id])
                                                     }} className='text-[#1BA56F] py-1 px-2 border !border-[#1BA56F] mr-2 text-[18px] font-[500] uppercase'>Skip For Now</button>
-                                                        <button onClick={() => saveContent(item.id)} className='text-white bg-[#1BA56F] py-1 px-2 text-[19px] font-[500] uppercase'>Save & Next</button></p>
+                                                        <button onClick={() => saveContent(item.id,qtyIndex + 1)} className='text-white bg-[#1BA56F] py-1 px-2 text-[19px] font-[500] uppercase'>Save & Next</button></p>
                                                 </div>
-                                        })}
-                                        {
-                                            
-                                            order.item_details.addon_items
-                                            .filter(item => !skipId.includes(item.id) && item.status === 'questionnaire required')
-                                            .map((item,index,filteredArr) => {
-                                                          
-                                                    return <div className={`${( filteredArr.length === 1 || (index === filteredArr.length -1  || order.item_details.addon_items?.length === 0) )  ? '' : 'border-b !border-black'} px-[5%] space-x-2 mt-[2%]`}>
-                                                        <p className="mb-0 font-semibold text-[22px">{item.item_name}</p>
-                                                        {designQuestions[item.item__id]?.language && <p className='mt-2 mb-0'>
-                                                            <label className='mr-6 font-[500]'>
-                                                                <input
-                                                                    type="radio"
-                                                                    value="English"
-                                                                    checked={uploadContent[item.id]?.language === "English"}
-                                                                    onChange={(e) => handleChange(e, item.id, 'language')}
-                                                                    className="form-radio accent-[#1BA56F] mr-2"
-                                                                /> English
-
-                                                            </label>
-                                                            <label className='font-[500]'>
-                                                                <input
-                                                                    type="radio"
-                                                                    value="Arabic"
-                                                                    checked={uploadContent[item.id]?.language === "Arabic"}
-                                                                    onChange={(e) => handleChange(e, item.id, 'language')}
-                                                                    className="form-radio accent-[#1BA56F] mr-2"
-                                                                />  Arabic  </label>
-                                                        </p>}
-
-                                                        {designQuestions[item.item__id]?.content && <p className='flex lg:w-[70%] md:w-[90%] mt-2'>
-                                                            <input placeholder='Slogan & Number....' value={uploadContent?.[item?.id]?.content || ''} onChange={(e) => handleChange(e, item.id, 'content')} className='border !border-black py-2 px-2 w-full rounded-none' required></input>
-                                                        </p>}
-                                                        {designQuestions[item.item__id]?.measurement && <>
-                                                            <p className='mb-0 font-bold'>Measurements</p>
-                                                            <p className='ml-2 mt-2'>
-                                                                <label className='mr-6 font-[500]'>
-                                                                    <input
-                                                                        type="radio"
-                                                                        value="Standard"
-                                                                        checked={uploadContent[item.id]?.measurements === "Standard"}
-                                                                        onChange={(e) => handleChange(e, item.id, 'measurements')}
-                                                                        className="form-radio accent-[#1BA56F] mr-2"
-                                                                    /> Standard </label>
-                                                                <label className='mr-2 font-[500]'>
-                                                                    <input
-                                                                        type="radio"
-                                                                        value="Customize"
-                                                                        checked={uploadContent[item.id]?.measurements === "Customize"}
-                                                                        onChange={(e) => handleChange(e, item.id, 'measurements')}
-                                                                        className="form-radio accent-[#1BA56F] mr-2"
-                                                                    />  Customize  </label>
-
-                                                                {uploadContent[item.id]?.measurements === "Customize" && <>
-                                                                    <label className='text-[#1BA56F] mr-2'> Width : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'width')} value={uploadContent?.[item?.id]?.width || ''} className='w-[55px] h-[25px] border !border-[#1BA56F] rounded-none'></input></label>
-                                                                    <label className='text-[#1BA56F] mr-2'> Height : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'height')} value={uploadContent?.[item?.id]?.height || ''} className='w-[55px] h-[25px] border !border-[#1BA56F] rounded-none'></input></label>
-                                                                    <label className='text-[#1BA56F] mr-2'> Length : <input type='text' min='0' onChange={(e) => handleChange(e, item.id, 'length')} value={uploadContent?.[item?.id]?.length || ''} className='w-[55px] h-[25px] border !border-[#1BA56F] rounded-none'></input></label>
-                                                                    <span className='text-[#1BA56F] mr-2'> CM </span> </>}
-                                                            </p>
-                                                        </>}
-
-                                                        {designQuestions[item.item__id]?.attachment && <><p className='mb-2'>Have something to show us?</p>
-                                                            <p
-                                                                className={`border-b-2 ${uploadContent?.[item?.id]?.filename ? 'w-fit':'w-[150px]'} !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer`}
-                                                                onClick={() => document.getElementById(`file-${item.id}`).click()} // Trigger click on hidden input
-                                                            >
-                                                                <input
-                                                                    type="file"
-                                                                    hidden
-                                                                    name="file"
-                                                                    id={`file-${item.id}`} // Use a unique ID for each input
-                                                                    onChange={(e) => uploadFile(e, item.id, 'file')}
-                                                                />
-                                                                <img src={uploadIcon} alt="Upload Icon" />
-                                                                {uploadContent?.[item?.id]?.filename || 'Upload Content'}
-                                                            </p></>}
-
-                                                        <p className='my-6'> <button onClick={() => {
-                                                            setSkipId([...skipId, item.id])
-                                                        }} className='text-[#1BA56F] py-1 px-2 border !border-[#1BA56F] mr-2 text-[18px] font-[500] uppercase'>Skip For Now</button>
-                                                            <button onClick={() => saveContent(item.id)} className='text-white bg-[#1BA56F] py-1 px-2 text-[19px] font-[500] uppercase'>Save & Next</button></p>
-                                                    </div>
-
-                                            })
+                                                
+                                            )
                                         }
+                                            )
+
+                                        )
+                                        }
+
+
+                                    
+                                          
                                     </>
                                     }
 
@@ -633,34 +682,44 @@ export default function UploadContent({lang,setLang}) {
 
                                 {order &&
                                     <>
-                                        {order.item_details.bundle_items.map(item => {
+                                        {order.item_details.bundle_items.map((item,itemIndex) => {
                                             if (item.item__category != 1) {
-                                                return <div className="flex items-center space-x-2 mb-1  text-[#1BA56F]">
+                                                return ( 
+                                                <div key={itemIndex}>
+                                                 {Array.from({ length: Math.max(1, item.qty) }, (_, qtyIndex) => (
+                                                <div className="flex items-center space-x-2 mb-1  text-[#1BA56F]">
                                                     {item.status == 'questionnaire required' ?
                                                         // <div className="w-4 h-4 border-2 border-[#1BA56F] rounded-full"></div> 
                                                         <img src={checkboxIcon} width={'25px'}></img>
 
                                                         :
                                                         <img src={tickCircleIcon}></img>}
-                                                    <p className="mb-0 font-medium">{item.item_name}</p>
+                                                    <p className="mb-0 font-medium">{item.item_name} {item?.qty > 1 && qtyIndex + 1}</p>
                                                 </div>
+                                                ) )}
+                                                 </div>
+                                        );
                                             }
-
+                                        return null;
                                         })}
-                                        {
-                                            order.item_details.addon_items.map(item => {
-                                                return <div className="flex items-center space-x-2 mb-1 text-[#1BA56F]">
-                                                    <div className='flex justify-center'>
-                                                        {item.status == 'questionnaire required' ?
-                                                            // <div className="w-4 h-4 border-2 border-[#1BA56F] rounded-full"></div>
-                                                            <img src={checkboxIcon} width={'25px'}></img>
-                                                            :
-                                                            <img src={tickCircleIcon}></img>}
-                                                    </div>
-                                                    <p className="mb-0 font-medium">{item.item_name}</p>
-                                                </div>
-                                            })
-                                        }
+                                       
+                                       {
+                                                        order.item_details.addon_items.map(item => 
+                                                            Array.from({ length: Math.max(1, item.qty) }, (_, qtyIndex) => {
+                                                                return (<div className="flex items-center space-x-2 mb-1 text-[#1BA56F]">
+                                                                    <div className='flex justify-center'>
+                                                                        {item.status == 'questionnaire required' ?
+                                                                            // <div className="w-4 h-4 border-2 border-[#1BA56F] rounded-full"></div>
+                                                                            <img src={checkboxIcon} width={'25px'}></img>
+                                                                            :
+                                                                            <img src={tickCircleIcon}></img>}
+                                                                    </div>
+                                                                    <p className="mb-0 font-medium">{item.item_name} {item?.qty > 1 && qtyIndex + 1}</p>
+                                                                </div>
+                                                                )
+                                                            })
+                                                        )
+                                                    }
                                     </>
                                 }
 
