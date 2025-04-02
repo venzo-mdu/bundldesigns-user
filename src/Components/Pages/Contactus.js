@@ -113,13 +113,13 @@ export const Contactus = ({lang,setLang}) => {
             <Navbar isLang={lang} setIsLang={setLang}/>
             <div className=' font-Helvetica flex sm:pt-10 xs:pt-0 pt-10 xs:block sm:flex sm:pb-24 xs:pb-2 pb-24 overflow-hidden'>
               <div className='basis-1/4 relative xs:pb-8'>
-                <img className='sm:!w-[200px] !w-[200px] xs:!w-[130px] top-[15%] sm:right-[10%] xs:right-0 right-[10%] left- absolute xs:hidden sm:absolute sm:block' src={ paperPlaneGif}></img>
+                <img className={`sm:!w-[200px] !w-[200px] xs:!w-[130px] top-[15%] ${lang === 'ar' ? 'sm:left-[10%] xs:left-0 left-[10%]':'sm:right-[10%] xs:right-0 right-[10%]'}  absolute xs:hidden sm:absolute sm:block`} src={ paperPlaneGif}></img>
     
               </div>
               <div className='basis-2/4 px-[2px]'  >
                 <div className='text-center xs:border-b border-black relative sm:border-none '>
                   <h2 className='text-[40px] mt-4 leading-1 relative text-black w-[340px] mx-auto mb-0'>
-                      <img className='absolute bottom-[10px] xs:w-[90px] sm:w-[150px] sm:bottom-[-20px] lg:bottom-[-40px] md:bottom-[-40px] xs:bottom-[-60px] xs:left-0 sm:left-[-10%] left-[-10%]' src={Loginlogo} alt='login' /> 
+                      <img className={`absolute bottom-[10px] xs:w-[90px] sm:w-[150px] sm:bottom-[-20px] lg:bottom-[-40px] md:bottom-[-40px] xs:bottom-[-60px] ${lang === 'ar' ? 'xs:right-0 sm:right-[-10%] right-[-10%] rotate-[45deg]':'xs:left-0 sm:left-[-10%] left-[-10%]'}`} src={Loginlogo} alt='login' /> 
                   </h2>
                   <h2 className='text-[40px] text-[#F3B7CE] font-[700]'>{'Contact us'}</h2>
                   <p className='sm:text-[20px] xs:pb-8 sm:pb-1 text-[20px] xs:text-[16px] md:w-[100%] lg:w-[92%] xl:w-[62%] xs:w-[350px] mx-auto'>Elevate your brand, whether online or in-store. This bundle includes comprehensive brand identity (logo, guidelines, colors, typography, patterns) and commerce collateral to enhance customer experience. Plus, get social media designs to boost sales.

@@ -33,7 +33,7 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
 
   useEffect(() => {
     addOnPayload(addOnPayloads());
-  }, [addOnData, quantities,extraQty]);
+  }, [addOnData, quantities,extraQty,isLang]);
 
   const getAddons = async () => {
     try {
@@ -118,18 +118,26 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
       ? parseFloat(design.price)
       : parseFloat(design.price) + ((parseFloat(design.price) / 100) * design.price_increment * (quantity - 1));
       total_price += current_total
+
+      const foundCategory = titleArr.find((title) => 
+        addOnData.designs_details?.[title]?.design_list.some((item) => item.id === design.id)
+      );
+
       return {
         design_id: design.id,
         addon_name: design.name_english,
+        addon_arabic:design.name_arabic,
         unit_price: design.price.toString(),
         unit_time: design.time.toString(),
         price_increment:design.price_increment,
         qty: quantity.toString(),
         item_type: "addon",
         total_price:current_total,
-        category: titleArr.find((title) => 
-          addOnData.designs_details?.[title]?.design_list.some((item) => item.id === design.id)
-        ) || ""
+        category: foundCategory 
+          ? (isLang === 'ar'
+            ? addOnData.designs_details?.[foundCategory]?.name_arabic
+            : addOnData.designs_details?.[foundCategory]?.name_english)
+          : ""
       };
     });
     const taxRate = 18; // Define the tax rate
@@ -146,12 +154,12 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
 
     return payload;
   };
-
+  
   return (
     <div>
       <div className='bundl-accordian'>
         <p className={`accordian-heading mb-1  leading-[1.2] ${isLang === 'ar' ?'text-right':'text-left'}`}>{accordianTitle}</p>
-        <p className={`xs:tesxt-[20px] sm:text-[16px] text-[16px] xs:w-full sm:w-full w-full ${isLang === 'ar' ?'text-right':'text-left'}`} style={{ opacity: '50%' }}>Add anything you want to your bundle to fit your brand!</p>
+        <p className={`xs:tesxt-[20px] sm:text-[16px] text-[16px] xs:w-full sm:w-full w-full ${isLang === 'ar' ?'text-right':'text-left'}`} style={{ opacity: '50%' }}>{isLang === 'ar' ? 'أضف أي شيء تريده إلى! bundl  لخاص بك ليناسب علامتك التجارية ' : 'Add anything you want to your bundle to fit your brand!'}</p>
         <div className='tab-buttons !border-b-0'>
           {titleArr.map((title, index) => (
             <button
@@ -167,7 +175,7 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
                 element.scrollIntoView({ behavior: 'smooth' })
               }}
             >
-              {title}
+              {isLang === 'ar' ? addOnData?.designs_details?.[title]?.name_arabic : title}
             </button>
           ))}
         </div>
@@ -191,7 +199,7 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
                 border:'none'
               }}
             >
-              <Typography className='!font-[700] !text-[24px]'>{title}</Typography>
+              <Typography className='!font-[700] !text-[24px]'>{isLang === 'ar' ? addOnData?.designs_details?.[title]?.name_arabic : title}</Typography>
             </AccordionSummary>
             <AccordionDetails >
               <Typography>
@@ -218,7 +226,7 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
                         }}
                         className={`sm:basis-[35%] basis-[35%] xs:basis-[69%] ${isLang === 'ar' ?'text-right':'text-left'}`}
                       >
-                        {design.name_english}
+                        {isLang === 'ar' ? design.name_arabic : design.name_english}
                       </Typography>
                       <p className={`flex xs:order-3 sm:order-2 items-center sm:w-[35%] w-[35%] xs:w-[100%] !mb-2 ${bundlePackageId && 'xs:hidden sm:flex'}`}>
                         <p className='flex items-center mb-1 sm:min-w-[120px] min-w-[120px] xs:min-w-[100px] font-[500]'>

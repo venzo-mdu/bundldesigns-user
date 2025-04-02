@@ -725,7 +725,7 @@ export const MyCart = ({lang,setLang}) => {
                     <>
                             <div className='flex justify-between border-b pb-2 !border-black'> 
                             <div>
-                            <div className='font-[700] text-[20px]'>{cartDetails?.bundl_english}</div>
+                            <div className='font-[700] text-[20px]'>{lang === 'ar' ?  cartDetails?.bundl_arabic : cartDetails?.bundl_english}</div>
                             {/* <div className='font-[500] ml-8'> {Math.round(cartDetails.total_amount)} SAR</div> */}
                             </div>
                             {/* <p className='flex items-center !mb-0 justify-center'><img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(cartDetails.id, 'bundle')}/></p> */}
@@ -750,7 +750,7 @@ export const MyCart = ({lang,setLang}) => {
                                     </div>
                                     {
                                         cartDetails?.item_details?.addon_items?.length >0 &&(
-                                    <div className='font-[700] text-[20px] mt-2'>Add ons</div>
+                                    <div className={`font-[700] text-[20px] mt-2 ${lang === 'ar' ? 'text-right':'text-left'}`}>Add ons</div>
                                 )
                                     }
                         {cartDetails?.item_details?.addon_items?.map((row,index) => (
@@ -766,14 +766,14 @@ export const MyCart = ({lang,setLang}) => {
                                             borderWidth: '1px',
                                             }} 
                                             onClick={() => handleQuantityChange(row?.id, -1)} 
-                                            className={` !border-r-0 !py-[17px]  px-1  flex  items-center`}>
+                                            className={` ${lang === 'ar' ?' !border-l-0' :'!border-r-0'} !py-[17px]  px-1  flex  items-center`}>
                                                 <RemoveIcon />
                                             </button>
                                             <span style={{
                                             borderColor: 'black',
                                             borderStyle: 'solid',
                                             borderWidth: '1px',
-                                            }} className={`!border-r-0 px-2 !text-[20px]`}> {row?.qty || 0}</span>
+                                            }} className={`${lang === 'ar' ?' !border-l-0' :'!border-r-0'} px-2 !text-[20px]`}> {row?.qty || 0}</span>
                                             <button style={{
                                             borderColor: 'black',
                                             borderStyle: 'solid',
@@ -802,7 +802,7 @@ export const MyCart = ({lang,setLang}) => {
                                         className={`text-[#000] font-[700] text-[20px] border-b border-black mb-2 `}
                                     >
                                         <td className={`${lang === 'ar' ? 'text-right':'textleft'} !py-2`} scope="row">
-                                        {cartDetails?.bundl_english}
+                                        {lang === 'ar' ?  cartDetails?.bundl_arabic : cartDetails?.bundl_english}
                                         </td>
                                         {/* <td className=' !py-2' align="center">{row.qty}</td> */}
                                         <td className=' !py-2' align="center"> {Math.round(cartDetails?.bundle_price)}</td>
@@ -823,7 +823,7 @@ export const MyCart = ({lang,setLang}) => {
                                             <tr
                                         className={`text-[#000] font-[700] text-[20px] mb-2 mt-4`}
                                     >
-                                        <td className='text-left !py-2' scope="row">
+                                        <td className={`${lang === 'ar' ? 'text-right':'text-left'} !py-2`} scope="row">
                                         {cartDetails?.item_details?.addon_items?.length > 0 && "Add ons"}
                                         </td>
                                     </tr>
@@ -849,14 +849,14 @@ export const MyCart = ({lang,setLang}) => {
                                             borderWidth: '1px',
                                             }} 
                                             onClick={() => handleQuantityChange(row?.id, -1)} 
-                                            className={` !border-r-0 !py-[17px]  px-1  flex  items-center`}>
+                                            className={` ${lang === 'ar' ?' !border-l-0' :'!border-r-0'} !py-[17px]  px-1  flex  items-center`}>
                                                 <RemoveIcon />
                                             </button>
                                             <span style={{
                                             borderColor: 'black',
                                             borderStyle: 'solid',
                                             borderWidth: '1px',
-                                            }} className={`!border-r-0 px-2 !text-[20px]`}> {row?.qty || 0}</span>
+                                            }} className={`${lang === 'ar' ?' !border-l-0' :'!border-r-0'} px-2 !text-[20px]`}> {row?.qty || 0}</span>
                                             <button style={{
                                             borderColor: 'black',
                                             borderStyle: 'solid',
