@@ -299,7 +299,7 @@ export const Navbar = ({isLang,setIsLang}) => {
                 <a href="/dashboard" className='!text-black' previewlistener="true">{isLang === 'ar' ?'مشاريعنا':'Projects'}</a>
               </li>
               <li className='relative p-1 inner-nav-li'>
-                <a href="/purchase-history" className='!text-black' previewlistener="true">{isLang === 'ar' ?'سابقة طلبات ':'History'}</a>
+                <a href="/purchase-history" className='!text-black' previewlistener="true">{isLang === 'ar' ?'تاريخ':'History'}</a>
               </li>
               <li className='relative p-1 inner-nav-li'>
                 <a href="/profile" className='!text-black' previewlistener="true">{isLang === 'ar' ? 'حسابك' :'Profile'}</a>

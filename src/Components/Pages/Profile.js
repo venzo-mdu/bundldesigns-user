@@ -134,12 +134,12 @@ const Profile = ({ user ,lang,setLang }) => {
             <ToastContainer/>
             <Navbar isLang={lang} setIsLang={setLang}/>
             <div className='text-center py-2 border-b border-black'>
-                  <h1 className='lg:text-[40px] md:text-[40px] xs:text-[30px] lg:mt-[2%] md:mt-[2%] xs:mt-[5%] uppercase'> Profile </h1>
+                  <h1 className='lg:text-[40px] md:text-[40px] xs:text-[30px] lg:mt-[2%] md:mt-[2%] xs:mt-[5%] uppercase'> {lang === 'ar' ? 'حسابك' :'Profile'} </h1>
               </div>
             <div className='flex flex-col items-center justify-center my-[5%] lg:p-0 md:p-0 xs:p-[1%_5%]'>
                 <form className='w-full lg:max-w-[30%] md:max-w-[30%] xs:max-w-[100%]' onSubmit={handleSubmit}>
                     <div className="flex items-center border-b-[2px] border-black  p-2 mb-4">
-                        <FaUser className="text-gray-500 mr-2" />
+                        <FaUser className={`text-gray-500 ${lang === 'ar' ? 'ml-2':'mr-2'}`}/>
                         <input
                             type="text"
                             placeholder="Name"
@@ -151,7 +151,7 @@ const Profile = ({ user ,lang,setLang }) => {
                     </div>
                     {error.full_name && <p className="text-red-500 text-sm">{error.full_name}</p>}
                     <div className="flex items-center border-b-[2px] border-black p-2 mb-4">
-                        <FaGlobe className="text-gray-500 mr-2" />
+                        <FaGlobe className={`text-gray-500 ${lang === 'ar' ? 'ml-2':'mr-2'}`} />
                         <select
                             type="text"
                             placeholder="Country"
@@ -170,7 +170,7 @@ const Profile = ({ user ,lang,setLang }) => {
                     </div>
                     {error.country && <p className="text-red-500 text-sm">{error.country}</p>}
                     <div className="flex items-center border-b-[2px] border-black p-2 mb-4">
-                        <FaLanguage className="text-gray-500 mr-2" />
+                        <FaLanguage className={`text-gray-500 ${lang === 'ar' ? 'ml-2':'mr-2'}`} />
                         <select
                             type="text"
                             placeholder="Language"
@@ -186,7 +186,7 @@ const Profile = ({ user ,lang,setLang }) => {
                     </div>
                     {error.language && <p className="text-red-500 text-sm">{error.language}</p>}
                     <div className="flex items-center border-b-[2px] border-black  p-2 mb-4">
-                        <FaEnvelope className="text-gray-500 mr-2" />
+                        <FaEnvelope className={`text-gray-500 ${lang === 'ar' ? 'ml-2':'mr-2'}`} />
                         <input
                             type="email"
                             placeholder="Email"
@@ -198,10 +198,10 @@ const Profile = ({ user ,lang,setLang }) => {
                     </div>
                     {error.email && <p className="text-red-500 text-sm">{error.email}</p>}
                     <div className="flex items-center border-b-[2px] border-black  p-2 mb-4">
-                        <FaPhone className="text-gray-500 mr-2 rotate-180" />
+                        <FaPhone className={`text-gray-500 ${lang === 'ar' ? 'ml-2 rotate-[270deg]':'mr-2 rotate-180'}`} />
                         <PhoneNumberInput
                             name="phone"
-                            placeholder="Enter phone number"
+                            placeholder={lang==='ar'?'أدخل رقم هاتفك':"Enter your phone number"}
                             value={formData?.phone}
                             status={setFormData}
                             setPhoneError={setPhoneError}
@@ -214,11 +214,11 @@ const Profile = ({ user ,lang,setLang }) => {
                     </div>
                     {error.phone && <p className="text-red-500 text-sm">{error.phone}</p>}
                     <button type='submit' className="w-full bg-[#f3b7ce] text-white py-2 ">
-                        {isLoading ? <ClipLoader size={25} color='#FFFFFF' /> : 'UPDATE'}
+                        {isLoading ? <ClipLoader size={25} color='#FFFFFF' /> : lang === 'ar' ? 'تحديث' : 'UPDATE'}
                     </button>
                     <button className="w-full bg-[#f3b7ce] text-white py-2 mt-4" onClick={()=>navigate("/reset-password")}>
                         {/* {isLoading ? <ClipLoader size={25} color='#FFFFFF' /> : 'RESET PASSWORD'} */}
-                        RESET PASSWORD
+                       {lang === 'ar' ? 'إعادة  تعيين كلمة السر' :'RESET PASSWORD'} 
                     </button>
                 </form>
             </div>

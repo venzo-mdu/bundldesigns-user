@@ -66,7 +66,7 @@ export default function Dashboard({lang,setLang}) {
     const [counter, setCounter] = useState(0)
     const [processIndex, setProcessIndex] = useState(0)
     const [order, setOrder] = useState({})
-    const [dashboardJson, setDashboardJson] = useState(dashboard.english)
+    const [dashboardJson, setDashboardJson] = useState(dashboard)
     const [purchased, setPurchased] = useState('not')
     const ProcessIndexDict = ['purchase', 'questionnaire_required', 'in_progress', 'send_for_approval', 'add_ons', 'content_uploaded']
     const base_url = process.env.REACT_APP_BACKEND_URL
@@ -241,13 +241,13 @@ export default function Dashboard({lang,setLang}) {
                 return (
                     <div className="text-center">
                         <h2 className="lg:text-[22px] md:text-[22px] xs:text-[18px] xs:px-[10%] text-[#000000]">
-                            {dashboardJson.process_content.questionnaire}
+                            {lang === 'ar' ? dashboardJson.process_content.questionnaire_arabic : dashboardJson.process_content.questionnaire}
                         </h2>
                         <button
                             onClick={() => fillQuestionaire()}
                             className="bg-[#1BA56F] px-2 py-1 text-[#fff] text-[16px] mt-2 xs:min-w-[200px] lg:min-w-0 md:min-w-0 uppercase"
                         >
-                            {dashboardJson.process_content.questionnaire_fill}
+                            {lang === 'ar' ? dashboardJson.process_content.questionnaire_fill_arabic :dashboardJson.process_content.questionnaire_fill}
                         </button>
                     </div>
                 );
@@ -258,16 +258,16 @@ export default function Dashboard({lang,setLang}) {
                     return (
                         <div className="text-center">
                             <h2 className="lg:text-[22px] md:text-[22px] xs:text-[18px] xs:px-[10%] text-[#000000]">
-                                You have <span className='text-[#1BA56F]'>{formattedCounter}</span> to edit your questionnaire
+                               {lang === 'ar' ? 'لديك' :'You have'}  <span className='text-[#1BA56F]'>{formattedCounter}</span> {lang === 'ar' ? ' لتعديل الاستبيان الخاص' :'to edit your questionnaire'} 
                             </h2>
                             <p className="text-[18px] text-[#1BA56F] font-medium">
-                                {dashboardJson.process_content.questionnaire_edit_content}
+                                {lang === 'ar'? dashboardJson.process_content.questionnaire_edit_content_arabic :dashboardJson.process_content.questionnaire_edit_content}
                             </p>
                             <button
                                 onClick={() => fillQuestionaire()}
                                 className="bg-[#1BA56F] px-2 py-1 text-[#fff] text-[16px] mt-2 uppercase"
                             >
-                                {dashboardJson.process_content.questionnaire_edit_action}
+                                {lang === 'ar' ? dashboardJson.process_content.questionnaire_edit_action_arabic  : dashboardJson.process_content.questionnaire_edit_action}
                             </button>
                         </div>
                     );
@@ -275,10 +275,10 @@ export default function Dashboard({lang,setLang}) {
                 return (
                     <div className="text-center flex items-center flex-col">
                         <h2 className="lg:text-[22px] md:text-[22px] xs:text-[18px] xs:px-[10%] text-[#000000] lg:w-[100%] md:w-[100%] xs:w-[90%]">
-                            {dashboardJson.process_content.design_brand}
+                            {lang === 'ar'? dashboardJson.process_content.design_brand_arabic :dashboardJson.process_content.design_brand}
                         </h2>
                         <p className="text-[18px] text-[#1BA56F] font-medium">
-                            {dashboardJson.process_content.expected_date} {expectedDate}
+                            {lang === 'ar'? dashboardJson.process_content.expected_date_arabic : dashboardJson.process_content.expected_date} {expectedDate}
                         </p>
                     </div>
                 );
@@ -291,8 +291,8 @@ export default function Dashboard({lang,setLang}) {
                         </h2>
                         <p className="flex justify-center w-full">
                             <button onClick={() => { setShowPdf(true) }} className="border-b-2 border-[#1BA56F] pb-0 font-medium text-[#1BA56F] flex items-center uppercase">
-                                <img className="mr-2" src={downloadIcon} alt="Download Icon" />
-                                Click Here to Download
+                                <img className={`${lang === 'ar' ?'ml-2':'mr-2'}`} src={downloadIcon} alt="Download Icon" />
+                                {lang === 'ar' ? 'اضغط هنا للتحميل':'Click Here to Download'}
                             </button>
                         </p>
                         <p>
@@ -300,13 +300,13 @@ export default function Dashboard({lang,setLang}) {
                                 onClick={() => { navigate('/adjustment', { state: { orderId: order.id, orderItemId: null } }) }}
                                 className="px-3 py-1 text-[#1BA56F] font-[500] border !border-[#1BA56F] text-[16px] mt-2 mr-2"
                             >
-                                {dashboardJson.process_content.request_edit}
+                                {lang === 'ar' ? dashboardJson.process_content.request_edit_arabic : dashboardJson.process_content.request_edit}
                             </button>
                             <button
                                 onClick={() => approveBrand()}
                                 className="bg-[#1BA56F] px-3 py-1 font-[500] text-[#fff] text-[16px] mt-2 uppercase"
                             >
-                                {dashboardJson.process_content.approve_brand}
+                                {lang === 'ar' ? dashboardJson.process_content.approve_brand_arabic :dashboardJson.process_content.approve_brand}
                             </button>
                         </p>
                     </div>
@@ -316,13 +316,13 @@ export default function Dashboard({lang,setLang}) {
                 return (
                     <div className="text-center">
                         <h2 className="lg:text-[22px] md:text-[22px] xs:text-[18px] xs:px-[10%] text-[#000000] lg:w-[100%] md:w-[100%] xs:w-[400px]">
-                            {dashboardJson.process_content.addons}
+                            {lang === 'ar' ? dashboardJson.process_content.addons_arabic :dashboardJson.process_content.addons}
                         </h2>
                         {order?.bundle_id !== null &&
                         <p className="flex mt-3 justify-center w-full">
                             <button onClick={() => { setShowPdf(true) }} className="border-b-2 border-[#1BA56F] pb-0 font-medium text-[#1BA56F] flex items-center uppercase">
-                                <img className="mr-2" src={downloadIcon} alt="Download Icon" />
-                               Click Here to Download
+                                <img className={`${lang === 'ar' ?'ml-2':'mr-2'}`} src={downloadIcon} alt="Download Icon" />
+                               {lang === 'ar' ? 'اضغط هنا للتحميل':'Click Here to Download'}
                             </button>
                         </p>
                         }
@@ -331,7 +331,7 @@ export default function Dashboard({lang,setLang}) {
                                 onClick={() => (window.location.href = `/upload-content/${order.id}`)}
                                 className="bg-[#1BA56F] lg:px-4 md:px-4 xs:px-[10%] py-1 text-[#fff] text-[16px] mt-2 uppercase"
                             >
-                                {dashboardJson.process_content.upload_content}
+                                {lang === 'ar' ? dashboardJson.process_content.upload_content_arabic : dashboardJson.process_content.upload_content}
                             </button>
                         </p>
                     </div>
@@ -341,16 +341,16 @@ export default function Dashboard({lang,setLang}) {
                 return (
                     <div className="text-center">
                         <h2 className="lg:text-[22px] md:text-[22px] xs:text-[18px] xs:px-[10%] text-[#000000]">
-                            {dashboardJson.process_content.receive_designs}
+                            {lang === 'ar' ? dashboardJson.process_content.receive_designs_arabic : dashboardJson.process_content.receive_designs}
                         </h2>
                         <p className="flex justify-center w-full">
                             <button onClick={() => { setShowPdf(true) }} className="border-b-2 border-[#1BA56F] pb-0 font-medium text-[#1BA56F] flex items-center uppercase">
-                                <img className="mr-2" onClick={() => { }} src={downloadIcon} alt="Download Icon" />
-                                Click Here to Download
+                                <img className={`${lang === 'ar' ?'ml-2':'mr-2'}`} onClick={() => { }} src={downloadIcon} alt="Download Icon" />
+                                {lang === 'ar' ? 'اضغط هنا للتحميل':'Click Here to Download'}
                             </button>
                         </p>
                         <p className="text-[18px] text-[#1BA56F] font-medium">
-                            {dashboardJson.process_content.expected_date} {expectedDate}
+                        {lang === 'ar'? dashboardJson.process_content.expected_date_arabic : dashboardJson.process_content.expected_date} {expectedDate}
                         </p>
                     </div>
                 );
@@ -359,12 +359,12 @@ export default function Dashboard({lang,setLang}) {
                 return (
                     <div className="text-center flex items-center flex-col">
                         <h2 className="lg:text-[22px] md:text-[22px] xs:text-[18px] xs:px-[10%] text-[#000000] lg:w-[100%] md:w-[100%] xs:w-[80%]">
-                            {dashboardJson.process_content.file_send}
+                            {lang === 'ar' ? dashboardJson.process_content.file_send_arabic :dashboardJson.process_content.file_send}
                         </h2>
                         <p className="flex justify-center w-full">
                             <button onClick={() => { setShowPdf(true) }} className="border-b-2 border-[#1BA56F] pb-0 font-medium text-[#1BA56F] flex items-center uppercase">
-                                <img className="mr-2" onClick={() => { }} src={downloadIcon} alt="Download Icon" />
-                                Click Here to Download
+                                <img className={`${lang === 'ar' ?'ml-2':'mr-2'}`} onClick={() => { }} src={downloadIcon} alt="Download Icon" />
+                                {lang === 'ar' ? 'اضغط هنا للتحميل':'Click Here to Download'}
                             </button>
                         </p>
                         <p>
@@ -374,7 +374,7 @@ export default function Dashboard({lang,setLang}) {
                                         onClick={() => { completeOrder() }}
                                         className="bg-[#1BA56F] px-2 py-1 text-[#fff] text-[16px] mt-2 uppercase"
                                     >
-                                        {dashboardJson.process_content.mark_complete}
+                                        {lang === 'ar' ? dashboardJson.process_content.mark_complete_arabic :dashboardJson.process_content.mark_complete}
                                     </button>
                             }
 
@@ -385,12 +385,12 @@ export default function Dashboard({lang,setLang}) {
                 return (
                     <div className="text-center">
                         <h2 className="lg:text-[22px] md:text-[22px] xs:text-[18px] xs:px-[10%] text-[#000000]">
-                            {dashboardJson.process_content.file_send}
+                           {lang === 'ar' ? dashboardJson.process_content.file_send_arabic :dashboardJson.process_content.file_send}
                         </h2>
                         <p className="flex justify-center w-full">
                             <button onClick={() => { setShowPdf(true) }} className="border-b-2 border-[#1BA56F] pb-0 font-medium text-[#1BA56F] flex items-center uppercase">
-                                <img className="mr-2" onClick={() => { }} src={downloadIcon} alt="Download Icon" />
-                                Click Here to Download
+                                <img className={`${lang === 'ar' ?'ml-2':'mr-2'}`} onClick={() => { }} src={downloadIcon} alt="Download Icon" />
+                                {lang === 'ar' ? 'اضغط هنا للتحميل':'Click Here to Download'}
                             </button>
                         </p>
                     </div>
@@ -410,7 +410,7 @@ export default function Dashboard({lang,setLang}) {
 
             // Common classes for the containers
             // const containerClasses = `flex relative mt-[3%] ${!isLast ? 'basis-1/5' : ''} items-center`;
-            const containerClasses = `flex relative lg:left-[0px] md:left-[30px] xs:left-0 mt-[3%] ${!isLast ? 'lg:basis-[45%] md:basis-[20%] xs:basis-1/5' : 'md:w-[75px] lg:w-[165px] xs:w-[75px]'} items-center`;
+            const containerClasses = `flex relative ${lang === 'ar' ? 'lg:right-[0px] md:right-[30px] xs:right-0':'lg:left-[0px] md:left-[30px] xs:left-0'} mt-[3%] ${!isLast ? 'lg:basis-[45%] md:basis-[20%] xs:basis-1/5' : 'md:w-[75px] lg:w-[165px] xs:w-[75px]'} items-center`;
 
 
             // Determine the image and line styles based on process state
@@ -426,7 +426,7 @@ export default function Dashboard({lang,setLang}) {
             }
             return (
                 <div className={containerClasses} key={index}>
-                    <img className={`m-0 absolute ${(isPreviousProcess || isCurrentProcess) ? (window.innerWidth<= 475 && isCurrentProcess) ?`top-[-20px] ${lang === 'ar' ?'right-[-10px]':'left-[-10px]'}`:`top-[-25px] ${lang === 'ar' ?'right-[-10px]':'left-[-10px]'}`:`top-[-10px] ${lang === 'ar' ?'right-[-10px]':'left-[-10px]'}`}`} src={iconSrc} alt={`Process Icon ${index}`} />
+                    <img className={`m-0 absolute ${(isPreviousProcess || isCurrentProcess) ? (window.innerWidth<= 475 && isCurrentProcess) ?`top-[-20px] ${lang === 'ar' ?`right-[-10px] ${isCurrentProcess && 'scale-x-[-1]' }`:'left-[-10px] '}`:`top-[-25px] ${lang === 'ar' ?`right-[-10px] ${isCurrentProcess && 'scale-x-[-1]' }`:'left-[-10px]'}`:`top-[-10px] ${lang === 'ar' ?`right-[-10px] ${isCurrentProcess && 'scale-x-[-1]' }`:'left-[-10px]'}`}`} src={iconSrc} alt={`Process Icon ${index}`} />
                     {!isLast && (
                         <div className="m-auto w-full">
                             <div className={`w-full ${lineClasses} ${lineBorderClass}`}></div>
@@ -600,8 +600,8 @@ const handleDownload = async (file) => {
                         }
                         <div className='font-Helvetica'>
                             <div className='text-center py-2 border-b border-black'>
-                                <h1 className='lg:text-[40px] text-[#000] md:text-[32px] xs:text-[32px] xs:font-[700] lg:mt-[2%] md:mt-[2%] xs:mt-[5%]'> {dashboardJson.main_title} {currentUser?.full_name}! </h1>
-                                <p className='lg:text-[20px] md:text-[16px] text-[#00000080] lg:block md:block xs:hidden sm:hidden'>{dashboardJson.title_content} </p>
+                                <h1 className='lg:text-[40px] text-[#000] md:text-[32px] xs:text-[32px] xs:font-[700] lg:mt-[2%] md:mt-[2%] xs:mt-[5%]'> {lang === 'ar' ? dashboardJson?.main_title_arabic :dashboardJson.main_title} {currentUser?.full_name}! </h1>
+                                <p className='lg:text-[20px] md:text-[16px] text-[#00000080] lg:block md:block xs:hidden sm:hidden'>{lang === 'ar' ? dashboardJson?.title_content_arabic : dashboardJson.title_content} </p>
                             </div>
 
                             {
@@ -609,13 +609,13 @@ const handleDownload = async (file) => {
                                     {
                                         window.innerWidth <=475 ?
                                         <div className='w-[100%] flex px-[5%]'>
-                                        <p className='text-[#000000] opacity-[50%] text-[20px] font-[500] font-Helvetica  w-[70%]'>My Bundls</p> 
-                                        <div className='w-[30%] text-right mt-[0%]'>
+                                        <p className='text-[#000000] opacity-[50%] text-[20px] font-[500] font-Helvetica  w-[70%]'>{lang === 'ar' ? 'بلدي بوندلز' :'My Bundls'}</p> 
+                                        <div className={`w-[30%] ${lang === 'ar' ?'text-left':'text-right'} mt-[0%]`}>
                                             <button onClick={() => { window.location.href = '/' }} className='bg-black text-white h-[35px] w-[35px] text-[22px]'>+</button>
                                             </div>
                                         </div>
                                         :
-                                        <h1 className='lg:text-[32px] md:text-[24px] flex mb-4 xs:px-0'>  <span className='mr-2'>{dashboardJson.second_title}</span> <img className='mr-2' src={ltIcon}></img>  <img src={gtIcon}></img> </h1>
+                                        <h1 className='lg:text-[32px] md:text-[24px] flex mb-4 xs:px-0'>  <span className='mr-2'>{lang === 'ar' ? dashboardJson.second_title_arabic : dashboardJson.second_title}</span> <img className={`${lang === 'ar' ? 'scale-x-[-1]':'scale-x-[1]'} mr-2`} src={ltIcon}></img>  <img className={`${lang === 'ar' ? 'scale-x-[-1] mr-2':'scale-x-[1]'} `} src={gtIcon}></img> </h1>
                                     }
 
                                     <p className='flex lg:overflow-auto md:overflow-auto xs:overflow-hidden mb-0'>
@@ -640,7 +640,7 @@ const handleDownload = async (file) => {
                                                     <>
                                                         {project.project_name}
                                                         {project.id === currentTab && (
-                                                            <img width="15px" className="ml-2" src={editIcon} onClick={() => { setProjectEdit(project.id); setProjectName(project.project_name) }} alt="Edit Icon" />
+                                                            <img width="15px" className={`${lang === 'ar' ? 'mr-2':'ml-2'}`} src={editIcon} onClick={() => { setProjectEdit(project.id); setProjectName(project.project_name) }} alt="Edit Icon" />
                                                         )}
                                                     </>
                                                 )}
@@ -669,15 +669,16 @@ const handleDownload = async (file) => {
                                     </p>
                                     {window.innerWidth<768 && (<div className='px-[5%] mt-2 font-Helvetica'>
                                         <p className='px-32text-[18px] font-[400] opacity-50'>
-                                            {processIndex + 1}/{dashboardJson.project_process.length} - {dashboardJson.project_process[processIndex]}
+                                            {processIndex + 1}/{dashboardJson.project_process.length} - {lang === 'ar' ? dashboardJson.project_process_arabic[processIndex] :dashboardJson.project_process[processIndex]}
                                         </p>
                                     </div>)}
                                     <div className='lg:border-[1.5px] md:border-[1.5px] xs:border-b-[1.5px] mt-0  lg:border-black md:border-black border-transparent py-2 lg:px-6 md:px-6 xs:px-0 xs:border-black'>
                                         <div className={`flex items-center macm1:w-[80%] lg:w-[78%] w-[80%] md:w-[87%]   lg:mx-auto md:mx-auto lg:mt-10 md:mt-10 xs:mt-2 lg:px-0 ${processIndex === 5 ? 'xs:w-[100%]':'xs:w-[108%]'} xs:px-[2%] xs:ml-[2%]`}>{renderProcessData()}</div>
                                         <div className={`flex ${lang === 'ar' ?' macm1:p-[0px_0px_0px_40px] lg:p-[0px_0px_0px_30px] md:p-[15px_70px_0px_15px] macm2:p-[0px_0px_0px_35px]':'macm1:p-[0px_40px_0px_0px] lg:p-[0px_30px_0px_0px] md:p-[15px_15px_0px_70px] macm2:p-[0px_35px_0px_0px]'}  mb-12 lg:w-[90%] w-[80%] md:w-[100%] xs:w-[100%] lg:m-auto md:m-0`}>
-                                            {window.innerWidth > 768 && dashboardJson.project_process.map((item, index) => {
+                                        {/* <div className={`flex ${lang === 'ar' ?' macm1:p-[0px_0px_0px_40px] lg:p-[0px_0px_0px_30px] md:p-[15px_70px_0px_15px] macm2:p-[0px_0px_0px_35px]':'macm1:p-[0px_40px_0px_0px] lg:p-[0px_30px_0px_0px] md:p-[15px_15px_0px_70px] macm2:p-[0px_35px_0px_0px]'}  mb-12 lg:w-[90%] w-[80%] md:w-[100%] xs:w-[100%] lg:m-auto md:m-0`}> */}
+                                            {window.innerWidth > 768 && (lang === 'ar' ? dashboardJson.project_process_arabic : dashboardJson.project_process)?.map((item, index) => {
                                                 return <div className='lg:basis-[45%] md:basis-[20%] xs:basis-1/5 text-center lg:text-[16px] md:text-[14px] mt-[2%]'>  <p className={`pb-0 lg:max-w-[75%] md:max-w-[75%] macm2:w-[70%] max-w-[95%] lg:mx-auto md:mx-0 xs:mx-auto mb-0 ${index == processIndex && 'font-bold'}`}> {item} </p>
-                                                    {index == processIndex && <p className='text-[#1BA56F] font-[700] lg:text-center md:text-justify ml-0'>You’re now Here!</p>}
+                                                    {index == processIndex && <p className='text-[#1BA56F] font-[700] lg:text-center md:text-justify ml-0'>{lang === 'ar' ? 'أنت الآن هنا !' :'You’re now Here!'}</p>}
                                                 </div>
                                             })}
                                         </div>
@@ -685,14 +686,14 @@ const handleDownload = async (file) => {
                                         <div className='lg:w-[100%] md:w-[100%] xs:w-[100%] lg:px-[5%] md:px-[5%] xs:mx-0 xs:px-6'>
 
                                             {order && order.item_details && Array.isArray(order.item_details) && <>
-                                            {order?.brand_identity && <>                                                <p className={`lg:text-[22px] md:text-[22px] xs:text-[18px] font-bold my-2 ${processIndex < 2 ? processIndex === 1 && order?.order_status !== 'in_progress' ?'text-[#00000080]': 'text-black': 'text-black'}`}>Brand & Visual Identity <span className='text-[#1BA56F] lg:text-[18px] md:text-[18px] xs:text-[16px]  font-[500]'> -
-                                                    {processIndex < 2 ? processIndex === 1 && order?.order_status !== 'in_progress' ? ' ON HOLD' :' IN PROGRESS' : processIndex >= 4 ? ' COMPLETE' : ' IN PROGRESS'}</span> </p>
-                                                <p className={`font-medium lg:text-[18px] md:text-[18px] xs:text-[16px] ${processIndex < 2 ? processIndex === 1 && order?.order_status !== 'in_progress' ?'text-[#00000080]' : 'text-black' : 'text-[#000]'}`}>{order?.brand_identity?.item_name} {processIndex >= 4 && <button className='bg-[#1BA56F] px-2 !py-0  text-[16px] ml-4 text-white font-[400] uppercase' onClick={() => { navigate('/adjustment', { state: { orderId: order.id, orderItemId: null } }) }}>Request Edits</button>} </p></>}
+                                            {order?.brand_identity && <>                                                <p className={`lg:text-[22px] md:text-[22px] xs:text-[18px] font-bold my-2 ${processIndex < 2 ? processIndex === 1 && order?.order_status !== 'in_progress' ?'text-[#00000080]': 'text-black': 'text-black'}`}>{lang === 'ar' ? 'العلامة التجارية والهوية البصرية' : 'Brand & Visual Identity'} <span className='text-[#1BA56F] lg:text-[18px] md:text-[18px] xs:text-[16px]  font-[500]'> - 
+                                                    {processIndex < 2 ? processIndex === 1 && order?.order_status !== 'in_progress' ? lang === 'ar' ? 'قيد الانتظار' : ' ON HOLD' :lang === 'ar' ? 'قيد التقدم' :'IN PROGRESS' : processIndex >= 4 ? lang === 'ar' ? 'كاملة':' COMPLETE' : lang === 'ar' ? 'قيد التقدم' :'IN PROGRESS'}</span> </p>
+                                                <p className={`font-medium lg:text-[18px] md:text-[18px] xs:text-[16px] ${processIndex < 2 ? processIndex === 1 && order?.order_status !== 'in_progress' ?'text-[#00000080]' : 'text-black' : 'text-[#000]'}`}>{lang === 'ar' ? order?.brand_identity?.item__name_arabic : order?.brand_identity?.item_name} {processIndex >= 4 && <button className='bg-[#1BA56F] px-2 !py-0  text-[16px] ml-4 text-white font-[400] uppercase' onClick={() => { navigate('/adjustment', { state: { orderId: order.id, orderItemId: null } }) }}>{lang === 'ar' ? 'طلب تعديلات' :'Request Edits'}</button>} </p></>}
 
-                                                <p className={`text-[22px] ${processIndex < 4 && 'text-[#00000080]'} font-bold my-2`}>Applications
+                                                <p className={`text-[22px] ${processIndex < 4 && 'text-[#00000080]'} font-bold my-2`}>{lang === 'ar' ? 'التطبيقات ' :'Applications'}
 
-                                                    <span className='text-[#1BA56F] lg:text-[18px] md:text-[18px] xs:text-[16px]  font-[500]'> -
-                                                        {processIndex < 4 ? ' ON HOLD' :order.order_status =='completed' || order.order_status =='in_review' ? ' COMPLETE' : ' IN PROGRESS'}</span>
+                                                    <span className='text-[#1BA56F] lg:text-[18px] md:text-[18px] xs:text-[16px]  font-[500]'> - 
+                                                        {processIndex < 4 ? lang === 'ar' ? 'قيد الانتظار' : ' ON HOLD' :order.order_status =='completed' || order.order_status =='in_review' ? lang === 'ar' ? 'كاملة':' COMPLETE' : lang === 'ar' ? 'قيد التقدم' :'IN PROGRESS'}</span>
                                                 </p>
                                                 {order?.item_details
                                                     ?.filter(item => item.item__category !== 1 && item.type !== 'bundl')
@@ -700,18 +701,18 @@ const handleDownload = async (file) => {
                                                         const isProcessing = processIndex < 4;
                                                         const isLastItem = index === filteredArray.length - 1;
                                                         return <p className={`font-medium ${isProcessing && 'text-[#00000080]'} text-[18px] mx-1 lg:my-2 md:my-2 xs:my-0 lg:py-1 md:py-1 xs:py-2 
-                                                        ${!isLastItem &&'border-b'} border-[#00000080] flex justify-between`}><span className='lg:text-[16px] md:text-[16px] xs:text-[16px]'>{item.item_name}</span>
+                                                        ${!isLastItem &&'border-b'} border-[#00000080] flex justify-between`}><span className='lg:text-[16px] md:text-[16px] xs:text-[16px]'>{lang === 'ar' ? item?.item__name_arabic :item.item_name}</span>
                                                             <span className={`flex lg:items-center md:items-center xs:items-end lg:flex-row md:flex-row ${item.status == 'questionnaire required' || item.status == 'in process' ? 'xs:flex-row' : 'xs:flex-col-reverse'} text-[#00000080] text-[14px]`}>{processIndex >= 4 ? <>
                                                                 {item.status == 'questionnaire required' ? <>
-                                                                    <span className='mr-2 font-normal'>Waiting content</span>
+                                                                    <span className={`${lang === 'ar' ? 'ml-2':'mr-2'} font-normal`}>{lang === 'ar' ? 'انتظار المحتوى' :'Waiting content'}</span>
                                                                     <img src={ItemWaitingIcon}></img>
                                                                 </> : item.status == 'in process' ? <>
-                                                                    <span className='mr-2 font-normal'>In Progress</span>
+                                                                    <span className={`${lang === 'ar' ? 'ml-2':'mr-2'} font-normal`}>{lang === 'ar' ? 'قيد التقدم' : 'In Progress'}</span>
                                                                     <img src={ItemProgressIcon}></img>
                                                                 </> : <>
-                                                                    <button className='bg-[#1BA56F] lg:mr-5 md:mr-5 xs:mr-0 px-2 !py-0 text-[16px] ml-4 text-white font-[400] lg:mt-0 md:mt-0 xs:mt-[5%] uppercase' onClick={() => { navigate('/adjustment', { state: { orderId: order.id, orderItemId: item.id } }) }}>Request Edits</button>
+                                                                    <button className={`bg-[#1BA56F] ${lang === 'ar' ?'lg:ml-5 md:ml-5 xs:ml-0':'lg:mr-5 md:mr-5 xs:mr-0'} px-2 !py-0 text-[16px] ml-4 text-white font-[400] lg:mt-0 md:mt-0 xs:mt-[5%] uppercase`} onClick={() => { navigate('/adjustment', { state: { orderId: order.id, orderItemId: item.id } }) }}>{lang === 'ar' ? 'طلب تعديلات' :'Request Edits'}</button>
                                                                     <div className='flex'>
-                                                                        <span className='mr-2 text-[16px] font-semibold text-[#1BA56F] mt-1'>Finished</span>
+                                                                        <span className={`${lang === 'ar' ? 'ml-2':'mr-2'} text-[16px] font-semibold text-[#1BA56F] mt-1`}>{lang === 'ar' ? 'تم الانتهاء ' :'Finished'}</span>
                                                                         <img src={ItemFinishedIcon}></img>
                                                                     </div>
 
@@ -803,13 +804,13 @@ const handleDownload = async (file) => {
 
                             <div className='font-Helvetica'>
                                 <div className='text-center pt-20 pb-24'>
-                                    <h2 className='lg:text-[32px] md:text-[24px] xs:text-[32px] xs:font-[700] xs:px-[15%]'>{dashboardJson.rate_us}</h2>
-                                    <p className='lg:text-[20px] text-[#00000080] md:text-[16px] xs:text-[16px] xs:px-[12%]'>{dashboardJson.rate_us_content}</p>
+                                    <h2 className='lg:text-[32px] md:text-[24px] xs:text-[32px] xs:font-[700] xs:px-[15%]'>{lang === 'ar'? dashboardJson.rate_us_arabic :dashboardJson.rate_us}</h2>
+                                    <p className='lg:text-[20px] text-[#00000080] md:text-[16px] xs:text-[16px] xs:px-[12%]'>{lang === 'ar'? dashboardJson.rate_us_content_arabic :dashboardJson.rate_us_content}</p>
                                     {
                                         window?.innerWidth >= 475 ?
-                                        <a target='_blank' href="https://www.google.com/search?q=bundldesigns&rlz=1C1OPNX_enIN1088IN1088&oq=bundldesigns&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQRRg8MgYIAhBFGDwyBggDEEUYPDIICAQQRRgnGDsyBggFEEUYPDIGCAYQRRg8MgYIBxBFGDzSAQgzODA5ajBqN6gCALACAA&sourceid=chrome&ie=UTF-8#lrd=0x3e2efdec17da19b7:0xb10d764716306f04,3,,,," className='px-12 py-2 lg:text-[20px] md:text-[16px] text-white bg-[#1BA56F]'>{dashboardJson.review_google}</a>
+                                        <a target='_blank' href="https://www.google.com/search?q=bundldesigns&rlz=1C1OPNX_enIN1088IN1088&oq=bundldesigns&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQRRg8MgYIAhBFGDwyBggDEEUYPDIICAQQRRgnGDsyBggFEEUYPDIGCAYQRRg8MgYIBxBFGDzSAQgzODA5ajBqN6gCALACAA&sourceid=chrome&ie=UTF-8#lrd=0x3e2efdec17da19b7:0xb10d764716306f04,3,,,," className='px-12 py-2 lg:text-[20px] md:text-[16px] text-white bg-[#1BA56F]'>{lang === 'ar'? dashboardJson.review_google_arabic : dashboardJson.review_google}</a>
                                         :
-                                        <a target='_blank' href="https://www.google.com/search?sca_esv=c4b1341a4b7b7a8e&rlz=1C1OPNX_enIN1088IN1088&sxsrf=AHTn8zpz8heeFIffXtZFmZcBKyfoZlggHQ:1738924330168&q=bundl+designs+reviews&uds=ABqPDvxhviXT310WMxRmyLGmEwIWGxD1D4UaNg1_5mWkuvL-XEHlBMW0Wi5hXsAWml52GBwP0MgahtCC7xIzOfccgCir8jqEM-EUFl8W5TAQZtW1RiBwrQ6eg9Lumr7a35DA3UW1etJjqySLvsDCAu3swGovni-vtvN9dTjA83v60KOxD9627yKA06c5tUy_FosedF9vWioHYMgsreRYsFewxUb2IPmni2ayZr3gorMNTpcZLIypv5tgzZ33pY3Lm3ZXqLhrBu3CF3C_WNhYjJxca9Q4uc_9kNdOSyf491fLCyNbqThFA6O36UEEQF7vrZUZMHWOAEK22_BQhgx5UwnwyKbCztDiilDDN19JaVdNbCZFQpujpiDNHeroUq9oC1G2YdfLrj9V3eKSJf-u1ebBOTQNfuP-WhDcJVPho7PYBp2cmQ0VmhQ&si=APYL9bs7Hg2KMLB-4tSoTdxuOx8BdRvHbByC_AuVpNyh0x2KzfMxsPAhwiZEXurMaV4FghdFjDxW8-kb_wAl5CzlJ4LuB7A7CZCUrHH6TRDNxXAqy2BU86fOeAnWG4ddtnuW93JPkFUY&sa=X&ved=2ahUKEwiZtPb3rbGLAxX_4zgGHfRGAacQk8gLegQIKBAB&ictx=1&biw=393&bih=736&dpr=2.75#ebo=3" className='px-12 py-2 lg:text-[20px] md:text-[16px] text-white bg-[#1BA56F]'>{dashboardJson.review_google}</a>
+                                        <a target='_blank' href="https://www.google.com/search?sca_esv=c4b1341a4b7b7a8e&rlz=1C1OPNX_enIN1088IN1088&sxsrf=AHTn8zpz8heeFIffXtZFmZcBKyfoZlggHQ:1738924330168&q=bundl+designs+reviews&uds=ABqPDvxhviXT310WMxRmyLGmEwIWGxD1D4UaNg1_5mWkuvL-XEHlBMW0Wi5hXsAWml52GBwP0MgahtCC7xIzOfccgCir8jqEM-EUFl8W5TAQZtW1RiBwrQ6eg9Lumr7a35DA3UW1etJjqySLvsDCAu3swGovni-vtvN9dTjA83v60KOxD9627yKA06c5tUy_FosedF9vWioHYMgsreRYsFewxUb2IPmni2ayZr3gorMNTpcZLIypv5tgzZ33pY3Lm3ZXqLhrBu3CF3C_WNhYjJxca9Q4uc_9kNdOSyf491fLCyNbqThFA6O36UEEQF7vrZUZMHWOAEK22_BQhgx5UwnwyKbCztDiilDDN19JaVdNbCZFQpujpiDNHeroUq9oC1G2YdfLrj9V3eKSJf-u1ebBOTQNfuP-WhDcJVPho7PYBp2cmQ0VmhQ&si=APYL9bs7Hg2KMLB-4tSoTdxuOx8BdRvHbByC_AuVpNyh0x2KzfMxsPAhwiZEXurMaV4FghdFjDxW8-kb_wAl5CzlJ4LuB7A7CZCUrHH6TRDNxXAqy2BU86fOeAnWG4ddtnuW93JPkFUY&sa=X&ved=2ahUKEwiZtPb3rbGLAxX_4zgGHfRGAacQk8gLegQIKBAB&ictx=1&biw=393&bih=736&dpr=2.75#ebo=3" className='px-12 py-2 lg:text-[20px] md:text-[16px] text-white bg-[#1BA56F]'>{lang === 'ar'? dashboardJson.review_google_arabic :dashboardJson.review_google}</a>
                                     }
                                 </div>
                             </div>
@@ -889,7 +890,7 @@ const handleDownload = async (file) => {
                                 
 
                                 
-                                <p className='absolute lg:right-[-40px] lg:top-[-30px] md:right-[-40px] md:top-[-30px] xs:right-[0px] xs:top-[-40px]'>
+                                <p className={`absolute lg:top-[-30px]  md:top-[-30px]  xs:top-[-40px] ${lang === 'ar' ? ' lg:left-[-40px]  md:left-[-40px] xs:left-[0px]':' lg:right-[-40px]  md:right-[-40px] xs:right-[0px]'}`}>
                                     < ClearIcon onClick={() => { setShowPdf(false) }} style={{ color: 'white', fontSize: '30px', cursor: 'pointer' }} /> 
                                     {/* <a
                                         href={`${base_url}/api/download/${brandFile}`}

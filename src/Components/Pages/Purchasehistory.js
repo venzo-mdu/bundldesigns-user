@@ -22,7 +22,7 @@ export const Purchasehistory = ({lang,setLang}) => {
       const [openPopup, setOpenPopup] = useState(false)
       const [purchased, setPurchased] = useState('not')
       const [showFull, setShowFull] = useState(false)
-      const [dashboardJson, setDashboardJson] = useState(dashboard.english)
+      const [dashboardJson, setDashboardJson] = useState(dashboard)
       const base_url = process.env.REACT_APP_BACKEND_URL
       const location = useLocation();
 
@@ -66,13 +66,13 @@ const reOrder = async (id) => {
                                         window.innerWidth > 768 ?
                                         
                                             purchases.length > 0 ? <div className='px-14 mt-4 mb-4'>
-                                                <h2 className='lg:text-[32px] text-[#000] md:text-[24px] uppercase'>{dashboardJson.third_title}</h2>
+                                                <h2 className='lg:text-[32px] text-[#000] md:text-[24px] uppercase'>{lang === 'ar' ? 'تاريخ الشراء' :dashboardJson.third_title}</h2>
             
                                                 <table className='w-full !border-[#00000080] border-separate border-spacing-y-2 border-spacing-x-0'>
                                                     <thead>
                                                         <tr className='!mb-4'>
                                                             {Object.keys(dashboardJson.table_heads).map((purchase_key) => {
-                                                                return <th className='text-[#00000080] pb-2 lg:text-[20px] md:text-[16px] font-Helvetica font-medium'>{dashboardJson.table_heads[purchase_key]}</th>
+                                                                return <th className='text-[#00000080] pb-2 lg:text-[20px] md:text-[16px] font-Helvetica font-medium'>{lang === 'ar' ? dashboardJson.table_heads_arabic[purchase_key] :dashboardJson.table_heads[purchase_key]}</th>
                                                             })}
                                                         </tr>
                                                     </thead>
@@ -82,7 +82,7 @@ const reOrder = async (id) => {
                                                                 <td className={`lg:text-[20px] font-medium md:text-[16px] pb-2 ${index != purchases.length - 1 ? 'border-b !border-[#00000080]' : ''}`}>{project.id}</td>
                                                                 <td className={`lg:text-[20px] font-medium md:text-[16px] pb-2 ${index != purchases.length - 1 ? 'border-b !border-[#00000080]' : ''}`}>{project.project_name}</td>
                                                                 <td className={`lg:text-[20px] font-medium md:text-[16px] pb-2 ${index != purchases.length - 1 ? 'border-b !border-[#00000080]' : ''}`}>{Math.round(project.grand_total)}</td>
-                                                                <td className={`lg:text-[20px] font-medium md:text-[16px] pb-2 ${index != purchases.length - 1 ? 'border-b !border-[#00000080]' : ''} text-[#1BA56F]`}>Completed</td>
+                                                                <td className={`lg:text-[20px] font-medium md:text-[16px] pb-2 ${index != purchases.length - 1 ? 'border-b !border-[#00000080]' : ''} text-[#1BA56F]`}>{lang === 'ar' ? 'اكمال' :'Completed'}</td>
                                                                 <td onClick={() => CheckCart(project.id)} className={`lg:text-[20px] cursor-pointer font-medium md:text-[16px] pb-2 ${index != purchases.length - 1 ? 'border-b !border-[#00000080]' : ''}`}><img className='lg:w-[30px] md:w-[20px]' src={reload}></img></td>
                                                                 <td className={`lg:text-[20px] font-medium md:text-[16px] pb-2 ${index != purchases.length - 1 ? 'border-b !border-[#00000080]' : ''}`}>{format(new Date(project.purchase_date), "dd/MM/yy")}</td>
                                                             </tr>
@@ -94,7 +94,7 @@ const reOrder = async (id) => {
                                             <div className="w-full px-[8%] my-[10%]">
                                                 {/* Header */}
                                                 <div className="flex justify-between items-center">
-                                                    <p className="text-[20px] font-[500] font-Helvetica opacity-50">Purchase History</p>
+                                                    <p className="text-[20px] font-[500] font-Helvetica opacity-50">{lang === 'ar' ? 'تاريخ الشراء' :'Purchase History'}</p>
                                                     <p
                                                         className="underline text-[20px] font-[500] font-Helvetica text-[#1BA56F] cursor-pointer"
                                                         onClick={() => setShowFull(!showFull)}
@@ -120,7 +120,7 @@ const reOrder = async (id) => {
                                                             <div className="flex justify-between w-full md:w-[50%] mt-1 md:mt-0">
                                                                 <p className="text-[20px] font-[500] text-gray-500 font-Helvetica">{order.id}</p>
                                                                 <p className="text-[20px] font-[500] text-gray-500 font-Helvetica">{format(new Date(order.purchase_date), "dd/MM/yy")}</p>
-                                                                <p className="text-[20px] font-[500] font-Helvetica text-[#1BA56F]">Completed</p>
+                                                                <p className="text-[20px] font-[500] font-Helvetica text-[#1BA56F]">{lang === 'ar' ? 'اكمال' :'Completed'}</p>
                                                             </div>
                                                         </div>
                                                     ))}

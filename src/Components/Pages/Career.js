@@ -146,7 +146,7 @@ export default function Career({lang,setLang}) {
             {vacancies.map((vacancy,index)=> {
                 return <div className={`${index+1 != vacancies.length && 'border-b'} border-black mb-6 px-6 `}>
                     <p> <img width='45px' height='45px' src={vacancy.image?vacancy.image:careerImg}></img></p>
-                    <h2 className='lg:text-[32px] md:text-[32px] xs:text-[22px] text-[#000] flex items-center'>{vacancy.vacancy_english}
+                    <h2 className='lg:text-[32px] md:text-[32px] xs:text-[22px] text-[#000] flex items-center'>{lang === 'ar' ? vacancy?.vacancy_arabic:vacancy.vacancy_english}
                     <button
             onClick={() => toggleDescription(vacancy.id)}
             className="text-blue-500 cursor-pointer ml-2"
@@ -158,14 +158,14 @@ export default function Career({lang,setLang}) {
           {expandedVacancies[vacancy.id] && (
 
             <div id="description" className="mt-2 text-gray-700">
-            <p  className='font-bold mt-4 text-[20px]'>Vacancy Description</p>
+            <p  className='font-bold mt-4 text-[20px]'>{lang === 'ar' ? 'وصف الوظيفة الشاغرة نحن' : 'Vacancy Description'}</p>
                      <div
               id="description"
               className="mt-2 text-gray-700"
               dangerouslySetInnerHTML={{ __html: vacancy.description_english }}
             />
             <p className='font-bold text-[20px] mt-4'>
-            Qualifications
+            {lang === 'ar' ? 'المؤهلات' :'Qualifications'}
             </p>
                  <div
               id="description"
@@ -181,7 +181,7 @@ export default function Career({lang,setLang}) {
 
         <div className='mt-24  mb-20'>
             <h2 className='lg:text-[32px] md:text-[32px] xs:text-[22px] text-[#000]  mb-2 text-center'>{lang === 'ar' ?'تحب تنضم الى أسرة بندل؟ ارسلك سيرتك وملف اعمالك ':'See something you like? send us your CV & Recent Work'}</h2>
-            <h3 className='text-[24px] mb-1 mt-4 text-center text-[#1BA56F]'>Join Us!</h3>
+            <h3 className='text-[24px] mb-1 mt-4 text-center text-[#1BA56F]'>{lang === 'ar' ? 'تواصل معنا !':'Join Us!'}</h3>
         <form onSubmit={handleSubmit} className="px-6 pb-6 pt-1 sm:max-w-[90vw] md:max-w-[50vw] mx-auto space-y-4">
       {/* Name Field */}
       <div className='mt-2 mb-3'>
@@ -282,7 +282,7 @@ export default function Career({lang,setLang}) {
         type="submit"
         className="bg-[#1BA56F] text-white py-1 my-2 uppercase  px-12"
       >
-        Apply
+        {lang === 'ar' ? 'ارسال ' :'Apply'}
       </button></p>
             {/* <p className='text-center flex items-center !mb-1 mt-4 justify-center font-bold'> <img className='mr-1' src={emailicon}></img> info@bundldesigns.com</p>
             <p className='text-center flex items-center mt-1 justify-center font-bold'> <img className='mr-1' src={whatsappicon}></img>+(966) 547754124 </p> */}

@@ -9,7 +9,7 @@ import { FaUser } from 'react-icons/fa'
 import ClipLoader from 'react-spinners/ClipLoader'
 import { ToastContainer, toast } from 'react-toastify'
 
-const ResetPassword = () => {
+const ResetPassword = ({lang,setLang}) => {
 
 
     const navigate = useNavigate();
@@ -96,18 +96,18 @@ const ResetPassword = () => {
   return (
     <div>
         <ToastContainer/>
-        <Navbar/>
+        <Navbar isLang={lang} setIsLang={setLang}/>
         <div className='font-Helvetica'>
               <div className='text-center py-2 border-b border-black'>
-                  <h1 className='lg:text-[40px] md:text-[40px] xs:text-[30px] lg:mt-[2%] md:mt-[2%] xs:mt-[5%] uppercase'> Reset Password </h1>
+                  <h1 className='lg:text-[40px] md:text-[40px] xs:text-[30px] lg:mt-[2%] md:mt-[2%] xs:mt-[5%] uppercase'> {lang === 'ar' ? 'إعادة  تعيين كلمة السر' :'Reset Password'} </h1>
               </div>
             <div className='flex flex-col items-center justify-center my-[5%] lg:p-0 md:p-0 xs:p-[1%_5%]'>
                <form className='w-full lg:max-w-[30%] md:max-w-[30%] xs:max-w-[100%]' onSubmit={handleSubmit}>
                     <div className="flex items-center border-b-[2px] border-black  p-2 mb-4">
-                        <FaUser className="text-gray-500 mr-2" />
+                        <FaUser className={`text-gray-500 ${lang === 'ar' ? 'ml-2':'mr-2'}`} />
                         <input
                             type="password"
-                            placeholder="Old Password"
+                            placeholder= {lang === 'ar' ? 'أدخل كلمة السر' :'Old Password'} 
                             className="outline-none w-full"
                             value={formData?.full_name}
                             onChange={handleChange}
@@ -117,10 +117,10 @@ const ResetPassword = () => {
                     {error.old_password && <p className="text-red-500 text-sm my-2">{error.old_password}</p>}
 
                     <div className="flex items-center border-b-[2px] border-black  p-2 mb-4">
-                        <FaUser className="text-gray-500 mr-2" />
+                        <FaUser className={`text-gray-500 ${lang === 'ar' ? 'ml-2':'mr-2'}`} />
                         <input
                             type="password"
-                            placeholder="New Password"
+                            placeholder={lang === 'ar' ? 'أدخل كلمة السر الجديدة' :'New Password'}
                             className="outline-none w-full"
                             value={formData?.full_name}
                             onChange={handleChange}
@@ -130,10 +130,10 @@ const ResetPassword = () => {
                     {error.new_password && <p className="text-red-500 text-sm my-2">{error.new_password}</p>}
 
                     <div className="flex items-center border-b-[2px] border-black  p-2 mb-4">
-                        <FaUser className="text-gray-500 mr-2" />
+                        <FaUser className={`text-gray-500 ${lang === 'ar' ? 'ml-2':'mr-2'}`} />
                         <input
                             type="password"
-                            placeholder="Confirm Password"
+                            placeholder={lang === 'ar' ? 'تأكيد كلمة السر الجديدة' :'Confirm Password'}
                             className="outline-none w-full"
                             value={formData?.full_name}
                             onChange={handleChange}
@@ -143,12 +143,12 @@ const ResetPassword = () => {
                     {error.confirm_password && <p className="text-red-500 text-sm my-2">{error.confirm_password}</p>}
 
                     <button type='submit' className="w-full bg-[#f3b7ce] text-white py-2 ">
-                        {isLoading ? <ClipLoader size={25} color='#FFFFFF' /> : 'UPDATE PASSWORD'}
+                        {isLoading ? <ClipLoader size={25} color='#FFFFFF' /> :lang === 'ar' ? 'تحديث كلمة المرور' : 'UPDATE PASSWORD'}
                     </button>
                 </form>    
             </div>   
             </div>           
-        <Footer/>
+        <Footer isLang={lang}/>
     </div>
   )
 }

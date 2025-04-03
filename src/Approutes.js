@@ -113,17 +113,8 @@ export default function AppRouter() {
       element:  <Signup lang={transLanguage}/>,
     },
     {
-      path: "/reset-password",
-      element:  <ResetPassword lang={transLanguage}/>,
-    },
-    {
       path: "/",
       element: <Home lang={transLanguage} setLang={setTransLanguage}/>,
-    },
-    {
-      path: "/profile",
-      element: <Profile user={user} lang={transLanguage} setLang={setTransLanguage}/>,
-      //element: <ProtectedRoute element={<BundlDetail />} />,
     },
     {
       path: "/bundldetail/:packageID",
@@ -134,6 +125,15 @@ export default function AppRouter() {
       path: "/custombundl",
       element: <CustomBundl lang={transLanguage} setLang={setTransLanguage} />,
       // element: <ProtectedRoute element={<CustomBundl />} />,
+    },
+    {
+      path: "/reset-password",
+      element:<ProtectedRoute  element={<ResetPassword lang={transLanguage} setLang={setTransLanguage}/>} />,
+    },
+    {
+      path: "/profile",
+      element:<ProtectedRoute  element={<Profile user={user} lang={transLanguage} setLang={setTransLanguage}/>} />,
+      //element: <ProtectedRoute element={<BundlDetail />} />,
     },
     {
       path: "/mycart",

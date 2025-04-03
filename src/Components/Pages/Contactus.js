@@ -113,7 +113,7 @@ export const Contactus = ({lang,setLang}) => {
             <Navbar isLang={lang} setIsLang={setLang}/>
             <div className=' font-Helvetica flex sm:pt-10 xs:pt-0 pt-10 xs:block sm:flex sm:pb-24 xs:pb-2 pb-24 overflow-hidden'>
               <div className='basis-1/4 relative xs:pb-8'>
-                <img className={`sm:!w-[200px] !w-[200px] xs:!w-[130px] top-[15%] ${lang === 'ar' ? 'sm:left-[10%] xs:left-0 left-[10%]':'sm:right-[10%] xs:right-0 right-[10%]'}  absolute xs:hidden sm:absolute sm:block`} src={ paperPlaneGif}></img>
+                <img className={`sm:!w-[200px] !w-[200px] xs:!w-[130px] top-[15%] ${lang === 'ar' ? 'sm:left-[10%] xs:left-0 left-[10%] scale-x-[-1]':'sm:right-[10%] xs:right-0 right-[10%]'}  absolute xs:hidden sm:absolute sm:block`} src={ paperPlaneGif}></img>
     
               </div>
               <div className='basis-2/4 px-[2px]'  >
@@ -121,15 +121,15 @@ export const Contactus = ({lang,setLang}) => {
                   <h2 className='text-[40px] mt-4 leading-1 relative text-black w-[340px] mx-auto mb-0'>
                       <img className={`absolute bottom-[10px] xs:w-[90px] sm:w-[150px] sm:bottom-[-20px] lg:bottom-[-40px] md:bottom-[-40px] xs:bottom-[-60px] ${lang === 'ar' ? 'xs:right-0 sm:right-[-10%] right-[-10%] rotate-[45deg]':'xs:left-0 sm:left-[-10%] left-[-10%]'}`} src={Loginlogo} alt='login' /> 
                   </h2>
-                  <h2 className='text-[40px] text-[#F3B7CE] font-[700]'>{'Contact us'}</h2>
+                  <h2 className='text-[40px] text-[#F3B7CE] font-[700]'>{lang === 'ar' ? 'تواصل معنا ' : 'Contact Us'}</h2>
                   <p className='sm:text-[20px] xs:pb-8 sm:pb-1 text-[20px] xs:text-[16px] md:w-[100%] lg:w-[92%] xl:w-[62%] xs:w-[350px] mx-auto'>Elevate your brand, whether online or in-store. This bundle includes comprehensive brand identity (logo, guidelines, colors, typography, patterns) and commerce collateral to enhance customer experience. Plus, get social media designs to boost sales.
                   </p>
-                  <img className='sm:!w-[200px] !w-[200px] xs:!w-[130px] bottom-[-50px] left-[-30px] right-[10%] absolute sm:hidden ' src={ paperPlaneGif}></img>
+                  <img className={`sm:!w-[200px] !w-[200px] xs:!w-[130px] bottom-[-50px] left-[-30px] right-[10%] absolute sm:hidden `} src={ paperPlaneGif}></img>
     
                 </div>
                 <div className='text-left mt-4 sm:mt-4  xs:px-[5%] px-auto sm:px-auto'>
                   <div className=' mb-2 xs:pt-10 sm:pt-1 '>
-                    <h2 className='text-[32px] text-black'>What is the name of your brand?</h2>
+                    <h2 className={`text-[32px] text-black ${lang === 'ar' ? 'text-right':'text-left'}`}>{lang === 'ar' ? 'ما هو اسم علامتك التجارية؟' :'What is the name of your brand?'}</h2>
                     <input
                       name="project_name"
                       value={formData.project_name}
@@ -137,8 +137,8 @@ export const Contactus = ({lang,setLang}) => {
                       className='w-full text-[16px] focus:outline-none px-2 sm:py-2  xs:py-4 border !border-[#b0b0b0] mt-3 !rounded-none'></input>
                     {errors.project_name && <p className="text-red-500 text-sm">{errors.project_name}</p>}
                   </div>
-                  <div className='mb-4 sm:mt-4 xs:mt-6'>
-                    <label className='font-[500] text-[16px]' for='name'> Name</label>
+                  <div className={`mb-4 sm:mt-4 xs:mt-6 ${lang === 'ar' ? 'text-right':'text-left'}`}>
+                    <label className={`font-[500] text-[16px] ${lang === 'ar' ? 'text-right':'text-left'}`} for='name'> {lang === 'ar' ? 'الأسم':'Name'}</label>
                   <input
                     type="text"
                     name="name"
@@ -151,8 +151,8 @@ export const Contactus = ({lang,setLang}) => {
                 </div>
     
                 {/* Phone Field */}
-                <div className='mb-4 sm:mt-4 xs:mt-6'>
-                <label className='font-[500] text-[16px]' for='name'> Phone Number</label>
+                <div className={`mb-4 sm:mt-4 xs:mt-6 ${lang === 'ar' ? 'text-right':'text-left'}`}>
+                <label className='font-[500] text-[16px]' for='name'> {lang === 'ar' ?' رقم الهاتف':'Phone Number'}</label>
                 <PhoneNumberInput
             name="phone"
             placeholder="ex: 569754639"
@@ -170,8 +170,8 @@ export const Contactus = ({lang,setLang}) => {
                 </div>
     
                 {/* Email Field */}
-                <div className='mb-4 sm:mt-4 xs:mt-6'>
-                <label className='font-[500] text-[16px]' for='name'> Email Address</label>
+                <div className={`mb-4 sm:mt-4 xs:mt-6 ${lang === 'ar' ? 'text-right':'text-left'}`}>
+                <label className='font-[500] text-[16px]' for='name'> {lang === 'ar' ? 'البريد الالكتروني':'Email address'}</label>
                   <input
                     type="email"
                     name="email"
@@ -184,8 +184,8 @@ export const Contactus = ({lang,setLang}) => {
                 </div>
     
                 {/* Description Field */}
-                <div className='mb-4 sm:mt-4 xs:mt-6'>
-                <label className='font-[500] text-[16px]' for='name'> Message</label>
+                <div className={`mb-4 sm:mt-4 xs:mt-6 ${lang === 'ar' ? 'text-right':'text-left'}`}>
+                <label className='font-[500] text-[16px]' for='name'>{lang === 'ar' ? 'رسالة' :'Message'} </label>
                   <textarea
                     name="message"
                     placeholder='Describe your needs to us...  '
@@ -210,7 +210,7 @@ export const Contactus = ({lang,setLang}) => {
     
               </div>
               <div className='basis-1/4 xs:relative xs:h-[200px] sm:h-auto p-0' >
-              <img className='sm:!w-[380px] !w-[380px] xs:!w-[250px]  right-[-18%] sm:right-[-25%] xs:right-[-60%] sm:bottom-[-8%] xs:top-[-10%] sm:top-auto sm:absolute xs:relative' src={ paperPlaneReverse}></img>
+              <img className={`sm:!w-[380px] !w-[380px] xs:!w-[250px]  ${lang === 'ar' ? 'left-[-18%] sm:left-[-25%] xs:left-[-60%] scale-x-[-1]':'right-[-18%] sm:right-[-25%] xs:right-[-60%]'} sm:bottom-[-8%] xs:top-[-10%] sm:top-auto sm:absolute xs:relative`} src={ paperPlaneReverse}></img>
     
               </div>
     

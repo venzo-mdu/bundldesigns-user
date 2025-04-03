@@ -1,10 +1,14 @@
 {
-    "english":{
         "main_title": "Welcome  to your dashboard,",
+        "main_title_arabic":"مرحبا بك في لوحة التحكم الخاصة بك،",
         "title_content":"Here you’ll find all that you need about your bundles and much more.",
+        "title_content_arabic":"ستجد هنا كل ما تحتاجه حول حزمك وأكثر من ذلك بكثير .",
         "second_title":"My Bundls",
+        "second_title_arabic":"بلدي بوندلز",
         "project_process": ["Purchase bundl", "Fill Questionnaire","Designing Brand",
         "Adjustment & Brand Approval","Add Ons" ,"Receive Designs"],
+        "project_process_arabic": ["شراء بوندل", "املأ الاستبيان","العلامة التجارية المرغوبة" ,   
+        "التعديل والموافقة على & العلامة التجارية","إضافات" ,"استلام التصاميم"],
         "process_content":{
             "questionnaire":"Fill out questionnaire to continue the design process!",
             "questionnaire_fill":"Fill Questionnaire",
@@ -20,42 +24,40 @@
             "upload_content":"Upload Document",
             "receive_designs":"We’ve received your content and working on finishing your brand!",
             "file_send":"We’ve sent you your brand files and content!",
-            "mark_complete":"Mark as complete"
+            "mark_complete":"Mark as complete",
+
+            "questionnaire_arabic":"املأ الاستبيان لمواصلة عملية التصميم !",
+            "questionnaire_fill_arabic":"املأ الاستبيان",
+            "questionnaire_edit_arabic":"لديك {} لتعديل الاستبيان الخاص بك",
+            "questionnaire_edit_content_arabic":"إذا لم يتم التعديل ، فسنبدأ في التصميم على الفور .",
+            "questionnaire_edit_action_arabic":"تعديل الاستبيان ",
+            "design_brand_arabic":"نحن الآن نعمل عل تصميم هويتك البصرية ",
+            "expected_date_arabic":"التاريخ المتوقع للتسليم",
+            "request_edit_arabic":"طلب تعديلات",
+            "approve_brand_arabic":"الموافقة على الهوية البصرية ",
+            "approve_brand_content_arabic":"",
+            "addons_arabic":"ادخل محتوى العناصر الخاصة بالمشروع",
+            "upload_content_arabic":"تحميل المحتوى",
+            "receive_designs_arabic":"لقد تلقينا المحتوى الخاص بك ونعمل على إنهاء هويتك البصرية ",
+            "file_send_arabic":"لقد أرسلنا لك ملفات الهوية البصرية  ومحتواها !",
+            "mark_complete_arabic":"وضع علامة كمكتمل"
+
         },
         "third_title":"Purchasing History",
         "table_heads":{"id":"Order ID","project_name":"Project Name","price":"Price",
         "payment_status":"Payment Status","action":"Action","purchase_date":"Date Purchased"},
-        "rate_us":"How would you rate us ?",
-        "rate_us_content":"We care about your satisfaction, let us know your thoughts!",
-        "review_google":"Review us on Google"
-    },
-    "arabic":{ 
-        "main_title": "Welcome  to your dashboard,",
-        "title_content":"Here you’ll find all that you need about your bundles and much more.",
-        "second_title":"My Bundls",
-        "project_process": ["Purchase bundl", "Fill Questionnaire","Designing Brand",
-        "Adjustment & Brand Approval","Add Ons" ,"Receive Designs"],
-        "process_content":{
-            "questionnaire":"Fill out questionnaire to continue the design process!",
-            "questionnaire_fill":"Fill Questionnaire",
-            "questionnaire_edit": "You have {} to edit your questionnaire",
-            "questionnaire_edit_content":"If not edited, we will start designing your brand immediately.",
-            "questionnaire_edit_action":"Edit Questionnaire",
-            "design_brand":"We are now working on your unique brand!",
-            "expected_date":"Expected date of finish:",
-            "request_edit":"Request Edits",
-            "approve_brand":"Approve Brand",
-            "addons":"We’re almost done! Enter the content of your applications.",
-            "upload_content":"Upload Document",
-            "receive_designs":"We’ve received your content and working on finishing your brand!",
-            "file_send":"We’ve sent you your brand files and content!",
-            "mark_complete":"Mark as complete"
+        "table_heads_arabic":{
+            "id":"رقم الطلب",
+            "project_name":"اسم المشروع",
+            "price":"ثمن",
+            "payment_status":"حالة الدفع",
+            "action":"فعل",
+            "purchase_date":"تاريخ الشراء"
         },
-        "third_title":"Purchasing History",
-        "table_heads":{"id":"Order ID","project_name":"Project Name","price":"Price",
-        "payment_status":"Payment Status","action":"Action","purchase_date":"Date Purchased"},
         "rate_us":"How would you rate us ?",
         "rate_us_content":"We care about your satisfaction, let us know your thoughts!",
-        "review_google":"Review us on Google"
-    }
+        "review_google":"Review us on Google",
+        "rate_us_arabic":"كيف تقيم لنا؟",
+        "rate_us_content_arabic":"نحن نهتم برضاك ، دعنا نعرف أفكارك !",
+        "review_google_arabic":"مراجعتنا على جوجل"
 }
