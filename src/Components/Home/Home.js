@@ -781,10 +781,10 @@ export const Home = ({lang,setLang}) => {
                                                     <li>Brand Concept</li>
                                                     <li>Brand Direction</li>
                                                     <li>{lang === 'ar' ? 'تصميم الشعار' :'Logo Design'}</li>
-                                                    <li>Logo Variations</li>
-                                                    <li>Color Palette</li>
-                                                    <li>Typography</li>
-                                                    <li>Visual Identity</li>
+                                                    <li>{lang === 'ar' ? 'خيار إضافي للشعار' :'Logo Variations'}</li>
+                                                    <li>{lang === 'ar' ? 'لوحة الألوان' :'Color Palette'}</li>
+                                                    <li>{lang === 'ar' ? 'الآحرف والخطوط' :'Typography'}</li>
+                                                    <li>{lang === 'ar' ? 'الهوية البصرية' :'Visual Identity'}</li>
                                                     <li>Brand Guide</li>
                                                 </ul>
                                             </div>
@@ -868,10 +868,10 @@ export const Home = ({lang,setLang}) => {
                                                     <li>Brand Concept</li>
                                                     <li>Brand Direction</li>
                                                     <li>{lang === 'ar' ? 'تصميم الشعار' :'Logo Design'}</li>
-                                                    <li>Logo Variations</li>
-                                                    <li>Color Palette</li>
-                                                    <li>Typography</li>
-                                                    <li>Visual Identity</li>
+                                                    <li>{lang === 'ar' ? 'خيار إضافي للشعار' :'Logo Variations'}</li>
+                                                    <li>{lang === 'ar' ? 'لوحة الألوان' :'Color Palette'}</li>
+                                                    <li>{lang === 'ar' ? 'الآحرف والخطوط' :'Typography'}</li>
+                                                    <li>{lang === 'ar' ? 'الهوية البصرية' :'Visual Identity'}</li>
                                                     <li>Brand Guide</li>
                                                 </ul>
                                             </div>
@@ -965,10 +965,10 @@ export const Home = ({lang,setLang}) => {
                                                     <li>Brand Concept</li>
                                                     <li>Brand Direction</li>
                                                     <li>{lang === 'ar' ? 'تصميم الشعار' :'Logo Design'}</li>
-                                                    <li>Logo Variations</li>
-                                                    <li>Color Palette</li>
-                                                    <li>Typography</li>
-                                                    <li>Visual Identity</li>
+                                                    <li>{lang === 'ar' ? 'خيار إضافي للشعار' :'Logo Variations'}</li>
+                                                    <li>{lang === 'ar' ? 'لوحة الألوان' :'Color Palette'}</li>
+                                                    <li>{lang === 'ar' ? 'الآحرف والخطوط' :'Typography'}</li>
+                                                    <li>{lang === 'ar' ? 'الهوية البصرية' :'Visual Identity'}</li>
                                                     <li>Brand Guide</li>
                                                 </ul>
                                             </div>
@@ -1061,10 +1061,10 @@ export const Home = ({lang,setLang}) => {
                                                     <li>Brand Concept</li>
                                                     <li>Brand Direction</li>
                                                     <li>{lang === 'ar' ? 'تصميم الشعار' :'Logo Design'}</li>
-                                                    <li>Logo Variations</li>
-                                                    <li>Color Palette</li>
-                                                    <li>Typography</li>
-                                                    <li>Visual Identity</li>
+                                                    <li>{lang === 'ar' ? 'خيار إضافي للشعار' :'Logo Variations'}</li>
+                                                    <li>{lang === 'ar' ? 'لوحة الألوان' :'Color Palette'}</li>
+                                                    <li>{lang === 'ar' ? 'الآحرف والخطوط' :'Typography'}</li>
+                                                    <li>{lang === 'ar' ? 'الهوية البصرية' :'Visual Identity'}</li>
                                                     <li>Brand Guide</li>
                                                 </ul>
                                             </div>
