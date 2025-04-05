@@ -234,7 +234,7 @@ export default function UploadContent({lang,setLang}) {
                                         .filter(item=>item.item__category !== 1 && !skipId?.includes(item.id) && item.status == 'questionnaire required')
                                         .map((item,index,filterArr) => 
                                             Array.from({ length: item.qty }, (_, qtyIndex) => qtyIndex + 1) // Create an array [1, 2, ..., qty]
-                                            .filter(qty => !item.uploaded_qty.includes(qty)) // Exclude uploaded quantities
+                                            .filter(qty => !item.uploaded_qty?.includes(qty)) // Exclude uploaded quantities
                                             .map((filterIndex) => {
                                             const hasMultipleQty = item.qty < 1;
                                             return (<div className={`${( filterArr.length === 1 || (index === filterArr.length -1 || order.item_details.bundle_items.length === 0 )) && hasMultipleQty ? '' : 'border-b !border-black'} mt-[2%]`}>
@@ -322,10 +322,10 @@ export default function UploadContent({lang,setLang}) {
                                     )}
                                     {
                                         order.item_details.addon_items
-                                        .filter(item=>!skipId.includes(item.id) && item.status == 'questionnaire required')
+                                        .filter(item=>!skipId?.includes(item.id) && item.status == 'questionnaire required')
                                         .map((item,index,filterArr) => 
                                             Array.from({ length: item.qty }, (_, qtyIndex) => qtyIndex + 1) 
-                                              .filter((qty) => !item.uploaded_qty.includes(qty)) 
+                                              .filter((qty) => !item.uploaded_qty?.includes(qty)) 
                                               .map((filterIndex) => {
                                                 const hasMultipleQty = item.qty < 1;
                                                 return (<div className={`${( filterArr.length === 1 || (index === filterArr.length -1 || order.item_details.addon_items.length === 0 ))  && hasMultipleQty ? '' : 'border-b !border-black'} mt-[2%]`}>
@@ -509,7 +509,7 @@ export default function UploadContent({lang,setLang}) {
                                             .filter(item=>item.item__category !== 1 && !skipId?.includes(item.id) && item.status == 'questionnaire required')
                                             .map((item,index,filterArr) => 
                                                 Array.from({ length: item.qty }, (_, qtyIndex) => qtyIndex + 1) // Create an array [1, 2, ..., qty]
-                                                .filter(qty => !item.uploaded_qty.includes(qty)) // Exclude uploaded quantities
+                                                .filter(qty => !item.uploaded_qty?.includes(qty)) // Exclude uploaded quantities
                                                 .map((filterIndex) => {
                                                     const hasMultipleQty = item.qty < 1;
                                                     return (<div className={`${filterArr.length === 1 || (index === filterArr.length - 1  || order.item_details.bundle_items?.length === 0) && hasMultipleQty ? '' : 'border-b border-black'} px-[5%] space-x-2 mt-[2%]`}>
@@ -591,10 +591,10 @@ export default function UploadContent({lang,setLang}) {
                                         }
                                     {
                                         order.item_details.addon_items
-                                          .filter(item => !skipId.includes(item.id) && item.status === 'questionnaire required')
+                                          .filter(item => !skipId?.includes(item.id) && item.status === 'questionnaire required')
                                           .map((item, index, filteredArr) =>
                                             Array.from({ length: item.qty }, (_, qtyIndex) => qtyIndex + 1) 
-                                              .filter((qty) => !item.uploaded_qty.includes(qty)) 
+                                              .filter((qty) => !item.uploaded_qty?.includes(qty)) 
                                               .map((filterIndex) => {
                                                 console.log(filterIndex,"after filter")
                                                 const hasMultipleQty = item.qty < 1;
