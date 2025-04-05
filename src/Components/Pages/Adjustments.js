@@ -154,7 +154,7 @@ export default function Adjustments({user ,lang ,setLang}) {
         const response = await axios.get(`${base_url}/api/adjustments/${designId}/`, ConfigToken());
         if (response.data) {
             setAdjustments(response.data.data)
-            response.data.data.length && setAdjustmentTab(response.data.data[0].english_adjustment_name)
+            response.data.data.length && setAdjustmentTab(lang === 'ar' ? response.data.data[0].arabic_adjustment_name :response.data.data[0].english_adjustment_name)
         }
     }
 
@@ -538,41 +538,41 @@ export default function Adjustments({user ,lang ,setLang}) {
                             />}
 
                             <div className='px-[5%] py-4'>
-                                <p className='flex text-[18px] items-center pb-2 text-black cursor-pointer' onClick={() => { window.location.href = '/dashboard' }}> <ArrowBackIcon style={{ width: '25px', marginRight: '10px' }} /> Back to dashboard </p>
+                                <p className='flex text-[18px] items-center pb-2 text-black cursor-pointer' onClick={() => { window.location.href = '/dashboard' }}> <ArrowBackIcon style={{ width: '25px', marginRight: '10px' }} />{lang === 'ar' ? 'العودة إلى لوحة القيادة' : 'Back to dashboard '}</p>
                                 <div className=''>
-                                    <h1 className='lg:text-[40px] text-[#000] md:text-[32px]'> Adjustments </h1>
-                                    <p className='lg:text-[20px] mb-2 md:text-[16px] text-[#00000080]'> Here you can edit your brand and add items to your bundl! </p>
-                                    <p className='font-[700] text-[22px] font-Helvetica'>What would you like to edit ?</p>
+                                    <h1 className='lg:text-[40px] text-[#000] md:text-[32px]'> {lang === 'ar' ? 'التعديلات' :'Adjustments'} </h1>
+                                    <p className='lg:text-[20px] mb-2 md:text-[16px] text-[#00000080]'> {lang === 'ar' ? 'هنا يمكنك تعديل هويتك البصرية وإضافة عناصر إلى البندل الخاصة بك !' :'Here you can edit your brand and add items to your bundl! '} </p>
+                                    <p className='font-[700] text-[22px] font-Helvetica'> {lang === 'ar' ? 'ما الذي تريد تعديله؟' : 'What would you like to edit ?'}</p>
                                     <div className=''>
                                         <div className=' flex flex-wrap overflow-auto w-full'>
                                             {adjustments.map((adjustment, index) => {
-                                                return <button className={`uppercase text-[14px] font-[500] px-[5%] py-[2%] w-[${stylesBtn[index]}] ${adjustmenTab == adjustment.english_adjustment_name ? 'text-white bg-[#1BA56F] ' : 'text-[#1BA56F] bg-white '}  border-[1px]
+                                                return <button className={`uppercase text-[14px] font-[500] px-[5%] py-[2%] w-[${stylesBtn[index]}] ${adjustmenTab == (lang === 'ar' ? adjustment.arabic_adjustment_name : adjustment.english_adjustment_name) ? 'text-white bg-[#1BA56F] ' : 'text-[#1BA56F] bg-white '}  border-[1px]
                                      !border-[#1BA56F]`}
                                                     onClick={() => {
-                                                        setAdjustmentTab(adjustment.english_adjustment_name)
+                                                        setAdjustmentTab(lang === 'ar' ? adjustment.arabic_adjustment_name :adjustment.english_adjustment_name)
                                                         // setAdjustmentForm({ content: null, file_name: null })
-                                                    }}>{adjustment.english_adjustment_name}</button>
+                                                    }}>{lang === 'ar' ? adjustment.arabic_adjustment_name :adjustment.english_adjustment_name}</button>
                                             })}
                                         </div>
 
                                         {adjustments.map((adjustment, index) => {
-                                            if (adjustment.english_adjustment_name == adjustmenTab) {
+                                            if ((lang === 'ar' ? adjustment.arabic_adjustment_name : adjustment.english_adjustment_name) == adjustmenTab) {
                                                 return <div className='mt-[10%]'>
                                                     <div className='flex justify-between my-[5%]'>
-                                                        <span className='font-bold'>{adjustment.english_adjustment_name}</span>
+                                                        <span className='font-bold'>{lang === 'ar' ? adjustment.arabic_adjustment_name : adjustment.english_adjustment_name}</span>
                                                         <p className='flex items-center text-[#1BA56F] !mb-2'>
                                                             <p className='flex items-center mb-1 sm:min-w-[120px] min-w-[120px] xs:min-w-[100px] font-[500]'>
-                                                                <img src={dollorIcon} alt="Price icon" className="inline-block mr-2" />
-                                                                {Math.round(adjustment.price)} SAR
+                                                                <img src={dollorIcon} alt="Price icon" className={`inline-block ${lang === 'ar' ? 'ml-2' : 'mr-2'}`} />
+                                                                {Math.round(adjustment.price)} {lang === 'ar' ? 'ريال' :'SAR'}
                                                             </p>
                                                             <p className='flex items-center mb-1 font-[500]' >
-                                                                <AccessTimeIcon className='mr-2' />
-                                                                {Math.round(adjustment.time_limit)} Days
+                                                                <AccessTimeIcon className={`${lang === 'ar' ? 'ml-2' : 'mr-2'}`} />
+                                                                {Math.round(adjustment.time_limit)} {lang === 'ar' ?'يوما':'Days'}
 
                                                             </p>
                                                         </p>
                                                     </div>
-                                                    <p className='font-[700] text-[22px] font-Helvetica'>What would you like to change?</p>
+                                                    <p className='font-[700] text-[22px] font-Helvetica'>{lang === 'ar' ? 'ما الذي تريد تغييره؟' :'What would you like to change?'}</p>
                                                     <p ><input id={`${adjustment.id}_content`} onInput={(e) => {
                                                         setAdjustmentForm((prev) => ({
                                                         ...prev,
@@ -582,12 +582,12 @@ export default function Adjustments({user ,lang ,setLang}) {
                                                         }
                                                         }));
                                                     }}
-                                                        placeholder='Tell us your thoughts...'
+                                                        placeholder={lang === 'ar' ? 'شاركنا رأيك ' : 'Tell us your thoughts...'}
                                                         value={adjustmentForm?.[adjustment?.id]?.content ? adjustmentForm?.[adjustment?.id]?.content : ''}
                                                         className='border px-2 py-1 border-[#000000A0]  md:w-[80%] w-[80%] xs:w-[70%] rounded-none'
                                                     ></input>
-                                                        <button onClick={() => addData(adjustment.id, index)} className='md:w-[15%] lg:w-[15%] xs:w-[30%] py-1 bg-[#1BA56F] text-white '>Submit Edit</button></p>
-                                                    <p className='font-medium text-[18px]'>Have something to show us?</p>
+                                                        <button onClick={() => addData(adjustment.id, index)} className='md:w-[15%] lg:w-[15%] xs:w-[30%] py-1 bg-[#1BA56F] text-white '>{lang === 'ar' ? 'ارسال' : 'Submit Edit'}</button></p>
+                                                    <p className='font-medium text-[18px]'>{lang === 'ar' ? 'هل لديك شيء لترينا إياه؟' : 'Have something to show us?'}</p>
                                                     <p
                                                         className="border-b-2 w-[150px] !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer"
                                                         onClick={() => document.getElementById(`file-${adjustment.id}`).click()} // Trigger click on hidden input
@@ -602,7 +602,7 @@ export default function Adjustments({user ,lang ,setLang}) {
                                                             onChange={(e) => uploadFile(e, adjustment.id, index)}
                                                         />
                                                         <img src={uploadIcon} alt="Upload Icon" />
-                                                        <span className='font-[700]'>Upload Content</span>
+                                                        <span className='font-[700]'> {lang === 'ar' ? 'تحميل المحتوى' :'Upload Content'}</span>
                                                     </p>
                                                     <p>
                                                         {adjustmentData[adjustment.id] ? adjustmentData[adjustment.id].file_name?.map(name => {
@@ -615,8 +615,8 @@ export default function Adjustments({user ,lang ,setLang}) {
                                         })}
                                     </div>
                                     <div className='lg:mt-16 md:mt-16 xs:mt-8 xs:mb-[75%] lg:mb-0 md:mb-0'>
-                                        <h2 className='text-[24px] font-[700] font-Helvetica'>Something feels missing ?</h2>
-                                        <p className='text-[18px] text-[#00000080] w-[75%]'>Add anything you want to your bundl to fit your brand!</p>
+                                        <h2 className='text-[24px] font-[700] font-Helvetica'>{lang === 'ar' ? 'عداد المفقودين؟':'Something feels missing ?'}</h2>
+                                        <p className='text-[18px] text-[#00000080] w-[75%]'>{lang === 'ar' ? 'أضف أي شيء تريده إلى! bundl  لخاص بك ليناسب علامتك التجارية ' : 'Add anything you want to your bundle to fit your brand!'}</p>
                                         <div className='flex flex-wrap w-[100%]'>  {Object.keys(bundlAddons).map((category, index) => {
                                             return <a onClick={() => {
                                                 toggleDescription(category)
@@ -628,13 +628,13 @@ export default function Adjustments({user ,lang ,setLang}) {
                                                 className={`uppercase cursor-pointer text-[14px] py-[2%] px-[5%] w-[${stylesBtnAccordian[index]}] !font[500] text-center font-[500] ${designListTab == category ?
                                                     'text-white bg-[#1BA56F] ' : 'text-[#1BA56F] bg-white '} border-[1px]
                                               !border-[#1BA56F]`}
-                                            >{category}</a>
+                                            >{lang === 'ar' ? bundlAddons[category]?.name_arabic : category}</a>
                                         })}</div>
 
                                         <div className='mt-10'>
                                             {Object.keys(bundlAddons).map((category, index) => {
                                                 return <div className='' id={`${index}_list`}>
-                                                    <p className={`flex justify-between font-semibold text-[24px] pb-2  ${expantedTabs[category] || category === 'Social Media'  ? '' : 'border-b'} border-[#00000080]`}> {category}      <button
+                                                    <p className={`flex justify-between font-semibold text-[24px] pb-2  ${expantedTabs[category] || category === 'Social Media'  ? '' : 'border-b'} border-[#00000080]`}> {lang === 'ar' ? bundlAddons[category]?.name_arabic :category}      <button
                                                         onClick={() => toggleDescription(category)}
                                                         className="text-blue-500 cursor-pointer"
                                                     >
@@ -652,22 +652,22 @@ export default function Adjustments({user ,lang ,setLang}) {
                                                                 </p>
                                                             </div> */}
                                                               <div className='flex justify-between my-[3%]'>
-                                                              <span className='font-bold text-[18px] text-[#1BA56F] w-[45%]'>{item.name_english}</span>
+                                                              <span className='font-bold text-[18px] text-[#1BA56F] w-[45%]'>{lang === 'ar' ? item.name_arabic :item.name_english}</span>
                                                             <p className='flex items-center !mb-2 w-[55%] '>
                                                             <p className='flex items-center mb-1 sm:min-w-[120px] min-w-[120px] xs:min-w-[100px] font-[500]'>
-                                                                <img src={BlackDollor} alt="Price icon" className="inline-block mr-2" />
-                                                                {Math.round(item.price)} SAR
+                                                                <img src={BlackDollor} alt="Price icon" className={`inline-block ${lang === 'ar' ? 'ml-2' : 'mr-2'}`} />
+                                                                {Math.round(item.price)} {lang === 'ar' ? 'ريال' :'SAR'}
                                                             </p>
                                                             <p className='flex items-center mb-1 font-[500] text-right' >
-                                                                <AccessTimeIcon className='mr-2' />
-                                                                {Math.round(item.time)} Days
+                                                                <AccessTimeIcon className={`${lang === 'ar' ? 'ml-2':'mr-2'}`} />
+                                                                {Math.round(item.time)} {lang === 'ar' ?'يوما':'Days'}
                                                             </p>
                                                         </p>
                                                         </div>
                                                               <p className='mb-3 mt-[-3%] h-[30px] flex items-center text-[#1BA56F] border !border-[#1BA56F] w-[100%]'>
-                                                              <button onClick={() => remove_item(item.id)} className='border-r !border-[#1BA56F] h-full flex justify-center w-[10%] py-1'><RemoveIcon /></button>
+                                                              <button onClick={() => remove_item(item.id)} className={`${lang === 'ar' ? 'border-l' : 'border-r'} !border-[#1BA56F] h-full flex justify-center w-[10%] py-1`}><RemoveIcon /></button>
                                                               <span className='px-2 !border-[#1BA56F] w-[80%] flex items-center justify-center'> {item.id in itemsList ? itemsList[item.id]['qty'] : 0}</span>
-                                                              <button onClick={() => addItem(index, category, item.id)} className='flex justify-center py-1 border-l !border-[#1BA56F] w-[10%] h-full'><AddIcon /></button>
+                                                              <button onClick={() => addItem(index, category, item.id)} className={`flex justify-center py-1 ${lang === 'ar' ? 'border-r' : 'border-l'} !border-[#1BA56F] w-[10%] h-full`}><AddIcon /></button>
                                                           </p>
                                                           </div>
                                                         )
@@ -680,7 +680,7 @@ export default function Adjustments({user ,lang ,setLang}) {
                                         <div className={`fixed bg-white bottom-0 xs:p-[5%_0%_12%_0%] transition-all delay-100 duration-300 ease-in-out overflow-y-scroll  border ${showDetails ? 'h-[500px]' : 'h-[250px]'} w-full left-0 z-[1]`} >
                                             <div className='bundl-name '>
                                                 <p className='sm:text-[24px] xs:mb-0 xs:flex xs:justify-between sm:block font-[700] px-0 pt-[5%] !mb-2'>
-                                                    <span className='font-[400] text-[16px] font-Helvetica'>Summary</span>
+                                                    <span className='font-[400] text-[16px] font-Helvetica'>  {lang === 'ar' ? 'ملخص التعديلات' : 'Summary of Edits'}</span>
                                                     {isMobile && <button onClick={() => setDetails(!showDetails)} className='text-[14px] font-[500] underline text-[#1BA56F]'>{!showDetails ? 'Show Details' : 'Hide Details'}</button>}
                                                 </p>
                                             </div>
@@ -693,25 +693,25 @@ export default function Adjustments({user ,lang ,setLang}) {
                                                             return <div className='flex items-start border-b-[1px] border-black mt-2'>
                                                                 <p className='mb-0 ml-4 mt-[4px] mr-2 flex items-center'>
                                                                     <img onClick={() => {
-                                                                        setAdjustmentTab(item.english_adjustment_name)
+                                                                        setAdjustmentTab(lang === 'ar' ? item.arabic_adjustment_name :item.english_adjustment_name)
                                                                         // setAdjustmentForm({
                                                                         //     content: item.content ? item.content : null,
                                                                         //     file_name: item.file_name ? item.file_name : null
                                                                         // })
-                                                                    }} className='mr-2 w-[18px] cursor-pointer' src={EditIcon}></img>
+                                                                    }} className={`${lang === 'ar' ? 'ml-2':'mr-2'} w-[18px] cursor-pointer`} src={EditIcon}></img>
                                                                     <ClearIcon onClick={() => removeItem(item.id, 'adjustment')}
-                                                                        style={{ marginRight: '5px', width: '18px', cursor: 'pointer' }} />
+                                                                        style={lang === 'ar' ? {marginLeft: '5px', width: '18px', cursor: 'pointer' } :{ marginRight: '5px', width: '18px', cursor: 'pointer' }} />
                                                                 </p>
                                                                 <div className=''>
-                                                                    <p className='font-bold text-[18px]'> {item.english_adjustment_name}</p>
+                                                                    <p className='font-bold text-[18px]'> {lang === 'ar' ? item?.arabic_adjustment_name :item.english_adjustment_name}</p>
                                                                     <div className='flex font-[500] text-[#1BA56F]'>
-                                                                        <p className='flex mr-3'>
-                                                                            <AccessTimeIcon style={{ marginRight: '5px', width: '18px' }} />
-                                                                            <span>{parseInt(item.time_limit)} Days</span>
+                                                                        <p className={`flex ${lang === 'ar' ? 'ml-3':'mr-3'}`}>
+                                                                            <AccessTimeIcon style={lang === 'ar' ? {marginLeft: '5px', width: '18px'} :{ marginRight: '5px', width: '18px' }} />
+                                                                            <span>{parseInt(item.time_limit)} {lang === 'ar' ?'يوما':'Days'}</span>
                                                                         </p>
                                                                         <p className='flex items-center'>
                                                                             <img width={'18px'} className='mr-[5px] h-[18px]' src={dollorIcon}></img>
-                                                                            <span>{Math.round(item.price)} SAR</span>
+                                                                            <span>{Math.round(item.price)} {lang === 'ar' ? 'ريال' :'SAR'}</span>
                                                                         </p>
                                                                     </div>
                                                                 </div>
@@ -721,20 +721,20 @@ export default function Adjustments({user ,lang ,setLang}) {
                                                           {Object.values(itemsList).map(item => {
                                                             return <div className='flex items-start border-b-[1px] border-black mt-2'>
                                                                 <p className='mb-0 ml-4 mt-[4px] mr-2 flex items-center'>
-                                                                    <a onClick={() => { toggleDescription(item.category) }} href={`#${item.id}_design_list`}><img className='mr-2 w-[18px] cursor-pointer' src={EditIcon}></img></a>
+                                                                    <a onClick={() => { toggleDescription(item.category) }} href={`#${item.id}_design_list`}><img className={`${lang === 'ar' ? 'ml-2':'mr-2'} w-[18px] cursor-pointer`} src={EditIcon}></img></a>
                                                                     <ClearIcon onClick={() => removeItem(item.id, 'items')}
-                                                                        style={{ marginRight: '5px', width: '18px', cursor: 'pointer' }} />
+                                                                        style={lang === 'ar' ? {marginLeft: '5px', width: '18px', cursor: 'pointer' } :{ marginRight: '5px', width: '18px', cursor: 'pointer' }} />
                                                                 </p>
                                                                 <div className=''>
-                                                                    <p className='font-bold'> {item.name_english}</p>
+                                                                    <p className='font-bold'> {lang === 'ar' ? item.name_arabic :item.name_english}</p>
                                                                     <div className='flex font-[500] text-[#1BA56F]'>
-                                                                        <p className='flex mr-3'>
-                                                                            <AccessTimeIcon style={{ marginRight: '5px', width: '18px' }} />
-                                                                            <span>{Math.round(item.time * item.qty)} Days</span>
+                                                                        <p className={`flex ${lang === 'ar' ? 'ml-3':'mr-3'}`}>
+                                                                            <AccessTimeIcon style={lang === 'ar' ? {marginLeft: '5px', width: '18px'} :{ marginRight: '5px', width: '18px' }} />
+                                                                            <span>{Math.round(item.time * item.qty)} {lang === 'ar' ?'يوما':'Days'}</span>
                                                                         </p>
                                                                         <p className='flex items-center'>
                                                                             <img width={'18px'} className='mr-[5px] h-[18px]' src={dollorIcon}></img>
-                                                                            <span>{item.total_price} SAR</span>
+                                                                            <span>{item.total_price} {lang === 'ar' ? 'ريال' :'SAR'}</span>
                                                                         </p>
                                                                     </div>
                                                                 </div>
@@ -752,17 +752,17 @@ export default function Adjustments({user ,lang ,setLang}) {
                                             <div className='bundl-checkout !mt-[0%]'>
                                                 <div className=' flex items-center mb-1' >
                                                     <img src={BlackDollor} className='ml-[6px] mr-4' alt="Total Price" />
-                                                    <p className='basis-3/5 font-bold text-[18px] mb-0'>Total Price:</p>
-                                                    <p className='basis-2/5 font-bold text-[18px] mb-0 text-end'>{totalPrice} SAR</p>
+                                                    <p className='basis-3/5 font-bold text-[18px] mb-0'>{lang === 'ar' ?'السعر الإجمالي :':'Total Price :'}</p>
+                                                    <p className='basis-2/5 font-bold text-[18px] mb-0 text-end'>{totalPrice} {lang === 'ar' ? 'ريال' :'SAR'}</p>
                                                 </div>
                                                 <div className=' flex justify-center'>
-                                                    <img className='mr-2 ' src={BlackTime} alt="Total Duration" />
-                                                    <p className='basis-3/5 text-[18px] mb-0'>Total Duration:</p>
-                                                    <p className='basis-2/5 text-[18px] mb-0 text-end'>{totalTime} Days</p>
+                                                    <img className={`${lang === 'ar' ? 'ml-2':'mr-2'}`} src={BlackTime} alt="Total Duration" />
+                                                    <p className='basis-3/5 text-[18px] mb-0'>{lang === 'ar' ? 'المدة الإجمالية :':'Total Duration :'}</p>
+                                                    <p className='basis-2/5 text-[18px] mb-0 text-end'>{totalTime} {lang === 'ar' ?'يوما':'Days'}</p>
                                                 </div>
 
                                                 <div >
-                                                    <button onClick={() => CheckCart()} className=' w-[100%] m-auto py-1 mt-2 text-[18px] text-white bg-[#1BA56F] uppercase'>Proceed Checkout</button>
+                                                    <button onClick={() => CheckCart()} className=' w-[100%] m-auto py-1 mt-2 text-[18px] text-white bg-[#1BA56F] uppercase'> {lang === 'ar' ? 'متابعة الخروج' :'Proceed Checkout'}</button>
                                                     {errorMsg && <p className='pb-0 text-[16px] text-[red]'>{errorMsg}*</p>}
                                                 </div>
                                             </div>
@@ -801,15 +801,15 @@ export default function Adjustments({user ,lang ,setLang}) {
                             )}
                             <div className='mycart '>
                                 <div className='cart mt-[5%]'>
-                                    <p className='flex !text-[18px] !font-normal items-center pb-2 cursor-pointer text-black' onClick={() => { setPage('adjustment') }}> <ArrowBackIcon style={{ width: '25px', marginRight: '10px' }} /> Back To Adjustments </p>
-                                    <p>Your Cart</p>
+                                    <p className='flex !text-[18px] !font-normal items-center pb-2 cursor-pointer text-black' onClick={() => { setPage('adjustment') }}> <ArrowBackIcon style={lang === 'ar' ? { width: '25px', marginLeft: '10px',transform:'scaleX(-1)' } : { width: '25px', marginRight: '10px' }} /> Back To Adjustments </p>
+                                    <p>{lang === 'ar' ? 'عربة التسوق الخاصة بك':'Your Cart'}</p>
                                     {isMobile ? <>
                                         {Object.values(adjustmentData)?.map((row, index) => (
                                             console.log(row),
                                             <div className='flex justify-between border-b pb-2 !border-black'>
                                                 <div>
-                                                    <div className='font-[700] text-[20px]'>{'1'} x {row.english_adjustment_name}</div>
-                                                    <div className='font-[500] ml-8'> {Math.round(row.price)} SAR</div>
+                                                    <div className='font-[700] text-[20px]'>{'1'} x {lang === 'ar' ? row?.arabic_adjustment_name : row.english_adjustment_name}</div>
+                                                    <div className='font-[500] ml-8'> {Math.round(row.price)} {lang === 'ar' ? 'ريال' :'SAR'}</div>
                                                 </div>
                                                 <p className='flex items-center !mb-0 justify-center'><img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'adjustment')} /></p>
                                             </div>
@@ -817,8 +817,8 @@ export default function Adjustments({user ,lang ,setLang}) {
                                         {(Object.values(itemsList))?.map((row, index) => (
                                             <div className='flex justify-between border-b pb-2 !border-black'>
                                                 <div>
-                                                    <div className='font-[700] text-[20px]'>{row.qty} x {row.name_english}</div>
-                                                    <div className='font-[500] ml-8'> {Math.round(row.price)} SAR</div>
+                                                    <div className='font-[700] text-[20px]'>{row.qty} x {lang === 'ar' ? row?.name_arabic :row.name_english}</div>
+                                                    <div className='font-[500] ml-8'> {Math.round(row.price)} {lang === 'ar' ? 'ريال' :'SAR'}</div>
                                                 </div>
                                                 <p className='flex items-center !mb-0 justify-center'><img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'items')} /></p>
                                             </div>
@@ -827,15 +827,15 @@ export default function Adjustments({user ,lang ,setLang}) {
                                         :
                                         <table className='w-full border-none' aria-label="simple table">
                                             <thead>
-                                                <tr className='!text-left text-[20px]'>
-                                                    <td className='text-left w-[20%] text-[#00000080] pb-3' >Item</td>
-                                                    <td className='text-[#00000080] w-[30%] pb-3' align="center">Quantity</td>
-                                                    <td className='text-[#00000080] w-[30%]    pb-3' align="center">Price</td>
-                                                    <td className='text-[#00000080] w-[20%]    pb-3' align="center">Action</td>
+                                                <tr className={`${lang === 'ar' ? '!text-right' :'!text-left'} text-[20px]`}>
+                                                    <td className={`${lang === 'ar' ? 'text-right' : 'text-left'} w-[20%] text-[#00000080] pb-3`} >{lang === 'ar' ? 'بند':'Item'}</td>
+                                                    <td className='text-[#00000080] w-[30%] pb-3' align="center">{lang === 'ar' ? 'كم' :'Quantity'}</td>
+                                                    <td className='text-[#00000080] w-[30%]    pb-3' align="center">{lang === 'ar' ?'ثمن' :'Price'}</td>
+                                                    <td className='text-[#00000080] w-[20%]    pb-3' align="center">{lang === 'ar' ? 'فعل' :'Action'}</td>
                                                 </tr>
                                             </thead>
                                             <tbody>
-
+ 
                                                 {Object.values(adjustmentData)?.map((row, index) => (
                                                     <tr
                                                         key={row.item_name}
@@ -843,7 +843,7 @@ export default function Adjustments({user ,lang ,setLang}) {
                                                         className={`text-[#000] font-[700] text-[20px] ${index == Object.values(adjustmentData).length - 1 && (Object.values(itemsList)).length == 0 ? "" : 'border-b border-black'} `}
                                                     >
                                                         <td className=' !py-2' scope="row">
-                                                            {row.english_adjustment_name}
+                                                            {lang === 'ar' ? row?.arabic_adjustment_name :row.english_adjustment_name}
                                                         </td>
                                                         <td className=' !py-2' align="center">1</td>
                                                         <td className=' !py-2' align="center">{Math.round(row.price)}</td>
@@ -860,7 +860,7 @@ export default function Adjustments({user ,lang ,setLang}) {
                                                         className={`text-[#000] font-[700] text-[20px] ${index == (Object.values(itemsList)).length - 1 ? "" : 'border-b border-black'} `}
                                                     >
                                                         <td className=' !py-2' scope="row">
-                                                            {row.name_english}
+                                                        {lang === 'ar' ? row?.name_arabic :row.name_english}
                                                         </td>
                                                         <td className=' !py-2' align="center">{row.qty}</td>
                                                         <td className=' !py-2' align="center" scope="row">{Math.round(row.price)}</td>
@@ -875,30 +875,30 @@ export default function Adjustments({user ,lang ,setLang}) {
 
                                     <div className='cart-total-container '>
                                         <div className='total justify-between pl-10  mr-4' style={{ display: 'flex' }}>
-                                            <p className='!text-[20px]' style={{ width: '50%' }}>Price:</p>
-                                            <p className='!text-[20px]  text-right' style={{ width: '50%' }}>{totalPrice} SAR</p>
+                                            <p className='!text-[20px]' style={{ width: '50%' }}>{lang === 'ar' ? 'ثمن :' :'Price:'}</p>
+                                            <p className='!text-[20px]  text-right' style={{ width: '50%' }}>{totalPrice} {lang === 'ar' ? 'ريال' :'SAR'}</p>
                                         </div>
                                         <div className='total justify-between pl-10 mr-4' style={{ display: 'flex' }}>
-                                            <p className='!text-[20px]' style={{ width: '53%' }}>VAT:</p>
-                                            <p className='!text-[20px]  text-right' style={{ width: '40%' }}>{tax} SAR</p>
+                                            <p className='!text-[20px]' style={{ width: '53%' }}>{lang === 'ar' ? 'ضريبه القيمه المضافه:':'VAT:'}</p>
+                                            <p className='!text-[20px]  text-right' style={{ width: '40%' }}>{tax} {lang === 'ar' ? 'ريال' :'SAR'}</p>
                                         </div>
                                         <div>
                                             <div className='justify-between mr-4' style={{ display: 'flex' }}>
-                                                <p className='!text-[20px] ml-[6px]' style={{ width: '50%' }}><img src={BlackDollor} className='inline-block ml-[0px] mr-[18px]'></img>Total Price :</p>
-                                                <p className='!text-[20px] text-right' style={{ width: '40%' }}>{totalPrice + tax} SAR</p>
+                                                <p className='!text-[20px] ml-[6px]' style={{ width: '50%' }}><img src={BlackDollor} className={`inline-block mr-[18px] ${lang === 'ar' ? 'mr-[0px] ' :'ml-[0px]'}`}></img>{lang === 'ar' ?'السعر الإجمالي :':'Total Price :'}</p>
+                                                <p className='!text-[20px] text-right' style={{ width: '40%' }}>{totalPrice + tax} {lang === 'ar' ? 'ريال' :'SAR'}</p>
                                             </div>
                                             <div className='justify-between mr-4' style={{ display: 'flex' }}>
-                                                <p className='!text-[20px]' style={{ width: '66%' }}><AccessTimeIcon style={{ marginRight: '4px' }} /> Total Duration :</p>
-                                                <p className='!text-[20px]  text-right' style={{ width: '45%' }}>{totalTime} Days</p>
+                                                <p className='!text-[20px]' style={{ width: '66%' }}><AccessTimeIcon style={lang === 'ar' ? {marginLeft: '4px'} :{ marginRight: '4px' }} /> {lang === 'ar' ? 'المدة الإجمالية :':'Total Duration :'}</p>
+                                                <p className='!text-[20px]  text-right' style={{ width: '45%' }}>{totalTime} {lang === 'ar' ?'يوما':'Days'}</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div className='billing !px-[2%]'>
-                                    <p>Billing Address</p>
+                                    <p>{lang === 'ar' ?'عنوان الفواتير' :'Billing Address'}</p>
                                     <div className="user-name mb-[15px]">
-                                        <div className='mr-[4%]'>
-                                            <label className={`${'firstName' in error && 'text-[red]'}`}>First Name <span className='text-[red]'>*</span></label>
+                                        <div className={`${lang === 'ar' ? 'ml-[4%]' :'mr-[4%]'}`}>
+                                            <label className={`${'firstName' in error && 'text-[red]'}`}>{lang === 'ar' ? 'الاسم الأول':'First Name'} <span className='text-[red]'>*</span></label>
                                             <input
                                                 name="firstName"
                                                 value={billingInfo.firstName}
@@ -906,8 +906,8 @@ export default function Adjustments({user ,lang ,setLang}) {
                                                 className={`rounded-none ${'firstName' in error ? '!border-[red]' : ''}`}
                                             />
                                         </div>
-                                        <div className='ml-[4%]' style={{ margin: '0% 0 0 2%' }}>
-                                            <label className={`${'lastName' in error && 'text-[red]'}`}>Last Name <span className='text-[red]'>*</span></label>
+                                        <div className={`${lang === 'ar' ?'ml-[4%]':'mr-[4%]'}`} style={lang === 'ar'?{ margin: '0% 2% 0 0%' }:{ margin: '0% 0 0 2%' }}>
+                                            <label className={`${'lastName' in error && 'text-[red]'}`}>{lang === 'ar' ? 'اسم العائلة' :'Last Name'}<span className='text-[red]'>*</span></label>
                                             <input
                                                 name="lastName"
                                                 value={billingInfo.lastName}
@@ -917,7 +917,7 @@ export default function Adjustments({user ,lang ,setLang}) {
                                         </div>
                                     </div>
                                     <div className="email mb-[15px]">
-                                        <label className={`${'email' in error && 'text-[red]'}`}>Email <span className='text-[red]'>*</span></label>
+                                        <label className={`${'email' in error && 'text-[red]'}`}>{lang === 'ar' ?'البريد الإلكتروني' :'Email'} <span className='text-[red]'>*</span></label>
                                         <input
 
                                             name="email"
@@ -927,10 +927,10 @@ export default function Adjustments({user ,lang ,setLang}) {
                                         />
                                     </div>
                                     <div className="phone mb-[15px]">
-                                        <label className={`${'phone' in error && 'text-[red]'}`}>Phone Number <span className='text-[red]'>*</span></label>
+                                        <label className={`${'phone' in error && 'text-[red]'}`}>{lang === 'ar'?'رقم الهاتف':'Phone Number'} <span className='text-[red]'>*</span></label>
                                         <PhoneNumberInput
                                             name="phone"
-                                            placeholder="Enter phone number"
+                                            placeholder={lang === 'ar'?'رقم الهاتف':'Enter Phone Number'}
                                             value={billingInfo.phone}
                                             status={setBillingInfo}
                                             extraInputClass={`${'phone' in error ? '!border-[red]' : '!border-[#000000]'} text-[18px]`}
@@ -942,8 +942,8 @@ export default function Adjustments({user ,lang ,setLang}) {
                                         />
                                     </div>
                                     <div className="country mb-[15px]">
-                                        <div className='mr-[4%]'>
-                                            <label className={`${'country' in error && 'text-[red]'}`}>Country <span className='text-[red]'>*</span></label>
+                                        <div className={`${lang === 'ar' ? 'ml-[4%]' :'mr-[4%]'}`}>
+                                            <label className={`${'country' in error && 'text-[red]'}`}>{lang=== 'ar' ? 'بلد':'Country'} <span className='text-[red]'>*</span></label>
                                             <select 
                                                 name="country" 
                                                 // id='vacancySelect'
@@ -957,8 +957,8 @@ export default function Adjustments({user ,lang ,setLang}) {
                                                 ))}
                                             </select>
                                         </div>
-                                        <div className='mr-[4%] ' style={{ margin: '0% 0 0 2%' }}>
-                                            <label className={`${'city' in error && 'text-[red]'}`}>City<span className='text-[red]'>*</span></label>
+                                        <div className={`${lang === 'ar' ? 'ml-[4%]' :'mr-[4%]'}`} style={{ margin: '0% 0 0 2%' }}>
+                                            <label className={`${'city' in error && 'text-[red]'}`}>{lang === 'ar' ? 'مدينة':'City'}<span className='text-[red]'>*</span></label>
                                             <input
                                                 name="city"
                                                 value={billingInfo.city}
@@ -968,7 +968,7 @@ export default function Adjustments({user ,lang ,setLang}) {
                                         </div>
                                     </div>
                                     <div className="postal-code mb-[15px]">
-                                        <label className={`${'postalCode' in error && 'text-[red]'}`}>Postal Code<span className='text-[red]'>*</span></label>
+                                        <label className={`${'postalCode' in error && 'text-[red]'}`}>{lang === 'ar' ? 'الرمز البريدي' :'Postal Code'}<span className='text-[red]'>*</span></label>
                                         <input
                                             name="postalCode"
                                             value={billingInfo.postalCode}
@@ -1003,7 +1003,7 @@ export default function Adjustments({user ,lang ,setLang}) {
                                             )
                                         }
                                     <div className="promo-code mb-[15px]">
-                                        <label className={`${'promoCode' in error && 'text-[red]'}`}>Promo Code</label>
+                                        <label className={`${'promoCode' in error && 'text-[red]'}`}>{lang === 'ar' ? 'الرمز الترويجي':'Promo Code'}</label>
                                         <input
                                             name="promoCode"
                                             value={billingInfo.promoCode}
@@ -1011,7 +1011,7 @@ export default function Adjustments({user ,lang ,setLang}) {
                                             className={`rounded-none ${'promoCode' in error ? '!border-[red]' : ''}`}
                                         />
                                     </div>
-                                    <button onClick={() => createAdjustmentOrder()} className="payment uppercase">{loading?<ClipLoader size={25} color={'#FFFFFF'} />:'Make Payment'}</button>
+                                    <button onClick={() => createAdjustmentOrder()} className="payment uppercase">{loading?<ClipLoader size={25} color={'#FFFFFF'} />:lang === 'ar' ? 'جعل الدفع' : 'Make Payment'}</button>
                                     <p className='text-[red] !text-[20px] !font-[400] !mt-2'>{Object.values(error).map(item => {
                                         return item
                                     })}</p>
@@ -1035,42 +1035,42 @@ export default function Adjustments({user ,lang ,setLang}) {
                                 />
                             }
                             <div className='font-Helvetica md:flex xs:block'>
-                                <div className='basis-[72%] md:px-8 px-8 xs:px-2  py-4 border-r-[1px] border-black'>
-                                    <p className='flex text-[18px] items-center pb-2 text-black cursor-pointer' onClick={() => { window.location.href = '/dashboard' }}> <ArrowBackIcon style={{ width: '25px', marginRight: '10px' }} /> Back to dashboard </p>
+                                <div className={`basis-[72%] md:px-8 px-8 xs:px-2  py-4 ${lang === 'ar' ? 'border-l-[1px]':'border-r-[1px]'} border-black`}>
+                                    <p className='flex text-[18px] items-center pb-2 text-black cursor-pointer' onClick={() => { window.location.href = '/dashboard' }}> <ArrowBackIcon style={lang === 'ar' ? { width: '25px', marginLeft: '10px',transform:'scaleX(-1)' } : { width: '25px', marginRight: '10px' }} /> {lang === 'ar' ? 'العودة إلى لوحة القيادة' : 'Back to dashboard '} </p>
                                     <div className='lg:px-14 md:px-14 xs:px-2'>
-                                        <h1 className='lg:text-[40px] text-[#000] md:text-[32px]'> Adjustments </h1>
-                                        <p className='lg:text-[20px] mb-2 md:text-[16px] text-[#00000080]'> Here you can edit your brand and add items to your bundl! </p>
-                                        <p className='lg:text-[32px] font-bold md:text-[24px] mt-[2%]'>What would you like to edit ?</p>
+                                        <h1 className='lg:text-[40px] text-[#000] md:text-[32px]'>{lang === 'ar' ? 'التعديلات' :'Adjustments'}  </h1>
+                                        <p className='lg:text-[20px] mb-2 md:text-[16px] text-[#00000080]'> {lang === 'ar' ? 'هنا يمكنك تعديل هويتك البصرية وإضافة عناصر إلى البندل الخاصة بك !' :'Here you can edit your brand and add items to your bundl! '}  </p>
+                                        <p className='lg:text-[32px] font-bold md:text-[24px] mt-[2%]'> {lang === 'ar' ? 'ما الذي تريد تعديله؟' : 'What would you like to edit ?'}</p>
                                         <div className=''>
                                             <div className=' flex overflow-auto md:max-w-[62vw] max-w-[62vw] xs:max-w-[100%]'>
                                                 {adjustments.map((adjustment, index) => {
-                                                    return <button className={`uppercase font-[500] h-[40px] lg:px-[20px] md:px-[10px] basis-[20%] min-w-[100px] md:py-[3px] md:text-[14px] lg:py-[5px]  ${adjustmenTab == adjustment.english_adjustment_name ? 'text-white bg-[#1BA56F] ' : 'text-[#1BA56F] bg-white '} border-r border-t border-b 
-                                    ${index == 0 && 'border-l'} ${index == adjustments.length && 'border-l-0 border-r'} !border-[#1BA56F]`}
+                                                    return <button className={`uppercase font-[500] h-[40px] lg:px-[20px] md:px-[10px] basis-[20%] min-w-[100px] md:py-[3px] md:text-[14px] lg:py-[5px]  ${adjustmenTab == (lang === 'ar' ? adjustment.arabic_adjustment_name : adjustment.english_adjustment_name) ? 'text-white bg-[#1BA56F] ' : 'text-[#1BA56F] bg-white '} ${lang === 'ar' ? 'border-l border-t border-b' :'border-r border-t border-b'}  
+                                    ${index == 0 &&( lang === 'ar' ? 'border-r' :'border-l')} ${index == adjustments.length && (lang === 'ar' ? 'border-r-0 border-l' : 'border-l-0 border-r')} !border-[#1BA56F]`}
                                                         onClick={() => {
-                                                            setAdjustmentTab(adjustment.english_adjustment_name)
+                                                            setAdjustmentTab(lang === 'ar' ? adjustment.arabic_adjustment_name :adjustment.english_adjustment_name)
                                                             // setAdjustmentForm({ content: null, file_name: null })
-                                                        }}>{adjustment.english_adjustment_name}</button>
+                                                        }}>{lang === 'ar' ? adjustment.arabic_adjustment_name :adjustment.english_adjustment_name}</button>
                                                 })}
                                             </div>
 
                                             {adjustments.map((adjustment, index) => {
-                                                if (adjustment.english_adjustment_name == adjustmenTab) {
+                                                if ((lang === 'ar' ? adjustment.arabic_adjustment_name : adjustment.english_adjustment_name) == adjustmenTab) {
                                                     return <div className='my-[5%]'>
                                                         <div className='flex justify-between my-1'>
-                                                            <span className='font-bold'>{adjustment.english_adjustment_name}</span>
+                                                            <span className='font-bold'>{lang === 'ar' ? adjustment.arabic_adjustment_name :adjustment.english_adjustment_name}</span>
                                                             <p className='flex items-center text-[#1BA56F] !mb-2'>
                                                                 <p className='flex items-center mb-1 sm:min-w-[120px] min-w-[120px] xs:min-w-[100px] font-[500]'>
-                                                                    <img src={dollorIcon} alt="Price icon" className="inline-block mr-2" />
-                                                                    {Math.round(adjustment.price)} SAR
+                                                                    <img src={dollorIcon} alt="Price icon" className={`inline-block ${lang === 'ar' ? 'ml-2' : 'mr-2'}`} />
+                                                                    {Math.round(adjustment.price)} {lang === 'ar' ? 'ريال' :'SAR'}
                                                                 </p>
                                                                 <p className='flex items-center mb-1 font-[500]' >
-                                                                    <AccessTimeIcon className='mr-2' />
-                                                                    {Math.round(adjustment.time_limit)} Days
+                                                                    <AccessTimeIcon className={`${lang === 'ar' ? 'ml-2':'mr-2'}`} />
+                                                                    {Math.round(adjustment.time_limit)} {lang === 'ar' ?'يوما':'Days'}
 
                                                                 </p>
                                                             </p>
                                                         </div>
-                                                        <p className='font-medium text-[18px]'>What would you like to change?</p>
+                                                        <p className='font-medium text-[18px]'>{lang === 'ar' ? 'ما الذي تريد تغييره؟' :'What would you like to change?'}</p>
                                                         <p ><input id={`${adjustment.id}_content`} onInput={(e) => {
                                                             setAdjustmentForm((prev) => ({
                                                             ...prev,
@@ -1080,12 +1080,12 @@ export default function Adjustments({user ,lang ,setLang}) {
                                                             }
                                                             }));
                                                         }}
-                                                            placeholder='Tell us your thoughts...'
+                                                            placeholder={lang === 'ar' ? 'شاركنا رأيك ' : 'Tell us your thoughts...'}
                                                             value={adjustmentForm?.[adjustment?.id]?.content ? adjustmentForm?.[adjustment?.id]?.content : ''}
                                                             className='border px-2 py-1 border-[#000000A0]  md:w-[80%] w-[80%] xs:w-[70%] rounded-none'
                                                         ></input>
-                                                            <button onClick={() => addData(adjustment.id, index)} className='md:w-[20%] w-[20%] xs:w-[30%] py-1 px-2 bg-[#1BA56F] text-white text-[17.2px] font-[500] uppercase'>Submit Edit</button></p>
-                                                        <p className='font-medium text-[18px]'>Have something to show us?</p>
+                                                            <button onClick={() => addData(adjustment.id, index)} className='md:w-[20%] w-[20%] xs:w-[30%] py-1 px-2 bg-[#1BA56F] text-white text-[17.2px] font-[500] uppercase'>{lang === 'ar' ? 'ارسال' : 'Submit Edit'}</button></p>
+                                                        <p className='font-medium text-[18px]'> {lang === 'ar' ? 'هل لديك شيء لترينا إياه؟' : 'Have something to show us?'}</p>
                                                         <p
                                                             className="border-b-2 w-[150px] !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer"
                                                             onClick={() => document.getElementById(`file-${adjustment.id}`).click()} // Trigger click on hidden input
@@ -1100,7 +1100,7 @@ export default function Adjustments({user ,lang ,setLang}) {
                                                                 onChange={(e) => uploadFile(e, adjustment.id, index)}
                                                             />
                                                             <img src={uploadIcon} alt="Upload Icon" />
-                                                            <span className='font-[700]'>Upload Content</span>
+                                                            <span className='font-[700]'>{lang === 'ar' ? 'تحميل المحتوى' :'Upload Content'}</span>
                                                         </p>
                                                         <p>
                                                             {adjustmentData[adjustment.id] ? adjustmentData[adjustment.id].file_name?.map(name => {
@@ -1113,9 +1113,10 @@ export default function Adjustments({user ,lang ,setLang}) {
                                             })}
                                         </div>
                                         <div className='lg:mt-16 md:mt-16 xs:mt-8'>
-                                            <h2 className='text-[32px]'>Something feels missing ?</h2>
-                                            <p className='text-[18px] text-[#00000080]'>Add anything you want to your bundl to fit your brand!</p>
+                                            <h2 className='text-[32px]'>{lang === 'ar' ? 'عداد المفقودين؟':'Something feels missing ?'}</h2>
+                                            <p className='text-[18px] text-[#00000080]'>{lang === 'ar' ? 'أضف أي شيء تريده إلى! bundl  لخاص بك ليناسب علامتك التجارية ' : 'Add anything you want to your bundle to fit your brand!'}</p>
                                             <div className='flex w-[100%]'>  {Object.keys(bundlAddons).map((category, index) => {
+                                                console.log(category);
                                                 return <button onClick={() => {
                                                     toggleDescription(category)
                                                     setDesignListTab(category)
@@ -1124,15 +1125,15 @@ export default function Adjustments({user ,lang ,setLang}) {
                                                 }
                                                 } className={`uppercase h-[40px] cursor-pointer lg:px-[2px] min-w-[14%] md:px-[2px] md:py-[5px] 
                                                 md:text-[14px] lg:py-[5px] !font[500] text-center font-[500] ${designListTab == category ?
-                                                        'text-white bg-[#1BA56F] ' : 'text-[#1BA56F] bg-white '} border-r border-t border-b
-                                            ${index == 0 && 'border-l'} ${index == Object.keys(bundlAddons).length && 'border-l-0 border-r'} !border-[#1BA56F]`}
-                                                >{category}</button>
+                                                        'text-white bg-[#1BA56F] ' : 'text-[#1BA56F] bg-white '} ${lang === 'ar' ? 'border-l border-t border-b' :'border-r border-t border-b'}
+                                            ${index == 0 && (lang === 'ar' ? 'border-r' :'border-l')} ${index == Object.keys(bundlAddons).length && (lang === 'ar'?'border-r-0 border-l':'border-l-0 border-r')} !border-[#1BA56F]`}
+                                                >{lang === 'ar' ? bundlAddons[category]?.name_arabic : category}</button>
                                             })}</div>
 
                                             <div className='mt-10'>
                                                 {Object.keys(bundlAddons).map((category, index) => {
                                                     return <div className='' id={`${index}_list`}> 
-                                                        <p className={`flex justify-between font-semibold text-[24px] pb-2 uppercase  ${expantedTabs[category] || category === 'Social Media' ? '' : 'border-b'} border-[#00000080]`}> {category}      <button
+                                                        <p className={`flex justify-between font-semibold text-[24px] pb-2 uppercase  ${expantedTabs[category] || category === 'Social Media' ? '' : 'border-b'} border-[#00000080]`}> {lang === 'ar' ? bundlAddons[category]?.name_arabic :category}      <button
                                                             onClick={() => toggleDescription(category)}
                                                             className="text-blue-500 cursor-pointer"
                                                         >
@@ -1141,15 +1142,15 @@ export default function Adjustments({user ,lang ,setLang}) {
                                                         {expantedTabs[category] && <div className='mt-3 mb-8'>
                                                             {category in bundlAddons && bundlAddons[category].design_list.map((item, index) => {
                                                                 return <div id={`${item.id}_design_list`} className='flex flex-wrap justify-between font-semibold text-[18px] py-2  border-b !border-[#1BA56F]'>
-                                                                    <span className='font-semibold md:basis-[25%] basis-[25%] xs:basis-[100%] text-[18px] md:text-[18px] xs:text-[16px] text-[#1BA56F]'>{item.name_english}</span>
+                                                                    <span className='font-semibold md:basis-[25%] basis-[25%] xs:basis-[100%] text-[18px] md:text-[18px] xs:text-[16px] text-[#1BA56F]'>{lang === 'ar' ? item.name_arabic :item.name_english}</span>
                                                                     <p className='flex mb-0 text-[18px] md:text-[18px] xs:text-[16px] basis-[40%]'>
-                                                                        <span className='flex items-center w-[150px]'><img src={BlackDollor} className='mr-2'></img> {Math.round(item.price)} SAR </span>
-                                                                        <span className='flex items-center w-[120px]'><AccessTimeIcon style={{ marginRight: '5px' }} /> {Math.round(item.time)} Days</span>
+                                                                        <span className='flex items-center w-[150px]'><img src={BlackDollor} className={`${lang === 'ar' ? 'ml-2':'mr-2'}`}></img> {Math.round(item.price)} {lang === 'ar' ? 'ريال' :'SAR'} </span>
+                                                                        <span className='flex items-center w-[120px]'><AccessTimeIcon style={lang === 'ar' ? {marginLeft: '5px' }:{ marginRight: '5px' }} /> {Math.round(item.time)} {lang === 'ar' ?'يوما':'Days'}</span>
                                                                     </p>
                                                                     <p className='mb-0 lg:basis-[5%] md:basis-[5%] xs:basis-[10%] h-[30px] text-[20px] md:text-[20px] xs:text-[16px] flex items-center text-[#1BA56F] border !border-[#1BA56F]'>
-                                                                        <button onClick={() => remove_item(item.id)} className='border-r !border-[#1BA56F] h-full flex items-center md:w-[35px] md:pt-[1%] md:px-[5%]'><RemoveIcon /></button>
+                                                                        <button onClick={() => remove_item(item.id)} className={`${lang === 'ar' ? 'border-l' :'border-r'} !border-[#1BA56F] h-full flex items-center md:w-[35px] md:pt-[1%] md:px-[5%]`}><RemoveIcon /></button>
                                                                         <span className='px-2 flex justify-center !border-[#1BA56F] md:w-[35px] md:pt-[1%] md:px-[5%]'> {item.id in itemsList ? itemsList[item.id]['qty'] : 0}</span>
-                                                                        <button onClick={() => addItem(index, category, item.id)} className='flex items-center border-l !border-[#1BA56F] h-full md:w-[35px] md:pt-[1%] md:px-[5%]'><AddIcon /></button>
+                                                                        <button onClick={() => addItem(index, category, item.id)} className={`flex items-center ${lang === 'ar' ? 'border-r':'border-l'} !border-[#1BA56F] h-full md:w-[35px] md:pt-[1%] md:px-[5%]`}><AddIcon /></button>
                                                                     </p>
                                                                 </div>
                                                             })}
@@ -1162,7 +1163,7 @@ export default function Adjustments({user ,lang ,setLang}) {
                                     </div>
                                 </div>
                                 <div className='basis-[28%]  mt-4 py-2'>
-                                    <p className='text-[18px] font-semibold px-3'>Summary of Edits</p>
+                                    <p className='text-[18px] font-semibold px-3'> {lang === 'ar' ? 'ملخص التعديلات' : 'Summary of Edits'}</p>
 
                                     <div className='my-2'>
                                         {Object.values(itemsList).map(item => {
@@ -1170,18 +1171,18 @@ export default function Adjustments({user ,lang ,setLang}) {
                                                 <p className='mb-0 ml-4 mt-[4px] mr-2 flex items-center'>
                                                     <a onClick={() => { toggleDescription(item.category) }} href={`#${item.id}_design_list`}><img className='mr-2 w-[18px] cursor-pointer' src={EditIcon}></img></a>
                                                     <ClearIcon onClick={() => removeItem(item.id, 'items')}
-                                                        style={{ marginRight: '5px', width: '18px', cursor: 'pointer' }} />
+                                                        style={lang === 'ar' ? {marginLeft: '5px', width: '18px', cursor: 'pointer' } :{ marginRight: '5px', width: '18px', cursor: 'pointer' }} />
                                                 </p>
                                                 <div className=''>
-                                                    <p className='font-bold'> {item.name_english}</p>
+                                                    <p className='font-bold'> {lang === 'ar' ? item.name_arabic :item.name_english}</p>
                                                     <div className='flex font-[500] text-[#1BA56F]'>
-                                                        <p className='flex mr-3'>
-                                                            <AccessTimeIcon style={{ marginRight: '5px', width: '18px' }} />
-                                                            <span>{Math.round(item.time * item.qty)} Days</span>
+                                                        <p className={`flex ${lang === 'ar' ? 'ml-3':'mr-3'}`}>
+                                                            <AccessTimeIcon style={lang === 'ar' ? {marginLeft: '5px', width: '18px'} :{ marginRight: '5px', width: '18px' }} />
+                                                            <span>{Math.round(item.time * item.qty)} {lang === 'ar' ?'يوما':'Days'}</span>
                                                         </p>
                                                         <p className='flex items-center'>
                                                             <img width={'18px'} className='mr-[5px] h-[18px]' src={dollorIcon}></img>
-                                                            <span>{item.total_price} SAR</span>
+                                                            <span>{item.total_price} {lang === 'ar' ? 'ريال' :'SAR'}</span>
                                                         </p>
                                                     </div>
                                                 </div>
@@ -1191,25 +1192,25 @@ export default function Adjustments({user ,lang ,setLang}) {
                                             return <div className='flex items-start border-b-[1px] border-black mt-2'>
                                                 <p className='mb-0 ml-4 mt-[4px] mr-2 flex items-center'>
                                                     <img onClick={() => {
-                                                        setAdjustmentTab(item.english_adjustment_name)
+                                                        setAdjustmentTab(lang === 'ar' ? item.arabic_adjustment_name : item.english_adjustment_name)
                                                         // setAdjustmentForm({
                                                         //     content: item.content ? item.content : null,
                                                         //     file_name: item.file_name ? item.file_name : null
                                                         // })
                                                     }} className='mr-2 w-[18px] cursor-pointer' src={EditIcon}></img>
                                                     <ClearIcon onClick={() => removeItem(item.id, 'adjustment')}
-                                                        style={{ marginRight: '5px', width: '18px', cursor: 'pointer' }} />
+                                                        style={lang === 'ar' ? {marginLeft: '5px', width: '18px', cursor: 'pointer' } :{ marginRight: '5px', width: '18px', cursor: 'pointer' }} />
                                                 </p>
                                                 <div className=''>
-                                                    <p className='font-bold text-[18px]'> {item.english_adjustment_name}</p>
+                                                    <p className='font-bold text-[18px]'> { lang === 'ar' ? item?.arabic_adjustment_name :item.english_adjustment_name}</p>
                                                     <div className='flex font-[500] text-[#1BA56F]'>
-                                                        <p className='flex mr-3'>
-                                                            <AccessTimeIcon style={{ marginRight: '5px', width: '18px' }} />
-                                                            <span>{parseInt(item.time_limit)} Days</span>
+                                                        <p className={`flex ${lang === 'ar' ? 'ml-3':'mr-3'}`}>
+                                                            <AccessTimeIcon style={lang === 'ar' ? {marginLeft: '5px', width: '18px'} :{ marginRight: '5px', width: '18px' }} />
+                                                            <span>{parseInt(item.time_limit)} {lang === 'ar' ?'يوما':'Days'}</span>
                                                         </p>
                                                         <p className='flex items-center'>
                                                             <img width={'18px'} className='mr-[5px] h-[18px]' src={dollorIcon}></img>
-                                                            <span>{Math.round(item.price)} SAR</span>
+                                                            <span>{Math.round(item.price)} {lang === 'ar' ? 'ريال' :'SAR'}</span>
                                                         </p>
                                                     </div>
                                                 </div>
@@ -1221,17 +1222,17 @@ export default function Adjustments({user ,lang ,setLang}) {
                                     <div className='bundl-checkout'>
                                         <div className=' flex items-center mb-1' >
                                             <img src={BlackDollor} className='ml-[6px] mr-4' alt="Total Price" />
-                                            <p className='basis-3/5 font-bold text-[18px] mb-0'>Total Price:</p>
-                                            <p className='basis-2/5 font-bold text-[18px]  mb-0'>{totalPrice} SAR</p>
+                                            <p className='basis-3/5 font-bold text-[18px] mb-0'>{lang === 'ar' ?'السعر الإجمالي :':'Total Price :'}</p>
+                                            <p className='basis-2/5 font-bold text-[18px]  mb-0'>{totalPrice} {lang === 'ar' ? 'ريال' :'SAR'}</p>
                                         </div>
                                         <div className=' flex'>
-                                            <img className='mr-2 ' src={BlackTime} alt="Total Duration" />
-                                            <p className='basis-3/5 text-[18px] mb-0'>Total Duration:</p>
-                                            <p className='basis-2/5 text-[18px] mb-0'>{totalTime} Days</p>
+                                            <img className={`${lang === 'ar' ? 'ml-2':'mr-2'}`} src={BlackTime} alt="Total Duration" />
+                                            <p className='basis-3/5 text-[18px] mb-0'>{lang === 'ar' ? 'المدة الإجمالية :':'Total Duration :'}</p>
+                                            <p className='basis-2/5 text-[18px] mb-0'>{totalTime} {lang === 'ar' ?'يوما':'Days'}</p>
                                         </div>
 
                                         <div className='flex flex-col justify-center items-center'>
-                                            <button onClick={() => CheckCart()} className=' w-[90%]  py-1 lg:mt-[8%] md:mt-[12%] text-[18px] text-white bg-[#1BA56F] uppercase'>Proceed Checkout</button>
+                                            <button onClick={() => CheckCart()} className=' w-[90%]  py-1 lg:mt-[8%] md:mt-[12%] text-[18px] text-white bg-[#1BA56F] uppercase'>{lang === 'ar' ? 'متابعة الخروج' :'Proceed Checkout'}</button>
                                             {errorMsg && <p className='pb-0 text-[16px] text-[red] text-left mt-2'>{errorMsg}*</p>}
                                         </div>
                                     </div>
@@ -1241,15 +1242,15 @@ export default function Adjustments({user ,lang ,setLang}) {
                         <>
                             <div className='mycart '>
                                 <div className='cart sm:!pb-[170px] !pb-[170px] xs:!pb-[20px]'>
-                                    <p className='flex !text-[18px] !font-normal items-center pb-2 cursor-pointer text-black' onClick={() => { setPage('adjustment') }}> <ArrowBackIcon style={{ width: '25px', marginRight: '10px' }} /> Back To Adjustments </p>
-                                    <p>Your Cart</p>
+                                    <p className='flex !text-[18px] !font-normal items-center pb-2 cursor-pointer text-black' onClick={() => { setPage('adjustment') }}> <ArrowBackIcon style={lang === 'ar' ? { width: '25px', marginLeft: '10px',transform:'scaleX(-1)' } : { width: '25px', marginRight: '10px' }} /> Back To Adjustments </p>
+                                    <p>{lang === 'ar' ? 'عربة التسوق الخاصة بك':'Your Cart'}</p>
                                     <table className='w-full border-none' aria-label="simple table">
                                         <thead>
-                                            <tr className='!text-left text-[20px]'>
-                                                <td className='text-left w-[20%] text-[#00000080] pb-3' >Item</td>
-                                                <td className='text-[#00000080] w-[30%] pb-3' align="center">Quantity</td>
-                                                <td className='text-[#00000080] w-[30%]    pb-3' align="center">Price</td>
-                                                <td className='text-[#00000080] w-[20%]    pb-3' align="center">Action</td>
+                                        <tr className={`${lang === 'ar' ? '!text-right' :'!text-left'} text-[20px]`}>
+                                        <td className={`${lang === 'ar' ? 'text-right' : 'text-left'} w-[20%] text-[#00000080] pb-3`} >{lang === 'ar' ? 'بند':'Item'}</td>
+                                                <td className='text-[#00000080] w-[30%] pb-3' align="center">{lang === 'ar' ? 'كم' :'Quantity'}</td>
+                                                <td className='text-[#00000080] w-[30%]    pb-3' align="center">{lang === 'ar' ?'ثمن' :'Price'}</td>
+                                                <td className='text-[#00000080] w-[20%]    pb-3'  align="center">{lang === 'ar' ? 'فعل' :'Action'}</td>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -1261,7 +1262,7 @@ export default function Adjustments({user ,lang ,setLang}) {
                                                     className={`text-[#000] font-[700] text-[20px] ${index == Object.values(adjustmentData).length - 1 && (Object.values(itemsList)).length == 0 ? "" : 'border-b border-black'} `}
                                                 >
                                                     <td className=' !py-2' scope="row">
-                                                        {row.english_adjustment_name}
+                                                        {lang === 'ar' ? row.arabic_adjustment_name :row.english_adjustment_name}
                                                     </td>
                                                     <td className=' !py-2' align="center">1</td>
                                                     <td className=' !py-2' align="center">{Math.round(row.price)}</td>
@@ -1278,7 +1279,7 @@ export default function Adjustments({user ,lang ,setLang}) {
                                                     className={`text-[#000] font-[700] text-[20px] ${index == (Object.values(itemsList)).length - 1 ? "" : 'border-b border-black'} `}
                                                 >
                                                     <td className=' !py-2' scope="row">
-                                                        {row.name_english}
+                                                    {lang === 'ar' ? row?.name_arabic :row.name_english}
                                                     </td>
                                                     <td className=' !py-2' align="center">{row.qty}</td>
                                                     <td className=' !py-2' align="center" scope="row">{Math.round(row.price)}</td>
@@ -1292,30 +1293,30 @@ export default function Adjustments({user ,lang ,setLang}) {
                                     </table>
                                     <div className='cart-total-container '>
                                         <div className='total justify-between pl-10  mr-4' style={{ display: 'flex' }}>
-                                            <p className='!text-[20px]' style={{ width: '50%' }}>Price:</p>
-                                            <p className='!text-[20px]  text-right' style={{ width: '50%' }}>{totalPrice} SAR</p>
+                                            <p className='!text-[20px]' style={{ width: '50%' }}>{lang === 'ar' ? 'ثمن :' :'Price:'}</p>
+                                            <p className='!text-[20px]  text-right' style={{ width: '50%' }}>{totalPrice} {lang === 'ar' ? 'ريال' :'SAR'}</p>
                                         </div>
                                         <div className='total justify-between pl-10 mr-4' style={{ display: 'flex' }}>
-                                            <p className='!text-[20px]' style={{ width: '53%' }}>VAT:</p>
-                                            <p className='!text-[20px]  text-right' style={{ width: '40%' }}>{tax} SAR</p>
+                                            <p className='!text-[20px]' style={{ width: '53%' }}>{lang === 'ar' ? 'ضريبه القيمه المضافه:':'VAT:'}</p>
+                                            <p className='!text-[20px]  text-right' style={{ width: '40%' }}>{tax} {lang === 'ar' ? 'ريال' :'SAR'}</p>
                                         </div>
                                         <div className='border-[2px] border-black p-[2%_0_0_2%]'>
                                             <div className='justify-between mr-4' style={{ display: 'flex' }}>
-                                                <p className='!text-[20px] ml-[6px]' style={{ width: '50%' }}><img src={BlackDollor} className='inline-block ml-[0px] mr-[18px]'></img>Total Price :</p>
-                                                <p className='!text-[20px] text-right' style={{ width: '40%' }}>{totalPrice + tax} SAR</p>
+                                                <p className='!text-[20px] ml-[6px]' style={{ width: '50%' }}><img src={BlackDollor} className={`inline-block mr-[18px] ${lang === 'ar' ? 'mr-[0px] ' :'ml-[0px]'}`}></img>{lang === 'ar' ?'السعر الإجمالي :':'Total Price :'}</p>
+                                                <p className='!text-[20px] text-right' style={{ width: '40%' }}>{totalPrice + tax} {lang === 'ar' ? 'ريال' :'SAR'}</p>
                                             </div>
                                             <div className='justify-between mr-4' style={{ display: 'flex' }}>
-                                                <p className='!text-[20px]' style={{ width: '66%' }}><AccessTimeIcon style={{ marginRight: '4px' }} /> Total Duration :</p>
-                                                <p className='!text-[20px]  text-right' style={{ width: '45%' }}>{totalTime} Days</p>
+                                                <p className='!text-[20px]' style={{ width: '66%' }}><AccessTimeIcon style={lang === 'ar' ? {marginLeft: '4px'} :{ marginRight: '4px' }} /> {lang === 'ar' ? 'المدة الإجمالية :':'Total Duration :'}</p>
+                                                <p className='!text-[20px]  text-right' style={{ width: '45%' }}>{totalTime} {lang === 'ar' ?'يوما':'Days'}</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div className='billing !px-[2%]'>
-                                    <p>Billing Address</p>
+                                    <p>{lang === 'ar' ?'عنوان الفواتير' :'Billing Address'}</p>
                                     <div className="user-name mb-[15px]">
-                                        <div className='mr-[4%]'>
-                                            <label className={`${'firstName' in error && 'text-[red]'}`}>First Name <span className='text-[red]'>*</span></label>
+                                        <div className={`${lang === 'ar' ? 'ml-[4%]' :'mr-[4%]'}`}>
+                                            <label className={`${'firstName' in error && 'text-[red]'}`}>{lang === 'ar' ? 'الاسم الأول':'First Name'} <span className='text-[red]'>*</span></label>
                                             <input
                                                 name="firstName"
                                                 value={billingInfo.firstName}
@@ -1323,8 +1324,8 @@ export default function Adjustments({user ,lang ,setLang}) {
                                                 className={`rounded-none ${'firstName' in error ? '!border-[red]' : ''}`}
                                             />
                                         </div>
-                                        <div className='ml-[4%]' style={{ margin: '0% 0 0 2%' }}>
-                                            <label className={`${'lastName' in error && 'text-[red]'}`}>Last Name <span className='text-[red]'>*</span></label>
+                                        <div className={`${lang === 'ar' ?'ml-[4%]':'mr-[4%]'}`} style={lang === 'ar'?{ margin: '0% 2% 0 0%' }:{ margin: '0% 0 0 2%' }}>
+                                            <label className={`${'lastName' in error && 'text-[red]'}`}>{lang === 'ar' ? 'اسم العائلة' :'Last Name'} <span className='text-[red]'>*</span></label>
                                             <input
                                                 name="lastName"
                                                 value={billingInfo.lastName}
@@ -1334,7 +1335,7 @@ export default function Adjustments({user ,lang ,setLang}) {
                                         </div>
                                     </div>
                                     <div className="email mb-[15px]">
-                                        <label className={`${'email' in error && 'text-[red]'}`}>Email <span className='text-[red]'>*</span></label>
+                                        <label className={`${'email' in error && 'text-[red]'}`}>{lang === 'ar' ?'البريد الإلكتروني' :'Email'} <span className='text-[red]'>*</span></label>
                                         <input
 
                                             name="email"
@@ -1344,10 +1345,10 @@ export default function Adjustments({user ,lang ,setLang}) {
                                         />
                                     </div>
                                     <div className="phone mb-[15px]">
-                                        <label className={`${'phone' in error && 'text-[red]'}`}>Phone Number <span className='text-[red]'>*</span></label>
+                                        <label className={`${'phone' in error && 'text-[red]'}`}>{lang === 'ar'?'رقم الهاتف':'Phone Number'} <span className='text-[red]'>*</span></label>
                                         <PhoneNumberInput
                                             name="phone"
-                                            placeholder="Enter phone number"
+                                            placeholder={lang === 'ar'?'رقم الهاتف':'Enter Phone Number'}
                                             value={billingInfo.phone}
                                             status={setBillingInfo}
                                             extraInputClass={`${'phone' in error ? '!border-[red]' : '!border-[#000000]'} text-[18px]`}
@@ -1359,8 +1360,8 @@ export default function Adjustments({user ,lang ,setLang}) {
                                         />
                                     </div>
                                     <div className="country mb-[15px]">
-                                        <div className='mr-[4%]'>
-                                            <label className={`${'country' in error && 'text-[red]'}`}>Country <span className='text-[red]'>*</span></label>
+                                        <div className={`${lang === 'ar' ? 'ml-[4%]' :'mr-[4%]'}`}>
+                                            <label className={`${'country' in error && 'text-[red]'}`}>{lang=== 'ar' ? 'بلد':'Country'} <span className='text-[red]'>*</span></label>
                                             <select 
                                                 name="country" 
                                                 // id='vacancySelect'
@@ -1374,8 +1375,8 @@ export default function Adjustments({user ,lang ,setLang}) {
                                                 ))}
                                             </select>
                                         </div>
-                                        <div className='mr-[4%] ' style={{ margin: '0% 0 0 2%' }}>
-                                            <label className={`${'city' in error && 'text-[red]'}`}>City<span className='text-[red]'>*</span></label>
+                                        <div className={`${lang === 'ar' ? 'ml-[4%]' :'mr-[4%]'}`} style={lang === 'ar' ?{ margin: '0% 2% 0 0%' }:{ margin: '0% 0 0 2%' }}>
+                                            <label className={`${'city' in error && 'text-[red]'}`}>{lang === 'ar' ? 'مدينة':'City'}<span className='text-[red]'>*</span></label>
                                             <input
                                                 name="city"
                                                 value={billingInfo.city}
@@ -1385,7 +1386,7 @@ export default function Adjustments({user ,lang ,setLang}) {
                                         </div>
                                     </div>
                                     <div className="postal-code mb-[15px]">
-                                        <label className={`${'postalCode' in error && 'text-[red]'}`}>Postal Code<span className='text-[red]'>*</span></label>
+                                        <label className={`${'postalCode' in error && 'text-[red]'}`}>{lang === 'ar' ? 'الرمز البريدي' :'Postal Code'}<span className='text-[red]'>*</span></label>
                                         <input
                                             name="postalCode"
                                             value={billingInfo.postalCode}
@@ -1419,7 +1420,7 @@ export default function Adjustments({user ,lang ,setLang}) {
                                             )
                                         }
                                     <div className="promo-code mb-[15px]">
-                                        <label className={`rounded-none ${'promoCode' in error && 'text-[red]'}`}>Promo Code</label>
+                                        <label className={`rounded-none ${'promoCode' in error && 'text-[red]'}`}>{lang === 'ar' ? 'الرمز الترويجي':'Promo Code'}</label>
                                         <input
                                             name="promoCode"
                                             value={billingInfo.promoCode}
@@ -1427,7 +1428,7 @@ export default function Adjustments({user ,lang ,setLang}) {
                                             className={`rounded-none ${'promoCode' in error ? '!border-[red]' : ''}`}
                                         />
                                     </div>
-                                    <button onClick={() => createAdjustmentOrder()} className="payment uppercase"> {loading?<ClipLoader size={25} color={'#FFFFFF'} />:'Make Payment'}</button>
+                                    <button onClick={() => createAdjustmentOrder()} className="payment uppercase"> {loading?<ClipLoader size={25} color={'#FFFFFF'} />:lang === 'ar' ? 'جعل الدفع' : 'Make Payment'}</button>
                                     <p className='text-[red] !text-[20px] !font-[400] !mt-2'>{Object.values(error).map(item => {
                                         return item
                                     })}</p>
@@ -1436,13 +1437,13 @@ export default function Adjustments({user ,lang ,setLang}) {
                         </>
 
             }
+                        <Footer isLang={lang}/>
 
-
-            {
+            {/* {
                     window?.innerWidth >= 500 && (
                       <Footer isLang={lang}/>
                     )
-                   }
+                   } */}
 
         </>
 

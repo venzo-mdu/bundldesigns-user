@@ -130,6 +130,12 @@ form{
     .billing #vacancySelect{
         padding: 1% 1%;
     background: url('../../../src/Images/down-arrow.svg') no-repeat right 3px center;
+    background-size: 30px;
+    }
+    body[dir="rtl"] .billing #vacancySelect{
+        padding: 1% 1%;
+    background: url('../../../src/Images/down-arrow.svg') no-repeat left 3px center;
+    background-size: 30px;
     }
     .cart{
         width: 100%;
