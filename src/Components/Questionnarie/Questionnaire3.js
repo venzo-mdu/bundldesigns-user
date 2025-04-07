@@ -212,7 +212,7 @@ console.log(formData,'formData')
           questions.map((question, index) => (
             <div className="questions" key={index} id={`question_${question.id}`}>
               <p className={`questions-title  xs:w-[90%] sm:w-full md:w-full mx-auto ${index === 0 ? 'mt-[1%]' : 'mt-[0%]'}`}>
-                {question.question}
+                {changeLang === 'ar' ? question?.question_arabic : question.question}
                 {
                   question.required && (
                     <span><sup>*</sup></span>
@@ -298,7 +298,7 @@ console.log(formData,'formData')
             </div>
           ))
         }
-        bgTitle={"YOUR project BRANDING"}
+        bgTitle={changeLang === 'ar' ? "تصميم الهوية لمشروعك" :"YOUR project BRANDING"}
       />
     </div>
   );

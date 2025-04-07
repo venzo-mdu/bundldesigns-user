@@ -107,20 +107,20 @@ export const Questionnaire = ({
       <div className='questonnaire-actions-height'>
         <div className='questonnaire-actions'>
           {pageNo > 1 && (
-            <button className='back' onClick={onBackClick}>BACK</button>
+            <button className='back' onClick={onBackClick}>{Qlang === 'ar' ? 'العودة' : 'BACK'}</button>
           )}
           {pageNo < 5 ? (
-            <button style={{ backgroundColor: bgColors[pageNo - 1] }} className='next' onClick={onNextClick}>NEXT</button>
+            <button style={{ backgroundColor: bgColors[pageNo - 1] }} className='next' onClick={onNextClick}>{Qlang === 'ar' ? 'التالي':'NEXT'}</button>
           ) :
-            <button className='next' onClick={onNextClick}>FINISH</button>
+            <button className='next' onClick={onNextClick}>{Qlang === 'ar' ? 'إرسال' : 'FINISH'}</button>
           }
         </div>
         <div className='questonnaire-actions1'>
-          <button className='save' onClick={onSaveLaterClick}>SAVE FOR LATER</button>
+          <button className='save' onClick={onSaveLaterClick}> {Qlang === 'ar' ? 'احفظ لوقت لاحق' : 'SAVE FOR LATER' }</button>
         </div>
       </div>
       <div style={{ bottom: '0' }}>
-        <Stepper formData={formData} pageNo={pageNo} answersData={storeAnswers} fillId={orderId}/>
+        <Stepper formData={formData} pageNo={pageNo} answersData={storeAnswers} fillId={orderId} lang={Qlang}/>
       </div>
       {/* <Footer/> */}
     </div>

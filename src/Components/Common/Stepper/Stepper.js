@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { questionnaireAction1,questionnaireAction2,questionnaireAction3,questionnaireAction4,questionnaireAction5 } from '../../../Redux/Action';
 
-export const Stepper = ({ pageNo ,formData, answersData , fillId }) => {
+export const Stepper = ({ pageNo ,formData, answersData , fillId , lang }) => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -15,11 +15,11 @@ export const Stepper = ({ pageNo ,formData, answersData , fillId }) => {
     const [prevTransx,setTransx] = useState(0)
 
     const processData = [
-        { title: "ABOUT YOUR BUSINESS", fill: '#F175AD', color: '#000' },
-        { title: "AUDIENCE & COMPETITION", fill: '#4FA472', color: '#000' },
-        { title: "YOUR BRANDING", fill: '#00A8C8', color: '#000' },
-        { title: "VISUAL IDENTITY", fill: '#FFFFFF', color: '#000' },
-        { title: "FINAL TOUCHES", fill: '#F175AD', color: '#000' },
+        { title:lang === 'ar' ? "عن مشروعك" : "ABOUT YOUR BUSINESS", fill: '#F175AD', color: '#000' },
+        { title:lang === 'ar' ? "العملاء والمنافسين" : "AUDIENCE & COMPETITION", fill: '#4FA472', color: '#000' },
+        { title:lang === 'ar' ? "تصميم الهوية لمشروعك" : "YOUR BRANDING", fill: '#00A8C8', color: '#000' },
+        { title:lang === 'ar' ? "هويتك البصرية " : "VISUAL IDENTITY", fill: '#FFFFFF', color: '#000' },
+        { title:lang === 'ar' ? "" : "FINAL TOUCHES", fill: '#F175AD', color: '#000' },
     ];
 
     // Adjust the dotted line width based on screen size
@@ -28,42 +28,47 @@ export const Stepper = ({ pageNo ,formData, answersData , fillId }) => {
         let translateXValues = [];
         if (window.innerWidth <= 375) {
             lineWidth = 85;
-            translateXValues = [-15, 50, 130, 195, 265];
+            translateXValues = lang === 'ar' ? [85, -50, -130, -195, -265] : [-15, 50, 130, 195, 265];
         }
         if (window.innerWidth <= 390) {
             lineWidth = 85;
-            translateXValues = [-15, 50, 110, 180, 250];
+            translateXValues = lang === 'ar' ? [85, -50, -115, -185, -255]  : [-15, 50, 110, 180, 250];
         }
         else if (window.innerWidth <= 390) {
             lineWidth = 85;
-            translateXValues = [-25, 50, 130, 205, 280];
+            translateXValues = lang === 'ar' ? [85, -50, -130, -205, -280]  : [-25, 50, 130, 205, 280];
         }
         else if (window.innerWidth <= 425) {
             lineWidth = 85;
-            translateXValues = [-25, 50, 130, 205, 285];
+            translateXValues = lang === 'ar' ? [95, -50, -130, -205, -285] : [-25, 50, 130, 205, 285];
         }
         else if (window.innerWidth <= 600) {
             lineWidth = 85;
-            translateXValues = [15, 100, 190, 270, 340];
-        } else if (window.innerWidth <= 768) {
+            translateXValues = lang === 'ar' ? [115, -100, -190, -270,-340] : [15, 100, 190, 270, 340];
+        } 
+        else if (window.innerWidth <= 768) {
             lineWidth = 150;
-            translateXValues = [0, 160, 300, 450, 600];
-        } else if (window.innerWidth <= 1024) {
+            translateXValues = lang === 'ar' ? [0, -160, -300, -450, -600] : [0, 160, 300, 450, 600];
+        } 
+        else if (window.innerWidth <= 1024) {
             lineWidth = 180;
-            translateXValues = [0, 340, 395, 575, 780];
-        } else if (window.innerWidth === 1440) {
+            translateXValues =  lang === 'ar' ? [0, -340, -395, -575, -780] : [0, 340, 395, 575, 780];
+        } 
+        else if (window.innerWidth === 1440) {
             lineWidth = 250;
-            translateXValues = [0, 275, 540, 810, 1090];
-        }else if (window.innerWidth === 1536) {
+            translateXValues = lang === 'ar' ? [0, -275, -540, -810, -1090] : [0, 275, 540, 810, 1090];
+        }
+        else if (window.innerWidth === 1536) {
             lineWidth = 290;
-            translateXValues = [5, 300, 580, 875, 1170];
-        }else if (window.innerWidth <= 1705) {
+            translateXValues = lang === 'ar' ? [-5, -300, -580, -875, -1170] : [5, 300, 580, 875, 1170];
+        }
+        else if (window.innerWidth <= 1705) {
             lineWidth = 250;
-            translateXValues = [0, 265, 510, 770, 1025];
+            translateXValues = lang === 'ar' ? [200, -260, -510, -770, -1025]  : [0, 265, 510, 770, 1025];
         } 
         else {
             lineWidth = 365;
-            translateXValues = [0, 380, 750,1110 ,1470];
+            translateXValues = lang === 'ar' ? [270, -380, -750,-1110 ,-1470] : [0, 380, 750,1110 ,1470];
         }
     
         // Set the line width
@@ -71,7 +76,6 @@ export const Stepper = ({ pageNo ,formData, answersData , fillId }) => {
         if(transX){
             setTransx(transX)
         }
-        console.log(transX,'trrr')
         setLineWidth(lineWidth);
         // Set translateX based on the activeProcess
         if (activeProcess >= 0 && activeProcess < translateXValues.length) {
@@ -189,13 +193,18 @@ export const Stepper = ({ pageNo ,formData, answersData , fillId }) => {
                 </div>
             ))}
             <svg 
-                className={`rocket overlay ${activeProcess === 0 ?'!lg:left-[10%] !md:left-[10%] !xs:left-0' :'!left-[9%]' }`}
-                style={{ animation: `${animationName} 2s forwards`, margin: '1% -150px 0 0' }}
+                className={`rocket overlay ${activeProcess === 0 ? lang === 'ar' ? '!lg:right-[10%] !md:right-[10%] !xs:right-0' : '!lg:left-[10%] !md:left-[10%] !xs:left-0' : lang === 'ar' ? '!right-[9%]' :'!left-[9%]' }`}
+                style={lang === 'ar' ?{ animation: `${animationName} 2s forwards`, margin: '1% 0px 0 -150px'} :{ animation: `${animationName} 2s forwards`, margin: '1% -150px 0 0' }}
                 width="103" height="51" viewBox="0 0 103 51" fill="none"
                 xmlns="http://www.w3.org/2000/svg"
             >
                     <style>
-                {`
+                {lang === 'ar' ? `
+                 @keyframes ${animationName} {
+                        0% { transform: translateX(${prevTransx}px) scaleX(-1); }
+                        100% { transform: translateX(${translateX}px) scaleX(-1); }
+                    }
+                ` :`
                     @keyframes ${animationName} {
                         0% { transform: translateX(${prevTransx}px); }
                         100% { transform: translateX(${translateX}px); }

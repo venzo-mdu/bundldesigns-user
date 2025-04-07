@@ -48,6 +48,13 @@ export const Questionnaire2 = ({formData,setFormData,changeLang,setChangeLang}) 
 
   ]
 
+  const placeHolders_arabic = [
+    "من هم منافسيك",
+    "الألوان مملة، الرسومات جميلة...الخ",
+    "",
+    "التسوق، الرسم، السفر...الخ"
+  ]
+
   // useEffect(() => {
   //   const fetchQuestions = async () => {
   //     try {
@@ -430,7 +437,7 @@ export const Questionnaire2 = ({formData,setFormData,changeLang,setChangeLang}) 
           questions.map((question, index) => (
           <div className="questions" key={index} id={`question_${question?.id}`}>
             <p className={`questions-title  xs:w-[90%] sm:w-full md:w-full mx-auto ${index === 0 ? 'mt-[1%]' : 'mt-[2%]'}`}>
-              {question.question}
+              {changeLang === 'ar' ? question?.question_arabic :question.question}
               {
                 question.required && (
                   <span><sup>*</sup></span>
@@ -443,8 +450,8 @@ export const Questionnaire2 = ({formData,setFormData,changeLang,setChangeLang}) 
                  <div className="ideal-customers">
               {/* <p className='customer-text'>Who is your ideal customer?</p> */}
               <div style={{ display: 'flex', gap: '25px' }} className='mt-[5%]'>
-                <button className={selectedGender.includes("female") || selectedGender.includes("both") ? 'female-active' : 'female'} value="female" onClick={() => handleGenderChange('female')}>Female</button>
-                <button className={selectedGender.includes("male") || selectedGender.includes("both") ? 'male-active' : 'male'} value={'male'} onClick={() => handleGenderChange('male')}>Male</button>
+                <button className={selectedGender.includes("female") || selectedGender.includes("both") ? 'female-active' : 'female'} value="female" onClick={() => handleGenderChange('female')}>{changeLang === 'ar' ? 'انثى'  :'Female'}</button>
+                <button className={selectedGender.includes("male") || selectedGender.includes("both") ? 'male-active' : 'male'} value={'male'} onClick={() => handleGenderChange('male')}>{changeLang === 'ar' ? 'ذكر' : 'Male'}</button>
               </div>
               <div className='border-b-[1px] border-solid border-[#000000] mb-4'>
               {(selectedGender.includes("female") || selectedGender.includes("both")) ? (
@@ -561,13 +568,13 @@ export const Questionnaire2 = ({formData,setFormData,changeLang,setChangeLang}) 
             }
             <input 
             className={`question-input ${isFilled === question?.id ? 'border-red-400 border-b-[2px]':`${window?.innerWidth <= 475 ? 'border-b-[1px]':'border-b-[2px]'} border-black`}`}
-            placeholder={placeHolders[index]} value={ question.answer_type === "age-data" ?'':getAnswerValue(question.id)} onChange={(e)=>handleChange(question.id,e.target.value)}/>
+            placeholder={changeLang === 'ar' ? placeHolders_arabic[index] :placeHolders[index]} value={ question.answer_type === "age-data" ?'':getAnswerValue(question.id)} onChange={(e)=>handleChange(question.id,e.target.value)}/>
           </div>
         ))
       }
           </>
         }
-        bgTitle={'AUDIENCE & COMPETITION'}
+        bgTitle={changeLang === 'ar' ? 'العملاء والمنافسين' :'AUDIENCE & COMPETITION'}
       />
     </div>
   );

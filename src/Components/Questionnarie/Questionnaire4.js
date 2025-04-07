@@ -478,7 +478,7 @@ const onBackClick = () => {
                 {
                   question.answer_type === 'shade' ? '' :
                   <p className={`questions-title  xs:w-[90%] sm:w-full md:w-full mx-auto ${index === 0 ? 'mt-[1.5%]' : 'mt-[2%]'} `}>
-                      {question.question}
+                      {changeLang === 'ar' ? question?.question_arabic : question.question}
                       {
                         question.required && (
                           <span><sup className={`${question.id == 21 ?'!text-[22px]':''}`}>*</sup></span>
@@ -493,7 +493,7 @@ const onBackClick = () => {
 
                       <div className='shade-background ' style={{ backgroundColor: shadeBackgroundColor }}>
                         <p style={{ color: shadeBackgroundColor === 'rgb(228, 222, 216)' ? '' : '#FFFFFF',width:'100%' }} className={`questions-title mb-3 ${index === 0 ? 'mt-[1%]' : 'mt-[2%]'}`}>
-                          {question.question}
+                          {changeLang === 'ar' ? question?.question_arabic :  question.question}
                           <span>
                             <sup>*</sup>
                           </span>
@@ -502,21 +502,21 @@ const onBackClick = () => {
                           <div className='button-shade-group'>
                             <img src={Color1}></img>
                             <button className={shadeBackgroundColor === 'rgb(228, 222, 216)' && shadeType !== 'surprise' ? 'shade-btn-active' : 'shade-btn'} onClick={() =>
-                               handleShadeButtonClick('rgb(228, 222, 216)', 'rgb(0, 0, 0)', '', question.id)}>CLEAN & CLASSIC</button>
+                               handleShadeButtonClick('rgb(228, 222, 216)', 'rgb(0, 0, 0)', '', question.id)}>{changeLang === 'ar' ? 'كلاسيكي وأنيق ' :'CLEAN & CLASSIC'}</button>
                           </div>
                           <div className='button-shade-group'>
                             <img src={Color2}></img>
-                            <button className={shadeBackgroundColor === 'rgb(9, 50, 108)' && shadeType !== 'surprise' ? 'shade-btn-active' : 'shade-btn'} onClick={() => handleShadeButtonClick('rgb(9, 50, 108)', 'rgb(255, 98, 10)', '', question.id)}>CONTRASTING COLORS</button>
+                            <button className={shadeBackgroundColor === 'rgb(9, 50, 108)' && shadeType !== 'surprise' ? 'shade-btn-active' : 'shade-btn'} onClick={() => handleShadeButtonClick('rgb(9, 50, 108)', 'rgb(255, 98, 10)', '', question.id)}>{changeLang === 'ar' ? 'ألوان متناقضة ' :'CONTRASTING COLORS'}</button>
                           </div>
                           <div className='button-shade-group'>
                             <img src={Color3}></img>
-                            <button className={shadeBackgroundColor === 'rgb(255, 124, 124)' && shadeType !== 'surprise' ? 'shade-btn-active' : 'shade-btn'} onClick={() => handleShadeButtonClick('rgb(255, 124, 124)','rgb(221, 45, 45)' ,'', question.id)}>ONE COLOR SHADES</button>
+                            <button className={shadeBackgroundColor === 'rgb(255, 124, 124)' && shadeType !== 'surprise' ? 'shade-btn-active' : 'shade-btn'} onClick={() => handleShadeButtonClick('rgb(255, 124, 124)','rgb(221, 45, 45)' ,'', question.id)}>{changeLang === 'ar' ? 'درجات لون واحد' : 'ONE COLOR SHADES'}</button>
                           </div>
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
                           <p className='shade-bundl-text' style={{ color: shadeColor }}>Bundl</p>
-                          <p className='lg:text-[24px] md:text-[18px] xs:text-[14px] leading-1 font-[500] lg:mt-[1%] md:mt-[0%] xs:mt-[1%] mb-[.5rem]'>Not sure ? It’s okay!</p>
-                          <button className={`lg:mb-[2%] md:mb-[2%] xs:mb-[2%] ${shadeType === 'surprise' ? 'surprise-active' : 'surprise'}`} onClick={() => handleShadeButtonClick('rgb(228, 222, 216)', 'rgb(0, 0, 0)', 'surprise', question.id)}>surprise me !</button>
+                          <p className='lg:text-[24px] md:text-[18px] xs:text-[14px] leading-1 font-[500] lg:mt-[1%] md:mt-[0%] xs:mt-[1%] mb-[.5rem]'>{changeLang === 'ar' ? 'غير متأكد ؟ لا بأس!':"Not sure ? It's okay!"}</p>
+                          <button className={`lg:mb-[2%] md:mb-[2%] xs:mb-[2%] ${shadeType === 'surprise' ? 'surprise-active' : 'surprise'}`} onClick={() => handleShadeButtonClick('rgb(228, 222, 216)', 'rgb(0, 0, 0)', 'surprise', question.id)}>{changeLang === 'ar' ? 'فاجأني!' :'surprise me !'}</button>
                         </div>
                       </div>
                     </>
@@ -535,15 +535,15 @@ const onBackClick = () => {
                                 <div className='font-background'>
                                   <img className='lg:m-[6%_0_0_0] md:m-[6%_0_0_0] xs:m-[35%_0_0_0] lg:p-0 md:p-0 xs:p-[0_5%]'  src={font.img} onClick={() => handleButtonClick(index, question.id, font.fontStyle)}></img>
                                   <button className={`font-buttons ${activeButtons?.includes(font?.fontStyle) ? 'font-buttons-active' : ''
-                                    }`} onClick={() => handleButtonClick(index, question.id, font.fontStyle)}>{font?.fontStyle}</button>
+                                    }`} onClick={() => handleButtonClick(index, question.id, font.fontStyle)}>{changeLang === 'ar' ? font?.fontStyle_arabic :font?.fontStyle}</button>
                                 </div>
                               </>
                             )
                           })
                         }
                       </div>
-                        <p className='lg:text-[24px] md:text-[18px] xs:text-[14px] leading-1 font-[500] lg:mt-[4%] md:mt-[5%] xs:mt-[8%] xs:mb-[.5rem]'>Not sure ? It's okay!</p>
-                      <button className={`${activeButtons?.includes("Surprise") ? 'surprise-active':'surprise'}`} onClick={() => handleButtonClick("", question.id, "Surprise")}>surprise me !</button>
+                        <p className='lg:text-[24px] md:text-[18px] xs:text-[14px] leading-1 font-[500] lg:mt-[4%] md:mt-[5%] xs:mt-[8%] xs:mb-[.5rem]'>{changeLang === 'ar' ? 'غير متأكد ؟ لا بأس!':"Not sure ? It's okay!"}</p>
+                      <button className={`${activeButtons?.includes("Surprise") ? 'surprise-active':'surprise'}`} onClick={() => handleButtonClick("", question.id, "Surprise")}>{changeLang === 'ar' ? 'فاجأني!' :'surprise me !'}</button>
                     </>
                   )
                 }
@@ -640,7 +640,7 @@ const onBackClick = () => {
                           position: 'relative'
                         }}
                       >
-                        <p className='enter-colors'>OR enter the hex code of colours you want.</p>
+                        <p className='enter-colors'>{changeLang === 'ar' ? 'او اكتب الكود الخاص للألوان اللي تفضل نستخدمها للهوية' : 'OR enter the hex code of colours you want.'}</p>
                         <div className='flex justify-center items-center'>
                         <input
                           type="text"
@@ -670,8 +670,8 @@ const onBackClick = () => {
                           <AddCircleRoundedIcon  onClick={()=>handleColorClick(inputValue,question.id)} />
                         </button>
                         </div>
-                          <p className='lg:text-[24px] md:text-[18px] xs:text-[14px] leading-1 font-[500] mb-0 lg:mt-[8%] md:mt-[7%] xs:mt-[8%]'>Not sure ? It's okay!</p>
-                        <button className={`${selectedColors?.includes("Surprise") ? 'surprise-active':'surprise'}`} onClick={() => handleColorClick("Surprise", question.id)}>surprise me !</button>
+                          <p className='lg:text-[24px] md:text-[18px] xs:text-[14px] leading-1 font-[500] mb-0 lg:mt-[8%] md:mt-[7%] xs:mt-[8%]'>{changeLang === 'ar' ? 'غير متأكد ؟ لا بأس!':"Not sure ? It's okay!"}</p>
+                        <button className={`${selectedColors?.includes("Surprise") ? 'surprise-active':'surprise'}`} onClick={() => handleColorClick("Surprise", question.id)}>{changeLang === 'ar' ? 'فاجأني!' :'surprise me !'}</button>
                       </div>
                     </>
                   )
@@ -696,7 +696,7 @@ const onBackClick = () => {
                                   })
                                 }
                               </figure>
-                              <span className="button-text">Patterns</span>
+                              <span className="button-text">{changeLang === 'ar' ? 'انماط' : 'Patterns'}</span>
                             </label>
                           </li>
                           <li className="checkbox checkbox-btn">
@@ -713,7 +713,7 @@ const onBackClick = () => {
                                   })
                                 }
                               </figure>
-                              <span className="button-text">Textures</span>
+                              <span className="button-text">{changeLang === 'ar' ? 'خلفيات' :'Textures'}</span>
                             </label>
                           </li>
                           <li className="checkbox checkbox-btn">
@@ -731,7 +731,7 @@ const onBackClick = () => {
                                 }
                               </figure>
                               <span className="button-text">
-                                Collages
+                               {changeLang === 'ar' ? 'كولاج ' :' Collages'}
                               </span>
                             </label>
                           </li>
@@ -750,7 +750,7 @@ const onBackClick = () => {
                                 }
                               </figure>
                               <span className="button-text">
-                                Clean
+                               {changeLang === 'ar' ? 'بسيط' : 'Clean'} 
                               </span>
                             </label>
                           </li>
@@ -769,7 +769,7 @@ const onBackClick = () => {
                                 }
                               </figure>
                               <span className="button-text">
-                                Illustrations
+                               {changeLang === 'ar' ? 'رسومات' :'Illustrations'} 
                               </span>
                             </label>
                           </li>
@@ -788,14 +788,14 @@ const onBackClick = () => {
                                 }
                               </figure>
                               <span className="button-text">
-                                Frames
+                               {changeLang === 'ar' ? 'إطارات' : 'Frames'} 
                               </span>
                             </label>
                           </li>
 
                         </ul>
-                          <p className='lg:text-[24px] md:text-[18px] xs:text-[14px] leading-1 font-[500] lg:mt-[2%] md:mt-[1%] xs:mt-[8%] xs:mb-[.5rem] '>Not sure ? It's okay!</p>
-                        <button className={`${formData[question.id]?.includes('Surprise')?'surprise-active':'surprise'}`} onClick={()=>handleTextureChange(null,question.id,true)}>surprise me !</button>
+                          <p className='lg:text-[24px] md:text-[18px] xs:text-[14px] leading-1 font-[500] lg:mt-[2%] md:mt-[1%] xs:mt-[8%] xs:mb-[.5rem] '>{changeLang === 'ar' ? 'غير متأكد ؟ لا بأس!':"Not sure ? It's okay!"}</p>
+                        <button className={`${formData[question.id]?.includes('Surprise')?'surprise-active':'surprise'}`} onClick={()=>handleTextureChange(null,question.id,true)}>{changeLang === 'ar' ? 'فاجأني!' :'surprise me !'}</button>
                       </div>
                     </>
                   )
@@ -803,7 +803,7 @@ const onBackClick = () => {
                 {
                   question.id === 21 ?
                   <>
-                  <div className={`${window?.innerWidth<=500 ?'flex-col':'flex-row'} flex w-full justify-center items-center`}>
+                  <div className={`${window?.innerWidth<=500 ?'flex-col':'flex-row'} gap-[20px] flex w-full justify-center items-center`}>
 
                     <div
                       className="color-input"
@@ -838,7 +838,7 @@ const onBackClick = () => {
                           color: '#fff',
                           border: 'none',
                           cursor: 'pointer',
-                          margin:window.innerWidth <=441 ?  '-45px 0px 0px 80%' : '-55px 0px 0px 80%'
+                          margin:window.innerWidth <=441 ? changeLang === 'ar' ? '-45px 80% 0px 0%'  : '-45px 0px 0px 80%' : changeLang === 'ar' ? '-55px 80% 0px 0%'  : '-55px 0px 0px 80%'
                         }}
                       >
                         <img src={Link}></img>
@@ -862,7 +862,7 @@ const onBackClick = () => {
                             className=''
                         />
                         <img className='h-[25px] w-[40px]' src={Blackupload} alt="Upload Icon" />
-                        {'Upload Content'}
+                        {changeLang === 'ar' ? 'تحميل المحتوى' : 'Upload Content'}
                     </p>
                     </>
                     </div>
@@ -889,7 +889,7 @@ const onBackClick = () => {
 
           </>
         }
-        bgTitle={'Your visual identity'}
+        bgTitle={changeLang === 'ar' ? "هويتك البصرية" : 'Your visual identity'}
       />
     </div>
   );

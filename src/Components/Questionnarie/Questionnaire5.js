@@ -32,13 +32,19 @@ export const Questionnaire5 = ({formData,setFormData,changeLang,setChangeLang}) 
     ""
   ];
 
+  const placeHolders_arabic = [
+    "",
+    "من فضلك اكتب الرابط او ارسال ايميل على info@bundldesigns.com",
+    ""
+  ]
+
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
         const response = await axios.get(`${base_url}/api/content?section=brand_questions&page=5`);
         const questionsData = response.data.map((question, index) => ({
           ...question,
-          placeholder: placeHolders[index],
+          placeholder: changeLang === 'ar' ? placeHolders_arabic[index] : placeHolders[index],
         }));
         setQuestions(questionsData);
       } catch (error) {
@@ -240,7 +246,7 @@ export const Questionnaire5 = ({formData,setFormData,changeLang,setChangeLang}) 
         questions={questions.map((question,index) => (
           <div className="questions" key={question.id} id={`question_${question.id}`}>
             <p className={`questions-title  xs:w-[90%] sm:w-full md:w-full mx-auto ${index === 0 ? 'mt-[1%]' : 'mt-[2%]'}`}>
-              {question.question}
+              {changeLang === 'ar' ? question?.question_arabic : question.question}
               {question.required && (
                 <span>
                   <sup>*</sup>
@@ -255,7 +261,7 @@ export const Questionnaire5 = ({formData,setFormData,changeLang,setChangeLang}) 
                     className={`uppercase font-[18px] lg:h-[45px] md:h-[45px] xs:h-[35px] w-[150px] border-[1px] border-solid border-[#000000] ${selectedLanguage === "arabic" ? "bg-[#000000] text-[#FFFFFF]" : "hover:bg-[#000000] hover:text-[#FFFFFF]"
                       }`}
                   >
-                    Arabic
+                   {changeLang === 'ar' ? 'إنجليزي' : 'Arabic'} 
                   </button>
                 </div>
                 <div>
@@ -264,7 +270,7 @@ export const Questionnaire5 = ({formData,setFormData,changeLang,setChangeLang}) 
                     className={`uppercase font-[18px] lg:h-[45px] md:h-[45px] xs:h-[35px] w-[150px] border-[1px] border-solid border-[#000000] ${selectedLanguage === "english" ? "bg-[#000000] text-[#FFFFFF]" : "hover:bg-[#000000] hover:text-[#FFFFFF]"
                       }`}
                   >
-                    English
+                  {changeLang === 'ar' ? 'عربي' : ' English'}
                   </button>
                 </div>
                 
@@ -299,7 +305,7 @@ export const Questionnaire5 = ({formData,setFormData,changeLang,setChangeLang}) 
                             onChange={(e) => uploadFile(e, question.id, 'file')}
                         />
                         <img className='h-[25px] w-[40px]' src={Blackupload} alt="Upload Icon" />
-                        {'Upload Content'}
+                        {changeLang === 'ar' ? 'تحميل المحتوى' : 'Upload Content'}
                     </p>
                     </div>
                     <p className='lg:text-[18px] md:text-[18px] xs:text-[14px] font-[400]'>{uploadContent?.[question?.id]?.filename }</p>

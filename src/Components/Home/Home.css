@@ -821,6 +821,13 @@ transform: translate(-50%, -50%);
   right: 10%;
   z-index: 40;
 }
+body[dir="rtl"] .img-rotate-qf {
+  position: absolute;
+  bottom: -33%;
+  left: 10%;
+  right: unset;
+  z-index: 40;
+}
 .rotating-image {
 animation: rotate-animation 30s linear infinite;
 max-width: 100px;
@@ -871,6 +878,7 @@ body [dir="rtl"] .scroll-button {
   animation: scroll_arabic var(--_animation-duration, 1s) var(--_animation-direction, forwards) linear infinite;
   }
 .scroll-ani {animation: scroll var(--_animation-duration, 25s) var(--_animation-direction, forwards) linear infinite;}
+body[dir="rtl"]  .scroll-ani {animation: scroll_arabic var(--_animation-duration, 25s) var(--_animation-direction, forwards) linear infinite;}
 
 .scroll-button li {
 padding: 0 .3rem;
@@ -3123,6 +3131,22 @@ font-weight: 400;
 text-transform: uppercase;
 color: #000000;
 }
+body[dir="rtl"] .form-group .checkbox-btn-img .checkbox label span {
+  text-align: center;
+  display: block;
+  padding: 25px 30px;
+  background-color: #ffffff;
+  border-top: 1px solid #000000;
+  border-right: 0;
+  border-left: 0;
+  border-bottom: 0;
+  transition: all .3s ease;
+  font-size: 20px;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: #000000;
+  width: 361px;
+  }
 .form-group .checkbox-btn-img .checkbox label .image-container {
 padding: 15px 0;
 overflow: hidden;
@@ -3915,6 +3939,12 @@ body[dir="rtl"] .second_brand_section {
   text-wrap: nowrap;
   padding: 20px 5px;
   font-size: 12px;
+}
+body[dir="rtl"] .form-group .checkbox-btn-img .checkbox label span{
+  text-wrap: nowrap;
+  padding: 20px 5px;
+  font-size: 12px;
+  width: auto;
 }
 .form-group .checkbox-btn-img .checkbox label .image-container{padding: 10px; height: 50px;}
 

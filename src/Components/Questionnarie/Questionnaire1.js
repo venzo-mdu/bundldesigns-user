@@ -33,6 +33,15 @@ export const Questionnaire1 = ({formData,setFormData,changeLang,setChangeLang}) 
     "Share your social media link"
   ]
 
+  const placeHolders_arabic = [
+    "بندل",
+    "الأزياء، المطاعم، الخدمات..الخ",
+    "الرياض، السعودية",
+    "اكتبهم هنا...",
+    "الخامة، الأسعار، التصاميم...الخ",
+    "",
+    ""
+  ]
 
 
   useEffect(() => {
@@ -312,7 +321,7 @@ export const Questionnaire1 = ({formData,setFormData,changeLang,setChangeLang}) 
         pageNo={1}
         storeAnswers={location.state?.questionnaireData1}
         orderId={location.state?.orderId} 
-        bgTitle={'About your business'}
+        bgTitle={changeLang === 'ar' ? 'عن مشروعك ' :'About your business'}
         formData={formData}
         setFormData={setFormData}
         onNextClick={onNextClick}
@@ -320,7 +329,7 @@ export const Questionnaire1 = ({formData,setFormData,changeLang,setChangeLang}) 
         questions={questions.map((question, index) => (
           <div className='questions' key={index} id={`question_${question.id}`}>
             <p className={`questions-title xs:w-[90%] sm:w-full md:w-full mx-auto ${index === 0 ? 'mt-[1%]' : 'mt-[3%]'}`}>
-              {question.question}
+              {changeLang === 'ar' ? question.question_arabic : question.question}
               {
                 question.required && (
                   <span><sup>*</sup></span>
@@ -333,20 +342,20 @@ export const Questionnaire1 = ({formData,setFormData,changeLang,setChangeLang}) 
                   className={`product-btn ${activeType === 'product' ? 'active' : ''}`}
                   onClick={() => handleTypeClick('product')}
                 >
-                  Product
+                  {changeLang === 'ar' ? 'منتج' : 'Product'} 
                 </button>
                 <button
                   className={`service-btn ${activeType === 'service' ? 'active' : ''}`}
                   onClick={() => handleTypeClick('service')}
                 >
-                  Service
+                  {changeLang === 'ar' ? 'خدمة' : 'Service' }
                 </button>
               </div>
             )}
             <input
               type='text'
               className={`question-input ${isFilled === question?.id ? 'border-red-400 border-b-[2px]':`${window?.innerWidth <= 475 ? 'border-b-[1px]':'border-b-[2px]'} border-black`}`}
-              placeholder={placeHolders[index]}
+              placeholder={changeLang === 'ar' ? placeHolders_arabic[index] : placeHolders[index]}
               // value={formData?.[question.id] || fetchQ1Answers[2].answer }
               value={getAnswerValue(question.id)}
               onChange={(e) => handleInputChange(question.id, e.target.value)} // Update Redux

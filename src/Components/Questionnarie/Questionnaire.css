@@ -44,12 +44,14 @@
     align-items: center;
     justify-content: center;
     margin: 3% 0 0 0;
+    gap: 30px;
 }
 .questonnaire-actions1{
     display: flex;
     align-items: center;
     justify-content: center;
     /* margin: 2% 0 10% 0; */
+    gap: 30px;
 }
 .questonnaire-actions-height{
     height: 170px;
@@ -73,7 +75,7 @@
     font-weight: 400;
     border: 1px solid #000000;
     outline: none;
-    margin: 0 0 0 2%;
+    /* margin: 0 0 0 2%; */
 }
 .save{
     background-color: transparent;
@@ -84,7 +86,7 @@
     font-weight: 700;
     border: 0;
     outline: none;
-    margin: 2% 0 0 2%;
+    margin: 2% 0 0 0%;
 }
 .questions{
     display: flex;
@@ -568,12 +570,28 @@ input::placeholder {
             right:0%;
             animation: move 8s ease-in-out infinite forwards;
         }
+        body[dir="rtl"] .eyespoon{
+            position: absolute;
+            top:-8%;
+            left:2%;
+            right: unset;
+            animation: move_arabic 8s ease-in-out infinite forwards;
+        }
         .eyespoon2{
             position: absolute;
             top: 100%;
             left: -7%;
             transform: translateY(-50%) rotate(280deg);
             animation: move 8s ease-in-out infinite forwards;
+            z-index: 1;
+        }
+        body[dir="rtl"] .eyespoon2{
+            position: absolute;
+            top: 100%;
+            right: -7%;
+            left: unset;
+            transform: translateY(-50%) rotate(280deg);
+            animation: move_arabic 8s ease-in-out infinite forwards;
             z-index: 1;
         }
         /* .eyespoon2 img{
@@ -590,6 +608,17 @@ input::placeholder {
                 transform: rotate(0);
             }
         }
+        @keyframes move_arabic{
+            0%{
+                transform: rotate(0) scaleX(-1);
+            }
+            50%{
+                transform: rotate(-10deg) scaleX(-1);
+            }
+            100%{
+                transform: rotate(0) scaleX(-1);
+            }
+        }
 
 /* _________________ MOUTH ANIMATION ___________________
 ------------------------------------------------------------ */
@@ -598,6 +627,14 @@ input::placeholder {
             right: 5%;
             top: 20%;
             z-index: -1;
+        }
+        body[dir="rtl"] .miclady{
+            position: absolute;
+            left: 5%;
+            right:unset;
+            top: 20%;
+            z-index: -1;
+            transform: scaleX(-1);
         }
         .mouth{
             bottom:3%;
@@ -612,7 +649,13 @@ input::placeholder {
             top: 19%;
             animation: lip 4s ease-in-out infinite forwards;
         }
-
+        body[dir="rtl"] .lips{
+            width: 8%;
+            left: 7%;
+            right: unset;
+            top: 19%;
+            animation: lip 4s ease-in-out infinite forwards;
+        }
         @keyframes lip{
             0%{
                 transform: rotate(0) scale(0.98);
@@ -635,6 +678,17 @@ input::placeholder {
             animation: mirror 4s ease-in-out infinite forwards;
             position: absolute;
             left: 0;
+            top: 45%;
+            z-index: -1;
+        }
+        body[dir="rtl"] .mirror{
+            transform: translate(35%, 3%);
+            opacity: 1;
+            animation-duration: 3s;
+            animation: mirror_arabic 4s ease-in-out infinite forwards;
+            position: absolute;
+            right: 0;
+            left: unset;
             top: 45%;
             z-index: -1;
         }
@@ -665,7 +719,32 @@ input::placeholder {
                 opacity:0;
             }
         }
-
+        @keyframes mirror_arabic{
+            0%{
+                transform: translate(-35%, 3%);
+                opacity:0;
+            }
+            /* 20%{
+                animation-duration: 5s;
+                transform: translate(28%, -15%);
+                opacity: 1;
+            } */
+            /* 0%{
+                transform: translate(28%, -35%);
+                opacity: 1;
+            } */
+           
+            98%{
+                transition: 3s;
+                transform: translate(-35%, -95%);
+                opacity: 1;
+            }
+            100%{
+                transition: 3s;
+                transform: translate(-35%, -95%);
+                opacity:0;
+            }
+        }
 /* _________________ EYEBALL ANIMATION ___________________
 ------------------------------------------------------------ */
 
@@ -721,7 +800,13 @@ input::placeholder {
             transform: rotate(0deg);
             animation: candy 25s ease-in-out infinite forwards;
         }
-
+        body[dir="rtl"] .candy-rocket{
+            top:0;
+            right:-10%;
+            left: unset;
+            transform: rotate(0deg);
+            animation: candy_arabic 25s ease-in-out infinite forwards;
+        }
         @keyframes candy{
             0%, 10%{
                 top: 0;
@@ -773,6 +858,69 @@ input::placeholder {
                 top: 36%;
                 left: 75%;
                 transform: rotate(12deg);
+            }
+        }
+        @keyframes candy_arabic{
+            0%, 10%{
+                top: 0;
+                right: -10%;
+                left: unset;
+                transform: rotate(0deg) scaleX(-1);
+            }
+            20%{
+                top:36%;
+                right: 15%;
+                left: unset;
+                transform: rotate(0deg) scaleX(-1);
+            }
+            30%{
+                top:36%;
+                right: 15%;
+                left: unset;
+                transform: rotate(0deg) scaleX(-1);
+            }
+            40%{
+                top:36%;
+                right: 15%;
+                left: unset;
+                transform: rotate(0deg) scaleX(-1);
+            }
+            50%{
+                top:36%;
+                right: 15%;
+                left: unset;
+                transform: rotate(0deg) scaleX(-1);
+            }
+            60%{
+                top:36%;
+                right: 15%;
+                left: unset;
+                transform: rotate(0deg) scaleX(-1);
+            }
+            
+            70%{
+                top:15%;
+                right: 57%;
+                left: unset;
+                transform: rotate(10deg) scaleX(-1);
+            }
+            80%{
+                top:15%;
+                right: 57%;
+                left: unset;
+                transform: rotate(10deg) scaleX(-1);
+            }
+            90%{
+                top:15%;
+                right: 57%;
+                left: unset;
+                transform: rotate(10deg) scaleX(-1);
+            }
+            100%{
+                top: 36%;
+                right: 75%;
+                left: unset;
+                transform: rotate(-12deg) scaleX(-1);
             }
         }
         .require-star{vertical-align: super;}
@@ -894,9 +1042,27 @@ input::placeholder {
         top: 54%;
         z-index: -1;
     }
+    body[dir="rtl"] .mirror{
+        transform: translate(28%, 3%);
+        opacity: 1;
+        animation-duration: 3s;
+        animation: mirror_arabic 8s ease-in-out infinite forwards;
+        position: absolute;
+        right: 0;
+        left: unset;
+        top: 54%;
+        z-index: -1;
+    }
     .miclady{
         position: absolute;
         right: 5%;
+        top: 25%;
+        z-index: -1;
+    }
+    body[dir="rtl"] .miclady{
+        position: absolute;
+        left: 5%;
+        right: unset;
         top: 25%;
         z-index: -1;
     }
@@ -907,6 +1073,13 @@ input::placeholder {
     .lips {
         width: 10%;
         right: 8%;
+        top: 23%;
+        animation: lip 4s ease-in-out infinite forwards;
+    }
+    body[dir="rtl"]    .lips {
+        width: 10%;
+        left: 8%;
+        right: unset;
         top: 23%;
         animation: lip 4s ease-in-out infinite forwards;
     }
@@ -928,6 +1101,19 @@ input::placeholder {
         }
         100%{
             transform: translate(28%, -70%);
+            opacity:1;
+        }
+    }
+    @keyframes mirror_arabic{
+        0%{
+            transform: translate(-28%, 20%);
+            opacity:0;
+        }
+        98%{
+            opacity: 1;
+        }
+        100%{
+            transform: translate(-28%, -70%);
             opacity:1;
         }
     }
@@ -982,6 +1168,69 @@ input::placeholder {
             top: 49%;
             left: 75%;
             transform: rotate(12deg);
+        }
+    }
+    @keyframes candy_arabic{
+        0%, 10%{
+            top: 0;
+            right: -10%;
+            left: unset;
+            transform: rotate(0deg) scaleX(-1);
+        }
+        20%{
+            top:49%;
+            right: 15%;
+            left: unset;
+            transform: rotate(0deg) scaleX(-1);
+        }
+        30%{
+            top:49%;
+            right: 15%;
+            left: unset;
+            transform: rotate(0deg) scaleX(-1);
+        }
+        40%{
+            top:49%;
+            right: 15%;
+            left: unset;
+            transform: rotate(0deg) scaleX(-1);
+        }
+        50%{
+            top:49%;
+            right: 15%;
+            left: unset;
+            transform: rotate(0deg) scaleX(-1);
+        }
+        60%{
+            top:49%;
+            right: 15%;
+            left: unset;
+            transform: rotate(0deg) scaleX(-1);
+        }
+        
+        70%{
+            top:15%;
+            right: 57%;
+            left: unset;
+            transform: rotate(10deg) scaleX(-1);
+        }
+        80%{
+            top:15%;
+            right: 57%;
+            left: unset;
+            transform: rotate(10deg) scaleX(-1);
+        }
+        90%{
+            top:15%;
+            right: 57%;
+            left: unset;
+            transform: rotate(10deg) scaleX(-1);
+        }
+        100%{
+            top: 49%;
+            right: 75%;
+            left: unset;
+            transform: rotate(-12deg) scaleX(-1);
         }
     }
 }
@@ -1120,13 +1369,32 @@ input::placeholder {
         width: 30%;
         z-index: -1;
     }
+    body[dir="rtl"] .miclady{
+        top: 21%;
+        left: 0px;
+        right: unset;
+        width: 30%;
+        z-index: -1;
+    }
     .lips{
         top: 21%;
         right: 4%;
         width: 15%;
     }
+    body[dir="rtl"] .lips{
+        top: 21%;
+        left: 4%;
+        right:unset;
+        width: 15%;
+    }
     .mirror{
         left: -8%;
+        top:30%;
+        width:30%
+    }
+    body[dir="rtl"] .mirror{
+        right: -8%;
+        left: unset;
         top:30%;
         width:30%
     }
@@ -1397,6 +1665,69 @@ input::placeholder {
             transform: rotate(12deg);
         }
     }
+    @keyframes candy_arabic{
+        0%, 10%{
+            top: 0;
+            right: -10%;
+            left: unset;
+            transform: rotate(0deg) scaleX(-1);
+        }
+        20%{
+            top:29%;
+            right: 15%;
+            left: unset;
+            transform: rotate(0deg) scaleX(-1);
+        }
+        30%{
+            top:29%;
+            right: 15%;
+            left: unset;
+            transform: rotate(0deg) scaleX(-1);
+        }
+        40%{
+            top:29%;
+            right: 15%;
+            left: unset;
+            transform: rotate(0deg) scaleX(-1);
+        }
+        50%{
+            top:29%;
+            right: 15%;
+            left: unset;
+            transform: rotate(0deg) scaleX(-1);
+        }
+        60%{
+            top:29%;
+            right: 15%;
+            left: unset;
+            transform: rotate(0deg) scaleX(-1);
+        }
+        
+        70%{
+            top:8%;
+            right: 57%;
+            left: unset;
+            transform: rotate(10deg) scaleX(-1);
+        }
+        80%{
+            top:8%;
+            right: 57%;
+            left: unset;
+            transform: rotate(10deg) scaleX(-1);
+        }
+        90%{
+            top:8%;
+            right: 57%;
+            left: unset;
+            transform: rotate(10deg) scaleX(-1);
+        }
+        100%{
+            top: 29%;
+            right: 75%;
+            left: unset;
+            transform: rotate(-12deg) scaleX(-1);
+        }
+    }
 }
 @media screen and (max-width:375px) {
     .eyespoon2{
@@ -1507,9 +1838,22 @@ input::placeholder {
         width: 32%;
         z-index: -1;
     }
+    body[dir="rtl"] .miclady{
+        top:21%;
+        left: 0px;
+        right: unset;
+        width: 32%;
+        z-index: -1;
+    }
     .lips{
         top: 21%;
         right: 4%;
+        width: 15%;
+    }
+    body[dir="rtl"]  .lips{
+        top: 21%;
+        left: 4%;
+        right: unset;
         width: 15%;
     }
     .female-buttons,.male-buttons{
