@@ -679,7 +679,7 @@ const onBackClick = () => {
                 {
                   question.answer_type === 'texture' && (
                     <>
-                      <div className="form-group">
+                      <div className="form-group lg:w-[75%] md:w-[100%]">
                         <span className="font-error valid-error text-purple"></span>
 
                         <ul style={window?.innerWidth <= 500 ?{display:'grid',gridTemplateColumns:'repeat(3,1fr)'}:{}} className={window?.innerWidth<=500 ? 'checkbox-btn-img':`h-list select-btns grid-view padding-top-20 checkbox-btn-img h-list-check`}>

@@ -961,6 +961,10 @@ input::placeholder {
             background-color: black;
             color: white; /* Optional: Change text color for better contrast */
         }
+        body[dir="rtl"] .checkbox input[type="checkbox"]:checked + label  span {
+            background-color: black;
+            color: white; /* Optional: Change text color for better contrast */
+        }
 
         @media screen and (max-width:768px){
             .inner-tab-content{padding: 20px 25px;}

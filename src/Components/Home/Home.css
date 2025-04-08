@@ -3132,20 +3132,38 @@ text-transform: uppercase;
 color: #000000;
 }
 body[dir="rtl"] .form-group .checkbox-btn-img .checkbox label span {
-  text-align: center;
-  display: block;
-  padding: 25px 30px;
-  background-color: #ffffff;
-  border-top: 1px solid #000000;
-  border-right: 0;
-  border-left: 0;
-  border-bottom: 0;
-  transition: all .3s ease;
-  font-size: 20px;
-  font-weight: 400;
-  text-transform: uppercase;
-  color: #000000;
-  width: 361px;
+text-align: center;
+display: block;
+padding: 25px 30px;
+background-color: #ffffff;
+border-top: 1px solid #000000;
+border-right: 0;
+border-left: 0;
+border-bottom: 0;
+transition: all .3s ease;
+font-size: 20px;
+font-weight: 400;
+text-transform: uppercase;
+color: #000000;
+/* width: 361px; */
+}
+
+body[dir="rtl"]  .form-group .checkbox label span:hover {
+  background-color: #000000;
+  color: #ffffff;
+  cursor: pointer;
+  /* -webkit-box-shadow: 2px 4px 0px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 2px 4px 0px 0px rgba(0,0,0,0.75);
+  box-shadow: 2px 4px 0px 0px rgba(0,0,0,0.75); */
+}
+body[dir="rtl"] .form-group .checkbox label input[type="checkbox"] {
+  position: absolute;
+  display: none;
+  color: #fff !important;
+  }
+body[dir="rtl"]  .form-group .checkbox input:checked + span {
+  color: #ffffff;
+  background-color: #000000;
   }
 .form-group .checkbox-btn-img .checkbox label .image-container {
 padding: 15px 0;
@@ -4836,7 +4854,7 @@ font-size: 20px;
 }
 }
 @media screen and (max-width:441px) {
-  .checkbox-btn-img li.checkbox {width: 100%;}
+  .checkbox-btn-img li.checkbox {width: 95%;}
   .checkbox-btn-img{
     width: 375px;
   }
