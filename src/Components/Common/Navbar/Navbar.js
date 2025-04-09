@@ -151,7 +151,7 @@ export const Navbar = ({isLang,setIsLang}) => {
                         <li className='px-[6px] inner-nav'>
 
                           <a className="" onClick={() => { setProfileVisible(!profileVisible);setSearchShow(false) }}><img src={User} alt="" className="navIcons cursor-pointer"></img></a>
-                          <nav className={`w-44 inner-nav-item absolute xs:top-[80px] md:top-[50px] shodow-sm right-[6rem] text-right bg-white  py-2 px-3  ${profileVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
+                          <nav className={`w-44 inner-nav-item absolute xs:top-[80px] md:top-[50px] shodow-sm ${isLang === 'ar' ? 'left-[6rem] text-left' : 'right-[6rem] text-right'}  bg-white  py-2 px-3  ${profileVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
                             }`}>
                           
                             <div ref={popupRef}>
@@ -289,7 +289,7 @@ export const Navbar = ({isLang,setIsLang}) => {
                           <li className='px-[7px] inner-nav'>
 
                             <a className="w-[26px]" onClick={() => { setProfileVisible(!profileVisible);setSearchShow(false)}}><img src={User} alt="" className="navIcons cursor-pointer"></img></a>
-                            <nav ref={popupRef} className={`w-44  absolute xs:top-[80px] md:top-[80px] shodow-sm right-[6rem] text-right bg-white py-2 px-3  ${profileVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'}`}>
+                            <nav ref={popupRef} className={`w-44  absolute xs:top-[80px] md:top-[80px] shodow-sm ${isLang === 'ar' ? 'left-[6rem] text-left' : 'right-[6rem] text-right'}  bg-white py-2 px-3  ${profileVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'}`}>
                             <div >
       {profileVisible && (
         <ul>
@@ -328,23 +328,23 @@ export const Navbar = ({isLang,setIsLang}) => {
                             <button onClick={toggleMenu} type="button" id="menu-toggle">
                               {menuVisible ? <CloseIcon className='!text-[50px]' /> : <MenuIcon className='!text-[50px]' />}
                             </button>
-                            <nav className={`w-44 absolute  shadow-sm -right-2 text-right bg-white p-2  ${menuVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
+                            <nav className={`w-44 absolute  shadow-sm -right-2 ${isLang === 'ar' ? 'text-left' : 'text-right'} bg-white p-2  ${menuVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
                               }`}>
                                 <div ref={navigationRef}>
                                   {
                                     menuVisible && (
                                 <ul className=' inner-nav-item'>
                                 <li className='relative p-1 inner-nav-li'>
-                                  <a href="/#ourBundl" className='!text-black' previewlistener="true">Bundls</a>
+                                  <a href="/#ourBundl" className='!text-black' previewlistener="true">{isLang === 'ar' ? 'باقاتنا' : 'Bundls'}</a>
                                 </li>
                                 <li className='relative p-1 inner-nav-li'>
-                                  <a href="/our-work" className='!text-black' previewlistener="true">Our Work</a>
+                                  <a href="/our-work" className='!text-black' previewlistener="true">{isLang === 'ar' ? 'مشاريعنا' : 'Our Work'}</a>
                                 </li>
                                 <li className='relative p-1 inner-nav-li'>
-                                  <a href="/aboutus" className='!text-black' previewlistener="true">About Us</a>
+                                  <a href="/aboutus" className='!text-black' previewlistener="true">{isLang === 'ar' ? 'عن بندل' : 'About us'}</a>
                                 </li>
                                 <li className='relative p-1 inner-nav-li'>
-                                  <a href="/contact-us" className='!text-black' previewlistener="true">Contact Us</a>
+                                  <a href="/contact-us" className='!text-black' previewlistener="true">{isLang === 'ar' ? 'اتصل بنا' : 'Contact Us'}</a>
                                 </li>
                               </ul>
                                     )

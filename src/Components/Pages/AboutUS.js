@@ -118,8 +118,8 @@ export const AboutUs = ({ lang, setLang }) => {
             </div>
 
             <div style={{ backgroundColor: whatwedo ? aboutUs[whatwedo].bgColor : 'inherit' }} className={`text-center relative border-black leading-[40px] border-b transition delay-150 duration-300 ease-in`}>
-              <img className='absolute md:top-[-72px] xl:top-[-100px] sm:w-[100px] xs:w-[80px] 
-        xs:top-[-30px] z-10 sm:top-[-52px] lg:top-[-80px] md:w-[150px] xl:w-[200px] left-[12vw] '
+              <img className={`absolute md:top-[-72px] xl:top-[-100px] sm:w-[100px] xs:w-[80px] 
+        xs:top-[-30px] z-10 sm:top-[-52px] lg:top-[-80px] md:w-[150px] xl:w-[200px] ${lang === 'ar' ? 'right-[12vw]' : 'left-[12vw]'} `}
                 width='200px' height='140px' src={blueSticker} />
               {
                 whatwedo ?

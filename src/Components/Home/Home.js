@@ -1853,7 +1853,7 @@ export const Home = ({lang,setLang}) => {
                                                     </li>
                                                     <li className='px-[6px] inner-nav'>
                                                         <a className="" onClick={() => { setProfileVisible(!profileVisible);setSearchShow(false) }}><img src={User} alt="" className="navIcons cursor-pointer"></img></a>
-                                                        <nav className={`w-44 absolute top-full right-[6rem] text-right bg-white py-2 px-3  ${profileVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
+                                                        <nav className={`w-44 absolute top-full ${lang === 'ar' ? 'left-[6rem] text-left' : 'right-[6rem] text-right'} bg-white py-2 px-3  ${profileVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
                                                             }`}>
                                                             <div ref={popupRef}>
                                                                 {profileVisible && (
@@ -1893,7 +1893,7 @@ export const Home = ({lang,setLang}) => {
                                                         <button onClick={toggleMenu} type="button" id="menu-toggle">
                                                             {menuVisible ? <CloseIcon className='!text-[50px]' /> : <MenuIcon className='!text-[50px]' />}
                                                         </button>
-                                                        <nav className={`w-44 absolute top-full -right-2 text-right bg-white p-2  ${menuVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
+                                                        <nav className={`w-44 absolute top-full -right-2 ${lang === 'ar' ? 'text-left' : 'text-right'} bg-white p-2  ${menuVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
                                                             }`}>
                                                             {/* <ul >
                                                                 <li  className='relative p-1 inner-nav-li'>
@@ -1915,16 +1915,16 @@ export const Home = ({lang,setLang}) => {
                                                                     menuVisible && (
                                                                         <ul className=' inner-nav-item'>
                                                                             <li className='relative p-1 inner-nav-li'>
-                                                                                <a href="#ourBundl" className='!text-black' previewlistener="true">Bundls</a>
+                                                                                <a href="#ourBundl" className='!text-black' previewlistener="true">{lang === 'ar' ? 'باقاتنا' : 'Bundls'}</a>
                                                                             </li>
                                                                             <li className='relative p-1 inner-nav-li'>
-                                                                                <a href="/our-work" className='!text-black' previewlistener="true">Our Work</a>
+                                                                                <a href="/our-work" className='!text-black' previewlistener="true">{lang === 'ar' ? 'مشاريعنا' : 'Our Work'}</a>
                                                                             </li>
                                                                             <li className='relative p-1 inner-nav-li'>
-                                                                                <a href="/aboutus" className='!text-black' previewlistener="true">About Us</a>
+                                                                                <a href="/aboutus" className='!text-black' previewlistener="true">{lang === 'ar' ? 'عن بندل' : 'About us'}</a>
                                                                             </li>
                                                                             <li className='relative p-1 inner-nav-li'>
-                                                                                <a href="/contact-us" className='!text-black' previewlistener="true">Contact Us</a>
+                                                                                <a href="/contact-us" className='!text-black' previewlistener="true">{lang === 'ar' ? 'اتصل بنا' : 'Contact Us'}</a>
                                                                             </li>
                                                                         </ul>
                                                                     )
@@ -2005,7 +2005,7 @@ export const Home = ({lang,setLang}) => {
                                         </div>
                                         {/* <h1 className='!text-black sm:px-[9%] xs:px-[11%]  lg:px-[10%] !w-[100%] xs:!text-[26px] sm:!text-[58px] !text-[58px]'><span>هوية بصرية تصميم جرافيكي متاجر
                     الكترونية​ Elevating</span> brands & shaping legacies, one <span>extraordinary design</span> at a <i>time.</i></h1> */}
-                      <h1 className='!text-black sm:px-[9%] xs:px-[11%]  lg:px-[10%] !w-[100%] xs:!text-[26px] sm:!text-[58px] !text-[58px]'><span>Elevating</span> brands & shaping legacies, one <span>extraordinary design</span> at a <i>time.</i></h1>
+                      <h1 className='!text-black sm:px-[9%] xs:px-[11%]  lg:px-[10%] !w-[100%] xs:!text-[26px] sm:!text-[58px] !text-[58px]'><span>{lang === 'ar' ? '' :'Elevating'}</span>{lang === 'ar' ? '' : 'brands & shaping legacies, one' }<span>{lang === 'ar' ? '' :'extraordinary design'}</span>{lang === 'ar' ? '' : 'at a ' }<i>{lang === 'ar' ? '' :'time.'}</i></h1>
                                         <div className="button-container scroller">
                                             <ul className="scroll-button h-[46px] scroller__inner_btn">
                                                 <li><span><a className='text-black' href='#ourBundl'>{lang === 'ar' ?'تصفح باقاتنا':'Shop our Bundls'}</a></span></li>
@@ -2212,18 +2212,18 @@ export const Home = ({lang,setLang}) => {
                                             <div className="box-child">
                                                 <div className="pack-inner-title"><span>{lang === 'ar' ? 'تصميم االهوية':'Brand Identity'}</span></div>
                                                 <ul className="second_brand_list">
-                                                    <li>Brand Concept</li>
-                                                    <li>Brand Direction</li>
+                                                    <li>{lang === 'ar' ? 'فكره المشروع' : 'Brand Concept'}</li>
+                                                    <li>{lang === 'ar' ? 'التوجه الفني للمشروع' : 'Brand Direction'}</li>
                                                     <li>{lang === 'ar' ? 'تصميم الشعار' :'Logo Design'}</li>
                                                     <li>{lang === 'ar' ? 'خيار إضافي للشعار' :'Logo Variations'}</li>
                                                     <li>{lang === 'ar' ? 'لوحة الألوان' :'Color Palette'}</li>
                                                     <li>{lang === 'ar' ? 'الأحرف والخطوط' :'Typography'}</li>
                                                     <li>{lang === 'ar' ? 'الهوية البصرية' :'Visual Identity'}</li>
-                                                    <li>Brand Guide</li>
+                                                    <li>{lang === 'ar' ? 'دليل الهوية البصرية' : 'Brand Guide' }</li>
                                                 </ul>
                                             </div>
                                             <div className="box-child">
-                                                <div className="pack-inner-title"><span>{window.innerWidth <=475 ? 'Choose Your Add-ons' : 'Choose Your Add-ons'}</span></div>
+                                                <div className="pack-inner-title"><span>{window.innerWidth <=475 ? lang === 'ar' ? '' : 'Choose Your Add-ons' : lang === 'ar' ? '' : 'Choose Your Add-ons'}</span></div>
                                                 <ul className="second_brand_list">
                                                     <li>{lang === 'ar' ? 'الهوية البصرية' :'Branding'}</li>
                                                     <li>{lang === 'ar' ? 'التصاميم الالكترونية':'E-designs'}</li>
@@ -2299,14 +2299,14 @@ export const Home = ({lang,setLang}) => {
                                             <div className="box-child">
                                                 <div className="pack-inner-title"><span>{lang === 'ar' ? 'تصميم االهوية' : 'Brand Identity'}</span></div>
                                                 <ul className="second_brand_list">
-                                                    <li>Brand Concept</li>
-                                                    <li>Brand Direction</li>
+                                                    <li>{lang === 'ar' ? 'فكره المشروع' : 'Brand Concept'}</li>
+                                                    <li>{lang === 'ar' ? 'التوجه الفني للمشروع' : 'Brand Direction'}</li>
                                                     <li>{lang === 'ar' ? 'تصميم الشعار' :'Logo Design'}</li>
                                                     <li>{lang === 'ar' ? 'خيار إضافي للشعار' :'Logo Variations'}</li>
                                                     <li>{lang === 'ar' ? 'لوحة الألوان' :'Color Palette'}</li>
                                                     <li>{lang === 'ar' ? 'الأحرف والخطوط' :'Typography'}</li>
                                                     <li>{lang === 'ar' ? 'الهوية البصرية' :'Visual Identity'}</li>
-                                                    <li>Brand Guide</li>
+                                                    <li>{lang === 'ar' ? 'دليل الهوية البصرية' : 'Brand Guide' }</li>
                                                 </ul>
                                             </div>
                                             <div className="box-child">
@@ -2396,14 +2396,14 @@ export const Home = ({lang,setLang}) => {
                                             <div className="box-child">
                                                 <div className="pack-inner-title"><span>{lang === 'ar' ? 'تصميم االهوية' : 'Brand Identity'}</span></div>
                                                 <ul className="second_brand_list">
-                                                    <li>Brand Concept</li>
-                                                    <li>Brand Direction</li>
+                                                    <li>{lang === 'ar' ? 'فكره المشروع' : 'Brand Concept'}</li>
+                                                    <li>{lang === 'ar' ? 'التوجه الفني للمشروع' : 'Brand Direction'}</li>
                                                     <li>{lang === 'ar' ? 'تصميم الشعار' :'Logo Design'}</li>
                                                     <li>{lang === 'ar' ? 'خيار إضافي للشعار' :'Logo Variations'}</li>
                                                     <li>{lang === 'ar' ? 'لوحة الألوان' :'Color Palette'}</li>
                                                     <li>{lang === 'ar' ? 'الأحرف والخطوط' :'Typography'}</li>
                                                     <li>{lang === 'ar' ? 'الهوية البصرية' :'Visual Identity'}</li>
-                                                    <li>Brand Guide</li>
+                                                    <li>{lang === 'ar' ? 'دليل الهوية البصرية' : 'Brand Guide' }</li>
                                                 </ul>
                                             </div>
                                             <div className="box-child">
@@ -2492,14 +2492,14 @@ export const Home = ({lang,setLang}) => {
                                             <div className="box-child">
                                                 <div className="pack-inner-title"><span>{lang === 'ar' ? 'تصميم االهوية' : 'Brand Identity'}</span></div>
                                                 <ul className="second_brand_list">
-                                                    <li>Brand Concept</li>
-                                                    <li>Brand Direction</li>
+                                                    <li>{lang === 'ar' ? 'فكره المشروع' : 'Brand Concept'}</li>
+                                                    <li>{lang === 'ar' ? 'التوجه الفني للمشروع' : 'Brand Direction'}</li>
                                                     <li>{lang === 'ar' ? 'تصميم الشعار' :'Logo Design'}</li>
                                                     <li>{lang === 'ar' ? 'خيار إضافي للشعار' :'Logo Variations'}</li>
                                                     <li>{lang === 'ar' ? 'لوحة الألوان' :'Color Palette'}</li>
                                                     <li>{lang === 'ar' ? 'الأحرف والخطوط' :'Typography'}</li>
                                                     <li>{lang === 'ar' ? 'الهوية البصرية' :'Visual Identity'}</li>
-                                                    <li>Brand Guide</li>
+                                                    <li>{lang === 'ar' ? 'دليل الهوية البصرية' : 'Brand Guide' }</li>
                                                 </ul>
                                             </div>
                                             <div className="box-child">
@@ -2591,12 +2591,12 @@ export const Home = ({lang,setLang}) => {
                                     })}style={{ justifyContent: "end" }}>
                                         <div className="change_brand">
                                             <div className="table_icon"><img src={MaginIcon} alt="" className="img-fluid" /></div>
-                                            <div className="newbie">Customized</div>
+                                            <div className="newbie">{lang === 'ar' ? '' : 'Customized' }</div>
                                             <div className="pkg-sub-title">{lang === 'ar' ? 'صمم البندل الخاص بك' : 'Customize your Bundl'}</div>
                                         </div>
 
                                         <div className="second_brand_section" style={{ height: "75%" }}>
-                                            <span className="pack-sub-title">Choose from</span>
+                                            <span className="pack-sub-title">{lang === 'ar' ? '' : 'Choose from'}</span>
                                             <div className="box-child box-f-cuztomize-bundl" style={{ display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
                                                 <div className="pack-inner-title"><span>+ {lang === 'ar' ? 'الهوية البصرية' :'Branding'}</span></div>
                                                 <div className="pack-inner-title"><span>+ {lang === 'ar' ? 'التصاميم الالكترونية':'E-designs'}</span></div>
@@ -2622,7 +2622,7 @@ export const Home = ({lang,setLang}) => {
                                             </div>
                                             <div className="change_brand_name">
                                                 <div className="second_section_image"><img src={MaginIcon} alt="" className="img-fluid" /></div>
-                                                <div className="second_section_text" style={{ paddingTop: "10px" }}>Customized</div>
+                                                <div className="second_section_text" style={{ paddingTop: "10px" }}>{lang === 'ar' ? '' : 'Customized'}</div>
                                             </div>
                                         </div>
                                         {/* <!--<div className="sar d-flex align-items-center">
@@ -2783,13 +2783,13 @@ export const Home = ({lang,setLang}) => {
                                         <div className="col-md-8">
                                             <div className="testimonial-inner">
                                                 <div className="testimonial_content">
-                                                    Commitment, variety, clarity, fast delivery of different options, accuracy and art is the least that can describe how good they are! Keep up the good work, and we would surely get back to you over and over again!
+                                                  {lang === 'ar' ? '' : 'Commitment, variety, clarity, fast delivery of different options, accuracy and art is the least that can describe how good they are! Keep up the good work, and we would surely get back to you over and over again!'}  
                                                 </div>
                                                 <div className="rating">
                                                     <img src={FiveStar} alt="" className="img-fluid"></img>
                                                 </div>
                                                 <div className="name">
-                                                    SHAWERMAMA <span className="company-name"></span>
+                                                {lang === 'ar' ? '' : 'SHAWERMAMA'} <span className="company-name"></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -2798,9 +2798,9 @@ export const Home = ({lang,setLang}) => {
                                 <div className="px-5 mx-auto mt-5 text-center">
                                     {
                                         window.innerWidth <= 768 ?
-                                        <a target='_blank' href="https://www.google.com/search?sca_esv=c4b1341a4b7b7a8e&rlz=1C1OPNX_enIN1088IN1088&sxsrf=AHTn8zpz8heeFIffXtZFmZcBKyfoZlggHQ:1738924330168&q=bundl+designs+reviews&uds=ABqPDvxhviXT310WMxRmyLGmEwIWGxD1D4UaNg1_5mWkuvL-XEHlBMW0Wi5hXsAWml52GBwP0MgahtCC7xIzOfccgCir8jqEM-EUFl8W5TAQZtW1RiBwrQ6eg9Lumr7a35DA3UW1etJjqySLvsDCAu3swGovni-vtvN9dTjA83v60KOxD9627yKA06c5tUy_FosedF9vWioHYMgsreRYsFewxUb2IPmni2ayZr3gorMNTpcZLIypv5tgzZ33pY3Lm3ZXqLhrBu3CF3C_WNhYjJxca9Q4uc_9kNdOSyf491fLCyNbqThFA6O36UEEQF7vrZUZMHWOAEK22_BQhgx5UwnwyKbCztDiilDDN19JaVdNbCZFQpujpiDNHeroUq9oC1G2YdfLrj9V3eKSJf-u1ebBOTQNfuP-WhDcJVPho7PYBp2cmQ0VmhQ&si=APYL9bs7Hg2KMLB-4tSoTdxuOx8BdRvHbByC_AuVpNyh0x2KzfMxsPAhwiZEXurMaV4FghdFjDxW8-kb_wAl5CzlJ4LuB7A7CZCUrHH6TRDNxXAqy2BU86fOeAnWG4ddtnuW93JPkFUY&sa=X&ved=2ahUKEwiZtPb3rbGLAxX_4zgGHfRGAacQk8gLegQIKBAB&ictx=1&biw=393&bih=736&dpr=2.75#ebo=3" className="btn bundl-btn-border">Leave a review</a>
+                                        <a target='_blank' href="https://www.google.com/search?sca_esv=c4b1341a4b7b7a8e&rlz=1C1OPNX_enIN1088IN1088&sxsrf=AHTn8zpz8heeFIffXtZFmZcBKyfoZlggHQ:1738924330168&q=bundl+designs+reviews&uds=ABqPDvxhviXT310WMxRmyLGmEwIWGxD1D4UaNg1_5mWkuvL-XEHlBMW0Wi5hXsAWml52GBwP0MgahtCC7xIzOfccgCir8jqEM-EUFl8W5TAQZtW1RiBwrQ6eg9Lumr7a35DA3UW1etJjqySLvsDCAu3swGovni-vtvN9dTjA83v60KOxD9627yKA06c5tUy_FosedF9vWioHYMgsreRYsFewxUb2IPmni2ayZr3gorMNTpcZLIypv5tgzZ33pY3Lm3ZXqLhrBu3CF3C_WNhYjJxca9Q4uc_9kNdOSyf491fLCyNbqThFA6O36UEEQF7vrZUZMHWOAEK22_BQhgx5UwnwyKbCztDiilDDN19JaVdNbCZFQpujpiDNHeroUq9oC1G2YdfLrj9V3eKSJf-u1ebBOTQNfuP-WhDcJVPho7PYBp2cmQ0VmhQ&si=APYL9bs7Hg2KMLB-4tSoTdxuOx8BdRvHbByC_AuVpNyh0x2KzfMxsPAhwiZEXurMaV4FghdFjDxW8-kb_wAl5CzlJ4LuB7A7CZCUrHH6TRDNxXAqy2BU86fOeAnWG4ddtnuW93JPkFUY&sa=X&ved=2ahUKEwiZtPb3rbGLAxX_4zgGHfRGAacQk8gLegQIKBAB&ictx=1&biw=393&bih=736&dpr=2.75#ebo=3" className="btn bundl-btn-border">{lang === 'ar' ? 'اترك تقييمك' : 'Leave a review'}</a>
                                         :
-                                        <a target='_blank' href="https://www.google.com/search?q=bundldesigns&rlz=1C1OPNX_enIN1088IN1088&oq=bundldesigns&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQRRg8MgYIAhBFGDwyBggDEEUYPDIICAQQRRgnGDsyBggFEEUYPDIGCAYQRRg8MgYIBxBFGDzSAQgzODA5ajBqN6gCALACAA&sourceid=chrome&ie=UTF-8#lrd=0x3e2efdec17da19b7:0xb10d764716306f04,3,,,," className="btn bundl-btn-border">Leave a review</a>
+                                        <a target='_blank' href="https://www.google.com/search?q=bundldesigns&rlz=1C1OPNX_enIN1088IN1088&oq=bundldesigns&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQRRg8MgYIAhBFGDwyBggDEEUYPDIICAQQRRgnGDsyBggFEEUYPDIGCAYQRRg8MgYIBxBFGDzSAQgzODA5ajBqN6gCALACAA&sourceid=chrome&ie=UTF-8#lrd=0x3e2efdec17da19b7:0xb10d764716306f04,3,,,," className="btn bundl-btn-border">{lang === 'ar' ? 'اترك تقييمك' : 'Leave a review'}</a>
                                     }
                                         {/* <a target='_blank' href="https://www.google.com/search?q=bundldesigns&rlz=1C1OPNX_enIN1088IN1088&oq=bundldesigns&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQRRg8MgYIAhBFGDwyBggDEEUYPDIICAQQRRgnGDsyBggFEEUYPDIGCAYQRRg8MgYIBxBFGDzSAQgzODA5ajBqN6gCALACAA&sourceid=chrome&ie=UTF-8#lrd=0x3e2efdec17da19b7:0xb10d764716306f04,3,,,," className="btn bundl-btn-border">Leave a review</a> */}
 
