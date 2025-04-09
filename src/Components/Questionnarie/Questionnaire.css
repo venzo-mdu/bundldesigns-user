@@ -206,6 +206,16 @@ input::placeholder {
     text-align: center;
     margin: 5% 0 0 10%;
 }
+body[dir="rtl"] .male-btn, .female-btn {
+    /* flex-grow: 1;  */
+    width: 175px; 
+    height: 50px;
+    background-color: transparent;
+    color: #000000;
+    border: 1px solid #000000;
+    text-align: center;
+    margin: 5% 10% 0 0%;
+}
 
 .male-btn:hover, .female-btn:hover {
     background-color: #000000;

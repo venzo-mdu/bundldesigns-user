@@ -122,7 +122,7 @@ export const Contactus = ({lang,setLang}) => {
                       <img className={`absolute bottom-[10px] xs:w-[90px] sm:w-[150px] sm:bottom-[-20px] lg:bottom-[-40px] md:bottom-[-40px] xs:bottom-[-60px] ${lang === 'ar' ? 'xs:right-0 sm:right-[-10%] right-[-10%] rotate-[45deg]':'xs:left-0 sm:left-[-10%] left-[-10%]'}`} src={Loginlogo} alt='login' /> 
                   </h2>
                   <h2 className='text-[40px] text-[#F3B7CE] font-[700]'>{lang === 'ar' ? 'اتصل بنا' : 'Contact Us'}</h2>
-                  <p className='sm:text-[20px] xs:pb-8 sm:pb-1 text-[20px] xs:text-[16px] md:w-[100%] lg:w-[92%] xl:w-[62%] xs:w-[350px] mx-auto'>Elevate your brand, whether online or in-store. This bundle includes comprehensive brand identity (logo, guidelines, colors, typography, patterns) and commerce collateral to enhance customer experience. Plus, get social media designs to boost sales.
+                  <p className='sm:text-[20px] xs:pb-8 sm:pb-1 text-[20px] xs:text-[16px] md:w-[100%] lg:w-[92%] xl:w-[62%] xs:w-[350px] mx-auto'>{lang === 'ar' ? '' : 'Elevate your brand, whether online or in-store. This bundle includes comprehensive brand identity (logo, guidelines, colors, typography, patterns) and commerce collateral to enhance customer experience. Plus, get social media designs to boost sales.'}
                   </p>
                   <img className={`sm:!w-[200px] !w-[200px] xs:!w-[130px] bottom-[-50px] left-[-30px] right-[10%] absolute sm:hidden `} src={ paperPlaneGif}></img>
     
@@ -133,7 +133,7 @@ export const Contactus = ({lang,setLang}) => {
                     <input
                       name="project_name"
                       value={formData.project_name}
-                      onChange={handleChange} placeholder='Enter the name of your project....'
+                      onChange={handleChange} placeholder={lang === 'ar' ? '' :'Enter the name of your project....'}
                       className='w-full text-[16px] focus:outline-none px-2 sm:py-2  xs:py-4 border !border-[#b0b0b0] mt-3 !rounded-none'></input>
                     {errors.project_name && <p className="text-red-500 text-sm">{errors.project_name}</p>}
                   </div>
@@ -143,7 +143,7 @@ export const Contactus = ({lang,setLang}) => {
                     type="text"
                     name="name"
                     value={formData.name}
-                    placeholder='ex: Nora Albaiz..'
+                    placeholder={lang === 'ar' ? '' : 'ex: Nora Albaiz..'}
                     onChange={handleChange}
                     className="w-full border text-[16px]  !border-[#b0b0b0] focus:outline-none px-2 sm:py-2  xs:py-3 !rounded-none"
                   />
@@ -155,7 +155,7 @@ export const Contactus = ({lang,setLang}) => {
                 <label className='font-[500] text-[16px]' for='name'> {lang === 'ar' ?' رقم الهاتف':'Phone Number'}</label>
                 <PhoneNumberInput
             name="phone"
-            placeholder="ex: 569754639"
+            placeholder={lang === 'ar' ? '' : "ex: 569754639"}
             value={formData.phone}
             status={setFormData}
             extraInputClass={'!border-[#b0b0b0] text-[16px]'}
@@ -175,7 +175,7 @@ export const Contactus = ({lang,setLang}) => {
                   <input
                     type="email"
                     name="email"
-                    placeholder='ex: Nora.m.1999@gmail.com'
+                    placeholder={lang === 'ar' ? '' :'ex: Nora.m.1999@gmail.com'}
                     value={formData.email}
                     onChange={handleChange}
                     className="w-full border text-[16px] !border-[#b0b0b0] focus:outline-none px-2 sm:py-2  xs:py-3 !rounded-none"
@@ -188,7 +188,7 @@ export const Contactus = ({lang,setLang}) => {
                 <label className='font-[500] text-[16px]' for='name'>{lang === 'ar' ? 'رسالة' :'Message'} </label>
                   <textarea
                     name="message"
-                    placeholder='Describe your needs to us...  '
+                    placeholder={lang === 'ar' ? '' :'Describe your needs to us...  '}
                     value={formData.message}
                     onChange={handleChange}
                     className="w-full border text-[16px] !border-[#b0b0b0] focus:outline-none px-2 sm:py-2  xs:py-3 !rounded-none"
@@ -203,7 +203,7 @@ export const Contactus = ({lang,setLang}) => {
                 onClick={(e)=>handleSubmit(e)}
                   className="bg-[#F3B7CE] text-[24px] w-full text-white py-2 uppercase"
                 >
-                 Submit Contact Request
+                {lang === 'ar' ? '' : 'Submit Contact Request'} 
                 </button></p>
     
                 </div>

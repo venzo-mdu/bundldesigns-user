@@ -315,7 +315,6 @@ export const BundlDetail = ({user,lang,setLang}) => {
     }
    
   };
-
   return (
     <>
     {
@@ -328,12 +327,12 @@ export const BundlDetail = ({user,lang,setLang}) => {
          <div className='xs:px-2 sm:px-auto px-auto' style={{ borderBottom: '1.5px solid #000000', width: '100%' }}>
            <h2 className='sm:text-[40px] text-[40px] xs:text-[32px]'>{lang === 'ar' ? packageDetail?.package?.name_arabic :packageDetail?.package?.name_english||  ''}</h2>
            <div className='bundl-amount'>
-             <p style={{color:textColor}}  className='flex items-center'><img src={coinIcon} alt="Dollar icon" className={`inline-block ${lang === 'ar' ? 'ml-3' :'mr-3'}`} /><span> <span className='mr-0 font-[400]'>{packageID=='newbie' && lang === 'ar' ? 'بدءا من' : 'Starting from'}</span> { packageID=='newbie' ? '4880' : Math.round(packageDetail?.package?.price) || "3750 SAR"} {lang === 'ar' ? 'ريال' :'SAR'}</span></p>
+             <p style={{color:textColor}}  className='flex items-center'><img src={coinIcon} alt="Dollar icon" className={`inline-block ${lang === 'ar' ? 'ml-3' :'mr-3'}`} /><span> <span className='mr-0 font-[400]'>{packageID === 'newbie' ? (lang === 'ar' ? 'بدءا من' : 'Starting from') :''}</span> { packageID==='newbie' ? '4880' : Math.round(packageDetail?.package?.price) || "3750 SAR"} {lang === 'ar' ? 'ريال' :'SAR'}</span></p>
              <p style={{color:textColor}}  className='items-center flex'><AccessTimeIcon className={`${lang === 'ar' ? 'ml-1' :'mr-1'}`}/><span> {packageDetail?.package?.time || "30 Days"} {lang === 'ar' ?'يوما':'Days'}</span></p>
            </div>
-           <p className='bundl-desc-title text-[20px] sm:text-[20px] xs:text-[16px] w-full sm:w-full xs:w-[350px] mx-auto'>Outcomes to Brand Identity + Add-ons.</p>
+           <p className='bundl-desc-title text-[20px] sm:text-[20px] xs:text-[16px] w-full sm:w-full xs:w-[350px] mx-auto'>{lang === 'ar' ? '' : 'Outcomes to Brand Identity + Add-ons.'}</p>
            <p className='bundl-desc'>{lang === 'ar'? packageDetail?.package?.description_arabic : packageDetail?.package?.description_english || ''}</p>
-           <p className='one-minor my-3'>* This Bundl includes one minor revision</p>
+           <p className='one-minor my-3'>{lang === 'ar' ? '' : '* This Bundl includes one minor revision'}</p>
          </div>
  
          <div className='bundl-section'>
@@ -342,7 +341,7 @@ export const BundlDetail = ({user,lang,setLang}) => {
              <input id='brandInput'  className={`brand-input rounded-none ${brandError && '!border-[red] rounded-none'}`} value={brandInput} onChange={(e) => {setBrandInput(e.target.value)
            
               setBrandError(false)}} />
-                {brandError && <p className='text-[red]'>Please enter name of the brand</p>}
+                {brandError && <p className='text-[red]'>{lang === 'ar' ? '' : 'Please enter name of the brand'}</p>}
              <div className='commerce-collateral'>
                {bundlAddons.bundle_details?.map((bundle, index) => {
                  return <div key={index} className='bundle-section' style={window.innerWidth <= 475 ? { margin: '5% 0 0 0' }:{ margin: '3% 0 0 0' }}>
@@ -544,7 +543,7 @@ export const BundlDetail = ({user,lang,setLang}) => {
            <div>
                {
                  addonPayLoads?.item_list?.length > 0 && (
-                   <p className={`lg:text-[20px] md:text-[20px] xs:text-[16px] mb-0 font-[700]  border-b-[1px] border-black px-[2%] py-[1%] ${lang === 'ar' ? 'text-right':'text-left'}`}>Add ons</p>
+                   <p className={`lg:text-[20px] md:text-[20px] xs:text-[16px] mb-0 font-[700]  border-b-[1px] border-black px-[2%] py-[1%] ${lang === 'ar' ? 'text-right':'text-left'}`}>{lang === 'ar' ? '' : 'Add ons'}</p>
                  )
                }
              </div>

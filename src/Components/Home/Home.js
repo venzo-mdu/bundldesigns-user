@@ -1690,6 +1690,16 @@ export const Home = ({lang,setLang}) => {
         if (document.body.dir !== direction) {
             document.body.dir = direction;
         }
+        const navElements = document.getElementsByClassName('nav-section');
+        if (navElements.length > 0) {
+            Array.from(navElements).forEach((el) => {
+                el.setAttribute('dir', "ltr");
+            });
+        }
+        const navMenuAr = document.getElementById('nav-menus-ar');
+        if (navMenuAr) {
+            navMenuAr.setAttribute('dir', direction);
+        }
     }, [lang]);
 
 
@@ -1818,7 +1828,7 @@ export const Home = ({lang,setLang}) => {
                                             </div>
                                         </div>
                                       
-                                        <div className="col-1 col-md-1 col-lg-6">
+                                        <div className="col-1 col-md-1 col-lg-6" id='nav-menus-ar'>
                                             <div className="navbar navbar-expand-lg justify-content-end">
                                                 <div className=" navbar-collapse !mt-4" id="mainNav">
                                                     <ul className=" mx-auto flex align-items-center ">
@@ -1842,8 +1852,9 @@ export const Home = ({lang,setLang}) => {
                                                 </div>
                                             </div>
                                         </div>
+                                        {/* ${lang !== 'ar' && 'float-right'} */}
                                         <div className="col-7 relative !mt-4 col-md-8 col-lg-3 text-end ">
-                                            <div className={`navbar navbar-expand-lg ${lang !== 'ar' && 'float-right'}`}>
+                                            <div className={`navbar navbar-expand-lg float-right`}>
                                                 <ul className=" mr-auto h-list align-items-center ">
                                                     <li className='px-[6px]' >
                                                         <a onClick={() => { setSearchShow(!searchShow);setProfileVisible(false) }} className="cursor-pointer"><img src={Search} alt="" className="navIcons"></img></a>
@@ -2005,7 +2016,7 @@ export const Home = ({lang,setLang}) => {
                                         </div>
                                         {/* <h1 className='!text-black sm:px-[9%] xs:px-[11%]  lg:px-[10%] !w-[100%] xs:!text-[26px] sm:!text-[58px] !text-[58px]'><span>هوية بصرية تصميم جرافيكي متاجر
                     الكترونية​ Elevating</span> brands & shaping legacies, one <span>extraordinary design</span> at a <i>time.</i></h1> */}
-                      <h1 className='!text-black sm:px-[9%] xs:px-[11%]  lg:px-[10%] !w-[100%] xs:!text-[26px] sm:!text-[58px] !text-[58px]'><span>{lang === 'ar' ? '' :'Elevating'}</span>{lang === 'ar' ? '' : 'brands & shaping legacies, one' }<span>{lang === 'ar' ? '' :'extraordinary design'}</span>{lang === 'ar' ? '' : 'at a ' }<i>{lang === 'ar' ? '' :'time.'}</i></h1>
+                      <h1 className='!text-black sm:px-[9%] xs:px-[11%]  lg:px-[10%] !w-[100%] xs:!text-[26px] sm:!text-[58px] !text-[58px]'><span>{lang === 'ar' ? '' :'Elevating '} </span>{lang === 'ar' ? '' : 'brands & shaping legacies, one ' }<span>{lang === 'ar' ? '' :'extraordinary design '}</span>{lang === 'ar' ? '' : ' at a ' }<i>{lang === 'ar' ? '' :'time.'}</i></h1>
                                         <div className="button-container scroller">
                                             <ul className="scroll-button h-[46px] scroller__inner_btn">
                                                 <li><span><a className='text-black' href='#ourBundl'>{lang === 'ar' ?'تصفح باقاتنا':'Shop our Bundls'}</a></span></li>

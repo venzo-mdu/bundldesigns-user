@@ -718,7 +718,7 @@ export const MyCart = ({lang,setLang}) => {
             <div className='mycart '>
 
                 <div className='cart !xs:border-none  sm:!pb-[170px] !pb-[170px] xs:!pb-[20px]'>
-                    <p  className='flex font-[500]  !text-[18px] items-center text-black mt-[2%]'> <img src={backIcon} className={`${lang === 'ar' ?'ml-2 scale-x-[-1]':'mr-2'} w-[30px] cursor-pointer`} onClick={()=>handleBackClick()}></img><span className='cursor-pointer' onClick={()=>handleBackClick()}> Back to Bundl</span> </p>          
+                    <p  className='flex font-[500]  !text-[18px] items-center text-black mt-[2%]'> <img src={backIcon} className={`${lang === 'ar' ?'ml-2 scale-x-[-1]':'mr-2'} w-[30px] cursor-pointer`} onClick={()=>handleBackClick()}></img><span className='cursor-pointer' onClick={()=>handleBackClick()}>{lang === 'ar' ? '' :' Back to Bundl'}</span> </p>          
                     {/* {isDirect == false && <p onClick={()=>handleBackClick()} className='flex font-[500] cursor-pointer !text-[18px] items-center text-black mt-[2%]'> <img src={backIcon} className='mr-2 w-[30px]' onClick={()=>handleBackClick()}></img> Back to Bundl </p>}           */}
                     <p className='!xs:text-[16px] font-[700] !sm:text-[20px]'>{lang === 'ar' ? 'عربة التسوق الخاصة بك':'Your Cart'}</p>
                     {isMobile  ? 

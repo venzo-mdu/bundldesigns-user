@@ -113,7 +113,7 @@ export default function FAQ({lang,setLang}) {
     const response = await axios.get(`${base_url}/api/content?section=faq`);
     if (response.data) {
       setFaqs(response.data);
-      setCurrentTab(response.data.categories[0].name_english)
+      setCurrentTab(lang === 'ar' ? response.data.categories[0].name_arabic : response.data.categories[0].name_english)
     }
     setLoading(false)
 
@@ -145,16 +145,16 @@ export default function FAQ({lang,setLang}) {
                   <button
                     key={category.name_english}
                     className={`uppercase lg:px-[20px] xs:min-w-[100px] sm:min-w-min xs:text-[14px] sm:text-[18px] text-[18px] md:px-[10px] xs:px-[5px] sm:px-[5px] md:py-[3px] md:text-[16px] lg:py-[5px]  
-            ${currentTab === category.name_english
+            ${currentTab === (lang === 'ar' ? category?.name_arabic : category.name_english)
                         ? "text-white bg-[#1BA56F]"
                         : "text-[#1BA56F] bg-white"
                       } border-r border-t border-b 
             ${index === 0 ? lang==='ar'?'border-r':"border-l" : ""} 
             ${index === faqs.categories.length - 1 ? lang==='ar'?'border-l':"border-r" : ""} 
             !border-[#1BA56F]`}
-                    onClick={() => setCurrentTab(category.name_english)}
+                    onClick={() => setCurrentTab(lang === 'ar' ? category?.name_arabic : category.name_english)}
                   >
-                    {category.name_english}
+                    {lang === 'ar' ? category.name_arabic : category.name_english}
                   </button>
                 ))}
               </div>
@@ -179,18 +179,18 @@ export default function FAQ({lang,setLang}) {
               {currentTab && <h2 className='mb-10 sm:mb-10 xs:mb-8 xs:text-[24px] text-[28px] sm:text-[28px] uppercase'>{currentTab}</h2>}
               {
                 faqs.data.map((faq) => {
-                  if (faq.category_english == currentTab) {
+                  if ((lang === 'ar' ? faq?.category_arabic : faq.category_english) == currentTab) {
                     return <div className=' border-none mt-2 mb-4'>
 
                       <div className='flex items-center mb-2'>
                         <img className='w-[24px]' src={msgIcon}></img>
-                        <p className='lg:text-[24px] pl-1 font-bold md:text-[18px] mb-0'>{faq.question_english}</p>
+                        <p className='lg:text-[24px] pl-1 font-bold md:text-[18px] mb-0'>{lang === 'ar' ? faq.question_arabic : faq.question_english}</p>
                       </div>
 
                       <div
                         id="description"
                         className=" text-[#00000080] sm:pl-[30px] pl-[30px] xs:px-[10px]  lg:text-[18px] md:text-[18px] xs:text-[16px] "
-                        dangerouslySetInnerHTML={{ __html: faq.answer_english }}
+                        dangerouslySetInnerHTML={{ __html: lang === 'ar' ? faq?.answer_arabic : faq.answer_english }}
                       />
                     </div>
                   }

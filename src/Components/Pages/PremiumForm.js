@@ -100,7 +100,7 @@ export default function PremiumForm({lang,setLang}) {
       <div className='font-Helvetica'>
 
         <div className='mt-12 mb-10'>
-          <h2 className='text-[32px] mb-2 text-center'>Premium Form</h2>
+          <h2 className='text-[32px] mb-2 text-center'>{lang === 'ar' ? '' : 'Premium Form'}</h2>
           <h3 className='text-[24px] mb-2 text-center text-[#1BA56F]'>{lang === 'ar' ? 'اتصل بنا' :'Contact Us!'}</h3>
           <form onSubmit={handleSubmit} className="p-6 sm:max-w-[90vw] md:max-w-[50vw] mx-auto space-y-4">
             {/* Name Field */}
@@ -109,7 +109,7 @@ export default function PremiumForm({lang,setLang}) {
                 type="text"
                 name="project_name"
                 value={formData.project_name}
-                placeholder='Name of Project'
+                placeholder={lang === 'ar' ? '' : 'Name of Project'}
                 onChange={handleChange}
                 className="w-full border  outline-none p-2 !rounded-none"
               />
@@ -171,10 +171,10 @@ export default function PremiumForm({lang,setLang}) {
               type="submit"
               className="bg-[#1BA56F] text-white p-1 uppercase  px-4"
             >
-              Submit Form
+              {lang === 'ar' ? '' : 'Submit Form'}
             </button></p>
-            <p className='text-center flex items-center justify-center font-bold'> <MailOutlineIcon style={{ marginRight: '2px' }} /> <span className='pl-1'>info@bundldesigns.com</span> </p>
-            <p className='text-center flex items-center justify-center font-bold'> < WhatsAppIcon /> <span className='pl-1'>+(966) 547754124</span>  </p>
+            <p className='text-center flex items-center justify-center font-bold'> <MailOutlineIcon style={{ marginRight: '2px' }} /> <span className='pl-1'>{lang === 'ar' ? '' : 'info@bundldesigns.com'}</span> </p>
+            <p className='text-center flex items-center justify-center font-bold'> < WhatsAppIcon /> <span className='pl-1'>{lang === 'ar' ? '' : '+(966) 547754124'}</span>  </p>
             {successMsg && <p className='bg-green-600 py-1 px-2 rounded text-white'>{successMsg}</p>}
 
 

@@ -59,6 +59,24 @@ export const Navbar = ({isLang,setIsLang}) => {
     setToken(getCookie('token'))
   }, []);
 
+
+  useEffect(() => {
+      const direction = isLang === 'ar' ? 'rtl' : 'ltr';
+      if (document.body.dir !== direction) {
+          document.body.dir = direction;
+      }
+      const navElements = document.getElementsByClassName('nav-section');
+      if (navElements.length > 0) {
+          Array.from(navElements).forEach((el) => {
+              el.setAttribute('dir', "ltr");
+          });
+      }
+      const navMenuAr = document.getElementById('nav-menus-ar');
+      if (navMenuAr) {
+          navMenuAr.setAttribute('dir', direction);
+      }
+  }, [isLang]);
+
   useEffect(() => {
     const handleClickOutsideProfile = (event) => {
       if (popupRef.current && !popupRef.current.contains(event.target)) {
@@ -256,7 +274,7 @@ export const Navbar = ({isLang,setIsLang}) => {
                         <a className="navbar-brand" href="/"><img src={HomeLogo} alt="" className="img-fluid"></img></a>
                       </div>
                     </div>
-                    <div className="col-1 col-md-1 col-lg-6">
+                    <div className="col-1 col-md-1 col-lg-6" id='nav-menus-ar'>
                       <div className="navbar navbar-expand-lg justify-content-end">
                         <div className=" navbar-collapse" id="mainNav">
                           <ul className="navbar-nav mt-[3%] mx-auto align-items-center ">
@@ -277,7 +295,7 @@ export const Navbar = ({isLang,setIsLang}) => {
                       </div>
                     </div>
                     <div className="col-7 relative col-md-8  col-lg-3 text-end ">
-                      <div className={`navbar navbar-expand-lg ${(isLang !== 'ar') && 'float-right'}`}>
+                      <div className={`navbar navbar-expand-lg float-right`}>
                         <ul className={`${isLang === 'ar' ? 'sm:mt-[3vh]':'sm:mt-[4vh]'} xs:mt-0 mr-auto h-list align-items-center `}>
                           <li className='px-[7px]'>
                             <a className="w-[26px] cursor-pointer"  onClick={()=>{setSearchShow(!searchShow);setProfileVisible(false)}}><img src={Search} alt="" className="navIcons"></img></a>
