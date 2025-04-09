@@ -99,7 +99,7 @@ export default function WebsterForm({lang,setLang}) {
     
             <div className='mt-12 mb-10'>
                 <h2 className='text-[32px] mb-2 text-center'>Webster Form</h2>
-                <h3 className='text-[24px] mb-2 text-center text-[#1BA56F]'>Contact Us!</h3>
+                <h3 className='text-[24px] mb-2 text-center text-[#1BA56F]'>{lang === 'ar' ? 'اتصل بنا' :'Contact Us!'}</h3>
             <form onSubmit={handleSubmit} className="p-6 sm:max-w-[90vw] md:max-w-[50vw] mx-auto space-y-4">
           {/* Name Field */}
           <div>
@@ -119,7 +119,7 @@ export default function WebsterForm({lang,setLang}) {
               type="text"
               name="name"
               value={formData.name}
-              placeholder='Name'
+              placeholder={lang === 'ar' ? 'الأسم':'Name'}
               onChange={handleChange}
               className="w-full border  p-2 !rounded-none"
             />
@@ -129,11 +129,11 @@ export default function WebsterForm({lang,setLang}) {
           {/* Phone Field */}
           <div>
           <PhoneInput
-    name="phone"
-      placeholder="Phone"
-      value={formData.phone}
-      onChange={handlePhone}
-    className="w-full border  p-2 !rounded-none"
+          name="phone"
+          placeholder={lang === 'ar' ?' رقم الهاتف':'Phone'}
+          value={formData.phone}
+          onChange={handlePhone}
+          className="w-full border  p-2 !rounded-none"
       />
             {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
           </div>
@@ -143,7 +143,7 @@ export default function WebsterForm({lang,setLang}) {
             <input
               type="email"
               name="email"
-              placeholder='Email'
+              placeholder={lang === 'ar' ? 'البريد الالكتروني':'Email'}
               value={formData.email}
               onChange={handleChange}
               className="w-full border  p-2 !rounded-none"
@@ -155,7 +155,7 @@ export default function WebsterForm({lang,setLang}) {
           <div>
             <input
               name="message"
-              placeholder='Message'
+              placeholder={lang === 'ar' ? 'رسالة' :'Message'}
               value={formData.message}
               onChange={handleChange}
               className="w-full border  p-2 !rounded-none"

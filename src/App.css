@@ -86,4 +86,5 @@ input:-webkit-autofill:focus {
 
 .PhoneInputInput{
   outline: none !important;
+  text-align: right !important;
 }

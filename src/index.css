@@ -212,3 +212,11 @@ input[type="radio"]:checked {
   color: transparent;
   -webkit-text-fill-color: transparent;
 }
+.PhoneInputInput{
+  outline: none !important;
+  text-align:left;
+}
+body[dir="rtl"] .PhoneInputInput{
+  outline: none !important;
+  text-align:right;
+}

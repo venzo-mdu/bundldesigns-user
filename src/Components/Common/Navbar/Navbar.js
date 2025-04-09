@@ -270,7 +270,7 @@ export const Navbar = ({isLang,setIsLang}) => {
                               <a className="nav-link" href="/our-work">{isLang === 'ar' ? 'مشاريعنا' :'Work'}</a>
                             </li>
                             <li className="nav-item">
-                              <a className="nav-link" href="/contact-us">{isLang === 'ar' ? 'تواصل معنا ' :'Contact Us'}</a>
+                              <a className="nav-link" href="/contact-us">{isLang === 'ar' ? 'اتصل بنا' :'Contact Us'}</a>
                             </li>
                           </ul>
                         </div>
