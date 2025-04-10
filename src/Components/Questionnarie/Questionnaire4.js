@@ -47,6 +47,10 @@ export const Questionnaire4 = ({formData,setFormData,changeLang,setChangeLang}) 
     "BUNDL",
     "(ex: Luxury shopping made easy)",
   ]
+  const placeHolders_arabic = [
+    "",
+    "",
+  ]
 
   useEffect(() => {
     const updateColumnGap = () => {
@@ -873,7 +877,7 @@ const onBackClick = () => {
                 {
                   (question.id === 15 || question.id === 16) ? (
                     <input
-                      placeholder={placeHolders[index]}
+                      placeholder={changeLang === '' ? placeHolders_arabic[index] :placeHolders[index]}
                       value={question.id === 21 ? '' : getAnswerValue(question.id)}
                       className={`question-input ${isFilled === question?.id ? 'border-red-400 border-b-[2px]':`${window?.innerWidth <= 475 ? 'border-b-[1px]':'border-b-[2px]'} border-black`}`}
                       onChange={(e) => handleChange(question.id, e.target.value)}

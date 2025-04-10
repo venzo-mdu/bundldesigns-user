@@ -326,7 +326,7 @@ export const Questionnaire5 = ({formData,setFormData,changeLang,setChangeLang}) 
 
           </div>
         ))}
-        bgTitle={'Final Thoughts'}
+        bgTitle={changeLang === 'ar' ? '' :'Final Thoughts'}
       />
     </div>
   );

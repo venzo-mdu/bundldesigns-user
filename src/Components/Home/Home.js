@@ -1684,23 +1684,20 @@ export const Home = ({lang,setLang}) => {
         };
     }, []);
 
-
     useEffect(() => {
-        const direction = lang === 'ar' ? 'rtl' : 'ltr';
-        if (document.body.dir !== direction) {
-            document.body.dir = direction;
-        }
         const navElements = document.getElementsByClassName('nav-section');
-        if (navElements.length > 0) {
+        if (navElements.length > 0 && lang === 'ar') {
             Array.from(navElements).forEach((el) => {
                 el.setAttribute('dir', "ltr");
             });
         }
         const navMenuAr = document.getElementById('nav-menus-ar');
         if (navMenuAr) {
-            navMenuAr.setAttribute('dir', direction);
+            navMenuAr.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
         }
-    }, [lang]);
+      
+    },);
+
 
 
     useEffect(() => {

@@ -21,12 +21,12 @@ export const Questionnaire3 = ({formData,setFormData,changeLang,setChangeLang}) 
   const [isFilled , setIsFilled] = useState(null)
 
   const progressLabels = [
-    { left: "Masculine", right: "Feminine" },
-    { left: "Economical", right: "Luxurious" },
-    { left: "Playful", right: "Sophisticated" },
-    { left: "Classics", right: "Modern" },
-    { left: "Mature", right: "Youthful" },
-    { left: "Formal", right: "Casual" },
+    { left:changeLang === "ar" ? "" : "Masculine",   right:changeLang === "ar" ? "" : "Feminine" },
+    { left:changeLang === "ar" ? "" : "Economical",  right:changeLang === "ar" ? "" : "Luxurious" },
+    { left:changeLang === "ar" ? "" : "Playful",     right:changeLang === "ar" ? "" : "Sophisticated" },
+    { left:changeLang === "ar" ? "" : "Classics",    right:changeLang === "ar" ? "" : "Modern" },
+    { left:changeLang === "ar" ? "" : "Mature",      right:changeLang === "ar" ? "" : "Youthful" },
+    { left:changeLang === "ar" ? "" : "Formal",      right:changeLang === "ar" ? "" : "Casual" },
   ];
 
   const placeHolders = [
@@ -36,7 +36,12 @@ export const Questionnaire3 = ({formData,setFormData,changeLang,setChangeLang}) 
     "(ex: was always passionate about creating my own perfume business)",
   ]
 
-console.log(formData,'formData')
+  const placeHolders_arabic = [
+    "",
+    "",
+    "",
+    "",
+  ]
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -221,7 +226,7 @@ console.log(formData,'formData')
               </p>
               {
                 question.answer_type === 'bar' ? '' :
-                  <input value={getAnswerValue(question.id)} placeholder={placeHolders[index]} 
+                  <input value={getAnswerValue(question.id)} placeholder={changeLang === 'ar' ? placeHolders_arabic[index] : placeHolders[index]} 
                   className={`question-input ${isFilled === question?.id ? 'border-red-400 border-b-[2px]':`${window?.innerWidth <= 475 ? 'border-b-[1px]':'border-b-[2px]'} border-black`}`}
                    onChange={(e) => handleChange(question.id, e.target.value)} />
               }
