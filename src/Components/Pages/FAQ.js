@@ -120,8 +120,7 @@ export default function FAQ({lang,setLang}) {
   }
   useEffect(() => {
     getFaqs()
-  }, [])
-
+  }, [lang])
 
   return (
     loading ?

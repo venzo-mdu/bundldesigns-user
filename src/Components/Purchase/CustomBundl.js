@@ -130,15 +130,15 @@ export const CustomBundl = ({lang,setLang}) => {
       <Navbar isLang={lang} setIsLang={setLang}/>
       <div className='bundl-detail mt-3'>
         <div style={{ borderBottom: '1.5px solid #000000', width: '100%' }}>
-          <h2>{location?.state?.title || 'Custom Bundl' }</h2>
+          <h2>{location?.state?.title || (lang === 'ar' ? '' : 'Custom Bundl') }</h2>
           {/* <p className='bundl-desc-title'>Main outcomes: Brand Identity, Commerce Collateral, Social Media Starter Kit.</p> */}
-          <p className='bundl-desc'>In this bundl, you have the freedom to mix and match from different add-ons that have been carefully curated to guarantee you find all the items needed for the success of your project.</p>
-          <p className='one-minor mt-3'>* This Bundl includes one minor revision</p>
+          <p className='bundl-desc'>{lang === 'ar' ? '' : 'In this bundl, you have the freedom to mix and match from different add-ons that have been carefully curated to guarantee you find all the items needed for the success of your project.'}</p>
+          <p className='one-minor mt-3'>{lang === 'ar' ? '' : '* This Bundl includes one minor revision'}</p>
         </div>
 
         <div className='bundl-section'>
           <div className='brand-details'>
-            <p style={window.innerWidth<=441 ? {fontSize:'24px',fontWeight: '700'}:{ textAlign: 'left', fontSize: '32px', fontWeight: '700' }}>What is the name of your brand?</p>
+            <p style={window.innerWidth<=441 ? {textAlign:lang === 'ar' ? 'right' : 'left',fontSize:'24px',fontWeight: '700'}:{ textAlign:lang === 'ar' ? 'right' : 'left', fontSize: '32px', fontWeight: '700' }}>{lang === 'ar' ? 'ما هو اسم علامتك التجارية؟' : 'What is the name of your brand?'}</p>
             <input id='brandInput'  className={`brand-input ${brandError && '!border-[red]'}`} value={brandInput}
              onChange={(e) => {setBrandInput(e.target.value)   
            setBrandError(false)}} 
@@ -146,21 +146,23 @@ export const CustomBundl = ({lang,setLang}) => {
              {brandError && <p className='text-[red]'>Please enter name of the brand</p>}
             <div style={{ margin: '5% 0 0 0' }}>
               <Accordian
-                accordianTitle={'Customize your Bundl!'}
+                accordianTitle={lang === 'ar' ? '' : 'Customize your Bundl!'}
                 textColor={'#1BA56F'}
                 addOnPayload={setAddonPayLoads}
                 extraQty ={{}}
                 searchParams={query}
+                isLang={lang}
+                bundlePackageId={'custombundl'}
               />
             </div>
 
           </div>
          
-          <div className='bundl-summary !border-black border max-h-[80%] overflow-scroll'>
+          <div className='bundl-summary  max-h-[80%] overflow-scroll'>
             <div className='bundl-name'>
               <p className='sm:text-[24px] xs:mb-0 xs:flex xs:justify-between sm:block' style={{ fontWeight: '700', padding: '2% 0%' }}>
-               <span>Summary</span>
-    {isMobile && <button onClick={()=> setDetails(!showDetails)} className='text-[14px] text-[#1BA56F] font-normal underline uppercase'>Show Details</button>}
+               <span>{lang === 'ar' ? 'ملخص' : 'Summary'}</span>
+    {isMobile && <button onClick={()=> setDetails(!showDetails)} className='text-[14px] text-[#1BA56F] font-normal underline uppercase'>{showDetails ? 'Hide Details' : 'Show Details'}</button>}
               </p>
 
             </div>
@@ -168,7 +170,7 @@ export const CustomBundl = ({lang,setLang}) => {
           <div className='bundl-name'>
               {
                 addonPayLoads?.length > 0 && (
-                  <p style={{ fontSize: '24px', fontWeight: '700', padding: '2% 0%' }}>Add ons</p>
+                  <p style={{ fontSize: '24px', fontWeight: '700', padding: '2% 0%' }}>{lang === 'ar' ? '' : 'Add ons'}</p>
                 )
               }
             </div>
@@ -176,31 +178,35 @@ export const CustomBundl = ({lang,setLang}) => {
               <div key={idx} className='one-brand-identity block xs:flex sm:block'>
                 <p className='text-[#000] sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[45%]' >{addon.qty} {addon.addon_name}</p>
                 <div className='flex xs:w-[55%] sm:w-full w-full'>
-                  <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[55%]' >+ {addon.unit_time * addon.qty} Days</p>
-                  <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[45%]'>+ {addon.qty ==1 ? parseFloat(addon.unit_price): parseFloat(addon.unit_price) + ((parseFloat(addon.unit_price) / 100) * addon.price_increment * (addon.qty - 1)) } SAR</p>
+                  <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[55%]' >+ {addon.unit_time * addon.qty} {lang === 'ar' ? 'يوما' : 'Days'}</p>
+                  <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[45%]'>+ {addon.qty ==1 ? parseFloat(addon.unit_price): parseFloat(addon.unit_price) + ((parseFloat(addon.unit_price) / 100) * addon.price_increment * (addon.qty - 1)) } {lang === 'ar' ? 'ريال' : 'SAR'}</p>
                 </div>
               </div>
             ))}
         </>:''}
             <div className='bundl-checkout sm:mt-3 xs:mt-0'>
               <div className='total ' style={{ display: 'flex' }}>
-                <p className='w-[60%] flex items-center sm:mb-2 xs:mb-0'><img src={BlackDollor} alt="Total Price" className="inline-block ml-1"/><span className='ml-3 font-bold'>Total Price :</span></p>
-                <p className='w-[40%] xs:text-right sm:text-left !font-bold sm:mb-2 xs:mb-0' >{ addonPayLoads.total_price } SAR</p>
+                <p className='w-[60%] flex items-center sm:mb-2 xs:mb-0'><img src={BlackDollor} alt="Total Price" className="inline-block ml-1"/><span className='ml-3 font-bold'>{lang === 'ar' ? 'السعر الإجمالي :' : 'Total Price :'}</span></p>
+                <p className='w-[40%] xs:text-right sm:text-left !font-bold sm:mb-2 xs:mb-0' >{ addonPayLoads.total_price } {lang === 'ar' ? 'ريال' : 'SAR'}</p>
               </div>
               <div className='total  flex items-center' >
-                <p className='w-[60%] flex items-center  sm:mb-2 xs:mb-0'><img src={BlackTime} alt="Total Duration" className="inline-block"/><span className='ml-1'>Total Duration :</span></p>
-                <p className='w-[40%] xs:text-right sm:text-left sm:mb-2 xs:mb-0'>{ addonPayLoads.total_time} Days</p>
+                <p className='w-[60%] flex items-center  sm:mb-2 xs:mb-0'><img src={BlackTime} alt="Total Duration" className="inline-block"/><span className='ml-1'>{lang === 'ar' ? 'المدة الإجمالية :' : 'Total Duration :'}</span></p>
+                <p className='w-[40%] xs:text-right sm:text-left sm:mb-2 xs:mb-0'>{ addonPayLoads.total_time} {lang === 'ar' ? 'يوما' : 'Days'}</p>
               </div>
 
               <div className='proceed-checkout'>
-                 <button onClick={createPayload} className='proceed  bg-[#1BA56F] uppercase'>Proceed Checkout</button> 
+                 <button onClick={createPayload} className='proceed  bg-[#1BA56F] uppercase'>{lang === 'ar' ? 'متابعة الخروج' : 'Proceed Checkout'}</button> 
               </div>
-              {firstOrder && <p className='proceed-text'>Your minimum total should be above 800 SAR</p>}
+              {firstOrder && <p className='proceed-text'>{lang === 'ar' ? 'يجب أن يكون الحد الأدنى للمجموع أكثر من 700 ريال سعودي' : 'Your minimum total should be above 4880 SAR'}</p>}
             </div>
           </div>
         </div>
       </div>
-      <Footer isLang={lang}/>
+      {
+              window?.innerWidth >= 500 && (
+                <Footer isLang={lang} />
+              )
+            }
     </div>
   )
 }

@@ -206,7 +206,7 @@ input::placeholder {
     text-align: center;
     margin: 5% 0 0 10%;
 }
-body[dir="rtl"] .male-btn, .female-btn {
+body[dir="rtl"] .male-btn, body[dir="rtl"] .female-btn {
     /* flex-grow: 1;  */
     width: 175px; 
     height: 50px;

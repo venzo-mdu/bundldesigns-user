@@ -2013,7 +2013,7 @@ export const Home = ({lang,setLang}) => {
                                         </div>
                                         {/* <h1 className='!text-black sm:px-[9%] xs:px-[11%]  lg:px-[10%] !w-[100%] xs:!text-[26px] sm:!text-[58px] !text-[58px]'><span>هوية بصرية تصميم جرافيكي متاجر
                     الكترونية​ Elevating</span> brands & shaping legacies, one <span>extraordinary design</span> at a <i>time.</i></h1> */}
-                      <h1 className='!text-black sm:px-[9%] xs:px-[11%]  lg:px-[10%] !w-[100%] xs:!text-[26px] sm:!text-[58px] !text-[58px]'><span>{lang === 'ar' ? '' :'Elevating '} </span>{lang === 'ar' ? '' : 'brands & shaping legacies, one ' }<span>{lang === 'ar' ? '' :'extraordinary design '}</span>{lang === 'ar' ? '' : ' at a ' }<i>{lang === 'ar' ? '' :'time.'}</i></h1>
+                      <h1 className='!text-black sm:px-[9%] xs:px-[11%]  lg:px-[10%] !w-[100%] xs:!text-[24px] sm:!text-[56px] !text-[56px]'><span>{lang === 'ar' ? '' :'Elevating '} </span>{lang === 'ar' ? '' : 'brands & shaping legacies, one ' }<span>{lang === 'ar' ? '' :'extraordinary design '}</span>{lang === 'ar' ? '' : ' at a ' }<i>{lang === 'ar' ? '' :'time.'}</i></h1>
                                         <div className="button-container scroller">
                                             <ul className="scroll-button h-[46px] scroller__inner_btn">
                                                 <li><span><a className='text-black' href='#ourBundl'>{lang === 'ar' ?'تصفح باقاتنا':'Shop our Bundls'}</a></span></li>
@@ -2084,7 +2084,7 @@ export const Home = ({lang,setLang}) => {
                                             {processData.map((process, index) => (
                                                 <div
                                                     key={index}
-                                                    className={`process_title xs:text-[30px] sm:text-[30px] font-[700] ${activeProcess === index ? "title-active" : ""}`}
+                                                    className={`process_title xs:text-[28px] sm:text-[28px] font-[700] ${activeProcess === index ? "title-active" : ""}`}
                                                 >
                                                     {lang === 'ar' ? process.arabic_title:process.title}
                                                 </div>
@@ -2578,7 +2578,7 @@ export const Home = ({lang,setLang}) => {
                                                     ADD TO <br></br>CART
                                                 </NavLink> */}
                                             </span>
-                                            <div className="main_inside5 cursor-pointer" onClick={()=>navigate('/custombundl',{state:{title: 'Custom Bundl'}})}></div>
+                                            <div className="main_inside5 cursor-pointer" onClick={()=>navigate('/custombundl',{state:{title:lang === 'ar' ? '' : 'Custom Bundl'}})}></div>
                                         </div>
                                     </div>
 

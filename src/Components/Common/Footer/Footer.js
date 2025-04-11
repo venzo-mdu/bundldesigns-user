@@ -109,7 +109,7 @@ export const Footer = ({isLang}) => {
                     <p className='copyright'> {isLang === 'ar' ? `${new Date().getFullYear()} BundIDesigns، جميع الحقوق محفوظة`:`${new Date().getFullYear()} BundlDesigns, All rights reserved`}.</p>
                     <div className='policies'>
                         <a className='!text-[14px] !text-[#FFFFFFCC]' href='/terms-and-conditions'>{isLang === 'ar' ? 'شروط الخدمة':'Terms & Conditions'}</a>
-                        <a className='!text-[14px] !text-[#FFFFFFCC]' href='privacy-policy'>{isLang === 'ar' ? 'سياسة الخصوصية':'Privacy Policy'}</a>
+                        <a className='!text-[14px] !text-[#FFFFFFCC]' href='/privacy-policy'>{isLang === 'ar' ? 'سياسة الخصوصية':'Privacy Policy'}</a>
                         <a className='!text-[14px] !text-[#FFFFFFCC]' href='/legal'>{isLang === 'ar' ? 'ليغا':'Legal'}</a>
                     </div>
                 </div>

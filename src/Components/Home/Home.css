@@ -1095,14 +1095,14 @@ top: 0;
 left: 0;
 } */
 .sub-headeing {
-font-size: 40px;
+font-size: 38px;
 font-weight: 700;
 line-height: 49px;
 text-transform: uppercase;
 }
 
 .f-20 {
-font-size: 20px;
+font-size: 18px;
 }
 
 .step-process-out {
@@ -1475,7 +1475,7 @@ opacity: 1;
 .process_description {
 color: var(--blsck, #000);
 text-align: center;
-font-size: 24px;
+font-size: 22px;
 font-style: normal;
 font-weight: 400;
 line-height: normal;
@@ -1807,7 +1807,7 @@ height: 280px;
 
 .newbie {
 color: #010101;
-font-size: 52px;
+font-size: 50px;
 font-style: normal;
 font-weight: 700;
 line-height: .8;
@@ -1842,21 +1842,21 @@ border-bottom: 1px solid black;
 
 .sar_text {
 color: var(--blsck, #000);
-font-size: 20px;
+font-size: 18px;
 font-weight: 700;
 line-height: 32px;
 /* 106.667% */
 }
 
 .sar_text span, .working_days span {
-font-size: 16px;
+font-size: 14px;
 font-weight: 300;
 line-height: 32px;
 }
 
 .working_days {
 color: var(--blsck, #000);
-font-size: 20px;
+font-size: 18px;
 font-style: normal;
 font-weight: 700;
 line-height: 32px;
@@ -2742,7 +2742,7 @@ margin-top: 35px;
 }
 
 .bundl-box-inner .title {
-font-size: 40px;
+font-size: 38px;
 font-weight: 700;
 line-height: 1;
 margin-bottom: 0px;
@@ -2751,7 +2751,7 @@ color: #000000;
 }
 
 .bundl-box-inner .desc {
-font-size: 19px;
+font-size: 17px;
 font-weight: 300;
 line-height: 26px;
 margin-bottom: 30px;
@@ -2759,7 +2759,7 @@ margin-bottom: 30px;
 
 .bundl-box-inner .bundl-btn {
 width: 100%;
-font-size: 20px;
+font-size: 18px;
 font-weight: 400;
 line-height: 30px;
 text-align: center;
@@ -2858,7 +2858,7 @@ padding: 50px 0;
 border-radius: 0;
 border: 1px solid #000000;
 padding: 10px 35px;
-font-size: 24px;
+font-size: 22px;
 font-weight: 400;
 line-height: 30px;
 text-transform: uppercase;
@@ -2883,21 +2883,21 @@ text-align: center;
 }
 
 .fact-section .sub-head {
-font-size: 60px;
+font-size: 58px;
 font-weight: 500;
 line-height: 73px;
 color: #fff;
 }
 
 .fact-section .title {
-font-size: 180px;
+font-size: 178px;
 font-weight: 700;
 line-height: 281px;
 color: #ECEAEB;
 }
 
 .fact-section .desc {
-font-size: 40px;
+font-size: 38px;
 font-weight: 400;
 line-height: 48px;
 color: #fff;
@@ -2968,7 +2968,7 @@ text-align: center;
 }
 
 .testimonial-inner .testimonial_content {
-font-size: 24px;
+font-size: 22px;
 font-weight: 500;
 line-height: 29px;
 color: #000000;
@@ -3012,7 +3012,7 @@ margin: auto;
 }
 
 .testimonial-inner .name {
-font-size: 20px;
+font-size: 18px;
 font-weight: 700;
 line-height: 29px;
 }
@@ -3702,7 +3702,7 @@ animation-delay: 2s;
 
 .content_s,
 .sub-headeing {
-  font-size: 32px;
+  font-size: 30px;
 }
 
 .pick_design_content {
@@ -3710,7 +3710,7 @@ animation-delay: 2s;
 }
 
 .f-20 {
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1.4;
   padding: 0 12px;
 }
@@ -3729,7 +3729,7 @@ animation-delay: 2s;
 }
 
 .newbie {
-  font-size: 17px;
+  font-size: 15px;
   line-height: 1.4;
 }
 
@@ -3773,7 +3773,7 @@ animation-delay: 2s;
 
 .sar_text,
 .working_days {
-  font-size: 12px;
+  font-size: 10px;
   line-height: 1.3;
 }
 
@@ -3786,7 +3786,7 @@ animation-delay: 2s;
 .sar_text span, .working_days span {
   display: block;
   line-height: 1.3;
-  font-size: 7.2px;
+  font-size: 5.2px;
   text-transform: none;
 }
 
@@ -3864,22 +3864,22 @@ body[dir="rtl"] .second_brand_section {
 }
 
 .bundl-btn-border {
-  font-size: 16px;
+  font-size: 14px;
   padding: 6px 20px;
 }
 
 .fact-section .sub-head {
-  font-size: 30px;
+  font-size: 28px;
   line-height: 1.4;
 }
 
 .fact-section .title {
-  font-size: 115px;
+  font-size: 113px;
   line-height: 1.4;
 }
 
 .fact-section .desc {
-  font-size: 15px;
+  font-size: 13px;
 }
 
 .section {
@@ -3887,7 +3887,7 @@ body[dir="rtl"] .second_brand_section {
 }
 
 .testimonial-inner .testimonial_content {
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1.5;
 }
 
@@ -3902,7 +3902,7 @@ body[dir="rtl"] .second_brand_section {
 }
 
 .testimonial-inner .name {
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .testimonial-bg1 {
@@ -3920,7 +3920,7 @@ body[dir="rtl"] .second_brand_section {
 }
 
 .quetions-container .sub-headeing {
-  font-size: 20px;
+  font-size: 18px;
   line-height: 1.3;
 }
 
@@ -4675,7 +4675,7 @@ top: 0;
 left: 0;
 }
 .our-process h2{
-font-size: 40px;
+font-size: 38px;
 font-weight: 700;
 line-height: 49px;
 text-transform: uppercase;
@@ -4750,7 +4750,7 @@ font-size: 20px;
   padding: 0px 14px !important;
 }
 .bundl-btn-border{
-  font-size: 20px;
+  font-size: 18px;
   /* width: 45%; */
 }
 .h-list{
@@ -4820,19 +4820,19 @@ font-size: 20px;
   margin: 10% 0 0 0;
 }
 .newbie{
-  font-size: 25px;
+  font-size: 23px;
 }
 .fact-section .sub-head {
-  font-size: 35px;
+  font-size: 33px;
 }
 .fact-section .title{
-  font-size: 100px;
+  font-size: 98px;
 }
 .bundl-box-inner .desc{
-  font-size: 14px;
+  font-size: 12px;
 }
 .bundl-box-inner .title{
-  font-size: 25px;
+  font-size: 23px;
 }
 .bt-1{
   width: 100%;
@@ -4923,7 +4923,7 @@ font-size: 20px;
   align-items: center;
 }
 .our-process h2{
-  font-size: 32px;
+  font-size: 30px;
   line-height: 15px;
 }
 .dotted-line{
@@ -4968,7 +4968,7 @@ font-size: 20px;
   left: -2%;
 }
 .bundl-btn-border{
-  font-size: 15px;
+  font-size: 14px;
   /* width: 100%; */
 }
 .nav-item{
@@ -5041,7 +5041,7 @@ font-size: 20px;
   font-size: 12px;
 }
 .newbie{
-  font-size: 18px;
+  font-size: 16px;
 } 
 .pkg-sub-title{
   font-size: 14px;

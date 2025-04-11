@@ -72,7 +72,7 @@ export const AboutUs = ({ lang, setLang }) => {
                 <div className='basis-[50%] border-t border-r border-l relative py-4 !border-black'>
                   <h1 className='px-28 text-[32px] !text-black sm:text-[22px] xs:text-[22px]   md:text-[28px] uppercase'>{lang === 'ar' ? 'مهمتنا' : 'Mission'}</h1>
                   <p className='xl:px-48 md:px-20 xl:text-[20px] md:text-[18px] xs:text-[16px] xs:px-[5%]'>{lang === 'ar' ? aboutUs?.mission_arabic : aboutUs.mission}</p>
-                  <img className={`absolute lg:top-[130px] md:top-[50px] top-[130px]  xs:top-[-50px] xs:w-[100px] ${lang === 'ar' ? 'right-0 scale-x-[-1] xl:top-[10px]':'left-0'} xl:top-[70px] xl:w-[260px] md:w-[160px]`} src={paperPlane}></img>
+                  <img className={`absolute lg:top-[130px]  top-[130px]  xs:top-[-50px] xs:w-[100px] ${lang === 'ar' ? 'right-0 scale-x-[-1] xl:top-[10px] md:top-[75px]':'left-0 md:top-[130px]'} xl:top-[70px] xl:w-[260px] md:w-[160px]`} src={paperPlane}></img>
 
                 </div>
                 <div className='!z-10 basis-[50%] border-t border-r xs:border-l md:border-l-0  py-4   relative !border-black font-Helvetica'>
