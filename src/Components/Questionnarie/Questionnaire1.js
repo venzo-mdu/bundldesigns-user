@@ -22,7 +22,8 @@ export const Questionnaire1 = ({formData,setFormData,changeLang,setChangeLang}) 
   const [fetchQ1Answers, setFetchQ1Answers] = useState([]);
   const [requiredQuestions , setRequiredQuestions] = useState([]);
   const [isFilled , setIsFilled] = useState(null)
-  const currentAnswer = useSelector((state) => state.questionnaire1)
+  const currentAnswer = useSelector((state) => state.questionnaire1);
+  console.log(currentAnswer,formData,"ee")
   const placeHolders = [
     "Project Name",
     "(ex:Fashion,Food,Services,Personal Brand,etc...)",
@@ -70,7 +71,7 @@ export const Questionnaire1 = ({formData,setFormData,changeLang,setChangeLang}) 
     fetchQuestions();
     fetchAnswers();
   }, []);
-
+ 
   const showToastMessage = () => {
     if (!toast.isActive('required-value-toast')) {
       toast.error("The Value is required!", {
@@ -209,23 +210,17 @@ export const Questionnaire1 = ({formData,setFormData,changeLang,setChangeLang}) 
   
     // Check in fetched answers for other questionIds
     const fetchedAnswer = fetchQ1Answers.find((answer) => Number(answer.question_id) === Number(questionId))?.answer;
-  
+    console.log(fetchedAnswer)
     if (fetchedAnswer !== undefined && formValue === undefined) {
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        [questionId]: fetchedAnswer,
-      }));
+      // setFormData((prevFormData) => ({
+      //   ...prevFormData,
+      //   [questionId]: fetchedAnswer,
+      // }));
     }
   
     return fetchedAnswer ?? '';
   }; 
 
-
-  
-  
-  console.log(formData)
-
-  
 
   const validateFields = () => {
     // Filter required questions that are either unanswered or contain invalid values
@@ -308,7 +303,7 @@ export const Questionnaire1 = ({formData,setFormData,changeLang,setChangeLang}) 
     }
   }
   useEffect(()=>{
-    getOrderDetails()
+    getOrderDetails();
   },[])
 
 

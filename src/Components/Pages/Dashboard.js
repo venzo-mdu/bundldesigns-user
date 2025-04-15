@@ -712,7 +712,7 @@ const handleDownload = async (file) => {
                                                                 </> : <>
                                                                     <button className={`bg-[#1BA56F] ${lang === 'ar' ?'lg:ml-5 md:ml-5 xs:ml-0':'lg:mr-5 md:mr-5 xs:mr-0'} px-2 !py-0 text-[16px] ml-4 text-white font-[400] lg:mt-0 md:mt-0 xs:mt-[5%] uppercase`} onClick={() => { navigate('/adjustment', { state: { orderId: order.id, orderItemId: item.id } }) }}>{lang === 'ar' ? 'طلب تعديلات' :'Request Edits'}</button>
                                                                     <div className='flex'>
-                                                                        <span className={`${lang === 'ar' ? 'ml-2':'mr-2'} text-[16px] font-semibold text-[#1BA56F] mt-1`}>{lang === 'ar' ? 'تم الانتهاء ' :'Finished'}</span>
+                                                                        <span className={`${lang === 'ar' ? 'ml-2':'mr-2'} text-[16px] font-semibold text-[#1BA56F] mt-1`}>{lang === 'ar' ? 'تم الانتهاء ' :'Completed'}</span>
                                                                         <img src={ItemFinishedIcon}></img>
                                                                     </div>
 

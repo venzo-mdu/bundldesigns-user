@@ -139,8 +139,8 @@ export const AboutUs = ({ lang, setLang }) => {
                       <div className='basis-3/5 mt-[2%] mb-[3%] text-center text-white'>
                         <h2 className='text-white sm:text-[32px] text-[32px] xs:text-[20px] '>{aboutUs[whatwedo].title}</h2>
                         <p className='sm:text-[20px] text-[20px] xs:text-[16px] px-2 mb-4'>{aboutUs[whatwedo].content}</p>
-                        <p> <a href='/our-work' className={`text-[white] font-[500] sm:text-[20px] text-[20px] xs:text-[14px] hover:text-[white] px-[17px] py-1 !border-white border ${lang === 'ar' ? 'ml-4' : 'mr-4'} uppercase`}>{lang === 'ar' ? 'عرض أعمالنا' : 'View Our Work'}</a>
-                          <a href='/' className={`bg-white text-[${aboutUs[whatwedo].bgColor}] font-[500] border hover:text-[${aboutUs[whatwedo].bgColor}] !border-white px-[17px] sm:text-[20px] text-[20px] xs:text-[14px] py-1 uppercase`}>{lang === 'ar' ? 'ارسل رسالة' : 'Purchase Now'}</a> </p>
+                        <p> <a href='/our-work' className={`text-[white] font-[500] sm:text-[20px] text-[20px] xs:text-[14px] hover:text-[white] px-[17px] py-1 !border-white border ${lang === 'ar' ? 'ml-4' : 'mr-4'} uppercase`}>{lang === 'ar' ? 'اطلع على أعمالنا' : 'View Our Work'}</a>
+                          <a href='/' className={`bg-white text-[${aboutUs[whatwedo].bgColor}] font-[500] border hover:text-[${aboutUs[whatwedo].bgColor}] !border-white px-[17px] sm:text-[20px] text-[20px] xs:text-[14px] py-1 uppercase`}>{lang === 'ar' ? 'اطلب التصاميم الآن' : 'Purchase Now'}</a> </p>
                       </div>
 
                     </div>
@@ -319,7 +319,7 @@ export const AboutUs = ({ lang, setLang }) => {
             </div>
             <div className='text-center py-14 '>
               <h2 className='sm:w-[600px] w-[50vw] xs:w-[100vw] text-[32px] !mt-6 lg:mx-auto md:mx-auto xs:mx-0 lg:py-0 lg:px-0 md:py-0 md:px-0 xs:py-[2%] xs:px-[5%]  text-black'>{lang === 'ar' ? 'جاهز تبدأ رحلتك الابداعية معنا؟ ' : 'Inspired to start your journey to launch your next big thing ?'}</h2>
-              <p className='text-center'> <button onClick={() => { window.location.href = '/' }} className='py-1 px-3  !mt-[50px] border-black border-[1px] !mb-8 bg-white hover:!bg-black text-black uppercase  hover:text-white'>{lang === 'ar' ? 'ابدأ !' : 'Get started !'}</button> </p>
+              <p className='text-center'> <button onClick={() => { window.location.href = '/' }} className='py-1 px-3  !mt-[50px] border-black border-[1px] !mb-8 bg-white hover:!bg-black text-black uppercase  hover:text-white'>{lang === 'ar' ? 'ابدأ مشروعك الآن' : 'Get started !'}</button> </p>
             </div>
             <Footer isLang={lang} />
           </>

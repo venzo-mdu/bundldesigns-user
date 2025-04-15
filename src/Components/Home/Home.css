@@ -2883,8 +2883,8 @@ text-align: center;
 }
 
 .fact-section .sub-head {
-font-size: 58px;
-font-weight: 500;
+font-size: 38px;
+font-weight: 400;
 line-height: 73px;
 color: #fff;
 }
@@ -3869,7 +3869,7 @@ body[dir="rtl"] .second_brand_section {
 }
 
 .fact-section .sub-head {
-  font-size: 28px;
+  font-size: 13px;
   line-height: 1.4;
 }
 
@@ -4823,7 +4823,7 @@ font-size: 20px;
   font-size: 23px;
 }
 .fact-section .sub-head {
-  font-size: 33px;
+  font-size: 12px;
 }
 .fact-section .title{
   font-size: 98px;

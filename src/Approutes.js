@@ -183,10 +183,10 @@ export default function AppRouter() {
       path:'/our-work',
       element: <OurWork lang={transLanguage} setLang={setTransLanguage}/>
     },
-    {
-      path: '/premium-form',
-      element: < PremiumForm lang={transLanguage} setLang={setTransLanguage}/>
-    },
+    // {
+    //   path: '/premium-form',
+    //   element: < PremiumForm lang={transLanguage} setLang={setTransLanguage}/>
+    // },
     {
       path: '/contact-us',
       element: <Contactus lang={transLanguage} setLang={setTransLanguage}/>
@@ -196,10 +196,10 @@ export default function AppRouter() {
       element:<WebsterPremiumForm lang={transLanguage} setLang={setTransLanguage}/>
 
     },
-    {
-      path: '/webster-form',
-      element: < WebsterForm lang={transLanguage} setLang={setTransLanguage}/>
-    },
+    // {
+    //   path: '/webster-form',
+    //   element: < WebsterForm lang={transLanguage} setLang={setTransLanguage}/>
+    // },
     {
       path:"/terms-and-conditions",
       element:<TermsAndConditions lang={transLanguage} setLang={setTransLanguage}/>

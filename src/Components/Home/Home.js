@@ -2822,16 +2822,19 @@ export const Home = ({lang,setLang}) => {
                             <div className="container">
                                 <div className="quetions-container">
                                     <h2 className="sub-headeing text-upper text-black text-center mb-3">{lang === 'ar' ? 'عندك فكرة أو سؤال':'HAVE A QUESTION OR IDEA ?'}</h2>
-                                    <h4 className="h3 text-upper !text-black text-center mb-4">{lang === 'ar' ?'تواصل معنا':'let’s discuss'}</h4>
+                                    {/* <h4 className="h3 text-upper !text-black text-center mb-4">{lang === 'ar' ?'تواصل معنا':'let’s discuss'}</h4> */}
                                 </div>
-                                <div className="social-link  align-items-center">
+                                <div className='flex justify-center mx-auto'>
+                                    <a href="/contact-us" className="btn bundl-btn-border">{lang === 'ar' ? 'اترك تقييمك' : 'Contact us'}</a>
+                                </div>
+                                {/* <div className="social-link  align-items-center">
                                     <ul className="d-flex justify-content-center">
                                         <li className="social-item"><a href={`${mediaUrls.linked_in}`} target='_blank'><img src={Linkedin} alt="" className="img-fluid social-icon"></img></a></li>
                                         <li className="social-item"><a href={`${mediaUrls.instagram}`} target='_blank'><img src={Instagram} alt="" className="img-fluid social-icon"></img></a></li>
                                         <li className="social-item"><a href={`${'https://www.tiktok.com/@bundl_designs'}`} target='_blank'><img src={Tiktokpng} alt="" className="img-fluid social-icon"></img></a></li>
                                         <li className="social-item"><a href={`${'https://id.pinterest.com/BundlDesigns/'}`} target='_blank'><img src={Pinterestpng} alt="" className="img-fluid social-icon"></img></a></li>
                                     </ul>
-                                </div>
+                                </div> */}
                             </div>
                         </section>
 

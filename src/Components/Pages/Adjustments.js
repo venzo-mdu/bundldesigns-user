@@ -1437,13 +1437,13 @@ export default function Adjustments({user ,lang ,setLang}) {
                         </>
 
             }
-                        <Footer isLang={lang}/>
+                        {/* <Footer isLang={lang}/> */}
 
-            {/* {
+            {
                     window?.innerWidth >= 500 && (
                       <Footer isLang={lang}/>
                     )
-                   } */}
+                   }
 
         </>
 
