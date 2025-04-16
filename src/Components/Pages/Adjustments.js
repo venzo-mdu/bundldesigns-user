@@ -416,8 +416,8 @@ export default function Adjustments({user ,lang ,setLang}) {
         if (!billingInfo.postalCode.trim()) {
             setError({ postalCode: 'Your postal code field is empty.' })
             return false
-        } else if (!/^[0-9]{5,6}$/.test(billingInfo.postalCode)) {
-            setError({ postalCode: 'Your postal code must be 5 or 6 digits.' })
+        } else if (!/^[0-9]{2,5}$/.test(billingInfo.postalCode)) {
+            setError({ postalCode: 'Your postal code must be 2 or 5 digits.' })
             return false
         }
 

@@ -170,9 +170,9 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
                 backgroundColor: isDropdown[index] ? textColor : '#fff'
               }}
               className={`!font-[500] uppercase !text-[${textColor}] ${isDropdown[index] ? 'active-button' : 'accordian-button'} accordion-btn-${index+1}`}
-              onClick={() => {toggleDropdown(index)
+              onClick={() => {toggleDropdown(index);
                 const element = document.getElementById(`${index}_list`);
-                element.scrollIntoView({ behavior: 'smooth' })
+                // element.scrollIntoView({ behavior: 'smooth', block: 'start' })
               }}
             >
               {isLang === 'ar' ? addOnData?.designs_details?.[title]?.name_arabic : title}
@@ -182,14 +182,16 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
 
         {titleArr.map((title, index) => (
 
-          <Accordion sx={{
+          <Accordion 
+          id={`${index}_list`}
+          sx={{
             boxShadow: 'none !important',
             borderBottom: index === titleArr.length - 1 ? 'none' : '1px solid #000000',
             paddingTop: index == 0 ? '18px' : 'auto',
             '&::before': {
             display: 'none' // Hides the default before border
     }
-          }} key={index} expanded={isDropdown[index]} id={`${index}_list`}>
+          }} key={index} expanded={isDropdown[index]} >
             <AccordionSummary
               expandIcon={<ExpandMoreIcon className='text-[#000]' />}
               aria-controls={`panel${index + 1}-content`}
