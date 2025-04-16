@@ -197,24 +197,7 @@ export const Questionnaire2 = ({formData,setFormData,changeLang,setChangeLang}) 
     return fetchedAnswer ?? '';
   };
   
-  // const handleGenderChange = (selected) => {
-  //   if (selectedGender === 'both') {
-  //     if (selected === 'male') {
-  //       setSelectedGender((...prev)=>[...prev,"female"])
-  //     } else if (selected === 'female') {
-  //       setSelectedGender((...prev)=>[...prev,"male"])
-  //     }
-  //   } else if (selected === selectedGender) {
-  //     setSelectedGender([]);
-  //   } else if (
-  //     (selected === 'male' && selectedGender === 'female') ||
-  //     (selected === 'female' && selectedGender === 'male')
-  //   ) {
-  //     setSelectedGender((...prev)=>[...prev,"both"])
-  //   } else {
-  //     setSelectedGender((prev) => [...prev, selected]);
-  //   }
-  // };
+
 
   const handleGenderChange = (selected) => {
     if (selectedGender.includes("both")) {
@@ -250,49 +233,9 @@ export const Questionnaire2 = ({formData,setFormData,changeLang,setChangeLang}) 
     });
   };
 
-  // const validateFields = () => {
-  //   // Filter required questions that are either unanswered or contain invalid values
-  //   const unansweredRequiredQuestions = questions.filter((q) => {
-  //     return (
-  //       q.required && // Check if the question is marked as required
-  //       (!formData?.[q.id] || formData?.[q.id].trim() === "") // Check if there's no answer or only whitespace
-  //     );
-  //   });
-  
-  
-  //   if (unansweredRequiredQuestions.length > 0) {
-  //     showToastMessage(); // Display the error toast
-  //     return false;
-  //   }
-  
-  //   return true; // All required fields are valid
-  // };
+
 
   const validateFields = () => {
-
-    // const unansweredRequiredQuestions = questions.filter((q) => {
-    //   if (q.required) {
-    //     console.log('1')
-    //     if (q.answer_type === "age-data") {
-    //       if (
-    //         selectedGender === "female" &&
-    //         (!activeFemaleButtons || activeFemaleButtons.length === 0)
-    //       ) {
-    //         return true;
-    //       }
-    //       if (
-    //         selectedGender === "male" &&
-    //         (!activeMaleButtons || activeMaleButtons.length === 0)
-    //       ) {
-    //         return true;
-    //       }
-    //       return false;
-    //     }
-
-    //     return !formData?.[q.id] || formData?.[q.id].trim() === "";
-    //   }
-    //   return false;
-    // });
     const unansweredRequiredQuestions = questions.filter((q) => {
       if (q.required) {
         // If it's an age-data question, ensure the correct buttons are selected
@@ -306,7 +249,7 @@ export const Questionnaire2 = ({formData,setFormData,changeLang,setChangeLang}) 
         }
     
         // Default check for other required questions
-        return !formData?.[q.id] || formData?.[q.id].trim() === "";
+        return !formData?.[q.id] || formData?.[q.id]?.trim() === "";
       }
       return false;
     });

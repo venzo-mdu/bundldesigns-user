@@ -10,20 +10,20 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ConfigToken } from '../Auth/ConfigToken'
 
-export const Questionnaire1 = ({formData,setFormData,changeLang,setChangeLang}) => {
+export const Questionnaire1 = ({ formData, setFormData, changeLang, setChangeLang }) => {
 
   const location = useLocation();
   const [questions, setQuestions] = useState([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   // const [formData, setFormData] = useState();
-  const [errors,setErrors] = useState({})
+  const [errors, setErrors] = useState({})
   const [activeType, setActiveType] = useState(null);
   const [fetchQ1Answers, setFetchQ1Answers] = useState([]);
-  const [requiredQuestions , setRequiredQuestions] = useState([]);
-  const [isFilled , setIsFilled] = useState(null)
+  const [requiredQuestions, setRequiredQuestions] = useState([]);
+  const [isFilled, setIsFilled] = useState(null)
   const currentAnswer = useSelector((state) => state.questionnaire1);
-  console.log(currentAnswer,formData,"ee")
+  console.log(currentAnswer, formData, "ee")
   const placeHolders = [
     "Project Name",
     "(ex:Fashion,Food,Services,Personal Brand,etc...)",
@@ -57,31 +57,31 @@ export const Questionnaire1 = ({formData,setFormData,changeLang,setChangeLang}) 
 
     const fetchAnswers = async () => {
       try {
-        if(location?.state?.orderId != undefined){
-        const response = await axios.get(`${base_url}/api/questionnaire/update/${location.state.orderId}`, ConfigToken());
-        console.log(response)
-        setFetchQ1Answers(response.data.data)
+        if (location?.state?.orderId != undefined) {
+          const response = await axios.get(`${base_url}/api/questionnaire/update/${location.state.orderId}`, ConfigToken());
+          console.log(response)
+          setFetchQ1Answers(response.data.data)
         }
       } catch (error) {
         console.error("Error fetching questions:", error);
       }
     }
-    setActiveType(currentAnswer?.type != undefined ?currentAnswer?.type :null )
+    setActiveType(currentAnswer?.type != undefined ? currentAnswer?.type : null)
     setFormData(currentAnswer)
     fetchQuestions();
     fetchAnswers();
   }, []);
- 
+
   const showToastMessage = () => {
     if (!toast.isActive('required-value-toast')) {
       toast.error("The Value is required!", {
         position: toast?.POSITION?.TOP_RIGHT,
         toastId: 'required-value-toast',
-        icon:false,
-          style:{
-              color:'#D83D99',
-              fontWeight:'700'
-          }
+        icon: false,
+        style: {
+          color: '#D83D99',
+          fontWeight: '700'
+        }
       });
     }
   };
@@ -97,15 +97,15 @@ export const Questionnaire1 = ({formData,setFormData,changeLang,setChangeLang}) 
 
   const handleInputChange = (questionId, value) => {
     console.log(value)
-    if(questionId=='2' || questionId == '3'){
-      if(/[0-9!@#$%^&*(),.?":{}|<>]/g.test(value)){
+    if (questionId == '2' || questionId == '3') {
+      if (/[0-9!@#$%^&*(),.?":{}|<>]/g.test(value)) {
         setErrors((prev) => ({
           ...prev,
           [questionId]: 'Should not contain numbers or special characters',
         }));
         return
-      }else{
-        let temp_err =  errors
+      } else {
+        let temp_err = errors
         delete temp_err[questionId]
         setErrors(temp_err)
       }
@@ -122,66 +122,39 @@ export const Questionnaire1 = ({formData,setFormData,changeLang,setChangeLang}) 
         delete temp_err[questionId];
         setErrors(temp_err);
       }
-  
+
       setFormData((prev) => ({
         ...prev,
         [questionId]: {
-          [activeType.toLowerCase()]: value, // Store correctly
+          [activeType.toLowerCase()]: value, 
         },
       }));
     }
-    else{
+    else {
       setFormData((prev) => ({
         ...prev,
         [questionId]: value,
       }));
     }
- 
+
   };
 
 
-  // const getAnswerValue = (questionId) => {
-  //   const formValue = formData?.[questionId];
-  
-  //   // Special handling for questionId 4
-  //   if (questionId === 4 || questionId === '4') {
-  //     if (formValue && typeof formValue === 'object' && activeType) {
-  //       return formValue[activeType.toLowerCase()] || ''; // Return the value of product/service if available
-  //     }
-  //     return ''; // Return empty string if no value is found
-  //   }
-  
-  //   // Handle other questions normally
-  //   if (formValue !== undefined) {
-  //     return formValue;
-  //   }
-  
-  //   // Check in fetched answers
-  //   const fetchedAnswer = fetchQ1Answers.find((answer) => answer.question_id === questionId)?.answer;
-  //   if (fetchedAnswer !== undefined && formValue === undefined) {
-  //     setFormData((prevFormData) => ({
-  //       ...prevFormData,
-  //       [questionId]: fetchedAnswer,
-  //     }));
-  //   }
-  //   return fetchedAnswer ?? '';
-  // };
-
   const getAnswerValue = (questionId) => {
     const formValue = formData?.[questionId];
-    
+
     if (questionId === 4 || questionId === '4') {
       if (formValue && typeof formValue === 'object' && activeType) {
-        return formValue[activeType.toLowerCase()] || ''; 
+        return formValue[activeType.toLowerCase()] || '';
       }
-  
+
       // Check in fetched answers and parse if necessary
       const fetchedAnswer = fetchQ1Answers.find((answer) => Number(answer.question_id) === Number(questionId))?.answer;
-  
+
       if (fetchedAnswer) {
         try {
           // Parse the stringified object
-          const parsedAnswer = JSON.parse(fetchedAnswer.replace(/'/g, '"')); 
+          const parsedAnswer = JSON.parse(fetchedAnswer.replace(/'/g, '"'));
           if (!activeType && typeof parsedAnswer === 'object') {
             if (parsedAnswer.product) {
               setActiveType("product");
@@ -193,33 +166,37 @@ export const Questionnaire1 = ({formData,setFormData,changeLang,setChangeLang}) 
             ...prevFormData,
             [questionId]: activeType ? parsedAnswer[activeType.toLowerCase()] || '' : JSON.stringify(parsedAnswer),
           }))
-          return activeType ? parsedAnswer[activeType.toLowerCase()] || '' : JSON.stringify(parsedAnswer); 
+          return activeType ? parsedAnswer[activeType.toLowerCase()] || '' : JSON.stringify(parsedAnswer);
         } catch (error) {
           console.error('Failed to parse fetchedAnswer:', error);
           return '';
         }
       }
-  
+
       return '';
     }
-  
+
+
     // Handle other questions normally
     if (formValue !== undefined) {
       return formValue;
     }
-  
+
     // Check in fetched answers for other questionIds
     const fetchedAnswer = fetchQ1Answers.find((answer) => Number(answer.question_id) === Number(questionId))?.answer;
     console.log(fetchedAnswer)
     if (fetchedAnswer !== undefined && formValue === undefined) {
-      // setFormData((prevFormData) => ({
-      //   ...prevFormData,
-      //   [questionId]: fetchedAnswer,
-      // }));
+
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [questionId]: fetchedAnswer,
+      }));
     }
-  
+
+
+
     return fetchedAnswer ?? '';
-  }; 
+  };
 
 
   const validateFields = () => {
@@ -230,22 +207,22 @@ export const Questionnaire1 = ({formData,setFormData,changeLang,setChangeLang}) 
         (!formData?.[q.id] || (typeof formData[q.id] === "string" && formData[q.id].trim() === "")) // Check if there's no answer or only whitespace
       );
     });
-  
+
     if (unansweredRequiredQuestions.length > 0) {
-        const element = document.getElementById(`question_${unansweredRequiredQuestions[0]?.id}`);
-        setIsFilled(unansweredRequiredQuestions[0]?.id)
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth"});
-        }
-        if (!toast.isActive('required-value-toast')) {
-          showToastMessage(); 
-        } 
+      const element = document.getElementById(`question_${unansweredRequiredQuestions[0]?.id}`);
+      setIsFilled(unansweredRequiredQuestions[0]?.id)
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+      if (!toast.isActive('required-value-toast')) {
+        showToastMessage();
+      }
       return false;
     }
-  
+
     return true; // All required fields are valid
   };
-  
+
 
 
   const onNextClick = (e) => {
@@ -254,13 +231,15 @@ export const Questionnaire1 = ({formData,setFormData,changeLang,setChangeLang}) 
     if (!validateFields()) {
       return; // Stop execution if validation fails
     }
-    else{
+    else {
       dispatch(questionnaireAction1(formData));
-      navigate(`/questionnaire/${2}`,{state:{
-        orderId:location.state?.orderId
-      }});
+      navigate(`/questionnaire/${2}`, {
+        state: {
+          orderId: location.state?.orderId
+        }
+      });
       window.scrollTo({
-        top:0,
+        top: 0,
         behavior: 'smooth',
       });
     }
@@ -268,9 +247,9 @@ export const Questionnaire1 = ({formData,setFormData,changeLang,setChangeLang}) 
 
   const onSaveLaterClick = async () => {
     if (!validateFields()) {
-      return; 
+      return;
     }
-    else{
+    else {
       let data = {
         answers: formData,
         orderId: location.state?.orderId,
@@ -292,19 +271,19 @@ export const Questionnaire1 = ({formData,setFormData,changeLang,setChangeLang}) 
     }
   }
 
-  
+
   const getOrderDetails = async () => {
-    if(location.state?.orderId){
-      const response = await axios.get(`${base_url}/api/order/${ location.state?.orderId}/`, ConfigToken());
-       setFormData((prev) => ({
-         ...prev,
-         1: response.data.data.project_name, 
-       }));
+    if (location.state?.orderId) {
+      const response = await axios.get(`${base_url}/api/order/${location.state?.orderId}/`, ConfigToken());
+      setFormData((prev) => ({
+        ...prev,
+        1: response.data.data.project_name,
+      }));
     }
   }
-  useEffect(()=>{
+  useEffect(() => {
     getOrderDetails();
-  },[])
+  }, [])
 
 
   return (
@@ -315,8 +294,8 @@ export const Questionnaire1 = ({formData,setFormData,changeLang,setChangeLang}) 
         setQLang={setChangeLang}
         pageNo={1}
         storeAnswers={location.state?.questionnaireData1}
-        orderId={location.state?.orderId} 
-        bgTitle={changeLang === 'ar' ? 'عن مشروعك ' :'About your business'}
+        orderId={location.state?.orderId}
+        bgTitle={changeLang === 'ar' ? 'عن مشروعك ' : 'About your business'}
         formData={formData}
         setFormData={setFormData}
         onNextClick={onNextClick}
@@ -332,31 +311,31 @@ export const Questionnaire1 = ({formData,setFormData,changeLang,setChangeLang}) 
               }
             </p>
             {question.answer_type === "brand" && (
-              <div style={{ display: 'flex', gap: '10px',marginBottom:'3%' }}>
+              <div style={{ display: 'flex', gap: '10px', marginBottom: '3%' }}>
                 <button
                   className={`product-btn ${activeType === 'product' ? 'active' : ''}`}
                   onClick={() => handleTypeClick('product')}
                 >
-                  {changeLang === 'ar' ? 'منتج' : 'Product'} 
+                  {changeLang === 'ar' ? 'منتج' : 'Product'}
                 </button>
                 <button
                   className={`service-btn ${activeType === 'service' ? 'active' : ''}`}
                   onClick={() => handleTypeClick('service')}
                 >
-                  {changeLang === 'ar' ? 'خدمة' : 'Service' }
+                  {changeLang === 'ar' ? 'خدمة' : 'Service'}
                 </button>
               </div>
             )}
             <input
               type='text'
-              className={`question-input ${isFilled === question?.id ? 'border-red-400 border-b-[2px]':`${window?.innerWidth <= 475 ? 'border-b-[1px]':'border-b-[2px]'} border-black`}`}
+              className={`question-input ${isFilled === question?.id ? 'border-red-400 border-b-[2px]' : `${window?.innerWidth <= 475 ? 'border-b-[1px]' : 'border-b-[2px]'} border-black`}`}
               placeholder={changeLang === 'ar' ? placeHolders_arabic[index] : placeHolders[index]}
               // value={formData?.[question.id] || fetchQ1Answers[2].answer }
               value={getAnswerValue(question.id)}
               onChange={(e) => handleInputChange(question.id, e.target.value)} // Update Redux
             />
             {question.id in errors && <p className='text-[red]'>{errors[question.id]}</p>}
-            {(index === 0 && window.innerWidth >=500) ? (
+            {(index === 0 && window.innerWidth >= 500) ? (
               <div className='img-rotate-qf'>
                 <img className='rotating-image' src={Load} alt="Loading" />
               </div>

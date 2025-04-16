@@ -696,17 +696,17 @@ const handleDownload = async (file) => {
                                                         {processIndex < 4 ? lang === 'ar' ? 'قيد الانتظار' : ' ON HOLD' :order.order_status =='completed' || order.order_status =='in_review' ? lang === 'ar' ? 'كاملة':' COMPLETE' : lang === 'ar' ? 'قيد التقدم' :'IN PROGRESS'}</span>
                                                 </p>
                                                 {order?.item_details
-                                                    ?.filter(item => item.item__category !== 1 && item.type !== 'bundl')
+                                                    ?.filter(item => item?.item__id !==76 && item.type !== 'bundl')
                                                     ?.map((item, index, filteredArray) => {
                                                         const isProcessing = processIndex < 4;
                                                         const isLastItem = index === filteredArray.length - 1;
                                                         return <p className={`font-medium ${isProcessing && 'text-[#00000080]'} text-[18px] mx-1 lg:my-2 md:my-2 xs:my-0 lg:py-1 md:py-1 xs:py-2 
                                                         ${!isLastItem &&'border-b'} border-[#00000080] flex justify-between`}><span className='lg:text-[16px] md:text-[16px] xs:text-[16px]'>{lang === 'ar' ? item?.item__name_arabic :item.item_name}</span>
-                                                            <span className={`flex lg:items-center md:items-center xs:items-end lg:flex-row md:flex-row ${item.status == 'questionnaire required' || item.status == 'in process' ? 'xs:flex-row' : 'xs:flex-col-reverse'} text-[#00000080] text-[14px]`}>{processIndex >= 4 ? <>
+                                                            <span className={`flex lg:items-center md:items-center xs:items-end lg:flex-row md:flex-row ${item.status == 'questionnaire required' || item.status == 'in_process' ? 'xs:flex-row' : 'xs:flex-col-reverse'} text-[#00000080] text-[14px]`}>{processIndex >= 4 ? <>
                                                                 {item.status == 'questionnaire required' ? <>
                                                                     <span className={`${lang === 'ar' ? 'ml-2':'mr-2'} font-normal`}>{lang === 'ar' ? 'انتظار المحتوى' :'Waiting content'}</span>
                                                                     <img src={ItemWaitingIcon}></img>
-                                                                </> : item.status == 'in process' ? <>
+                                                                </> : item.status == 'in_process' ? <>
                                                                     <span className={`${lang === 'ar' ? 'ml-2':'mr-2'} font-normal`}>{lang === 'ar' ? 'قيد التقدم' : 'In Progress'}</span>
                                                                     <img src={ItemProgressIcon}></img>
                                                                 </> : <>

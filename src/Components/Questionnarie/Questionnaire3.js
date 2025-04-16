@@ -136,7 +136,7 @@ export const Questionnaire3 = ({formData,setFormData,changeLang,setChangeLang}) 
       console.log(formData[q.id],q.id)
       return (
         q.required && // Check if the question is marked as required
-        (!formData?.[q.id] || (typeof formData[q.id] === "string" && formData?.[q.id].trim() === "")) // Check if there's no answer or only whitespace
+        (!formData?.[q.id] || (typeof formData?.[q.id] === "string" && formData?.[q.id]?.trim() === "")) // Check if there's no answer or only whitespace
       );
     });
 
