@@ -55,58 +55,7 @@ export const Questionnaire2 = ({formData,setFormData,changeLang,setChangeLang}) 
     "التسوق، الرسم، السفر...الخ"
   ]
 
-  // useEffect(() => {
-  //   const fetchQuestions = async () => {
-  //     try {
-  //       const response = await axios.get(`${base_url}/api/content?section=brand_questions&page=2`);
-       
-  //       setQuestions(response.data);
-  //     } catch (error) {
-  //       console.error("Error fetching questions:", error);
-  //     }
-  //   };
-  //   setFormData(location.state?.questionnaireData2)
-  //   const fetchAnswers = async () => {
-  //     try {
-  //       if(location.state.orderId != undefined){
 
-  //       const response = await axios.get(`${base_url}/api/questionnaire/update/${location.state.orderId}`, ConfigToken());
-  //       setFetchQ2Answers(response.data.data)
-  //       const ageDataQuestion = response.data.data.find(
-  //         (item) => item.answer_type === "age-data"
-  //       );
-        
-  //       if (ageDataQuestion?.answer?.female) {
-  //         setActiveFemaleButtons(ageDataQuestion.answer.female);
-  //         setSelectedGender((...prev)=>[...prev,"female"])
-  //       }
-  //       if(ageDataQuestion?.answer?.male){
-  //         setActiveMaleButtons(ageDataQuestion.answer.male);
-  //         setSelectedGender((...prev)=>[...prev,"male"])
-  //       }  
-  //     }
-  //     } catch (error) {
-  //       console.error("Error fetching questions:", error);
-  //     }
-  //   }
-  //   setFormData(currentAnswer)
-
-  //   if ('10' in currentAnswer) {
-  //     const answer = currentAnswer['10'];
-  //     setActiveMaleButtons(answer['male'])
-  //     setActiveFemaleButtons(answer['female'])
-  //    if (answer['female'].length && answer['male'].length) {
-  //     setSelectedGender((...prev)=>[...prev,"both"])
-  //     }else if(answer['male'].length) {
-  //       setSelectedGender((...prev)=>[...prev,"male"])
-  //     }
-  //      else {
-  //       setSelectedGender((...prev)=>[...prev,"female"])
-  //     }
-  // }
-  //   fetchQuestions();
-  //   fetchAnswers();
-  // }, []);
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -249,7 +198,18 @@ export const Questionnaire2 = ({formData,setFormData,changeLang,setChangeLang}) 
         }
     
         // Default check for other required questions
-        return !formData?.[q.id] || formData?.[q.id]?.trim() === "";
+        // return !formData?.[q.id] || formData?.[q.id]?.trim() === "";
+        const value = formData?.[q.id];
+
+        if (typeof value === "string") {
+          return value.trim() === "";
+        }
+
+        if (Array.isArray(value)) {
+          return value.length === 0 || value.every(item => item.trim?.() === "");
+        }
+
+        return !value;
       }
       return false;
     });

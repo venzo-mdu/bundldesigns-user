@@ -231,7 +231,7 @@ export default function UploadContent({lang,setLang}) {
 
                                 {order && <>
                                     {order.item_details.bundle_items
-                                        .filter(item=>item.item__category !== 1 && !skipId?.includes(item.id) && item.status == 'questionnaire required')
+                                        .filter(item=>item.item__id !==76 && !skipId?.includes(item.id) && item.status == 'questionnaire required')
                                         .map((item,index,filterArr) => 
                                             Array.from({ length: item.qty }, (_, qtyIndex) => qtyIndex + 1) // Create an array [1, 2, ..., qty]
                                             .filter(qty => !item.uploaded_qty?.includes(qty)) // Exclude uploaded quantities
@@ -438,7 +438,7 @@ export default function UploadContent({lang,setLang}) {
                                             {order &&
                                                 <div className='px-[5%]'>
                                                     {order.item_details.bundle_items.map((item, itemIndex) => {
-                                                        if (item.item__category != 1) {
+                                                        if (item.item__id !==76) {
                                                             return (
                                                              <div key={itemIndex}>
                                                                 {Array.from({ length: Math.max(1, item.qty) }, (_, qtyIndex) => {
@@ -506,7 +506,7 @@ export default function UploadContent({lang,setLang}) {
 
                                     {order && <>
                                         {order.item_details.bundle_items
-                                            .filter(item=>item.item__category !== 1 && !skipId?.includes(item.id) && item.status == 'questionnaire required')
+                                            .filter(item=>item.item__id !==76 && !skipId?.includes(item.id) && item.status == 'questionnaire required')
                                             .map((item,index,filterArr) => 
                                                 Array.from({ length: item.qty }, (_, qtyIndex) => qtyIndex + 1) // Create an array [1, 2, ..., qty]
                                                 .filter(qty => !item.uploaded_qty?.includes(qty)) // Exclude uploaded quantities
@@ -690,7 +690,7 @@ export default function UploadContent({lang,setLang}) {
                                 {order &&
                                     <>
                                         {order.item_details.bundle_items.map((item,itemIndex) => {
-                                            if (item.item__category != 1) {
+                                            if (item.item__id !==76) {
                                                 return ( 
                                                 <div key={itemIndex}>
                                                  {Array.from({ length: Math.max(1, item.qty) }, (_, qtyIndex) => {

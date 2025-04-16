@@ -96,7 +96,6 @@ export const Questionnaire1 = ({ formData, setFormData, changeLang, setChangeLan
 
 
   const handleInputChange = (questionId, value) => {
-    console.log(value)
     if (questionId == '2' || questionId == '3') {
       if (/[0-9!@#$%^&*(),.?":{}|<>]/g.test(value)) {
         setErrors((prev) => ({
@@ -140,64 +139,129 @@ export const Questionnaire1 = ({ formData, setFormData, changeLang, setChangeLan
   };
 
 
+  // const getAnswerValue = (questionId) => {
+  //   const formValue = formData?.[questionId];
+
+  //   if (questionId === 4 || questionId === '4') {
+  //     if (formValue && typeof formValue === 'object' && activeType) {
+  //       return formValue[activeType.toLowerCase()] || '';
+  //     }
+
+  //     // Check in fetched answers and parse if necessary
+  //     const fetchedAnswer = fetchQ1Answers.find((answer) => Number(answer.question_id) === Number(questionId))?.answer;
+
+  //     if (fetchedAnswer) {
+  //       try {
+  //         // Parse the stringified object
+  //         const parsedAnswer = JSON.parse(fetchedAnswer.replace(/'/g, '"')) || fetchedAnswer;
+  //         console.log(parsedAnswer)
+  //         if (!activeType && typeof parsedAnswer === 'object') {
+  //           if (parsedAnswer.product) {
+  //             setActiveType("product");
+  //           } else if (parsedAnswer.service) {
+  //             setActiveType("service");
+  //           }
+  //         }
+  //         setFormData((prevFormData) => ({
+  //           ...prevFormData,
+  //           [questionId]: activeType ? parsedAnswer?.[activeType] : JSON.stringify(parsedAnswer) ,
+  //         }))
+
+  //         // setFormData((prevFormData) => ({
+  //         //   ...prevFormData,
+  //         //   [questionId]: {
+  //         //     [activeType]: activeType
+  //         //       ? parsedAnswer?.[activeType]
+  //         //       : JSON.stringify(parsedAnswer),
+  //         //   },
+  //         // }));
+  //         return activeType ? parsedAnswer?.[activeType] : JSON.stringify(parsedAnswer);
+  //       } catch (error) {
+  //         console.error('Failed to parse fetchedAnswer:', error);
+  //         return '';
+  //       }
+  //     }
+
+  //     return '';
+  //   }
+
+
+  //   // Handle other questions normally
+  //   if (formValue !== undefined) {
+  //     return formValue;
+  //   }
+
+  //   // Check in fetched answers for other questionIds
+  //   const fetchedAnswer = fetchQ1Answers.find((answer) => Number(answer.question_id) === Number(questionId))?.answer;
+  //   if (fetchedAnswer !== undefined && formValue === undefined) {
+
+  //     setFormData((prevFormData) => ({
+  //       ...prevFormData,
+  //       [questionId]: fetchedAnswer,
+  //     }));
+  //   }
+
+
+
+  //   return fetchedAnswer ?? '';
+  // };
+
   const getAnswerValue = (questionId) => {
     const formValue = formData?.[questionId];
-
+  
     if (questionId === 4 || questionId === '4') {
+      // If formData already has the value, return based on activeType
       if (formValue && typeof formValue === 'object' && activeType) {
         return formValue[activeType.toLowerCase()] || '';
       }
-
-      // Check in fetched answers and parse if necessary
-      const fetchedAnswer = fetchQ1Answers.find((answer) => Number(answer.question_id) === Number(questionId))?.answer;
-
-      if (fetchedAnswer) {
-        try {
-          // Parse the stringified object
-          const parsedAnswer = JSON.parse(fetchedAnswer.replace(/'/g, '"'));
-          if (!activeType && typeof parsedAnswer === 'object') {
-            if (parsedAnswer.product) {
-              setActiveType("product");
-            } else if (parsedAnswer.service) {
-              setActiveType("service");
-            }
+  
+      // Try to get from initial answers
+      const fetchedAnswerObj = fetchQ1Answers.find(
+        (answer) => Number(answer.question_id) === Number(questionId)
+      )?.answer;
+  
+      if (fetchedAnswerObj && typeof fetchedAnswerObj === 'object') {
+        // Set activeType if not set
+        if (!activeType) {
+          if (fetchedAnswerObj.product) {
+            setActiveType('product');
+          } else if (fetchedAnswerObj.service) {
+            setActiveType('service');
           }
-          setFormData((prevFormData) => ({
-            ...prevFormData,
-            [questionId]: activeType ? parsedAnswer[activeType.toLowerCase()] || '' : JSON.stringify(parsedAnswer),
-          }))
-          return activeType ? parsedAnswer[activeType.toLowerCase()] || '' : JSON.stringify(parsedAnswer);
-        } catch (error) {
-          console.error('Failed to parse fetchedAnswer:', error);
-          return '';
         }
+  
+        // Store in formData
+        setFormData((prev) => ({
+          ...prev,
+          [questionId]: fetchedAnswerObj,
+        }));
+  
+        return activeType ? fetchedAnswerObj[activeType] : '';
       }
-
+  
       return '';
     }
-
-
-    // Handle other questions normally
+  
+    // For other fields (not question 4)
     if (formValue !== undefined) {
       return formValue;
     }
-
-    // Check in fetched answers for other questionIds
-    const fetchedAnswer = fetchQ1Answers.find((answer) => Number(answer.question_id) === Number(questionId))?.answer;
-    console.log(fetchedAnswer)
-    if (fetchedAnswer !== undefined && formValue === undefined) {
-
-      setFormData((prevFormData) => ({
-        ...prevFormData,
+  
+    const fetchedAnswer = fetchQ1Answers.find(
+      (answer) => Number(answer.question_id) === Number(questionId)
+    )?.answer;
+  
+    if (fetchedAnswer !== undefined) {
+      setFormData((prev) => ({
+        ...prev,
         [questionId]: fetchedAnswer,
       }));
     }
-
-
-
+  
     return fetchedAnswer ?? '';
   };
-
+  
+  
 
   const validateFields = () => {
     // Filter required questions that are either unanswered or contain invalid values
@@ -227,7 +291,6 @@ export const Questionnaire1 = ({ formData, setFormData, changeLang, setChangeLan
 
   const onNextClick = (e) => {
     e.stopPropagation();
-    console.log(formData)
     if (!validateFields()) {
       return; // Stop execution if validation fails
     }
@@ -284,7 +347,6 @@ export const Questionnaire1 = ({ formData, setFormData, changeLang, setChangeLan
   useEffect(() => {
     getOrderDetails();
   }, [])
-
 
   return (
     <div>
