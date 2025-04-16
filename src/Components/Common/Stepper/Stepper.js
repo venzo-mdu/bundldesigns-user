@@ -17,9 +17,9 @@ export const Stepper = ({ pageNo ,formData, answersData , fillId , lang }) => {
     const processData = [
         { title:lang === 'ar' ? "عن مشروعك" : "ABOUT YOUR BUSINESS", fill: '#F175AD', color: '#000' },
         { title:lang === 'ar' ? "العملاء والمنافسين" : "AUDIENCE & COMPETITION", fill: '#4FA472', color: '#000' },
-        { title:lang === 'ar' ? "تصميم الهوية لمشروعك" : "YOUR BRANDING", fill: '#00A8C8', color: '#000' },
-        { title:lang === 'ar' ? "هويتك البصرية " : "VISUAL IDENTITY", fill: '#FFFFFF', color: '#000' },
-        { title:lang === 'ar' ? "" : "FINAL TOUCHES", fill: '#F175AD', color: '#000' },
+        { title:lang === 'ar' ? "هويتك" : "YOUR BRANDING", fill: '#00A8C8', color: '#000' },
+        { title:lang === 'ar' ? "هويتك البصرية" : "YOUR IDENTITY", fill: '#FFFFFF', color: '#000' },
+        { title:lang === 'ar' ? "اللمسات الأخيرة" : "FINAL TOUCHES", fill: '#F175AD', color: '#000' },
     ];
 
     // Adjust the dotted line width based on screen size

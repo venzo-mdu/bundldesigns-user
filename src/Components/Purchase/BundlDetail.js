@@ -441,7 +441,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                       </div>
                     })}
                   </div>
-                  <Accordian textColor={textColor} extraQty={extraQty} accordianTitle={lang === 'ar' ? 'عداد المفقودين؟' : 'Something feels missing ?'} addOnPayload={setAddonPayLoads} bundlePackageId={routeId[packageID]} isLang={lang} />
+                  <Accordian textColor={textColor} extraQty={extraQty} accordianTitle={lang === 'ar' ? 'مشروعك يحتاج إضافات؟':'Something feels missing ?'} addOnPayload={setAddonPayLoads} bundlePackageId={routeId[packageID]} isLang={lang} />
                 </div>
                 {/* // border-black */}
                 <div

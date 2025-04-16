@@ -901,7 +901,7 @@ export const Questionnaire4 = ({ formData, setFormData, changeLang, setChangeLan
 
           </>
         }
-        bgTitle={changeLang === 'ar' ? "هويتك البصرية" : 'Your visual identity'}
+        bgTitle={changeLang === 'ar' ? 'هويتك البصرية' : 'Your visual identity'}
       />
     </div>
   );

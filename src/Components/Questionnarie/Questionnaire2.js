@@ -477,7 +477,7 @@ export const Questionnaire2 = ({formData,setFormData,changeLang,setChangeLang}) 
       }
           </>
         }
-        bgTitle={changeLang === 'ar' ? 'العملاء والمنافسين' :'AUDIENCE & COMPETITION'}
+        bgTitle={changeLang === 'ar' ? 'الجمهور والمنافسة' :'AUDIENCE & COMPETITION'}
       />
     </div>
   );

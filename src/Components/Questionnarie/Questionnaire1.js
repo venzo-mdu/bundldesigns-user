@@ -357,7 +357,7 @@ export const Questionnaire1 = ({ formData, setFormData, changeLang, setChangeLan
         pageNo={1}
         storeAnswers={location.state?.questionnaireData1}
         orderId={location.state?.orderId}
-        bgTitle={changeLang === 'ar' ? 'عن مشروعك ' : 'About your business'}
+        bgTitle={changeLang === 'ar' ? 'عن مشروعك' : 'About your business'}
         formData={formData}
         setFormData={setFormData}
         onNextClick={onNextClick}

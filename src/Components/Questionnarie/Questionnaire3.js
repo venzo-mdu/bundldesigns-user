@@ -303,7 +303,7 @@ export const Questionnaire3 = ({formData,setFormData,changeLang,setChangeLang}) 
             </div>
           ))
         }
-        bgTitle={changeLang === 'ar' ? "تصميم الهوية لمشروعك" :"YOUR project BRANDING"}
+        bgTitle={changeLang === 'ar' ? 'تصميم هوية مشروعك' :"YOUR project BRANDING"}
       />
     </div>
   );

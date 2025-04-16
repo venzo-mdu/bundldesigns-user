@@ -123,7 +123,7 @@ export default function AppRouter() {
     },
     {
       path: "/custombundl",
-      element: <CustomBundl lang={transLanguage} setLang={setTransLanguage} />,
+      element: <CustomBundl user={user} lang={transLanguage} setLang={setTransLanguage} />,
       // element: <ProtectedRoute element={<CustomBundl />} />,
     },
     {

@@ -159,7 +159,7 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
     <div>
       <div className='bundl-accordian'>
         <p className={`accordian-heading mb-1  leading-[1.2] ${isLang === 'ar' ?'text-right':'text-left'}`}>{accordianTitle}</p>
-        <p className={`xs:tesxt-[20px] sm:text-[16px] text-[16px] xs:w-full sm:w-full w-full ${isLang === 'ar' ?'text-right':'text-left'}`} style={{ opacity: '50%' }}>{isLang === 'ar' ? 'أضف أي شيء تريده إلى! bundl  لخاص بك ليناسب علامتك التجارية ' : 'Add anything you want to your bundle to fit your brand!'}</p>
+        <p className={`xs:tesxt-[20px] sm:text-[16px] text-[16px] xs:w-full sm:w-full w-full ${isLang === 'ar' ?'text-right':'text-left'}`} style={{ opacity: '50%' }}>{isLang === 'ar' ? 'اطلب أي عناصر تحتاجها ' : 'Add anything you want to your bundle to fit your brand!'}</p>
         <div className='tab-buttons !border-b-0'>
           {titleArr.map((title, index) => (
             <button

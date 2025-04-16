@@ -82,7 +82,7 @@ const reOrder = async (id) => {
                                                                 <td className={`lg:text-[20px] font-medium md:text-[16px] pb-2 ${index != purchases.length - 1 ? 'border-b !border-[#00000080]' : ''}`}>{project.id}</td>
                                                                 <td className={`lg:text-[20px] font-medium md:text-[16px] pb-2 ${index != purchases.length - 1 ? 'border-b !border-[#00000080]' : ''}`}>{project.project_name}</td>
                                                                 <td className={`lg:text-[20px] font-medium md:text-[16px] pb-2 ${index != purchases.length - 1 ? 'border-b !border-[#00000080]' : ''}`}>{Math.round(project.grand_total)}</td>
-                                                                <td className={`lg:text-[20px] font-medium md:text-[16px] pb-2 ${index != purchases.length - 1 ? 'border-b !border-[#00000080]' : ''} text-[#1BA56F]`}>{lang === 'ar' ? 'اكمال' :'Completed'}</td>
+                                                                <td className={`lg:text-[20px] font-medium md:text-[16px] pb-2 ${index != purchases.length - 1 ? 'border-b !border-[#00000080]' : ''} text-[#1BA56F]`}>{lang === 'ar' ? 'مكتمل' :'Completed'}</td>
                                                                 <td onClick={() => CheckCart(project.id)} className={`lg:text-[20px] cursor-pointer font-medium md:text-[16px] pb-2 ${index != purchases.length - 1 ? 'border-b !border-[#00000080]' : ''}`}><img className='lg:w-[30px] md:w-[20px]' src={reload}></img></td>
                                                                 <td className={`lg:text-[20px] font-medium md:text-[16px] pb-2 ${index != purchases.length - 1 ? 'border-b !border-[#00000080]' : ''}`}>{format(new Date(project.purchase_date), "dd/MM/yy")}</td>
                                                             </tr>
@@ -120,7 +120,7 @@ const reOrder = async (id) => {
                                                             <div className="flex justify-between w-full md:w-[50%] mt-1 md:mt-0">
                                                                 <p className="text-[20px] font-[500] text-gray-500 font-Helvetica">{order.id}</p>
                                                                 <p className="text-[20px] font-[500] text-gray-500 font-Helvetica">{format(new Date(order.purchase_date), "dd/MM/yy")}</p>
-                                                                <p className="text-[20px] font-[500] font-Helvetica text-[#1BA56F]">{lang === 'ar' ? 'اكمال' :'Completed'}</p>
+                                                                <p className="text-[20px] font-[500] font-Helvetica text-[#1BA56F]">{lang === 'ar' ? 'مكتمل' :'Completed'}</p>
                                                             </div>
                                                         </div>
                                                     ))}
