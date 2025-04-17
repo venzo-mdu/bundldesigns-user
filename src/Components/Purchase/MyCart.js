@@ -679,6 +679,7 @@ export const MyCart = ({ lang, setLang }) => {
 
     const confirmNavigation = () => {
         setShowModal(false);
+        localStorage?.removeItem('payloads')
         navigateToDetailHistory();
     };
 

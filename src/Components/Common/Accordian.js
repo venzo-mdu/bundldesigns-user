@@ -171,8 +171,14 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
               }}
               className={`!font-[500] uppercase !text-[${textColor}] ${isDropdown[index] ? 'active-button' : 'accordian-button'} accordion-btn-${index+1}`}
               onClick={() => {toggleDropdown(index);
-                const element = document.getElementById(`${index}_list`);
+                // const element = document.getElementById(`${index}_list`);
                 // element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                setTimeout(() => {
+                  const element = document.getElementById(`${index}_list`);
+                  if (element) {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }
+                }, 500);
               }}
             >
               {isLang === 'ar' ? addOnData?.designs_details?.[title]?.name_arabic : title}

@@ -2013,7 +2013,15 @@ export const Home = ({lang,setLang}) => {
                                         </div>
                                         {/* <h1 className='!text-black sm:px-[9%] xs:px-[11%]  lg:px-[10%] !w-[100%] xs:!text-[26px] sm:!text-[58px] !text-[58px]'><span>هوية بصرية تصميم جرافيكي متاجر
                     الكترونية​ Elevating</span> brands & shaping legacies, one <span>extraordinary design</span> at a <i>time.</i></h1> */}
-                      <h1 className='!text-black sm:px-[9%] xs:px-[11%]  lg:px-[10%] !w-[100%] xs:!text-[24px] sm:!text-[56px] !text-[56px]'><span>{lang === 'ar' ? '' :'Elevating '} </span>{lang === 'ar' ? '' : 'brands & shaping legacies, one ' }<span>{lang === 'ar' ? '' :'extraordinary design '}</span>{lang === 'ar' ? '' : ' at a ' }<i>{lang === 'ar' ? '' :'time.'}</i></h1>
+                    {
+                        lang === 'ar' ? 
+                        // <h1 className='!text-black sm:px-[9%] xs:px-[11%]  lg:px-[10%] !w-[100%] xs:!text-[24px] sm:!text-[56px] !text-[56px]'>                 نرتقي بالمشاريع  لصنع أثرا يدوم   بتصاميم استثنائية في كل مره</h1> 
+                        <h1 className='!text-black sm:px-[9%] xs:px-[11%]  lg:px-[10%] !w-[100%] xs:!text-[24px] sm:!text-[56px] !text-[56px]'>    نرتقي  <span>بالمشاريع</span> لصنع أثرا يدوم <br></br><span>بتصاميم استثنائية</span>    في كل <i>مره</i></h1>
+                        :
+                        <h1 className='!text-black sm:px-[9%] xs:px-[11%]  lg:px-[10%] !w-[100%] xs:!text-[24px] sm:!text-[56px] !text-[56px]'><span>Elevating  </span>'brands & shaping legacies, one <span>extraordinary design </span> at a <i>time.</i></h1>
+                    }
+
+                      {/* <h1 className='!text-black sm:px-[9%] xs:px-[11%]  lg:px-[10%] !w-[100%] xs:!text-[24px] sm:!text-[56px] !text-[56px]'><span>{lang === 'ar' ? 'نرتقي بالمشاريع' :'Elevating '} </span>{lang === 'ar' ? 'لصنع أثرًا يدوم' : 'brands & shaping legacies, one ' }<span>{lang === 'ar' ? 'بتصاميم استثنائية' :'extraordinary design '}</span>{lang === 'ar' ? 'في كل مرة' : ' at a ' }<i>{lang === 'ar' ? '' :'time.'}</i></h1> */}
                                         <div className="button-container scroller">
                                             <ul className="scroll-button h-[46px] scroller__inner_btn">
                                                 <li><span><a className='text-black' href='#ourBundl'>{lang === 'ar' ?'تصفح باقاتنا':'Shop our Bundls'}</a></span></li>

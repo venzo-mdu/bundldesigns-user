@@ -2078,8 +2078,14 @@ export default function Adjustments({user ,lang ,setLang}) {
                                             return <a onClick={() => {
                                                 toggleDescription(category)
                                                 setDesignListTab(category)
-                                                const element = document.getElementById(`${index}_list`);
-                                                element.scrollIntoView({ behavior: 'smooth' })
+                                                // const element = document.getElementById(`${index}_list`);
+                                                // element.scrollIntoView({ behavior: 'smooth' })
+                                                setTimeout(() => {
+                                                    const element = document.getElementById(`${index}_list`);
+                                                    if (element) {
+                                                      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                                    }
+                                                  }, 500);
                                             }
                                             }
                                                 className={`uppercase cursor-pointer text-[14px] py-[2%] px-[5%] w-[${stylesBtnAccordian[index]}] !font[500] text-center font-[500] ${designListTab == category ?
@@ -2577,8 +2583,14 @@ export default function Adjustments({user ,lang ,setLang}) {
                                                 return <button onClick={() => {
                                                     toggleDescription(category)
                                                     setDesignListTab(category)
-                                                    const element = document.getElementById(`${index}_list`);
-                                                    element.scrollIntoView({ behavior: 'smooth' })
+                                                    // const element = document.getElementById(`${index}_list`);
+                                                    // element.scrollIntoView({ behavior: 'smooth' })
+                                                    setTimeout(() => {
+                                                        const element = document.getElementById(`${index}_list`);
+                                                        if (element) {
+                                                          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                                        }
+                                                      }, 500);
                                                 }
                                                 } className={`uppercase h-[40px] cursor-pointer lg:px-[2px] min-w-[14%] md:px-[2px] md:py-[5px] 
                                                 md:text-[14px] lg:py-[5px] !font[500] text-center font-[500] ${designListTab == category ?

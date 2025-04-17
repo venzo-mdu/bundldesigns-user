@@ -37,13 +37,13 @@ const getCookie = (name) => {
   return parts.length === 2 ? parts.pop().split(';').shift() : null;
 };
 
-const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+// const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
-if (isSafari) {
-  console.log("User is on Safari");
-} else {
-  console.log("User is NOT on Safari");
-}
+// if (isSafari) {
+//   console.log("User is on Safari");
+// } else {
+//   console.log("User is NOT on Safari");
+// }
 
 export default function AppRouter() {
 

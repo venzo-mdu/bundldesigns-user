@@ -1045,7 +1045,11 @@ export default function Dashboard({lang,setLang}) {
             const index = ProcessIndexDict.indexOf(ProcessIndexDict.find((key) => key == orderData.order_status))
             if (orderData.order_status == 'in_review' || orderData.order_status == 'completed' ) {
                 setProcessIndex(ProcessIndexDict.length - 1)
-            } else {
+            } 
+            else if (orderData.order_status == 'content_uploaded'){
+                setProcessIndex(index - 1)
+            }
+            else {
                 setProcessIndex(index)
             }
             if (orderData.content_uploaded_date) {

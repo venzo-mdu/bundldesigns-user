@@ -181,7 +181,7 @@ export const CustomBundl = ({user,lang,setLang}) => {
 
           </div>
          
-          <div className='bundl-summary  max-h-[80%] overflow-scroll'>
+          <div className='bundl-summary  max-h-[80%]'>
             <div className='bundl-name'>
               <p className='sm:text-[24px] xs:mb-0 xs:flex xs:justify-between sm:block' style={{ fontWeight: '700', padding: '2% 0%' }}>
                <span>{lang === 'ar' ? 'ملخص' : 'Summary'}</span>

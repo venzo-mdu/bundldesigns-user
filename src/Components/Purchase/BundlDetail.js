@@ -26,7 +26,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
   const location = useLocation();
   const { state } = location;
   const { packageID } = useParams();
-  const [packageDetail, setPackageDetail] = useState()
+  const [packageDetail, setPackageDetail] = useState([])
   const navigate = useNavigate();
   const [brandError, setBrandError] = useState(false)
   const [loading, setLoading] = useState(true)
@@ -107,7 +107,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
   const validateFields = () => {
 
 
-    if (brandInput.trim() == '') {
+    if (brandInput?.trim() == '') {
       if (!toast.isActive('required-value-toast')) {
         toast.error(`Name your brand`, {
           position: toast?.POSITION?.TOP_RIGHT,
@@ -165,9 +165,9 @@ export const BundlDetail = ({ user, lang, setLang }) => {
     const response = await axios.get(`${base_url}/api/package/?bundle_id=${routeId[packageID]}`,
       // ConfigToken()
     );
-    setBundlAddons(response.data);
-    setPackageDetail(response.data)
-    const flatList = response.data?.bundle_details?.flatMap(item => item.design_list);
+    setBundlAddons(response?.data);
+    setPackageDetail(response?.data)
+    const flatList = response?.data?.bundle_details?.flatMap(item => item.design_list);
 
     const data = flatList.reduce((acc, item) => {
       acc[item.name_english] = item.quantity;
@@ -189,7 +189,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
       );
       if (response.data) {
         const resProjects = response.data.data.filter(item => item.order_status != 'in_cart')
-        if (resProjects?.length && total_price < 4880 && packageID == 'newbie') {
+        if (resProjects?.length === 0 && total_price < 4880 && packageID == 'newbie') {
           toast.error(`Minimum order amount should be 4880`, {
             position: toast?.POSITION?.TOP_RIGHT,
             toastId: 'required-value-toast2',
@@ -301,10 +301,12 @@ export const BundlDetail = ({ user, lang, setLang }) => {
         setOpenPopup(true)
       }
       else if (state?.project_name) {
+        localStorage?.setItem('payloads', JSON.stringify(payload))
         const createResponse = await axios.post(`${base_url}/api/order/create/`, payload, ConfigToken());
         navigate('/mycart', { state: { orderData: createResponse.data.data.data } });
       }
       else {
+        localStorage?.setItem('payloads', JSON.stringify(payload))
         const createResponse = await axios.post(`${base_url}/api/order/create/`, payload, ConfigToken());
         navigate('/mycart', { state: { orderData: createResponse.data.data.data } });
       }
@@ -319,6 +321,19 @@ export const BundlDetail = ({ user, lang, setLang }) => {
     }
 
   };
+
+  useEffect(()=>{
+    if(user?.is_active) {
+      const getcartData = async() => {
+        const response = await axios.get(`${base_url}/api/order/cart/`, ConfigToken());
+        if((lang === 'ar' ? packageDetail?.package?.name_arabic : packageDetail?.package?.name_english) === (lang === 'ar' ? response?.data?.bundl_arabic : response?.data?.bundl_english)){
+          setBrandInput(response?.data?.project_name)
+        }
+      }
+      getcartData();
+    }
+  },[user,lang,packageDetail])
+
   return (
     <>
       {
@@ -603,7 +618,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                       <p className='sm:mb-3 xs:mb-0 flex items-center !xs:text-[16px] !sm:text-[20px]' style={{ width: '60%' }}><img src={BlackDollor} alt="Total Price" className="inline-block !font-[700] sm:ml-1 xs:ml-2" /><span className='sm:ml-3 xs:ml-5 !font-[700]'>{lang === 'ar' ? 'السعر الإجمالي :' : 'Total Price :'}</span></p>
                       <p className={`!font-[700] ${lang === 'ar' ? 'text-start' : 'text-end'} !xs:text-[16px] !sm:text-[20px] sm:mb-3 xs:mb-0`}
                         style={{ width: '40%' }} >{parseFloat(packageDetail?.package?.price) +
-                          addonPayLoads.total_price +
+                          addonPayLoads?.total_price +
                           (selectedLanguage === 'Both' ? 2000 : 0)} {lang === 'ar' ? 'ريال' : 'SAR'}</p>
                     </div>
                     <div className='total' style={{ display: 'flex' }}>
