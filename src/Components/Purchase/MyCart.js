@@ -180,7 +180,6 @@ export const MyCart = ({ lang, setLang }) => {
             tax: updatedTax,
             grand_total: updatedGrandTotal,
         }));
-
     };
 
     const getTotal = (countryValue, discount = null) => {
@@ -579,6 +578,7 @@ export const MyCart = ({ lang, setLang }) => {
     // };
 
     const handleQuantityChange = async (addonId, change) => {
+        const existLocalData = JSON.parse(localStorage.getItem('payloads')) || {};
         try {
             let newQty;
             let updatedDetails;
@@ -591,7 +591,6 @@ export const MyCart = ({ lang, setLang }) => {
                 updatedDetails.item_details.addon_items = updatedDetails.item_details.addon_items.map((addon) => {
                     if (addon.id === addonId) {
                         newQty = addon.qty + change;
-
                         // Exit early if new quantity is invalid
                         if (newQty < 0) {
                             newQty = addon.qty; // Keep the same quantity
@@ -601,12 +600,15 @@ export const MyCart = ({ lang, setLang }) => {
                         return {
                             ...addon,
                             qty: newQty,
+
                         };
                     }
                     return addon;
                 });
 
                 // Return updated details
+                
+                
                 return updatedDetails;
             });
 
@@ -632,12 +634,36 @@ export const MyCart = ({ lang, setLang }) => {
                 // Update specific addon item
                 updatedDetails.item_details.addon_items = updatedDetails.item_details.addon_items.map((addon) => {
                     if (addon.id === responseData.data.id) {
+                        if (existLocalData) {
+                            const addonsData = {
+                                order_name: "Addons",
+                                item_list: updatedDetails?.item_details?.addon_items?.map(item => (console.log(item),{
+                                    design_id: item.item__id,
+                                    addon_name: item.item_name,
+                                    addon_arabic: item.item__name_arabic,
+                                    //   category: "Branding", // placeholder, update if dynamic
+                                    total_price:parseFloat(responseData.data.subtotal_price),
+                                    item_type: item.item_type,
+                                    unit_price: item.unit_price.toFixed(2),
+                                    unit_time: item.unit_time.toFixed(2),
+                                    qty: item.qty.toString(),
+                                }))
+                            };
+            
+                            const updatedPayloads = {
+                                ...existLocalData,
+                                addons: addonsData
+                            };
+                            localStorage?.setItem('payloads', JSON.stringify(updatedPayloads))
+            
+                        }
                         return {
                             ...addon,
                             qty: responseData.data.qty,
                             status: responseData.data.status,
                             subtotal_price: parseFloat(responseData.data.subtotal_price), // Set subtotal price from response
                         };
+                        
                     }
                     return addon;
                 });
@@ -649,6 +675,8 @@ export const MyCart = ({ lang, setLang }) => {
 
                 return updatedDetails;
             });
+
+           
 
             // Show success toast
             toast.success("Cart updated successfully", {
@@ -694,6 +722,8 @@ export const MyCart = ({ lang, setLang }) => {
     const cancelNavigation = () => {
         setShowModal(false);
     };
+
+
     return (
         <>
             {
