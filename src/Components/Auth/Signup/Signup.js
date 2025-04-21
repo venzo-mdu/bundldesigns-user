@@ -409,6 +409,7 @@ const login = useGoogleLogin({
               /> */}
               <button
                   onClick={login}
+                  type='button'
                   style={{
                     backgroundColor: "white",
                     padding: 10,

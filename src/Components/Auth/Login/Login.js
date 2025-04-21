@@ -190,6 +190,8 @@ export const Login = ({lang}) => {
 
     const { authorization, user } = response;
 
+    console.log(authorization,user,"res")
+
     if (!authorization?.id_token || !authorization?.code) {
       console.error("Invalid Apple response:", response);
       return;
@@ -322,6 +324,7 @@ export const Login = ({lang}) => {
                 /> */}
                 <button
                   onClick={login}
+                  type='button'
                   style={{
                     backgroundColor: "white",
                     padding: 10,
