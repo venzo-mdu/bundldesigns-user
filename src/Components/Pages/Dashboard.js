@@ -1009,7 +1009,6 @@ export default function Dashboard({lang,setLang}) {
 
     const checkPurchase = async () => {
         const response = await axios.get(`${base_url}/api/order/${purchase_id}/`, ConfigToken());
-        console.log(response.data.data, 'data')
         if (response.data.data.payment_status) {
             setPurchasePopUp(true)
         }
@@ -1054,19 +1053,15 @@ export default function Dashboard({lang,setLang}) {
             }
             if (orderData.content_uploaded_date) {
                 const uploadedDateObj = parseISO(orderData.content_uploaded_date)
-                console.log(uploadedDateObj, 'dateee')
                 const oneDayLater = addDays(uploadedDateObj, 1);
-                console.log(oneDayLater, new Date())
                 if (isBefore(new Date(), oneDayLater) && orderData?.next_status !== 'in_progress') {
                     setIsEdit(true)
-                    console.log(differenceInSeconds(oneDayLater, new Date()), 'dateeeeee')
                     setCounter(differenceInSeconds(oneDayLater, new Date()))
                 }
                 if (orderData.order_status == 'in_progress' && orderData.next_status !== 'in_progress')
                     setProcessIndex(1)
             }
             if (orderData.order_status == 'send_for_approval' || orderData.order_status == 'add_ons' || orderData.order_status == 'in_review' || orderData.order_status == 'completed' || orderData.order_status == 'content_uploaded' ) {
-                console.log(response.data.order_items_managements[0]?.delivery_files, 'del')
                 // const parts = response.data.order_items_managements[0]?.delivery_files.length ? response.data.order_items_managements[0]?.delivery_files[0].split('/') : null
                 // parts && setBrandFile(parts[parts.length - 1])
 
@@ -1135,7 +1130,6 @@ export default function Dashboard({lang,setLang}) {
     }
     const CheckCart = async (id) => {
         const response = await axios.get(`${base_url}/api/order/cart/`, ConfigToken());
-        console.log(response)
         if (response.status === 206) {
             reOrder(id)
         } else {
@@ -1404,7 +1398,6 @@ export default function Dashboard({lang,setLang}) {
         const getAuthUser = async () => {
           try {
             const response = await axios.get(`${base_url}/api/profile/`, ConfigToken());
-            console.log(response.data);
       
             // Function to format the name
             const formatName = (name) => {
@@ -1439,7 +1432,6 @@ export default function Dashboard({lang,setLang}) {
     }
 
     const handleSelectChange = async(event) =>{
-        console.log(event.target.value);
         const id = event.target.value
         await getOrderDetails(id);
     }   

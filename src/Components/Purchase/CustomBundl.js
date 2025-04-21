@@ -23,6 +23,7 @@ export const CustomBundl = ({user,lang,setLang}) => {
   const { state } = location
   const [addonPayLoads, setAddonPayLoads] = useState({});
   const [brandInput, setBrandInput] = useState('');
+  const [isSameBundl , setIsSameBundl] = useState(false);
   const [showDetails, setDetails] = useState(false)
   const [isFromLogin, setIsFromLogin] = useState(state?.fromLogin)
 
@@ -118,6 +119,7 @@ export const CustomBundl = ({user,lang,setLang}) => {
     };
     
     try {
+      localStorage?.setItem('payloads', JSON.stringify(payload))
       const response = await axios.post(
         `${base_url}/api/order/create/`, 
         payload,  
@@ -147,6 +149,22 @@ export const CustomBundl = ({user,lang,setLang}) => {
         }
     }
 }
+
+useEffect(()=>{
+  if(user?.is_active) {
+    const getcartData = async() => {
+      const response = await axios.get(`${base_url}/api/order/cart/`, ConfigToken());
+      if(response?.data?.item_details?.bundle_items.length > 0 || response?.data?.item_details?.addon_items.length > 0   ){
+        setBrandInput(response?.data?.project_name);
+        setIsSameBundl(true)
+      }
+      else{
+        setIsSameBundl(false)
+      }
+    }
+    getcartData();
+  }
+},[user,lang])
   return (
     <div>
       <ToastContainer />
@@ -176,6 +194,7 @@ export const CustomBundl = ({user,lang,setLang}) => {
                 searchParams={query}
                 isLang={lang}
                 bundlePackageId={'custombundl'}
+                isSameBundl={isSameBundl}
               />
             </div>
 

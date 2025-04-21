@@ -36,6 +36,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
   const [addonPayLoads, setAddonPayLoads] = useState({});
   const [extraQty, setExtraQty] = useState({})
   const [brandInput, setBrandInput] = useState('');
+  const [isSameBundl , setIsSameBundl] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState('English');
   const [firstOrder, setFirstOrder] = useState(true)
   const [actual, setactual] = useState({})
@@ -327,12 +328,19 @@ export const BundlDetail = ({ user, lang, setLang }) => {
       const getcartData = async() => {
         const response = await axios.get(`${base_url}/api/order/cart/`, ConfigToken());
         if((lang === 'ar' ? packageDetail?.package?.name_arabic : packageDetail?.package?.name_english) === (lang === 'ar' ? response?.data?.bundl_arabic : response?.data?.bundl_english)){
-          setBrandInput(response?.data?.project_name)
+          setBrandInput(response?.data?.project_name);
+          setIsSameBundl(true);
         }
+        else{
+          setIsSameBundl(false)
+        } 
       }
       getcartData();
     }
   },[user,lang,packageDetail])
+
+
+  
 
   return (
     <>
@@ -359,7 +367,6 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                   <p style={window.innerWidth <= 441 ? lang === 'ar' ? { fontSize: '20px', fontWeight: '700', lineHeight: '1.2', textAlign: 'right' } : { fontSize: '20px', fontWeight: '700', lineHeight: '1.2' } : { textAlign: lang === 'ar' ? 'right' : 'left', fontSize: '32px', fontWeight: '700' }}>{lang === 'ar' ? 'ما هو اسم علامتك التجارية؟' : 'What is the name of your brand?'}</p>
                   <input id='brandInput' className={`brand-input rounded-none ${brandError && '!border-[red] rounded-none'}`} value={brandInput} onChange={(e) => {
                     setBrandInput(e.target.value)
-
                     setBrandError(false)
                   }} />
                   {brandError && <p className='text-[red]'>{lang === 'ar' ? '' : 'Please enter name of the brand'}</p>}
@@ -456,7 +463,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                       </div>
                     })}
                   </div>
-                  <Accordian textColor={textColor} extraQty={extraQty} accordianTitle={lang === 'ar' ? 'مشروعك يحتاج إضافات؟':'Something feels missing ?'} addOnPayload={setAddonPayLoads} bundlePackageId={routeId[packageID]} isLang={lang} />
+                  <Accordian textColor={textColor} extraQty={extraQty} accordianTitle={lang === 'ar' ? 'مشروعك يحتاج إضافات؟':'Something feels missing ?'} addOnPayload={setAddonPayLoads} bundlePackageId={routeId[packageID]} isLang={lang} isSameBundl={isSameBundl}/>
                 </div>
                 {/* // border-black */}
                 <div

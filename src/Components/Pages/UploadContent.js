@@ -1084,7 +1084,7 @@ export default function UploadContent({lang,setLang}) {
                                               .filter((qty) => !item.uploaded_qty?.includes(qty)) 
                                               .map((filterIndex) => {
                                                 const hasMultipleQty = item.qty < 1;
-                                                return (<div className={`${( filterArr.length === 1 || (index === filterArr.length -1 || order.item_details.addon_items.length === 0 ))  && hasMultipleQty ? '' : 'border-b !border-black'} mt-[2%]`}>
+                                                return (<div className={`${( filterArr.length === 1 || (index === filterArr.length -1 || order.item_details.addon_items.length === 0 ))  && !hasMultipleQty ? '' : 'border-b !border-black'} mt-[2%]`}>
                                                     <p className="mb-0 font-[700] text-[20px]"> Addons - {lang === 'ar' ? item?.item__name_arabic : item.item_name} {item?.qty > 1 && filterIndex } </p>
                                                     {designQuestions[item.item__id]?.language && <p className='mt-2 mb-0'>
                                                         <label className={`${lang === 'ar' ? 'ml-6':'mr-6'} font-[500]`}>
@@ -1354,7 +1354,7 @@ export default function UploadContent({lang,setLang}) {
                                               .map((filterIndex) => {
                                                 console.log(filterIndex,"after filter")
                                                 const hasMultipleQty = item.qty < 1;
-                                                return( <div  className={`${( filteredArr.length === 1 || (index === filteredArr.length -1  || order.item_details.addon_items?.length === 0) ) && hasMultipleQty  ? '' : 'border-b !border-black'} px-[5%] space-x-2 mt-[2%]`} key={`${item.qty}_${index}`}>
+                                                return( <div  className={`${( filteredArr.length === 1 || (index === filteredArr.length -1  || order.item_details.addon_items?.length === 0) ) && !hasMultipleQty  ? '' : 'border-b !border-black'} px-[5%] space-x-2 mt-[2%]`} key={`${item.qty}_${index}`}>
                                                 <p className="mb-0 font-semibold text-[22px"> Addons - {lang === 'ar' ? item?.item__name_arabic : item.item_name} {item?.qty > 1 && filterIndex }</p>
                                                 {designQuestions[item.item__id]?.language && <p className='mt-2 mb-0'>
                                                     <label className={`${lang === 'ar' ? 'ml-6':'mr-6'} font-[500]`}>

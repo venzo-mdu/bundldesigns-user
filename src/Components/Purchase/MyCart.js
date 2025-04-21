@@ -219,14 +219,14 @@ export const MyCart = ({ lang, setLang }) => {
         if (!billingInfo.firstName.trim()) {
             setError({ firstName: 'Your first name field is empty.' })
             return false
-        } else if (/\d/.test(billingInfo.firstName)) { // Check if it contains any number
+        } else if (/\d/.test(billingInfo.firstName)) { 
             setError({ firstName: "First Name should not contain numbers." });
             return false;
         }
         if (!billingInfo.lastName.trim()) {
             setError({ lastName: 'Your last name field is empty.' })
             return false
-        } else if (/\d/.test(billingInfo.lastName)) { // Check if it contains any number
+        } else if (/\d/.test(billingInfo.lastName)) { 
             setError({ lastName: "Last Name should not contain numbers." });
             return false;
         }
@@ -269,10 +269,8 @@ export const MyCart = ({ lang, setLang }) => {
             return false
         }
 
-        // if (!billingInfo.promoCode.trim()) newErrors.promoCode = 'Promo code is required';
         setError(newErrors);
 
-        // Return true if there are no errors
         return true;
     };
     const getProfile = async () => {
@@ -583,17 +581,15 @@ export const MyCart = ({ lang, setLang }) => {
             let newQty;
             let updatedDetails;
 
-            // Optimized state update
             setCartDetails((prevCartDetails) => {
                 updatedDetails = { ...prevCartDetails };
-
-                // Update addon items
+                console.log('addons')
                 updatedDetails.item_details.addon_items = updatedDetails.item_details.addon_items.map((addon) => {
                     if (addon.id === addonId) {
                         newQty = addon.qty + change;
-                        // Exit early if new quantity is invalid
+                        
                         if (newQty < 0) {
-                            newQty = addon.qty; // Keep the same quantity
+                            newQty = addon.qty; 
                             return addon;
                         }
 
@@ -606,13 +602,9 @@ export const MyCart = ({ lang, setLang }) => {
                     return addon;
                 });
 
-                // Return updated details
-                
-                
                 return updatedDetails;
             });
 
-            // Remove item if quantity becomes 0
             if (newQty === 0) {
                 removeItem(addonId, "addon");
                 return;
@@ -621,17 +613,15 @@ export const MyCart = ({ lang, setLang }) => {
             setLoading(true)
             const response = await axios.put(
                 `${base_url}/api/order-item/${addonId}/`,
-                { qty: newQty }, // Send the new quantity
-                ConfigToken() // Include necessary headers
+                { qty: newQty }, 
+                ConfigToken() 
             );
 
-            // Process API response
             const responseData = response.data;
 
             setCartDetails((prevCartDetails) => {
                 const updatedDetails = { ...prevCartDetails };
 
-                // Update specific addon item
                 updatedDetails.item_details.addon_items = updatedDetails.item_details.addon_items.map((addon) => {
                     if (addon.id === responseData.data.id) {
                         if (existLocalData) {
@@ -641,7 +631,7 @@ export const MyCart = ({ lang, setLang }) => {
                                     design_id: item.item__id,
                                     addon_name: item.item_name,
                                     addon_arabic: item.item__name_arabic,
-                                    //   category: "Branding", // placeholder, update if dynamic
+                                      category:item?.category, // placeholder, update if dynamic
                                     total_price:parseFloat(responseData.data.subtotal_price),
                                     item_type: item.item_type,
                                     unit_price: item.unit_price.toFixed(2),
@@ -661,14 +651,13 @@ export const MyCart = ({ lang, setLang }) => {
                             ...addon,
                             qty: responseData.data.qty,
                             status: responseData.data.status,
-                            subtotal_price: parseFloat(responseData.data.subtotal_price), // Set subtotal price from response
+                            subtotal_price: parseFloat(responseData.data.subtotal_price), 
                         };
                         
                     }
                     return addon;
                 });
 
-                // Update totals from the response
                 updatedDetails.grand_total = responseData.grand_total;
                 updatedDetails.total_amount = responseData.total_amount;
                 updatedDetails.total_time = responseData.total_time;
@@ -676,9 +665,6 @@ export const MyCart = ({ lang, setLang }) => {
                 return updatedDetails;
             });
 
-           
-
-            // Show success toast
             toast.success("Cart updated successfully", {
                 position: toast?.POSITION?.TOP_RIGHT,
                 toastId: "required-toast-qty",
@@ -689,7 +675,6 @@ export const MyCart = ({ lang, setLang }) => {
                 },
             });
         } catch (error) {
-            // Log and display error feedback
             console.error("Error updating addon:", error);
         } finally {
             setLoading(false)

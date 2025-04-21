@@ -299,7 +299,7 @@ import { ConfigToken } from '../Auth/ConfigToken';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 
-export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackageId, textColor,searchParams=null,isLang }) => {
+export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackageId, textColor,searchParams=null,isLang,isSameBundl }) => {
   const [isDropdown, setIsDropdown] = useState([false, false, false, false, false, false, false]);
   const [addOnData, setAddonData] = useState({});
   const [quantities, setQuantities] = useState({});
@@ -315,7 +315,7 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
 
   useEffect(() => {
     getAddons();
-  }, []);
+  }, [isSameBundl]);
 
   useEffect(() => {
       addOnPayload(addOnPayloads());
@@ -404,7 +404,7 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
       const response = await axios.get(url);
       const responseData = response?.data || {};
   
-      const localAddonData = JSON.parse(localStorage.getItem('payloads') || '{}');
+      const localAddonData = isSameBundl  ?  JSON.parse(localStorage.getItem('payloads')) : {};
       const localItems = localAddonData?.addons?.item_list || [];
   
       const quantityMap = {}; // To initialize quantities state
