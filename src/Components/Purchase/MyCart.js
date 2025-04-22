@@ -517,7 +517,6 @@ export const MyCart = ({ lang, setLang }) => {
 
 
     const handleQuantityChange = async (addonId, change) => {
-        console.log(addonId, change);
         const existLocalData = JSON.parse(localStorage.getItem('payloads')) || {};
     
         const currentAddon = cartDetails?.item_details?.addon_items?.find(addon => addon.id === addonId);
