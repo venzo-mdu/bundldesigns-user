@@ -123,6 +123,7 @@ export const MyCart = ({ lang, setLang }) => {
     };
 
     const removeItem = async (itemId, itemType) => {
+        const existLocalData = JSON.parse(localStorage.getItem('payloads')) || {};
         if (itemType == 'bundle') {
             toast.error(`Package Item Cannot removed`, {
                 position: toast?.POSITION?.TOP_RIGHT,
@@ -142,7 +143,12 @@ export const MyCart = ({ lang, setLang }) => {
         setRemovedItems(itemId)
         // Handle removal based on item type
         const removedItem = updatedItemDetails.addon_items.find(item => item.id === itemId);
-        updatedTotalAmount -= removedItem?.subtotal_price || 0;
+        if(removedItem?.qty === 0) {
+            updatedTotalAmount -= removedItem?.subtotal_price || 0;
+        }else{
+            updatedTotalAmount -= removedItem?.subtotal_price ;
+        }
+
         const sorted = [...updatedItemDetails.addon_items].sort((a, b) => b.unit_time - a.unit_time);
         if (sorted.length && sorted[0].id == itemId) {
             updatedTotalTime -= removedItem?.unit_time
@@ -171,7 +177,30 @@ export const MyCart = ({ lang, setLang }) => {
             tax: updatedTax, 'grand_total': updatedGrandTotal
         }, ConfigToken());
 
-        setCartDetails((prevCartDetails) => ({
+        setCartDetails((prevCartDetails) => {
+            if (existLocalData) {
+                const addonsData = {
+                    order_name: "Addons",
+                    item_list: updatedItemDetails.addon_items.map(item => ({
+                        design_id: item.item__id,
+                        addon_name: item.item_name,
+                        addon_arabic: item.item__name_arabic,
+                        category: item?.category,
+                        total_price: parseFloat(item.subtotal_price),
+                        item_type: item.item_type,
+                        unit_price: item.unit_price.toFixed(2),
+                        unit_time: item.unit_time.toFixed(2),
+                        qty: item.qty.toString(),
+                    }))
+                };
+                const updatedPayloads = {
+                    ...existLocalData,
+                    addons: addonsData
+                };
+                localStorage.setItem('payloads', JSON.stringify(updatedPayloads));
+            }
+
+            return {
             ...prevCartDetails,
             item_details: updatedItemDetails,
             total_amount: afterDiscount,
@@ -179,9 +208,12 @@ export const MyCart = ({ lang, setLang }) => {
             total_time: updatedTotalTime,
             tax: updatedTax,
             grand_total: updatedGrandTotal,
-        }));
+        }
+            
+        });
     };
 
+     
     const getTotal = (countryValue, discount = null) => {
         let cartDetailsTemp = cartDetails
         const updatedItemDetails = { ...cartDetailsTemp.item_details };
@@ -376,181 +408,90 @@ export const MyCart = ({ lang, setLang }) => {
             setError(errors)
         }
     }
-    // useEffect(() => {
-    //     // Function to handle the back button (popstate)
-    //     const handlePopState = (event) => {
-    //       console.log('Back button pressed');
-    //       setShowModal(true); // Show the modal
-    //       document.documentElement.scrollTo({ top: 0, left: 0 });
-    //       // Push the same state back to prevent navigation
-    //       window.history.pushState(null, '', window.location.href);
-    //     };
-
-    //     // Push initial state into history when the component mounts
-    //     window.history.pushState(null, '', window.location.href);
-
-    //     // Add the event listener for "popstate"
-    //     window.addEventListener('popstate', handlePopState);
-
-    //     // Cleanup the listener on unmount
-    //     return () => {
-    //       window.removeEventListener('popstate', handlePopState);
-    //     };
-    //   }, []);
-
-    // useEffect(() => {
-    //     function onPopState(event) {
-    //       setTimeout(()=>{
-    //         setShowModal(true)
-    //       },1000)
-    //     }
-    //     window.addEventListener("popstate", (event) => {
-    //         console.log(
-    //           `location: ${document.location}, state: ${JSON.stringify(cartDetails?.project_name)}`,
-    //         );
-    //       });
-    //     return () => {
-    //       setTimeout(() => {
-    //         window.removeEventListener('popstate', onPopState);
-    //       }, 1000);
-    //     };
-    //   });
-
-    // useEffect(() => {
-    //     const handleBackAction = () => {
-    //         window.history.pushState(null, '', window.location.pathname); // Prevent navigation
-    //         handleBackClick();
-    //         console.log('event ')
-    //     };
-    // console.log(showModal)
-
-    //      // Show modal when user goes back
-    //     window.addEventListener('popstate', handleBackAction);
-
-    //     // Push a new state when the page loads to track navigation
-    //     window.history.pushState(null, '', window.location.pathname);
-
-    //     return () => {
-    //         window.removeEventListener('popstate', handleBackAction);
-    //     };
-    // }, []);
-
-
-
-
+    
 
     // const handleQuantityChange = async (addonId, change) => {
-    //     try {
-    //       // Validate the new quantity before proceeding
-    //       let newQty;
-    //       let errorRaised = false;
-
-    //       setCartDetails((prevCartDetails) => {
-    //         let updatedDetails = { ...prevCartDetails };
-
-    //         updatedDetails.item_details.addon_items = updatedDetails.item_details.addon_items.map((addon) => {
-    //           if (addon.id === addonId) {
-    //             newQty = addon.qty + change; // Calculate the new quantity
-
-    //             // Check if the new quantity is below the minimum limit (0 in this case)
-    //             if (newQty < 0) {
-    //               return addon; // Do not update the quantity
-    //             }
-
-    //             return { ...addon, qty: newQty }; // Update the quantity in the local state
-    //           }
-    //           return addon;
-    //         });
-
-    //         return updatedDetails;
-    //       });
-
-    //       // If error is raised (newQty < 0), stop execution
-    //       if (errorRaised) return;
-
-    //       // Make the API call to sync changes
-    //       const response = await axios.put(
-    //         `${base_url}/api/order-item/${addonId}/`,
-    //         {
-    //           qty: newQty, // Pass the updated quantity
-    //         },
-    //         ConfigToken() // Pass configuration like headers here
-    //       );
-
-    //       // Handle success
-    //       console.log("Addon updated successfully:", response.data);
-    //       toast.success("Cart updated successfully", {
-    //         position: toast?.POSITION?.TOP_RIGHT,
-    //         toastId:'required-toast-qty',
-    //         autoClose: 3000,
-    //         style: {
-    //           color: "#1BA56F",
-    //           fontWeight: "700",
-    //         },
-    //       });
-    //     } catch (error) {
-    //       // Handle API errors
-    //       console.error("Error updating addon:", error);
-    //     }
-    //   };
-
-    // const handleQuantityChange = async (addonId, change) => {
+    //     console.log(addonId,change)
+    //     const existLocalData = JSON.parse(localStorage.getItem('payloads')) || {};
     //     try {
     //         let newQty;
+    //         let updatedDetails;
 
     //         setCartDetails((prevCartDetails) => {
-    //             const updatedDetails = { ...prevCartDetails };
-
+    //             updatedDetails = { ...prevCartDetails };
+    //             console.log('addons')
     //             updatedDetails.item_details.addon_items = updatedDetails.item_details.addon_items.map((addon) => {
     //                 if (addon.id === addonId) {
-    //                     newQty = addon.qty + change;
-
+    //                     newQty = (addon.qty) + (change);
+                        
     //                     if (newQty < 0) {
-
+    //                         newQty = addon.qty; 
     //                         return addon;
     //                     }
 
     //                     return {
     //                         ...addon,
     //                         qty: newQty,
+
     //                     };
     //                 }
     //                 return addon;
     //             });
-
+    //             console.log(updatedDetails,"add ons ")
     //             return updatedDetails;
     //         });
 
     //         if (newQty === 0) {
-    //             removeItem(addonId, 'addon')
-    //         };
+    //             removeItem(addonId, "addon");
+    //             return;
+    //         }
 
-    //         const response = await axios.put(
-    //             `${base_url}/api/order-item/${addonId}/`,
-    //             { qty: newQty }, // Send the new quantity
-    //             ConfigToken() // Include necessary headers
-    //         );
+    //         setLoading(true)
+    //         const qtyData = { qty: newQty } ;
+    //         console.log(qtyData,"")
+    //         const response = await axios.put(`${base_url}/api/order-item/${addonId}/`,qtyData, ConfigToken());
 
-    //         // Use API response to update the state
     //         const responseData = response.data;
 
     //         setCartDetails((prevCartDetails) => {
     //             const updatedDetails = { ...prevCartDetails };
 
-    //             // Update the specific addon details
     //             updatedDetails.item_details.addon_items = updatedDetails.item_details.addon_items.map((addon) => {
     //                 if (addon.id === responseData.data.id) {
+    //                     if (existLocalData) {
+    //                         const addonsData = {
+    //                             order_name: "Addons",
+    //                             item_list: updatedDetails?.item_details?.addon_items?.map(item =>({
+    //                                 design_id: item.item__id,
+    //                                 addon_name: item.item_name,
+    //                                 addon_arabic: item.item__name_arabic,
+    //                                   category:item?.category, // placeholder, update if dynamic
+    //                                 total_price:parseFloat(responseData.data.subtotal_price),
+    //                                 item_type: item.item_type,
+    //                                 unit_price: item.unit_price.toFixed(2),
+    //                                 unit_time: item.unit_time.toFixed(2),
+    //                                 qty: item.qty.toString(),
+    //                             }))
+    //                         };
+            
+    //                         const updatedPayloads = {
+    //                             ...existLocalData,
+    //                             addons: addonsData
+    //                         };
+    //                         localStorage?.setItem('payloads', JSON.stringify(updatedPayloads))
+            
+    //                     }
     //                     return {
     //                         ...addon,
     //                         qty: responseData.data.qty,
     //                         status: responseData.data.status,
-    //                         subtotal_price: parseFloat(responseData.data.subtotal_price), // Set subtotal price from response
+    //                         subtotal_price: parseFloat(responseData.data.subtotal_price), 
     //                     };
+                        
     //                 }
     //                 return addon;
     //             });
 
-    //             // Update totals from the response
     //             updatedDetails.grand_total = responseData.grand_total;
     //             updatedDetails.total_amount = responseData.total_amount;
     //             updatedDetails.total_time = responseData.total_time;
@@ -558,7 +499,6 @@ export const MyCart = ({ lang, setLang }) => {
     //             return updatedDetails;
     //         });
 
-    //         // Show success toast
     //         toast.success("Cart updated successfully", {
     //             position: toast?.POSITION?.TOP_RIGHT,
     //             toastId: "required-toast-qty",
@@ -569,102 +509,98 @@ export const MyCart = ({ lang, setLang }) => {
     //             },
     //         });
     //     } catch (error) {
-    //         // Handle errors
     //         console.error("Error updating addon:", error);
-
+    //     } finally {
+    //         setLoading(false)
     //     }
     // };
 
-    const handleQuantityChange = async (addonId, change) => {
-        const existLocalData = JSON.parse(localStorage.getItem('payloads')) || {};
-        try {
-            let newQty;
-            let updatedDetails;
 
+    const handleQuantityChange = async (addonId, change) => {
+        console.log(addonId, change);
+        const existLocalData = JSON.parse(localStorage.getItem('payloads')) || {};
+    
+        const currentAddon = cartDetails?.item_details?.addon_items?.find(addon => addon.id === addonId);
+        if (!currentAddon) return;
+    
+        let newQty = currentAddon.qty + change;
+    
+        if (newQty < 0) {
+            newQty = currentAddon.qty; // ignore invalid decrease
+        }
+    
+        if (newQty === 0) {
+            removeItem(addonId, "addon");
+            return;
+        }
+    
+        try {
+            setLoading(true);
+    
+            // 1. Update UI immediately
             setCartDetails((prevCartDetails) => {
-                updatedDetails = { ...prevCartDetails };
-                console.log('addons')
+                const updatedDetails = { ...prevCartDetails };
                 updatedDetails.item_details.addon_items = updatedDetails.item_details.addon_items.map((addon) => {
                     if (addon.id === addonId) {
-                        newQty = addon.qty + change;
-                        
-                        if (newQty < 0) {
-                            newQty = addon.qty; 
-                            return addon;
-                        }
-
                         return {
                             ...addon,
                             qty: newQty,
-
                         };
                     }
                     return addon;
                 });
-
                 return updatedDetails;
             });
-
-            if (newQty === 0) {
-                removeItem(addonId, "addon");
-                return;
-            }
-
-            setLoading(true)
-            const response = await axios.put(
-                `${base_url}/api/order-item/${addonId}/`,
-                { qty: newQty }, 
-                ConfigToken() 
-            );
-
+    
+            // 2. Sync with server
+            const qtyData = { qty: newQty };
+            const response = await axios.put(`${base_url}/api/order-item/${addonId}/`, qtyData, ConfigToken());
             const responseData = response.data;
-
+    
+            // 3. Update localStorage and UI again with API-confirmed data
             setCartDetails((prevCartDetails) => {
                 const updatedDetails = { ...prevCartDetails };
-
                 updatedDetails.item_details.addon_items = updatedDetails.item_details.addon_items.map((addon) => {
                     if (addon.id === responseData.data.id) {
                         if (existLocalData) {
                             const addonsData = {
                                 order_name: "Addons",
-                                item_list: updatedDetails?.item_details?.addon_items?.map(item => (console.log(item),{
+                                item_list: updatedDetails.item_details.addon_items.map(item => ({
                                     design_id: item.item__id,
                                     addon_name: item.item_name,
                                     addon_arabic: item.item__name_arabic,
-                                      category:item?.category, // placeholder, update if dynamic
-                                    total_price:parseFloat(responseData.data.subtotal_price),
+                                    category: item?.category,
+                                    total_price: parseFloat(responseData.data.subtotal_price),
                                     item_type: item.item_type,
                                     unit_price: item.unit_price.toFixed(2),
                                     unit_time: item.unit_time.toFixed(2),
                                     qty: item.qty.toString(),
                                 }))
                             };
-            
                             const updatedPayloads = {
                                 ...existLocalData,
                                 addons: addonsData
                             };
-                            localStorage?.setItem('payloads', JSON.stringify(updatedPayloads))
-            
+                            localStorage.setItem('payloads', JSON.stringify(updatedPayloads));
                         }
+    
                         return {
                             ...addon,
                             qty: responseData.data.qty,
                             status: responseData.data.status,
-                            subtotal_price: parseFloat(responseData.data.subtotal_price), 
+                            subtotal_price: parseFloat(responseData.data.subtotal_price),
                         };
-                        
                     }
                     return addon;
                 });
-
+    
                 updatedDetails.grand_total = responseData.grand_total;
                 updatedDetails.total_amount = responseData.total_amount;
                 updatedDetails.total_time = responseData.total_time;
-
+    
                 return updatedDetails;
             });
-
+    
             toast.success("Cart updated successfully", {
                 position: toast?.POSITION?.TOP_RIGHT,
                 toastId: "required-toast-qty",
@@ -677,10 +613,10 @@ export const MyCart = ({ lang, setLang }) => {
         } catch (error) {
             console.error("Error updating addon:", error);
         } finally {
-            setLoading(false)
+            setLoading(false);
         }
     };
-
+    
 
 
 

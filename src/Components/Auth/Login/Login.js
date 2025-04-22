@@ -200,8 +200,8 @@ export const Login = ({lang}) => {
     const decodedToken = jwt_decode(authorization.id_token);
     console.log("Decoded Apple ID Token:", decodedToken);
     const data = {
-      email: decodedToken?.email,
-      full_name: decodedToken?.email?.split("@")[0],
+      email: user?.email,
+      full_name: user?.email?.split("@")[0],
       password: null,
       google: true
     }
@@ -400,7 +400,7 @@ export const Login = ({lang}) => {
               /> */}
               </div>
             </p>
-            <p className='dont !mt-4 w-[90%] sm:w-[90%] xs:w-full'>
+            <p className='dont !mt-4 w-[100%] sm:w-[100%] xs:w-full'>
               {lang === 'ar' ? 'ليس لديك حساب؟':'Don’t Have an account ?'} <span><NavLink className='signup !font-[500]' to={'/signup'}>&nbsp;{lang === 'ar' ? 'تسجيل حساب' :'Sign Up'}</NavLink></span>
             </p>
           </form>
