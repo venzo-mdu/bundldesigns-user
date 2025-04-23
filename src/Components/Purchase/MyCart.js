@@ -525,7 +525,7 @@ export const MyCart = ({ lang, setLang }) => {
         let newQty = currentAddon.qty + change;
     
         if (newQty < 0) {
-            newQty = currentAddon.qty; // ignore invalid decrease
+            newQty = currentAddon.qty;
         }
     
         if (newQty === 0) {
@@ -536,7 +536,6 @@ export const MyCart = ({ lang, setLang }) => {
         try {
             setLoading(true);
     
-            // 1. Update UI immediately
             setCartDetails((prevCartDetails) => {
                 const updatedDetails = { ...prevCartDetails };
                 updatedDetails.item_details.addon_items = updatedDetails.item_details.addon_items.map((addon) => {
@@ -551,12 +550,10 @@ export const MyCart = ({ lang, setLang }) => {
                 return updatedDetails;
             });
     
-            // 2. Sync with server
             const qtyData = { qty: newQty };
             const response = await axios.put(`${base_url}/api/order-item/${addonId}/`, qtyData, ConfigToken());
             const responseData = response.data;
     
-            // 3. Update localStorage and UI again with API-confirmed data
             setCartDetails((prevCartDetails) => {
                 const updatedDetails = { ...prevCartDetails };
                 updatedDetails.item_details.addon_items = updatedDetails.item_details.addon_items.map((addon) => {

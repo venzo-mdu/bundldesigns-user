@@ -348,14 +348,19 @@ export const Login = ({lang}) => {
                 <AppleSignin
                   authOptions={{
                     clientId: "com.bundldesigns.app.client",
-                    redirectURI: "https://bundldesigns.web.app/login",
+                    redirectURI: "https://bundldesigns.firebaseapp.com/__/auth/handler",
                     scope: "email name",
-                    usePopup: false,
+                    usePopup: true,
                   }}
                   // className={'lg:w-[50%] md:w-[50%] xs:w-[100%] !lg:text-[18px] !md:text-[18px] !xs:text-[16px]'}
-                  onSuccess={handleAppleLoginSuccess}
+                  // onSuccess={handleAppleLoginSuccess}
+                  onSuccess={(response)=>{
+                    console.log(response,"res")
+                  }}
                   onError={(error) => console.error("Apple Login Failed:", error)}
-                  render={(props) => <button {...props}
+                  render={(props) => (
+                  <button 
+                    onClick={props?.onClick} {...props}
                     style={{
                       backgroundColor: "white",
                       padding: 10,
@@ -371,7 +376,7 @@ export const Login = ({lang}) => {
                   >
                     <i className="fa-brands fa-apple px-2 "></i>
                     {lang === 'ar' ? 'تسجيل دخول أبل': 'Sign in with Apple'}
-                 </button>}
+                 </button>)}
                 />
                 {/* <AppleLogin
                 clientId="com.bundldesigns.app.client"
