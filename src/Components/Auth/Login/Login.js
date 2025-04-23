@@ -54,6 +54,22 @@ export const Login = ({lang}) => {
   }, [lang]);
 
 
+  useEffect(() => {
+    const originalAuth = window.AppleID?.auth;
+    window.AppleID.auth = {
+      ...originalAuth,
+      init: (config) => {
+        console.log("Apple auth initialized", config);
+        return originalAuth.init(config);
+      },
+    };
+  
+    return () => {
+      window.AppleID.auth = originalAuth;
+    };
+  }, []);
+
+
   // const login = useGoogleLogin({
   //   onSuccess: (tokenResponse) => {
   //     const token = tokenResponse.credential;
@@ -351,12 +367,11 @@ export const Login = ({lang}) => {
                     redirectURI: "https://bundldesigns.firebaseapp.com/__/auth/handler",
                     scope: "email name",
                     usePopup: true,
+                    responseType: "code id_token",  
+                    responseMode: "form_post",
                   }}
                   // className={'lg:w-[50%] md:w-[50%] xs:w-[100%] !lg:text-[18px] !md:text-[18px] !xs:text-[16px]'}
-                  // onSuccess={handleAppleLoginSuccess}
-                  onSuccess={(response)=>{
-                    console.log(response,"res")
-                  }}
+                  onSuccess={handleAppleLoginSuccess}
                   onError={(error) => console.error("Apple Login Failed:", error)}
                   render={(props) => (
                   <button 
