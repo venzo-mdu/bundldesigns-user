@@ -122,10 +122,103 @@ export const MyCart = ({ lang, setLang }) => {
         }
     };
 
+    // const removeItem = async (itemId, itemType) => {
+    //     const existLocalData = JSON.parse(localStorage.getItem('payloads')) || {};
+    //     if (itemType == 'bundle') {
+    //         toast.error(`Package Item Cannot removed`, {
+    //             position: toast?.POSITION?.TOP_RIGHT,
+    //             toastId: 'required-value-toast',
+    //             icon: false,
+    //             style: {
+    //                 color: '#D83D99',
+    //                 fontWeight: '700'
+    //             }
+    //         });
+    //         return;
+    //     }
+    //     let cartDetailsTemp = cartDetails
+    //     const updatedItemDetails = { ...cartDetailsTemp.item_details };
+    //     let updatedTotalAmount = cartDetailsTemp.actual_total_amount;
+    //     let updatedTotalTime = cartDetailsTemp.total_time
+    //     setRemovedItems(itemId)
+    //     // Handle removal based on item type
+    //     const removedItem = updatedItemDetails.addon_items.find(item => item.id === itemId);
+    //     if(removedItem?.qty === 0) {
+    //         updatedTotalAmount =  0;
+    //     }else{
+    //         updatedTotalAmount -= removedItem?.subtotal_price ;
+    //     }
+
+    //     const sorted = [...updatedItemDetails.addon_items].sort((a, b) => b.unit_time - a.unit_time);
+    //     if (sorted.length && sorted[0].id == itemId) {
+    //         updatedTotalTime -= removedItem?.unit_time
+    //         if (sorted.length > 1) {
+    //             updatedTotalTime += sorted[1].unit_time
+    //         }
+    //     }
+    //     updatedItemDetails.addon_items = updatedItemDetails.addon_items.filter(item => item.id !== itemId);
+
+    //     // Recalculate the totals
+    //     let updatedTax = 0; // Default value, assuming no tax
+    //     let afterDiscount = updatedTotalAmount
+    //     if (coupon) {
+    //         afterDiscount = afterDiscount - ((afterDiscount / 100) * coupon.discount)
+    //     }
+
+    //     if (billingInfo.country.trim().toLowerCase() === 'saudi arabia') {
+    //         updatedTax = afterDiscount * 0.15; // Assuming VAT is 15%
+    //     } else {
+    //         updatedTax = 0; // No tax for countries other than Saudi Arabia
+    //     }
+    //     const updatedGrandTotal = afterDiscount + updatedTax;
+
+    //     const response = await axios.patch(`${base_url}/api/order/cart/`, {
+    //         'item_to_delete': itemId, 'total_amount': updatedTotalAmount,
+    //         tax: updatedTax, 'grand_total': updatedGrandTotal
+    //     }, ConfigToken());
+
+    //     setCartDetails((prevCartDetails) => {
+    //         if (existLocalData) {
+    //             const addonsData = {
+    //                 order_name: "Addons",
+    //                 item_list: updatedItemDetails.addon_items.map(item => ({
+    //                     design_id: item.item__id,
+    //                     addon_name: item.item_name,
+    //                     addon_arabic: item.item__name_arabic,
+    //                     category: item?.category,
+    //                     total_price: parseFloat(item.subtotal_price),
+    //                     item_type: item.item_type,
+    //                     unit_price: item.unit_price.toFixed(2),
+    //                     unit_time: item.unit_time.toFixed(2),
+    //                     qty: item.qty.toString(),
+    //                 }))
+    //             };
+    //             const updatedPayloads = {
+    //                 ...existLocalData,
+    //                 addons: addonsData
+    //             };
+    //             localStorage.setItem('payloads', JSON.stringify(updatedPayloads));
+    //         }
+
+    //         return {
+    //         ...prevCartDetails,
+    //         item_details: updatedItemDetails,
+    //         total_amount: afterDiscount,
+    //         actual_total_amount: updatedTotalAmount,
+    //         total_time: updatedTotalTime,
+    //         tax: updatedTax,
+    //         grand_total: updatedGrandTotal,
+    //     }
+            
+    //     });
+    // };
+
+
     const removeItem = async (itemId, itemType) => {
         const existLocalData = JSON.parse(localStorage.getItem('payloads')) || {};
-        if (itemType == 'bundle') {
-            toast.error(`Package Item Cannot removed`, {
+    
+        if (itemType === 'bundle') {
+            toast.error(`Package Item Cannot be removed`, {
                 position: toast?.POSITION?.TOP_RIGHT,
                 toastId: 'required-value-toast',
                 icon: false,
@@ -136,82 +229,83 @@ export const MyCart = ({ lang, setLang }) => {
             });
             return;
         }
-        let cartDetailsTemp = cartDetails
-        const updatedItemDetails = { ...cartDetailsTemp.item_details };
-        let updatedTotalAmount = cartDetailsTemp.actual_total_amount;
-        let updatedTotalTime = cartDetailsTemp.total_time
-        setRemovedItems(itemId)
-        // Handle removal based on item type
-        const removedItem = updatedItemDetails.addon_items.find(item => item.id === itemId);
-        if(removedItem?.qty === 0) {
-            updatedTotalAmount -= removedItem?.subtotal_price || 0;
-        }else{
-            updatedTotalAmount -= removedItem?.subtotal_price ;
-        }
-
-        const sorted = [...updatedItemDetails.addon_items].sort((a, b) => b.unit_time - a.unit_time);
-        if (sorted.length && sorted[0].id == itemId) {
-            updatedTotalTime -= removedItem?.unit_time
-            if (sorted.length > 1) {
-                updatedTotalTime += sorted[1].unit_time
-            }
-        }
-        updatedItemDetails.addon_items = updatedItemDetails.addon_items.filter(item => item.id !== itemId);
-
-        // Recalculate the totals
-        let updatedTax = 0; // Default value, assuming no tax
-        let afterDiscount = updatedTotalAmount
+    
+        setRemovedItems(itemId);
+    
+        // Clone cart details to avoid mutation
+        const cartDetailsTemp = JSON.parse(JSON.stringify(cartDetails));
+        const currentAddons = cartDetailsTemp.item_details.addon_items;
+    
+        // Remove the item
+        const updatedAddons = currentAddons.filter(item => item.id !== itemId);
+    
+        // Recalculate totals
+        const updatedTotalAmount = updatedAddons.reduce((sum, item) => sum + item.subtotal_price, 0);
+        const updatedTotalTime = updatedAddons.reduce((sum, item) => sum + item.unit_time, 0);
+    
+        // Handle coupon discount
+        let afterDiscount = updatedTotalAmount;
         if (coupon) {
-            afterDiscount = afterDiscount - ((afterDiscount / 100) * coupon.discount)
+            afterDiscount = afterDiscount - ((afterDiscount / 100) * coupon.discount);
         }
-
+    
+        // Tax calculation
+        let updatedTax = 0;
         if (billingInfo.country.trim().toLowerCase() === 'saudi arabia') {
-            updatedTax = afterDiscount * 0.15; // Assuming VAT is 15%
-        } else {
-            updatedTax = 0; // No tax for countries other than Saudi Arabia
+            updatedTax = afterDiscount * 0.15;
         }
+    
         const updatedGrandTotal = afterDiscount + updatedTax;
-
-        const response = await axios.patch(`${base_url}/api/order/cart/`, {
-            'item_to_delete': itemId, 'total_amount': updatedTotalAmount,
-            tax: updatedTax, 'grand_total': updatedGrandTotal
+    
+        // API call
+        await axios.patch(`${base_url}/api/order/cart/`, {
+            item_to_delete: itemId,
+            total_amount: updatedTotalAmount,
+            tax: updatedTax,
+            grand_total: updatedGrandTotal
         }, ConfigToken());
-
-        setCartDetails((prevCartDetails) => {
-            if (existLocalData) {
-                const addonsData = {
-                    order_name: "Addons",
-                    item_list: updatedItemDetails.addon_items.map(item => ({
-                        design_id: item.item__id,
-                        addon_name: item.item_name,
-                        addon_arabic: item.item__name_arabic,
-                        category: item?.category,
-                        total_price: parseFloat(item.subtotal_price),
-                        item_type: item.item_type,
-                        unit_price: item.unit_price.toFixed(2),
-                        unit_time: item.unit_time.toFixed(2),
-                        qty: item.qty.toString(),
-                    }))
-                };
-                const updatedPayloads = {
-                    ...existLocalData,
-                    addons: addonsData
-                };
-                localStorage.setItem('payloads', JSON.stringify(updatedPayloads));
-            }
-
-            return {
-            ...prevCartDetails,
-            item_details: updatedItemDetails,
+    
+        // Update localStorage payload
+        if (existLocalData) {
+            const addonsData = {
+                order_name: "Addons",
+                item_list: updatedAddons.map(item => ({
+                    design_id: item.item__id,
+                    addon_name: item.item_name,
+                    addon_arabic: item.item__name_arabic,
+                    category: item?.category,
+                    total_price: parseFloat(item.subtotal_price),
+                    item_type: item.item_type,
+                    unit_price: item.unit_price.toFixed(2),
+                    unit_time: item.unit_time.toFixed(2),
+                    qty: item.qty.toString(),
+                }))
+            };
+    
+            const updatedPayloads = {
+                ...existLocalData,
+                addons: addonsData
+            };
+    
+            localStorage.setItem('payloads', JSON.stringify(updatedPayloads));
+        }
+    
+        // Update state
+        setCartDetails(prev => ({
+            ...prev,
+            item_details: {
+                ...prev.item_details,
+                addon_items: updatedAddons
+            },
             total_amount: afterDiscount,
             actual_total_amount: updatedTotalAmount,
             total_time: updatedTotalTime,
             tax: updatedTax,
-            grand_total: updatedGrandTotal,
-        }
-            
-        });
+            grand_total: updatedGrandTotal
+        }));
     };
+    
+    console.log(cartDetails)
 
      
     const getTotal = (countryValue, discount = null) => {

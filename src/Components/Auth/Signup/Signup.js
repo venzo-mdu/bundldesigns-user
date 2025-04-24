@@ -480,8 +480,8 @@ const login = useGoogleLogin({
               <div className={`lg:w-[50%] md:w-[45%] xs:w-[100%] ${lang == 'ar' ? 'mr-[5%]' : 'ml-[5%]'}`}>
               <AppleSignin
                 authOptions={{
-                  clientId: "com.bundldesigns.app.client",
-                  redirectURI: "https://bundldesigns.firebaseapp.com/__/auth/handler",
+                  clientId:clientId,
+                  redirectURI:redirectURI,
                   scope: "email name",
                   usePopup: true,
                   responseType: "code id_token",
