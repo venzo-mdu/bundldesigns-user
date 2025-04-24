@@ -28,8 +28,8 @@ export const Login = ({ lang }) => {
   const searchParams = new URLSearchParams(location.search);
   const next_url = searchParams.get("next_url");
   const { project_name } = location?.state || {}
-  const clientId = process.env.REACT_IOS_CLIENTID
-  const redirectURI = process.env.REACT_IOS_REDIRECT_URL
+  const clientId = process.env.REACT_APP_IOS_CLIENTID
+  const redirectURI = process.env.REACT_APP_IOS_REDIRECT_URL
 
   const [loginData, setLoginData] = useState({
     email: '',
@@ -401,8 +401,8 @@ export const Login = ({ lang }) => {
 
                 <AppleSignin
                   authOptions={{
-                    clientId:clientId,
-                    redirectURI:redirectURI,
+                    clientId:"com.bundldesigns.app.client",
+                    redirectURI:"https://bundldesigns.firebaseapp.com/__/auth/handler",
                     scope: "email name",
                     usePopup: true,
                     responseType: "code id_token",  
