@@ -401,8 +401,8 @@ export const Login = ({ lang }) => {
 
                 <AppleSignin
                   authOptions={{
-                    clientId: "com.bundldesigns.app.client",
-                    redirectURI: "https://bundldesigns.firebaseapp.com/__/auth/handler",
+                    clientId:clientId,
+                    redirectURI:redirectURI,
                     scope: "email name",
                     usePopup: true,
                     responseType: "code id_token",  
