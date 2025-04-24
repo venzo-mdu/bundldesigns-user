@@ -17,8 +17,10 @@ import loginGIF from '../../../Images/loginGIF.gif'
 import ClipLoader from "react-spinners/ClipLoader";
 import AppleLogin from 'react-apple-login'
 import GoogleIcon from "../../../Images/Login/icons8-google.svg"
+import { auth } from "../../Firebase/Firebase";
+import { OAuthProvider, signInWithPopup } from "firebase/auth";
 
-export const Login = ({lang}) => {
+export const Login = ({ lang }) => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -47,10 +49,10 @@ export const Login = ({lang}) => {
   }, []);
 
   useEffect(() => {
-      const direction = lang === 'ar' ? 'rtl' : 'ltr';
-      if (document.body.dir !== direction) {
-          document.body.dir = direction;
-      }
+    const direction = lang === 'ar' ? 'rtl' : 'ltr';
+    if (document.body.dir !== direction) {
+      document.body.dir = direction;
+    }
   }, [lang]);
 
 
@@ -63,7 +65,7 @@ export const Login = ({lang}) => {
         return originalAuth.init(config);
       },
     };
-  
+
     return () => {
       window.AppleID.auth = originalAuth;
     };
@@ -201,49 +203,85 @@ export const Login = ({lang}) => {
   }
 
 
-  const handleAppleLoginSuccess = async (response) => {
-    console.log("Apple Login Success:", response);
+  // const handleAppleLoginSuccess = async (response) => {
+  //   console.log("Apple Login Success:", response);
 
-    const { authorization, user } = response;
+  //   const { authorization, user } = response;
 
-    console.log(authorization,user,"res")
+  //   console.log(authorization,user,"res")
 
-    if (!authorization?.id_token || !authorization?.code) {
-      console.error("Invalid Apple response:", response);
-      return;
-    }
+  //   if (!authorization?.id_token || !authorization?.code) {
+  //     console.error("Invalid Apple response:", response);
+  //     return;
+  //   }
 
-    const decodedToken = jwt_decode(authorization.id_token);
-    console.log("Decoded Apple ID Token:", decodedToken);
-    const data = {
-      email: user?.email,
-      full_name: user?.email?.split("@")[0],
-      password: null,
-      google: true
-    }
+  //   const decodedToken = jwt_decode(authorization.id_token);
+  //   console.log("Decoded Apple ID Token:", decodedToken);
+  //   const data = {
+  //     email: user?.email,
+  //     full_name: user?.email?.split("@")[0],
+  //     password: null,
+  //     google: true
+  //   }
 
+  //   try {
+  //     const response = await axios.post(`${base_url}/api/login/`, data);
+  //     if (response.status === 200) {
+  //       document.cookie = `token=${response?.data?.data.token || ""}; path=/; SameSite=None; Secure`;
+  //       dispatch(loginAction(response.data.user));
+  //       if (next_url) {
+  //         navigate(`${process.env.REACT_APP_URL}/${next_url}`, {
+  //           state: {
+  //             project_name: project_name,
+  //             fromLogin: true,
+  //           }
+  //         })
+  //         // window.location.href =`${process.env.REACT_APP_URL}/${next_url}`
+  //       } else { navigate('/'); }
+
+  //     }
+
+  //   } catch (response) {
+
+  //     setLoginError(response.response.data.data)
+  //   }
+
+  // };
+
+
+  const handleAppleLogin = async () => {
+    const provider = new OAuthProvider("apple.com");
     try {
-      const response = await axios.post(`${base_url}/api/login/`, data);
-      if (response.status === 200) {
-        document.cookie = `token=${response?.data?.data.token || ""}; path=/; SameSite=None; Secure`;
-        dispatch(loginAction(response.data.user));
-        if (next_url) {
-          navigate(`${process.env.REACT_APP_URL}/${next_url}`, {
-            state: {
-              project_name: project_name,
-              fromLogin: true,
-            }
-          })
-          // window.location.href =`${process.env.REACT_APP_URL}/${next_url}`
-        } else { navigate('/'); }
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      console.log("Apple user:", user);
 
+      if (user?.accessToken) {
+        const data = {
+          email: user?.auth?.currentUser?.email,
+          full_name: user?.auth?.currentUser?.email?.split("@")[0],
+          password: null,
+          google: true
+        }
+        const response = await axios.post(`${base_url}/api/login/`, data);
+        if (response.status === 200) {
+          document.cookie = `token=${response?.data?.data.token || ""}; path=/; SameSite=None; Secure`;
+          dispatch(loginAction(response.data.user));
+          console.log(next_url)
+          if (next_url) {
+            navigate(`/${next_url}`, {
+              state: {
+                project_name: project_name,
+                fromLogin: true,
+              }
+            })
+          }
+          else { navigate('/'); }
+        }
       }
-
-    } catch (response) {
-
-      setLoginError(response.response.data.data)
+    } catch (error) {
+      console.error("Apple sign-in failed:", error.message);
     }
-
   };
 
 
@@ -371,27 +409,29 @@ export const Login = ({lang}) => {
                     responseMode: "form_post",
                   }}
                   // className={'lg:w-[50%] md:w-[50%] xs:w-[100%] !lg:text-[18px] !md:text-[18px] !xs:text-[16px]'}
-                  onSuccess={handleAppleLoginSuccess}
+                  // onSuccess={handleAppleLoginSuccess}
                   onError={(error) => console.error("Apple Login Failed:", error)}
+                  onClick={handleAppleLogin}
                   render={(props) => (
-                  <button 
-                    onClick={props?.onClick} {...props}
-                    style={{
-                      backgroundColor: "white",
-                      padding: 10,
-                      fontFamily: "none",
-                      lineHeight: "25px",
-                      fontSize: window?.innerWidth <= 500 ? "12px" : "18px",
-                      border: '1px solid #D9D9D9',
-                      borderRadius: '0px',
-                      fontFamily:'Helvetica',
-                      fontWeight:'400',
-                      width:'100%'
-                    }}
-                  >
-                    <i className="fa-brands fa-apple px-2 "></i>
-                    {lang === 'ar' ? 'تسجيل دخول أبل': 'Sign in with Apple'}
-                 </button>)}
+                    <button
+                      {...props}
+                      type='button'
+                      style={{
+                        backgroundColor: "white",
+                        padding: 10,
+                        fontFamily: "none",
+                        lineHeight: "25px",
+                        fontSize: window?.innerWidth <= 500 ? "12px" : "18px",
+                        border: '1px solid #D9D9D9',
+                        borderRadius: '0px',
+                        fontFamily: 'Helvetica',
+                        fontWeight: '400',
+                        width: '100%'
+                      }}
+                    >
+                      <i className="fa-brands fa-apple px-2 "></i>
+                      {lang === 'ar' ? 'تسجيل دخول أبل' : 'Sign in with Apple'}
+                    </button>)}
                 />
                 {/* <AppleLogin
                 clientId="com.bundldesigns.app.client"
@@ -421,13 +461,13 @@ export const Login = ({lang}) => {
               </div>
             </p>
             <p className='dont !mt-4 w-[100%] sm:w-[100%] xs:w-full'>
-              {lang === 'ar' ? 'ليس لديك حساب؟':'Don’t Have an account ?'} <span><NavLink className='signup !font-[500]' to={'/signup'}>&nbsp;{lang === 'ar' ? 'تسجيل حساب' :'Sign Up'}</NavLink></span>
+              {lang === 'ar' ? 'ليس لديك حساب؟' : 'Don’t Have an account ?'} <span><NavLink className='signup !font-[500]' to={'/signup'}>&nbsp;{lang === 'ar' ? 'تسجيل حساب' : 'Sign Up'}</NavLink></span>
             </p>
           </form>
         </div>
         {/* <img className='anchor1 w-[160px]' src={loginGIF} alt='login-anchor' /> */}
       </div>
-      <Footer isLang={lang}/>
+      <Footer isLang={lang} />
     </div>
   );
 };

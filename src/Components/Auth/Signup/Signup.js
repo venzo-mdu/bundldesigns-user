@@ -19,6 +19,8 @@ import ClipLoader from "react-spinners/ClipLoader";
 import PhoneNumberInput from '../../Pages/PhoneNumberInput';
 import AppleLogin from 'react-apple-login'
 import { useGoogleLogin } from '@react-oauth/google';
+import { auth } from "../../Firebase/Firebase";
+import { OAuthProvider, signInWithPopup } from "firebase/auth";
 
 export const Signup = ({lang}) => {
 
@@ -72,6 +74,22 @@ export const Signup = ({lang}) => {
       left: 0
     })
   }, [])
+
+
+  useEffect(() => {
+    const originalAuth = window.AppleID?.auth;
+    window.AppleID.auth = {
+      ...originalAuth,
+      init: (config) => {
+        console.log("Apple auth initialized", config);
+        return originalAuth.init(config);
+      },
+    };
+
+    return () => {
+      window.AppleID.auth = originalAuth;
+    };
+  }, []);
 
   const showToastMessage = () => {
     toast.error("The Value is required!", {
@@ -233,6 +251,7 @@ const login = useGoogleLogin({
       setLoading(false)
     }
   };
+  
   const signupWithGoogle = async (data) => {
     try {
       const response = await axios.post(`${base_url}/api/register/`, data);
@@ -251,43 +270,71 @@ const login = useGoogleLogin({
     }
   }
 
-  const handleAppleSignupSuccess = async (response) => {
-    console.log("Apple Login Success:", response);
+  // const handleAppleSignupSuccess = async (response) => {
+  //   console.log("Apple Login Success:", response);
   
-    const { authorization, user } = response;
+  //   const { authorization, user } = response;
   
-    if (!authorization?.id_token || !authorization?.code) {
-      console.error("Invalid Apple response:", response);
-      return;
-    }
+  //   if (!authorization?.id_token || !authorization?.code) {
+  //     console.error("Invalid Apple response:", response);
+  //     return;
+  //   }
 
-    const decodedToken = jwt_decode(authorization.id_token);
-    console.log("Decoded Apple ID Token:", decodedToken);
-    const data ={
-      email:decodedToken?.email,
-      full_name:decodedToken?.email?.split("@")[0],
-      password:null,
-      google:true
-    }
+  //   const decodedToken = jwt_decode(authorization.id_token);
+  //   console.log("Decoded Apple ID Token:", decodedToken);
+  //   const data ={
+  //     email:decodedToken?.email,
+  //     full_name:decodedToken?.email?.split("@")[0],
+  //     password:null,
+  //     google:true
+  //   }
   
-    try {
-      const response = await axios.post(`${base_url}/api/register/`, data);
-      if (response.status === 201) {
-        document.cookie = `token=${response?.data.token || ""}; path=/; SameSite=None; Secure`;
-        dispatch(loginAction(response.user));
-        navigate('/');
-      }
-    } catch (response) {
-      const errors = response.response.data?.error || {};
-      const formattedErrors = Object.fromEntries(
-        Object.entries(errors).map(([key, value]) => [key, value[0]])
-      );
-      console.log(formattedErrors, response.response, 'for')
-      setErrors(formattedErrors)
-    }
+  //   try {
+  //     const response = await axios.post(`${base_url}/api/register/`, data);
+  //     if (response.status === 201) {
+  //       document.cookie = `token=${response?.data.token || ""}; path=/; SameSite=None; Secure`;
+  //       dispatch(loginAction(response.user));
+  //       navigate('/');
+  //     }
+  //   } catch (response) {
+  //     const errors = response.response.data?.error || {};
+  //     const formattedErrors = Object.fromEntries(
+  //       Object.entries(errors).map(([key, value]) => [key, value[0]])
+  //     );
+  //     console.log(formattedErrors, response.response, 'for')
+  //     setErrors(formattedErrors)
+  //   }
    
-  };
+  // };
 
+  const handleAppleLogin = async () => {
+    const provider = new OAuthProvider("apple.com");
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      console.log("Apple user:", user);
+
+      if (user?.accessToken) {
+        const data = {
+          email: user?.auth?.currentUser?.email,
+          full_name: user?.auth?.currentUser?.email?.split("@")[0],
+          password: null,
+          google: true
+        }
+
+        const response = await axios.post(`${base_url}/api/register/`, data);
+        if (response.status === 201) {
+          document.cookie = `token=${response?.data.token || ""}; path=/; SameSite=None; Secure`;
+          dispatch(loginAction(response.user));
+          navigate('/');
+        }
+
+    }
+    } catch (error) {
+    console.error("Apple sign-in failed:", error.message);
+  }
+};
+ 
   return (
     <div>
       <div className='login !mb-24'>
@@ -431,14 +478,18 @@ const login = useGoogleLogin({
               <AppleSignin
                 authOptions={{
                   clientId: "com.bundldesigns.app.client",
-                  redirectURI: "https://bundldesigns.web.app/login",
+                  redirectURI: "https://bundldesigns.firebaseapp.com/__/auth/handler",
                   scope: "email name",
-                  usePopup: false,
+                  usePopup: true,
+                  responseType: "code id_token",
+                  responseMode: "form_post",
                 }}
                 // className={'lg:w-[50%] md:w-[50%] xs:w-[100%] !lg:text-[18px] !md:text-[18px] !xs:text-[14px]'}
-                onSuccess={handleAppleSignupSuccess}
+                // onSuccess={handleAppleSignupSuccess}
+                onClick={handleAppleLogin}
                 onError={(error) => console.error("Apple Login Failed:", error)}
-                render={(props) => <button {...props}
+                render={(props) => <button  {...props}
+                  type='button' 
                   style={{
                     backgroundColor: "white",
                     padding: 10,
