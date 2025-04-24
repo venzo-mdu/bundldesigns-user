@@ -587,7 +587,14 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
               expandIcon={<ExpandMoreIcon className='text-[#000]' />}
               aria-controls={`panel${index + 1}-content`}
               id={`panel${index + 1}-header`}
-              onClick={() => toggleDropdown(index)}
+              onClick={() => {toggleDropdown(index)
+                setTimeout(() => {
+                  const element = document.getElementById(`${index}_list`);
+                  if (element) {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }
+                }, 500);
+              }}
               sx={{
                 border:'none'
               }}

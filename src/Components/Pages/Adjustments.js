@@ -2098,7 +2098,14 @@ export default function Adjustments({user ,lang ,setLang}) {
                                             {Object.keys(bundlAddons).map((category, index) => {
                                                 return <div className='' id={`${index}_list`}>
                                                     <p className={`flex justify-between font-semibold text-[24px] pb-2  ${expantedTabs[category] || category === 'Social Media'  ? '' : 'border-b'} border-[#00000080]`}> {lang === 'ar' ? bundlAddons[category]?.name_arabic :category}      <button
-                                                        onClick={() => toggleDescription(category)}
+                                                        onClick={() => {toggleDescription(category);
+                                                            setTimeout(() => {
+                                                                const element = document.getElementById(`${index}_list`);
+                                                                if (element) {
+                                                                  element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                                                }
+                                                              }, 500);
+                                                        }}
                                                         className="text-blue-500 cursor-pointer"
                                                     >
                                                         <img className='w-6' src={expantedTabs[category] ? upArrow : downArrow}></img>
@@ -2603,7 +2610,14 @@ export default function Adjustments({user ,lang ,setLang}) {
                                                 {Object.keys(bundlAddons).map((category, index) => {
                                                     return <div className='' id={`${index}_list`}> 
                                                         <p className={`flex justify-between font-semibold text-[24px] pb-2 uppercase  ${expantedTabs[category] || category === 'Social Media' ? '' : 'border-b'} border-[#00000080]`}> {lang === 'ar' ? bundlAddons[category]?.name_arabic :category}      <button
-                                                            onClick={() => toggleDescription(category)}
+                                                            onClick={() => {toggleDescription(category);
+                                                                setTimeout(() => {
+                                                                    const element = document.getElementById(`${index}_list`);
+                                                                    if (element) {
+                                                                      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                                                    }
+                                                                  }, 500);
+                                                            }}
                                                             className="text-blue-500 cursor-pointer"
                                                         >
                                                             <img className='w-6' src={expantedTabs[category] ? upArrow : downArrow}></img>
