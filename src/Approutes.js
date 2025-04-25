@@ -52,8 +52,8 @@ export default function AppRouter() {
   const [transLanguage , setTransLanguage] = useState('');
   const location = useLocation();
   const [user , setUser] = useState([]);
-  const ProtectedRoute = ({ element }) => {
 
+  const ProtectedRoute = ({ element }) => {
     const token = getCookie("token");
     return token != null ? element : <Navigate to={{ pathname: "/login", search: `?next_url=${location.pathname.slice(1)}` }}  />;
   };
