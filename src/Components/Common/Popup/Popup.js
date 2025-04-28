@@ -24,7 +24,7 @@ export const Popup = ({ title, subTitle, popupType = 'default', onChange, save, 
         width: isSmallScreen ? '90%' : 565,
         bgcolor: 'background.paper',
         border: '0px',
-        borderRadius: '8px',
+        // borderRadius: '8px',
         boxShadow: 24,
         textAlign: 'center',
         outline: 'none',
@@ -153,6 +153,7 @@ export const Popup = ({ title, subTitle, popupType = 'default', onChange, save, 
                             onClick={onClick}
                             sx={{
                                 backgroundColor: saveBtnBg || '#1BA56F',
+                                borderRadius:'0px',
                                 color: '#fff',
                                 px: 6,
                                 "&:hover": {
@@ -168,6 +169,7 @@ export const Popup = ({ title, subTitle, popupType = 'default', onChange, save, 
                                 onClick={() => {setPopup(false);cancelClick(false);localStorage.removeItem('payloads')}}
                                 sx={{
                                     backgroundColor: '#fff',
+                                    borderRadius:'0px',
                                     color: '#000',
                                     border: '#E2E8F0 1px solid',
                                     ml: isLang === 'ar' ? 0 : 2,

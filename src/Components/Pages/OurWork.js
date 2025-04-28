@@ -135,7 +135,7 @@ export default function OurWork({lang,setLang}) {
           <div className='w-[48%] text-center mx-auto'>
           <p className='flex justify-center mb-0 mt-0'> <img  className='animate-rotate-animation' width='150px' height='110px' src={workBrandGIF}></img></p>
           <h2 className='text-[40px] xs:text-[24px] sm:text-[40px]'>{lang === 'ar' ?'هل أنت مصدر إلهام لبدء رحلتك لإطلاق الشيءالكبير التالي؟ ' :'Inspired to start your journey to launch your next big thing ?'}</h2>
-          <p> <button onClick={()=>{window.location.href='/'}} className='border-black border-[1px] bg-[#FFF] mt-4 text-[20px] text-black py-[5px] px-[18px]  hover:!bg-black  hover:text-white uppercase'>{lang === 'ar' ? 'ابدأ !' :'Get started!'}</button> </p>
+          <p> <button onClick={()=>{window.location.href='/'}} className='border-black border-[1px] bg-[#FFF] mt-4 text-[20px] text-black py-[5px] px-[18px]  hover:!bg-black  hover:text-white uppercase'>{lang === 'ar' ? 'ابدأ مشروعك الآن' :'Get started!'}</button> </p>
           </div>
           <img width='300px' className={`absolute sm:w-[300px] w-[300px] xs:w-[150px] xs:top-[30%] sm:top-[14%] ${lang === 'ar' ?'xs:left-[-14%]  sm:left-[3%] left-[3%]':'xs:right-[-14%]  sm:right-[3%] right-[3%]'} `} style={{ transform: 'rotate(320deg)'}}  src={workOurGIF}></img>
         </div> 

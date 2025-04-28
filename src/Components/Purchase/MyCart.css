@@ -85,7 +85,7 @@ form{
 .cart-total-container{
     float: right;
     margin: 4% 0 0 0;
-    width: 30%;
+    width: 100%;
 }
 @media screen and (min-width:1705px){
     .billing #vacancySelect {
@@ -94,13 +94,13 @@ form{
 }
 @media screen and (max-width:1705px) and (min-width:1024px){
    .cart-total-container{
-    width: 40%;
+    width: 100%;
    }
 
 }
 @media screen and (max-width:1024px) and (min-width:768px){
     .cart-total-container{
-        width: 60%;
+        width: 100%;
     }
 }
 @media screen and (max-width:768px) and (min-width:441px) {

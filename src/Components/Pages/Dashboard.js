@@ -1612,13 +1612,17 @@ const handleDownload = async (file) => {
                                         <div className='lg:w-[100%] md:w-[100%] xs:w-[100%] lg:px-[5%] md:px-[5%] xs:mx-0 xs:px-6'>
 
                                             {order && order.item_details && Array.isArray(order.item_details) && <>
-                                            {order?.brand_identity && <>                                                <p className={`lg:text-[22px] md:text-[22px] xs:text-[18px] font-bold my-2 ${processIndex < 2 ? processIndex === 1 && order?.order_status !== 'in_progress' ?'text-[#00000080]': 'text-black': 'text-black'}`}>{lang === 'ar' ? 'الهوية البصرية' : 'Brand & Visual Identity'} <span className='text-[#1BA56F] lg:text-[18px] md:text-[18px] xs:text-[16px]  font-[500]'> - 
-                                                    {processIndex < 2 ? processIndex === 1 && order?.order_status !== 'in_progress' ? lang === 'ar' ? 'قيد الانتظار' : ' ON HOLD' :lang === 'ar' ? 'قيد التنفيذ' :'IN PROGRESS' : processIndex >= 4 ? lang === 'ar' ? 'مكتمل':' COMPLETE' : lang === 'ar' ? 'قيد التنفيذ' :'IN PROGRESS'}</span> </p>
-                                                <p className={`font-medium lg:text-[18px] md:text-[18px] xs:text-[16px] ${processIndex < 2 ? processIndex === 1 && order?.order_status !== 'in_progress' ?'text-[#00000080]' : 'text-black' : 'text-[#000]'}`}>{lang === 'ar' ? order?.brand_identity?.item__name_arabic : order?.brand_identity?.item_name} {processIndex >= 4 && <button className='bg-[#1BA56F] px-2 !py-0  text-[16px] ml-4 text-white font-[400] uppercase' onClick={() => { navigate('/adjustment', { state: { orderId: order.id, orderItemId: null } }) }}>{lang === 'ar' ? 'طلب تعديلات' :'Request Edits'}</button>} </p></>}
+                                            {order?.brand_identity && <> 
+                                                <p className={`lg:text-[22px] md:text-[22px] xs:text-[18px] font-bold my-2 ${processIndex < 2 ? processIndex === 1 && order?.order_status !== 'in_progress' ?'text-[#00000080]': 'text-black': 'text-black'}`}>{lang === 'ar' ? 'الهوية البصرية' : 'Brand & Visual Identity'} 
+                                                    <span className='text-[#1BA56F] lg:text-[18px] md:text-[18px] xs:text-[16px]  font-[500] xs:!float-end lg:!float-none md:!float-none'> - 
+                                                    {processIndex < 2 ? processIndex === 1 && order?.order_status !== 'in_progress' ? lang === 'ar' ? 'قيد الانتظار' : ' ON HOLD' :lang === 'ar' ? 'قيد التنفيذ' :'IN PROGRESS' : processIndex >= 4 ? lang === 'ar' ? 'مكتمل':' COMPLETE' : lang === 'ar' ? 'قيد التنفيذ' :'IN PROGRESS'}</span> 
+                                                </p>
+                                                    
+                                                <p className={`font-medium lg:text-[18px] md:text-[18px] xs:text-[16px] ${processIndex < 2 ? processIndex === 1 && order?.order_status !== 'in_progress' ?'text-[#00000080]' : 'text-black' : 'text-[#000]'}`}>{lang === 'ar' ? order?.brand_identity?.item__name_arabic : order?.brand_identity?.item_name} {processIndex >= 4 && <button className={`bg-[#1BA56F] px-2 !py-0  text-[16px] ${lang === 'ar' ? 'mr-4' : 'ml-4'} text-white font-[400] xs:!float-end lg:!float-none md:!float-none uppercase`} onClick={() => { navigate('/adjustment', { state: { orderId: order.id, orderItemId: null } }) }}>{lang === 'ar' ? 'طلب تعديلات' :'Request Edits'}</button>} </p></>}
 
                                                 <p className={`text-[22px] ${processIndex < 4 && 'text-[#00000080]'} font-bold my-2`}>{lang === 'ar' ? 'التطبيقات ' :'Applications'}
 
-                                                    <span className='text-[#1BA56F] lg:text-[18px] md:text-[18px] xs:text-[16px]  font-[500]'> - 
+                                                    <span className='text-[#1BA56F] lg:text-[18px] md:text-[18px] xs:text-[16px]  font-[500] xs:!float-end lg:!float-none md:!float-none'> - 
                                                         {processIndex < 4 ? lang === 'ar' ? 'قيد الانتظار' : ' ON HOLD' :order.order_status =='completed' || order.order_status =='in_review' ? lang === 'ar' ? 'مكتمل':' COMPLETE' : lang === 'ar' ? 'قيد التنفيذ' :'IN PROGRESS'}</span>
                                                 </p>
                                                 {order?.item_details
@@ -1729,7 +1733,7 @@ const handleDownload = async (file) => {
                             
 
                             <div className='font-Helvetica'>
-                                <div className='text-center pt-20 pb-24'>
+                                <div className='text-center lg:pt-0 lg:pb-16 md:pt-0 md:pb-16 xs:pt-4 xs:pb-16'>
                                     <h2 className='lg:text-[32px] md:text-[24px] xs:text-[32px] xs:font-[700] xs:px-[15%]'>{lang === 'ar'? dashboardJson.rate_us_arabic :dashboardJson.rate_us}</h2>
                                     <p className='lg:text-[20px] text-[#00000080] md:text-[16px] xs:text-[16px] xs:px-[12%]'>{lang === 'ar'? dashboardJson.rate_us_content_arabic :dashboardJson.rate_us_content}</p>
                                     {

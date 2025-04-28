@@ -1861,29 +1861,29 @@ export const Home = ({lang,setLang}) => {
                                                     </li>
                                                     <li className='px-[6px] inner-nav'>
                                                         <a className="" onClick={() => { setProfileVisible(!profileVisible);setSearchShow(false) }}><img src={User} alt="" className="navIcons cursor-pointer"></img></a>
-                                                        <nav className={`w-44 absolute top-full ${lang === 'ar' ? 'left-[6rem] text-left' : 'right-[6rem] text-right'} bg-white py-2 px-3  ${profileVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
+                                                        <nav className={`w-44 border-black border-[1px] absolute top-full ${lang === 'ar' ? 'left-[6rem] text-left' : 'right-[6rem] text-right'} bg-white   ${profileVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
                                                             }`}>
                                                             <div ref={popupRef}>
                                                                 {profileVisible && (
                                                                     <ul>
                                                                         {token ? (
                                                                             <>
-                                                                                <li className='relative p-1 inner-nav-li'>
-                                                                                    <a href="/dashboard" className='!text-black' previewlistener="true">{lang === 'ar' ?'مشاريعنا':'Projects'}</a>
+                                                                                <li className='relative p-1 inner-nav-li' onClick={()=>navigate('/dashboard')}>
+                                                                                    <a href="/dashboard" className=' text-black' previewlistener="true">{lang === 'ar' ?'مشاريعنا':'Projects'}</a>
                                                                                 </li>
-                                                                                <li className='relative p-1 inner-nav-li'>
-                                                                                    <a href="/purchase-history" className='!text-black' previewlistener="true">{lang === 'ar' ?'تاريخ':'History'}</a>
+                                                                                <li className='relative p-1 inner-nav-li' onClick={()=>navigate('/purchase-history')}>
+                                                                                    <a href="/purchase-history" className='text-black' previewlistener="true">{lang === 'ar' ?'تاريخ':'History'}</a>
                                                                                 </li>
-                                                                                <li className='relative p-1 inner-nav-li'>
-                                                                                    <a href="/profile" className='!text-black' previewlistener="true">{lang === 'ar' ? 'حسابك' :'Profile'}</a>
+                                                                                <li className='relative p-1 inner-nav-li' onClick={()=>navigate('/profile')}>
+                                                                                    <a href="/profile" className='text-black' previewlistener="true">{lang === 'ar' ? 'حسابك' :'Profile'}</a>
                                                                                 </li>
-                                                                                <li className='relative p-1 inner-nav-li'>
-                                                                                    <a className='cursor-pointer !text-black' onClick={() => { Logout() }} previewlistener="true">{lang === 'ar' ? 'تسجيل خروج ':'Logout'}</a>
+                                                                                <li className='relative p-1 inner-nav-li' onClick={() => { Logout() }}>
+                                                                                    <a className='cursor-pointer text-black' onClick={() => { Logout() }} previewlistener="true">{lang === 'ar' ? 'تسجيل خروج ':'Logout'}</a>
                                                                                 </li>
                                                                             </>
                                                                         ) : (
-                                                                            <li className='relative p-1 inner-nav-li'>
-                                                                                <a href="/login" className='!text-black' previewlistener="true">{lang === 'ar' ?'تسجيل دخول':'Login'}</a>
+                                                                            <li className='relative p-1 inner-nav-li' onClick={()=>navigate('/login')}>
+                                                                                <a href="/login" className='text-black' previewlistener="true">{lang === 'ar' ?'تسجيل دخول':'Login'}</a>
                                                                             </li>
                                                                         )}
                                                                     </ul>
@@ -1895,13 +1895,13 @@ export const Home = ({lang,setLang}) => {
                                                         <a className="" href="/mycart?direct=true"><img src={Cart} alt="" className="navIcons"></img></a>
                                                     </li>
                                                     <li className='px-[6px]'>
-                                                        <a className="cursor-pointer" onClick={()=>changeLanguage(lang == 'ar' ? 'En' :'ar')}>{lang === 'ar' ?<p className='mb-0 font-[700] text-[32px] text-black'>En</p>:<img src={Language} alt="" className="navIcons"></img>}</a>
+                                                        <a className="cursor-pointer" onClick={()=>changeLanguage(lang == 'ar' ? 'En' :'ar')}>{lang === 'ar' ?<p className='mb-0 font-[700] lg:text-[32px] md:text-[32px] xs:text-[24px] text-black mt-[5px]'>En</p>:<img src={Language} alt="" className="navIcons"></img>}</a>
                                                     </li>
                                                     <li className="nav-item xs:!block sm:!hidden  inner-nav text-center !hidden menu mr-auto">
                                                         <button onClick={toggleMenu} type="button" id="menu-toggle">
                                                             {menuVisible ? <CloseIcon className='!text-[50px]' /> : <MenuIcon className='!text-[50px]' />}
                                                         </button>
-                                                        <nav className={`w-44 absolute top-full -right-2 ${lang === 'ar' ? 'text-left' : 'text-right'} bg-white p-2  ${menuVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
+                                                        <nav className={`w-44 absolute border-[1px] border-black top-full -right-2 ${lang === 'ar' ? 'text-left' : 'text-right'} bg-white   ${menuVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
                                                             }`}>
                                                             {/* <ul >
                                                                 <li  className='relative p-1 inner-nav-li'>
@@ -1921,18 +1921,18 @@ export const Home = ({lang,setLang}) => {
                                                             <div ref={navigationRef}>
                                                                 {
                                                                     menuVisible && (
-                                                                        <ul className=' inner-nav-item'>
-                                                                            <li className='relative p-1 inner-nav-li'>
-                                                                                <a href="#ourBundl" className='!text-black' previewlistener="true">{lang === 'ar' ? 'باقاتنا' : 'Bundls'}</a>
+                                                                        <ul className=' inner-nav-item'  >
+                                                                            <li className='relative p-1 inner-nav-li' onClick={()=>navigate('/#ourBundl')}>
+                                                                                <a href="#ourBundl" className='text-black' previewlistener="true">{lang === 'ar' ? 'باقاتنا' : 'Bundls'}</a>
                                                                             </li>
-                                                                            <li className='relative p-1 inner-nav-li'>
-                                                                                <a href="/our-work" className='!text-black' previewlistener="true">{lang === 'ar' ? 'مشاريعنا' : 'Our Work'}</a>
+                                                                            <li className='relative p-1 inner-nav-li' onClick={()=>navigate('/our-work')}>
+                                                                                <a href="/our-work" className='text-black' previewlistener="true">{lang === 'ar' ? 'مشاريعنا' : 'Our Work'}</a>
                                                                             </li>
-                                                                            <li className='relative p-1 inner-nav-li'>
-                                                                                <a href="/aboutus" className='!text-black' previewlistener="true">{lang === 'ar' ? 'عن بندل' : 'About us'}</a>
+                                                                            <li className='relative p-1 inner-nav-li' onClick={()=>navigate('/aboutus')}>
+                                                                                <a href="/aboutus" className='text-black' previewlistener="true">{lang === 'ar' ? 'عن بندل' : 'About us'}</a>
                                                                             </li>
-                                                                            <li className='relative p-1 inner-nav-li'>
-                                                                                <a href="/contact-us" className='!text-black' previewlistener="true">{lang === 'ar' ? 'اتصل بنا' : 'Contact Us'}</a>
+                                                                            <li className='relative p-1 inner-nav-li' onClick={()=>navigate('/contact-us')}>
+                                                                                <a href="/contact-us" className='text-black' previewlistener="true">{lang === 'ar' ? 'اتصل بنا' : 'Contact Us'}</a>
                                                                             </li>
                                                                         </ul>
                                                                     )
@@ -2607,8 +2607,8 @@ export const Home = ({lang,setLang}) => {
                                     })}style={{ justifyContent: "end" }}>
                                         <div className="change_brand">
                                             <div className="table_icon"><img src={MaginIcon} alt="" className="img-fluid" /></div>
-                                            <div className="newbie">{lang === 'ar' ? '' : 'Customized' }</div>
-                                            <div className="pkg-sub-title">{lang === 'ar' ? 'صمم البندل الخاص بك' : 'Customize your Bundl'}</div>
+                                            <div className="newbie">{lang === 'ar' ? 'صمم الباقة الخاصة بك' : 'Customize your Bundl' }</div>
+                                            {/* <div className="pkg-sub-title">{lang === 'ar' ? 'صمم البندل الخاص بك' : 'Customize your Bundl'}</div> */}
                                         </div>
 
                                         <div className="second_brand_section" style={{ height: "75%" }}>

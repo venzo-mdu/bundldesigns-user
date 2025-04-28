@@ -21,7 +21,8 @@ import socialMediaGIF from '../../Images/aboutus/socialMedia.gif'
 import identityImg from '../../Images/aboutus/Identity.svg'
 import ClearIcon from '@mui/icons-material/Clear';
 import { Bgloader } from '../Common/Background/Bgloader'
-
+import workOurGIF from '../../Images/ourWorkGIF.gif'
+import workBrandGIF from '../../Images/ourWorkBranding.gif'
 
 export const AboutUs = ({ lang, setLang }) => {
   const [loading, setLoading] = useState(true)
@@ -139,8 +140,8 @@ export const AboutUs = ({ lang, setLang }) => {
                       <div className='basis-3/5 mt-[2%] mb-[3%] text-center text-white'>
                         <h2 className='text-white sm:text-[32px] text-[32px] xs:text-[20px] '>{aboutUs[whatwedo].title}</h2>
                         <p className='sm:text-[20px] text-[20px] xs:text-[16px] px-2 mb-4'>{aboutUs[whatwedo].content}</p>
-                        <p> <a href='/our-work' className={`text-[white] font-[500] sm:text-[20px] text-[20px] xs:text-[14px] hover:text-[white] px-[17px] py-1 !border-white border ${lang === 'ar' ? 'ml-4' : 'mr-4'} uppercase`}>{lang === 'ar' ? 'اطلع على أعمالنا' : 'View Our Work'}</a>
-                          <a href='/' className={`bg-white text-[${aboutUs[whatwedo].bgColor}] font-[500] border hover:text-[${aboutUs[whatwedo].bgColor}] !border-white px-[17px] sm:text-[20px] text-[20px] xs:text-[14px] py-1 uppercase`}>{lang === 'ar' ? 'اطلب التصاميم الآن' : 'Purchase Now'}</a> </p>
+                        <p> <a href='/our-work' className={`text-[white] font-[500] sm:text-[20px] text-[20px] xs:text-[14px] hover:text-[white] px-[17px] py-[.5rem] !border-white border ${lang === 'ar' ? 'ml-4' : 'mr-4'} uppercase`}>{lang === 'ar' ? 'اطلع على أعمالنا' : 'View Our Work'}</a>
+                          <a href='/' className={`bg-white text-[${aboutUs[whatwedo].bgColor}] font-[500] border hover:text-[${aboutUs[whatwedo].bgColor}] !border-white px-[17px] sm:text-[20px] text-[20px] xs:text-[14px] py-[.5rem] uppercase`}>{lang === 'ar' ? 'اطلب التصاميم الآن' : 'Purchase Now'}</a> </p>
                       </div>
 
                     </div>
@@ -317,10 +318,20 @@ export const AboutUs = ({ lang, setLang }) => {
               </div>
 
             </div>
-            <div className='text-center py-14 '>
+            {/* <div className='text-center py-14 '>
               <h2 className='sm:w-[600px] w-[50vw] xs:w-[100vw] text-[32px] !mt-6 lg:mx-auto md:mx-auto xs:mx-0 lg:py-0 lg:px-0 md:py-0 md:px-0 xs:py-[2%] xs:px-[5%]  text-black'>{lang === 'ar' ? 'جاهز تبدأ رحلتك الابداعية معنا؟ ' : 'Inspired to start your journey to launch your next big thing ?'}</h2>
               <p className='text-center'> <button onClick={() => { window.location.href = '/' }} className='py-1 px-3  !mt-[50px] border-black border-[1px] !mb-8 bg-white hover:!bg-black text-black uppercase  hover:text-white'>{lang === 'ar' ? 'ابدأ مشروعك الآن' : 'Get started !'}</button> </p>
-            </div>
+            </div> */}
+
+            <div className='relative py-10 pb-24'>
+              <img className={`absolute ${lang === 'ar' ? 'sm:right-12 right-12 xs:right-[-3rem]' : 'sm:left-12 left-12 xs:left-[-3rem]'} sm:w-[200px] w-[200px] xs:w-[125px]`} style={{ transform: 'rotate(350deg)' }} src={workOurGIF}></img>
+              <div className='w-[48%] text-center mx-auto'>
+                <p className='flex justify-center mb-0 mt-0'> <img className='animate-rotate-animation' width='150px' height='110px' src={workBrandGIF}></img></p>
+              <h2 className='sm:w-[600px] w-[50vw] xs:w-[100vw] text-[32px] !mt-6 lg:mx-auto md:mx-auto xs:mx-0 lg:py-0 lg:px-0 md:py-0 md:px-0 xs:py-[2%] xs:px-[5%]  text-black'>{lang === 'ar' ? 'جاهز تبدأ رحلتك الابداعية معنا؟ ' : 'Inspired to start your journey to launch your next big thing ?'}</h2>
+                <p className='text-center'> <button onClick={() => { window.location.href = '/' }} className='py-1 px-3  !mt-[50px] border-black border-[1px] !mb-8 bg-white hover:!bg-black text-black uppercase  hover:text-white'>{lang === 'ar' ? 'ابدأ مشروعك الآن' : 'Get started !'}</button> </p>
+              </div>
+              <img width='300px' className={`absolute sm:w-[300px] w-[300px] xs:w-[150px] xs:top-[30%] sm:top-[14%] ${lang === 'ar' ? 'xs:left-[-14%]  sm:left-[3%] left-[3%]' : 'xs:right-[-14%]  sm:right-[3%] right-[3%]'} `} style={{ transform: 'rotate(320deg)' }} src={workOurGIF}></img>
+            </div> 
             <Footer isLang={lang} />
           </>
       }

@@ -571,7 +571,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                     <div>
                       {
                         addonPayLoads?.item_list?.length > 0 && (
-                          <p className={`lg:text-[20px] md:text-[20px] xs:text-[16px] mb-0 font-[700]  border-b-[1px] border-black px-[2%] py-[1%] ${lang === 'ar' ? 'text-right' : 'text-left'}`}>{lang === 'ar' ? '' : 'Add ons'}</p>
+                          <p className={`lg:text-[20px] md:text-[20px] xs:text-[16px] mb-0 font-[700]  border-b-[1px] border-black px-[2%] py-[1%] ${lang === 'ar' ? 'text-right' : 'text-left'}`}>{lang === 'ar' ? 'إضافات' : 'Add ons'}</p>
                         )
                       }
                     </div>
@@ -599,7 +599,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                               key={idx}
                               className={`one-brand-identity 
                         ${idx !== addons.length - 1 && 'h-[25px]'} 
-                        ${addons.length - 1 === idx && 'border-b-[1px] border-black'}
+                        ${addons.length - 1  === idx && 'border-b-[1px] border-black'}
                         xs:flex sm:block block flex-wrap justify-around`
                               }
                             >
@@ -658,8 +658,8 @@ export const BundlDetail = ({ user, lang, setLang }) => {
         <Popup
           openpopup={openPopup}
           setPopup={setOpenPopup}
-          title={'Your Cart was already full'}
-          subTitle={'Are you sure, you want to empty the cart.'}
+          title={''}
+          subTitle={'Are you sure you want to empty the cart.'}
           onClick={emptyCart}
           save={'Empty Cart'}
           cancel={'Cancel'}

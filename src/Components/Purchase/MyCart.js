@@ -111,7 +111,7 @@ export const MyCart = ({ lang, setLang }) => {
                 setTotalAmount(response.data.total_amount)
                 setCartDetails({ ...response.data, actual_total_amount: response.data.total_amount });
             }
-            if (response.status === 206) {
+            if (response.status === 206 || (response?.data?.item_details?.bundle_items?.length === 0 && response?.data?.item_details?.addon_items.length === 0) ) {
                 setOpenPopup(true)
             }
         }
@@ -122,103 +122,10 @@ export const MyCart = ({ lang, setLang }) => {
         }
     };
 
-    // const removeItem = async (itemId, itemType) => {
-    //     const existLocalData = JSON.parse(localStorage.getItem('payloads')) || {};
-    //     if (itemType == 'bundle') {
-    //         toast.error(`Package Item Cannot removed`, {
-    //             position: toast?.POSITION?.TOP_RIGHT,
-    //             toastId: 'required-value-toast',
-    //             icon: false,
-    //             style: {
-    //                 color: '#D83D99',
-    //                 fontWeight: '700'
-    //             }
-    //         });
-    //         return;
-    //     }
-    //     let cartDetailsTemp = cartDetails
-    //     const updatedItemDetails = { ...cartDetailsTemp.item_details };
-    //     let updatedTotalAmount = cartDetailsTemp.actual_total_amount;
-    //     let updatedTotalTime = cartDetailsTemp.total_time
-    //     setRemovedItems(itemId)
-    //     // Handle removal based on item type
-    //     const removedItem = updatedItemDetails.addon_items.find(item => item.id === itemId);
-    //     if(removedItem?.qty === 0) {
-    //         updatedTotalAmount =  0;
-    //     }else{
-    //         updatedTotalAmount -= removedItem?.subtotal_price ;
-    //     }
-
-    //     const sorted = [...updatedItemDetails.addon_items].sort((a, b) => b.unit_time - a.unit_time);
-    //     if (sorted.length && sorted[0].id == itemId) {
-    //         updatedTotalTime -= removedItem?.unit_time
-    //         if (sorted.length > 1) {
-    //             updatedTotalTime += sorted[1].unit_time
-    //         }
-    //     }
-    //     updatedItemDetails.addon_items = updatedItemDetails.addon_items.filter(item => item.id !== itemId);
-
-    //     // Recalculate the totals
-    //     let updatedTax = 0; // Default value, assuming no tax
-    //     let afterDiscount = updatedTotalAmount
-    //     if (coupon) {
-    //         afterDiscount = afterDiscount - ((afterDiscount / 100) * coupon.discount)
-    //     }
-
-    //     if (billingInfo.country.trim().toLowerCase() === 'saudi arabia') {
-    //         updatedTax = afterDiscount * 0.15; // Assuming VAT is 15%
-    //     } else {
-    //         updatedTax = 0; // No tax for countries other than Saudi Arabia
-    //     }
-    //     const updatedGrandTotal = afterDiscount + updatedTax;
-
-    //     const response = await axios.patch(`${base_url}/api/order/cart/`, {
-    //         'item_to_delete': itemId, 'total_amount': updatedTotalAmount,
-    //         tax: updatedTax, 'grand_total': updatedGrandTotal
-    //     }, ConfigToken());
-
-    //     setCartDetails((prevCartDetails) => {
-    //         if (existLocalData) {
-    //             const addonsData = {
-    //                 order_name: "Addons",
-    //                 item_list: updatedItemDetails.addon_items.map(item => ({
-    //                     design_id: item.item__id,
-    //                     addon_name: item.item_name,
-    //                     addon_arabic: item.item__name_arabic,
-    //                     category: item?.category,
-    //                     total_price: parseFloat(item.subtotal_price),
-    //                     item_type: item.item_type,
-    //                     unit_price: item.unit_price.toFixed(2),
-    //                     unit_time: item.unit_time.toFixed(2),
-    //                     qty: item.qty.toString(),
-    //                 }))
-    //             };
-    //             const updatedPayloads = {
-    //                 ...existLocalData,
-    //                 addons: addonsData
-    //             };
-    //             localStorage.setItem('payloads', JSON.stringify(updatedPayloads));
-    //         }
-
-    //         return {
-    //         ...prevCartDetails,
-    //         item_details: updatedItemDetails,
-    //         total_amount: afterDiscount,
-    //         actual_total_amount: updatedTotalAmount,
-    //         total_time: updatedTotalTime,
-    //         tax: updatedTax,
-    //         grand_total: updatedGrandTotal,
-    //     }
-            
-    //     });
-    // };
-
-
     const removeItem = async (itemId, itemType) => {
         const existLocalData = JSON.parse(localStorage.getItem('payloads')) || {};
-    
-        if (itemType === 'bundle') {
-            toast.error(`Package Item Cannot be removed`, {
+        if (itemType == 'bundle') {
+            toast.error(`Package Item Cannot removed`, {
                 position: toast?.POSITION?.TOP_RIGHT,
                 toastId: 'required-value-toast',
                 icon: false,
@@ -229,83 +136,175 @@ export const MyCart = ({ lang, setLang }) => {
             });
             return;
         }
-    
-        setRemovedItems(itemId);
-    
-        // Clone cart details to avoid mutation
-        const cartDetailsTemp = JSON.parse(JSON.stringify(cartDetails));
-        const currentAddons = cartDetailsTemp.item_details.addon_items;
-    
-        // Remove the item
-        const updatedAddons = currentAddons.filter(item => item.id !== itemId);
-    
-        // Recalculate totals
-        const updatedTotalAmount = updatedAddons.reduce((sum, item) => sum + item.subtotal_price, 0);
-        const updatedTotalTime = updatedAddons.reduce((sum, item) => sum + item.unit_time, 0);
-    
-        // Handle coupon discount
-        let afterDiscount = updatedTotalAmount;
+        let cartDetailsTemp = cartDetails
+        const updatedItemDetails = { ...cartDetailsTemp.item_details };
+        let updatedTotalAmount = cartDetailsTemp.actual_total_amount;
+        console.log(updatedTotalAmount)
+        let updatedTotalTime = cartDetailsTemp.total_time
+        setRemovedItems(itemId)
+        // Handle removal based on item type
+        const removedItem = updatedItemDetails.addon_items.find(item => item.id === itemId);
+        updatedTotalAmount -= removedItem?.subtotal_price ;
+
+        const sorted = [...updatedItemDetails.addon_items].sort((a, b) => b.unit_time - a.unit_time);
+        if (sorted.length && sorted[0].id == itemId) {
+            updatedTotalTime -= removedItem?.unit_time
+            if (sorted.length > 1) {
+                updatedTotalTime += sorted[1].unit_time
+            }
+        }
+        updatedItemDetails.addon_items = updatedItemDetails.addon_items.filter(item => item.id !== itemId);
+
+        // Recalculate the totals
+        let updatedTax = 0; // Default value, assuming no tax
+        let afterDiscount = updatedTotalAmount
         if (coupon) {
-            afterDiscount = afterDiscount - ((afterDiscount / 100) * coupon.discount);
+            afterDiscount = afterDiscount - ((afterDiscount / 100) * coupon.discount)
         }
-    
-        // Tax calculation
-        let updatedTax = 0;
+
         if (billingInfo.country.trim().toLowerCase() === 'saudi arabia') {
-            updatedTax = afterDiscount * 0.15;
+            updatedTax = afterDiscount * 0.15; // Assuming VAT is 15%
+        } else {
+            updatedTax = 0; // No tax for countries other than Saudi Arabia
         }
-    
         const updatedGrandTotal = afterDiscount + updatedTax;
-    
-        // API call
-        await axios.patch(`${base_url}/api/order/cart/`, {
-            item_to_delete: itemId,
-            total_amount: updatedTotalAmount,
-            tax: updatedTax,
-            grand_total: updatedGrandTotal
+
+        const response = await axios.patch(`${base_url}/api/order/cart/`, {
+            'item_to_delete': itemId, 'total_amount': updatedTotalAmount,
+            tax: updatedTax, 'grand_total': updatedGrandTotal
         }, ConfigToken());
-    
-        // Update localStorage payload
-        if (existLocalData) {
-            const addonsData = {
-                order_name: "Addons",
-                item_list: updatedAddons.map(item => ({
-                    design_id: item.item__id,
-                    addon_name: item.item_name,
-                    addon_arabic: item.item__name_arabic,
-                    category: item?.category,
-                    total_price: parseFloat(item.subtotal_price),
-                    item_type: item.item_type,
-                    unit_price: item.unit_price.toFixed(2),
-                    unit_time: item.unit_time.toFixed(2),
-                    qty: item.qty.toString(),
-                }))
-            };
-    
-            const updatedPayloads = {
-                ...existLocalData,
-                addons: addonsData
-            };
-    
-            localStorage.setItem('payloads', JSON.stringify(updatedPayloads));
-        }
-    
-        // Update state
-        setCartDetails(prev => ({
-            ...prev,
-            item_details: {
-                ...prev.item_details,
-                addon_items: updatedAddons
-            },
+
+        setCartDetails((prevCartDetails) => {
+            if (existLocalData) {
+                const addonsData = {
+                    order_name: "Addons",
+                    item_list: updatedItemDetails.addon_items.map(item => ({
+                        design_id: item.item__id,
+                        addon_name: item.item_name,
+                        addon_arabic: item.item__name_arabic,
+                        category: item?.category,
+                        total_price: parseFloat(item.subtotal_price),
+                        item_type: item.item_type,
+                        unit_price: item.unit_price.toFixed(2),
+                        unit_time: item.unit_time.toFixed(2),
+                        qty: item.qty.toString(),
+                    }))
+                };
+                const updatedPayloads = {
+                    ...existLocalData,
+                    addons: addonsData
+                };
+                localStorage.setItem('payloads', JSON.stringify(updatedPayloads));
+            }
+
+            return {
+            ...prevCartDetails,
+            item_details: updatedItemDetails,
             total_amount: afterDiscount,
             actual_total_amount: updatedTotalAmount,
             total_time: updatedTotalTime,
             tax: updatedTax,
-            grand_total: updatedGrandTotal
-        }));
+            grand_total: updatedGrandTotal,
+        }
+            
+        });
     };
+
+
+
     
-    console.log(cartDetails)
+
+    // const removeItem = async (itemId, itemType) => {
+    //     const existLocalData = JSON.parse(localStorage.getItem('payloads')) || {};
+    
+    //     if (itemType === 'bundle') {
+    //         toast.error(`Package Item Cannot be removed`, {
+    //             position: toast?.POSITION?.TOP_RIGHT,
+    //             toastId: 'required-value-toast',
+    //             icon: false,
+    //             style: {
+    //                 color: '#D83D99',
+    //                 fontWeight: '700'
+    //             }
+    //         });
+    //         return;
+    //     }
+    
+    //     setRemovedItems(itemId);
+    
+    //     // Clone cart details to avoid mutation
+    //     const cartDetailsTemp = JSON.parse(JSON.stringify(cartDetails));
+    //     const currentAddons = cartDetailsTemp.item_details.addon_items;
+    
+    //     // Remove the item
+    //     const updatedAddons = currentAddons.filter(item => item.id !== itemId);
+    
+    //     // Recalculate totals
+    //     const updatedTotalAmount = updatedAddons.reduce((sum, item) => sum + item.subtotal_price, 0);
+    //     const updatedTotalTime = updatedAddons.reduce((sum, item) => sum + item.unit_time, 0);
+    
+    //     // Handle coupon discount
+    //     let afterDiscount = updatedTotalAmount;
+    //     if (coupon) {
+    //         afterDiscount = afterDiscount - ((afterDiscount / 100) * coupon.discount);
+    //     }
+    
+    //     // Tax calculation
+    //     let updatedTax = 0;
+    //     if (billingInfo.country.trim().toLowerCase() === 'saudi arabia') {
+    //         updatedTax = afterDiscount * 0.15;
+    //     }
+    
+    //     const updatedGrandTotal = afterDiscount + updatedTax;
+    
+    //     // API call
+    //     await axios.patch(`${base_url}/api/order/cart/`, {
+    //         item_to_delete: itemId,
+    //         total_amount: updatedTotalAmount,
+    //         tax: updatedTax,
+    //         grand_total: updatedGrandTotal
+    //     }, ConfigToken());
+    
+    //     // Update localStorage payload
+    //     if (existLocalData) {
+    //         const addonsData = {
+    //             order_name: "Addons",
+    //             item_list: updatedAddons.map(item => ({
+    //                 design_id: item.item__id,
+    //                 addon_name: item.item_name,
+    //                 addon_arabic: item.item__name_arabic,
+    //                 category: item?.category,
+    //                 total_price: parseFloat(item.subtotal_price),
+    //                 item_type: item.item_type,
+    //                 unit_price: item.unit_price.toFixed(2),
+    //                 unit_time: item.unit_time.toFixed(2),
+    //                 qty: item.qty.toString(),
+    //             }))
+    //         };
+    
+    //         const updatedPayloads = {
+    //             ...existLocalData,
+    //             addons: addonsData
+    //         };
+    
+    //         localStorage.setItem('payloads', JSON.stringify(updatedPayloads));
+    //     }
+    
+    //     // Update state
+    //     setCartDetails(prev => ({
+    //         ...prev,
+    //         item_details: {
+    //             ...prev.item_details,
+    //             addon_items: updatedAddons
+    //         },
+    //         total_amount: afterDiscount,
+    //         actual_total_amount: updatedTotalAmount,
+    //         total_time: updatedTotalTime,
+    //         tax: updatedTax,
+    //         grand_total: updatedGrandTotal
+    //     }));
+    // };
+    
 
      
     const getTotal = (countryValue, discount = null) => {
@@ -734,6 +733,7 @@ export const MyCart = ({ lang, setLang }) => {
         setShowModal(false);
     };
 
+    console.log(cartDetails)
 
     return (
         <>
@@ -806,7 +806,7 @@ export const MyCart = ({ lang, setLang }) => {
                                         </div>
                                         {
                                             cartDetails?.item_details?.addon_items?.length > 0 && (
-                                                <div className={`font-[700] text-[20px] mt-2 ${lang === 'ar' ? 'text-right' : 'text-left'}`}>Add ons</div>
+                                                <div className={`font-[700] text-[20px] mt-2 ${lang === 'ar' ? 'text-right' : 'text-left'}`}>{lang === 'ar' ? 'إضافات' : 'Add ons'}</div>
                                             )
                                         }
                                         {cartDetails?.item_details?.addon_items?.map((row, index) => (
@@ -885,7 +885,7 @@ export const MyCart = ({ lang, setLang }) => {
                                                 className={`text-[#000] font-[700] text-[20px] mb-2 mt-4`}
                                             >
                                                 <td className={`${lang === 'ar' ? 'text-right' : 'text-left'} !py-2`} scope="row">
-                                                    {cartDetails?.item_details?.addon_items?.length > 0 && "Add ons"}
+                                                    {cartDetails?.item_details?.addon_items?.length > 0 && (lang === 'ar' ? 'إضافات' : 'Add ons')}
                                                 </td>
                                             </tr>
                                             {cartDetails?.item_details?.addon_items?.map((row, index) => (
@@ -931,8 +931,9 @@ export const MyCart = ({ lang, setLang }) => {
                                             ))}
                                         </tbody>
                                     </table>}
-
-                                <div className='cart-total-container '>
+                                {
+                                    window?.innerWidth <= 500 && (
+                                <div className='cart-total-container border-[2px] border-black p-[2%_0_0_0]'>
                                     <div className='total justify-between sm:pl-10 xs:pl-1 mr-4' style={{ display: 'flex' }}>
                                         <p className='!text-[20px] xs:mb-0 sm:mb-auto' style={{ width: '50%' }}>{lang === 'ar' ? 'ثمن :' : 'Price:'}</p>
                                         <p className='!text-[20px] xs:mb-0 sm:mb-auto text-right' style={{ width: '50%' }}>{Math.round(cartDetails.total_amount)} {lang === 'ar' ? 'ريال' : 'SAR'}</p>
@@ -941,7 +942,7 @@ export const MyCart = ({ lang, setLang }) => {
                                         <p className='!text-[20px]' style={{ width: '53%' }}>{lang === 'ar' ? 'ضريبه القيمه المضافه:' : 'TAX:'}</p>
                                         <p className='!text-[20px]  text-right' style={{ width: '40%' }}>{Math.round(cartDetails.tax)} {lang === 'ar' ? 'ريال' : 'SAR'}</p>
                                     </div>
-                                    <div className='border-[2px] border-black p-[2%_0_0_2%]'>
+                                    <div className='border-t-[2px] border-black p-[2%_0_0_2%]'>
                                         <div className='justify-between font-[700] mr-4' style={{ display: 'flex' }}>
                                             <p className='!text-[20px] xs:mb-0 sm:mb-auto ml-[6px]' style={{ width: '50%' }}><img src={BlackDollor} className={`inline-block  ${lang === 'ar' ? 'ml-[18px]' : 'mr-[18px]'}`}></img>{lang === 'ar' ? 'السعر الإجمالي :' : 'Total Price :'}</p>
                                             <p className='!text-[20px] xs:mb-0 sm:mb-auto text-right' style={{ width: '40%' }}>{isNaN(Math.round(cartDetails.grand_total)) ? 0 : Math.round(cartDetails.grand_total)} {lang === 'ar' ? 'ريال' : 'SAR'} </p>
@@ -952,6 +953,9 @@ export const MyCart = ({ lang, setLang }) => {
                                         </div>
                                     </div>
                                 </div>
+                                    )
+                                }
+                                
 
                             </div>
 
@@ -1073,6 +1077,32 @@ export const MyCart = ({ lang, setLang }) => {
                                             className={`rounded-none ${'promoCode' in error ? '!border-[red]' : ''}`}
                                         />
                                     </div>
+                                   {
+                                    window?.innerWidth >=500 && (
+                                    <div className='cart-total-container border-[2px] border-black p-[2%_0_0_0]'>
+                                        <div className='total justify-between sm:pl-10 xs:pl-1 mr-4' style={{ display: 'flex' }}>
+                                            <p className='!text-[20px] xs:mb-0 sm:mb-auto' style={{ width: '50%' }}>{lang === 'ar' ? 'ثمن :' : 'Price:'}</p>
+                                            <p className='!text-[20px] xs:mb-0 sm:mb-auto text-right' style={{ width: '50%' }}>{Math.round(cartDetails.total_amount)} {lang === 'ar' ? 'ريال' : 'SAR'}</p>
+                                        </div>
+                                        <div className='total justify-between sm:pl-10 xs:pl-1 mr-4' style={{ display: 'flex' }}>
+                                            <p className='!text-[20px]' style={{ width: '53%' }}>{lang === 'ar' ? 'ضريبه القيمه المضافه:' : 'TAX:'}</p>
+                                            <p className='!text-[20px]  text-right' style={{ width: '40%' }}>{Math.round(cartDetails.tax)} {lang === 'ar' ? 'ريال' : 'SAR'}</p>
+                                        </div>
+                                        <div className='border-t-[2px] border-black p-[2%_0_0_2%]'>
+                                            <div className='justify-between font-[700] mr-4' style={{ display: 'flex' }}>
+                                                <p className='!text-[20px] xs:mb-0 sm:mb-auto ml-[6px]' style={{ width: '50%' }}><img src={BlackDollor} className={`inline-block  ${lang === 'ar' ? 'ml-[18px]' : 'mr-[18px]'}`}></img>{lang === 'ar' ? 'السعر الإجمالي :' : 'Total Price :'}</p>
+                                                <p className='!text-[20px] xs:mb-0 sm:mb-auto text-right' style={{ width: '40%' }}>{isNaN(Math.round(cartDetails.grand_total)) ? 0 : Math.round(cartDetails.grand_total)} {lang === 'ar' ? 'ريال' : 'SAR'} </p>
+                                            </div>
+                                            <div className='justify-between  font-[700] mr-4' style={{ display: 'flex' }}>
+                                                <p className='!text-[20px] mb-0' style={{ width: '67%' }}><img src={BlackTime} className={`inline-block ${lang === 'ar' ? 'ml-3 mr-[-5px]' : 'mr-3'}`}></img>{lang === 'ar' ? 'المدة الإجمالية :' : 'Total Duration :'}</p>
+                                                <p className='!text-[20px]  text-right ' style={{ width: '43%' }}>{isNaN(Math.round(cartDetails.total_time)) ? 0 : Math.round(cartDetails.total_time)} {lang === 'ar' ? 'يوما' : 'Days'}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    )
+                                   }
+                                    
+
                                     <button className="payment uppercase">{paymentLoading ?
                                         <ClipLoader
                                             color={'#FFFFFF'}
