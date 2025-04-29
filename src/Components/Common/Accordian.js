@@ -640,17 +640,17 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
                         </p>
                       </p>
 
-                      <p style={{ color: textColor }} className={`xs:order-2 sm:order-3 sm:w-[29%] w-[29%] xs:w-[29%] max-h-[36px] !mb-2 flex justify-end text-[${textColor}] `}>
+                      <p style={{ color: textColor }} className={`xs:order-2 sm:order-3 sm:w-[29%] w-[29%] xs:w-[29%] max-h-[36px] !mb-2 flex ${isLang === 'ar' ? 'flex-row-reverse':'flex-row justify-end'}  text-[${textColor}] `}>
                         <button style={{
                           borderColor: textColor,
                           borderStyle: 'solid', 
                           borderWidth: '1px',
-                        }} onClick={() => handleQuantityChange(design.name_english, -1)} className={`${isLang === 'ar' ?'!border-l-0':'!border-r-0'}  !py-[17px]  px-1  flex  items-center`}><RemoveIcon /></button>
+                        }} onClick={() => handleQuantityChange(design.name_english, -1)} className={`${isLang === 'ar' ?'!border-r-0':'!border-r-0'}  !py-[17px]  px-1  flex  items-center`}><RemoveIcon /></button>
                         <span style={{
                           borderColor: textColor,
                           borderStyle: 'solid',
                           borderWidth: '1px',
-                        }} className={`${isLang === 'ar' ?'!border-l-0':'!border-r-0'} px-2 !text-[20px]`}> {quantities[design.name_english] || 0}</span>
+                        }} className={`${isLang === 'ar' ?'!border-r-0':'!border-r-0'} px-2 !text-[20px]`}> {quantities[design.name_english] || 0}</span>
                         <button style={{
                           borderColor: textColor,
                           borderStyle: 'solid',

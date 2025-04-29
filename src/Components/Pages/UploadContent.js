@@ -839,11 +839,11 @@ export default function UploadContent({lang,setLang}) {
     //     getOrderDetails()
     // }
     
-    const saveContent = async (itemId,idx) => {
-
+    const saveContent = async (itemId,idx,designId) => {
+        console.log (designId)
         try {
 
-            if (!uploadContent?.[itemId]?.[idx]?.language) {
+            if (!uploadContent?.[itemId]?.[idx]?.language && designQuestions[designId]?.language) {
                 toast.error("Please choose language before saving.",{
                     icon:false,
                     toastId: 'required-value-toast1',
@@ -854,7 +854,7 @@ export default function UploadContent({lang,setLang}) {
             }); 
                 return;
             }
-            if (!uploadContent?.[itemId]?.[idx]?.content) {
+            if (!uploadContent?.[itemId]?.[idx]?.content && designQuestions[designId]?.textbox) {
                 toast.error("Please add content before saving.",{
                     icon:false,
                     toastId: 'required-value-toast2',
@@ -865,7 +865,7 @@ export default function UploadContent({lang,setLang}) {
             }); 
                 return;
             }
-            if (!uploadContent?.[itemId]?.[idx]?.measurements) {
+            if (!uploadContent?.[itemId]?.[idx]?.measurements && designQuestions[designId]?.measurement ) {
                 toast.error("Please add measurements before saving.",{
                     icon:false,
                     toastId: 'required-value-toast3',
@@ -876,7 +876,7 @@ export default function UploadContent({lang,setLang}) {
             }); 
                 return;
             }
-            if (!uploadContent?.[itemId]?.[idx]?.filename) {
+            if (!uploadContent?.[itemId]?.[idx]?.filename && designQuestions[designId]?.attachemnt) {
                 toast.error("Please upload the content.",{
                     icon:false,
                     toastId: 'required-value-toast4',
@@ -1071,7 +1071,7 @@ export default function UploadContent({lang,setLang}) {
                                                     <p className='my-6 flex justify-center'> <button onClick={() => { 
                                                         setSkipId([...skipId, item.id])
                                                     }} className={`text-[#1BA56F] py-1 px-2 border !border-[#1BA56F] ${lang === 'ar' ?'ml-2':'mr-2'} uppercase`}>{lang === 'ar' ? 'اكمل في وقت لاحق' :'Skip For Now'}</button>
-                                                        <button onClick={() => saveContent(item.id,filterIndex)} className='text-white bg-[#1BA56F] py-1 px-2 uppercase'>{lang === 'ar' ? 'حفظ والتالي' :'Save & Next'}</button></p>
+                                                        <button onClick={() => saveContent(item.id,filterIndex,item.item__id)} className='text-white bg-[#1BA56F] py-1 px-2 uppercase'>{lang === 'ar' ? 'حفظ والتالي' :'Save & Next'}</button></p>
                                             </div>
                                             )
                                                 })
@@ -1165,7 +1165,7 @@ export default function UploadContent({lang,setLang}) {
                                                     <p className='my-6 flex justify-center'> <button onClick={() => {
                                                         setSkipId([...skipId, item.id])
                                                     }} className='text-[#1BA56F] py-1 px-2 border !border-[#1BA56F] mr-2 uppercase'>{lang === 'ar' ? 'أكمل في وقت لاحق' :'Skip For Now'}</button>
-                                                        <button onClick={() => saveContent(item.id,filterIndex)} className='text-white bg-[#1BA56F] py-1 px-2 uppercase'>{lang === 'ar' ? 'حفظ والتالي' :'Save & Next'}</button></p>
+                                                        <button onClick={() => saveContent(item.id,filterIndex,item.item__id)} className='text-white bg-[#1BA56F] py-1 px-2 uppercase'>{lang === 'ar' ? 'حفظ والتالي' :'Save & Next'}</button></p>
                                                 </div>)
                                                 }
                                                 )     
@@ -1340,7 +1340,7 @@ export default function UploadContent({lang,setLang}) {
                                                             <p className='my-6 flex justify-start'> <button onClick={() => {
                                                             setSkipId([...skipId, item.id])
                                                         }} className={`text-[#1BA56F] py-1 px-2 border !border-[#1BA56F] ${lang === 'ar' ?'ml-2':'mr-2'} text-[18px] font-[500] uppercase`}>{lang === 'ar' ? 'اكمل في وقت لاحق' :'Skip For Now'}</button>
-                                                            <button onClick={() => saveContent(item.id,filterIndex)} className='text-white bg-[#1BA56F] py-1 px-2 text-[19px] font-[500] uppercase'>{lang === 'ar' ? 'حفظ والتالي' :'Save & Next'}</button></p>
+                                                            <button onClick={() => saveContent(item.id,filterIndex,item.item__id)} className='text-white bg-[#1BA56F] py-1 px-2 text-[19px] font-[500] uppercase'>{lang === 'ar' ? 'حفظ والتالي' :'Save & Next'}</button></p>
                                                     </div>)
                                                     })
                                             )
@@ -1427,7 +1427,7 @@ export default function UploadContent({lang,setLang}) {
                                                 <p className='my-6'> <button onClick={() => {
                                                     setSkipId([...skipId, item.id])
                                                 }} className={`text-[#1BA56F] py-1 px-2 border !border-[#1BA56F] ${lang === 'ar' ? 'ml-2':'mr-2'} text-[18px] font-[500] uppercase`}>{lang === 'ar' ? 'اكمل في وقت لاحق' :'Skip For Now'}</button>
-                                                    <button onClick={() => saveContent(item.id,filterIndex)} className='text-white bg-[#1BA56F] py-1 px-2 text-[19px] font-[500] uppercase'>{lang === 'ar' ? 'حفظ والتالي' :'Save & Next'}</button></p>
+                                                    <button onClick={() => saveContent(item.id,filterIndex,item.item__id)} className='text-white bg-[#1BA56F] py-1 px-2 text-[19px] font-[500] uppercase'>{lang === 'ar' ? 'حفظ والتالي' :'Save & Next'}</button></p>
                                             </div>
                                                 )
                                               })

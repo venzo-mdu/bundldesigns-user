@@ -1554,6 +1554,14 @@ export default function Adjustments({user ,lang ,setLang}) {
         "United States", "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe"
       ];
 
+
+    useEffect(()=>{
+    document.documentElement.scrollTo({
+        top: 0,
+        left: 0
+    })
+    },[])  
+
     useEffect(() => {
         getOrderDetails()
         getBundlData()
@@ -2134,7 +2142,7 @@ export default function Adjustments({user ,lang ,setLang}) {
                                                             </p>
                                                         </p>
                                                         </div>
-                                                              <p className='mb-3 mt-[-3%] h-[30px] flex items-center text-[#1BA56F] border !border-[#1BA56F] w-[100%]'>
+                                                              <p className={`mb-3 mt-[-3%] h-[30px] flex ${lang === 'ar' ? 'flex-row-reverse':'flex-row'} items-center text-[#1BA56F] border !border-[#1BA56F] w-[100%]`}>
                                                               <button onClick={() => remove_item(item.id)} className={`${lang === 'ar' ? 'border-l' : 'border-r'} !border-[#1BA56F] h-full flex justify-center w-[10%] py-1`}><RemoveIcon /></button>
                                                               <span className='px-2 !border-[#1BA56F] w-[80%] flex items-center justify-center'> {item.id in itemsList ? itemsList[item.id]['qty'] : 0}</span>
                                                               <button onClick={() => addItem(index, category, item.id)} className={`flex justify-center py-1 ${lang === 'ar' ? 'border-r' : 'border-l'} !border-[#1BA56F] w-[10%] h-full`}><AddIcon /></button>
@@ -2630,10 +2638,10 @@ export default function Adjustments({user ,lang ,setLang}) {
                                                                         <span className='flex items-center w-[150px]'><img src={BlackDollor} className={`${lang === 'ar' ? 'ml-2':'mr-2'}`}></img> {Math.round(item.price)} {lang === 'ar' ? 'ريال' :'SAR'} </span>
                                                                         <span className='flex items-center w-[120px]'><AccessTimeIcon style={lang === 'ar' ? {marginLeft: '5px' }:{ marginRight: '5px' }} /> {Math.round(item.time)} {lang === 'ar' ?'يوم':'Days'}</span>
                                                                     </p>
-                                                                    <p className='mb-0 lg:basis-[5%] md:basis-[5%] xs:basis-[10%] h-[30px] text-[20px] md:text-[20px] xs:text-[16px] flex items-center text-[#1BA56F] border !border-[#1BA56F]'>
-                                                                        <button onClick={() => remove_item(item.id)} className={`${lang === 'ar' ? 'border-l' :'border-r'} !border-[#1BA56F] h-full flex items-center md:w-[35px] md:pt-[1%] md:px-[5%]`}><RemoveIcon /></button>
+                                                                    <p className={`mb-0 lg:basis-[5%] md:basis-[5%] xs:basis-[10%] h-[30px] text-[20px] md:text-[20px] xs:text-[16px] flex ${lang === 'ar' ? 'flex-row-reverse':'flex-row'} items-center text-[#1BA56F] border !border-[#1BA56F]`}>
+                                                                        <button onClick={() => remove_item(item.id)} className={`${lang === 'ar' ? 'border-r' :'border-r'} !border-[#1BA56F] h-full flex items-center md:w-[35px] md:pt-[1%] md:px-[5%]`}><RemoveIcon /></button>
                                                                         <span className='px-2 flex justify-center !border-[#1BA56F] md:w-[35px] md:pt-[1%] md:px-[5%]'> {item.id in itemsList ? itemsList[item.id]['qty'] : 0}</span>
-                                                                        <button onClick={() => addItem(index, category, item.id)} className={`flex items-center ${lang === 'ar' ? 'border-r':'border-l'} !border-[#1BA56F] h-full md:w-[35px] md:pt-[1%] md:px-[5%]`}><AddIcon /></button>
+                                                                        <button onClick={() => addItem(index, category, item.id)} className={`flex items-center ${lang === 'ar' ? 'border-l':'border-l'} !border-[#1BA56F] h-full md:w-[35px] md:pt-[1%] md:px-[5%]`}><AddIcon /></button>
                                                                     </p>
                                                                 </div>
                                                             })}

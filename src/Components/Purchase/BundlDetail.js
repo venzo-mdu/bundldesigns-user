@@ -439,9 +439,9 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                                     </div>
                                   )
                                 }
-                                <p className=' md:basis-auto basis-auto xs:basis-[10%] flex items-center text-[#000000] h-[34px] border !border-[#000000]'>
-                                  <button onClick={() => handleQuantityChange(design.name_english, -1)} className={`${lang === 'ar' ? 'border-l' : 'border-r'} !border-[#000000] px-1 flex h-[100%] items-center`}><RemoveIcon /></button>
-                                  <span className={`${lang === 'ar' ? 'border-l' : 'border-r'} !text-[20px] font-normal px-2 !border-[#000000]`}> {parseInt(design.quantity) + (extraQty[design.name_english] || 0)}</span>
+                                <p className={` md:basis-auto basis-auto xs:basis-[10%] flex ${lang === 'ar' ? 'flex-row-reverse':'flex-row'} items-center text-[#000000] h-[34px] border !border-[#000000]`}>
+                                  <button onClick={() => handleQuantityChange(design.name_english, -1)} className={`${lang === 'ar' ? 'border-r' : 'border-r'} !border-[#000000] px-1 flex h-[100%] items-center`}><RemoveIcon /></button>
+                                  <span className={`${lang === 'ar' ? 'border-r' : 'border-r'} !text-[20px] font-normal px-2 !border-[#000000]`}> {parseInt(design.quantity) + (extraQty[design.name_english] || 0)}</span>
                                   <button onClick={() => handleQuantityChange(design.name_english, 1)} className='flex items-center px-1 '><AddIcon /></button>
                                 </p>
                                 {

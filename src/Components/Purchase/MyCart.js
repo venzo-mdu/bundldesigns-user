@@ -903,21 +903,21 @@ export const MyCart = ({ lang, setLang }) => {
                                                     <td align="center">
                                                         {/* <img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'addon')}/> */}
                                                         {/* <p className='flex items-center !mb-0 justify-center'><img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'addon')}/></p> */}
-                                                        <p className={`xs:order-2 sm:order-3 sm:w-[29%] w-[29%] xs:w-[29%] max-h-[36px] !mb-2 flex justify-end  mt-2`}>
+                                                        <p className={`xs:order-2 sm:order-3 sm:w-[29%] w-[29%] xs:w-[29%] max-h-[36px] !mb-2 flex ${lang === 'ar' ? 'flex-row-reverse':'flex-row justify-end'}   mt-2`}>
                                                             <button style={{
                                                                 borderColor: 'black',
                                                                 borderStyle: 'solid',
                                                                 borderWidth: '1px',
                                                             }}
                                                                 onClick={() => handleQuantityChange(row?.id, -1)}
-                                                                className={` ${lang === 'ar' ? ' !border-l-0' : '!border-r-0'} !py-[17px]  px-1  flex  items-center`}>
+                                                                className={` ${lang === 'ar' ? ' !border-r-0' : '!border-r-0'} !py-[17px]  px-1  flex  items-center`}>
                                                                 <RemoveIcon />
                                                             </button>
                                                             <span style={{
                                                                 borderColor: 'black',
                                                                 borderStyle: 'solid',
                                                                 borderWidth: '1px',
-                                                            }} className={`${lang === 'ar' ? ' !border-l-0' : '!border-r-0'} px-2 !text-[20px]`}> {row?.qty || 0}</span>
+                                                            }} className={`${lang === 'ar' ? ' !border-r-0' : '!border-r-0'} px-2 !text-[20px]`}> {row?.qty || 0}</span>
                                                             <button style={{
                                                                 borderColor: 'black',
                                                                 borderStyle: 'solid',
