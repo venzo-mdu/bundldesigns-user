@@ -973,7 +973,7 @@ const style = {
     display: 'flex',
     padding:'2% 2%',
     flexDirection:'column',
-    borderRadius:'4px'
+    // borderRadius:'4px'
 };
 export default function Dashboard({lang,setLang}) {
 

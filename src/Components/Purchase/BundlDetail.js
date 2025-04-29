@@ -258,7 +258,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
     );
     createPayload();
   }
-
+  
   const createPayload = async () => {
     if (!validateFields()) return;
     if (!bundlAddons.bundle_details) {
@@ -291,6 +291,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
         addons: addonPayLoads,
         order_status: "in_cart",
         language: selectedLanguage,
+        isBackToBundl:state?.isBackToBundl
       };
 
     try {

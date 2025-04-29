@@ -723,7 +723,7 @@ export const MyCart = ({ lang, setLang }) => {
 
     const navigateToDetailHistory = () => {
         if (cartDetails.bundle_id) {
-            navigate(`/bundldetail/${routeNames[cartDetails.bundle_id]}`, { state: { project_name: cartDetails.project_name } })
+            navigate(`/bundldetail/${routeNames[cartDetails.bundle_id]}`, { state: { project_name: cartDetails.project_name,isBackToBundl:cartDetails?.bundle_id ? true : false } })
         } else {
             navigate(`/custombundl`, { state: { project_name: cartDetails.project_name } })
         }
