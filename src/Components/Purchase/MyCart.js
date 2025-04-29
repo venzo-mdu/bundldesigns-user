@@ -744,9 +744,9 @@ export const MyCart = ({ lang, setLang }) => {
                         <Navbar isLang={lang} setIsLang={setLang} />
                         {showModal && (
                             <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
-                                <div className="bg-white rounded-lg shadow-lg p-6 max-w-sm">
-                                    <p className="text-lg font-medium text-gray-900">
-                                        Your customized package will be reset.
+                                <div className="bg-white rounded-none shadow-lg p-6 max-w-sm">
+                                    <p className="text-lg font-medium text-gray-900 text-center">
+                                        Your cart will be empties<br></br>
                                         Are you sure you want to go back?
                                     </p>
                                     <div className="mt-4 flex justify-center gap-3">

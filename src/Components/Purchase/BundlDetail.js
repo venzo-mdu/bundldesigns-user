@@ -231,7 +231,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
       icon: false,
       style: {
         color: "#1BA56F",
-        fontWeight: "700" // White text
+        fontWeight: "700"
       },
     });
     setExtraQty(prevQuantities => {
