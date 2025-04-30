@@ -2325,6 +2325,15 @@ background-repeat: no-repeat;
 z-index: -1;
 transition: 1s;
 }
+body[dir="rtl"] .main_inside1 {
+  background-image: url("../../Images/Home/cartbutton_arabic.png");
+  height: 80%;
+  width: 80%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: -1;
+  transition: 1s;
+}
 
 .buiscut_layer1 {
 position: absolute;
@@ -2395,7 +2404,15 @@ background-repeat: no-repeat;
 z-index: -1;
 transition: 1s;
 }
-
+body[dir="rtl"] .main_inside2 {
+  background-image: url("../../Images/Home/cartbutton_arabic.png");
+  height: 80%;
+  width: 80%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: -1;
+  transition: 1s;
+  }
 .buiscut_layer2 {
 position: absolute;
 color: white;
@@ -2438,6 +2455,16 @@ background-size: cover;
 background-repeat: no-repeat;
 z-index: -1;
 transition: 1s;
+}
+
+body[dir="rtl"] .main_inside3 {
+  background-image: url("../../Images/Home/cartbutton_arabic.png");
+  height: 80%;
+  width: 80%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: -1;
+  transition: 1s;
 }
 
 .buiscut_layer3 {
@@ -2484,6 +2511,16 @@ z-index: -1;
 transition: 1s;
 }
 
+body[dir="rtl"] .main_inside4 {
+  background-image: url("../../Images/Home/cartbutton_arabic.png");
+  height: 80%;
+  width: 80%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: -1;
+  transition: 1s;
+  }
+
 .buiscut_layer4 {
 position: absolute;
 color: white;
@@ -2528,6 +2565,15 @@ z-index: -1;
 transition: 1s;
 }
 
+body[dir="rtl"] .main_inside5 {
+  background-image: url("../../Images/Home/cartbutton_arabic.png");
+  height: 80%;
+  width: 80%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: -1;
+  transition: 1s;
+  }
 .buiscut_layer5 {
 position: absolute;
 color: white;

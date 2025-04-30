@@ -130,8 +130,8 @@ export default function FAQ({lang,setLang}) {
         <Navbar isLang={lang} setIsLang={setLang}/>
         <div className='font-Helvetica'>
           <div className='text-center py-2 border-b border-black'>
-            <h1 className='lg:text-[40px] md:text-[40px] xs:text-[30px] lg:mt-[2%] md:mt-[2%] xs:mt-[5%]'>{lang === 'ar' ? 'الاسئلة الشائعة' :'FAQs'}  </h1>
-            <p className='lg:text-[20px] md:text-[20px] xs:text-[18px]  text-[#00000080]'>{lang === 'ar' ? 'حيث نجيب على جميع أسئلتك !' :'Where we answer all your questions!'}</p>
+            <h1 className='lg:text-[38px] md:text-[38px] xs:text-[28px] lg:mt-[2%] md:mt-[2%] xs:mt-[5%]'>{lang === 'ar' ? 'الاسئلة الشائعة' :'FAQs'}  </h1>
+            <p className='lg:text-[18px] md:text-[18px] xs:text-[16px]  text-[#00000080]'>{lang === 'ar' ? 'حيث نجيب على جميع أسئلتك !' :'Where we answer all your questions!'}</p>
           </div>
           <div className='lg:p-12 md:p-10  sm:p-10 xs:p-4 border-b  border-black'>
            <div className="relative flex items-center justify-center">
@@ -143,7 +143,7 @@ export default function FAQ({lang,setLang}) {
                 {faqs.categories.map((category, index) => (
                   <button
                     key={category.name_english}
-                    className={`uppercase lg:px-[20px] xs:min-w-[100px] sm:min-w-min xs:text-[14px] sm:text-[18px] text-[18px] md:px-[10px] xs:px-[5px] sm:px-[5px] md:py-[3px] md:text-[16px] lg:py-[5px]  
+                    className={`uppercase lg:px-[20px] xs:min-w-[110px] sm:min-w-min xs:text-[12px] sm:text-[18px] text-[18px] md:px-[10px] xs:px-[5px] sm:px-[5px] md:py-[3px] md:text-[16px] lg:py-[5px]  
             ${currentTab === (lang === 'ar' ? category?.name_arabic : category.name_english)
                         ? "text-white bg-[#1BA56F]"
                         : "text-[#1BA56F] bg-white"
@@ -175,7 +175,7 @@ export default function FAQ({lang,setLang}) {
             
             
             <div className='sm:mt-12 mt-12 xs:mt-[10%]'>
-              {currentTab && <h2 className='mb-10 sm:mb-10 xs:mb-8 xs:text-[24px] text-[28px] sm:text-[28px] uppercase'>{currentTab}</h2>}
+              {currentTab && <h2 className='mb-10 sm:mb-10 xs:mb-8 xs:text-[22px] text-[26px] sm:text-[26px] uppercase'>{currentTab}</h2>}
               {
                 faqs.data.map((faq) => {
                   if ((lang === 'ar' ? faq?.category_arabic : faq.category_english) == currentTab) {
@@ -183,7 +183,7 @@ export default function FAQ({lang,setLang}) {
 
                       <div className='flex items-center mb-2'>
                         <img className='w-[24px]' src={msgIcon}></img>
-                        <p className='lg:text-[24px] pl-1 font-bold md:text-[18px] mb-0'>{lang === 'ar' ? faq.question_arabic : faq.question_english}</p>
+                        <p className='lg:text-[24px] xs:text-[18px] pl-1 font-bold md:text-[18px] mb-0'>{lang === 'ar' ? faq.question_arabic : faq.question_english}</p>
                       </div>
 
                       <div

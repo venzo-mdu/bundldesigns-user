@@ -2457,7 +2457,7 @@ export default function Adjustments({user ,lang ,setLang}) {
                                     {
                                          billingInfo?.country === 'Saudi Arabia' && (
                                         <div className='trn-code mb-[15px]'>
-                                        <label className={`${'vat_registered' in error ? 'text-[red]':'opacity-100'}`}>Tax Treatment<span className='text-[red]'>*</span></label>
+                                        <label className={`${'vat_registered' in error ? 'text-[red]':'opacity-100'}`}>{lang === 'ar' ? '' :'Tax Treatment'}<span className='text-[red]'>*</span></label>
                                             <select className={`w-[100%] py-[5px] px-2 !rounded-none border-[1px] outline-none  ${'vat_registered' in error ? '!border-[red]' :'border-black border-solid'} `} name='vat_registered' onChange={handleBillingChange}>
                                             <option value={null} disabled selected></option>
                                                 <option value={'vat'}>VAT Registered</option>
@@ -2884,11 +2884,11 @@ export default function Adjustments({user ,lang ,setLang}) {
                                             onChange={handleBillingChange}
                                             className={`rounded-none ${'postalCode' in error ? '!border-[red]' : ''}`}
                                         />
-                                    </div>
+                                    </div> 
                                         {
                                          billingInfo?.country === 'Saudi Arabia' && (
                                         <div className='trn-code mb-[15px]'>
-                                        <label className={`${'vat_registered' in error ? 'text-[red]':'opacity-100'}`}>Tax Treatment<span className='text-[red]'>*</span></label>
+                                        <label className={`${'vat_registered' in error ? 'text-[red]':'opacity-100'}`}>{lang === 'ar' ? '' : 'Tax Treatment'}<span className='text-[red]'>*</span></label>
                                             <select className={`w-[100%] py-[5px] px-2 !rounded-none border-[1px] outline-none  ${'vat_registered' in error ? '!border-[red]' :'border-black border-solid'} `} name='vat_registered' onChange={handleBillingChange}>
                                             <option value={null} disabled selected></option>
                                                 <option value={'vat'}>VAT Registered</option>

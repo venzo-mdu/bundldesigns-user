@@ -64,22 +64,22 @@ export const AboutUs = ({ lang, setLang }) => {
               <Navbar isLang={lang} setIsLang={setLang} />
 
               <div className='xl:h-[56vh]  lg:h-[60vh] md:h-[58vh] xs:h-[280px] relative'>
-                <h1 className='font-Helvetica !text-black md:w-[60vw] lg:text-[38px] xs:text-[22px] sm:text-[22px] sm:w-[70vw] xs:w-[100vw] md:text-[36px] xl:w-[50vw] xl:text-[45px] lg:mx-auto md:mx-auto  xs:mx-0 py-[8%] lg:py-[6%] md:py-[2%] my-[2%] text-center'>{lang === 'ar' ? aboutUs.main_content_arabic : aboutUs.main_content} </h1>
+                <h1 className='font-Helvetica !text-black md:w-[60vw] lg:text-[36px] xs:text-[22px] sm:text-[22px] sm:w-[70vw] xs:w-[100vw] md:text-[34px] xl:w-[50vw] xl:text-[42px] lg:mx-auto md:mx-auto  xs:mx-0 py-[8%] lg:py-[6%] md:py-[2%] my-[2%] text-center'>{lang === 'ar' ? aboutUs.main_content_arabic : aboutUs.main_content} </h1>
                 <img className={`animate-rotate-animation absolute   ${lang === 'ar' ?'xl:top-[65%] xs:mr-[36vw] lg:mr-[25vw] md:mr-[25vw] xl:mr-[26vw]':' xl:top-[70%] xs:ml-[36vw] lg:ml-[25vw] md:ml-[25vw] xl:ml-[26vw]'} md:top-[60%] lg:top-[50%] `} width='100px' height='100px' src={loaderSticker}></img>
               </div >
 
 
               <div className='flex md:flex sm:block xs:block justify-between text-center '>
                 <div className='basis-[50%] border-t border-r border-l relative py-4 !border-black'>
-                  <h1 className='px-28 text-[32px] !text-black sm:text-[22px] xs:text-[22px]   md:text-[28px] uppercase'>{lang === 'ar' ? 'مهمتنا' : 'Mission'}</h1>
-                  <p className='xl:px-48 md:px-20 xl:text-[20px] md:text-[18px] xs:text-[16px] xs:px-[5%]'>{lang === 'ar' ? aboutUs?.mission_arabic : aboutUs.mission}</p>
+                  <h1 className='px-28 text-[32px] !text-black sm:text-[22px] xs:text-[22px]   md:text-[26px] uppercase'>{lang === 'ar' ? 'مهمتنا' : 'Mission'}</h1>
+                  <p className='xl:px-48 md:px-20 xl:text-[18px] md:text-[18px] xs:text-[16px] xs:px-[5%]'>{lang === 'ar' ? aboutUs?.mission_arabic : aboutUs.mission}</p>
                   <img className={`absolute lg:top-[130px]  top-[130px]  xs:top-[-50px] xs:w-[100px] ${lang === 'ar' ? 'right-0 scale-x-[-1] xl:top-[10px] md:top-[75px]':'left-0 md:top-[130px]'} xl:top-[70px] xl:w-[260px] md:w-[160px]`} src={paperPlane}></img>
 
                 </div>
                 <div className='!z-10 basis-[50%] border-t border-r xs:border-l md:border-l-0  py-4   relative !border-black font-Helvetica'>
 
-                  <h1 className='px-[8%] md:text-[28px] !text-black xl:text-[32px] xs:text-[22px] uppercase'>{lang === 'ar' ? 'رؤيتنا' : 'Vision'}</h1>
-                  <p className=' xl:px-[200px] md:px-20 md:text-[18px] xl:text-[20px] xs:text[18px] xs:px-[5%] xs:text-[16px]'>{lang === 'ar' ? aboutUs?.vission_arabic : aboutUs.vission}</p>
+                  <h1 className='px-[8%]  text-[32px] !text-black sm:text-[22px] xs:text-[22px]   md:text-[26px] uppercase'>{lang === 'ar' ? 'رؤيتنا' : 'Vision'}</h1>
+                  <p className=' xl:px-[200px] md:px-20 md:text-[18px] xl:text-[18px] xs:text[16px] xs:px-[5%] xs:text-[16px]'>{lang === 'ar' ? aboutUs?.vission_arabic : aboutUs.vission}</p>
                   <img className={`absolute  xs:w-[100px] xl:bottom-[-25px]  ${lang === 'ar' ?'left-[-45px] rotate-[90deg] lg:top-[-165px] md:top-[-105px] top-[-95px] xs:top-[-60px]':'right-[10px] md:top-[-95px] top-[-95px] xs:top-[-60px]'} xl:w-[240px] md:w-[160px]`} src={glass}></img>
 
                 </div>
@@ -105,16 +105,16 @@ export const AboutUs = ({ lang, setLang }) => {
             // }}
             >
               <div className='text-center border py-4 px-3 z-0 !border-black'>
-                <h1 className='text-[32px] sm:text-[22px] xs:text-[22px]  md:text-[28px] text-black uppercase'>{lang === 'ar' ? 'قیمنا' : 'Our Values'}</h1>
-                <p className='lg:text-[20px] sm:text-[20px] xs:text-[16px]  md:text-[20px] mt-[2%]'>{lang === 'ar' ? aboutUs?.our_values_arabic : aboutUs.our_values}</p>
+                <h1 className='text-[32px] sm:text-[22px] xs:text-[22px]  md:text-[26px] text-black uppercase'>{lang === 'ar' ? 'قیمنا' : 'Our Values'}</h1>
+                <p className='lg:text-[18px] sm:text-[20px] xs:text-[16px]  md:text-[18px] mt-[2%]'>{lang === 'ar' ? aboutUs?.our_values_arabic : aboutUs.our_values}</p>
               </div>
               <div className='text-center text-Helvetica md:pt-[5%] xs:pt-[5%]  lg:pt-[3%]'>
-                <h2 className='pb-[2%] md:text-[28px] sm:text-[22px] xs:text-[22px] text-black uppercase'>{lang === 'ar' ? 'المؤسسون' : 'The Founders'} </h2>
-                <p className='xl:w-[38vw] md:w-[57vw] xs:w-[100vw] lg:mx-auto md:mx-auto xs:mx-0 leading-[28px] lg:text-[20px] md:text-[20px]  xs:text-[16px] lg:py-0 lg:px-0 md:py-0 md:px-0 xs:py-[2%] xs:px-[5%]'> {lang === 'ar' ? aboutUs?.founders_arabic : aboutUs.founders} </p>
+                <h2 className='pb-[2%] md:text-[26px] sm:text-[22px] xs:text-[22px] text-black uppercase'>{lang === 'ar' ? 'المؤسسون' : 'The Founders'} </h2>
+                <p className='xl:w-[38vw] md:w-[57vw] xs:w-[100vw] lg:mx-auto md:mx-auto xs:mx-0 leading-[28px] lg:text-[18px] md:text-[18px]  xs:text-[16px] lg:py-0 lg:px-0 md:py-0 md:px-0 xs:py-[2%] xs:px-[5%]'> {lang === 'ar' ? aboutUs?.founders_arabic : aboutUs.founders} </p>
               </div>
               <div className='text-center text-Helvetica md:pt-[4%] lg:pt-[3%] pb-[4%]'>
-                <h2 className='pb-[2%] md:text-[28px] sm:text-[22px] xs:text-[22px] text-black uppercase'>{lang === 'ar' ? 'مواهبنا' : 'Our Talents'} </h2>
-                <p className='xl:w-[38vw] md:w-[56vw] xs:w-[100vw] lg:mx-auto md:mx-auto xs:mx-0 leading-[28px] lg:text-[20px] md:text-[20px] xs:text-[16px] lg:py-0 lg:px-0 md:py-0 md:px-0 xs:py-[2%] xs:px-[5%]'>{lang === 'ar' ? aboutUs?.our_talents_arabic : aboutUs.our_talents}</p>
+                <h2 className='pb-[2%] md:text-[26px] sm:text-[22px] xs:text-[22px] text-black uppercase'>{lang === 'ar' ? 'مواهبنا' : 'Our Talents'} </h2>
+                <p className='xl:w-[38vw] md:w-[56vw] xs:w-[100vw] lg:mx-auto md:mx-auto xs:mx-0 leading-[28px] lg:text-[18px] md:text-[18px] xs:text-[16px] lg:py-0 lg:px-0 md:py-0 md:px-0 xs:py-[2%] xs:px-[5%]'>{lang === 'ar' ? aboutUs?.our_talents_arabic : aboutUs.our_talents}</p>
               </div>
             </div>
 
@@ -138,10 +138,10 @@ export const AboutUs = ({ lang, setLang }) => {
                         <img className='sm:min-w-[230px] min-w-[230px] mt-3 xs:mx-auto xs:w-[180px] xs:my-[-6%]' src={WWDImg}></img>
                       </div>
                       <div className='basis-3/5 mt-[2%] mb-[3%] text-center text-white'>
-                        <h2 className='text-white sm:text-[32px] text-[32px] xs:text-[20px] '>{aboutUs[whatwedo].title}</h2>
-                        <p className='sm:text-[20px] text-[20px] xs:text-[16px] px-2 mb-4'>{aboutUs[whatwedo].content}</p>
-                        <p> <a href='/our-work' className={`text-[white] font-[500] sm:text-[20px] text-[20px] xs:text-[14px] hover:text-[white] px-[17px] py-[.5rem] !border-white border ${lang === 'ar' ? 'ml-4' : 'mr-4'} uppercase`}>{lang === 'ar' ? 'اطلع على أعمالنا' : 'View Our Work'}</a>
-                          <a href='/' className={`bg-white text-[${aboutUs[whatwedo].bgColor}] font-[500] border hover:text-[${aboutUs[whatwedo].bgColor}] !border-white px-[17px] sm:text-[20px] text-[20px] xs:text-[14px] py-[.5rem] uppercase`}>{lang === 'ar' ? 'اطلب التصاميم الآن' : 'Purchase Now'}</a> </p>
+                        <h2 className='text-white sm:text-[30px] text-[32px] xs:text-[20px] '>{aboutUs[whatwedo].title}</h2>
+                        <p className='sm:text-[18px] text-[20px] xs:text-[16px] px-2 mb-4'>{aboutUs[whatwedo].content}</p>
+                        <p> <a href='/our-work' className={`text-[white] font-[500] sm:text-[18px] text-[20px] xs:text-[14px] hover:text-[white] px-[17px] py-[.5rem] !border-white border ${lang === 'ar' ? 'ml-4' : 'mr-4'} uppercase`}>{lang === 'ar' ? 'اطلع على أعمالنا' : 'View Our Work'}</a>
+                          <a href='/' className={`bg-white text-[${aboutUs[whatwedo].bgColor}] font-[500] border hover:text-[${aboutUs[whatwedo].bgColor}] !border-white px-[17px] sm:text-[18px] text-[20px] xs:text-[14px] py-[.5rem] uppercase`}>{lang === 'ar' ? 'اطلب التصاميم الآن' : 'Purchase Now'}</a> </p>
                       </div>
 
                     </div>
@@ -182,7 +182,7 @@ export const AboutUs = ({ lang, setLang }) => {
 
                     </div>
                     <div className={`sm:basis-[30%] basis-[30%]  !pb-8  lg:!pt-16 md:!pt-16 xs:pt-12 xs:basis-[100%]  ${whatwedo ? "xs:!pt-6" : "sm:!pt-16"}`}>
-                      <h2 className=' mt-2 md:text-[32px] sm:text-[24px] xs:text-[24px]  font-bold pb-[30px] text-black uppercase'>{lang === 'ar' ? 'خدماتنا ' : 'What we do'}</h2>
+                      <h2 className=' mt-2 md:text-[30px] sm:text-[24px] xs:text-[24px]  font-bold pb-[30px] text-black uppercase'>{lang === 'ar' ? 'خدماتنا ' : 'What we do'}</h2>
                       <div className='flex mb-2 flex-col'>
                         <p
                           onClick={() => {
@@ -191,7 +191,7 @@ export const AboutUs = ({ lang, setLang }) => {
                           }}
                           onMouseEnter={() => setIsHovered(lang !== 'ar' ? 'brandIdentity' : 'brandIdentity_arabic')}
                           onMouseLeave={() => setIsHovered(null)}
-                          className={`cursor-pointer BIText ${isHovered ? 'no-underline' : 'underline'} hover:text-[#1BA56F]  md:text-[24px] sm:text-[22px] xs:text-[22px] font-bold`}>
+                          className={`cursor-pointer BIText ${isHovered ? 'no-underline' : 'underline'} hover:text-[#1BA56F]  md:text-[22px] sm:text-[22px] xs:text-[22px] font-bold`}>
                           {lang === 'ar' ? 'تصاميم الهوية البصرية' : 'Brand Identity'}
                         </p>
                         <p
@@ -201,7 +201,7 @@ export const AboutUs = ({ lang, setLang }) => {
                           }}
                           onMouseEnter={() => setIsHovered(lang !== 'ar' ? 'packaging' : 'packaging_arabic')}
                           onMouseLeave={() => setIsHovered(null)}
-                          className={`cursor-pointer ${isHovered ? 'no-underline' : 'underline'} hover:text-[#0BA6C4] md:text-[24px] sm:text-[22px] xs:text-[22px] font-bold`}>
+                          className={`cursor-pointer ${isHovered ? 'no-underline' : 'underline'} hover:text-[#0BA6C4] md:text-[22px] sm:text-[22px] xs:text-[22px] font-bold`}>
                           {lang === 'ar' ? 'تصاميم المطبوعات' : 'Packaging'}
                         </p>
                         <p
@@ -211,7 +211,7 @@ export const AboutUs = ({ lang, setLang }) => {
                           }}
                           onMouseEnter={() => setIsHovered(lang !== 'ar' ? 'socialMedia' : 'socialMedia_arabic')}
                           onMouseLeave={() => setIsHovered(null)}
-                          className={`cursor-pointer ${isHovered ? 'no-underline' : 'underline'} hover:text-[#1BA56F]  md:text-[24px] sm:text-[22px] xs:text-[22px] font-bold`}>
+                          className={`cursor-pointer ${isHovered ? 'no-underline' : 'underline'} hover:text-[#1BA56F]  md:text-[22px] sm:text-[22px] xs:text-[22px] font-bold`}>
                           {lang === 'ar' ? 'تصاميم حسابات السوشال ميديا' : 'Social Media Designs'}
                         </p>
                         <p
@@ -221,7 +221,7 @@ export const AboutUs = ({ lang, setLang }) => {
                           }}
                           onMouseEnter={() => setIsHovered(lang !== 'ar' ? 'websites' : 'websites_arabic')}
                           onMouseLeave={() => setIsHovered(null)}
-                          className={`cursor-pointer ${isHovered ? 'no-underline' : 'underline'} hover:text-[#F3B7CE] md:text-[24px] sm:text-[22px] xs:text-[22px] font-bold`}>
+                          className={`cursor-pointer ${isHovered ? 'no-underline' : 'underline'} hover:text-[#F3B7CE] md:text-[22px] sm:text-[22px] xs:text-[22px] font-bold`}>
                           {lang === 'ar' ? 'تطوير المتاجر الالكترونية' : 'Shopify Websites'}
                         </p>
                       </div>

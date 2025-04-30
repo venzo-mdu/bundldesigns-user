@@ -139,14 +139,14 @@ export default function Career({lang,setLang}) {
     <Navbar isLang={lang} setIsLang={setLang}/>
     <div className='font-Helvetica'>
         <div className='text-center py-2 border-b border-black'>
-            <h1 className='lg:text-[40px] md:text-[40px] xs:text-[30px] lg:mt-[2%] md:mt-[2%] xs:mt-[5%] uppercase'>{lang === 'ar' ?'الوظائف المتاحة ':'Jobs'}  </h1>
-            <p className='lg:text-[20px] md:text-[20px] xs:text-[18px] text-[#00000080]'>{lang === 'ar'?'حيث نجيب على جميع أسئلتك !':'Where we answer all your questions!'}</p>
+            <h1 className='lg:text-[38px] md:text-[38px] xs:text-[28px] lg:mt-[2%] md:mt-[2%] xs:mt-[5%] uppercase'>{lang === 'ar' ?'الوظائف المتاحة ':'Jobs'}  </h1>
+            <p className='lg:text-[18px] md:text-[18px] xs:text-[16px] text-[#00000080]'>{lang === 'ar'?'حيث نجيب على جميع أسئلتك !':'Where we answer all your questions!'}</p>
         </div>
         <div className='md:p-20 sm:p-3  border-b border-black'>
             {vacancies.map((vacancy,index)=> {
                 return <div className={`${index+1 != vacancies.length && 'border-b'} border-black mb-6 px-6 `}>
                     <p> <img width='45px' height='45px' src={vacancy.image?vacancy.image:careerImg}></img></p>
-                    <h2 className='lg:text-[32px] md:text-[32px] xs:text-[22px] text-[#000] flex items-center'>{lang === 'ar' ? vacancy?.vacancy_arabic:vacancy.vacancy_english}
+                    <h2 className='lg:text-[30px] md:text-[30px] xs:text-[20px] text-[#000] flex items-center'>{lang === 'ar' ? vacancy?.vacancy_arabic:vacancy.vacancy_english}
                     <button
             onClick={() => toggleDescription(vacancy.id)}
             className="text-blue-500 cursor-pointer ml-2"
@@ -180,7 +180,7 @@ export default function Career({lang,setLang}) {
         </div>
 
         <div className='mt-24  mb-20'>
-            <h2 className='lg:text-[32px] md:text-[32px] xs:text-[22px] text-[#000]  mb-2 text-center'>{lang === 'ar' ?'تحب تنضم الى أسرة بندل؟ ارسلك سيرتك وملف اعمالك ':'See something you like? send us your CV & Recent Work'}</h2>
+            <h2 className='lg:text-[30px] md:text-[30px] xs:text-[20px] text-[#000]  mb-2 text-center'>{lang === 'ar' ?'تحب تنضم الى أسرة بندل؟ ارسلك سيرتك وملف اعمالك ':'See something you like? send us your CV & Recent Work'}</h2>
             <h3 className='text-[24px] mb-1 mt-4 text-center text-[#1BA56F]'>{lang === 'ar' ? 'تواصل معنا !':'Join Us!'}</h3>
         <form onSubmit={handleSubmit} className="px-6 pb-6 pt-1 sm:max-w-[90vw] md:max-w-[50vw] mx-auto space-y-4">
       {/* Name Field */}

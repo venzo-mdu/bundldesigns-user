@@ -44,8 +44,12 @@
 
         },
         "third_title":"Purchasing History",
-        "table_heads":{"id":"Order ID","project_name":"Project Name","price":"Price",
-        "payment_status":"Payment Status","action":"Action","purchase_date":"Date Purchased"},
+        "table_heads":{
+            "id":"Order ID",
+            "project_name":"Project Name",
+            "price":"Price",
+        "payment_status":"Payment Status",
+        "purchase_date":"Date Purchased"},
         "table_heads_arabic":{
             "id":"رقم الطلب",
             "project_name":"اسم المشروع",
