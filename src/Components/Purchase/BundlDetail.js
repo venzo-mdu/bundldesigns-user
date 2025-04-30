@@ -353,7 +353,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
             <Navbar isLang={lang} setIsLang={setLang} />
             <div className='bundl-detail mt-3'>
               <div className='xs:px-2 sm:px-auto px-auto' style={{ borderBottom: '1.5px solid #000000', width: '100%' }}>
-                <h2 className='sm:text-[40px] text-[40px] xs:text-[32px]'>{lang === 'ar' ? packageDetail?.package?.name_arabic : packageDetail?.package?.name_english || ''}</h2>
+                <h2 className='sm:text-[38px] text-[38px] xs:text-[30px]'>{lang === 'ar' ? packageDetail?.package?.name_arabic : packageDetail?.package?.name_english || ''}</h2>
                 <div className='bundl-amount'>
                   <p style={{ color: textColor }} className='flex items-center'><img src={coinIcon} alt="Dollar icon" className={`inline-block ${lang === 'ar' ? 'ml-3' : 'mr-3'}`} /><span> <span className='mr-0 font-[400]'>{packageID === 'newbie' ? (lang === 'ar' ? 'بدءا من' : 'Starting from') : ''}</span> {packageID === 'newbie' ? '4880' : Math.round(packageDetail?.package?.price) || "3750 SAR"} {lang === 'ar' ? 'ريال' : 'SAR'}</span></p>
                   <p style={{ color: textColor }} className='items-center flex'><AccessTimeIcon className={`${lang === 'ar' ? 'ml-1' : 'mr-1'}`} /><span> {packageDetail?.package?.time || "30 Days"} {lang === 'ar' ? 'يوما' : 'Days'}</span></p>
@@ -365,7 +365,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
 
               <div className='bundl-section'>
                 <div className='brand-details lg:!pt-16 md:!pt-[16] xs:!pt-8'>
-                  <p style={window.innerWidth <= 441 ? lang === 'ar' ? { fontSize: '20px', fontWeight: '700', lineHeight: '1.2', textAlign: 'right' } : { fontSize: '20px', fontWeight: '700', lineHeight: '1.2' } : { textAlign: lang === 'ar' ? 'right' : 'left', fontSize: '32px', fontWeight: '700' }}>{lang === 'ar' ? 'ما هو اسم علامتك التجارية؟' : 'What is the name of your brand?'}</p>
+                  <p style={window.innerWidth <= 441 ? lang === 'ar' ? { fontSize: '18px', fontWeight: '700', lineHeight: '1.2', textAlign: 'right' } : { fontSize: '18px', fontWeight: '700', lineHeight: '1.2' } : { textAlign: lang === 'ar' ? 'right' : 'left', fontSize: '30px', fontWeight: '700' }}>{lang === 'ar' ? 'ما هو اسم علامتك التجارية؟' : 'What is the name of your brand?'}</p>
                   <input id='brandInput' className={`brand-input rounded-none ${brandError && '!border-[red] rounded-none'}`} value={brandInput} onChange={(e) => {
                     setBrandInput(e.target.value)
                     setBrandError(false)
@@ -641,7 +641,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                           <button style={{ backgroundColor: textColor }} className={`proceed uppercase !bg-[${textColor}]`} disabled>{lang === 'ar' ? 'متابعة الخروج' : 'Proceed Checkout'}</button>
                       }
                     </div>
-                    {(firstOrder && packageID == 'newbie') && <p className='proceed-text'>{lang === 'ar' ? 'يجب أن يكون الحد الأدنى للمجموع أكثر من 700 ريال سعودي' : 'Your minimum total should be above 4880 SAR'}</p>}
+                    {/* {(firstOrder && packageID == 'newbie') && <p className='proceed-text'>{lang === 'ar' ? 'يجب أن يكون الحد الأدنى للمجموع أكثر من 700 ريال سعودي' : 'Your minimum total should be above 4880 SAR'}</p>} */}
                   </div>
                 </div>
               </div>

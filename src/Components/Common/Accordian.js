@@ -563,7 +563,7 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
                   if (element) {
                     element.scrollIntoView({ behavior: 'smooth', block: 'start' });
                   }
-                }, 500);
+                }, 400);
               }}
             >
               {isLang === 'ar' ? addOnData?.designs_details?.[title]?.name_arabic : title}
@@ -593,13 +593,13 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
                   if (element) {
                     element.scrollIntoView({ behavior: 'smooth', block: 'start' });
                   }
-                }, 500);
+                }, 400);
               }}
               sx={{
                 border:'none'
               }}
             >
-              <Typography className='!font-[700] !text-[24px]'>{isLang === 'ar' ? addOnData?.designs_details?.[title]?.name_arabic : title}</Typography>
+              <Typography className='!font-[700] !text-[22px]'>{isLang === 'ar' ? addOnData?.designs_details?.[title]?.name_arabic : title}</Typography>
             </AccordionSummary>
             <AccordionDetails >
               <Typography>

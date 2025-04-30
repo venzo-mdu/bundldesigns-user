@@ -99,7 +99,7 @@ const ResetPassword = ({lang,setLang}) => {
         <Navbar isLang={lang} setIsLang={setLang}/>
         <div className='font-Helvetica'>
               <div className='text-center py-2 border-b border-black'>
-                  <h1 className='lg:text-[40px] md:text-[40px] xs:text-[30px] lg:mt-[2%] md:mt-[2%] xs:mt-[5%] uppercase'> {lang === 'ar' ? 'إعادة  تعيين كلمة السر' :'Reset Password'} </h1>
+                  <h1 className='lg:text-[38px] md:text-[38px] xs:text-[28px] lg:mt-[2%] md:mt-[2%] xs:mt-[5%] uppercase'> {lang === 'ar' ? 'إعادة  تعيين كلمة السر' :'Reset Password'} </h1>
               </div>
             <div className='flex flex-col items-center justify-center my-[5%] lg:p-0 md:p-0 xs:p-[1%_5%]'>
                <form className='w-full lg:max-w-[30%] md:max-w-[30%] xs:max-w-[100%]' onSubmit={handleSubmit}>

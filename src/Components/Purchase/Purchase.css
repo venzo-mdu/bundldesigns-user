@@ -31,7 +31,7 @@
 }
 
 .bundl-desc {
-    font-size: 20px;
+    font-size: 18px;
     color: #000000;
     font-weight: 400;
     width: 43%;
@@ -106,7 +106,7 @@ body[dir="rtl"] .brand-details {
 }
 
 .collateral-text {
-    font-size: 32px;
+    font-size: 30px;
     font-weight: 700;
 }
 
@@ -267,7 +267,7 @@ body[dir="rtl"] .brand-details {
 }
 
 .accordian-heading {
-    font-size: 32px;
+    font-size: 30px;
     font-weight: 700;
 }
 

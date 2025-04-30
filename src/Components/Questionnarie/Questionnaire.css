@@ -97,7 +97,7 @@
     position: relative;
 }
 .questions-title{
-    font-size: 40px;
+    font-size: 38px;
     font-weight: 700;
     color: #000000;
     /* margin: 1% 0 0% 0; */
@@ -110,7 +110,7 @@
     border-right: 0;
     border-top: 0;
     border-left: 0;
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 500;
     text-align: center;
     padding: 1%;
@@ -1037,7 +1037,7 @@ body[dir="rtl"] .male-btn, body[dir="rtl"] .female-btn {
         width: 70%;
     }
     .questions-title{
-        font-size: 36px;
+        font-size: 34px;
         width: 100%;
         line-height: 40px;
     }

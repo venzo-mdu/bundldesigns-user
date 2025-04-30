@@ -383,9 +383,9 @@ export default function WebsterPremiumForm({lang,setLang}) {
 
               </h2>
 
-              <h2 className='text-[40px] text-[#F3B7CE] font-[700]'>{form_type == 'premium' ?lang === 'ar' ? 'بندل بريميوم' : 'The Premium Bundl' : lang === 'ar' ? 'متاجر الكترونية' : ' The Webster Bundl'}</h2>
+              <h2 className='text-[38px] text-[#F3B7CE] font-[700]'>{form_type == 'premium' ?lang === 'ar' ? 'بندل بريميوم' : 'The Premium Bundl' : lang === 'ar' ? 'متاجر الكترونية' : ' The Webster Bundl'}</h2>
 
-              <p className='sm:text-[20px] xs:pb-8 sm:pb-1 text-[20px] xs:text-[16px] md:w-[100%] lg:w-[92%] xl:w-[62%] xs:w-[350px] mx-auto'>{lang === 'ar' ? 'تميز بهويتك البصرية بمتجرك الفعلي او اونلاين. تشمل هذه الباقة هوية بصرية متكاملة (شعار، دليل استخدام، ألوان، خطوط، وأنماط)، بالإضافة إلى تصاميم مخصصة للمتاجر تعزز تجربة العميل. ولا ننسى تصاميم السوشال ميديا لدعم مبيعاتك وزيادة التفاعل!' :'Elevate your brand, whether online or in-store. This bundle includes comprehensive brand identity (logo, guidelines, colors, typography, patterns) and commerce collateral to enhance customer experience. Plus, get social media designs to boost sales.'}</p>
+              <p className='sm:text-[18px] xs:pb-8 sm:pb-1 text-[18px] xs:text-[16px] md:w-[100%] lg:w-[92%] xl:w-[62%] xs:w-[350px] mx-auto'>{lang === 'ar' ? 'تميز بهويتك البصرية بمتجرك الفعلي او اونلاين. تشمل هذه الباقة هوية بصرية متكاملة (شعار، دليل استخدام، ألوان، خطوط، وأنماط)، بالإضافة إلى تصاميم مخصصة للمتاجر تعزز تجربة العميل. ولا ننسى تصاميم السوشال ميديا لدعم مبيعاتك وزيادة التفاعل!' :'Elevate your brand, whether online or in-store. This bundle includes comprehensive brand identity (logo, guidelines, colors, typography, patterns) and commerce collateral to enhance customer experience. Plus, get social media designs to boost sales.'}</p>
 
 
               {form_type=="premium"?<img className='sm:!w-[200px] !w-[200px] xs:!w-[130px] bottom-[-50px] left-[-30px] right-[10%] absolute sm:hidden ' src={ paperPlaneGif}></img>
@@ -400,7 +400,7 @@ export default function WebsterPremiumForm({lang,setLang}) {
 
               <div className=' mb-2 xs:pt-10 sm:pt-1 '>
 
-                <h2 className={`text-[32px] text-black ${lang === 'ar' ? 'text-right' : 'text-left'}`}>{lang === 'ar' ? 'ما هو اسم مشروعك؟' :'What is the name of your brand?'}</h2>
+                <h2 className={`lg:text-[30px] md:text-[30px] xs:text-[24px] text-black ${lang === 'ar' ? 'text-right' : 'text-left'}`}>{lang === 'ar' ? 'ما هو اسم مشروعك؟' :'What is the name of your brand?'}</h2>
 
                 <input
 
@@ -544,7 +544,7 @@ export default function WebsterPremiumForm({lang,setLang}) {
 
             onClick={(e)=>handleSubmit(e)}
 
-              className="bg-[#F3B7CE] text-[24px] w-full uppercase text-white py-2"
+              className="bg-[#F3B7CE] text-[22px] w-full uppercase text-white py-2"
 
             >
 
@@ -566,7 +566,7 @@ export default function WebsterPremiumForm({lang,setLang}) {
 
           <img className={`sm:!w-[380px] !w-[380px] xs:!w-[250px]  ${lang === 'ar' ? 'left-[-18%] sm:left-[-25%] xs:left-[-60%] scale-x-[-1]' : 'right-[-18%] sm:right-[-25%] xs:right-[-60%]'} sm:bottom-[-8%] xs:top-[-10%] sm:top-auto sm:absolute xs:relative`} src={ paperPlaneReverse}></img>
 
-          :<img className={`sm:!w-[430px] !w-[430px] xs:!w-[200px] z-0 ${lang === 'ar' ? 'sm:right-[10%] right-[10%] md:right-[-5%]' : 'sm:left-[10%] left-[10%] md:left-[-5%]'} md:bottom-[-19vh] sm:bottom-[-17vh] bottom-[-17vh] xs:left-[25%] xs:bottom-[-13px] absolute sm:absolute xs:relative`} src={ websterGif}></img>}
+          :<img className={`sm:!w-[430px] !w-[430px] xs:!w-[200px] z-0 ${lang === 'ar' ? 'sm:right-[10%] right-[10%] md:right-[-5%] xs:right-[25%] ' : 'sm:left-[10%] left-[10%] md:left-[-5%] xs:left-[25%] '} md:bottom-[-19vh] sm:bottom-[-17vh] bottom-[-17vh] xs:bottom-[-13px] absolute sm:absolute xs:relative`} src={ websterGif}></img>}
 
 
 

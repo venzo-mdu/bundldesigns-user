@@ -1239,9 +1239,7 @@ export default function UploadContent({lang,setLang}) {
                                                 </div>
                                             }
                                             <div className='border-b-[1px] border-black mt-4'></div>
-                                            <p className='flex justify-center mt-4 mb-2 text-[#00000080] px-[5%]'> <button onClick={() => saveAllContent('submit')} className='text-[16px] px-4 border !border-[#00000080] font-medium w-full h-[35px] uppercase'> {lang === 'ar' ? 'إرسال المحتوى' : 'Submit content'}  </button> </p>
-                                            <p className='flex justify-center text-[#1BA56F] px-[5%]'> <button onClick={saveForLater} className='text-[16px] px-4 border !border-[#1BA56F] font-medium w-full h-[35px] uppercase'> {lang === 'ar' ? 'حفظ لوقت لاحق' : 'Save for Later'} </button> </p>
-
+                                          
                                         </div>
                                     </div>
 
@@ -1485,9 +1483,7 @@ export default function UploadContent({lang,setLang}) {
                                                     }
                                     </>
                                 }
-
-                                <p className='flex justify-start mt-4 mb-2 text-[#00000080]'> <button onClick={() => saveAllContent('submit')} className='text-[16px] lg:px-4 md:px-4 border !border-[#00000080] font-medium uppercase'>  {lang === 'ar' ? 'إرسال المحتوى' : 'Submit content'} </button> </p>
-                                <p className='flex justify-start text-[#1BA56F]'> <button onClick={saveForLater} className='text-[16px] lg:px-[1.3rem] md:px-[6.6%] border !border-[#1BA56F] font-medium uppercase'> {lang === 'ar' ? 'حفظ لوقت لاحق' : 'Save for Later'}  </button> </p>
+                              
 
                             </div>
                         </div>

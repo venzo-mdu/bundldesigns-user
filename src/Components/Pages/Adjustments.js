@@ -2005,9 +2005,9 @@ export default function Adjustments({user ,lang ,setLang}) {
                             <div className='px-[5%] py-4'>
                                 <p className='flex text-[18px] items-center pb-2 text-black cursor-pointer' onClick={() => { window.location.href = '/dashboard' }}> <ArrowBackIcon style={{ width: '25px', marginRight: '10px' }} />{lang === 'ar' ? 'العودة إلى لوحة التحكم' : 'Back to dashboard '}</p>
                                 <div className=''>
-                                    <h1 className='lg:text-[40px] text-[#000] md:text-[32px]'> {lang === 'ar' ? 'التعديلات' :'Adjustments'} </h1>
-                                    <p className='lg:text-[20px] mb-2 md:text-[16px] text-[#00000080]'> {lang === 'ar' ? 'هنا يمكنك تعديل هويتك البصرية وإضافة عناصر إلى الباقة الخاصة بك !' :'Here you can edit your brand and add items to your bundl! '} </p>
-                                    <p className='font-[700] text-[22px] font-Helvetica'> {lang === 'ar' ? 'ما الذي تريد تعديله؟' : 'What would you like to edit ?'}</p>
+                                    <h1 className='lg:text-[38px] text-[#000] md:text-[30px]'> {lang === 'ar' ? 'التعديلات' :'Adjustments'} </h1>
+                                    <p className='lg:text-[18px] mb-2 md:text-[14px] text-[#00000080]'> {lang === 'ar' ? 'هنا يمكنك تعديل هويتك البصرية وإضافة عناصر إلى الباقة الخاصة بك !' :'Here you can edit your brand and add items to your bundl! '} </p>
+                                    <p className='font-[700] text-[20px] font-Helvetica'> {lang === 'ar' ? 'ما الذي تريد تعديله؟' : 'What would you like to edit ?'}</p>
                                     <div className=''>
                                         <div className=' flex flex-wrap overflow-auto w-full'>
                                             {adjustments.map((adjustment, index) => {
@@ -2067,7 +2067,7 @@ export default function Adjustments({user ,lang ,setLang}) {
                                                             onChange={(e) => uploadFile(e, adjustment.id, index)}
                                                         />
                                                         <img src={uploadIcon} alt="Upload Icon" />
-                                                        <span className='font-[700]'> {lang === 'ar' ? 'تحميل المحتوى' :'Upload Content'}</span>
+                                                        <span className='font-[700] uppercase'> {lang === 'ar' ? 'تحميل المحتوى' :'Upload Content'}</span>
                                                     </p>
                                                     <p>
                                                         {adjustmentData[adjustment.id] ? adjustmentData[adjustment.id].file_name?.map(name => {
@@ -2080,8 +2080,8 @@ export default function Adjustments({user ,lang ,setLang}) {
                                         })}
                                     </div>
                                     <div className='lg:mt-16 md:mt-16 xs:mt-8 xs:mb-[75%] lg:mb-0 md:mb-0'>
-                                        <h2 className='text-[24px] font-[700] font-Helvetica'>{lang === 'ar' ? 'مشروعك يحتاج إضافات؟':'Something feels missing ?'}</h2>
-                                        <p className='text-[18px] text-[#00000080] w-[75%]'>{lang === 'ar' ? 'اطلب أي عناصر تحتاجها ' : 'Add anything you want to your bundle to fit your brand!'}</p>
+                                        <h2 className='text-[22px] font-[700] font-Helvetica'>{lang === 'ar' ? 'مشروعك يحتاج إضافات؟':'Something feels missing ?'}</h2>
+                                        <p className='text-[16px] text-[#00000080] w-[75%]'>{lang === 'ar' ? 'اطلب أي عناصر تحتاجها ' : 'Add anything you want to your bundle to fit your brand!'}</p>
                                         <div className='flex flex-wrap w-[100%]'>  {Object.keys(bundlAddons).map((category, index) => {
                                             return <a onClick={() => {
                                                 toggleDescription(category)
@@ -2093,7 +2093,7 @@ export default function Adjustments({user ,lang ,setLang}) {
                                                     if (element) {
                                                       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
                                                     }
-                                                  }, 500);
+                                                  }, 200);
                                             }
                                             }
                                                 className={`uppercase cursor-pointer text-[14px] py-[2%] px-[5%] w-[${stylesBtnAccordian[index]}] !font[500] text-center font-[500] ${designListTab == category ?
@@ -2104,7 +2104,7 @@ export default function Adjustments({user ,lang ,setLang}) {
 
                                         <div className='mt-10'>
                                             {Object.keys(bundlAddons).map((category, index) => {
-                                                return <div className='' id={`${index}_list`}>
+                                                return <div  id={`${index}_list`}>
                                                     <p className={`flex justify-between font-semibold text-[24px] pb-2  ${expantedTabs[category] || category === 'Social Media'  ? '' : 'border-b'} border-[#00000080]`}> {lang === 'ar' ? bundlAddons[category]?.name_arabic :category}      <button
                                                         onClick={() => {toggleDescription(category);
                                                             setTimeout(() => {
@@ -2130,7 +2130,7 @@ export default function Adjustments({user ,lang ,setLang}) {
                                                                 </p>
                                                             </div> */}
                                                               <div className='flex justify-between my-[3%]'>
-                                                              <span className='font-bold text-[18px] text-[#1BA56F] w-[45%]'>{lang === 'ar' ? item.name_arabic :item.name_english}</span>
+                                                              <span className='font-[500] text-[16px] text-[#1BA56F] w-[45%]'>{lang === 'ar' ? item.name_arabic :item.name_english}</span>
                                                             <p className='flex items-center !mb-2 w-[55%] '>
                                                             <p className='flex items-center mb-1 sm:min-w-[120px] min-w-[120px] xs:min-w-[100px] font-[500]'>
                                                                 <img src={BlackDollor} alt="Price icon" className={`inline-block ${lang === 'ar' ? 'ml-2' : 'mr-2'}`} />
@@ -2516,9 +2516,9 @@ export default function Adjustments({user ,lang ,setLang}) {
                                 <div className={`basis-[72%] md:px-8 px-8 xs:px-2  py-4 ${lang === 'ar' ? 'border-l-[1px]':'border-r-[1px]'} border-black`}>
                                     <p className='flex text-[18px] items-center pb-2 text-black cursor-pointer' onClick={() => { window.location.href = '/dashboard' }}> <ArrowBackIcon style={lang === 'ar' ? { width: '25px', marginLeft: '10px',transform:'scaleX(-1)' } : { width: '25px', marginRight: '10px' }} /> {lang === 'ar' ? 'العودة إلى لوحة التحكم' : 'Back to dashboard '} </p>
                                     <div className='lg:px-14 md:px-14 xs:px-2'>
-                                        <h1 className='lg:text-[40px] text-[#000] md:text-[32px]'>{lang === 'ar' ? 'التعديلات' :'Adjustments'}  </h1>
-                                        <p className='lg:text-[20px] mb-2 md:text-[16px] text-[#00000080]'> {lang === 'ar' ? 'هنا يمكنك تعديل هويتك البصرية وإضافة عناصر إلى الباقة الخاصة بك !' :'Here you can edit your brand and add items to your bundl! '}  </p>
-                                        <p className='lg:text-[32px] font-bold md:text-[24px] mt-[2%]'> {lang === 'ar' ? 'ما الذي تريد تعديله؟' : 'What would you like to edit ?'}</p>
+                                        <h1 className='lg:text-[38px] text-[#000] md:text-[30px]'>{lang === 'ar' ? 'التعديلات' :'Adjustments'}  </h1>
+                                        <p className='lg:text-[18px] mb-2 md:text-[16px] text-[#00000080]'> {lang === 'ar' ? 'هنا يمكنك تعديل هويتك البصرية وإضافة عناصر إلى الباقة الخاصة بك !' :'Here you can edit your brand and add items to your bundl! '}  </p>
+                                        <p className='lg:text-[30px] font-bold md:text-[22px] mt-[2%]'> {lang === 'ar' ? 'ما الذي تريد تعديله؟' : 'What would you like to edit ?'}</p>
                                         <div className=''>
                                             <div className=' flex overflow-auto md:max-w-[62vw] max-w-[62vw] xs:max-w-[100%]'>
                                                 {adjustments.map((adjustment, index) => {
@@ -2565,7 +2565,7 @@ export default function Adjustments({user ,lang ,setLang}) {
                                                             <button onClick={() => addData(adjustment.id, index)} className='md:w-[20%] w-[20%] xs:w-[30%] py-1 px-2 bg-[#1BA56F] text-white text-[17.2px] font-[500] uppercase'>{lang === 'ar' ? 'ارسال' : 'Submit Edit'}</button></p>
                                                         <p className='font-medium text-[18px]'> {lang === 'ar' ? 'عندك شي تشاركنا إياه؟' : 'Have something to show us?'}</p>
                                                         <p
-                                                            className="border-b-2 w-[150px] !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer"
+                                                            className="border-b-2 w-fit !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer"
                                                             onClick={() => document.getElementById(`file-${adjustment.id}`).click()} // Trigger click on hidden input
                                                         >
                                                             <input
@@ -2578,7 +2578,7 @@ export default function Adjustments({user ,lang ,setLang}) {
                                                                 onChange={(e) => uploadFile(e, adjustment.id, index)}
                                                             />
                                                             <img src={uploadIcon} alt="Upload Icon" />
-                                                            <span className='font-[700]'>{lang === 'ar' ? 'تحميل المحتوى' :'Upload Content'}</span>
+                                                            <span className='font-[700] uppercase'>{lang === 'ar' ? 'تحميل المحتوى' :'Upload Content'}</span>
                                                         </p>
                                                         <p>
                                                             {adjustmentData[adjustment.id] ? adjustmentData[adjustment.id].file_name?.map(name => {
@@ -2591,8 +2591,8 @@ export default function Adjustments({user ,lang ,setLang}) {
                                             })}
                                         </div>
                                         <div className='lg:mt-16 md:mt-16 xs:mt-8'>
-                                            <h2 className='text-[32px]'>{lang === 'ar' ? 'مشروعك يحتاج إضافات؟':'Something feels missing ?'}</h2>
-                                            <p className='text-[18px] text-[#00000080]'>{lang === 'ar' ? 'اطلب أي عناصر تحتاجها ' : 'Add anything you want to your bundle to fit your brand!'}</p>
+                                            <h2 className='text-[30px]'>{lang === 'ar' ? 'مشروعك يحتاج إضافات؟':'Something feels missing ?'}</h2>
+                                            <p className='text-[16px] text-[#00000080]'>{lang === 'ar' ? 'اطلب أي عناصر تحتاجها ' : 'Add anything you want to your bundle to fit your brand!'}</p>
                                             <div className='flex w-[100%]'>  {Object.keys(bundlAddons).map((category, index) => {
                                                 console.log(category);
                                                 return <button onClick={() => {
@@ -2605,10 +2605,10 @@ export default function Adjustments({user ,lang ,setLang}) {
                                                         if (element) {
                                                           element.scrollIntoView({ behavior: 'smooth', block: 'start' });
                                                         }
-                                                      }, 500);
+                                                      }, 200);
                                                 }
                                                 } className={`uppercase h-[40px] cursor-pointer lg:px-[2px] min-w-[14%] md:px-[2px] md:py-[5px] 
-                                                md:text-[14px] lg:py-[5px] !font[500] text-center font-[500] ${designListTab == category ?
+                                               lg:text-[18px] md:text-[14px] lg:py-[5px] !font[500] text-center font-[500] ${designListTab == category ?
                                                         'text-white bg-[#1BA56F] ' : 'text-[#1BA56F] bg-white '} ${lang === 'ar' ? 'border-l border-t border-b' :'border-r border-t border-b'}
                                             ${index == 0 && (lang === 'ar' ? 'border-r' :'border-l')} ${index == Object.keys(bundlAddons).length && (lang === 'ar'?'border-r-0 border-l':'border-l-0 border-r')} !border-[#1BA56F]`}
                                                 >{lang === 'ar' ? bundlAddons[category]?.name_arabic : category}</button>
@@ -2616,15 +2616,15 @@ export default function Adjustments({user ,lang ,setLang}) {
 
                                             <div className='mt-10'>
                                                 {Object.keys(bundlAddons).map((category, index) => {
-                                                    return <div className='' id={`${index}_list`}> 
-                                                        <p className={`flex justify-between font-semibold text-[24px] pb-2 uppercase  ${expantedTabs[category] || category === 'Social Media' ? '' : 'border-b'} border-[#00000080]`}> {lang === 'ar' ? bundlAddons[category]?.name_arabic :category}      <button
+                                                    return <div  id={`${index}_list`}> 
+                                                        <p className={`flex justify-between font-semibold text-[24px] pb-2   ${expantedTabs[category] || category === 'Social Media' ? '' : 'border-b'} border-[#00000080]`}> {lang === 'ar' ? bundlAddons[category]?.name_arabic :category}      <button
                                                             onClick={() => {toggleDescription(category);
                                                                 setTimeout(() => {
                                                                     const element = document.getElementById(`${index}_list`);
                                                                     if (element) {
                                                                       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
                                                                     }
-                                                                  }, 500);
+                                                                  }, 200);
                                                             }}
                                                             className="text-blue-500 cursor-pointer"
                                                         >
@@ -2632,8 +2632,8 @@ export default function Adjustments({user ,lang ,setLang}) {
                                                         </button></p>
                                                         {expantedTabs[category] && <div className='mt-3 mb-8'>
                                                             {category in bundlAddons && bundlAddons[category].design_list.map((item, index) => {
-                                                                return <div id={`${item.id}_design_list`} className='flex flex-wrap justify-between font-semibold text-[18px] py-2  border-b !border-[#1BA56F]'>
-                                                                    <span className='font-semibold md:basis-[25%] basis-[25%] xs:basis-[100%] text-[18px] md:text-[18px] xs:text-[16px] text-[#1BA56F]'>{lang === 'ar' ? item.name_arabic :item.name_english}</span>
+                                                                return <div id={`${item.id}_design_list`} className='flex flex-wrap justify-between font-semibold text-[18px] py-[1.5%]  border-b !border-[#1BA56F]'>
+                                                                    <span className='md:basis-[25%] basis-[25%] xs:basis-[100%] text-[16px] md:text-[16px] xs:text-[16px] text-[#1BA56F] font-[500]'>{lang === 'ar' ? item.name_arabic :item.name_english}</span>
                                                                     <p className='flex mb-0 text-[18px] md:text-[18px] xs:text-[16px] basis-[40%]'>
                                                                         <span className='flex items-center w-[150px]'><img src={BlackDollor} className={`${lang === 'ar' ? 'ml-2':'mr-2'}`}></img> {Math.round(item.price)} {lang === 'ar' ? 'ريال' :'SAR'} </span>
                                                                         <span className='flex items-center w-[120px]'><AccessTimeIcon style={lang === 'ar' ? {marginLeft: '5px' }:{ marginRight: '5px' }} /> {Math.round(item.time)} {lang === 'ar' ?'يوم':'Days'}</span>
