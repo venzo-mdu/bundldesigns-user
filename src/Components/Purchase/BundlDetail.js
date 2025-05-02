@@ -109,7 +109,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
 
     if (brandInput?.trim() == '') {
       if (!toast.isActive('required-value-toast')) {
-        toast.error(`Name your brand`, {
+        toast.error(lang === 'ar' ? 'الحد اختر اسمًا لمشروعك' :`Name your brand`, {
           position: toast?.POSITION?.TOP_RIGHT,
           toastId: 'required-value-toast',
           autoClose: 3000,
@@ -190,7 +190,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
       if (response.data) {
         const resProjects = response.data.data.filter(item => item.order_status != 'in_cart')
         if (resProjects?.length === 0 && total_price < 4880 && packageID == 'newbie') {
-          toast.error(`Minimum order amount should be 4880`, {
+          toast.error(lang === 'ar' ? 'الأدنى للطلب يجب أن يكون 4,880' :`Minimum order amount should be 4880`, {
             position: toast?.POSITION?.TOP_RIGHT,
             toastId: 'required-value-toast2',
             icon: false,

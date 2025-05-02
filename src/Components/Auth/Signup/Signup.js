@@ -164,9 +164,9 @@ const login = useGoogleLogin({
     // Email validation
     if (name === 'email') {
       if (!value.trim()) {
-        setError('email', 'Email is required');
+        setError('email', lang === 'ar' ? 'البريد الإلكتروني مطلوب' : 'Email is required');
       } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value)) {
-        setError('email', 'Invalid email address');
+        setError('email', lang === 'ar' ? 'عنوان بريد إلكتروني غير صالح' : 'Invalid email address');
       } else {
         setError('email', ''); // clear error if email is valid
       }
@@ -195,15 +195,15 @@ const login = useGoogleLogin({
       errors.full_name = 'Full name must be at least 3 characters'
     }
     if (!registerData.email.trim()) {
-      errors.email = 'Email is required';
+      errors.email = lang === 'ar' ? 'البريد الإلكتروني مطلوب' : 'Email is required';
     } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(registerData.email)) {
-      errors.email = 'Invalid email address';
+      errors.email = lang === 'ar' ? 'عنوان بريد إلكتروني غير صالح' : 'Invalid email address';
     }
     if (!registerData.phone.trim()) {
-      errors.phone = 'Phone number is required';
+      errors.phone = lang === 'ar' ? 'رقم الهاتف مطلوب' : 'Phone number is required';
     }
     if (!registerData.country.trim()) {
-      errors.country = 'Country is required';
+      errors.country = lang === 'ar' ? 'الدولة مطلوبة' : 'Country is required';
     } else if (/[^a-zA-Z\s-]/.test(registerData.country)) {
       errors.country = 'Country name must contain only letters';
     }

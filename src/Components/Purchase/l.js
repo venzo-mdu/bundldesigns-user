@@ -26,24 +26,24 @@ const PaymentForm = () => {
         if (!billingInfo.lastName.trim()) newErrors.lastName = 'Last name is required';
 
         if (!billingInfo.email.trim()) {
-            newErrors.email = 'Email is required';
+            newErrors.email = lang === 'ar' ? 'البريد الإلكتروني مطلوب' : 'Email is required';
         } else if (!/^[\w-.]+@[\w-]+\.[a-z]{2,4}$/i.test(billingInfo.email)) {
             newErrors.email = 'Invalid email format';
         }
 
         if (!billingInfo.phoneNumber.trim()) {
-            newErrors.phoneNumber = 'Phone number is required';
+            newErrors.phoneNumber = lang === 'ar' ? 'رقم الهاتف مطلوب' : 'Phone number is required';
         } else if (!/^[0-9]{10}$/.test(billingInfo.phoneNumber)) {
             newErrors.phoneNumber = 'Phone number must be 10 digits';
         }
 
-        if (!billingInfo.country.trim()) newErrors.country = 'Country is required';
+        if (!billingInfo.country.trim()) newErrors.country = lang === 'ar' ? 'الدولة مطلوبة' : 'Country is required';
         if (!billingInfo.city.trim()) newErrors.city = 'City is required';
 
         if (!billingInfo.postalCode.trim()) {
             newErrors.postalCode = 'Postal code is required';
         } else if (!/^[0-9]{5,6}$/.test(billingInfo.postalCode)) {
-            newErrors.postalCode = 'Postal code must be 5 or 6 digits';
+            newErrors.postalCode = lang === 'ar' ? 'خمسة أرقام يجب أن يكون الرمز البريدي من رقمين إلى ' : 'Your postal code must be 2 or 5 digits.';
         }
 
         if (!billingInfo.promoCode.trim()) newErrors.promoCode = 'Promo code is required';

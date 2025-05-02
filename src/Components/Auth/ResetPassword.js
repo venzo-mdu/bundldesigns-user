@@ -33,16 +33,16 @@ const ResetPassword = ({lang,setLang}) => {
     
         // Validate Old Password
         if (!formData.old_password) {
-            errors.old_password = "Old password is required.";
+            errors.old_password = lang === 'ar' ? 'كلمة المرور القديمة مطلوبة' : "Old password is required.";
         }
     
         // Validate New Password
         if (!formData.new_password) {
-            errors.new_password = "New password is required.";
+            errors.new_password = lang === 'ar' ? 'كلمة المرور الجديدة مطلوبة' : "New password is required.";
         } 
         // Validate Confirm Password
         if (!formData.confirm_password) {
-            errors.confirm_password = "Confirm password is required.";
+            errors.confirm_password =lang === 'ar' ? 'تأكيد كلمة المرور مطلوب' : "Confirm password is required.";
         } else if (formData.confirm_password !== formData.new_password) {
             errors.confirm_password = "Confirm password does not match with new password.";
         }

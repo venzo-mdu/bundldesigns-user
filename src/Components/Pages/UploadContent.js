@@ -844,7 +844,7 @@ export default function UploadContent({lang,setLang}) {
         try {
 
             if (!uploadContent?.[itemId]?.[idx]?.language && designQuestions[designId]?.language) {
-                toast.error("Please choose language before saving.",{
+                toast.error(lang === "" ? "يرجى اختيار اللغة قبل الحفظ" :"Please choose language before saving.",{
                     icon:false,
                     toastId: 'required-value-toast1',
                     style:{
@@ -855,7 +855,7 @@ export default function UploadContent({lang,setLang}) {
                 return;
             }
             if (!uploadContent?.[itemId]?.[idx]?.content && designQuestions[designId]?.textbox) {
-                toast.error("Please add content before saving.",{
+                toast.error(lang === "ar" ? "يرجى إضافة المحتوى قبل الحفظ" :"Please add content before saving.",{
                     icon:false,
                     toastId: 'required-value-toast2',
                     style:{
@@ -866,7 +866,7 @@ export default function UploadContent({lang,setLang}) {
                 return;
             }
             if (!uploadContent?.[itemId]?.[idx]?.measurements && designQuestions[designId]?.measurement ) {
-                toast.error("Please add measurements before saving.",{
+                toast.error(lang === "ar" ? "يرجى إضافة المقاسات قبل الحفظ" :"Please add measurements before saving.",{
                     icon:false,
                     toastId: 'required-value-toast3',
                     style:{
@@ -877,7 +877,7 @@ export default function UploadContent({lang,setLang}) {
                 return;
             }
             if (!uploadContent?.[itemId]?.[idx]?.filename && designQuestions[designId]?.attachemnt) {
-                toast.error("Please upload the content.",{
+                toast.error(lang === "ar" ? "يرجى رفع المحتوى" :"Please upload the content.",{
                     icon:false,
                     toastId: 'required-value-toast4',
                     style:{
@@ -916,7 +916,7 @@ export default function UploadContent({lang,setLang}) {
                 getOrderDetails(); 
             } else {
                 console.error("Unexpected response:", response);
-                toast.error("Something went wrong! Please try again.",{
+                toast.error(lang === "ar" ? "مرة أخرى حدث خطأ ما! يرجى المحاولة " :"Something went wrong! Please try again.",{
                     icon:false,
                     toastId: 'required-value-toast6',
                     style:{
@@ -927,7 +927,7 @@ export default function UploadContent({lang,setLang}) {
             }
         } catch (error) {
             console.error("Save failed:", error.response?.data || error.message);
-            toast.error(error.response?.data?.message || "Failed to save content. Please try again.",{
+            toast.error(error.response?.data?.message || lang === 'ar' ? 'المحاولة مرة أخرى يرجى فشل في حفظ المحتوى ' : "Failed to save content. Please try again.",{
                 icon:false,
                 toastId: 'required-value-toast7',
                 style:{

@@ -59,23 +59,23 @@ export default function Career({lang,setLang}) {
     if (!formData.name) {
       newErrors.name = 'Name is required';
     } else if (formData.name.length < 3) {
-      newErrors.name = 'Name must be at least 3 characters';
+      newErrors.name = lang === 'ar' ? 'على الأقل أحرف 3 يجب أن يحتوي الاسم على  ' : 'Name must be at least 3 characters';
     } else if (/\d/.test(formData.name)) {
       newErrors.name = 'Name must not contain numbers';
     }
 
-    if (!formData.phone) newErrors.phone = 'Phone number is required';
+    if (!formData.phone) newErrors.phone = lang === 'ar' ? 'رقم الهاتف مطلوب' : 'Phone number is required';
     // else if (!/^\d{10}$/.test(formData.phone)) newErrors.phone = 'Phone number must be 10 digits';
 
-    if (!formData.email) newErrors.email = 'Email is required';
+    if (!formData.email) newErrors.email = lang === 'ar' ? 'البريد الإلكتروني مطلوب' : 'Email is required';
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = 'Email is invalid';
 
-    if (!formData.message) newErrors.message = 'Description is required';
+    if (!formData.message) newErrors.message = lang === 'ar' ? 'الوصف مطلوب' : 'Description is required';
 
-    if (!formData.vacancy) newErrors.vacancy = 'Please select a vacancy';
+    if (!formData.vacancy) newErrors.vacancy = lang === 'ar' ? 'يرجى اختيار وظيفة شاغرة' : 'Please select a vacancy';
 
-    if (!formData.file) newErrors.file = 'Please upload a file';
-    else if (formData.file.size > 5 * 1024 * 1024) newErrors.file = 'File must be smaller than 5MB';
+    if (!formData.file) newErrors.file = lang === 'ar' ? 'يرجى رفع ملف' : 'Please upload a file';
+    else if (formData.file.size > 5 * 1024 * 1024) newErrors.file = lang === 'ar' ? 'ميغابايت 5 يجب أن يكون حجم الملف أقل من ' : 'File must be smaller than 5MB';
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;

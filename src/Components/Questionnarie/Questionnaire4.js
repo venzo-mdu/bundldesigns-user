@@ -188,7 +188,7 @@ export const Questionnaire4 = ({ formData, setFormData, changeLang, setChangeLan
   };
 
   const showToastMessage = () => {
-    toast.error("The Value is required!", {
+    toast.error(changeLang === 'ar' ? '•القيمة مطلوب' :"The Value is required!", {
       position: toast?.POSITION?.TOP_RIGHT,
       toastId: 'required-value-toast',
       icon: false,
@@ -240,7 +240,7 @@ export const Questionnaire4 = ({ formData, setFormData, changeLang, setChangeLan
     let updatedColors = [];
     const isHexCode = /^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/.test(color);
     if (!isHexCode && color !== "Surprise") {
-      toast.error("Allows only HEX Code!", {
+      toast.error(changeLang === "ar" ? "HEX يُسمح فقط بكود  " :"Allows only HEX Code!", {
         position: toast?.POSITION?.TOP_RIGHT,
         toastId: 'required-value-toast',
         icon: false,
@@ -253,7 +253,7 @@ export const Questionnaire4 = ({ formData, setFormData, changeLang, setChangeLan
       return;
     }
     if (selectedColors?.includes(color)) {
-      toast.error("You have already added!", {
+      toast.error(changeLang === "ar" ? "تمت إضافة اللون مسبقا!" :"You have already added!", {
         position: toast?.POSITION?.TOP_RIGHT,
         toastId: 'required-value-toast',
         icon: false,

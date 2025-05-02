@@ -62,13 +62,13 @@ const Profile = ({ user ,lang,setLang }) => {
         }
 
         if (!formData.email.trim()) {
-            errors.email = "Email is required";
+            errors.email = lang === 'ar' ? 'البريد الإلكتروني مطلوب' : 'Email is required';
         } else if (!/^[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/.test(formData.email)) {
             errors.email = "Invalid email format";
         }
 
         if (!formData.country) {
-            errors.country = "Please select a country";
+            errors.country = lang === 'ar' ? 'يرجى اختيار دولة' : "Please select a country";
         }
 
         if (!formData.language) {
@@ -76,7 +76,7 @@ const Profile = ({ user ,lang,setLang }) => {
         }
 
         if (!formData.phone.trim()) {
-            errors.phone = "Phone number is required";
+            errors.phone = lang === 'ar' ? 'رقم الهاتف مطلوب' : 'Phone number is required';
         }
 
         setError(errors);

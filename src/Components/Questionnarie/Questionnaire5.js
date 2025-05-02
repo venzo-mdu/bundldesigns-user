@@ -91,7 +91,7 @@ export const Questionnaire5 = ({formData,setFormData,changeLang,setChangeLang}) 
   };
 
   const showToastMessage = () => {
-    toast.error("The Value is required!", {
+    toast.error(changeLang === 'ar' ? '•القيمة مطلوب' :"The Value is required!", { 
       position: toast?.POSITION?.TOP_RIGHT,
       toastId: 'required-value-toast',
       icon:false,

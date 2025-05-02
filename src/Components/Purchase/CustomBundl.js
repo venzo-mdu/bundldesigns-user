@@ -82,7 +82,7 @@ export const CustomBundl = ({user,lang,setLang}) => {
 
   const createPayload = async() => {
     if (brandInput == '') {
-      toast.error(`Name your brand`, {
+      toast.error(lang === 'ar' ? 'الحد اختر اسمًا لمشروعك' :`Name your brand`, {
         position: toast?.POSITION?.TOP_RIGHT,
         toastId: 'required-value-toast',
         icon:false,
@@ -99,7 +99,7 @@ export const CustomBundl = ({user,lang,setLang}) => {
       return false;
     }
     if(firstOrder && addonPayLoads.total_price < 800){
-          toast.error(`Minimum order amount should be 800`, {
+          toast.error(lang === 'ar' ? 'الأدنى للطلب يجب أن يكون 800' :`Minimum order amount should be 800`, {
             position: toast?.POSITION?.TOP_RIGHT,
             toastId: 'required-value-toast',
             icon:false,
@@ -111,7 +111,7 @@ export const CustomBundl = ({user,lang,setLang}) => {
           return false;
         }
     if(addonPayLoads.item_list.length ==0){
-      toast.error(`Please add an Item to Checkout`, {
+      toast.error(lang === '' ? 'التسوق يرجى إضافة عنصر إلى سلة' :`Please add an Item to Checkout`, {
         position: toast?.POSITION?.TOP_RIGHT,
         toastId: 'required-value-toast',
         icon:false,

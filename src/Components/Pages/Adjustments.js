@@ -1708,7 +1708,7 @@ export default function Adjustments({user ,lang ,setLang}) {
     const updateTotals = (items, adjustments) => {
         const { price, time } = calculateTotals(items, adjustments);
         let temptax = price * (billingInfo.country === 'Saudi Arabia'? 0.15 : 0)
-        console.log(temptax,"tx")
+        
         setTax(temptax)
         setTotalPrice(price);
         setTotalTime(time);
@@ -1717,7 +1717,7 @@ export default function Adjustments({user ,lang ,setLang}) {
     const addData = (id, index) => {
         const elementValue = document.getElementById(`${id}_content`).value;
         if (!elementValue) {
-            toast.error(`Add your thoughts.`,{
+            toast.error(lang === 'ar' ? 'أضف أفكارك':`Add your thoughts.`,{
                     icon:false,
                     style:{
                         color:'#D83D99',
@@ -1772,7 +1772,7 @@ export default function Adjustments({user ,lang ,setLang}) {
     };
     const CheckCart = async (id) => {
         if(adjustmentData && Object.values(adjustmentData).length === 0 ){
-           setErrorMsg(`Adjustment cannot be empty`);
+           setErrorMsg(lang === 'ar' ? 'لا يمكن أن يكون التعديل فارغًا':`Adjustment cannot be empty`);
         }
         else if (Object.values(adjustmentData).length) {
             setPage('cart')
@@ -1827,7 +1827,7 @@ export default function Adjustments({user ,lang ,setLang}) {
         let newErrors = {};
 
         if(adjustmentData && Object.values(adjustmentData).length === 0 ){
-           toast.error('Adjustment cannot be empty',{
+           toast.error(lang === 'ar' ? 'لا يمكن أن يكون التعديل فارغًا':'Adjustment cannot be empty',{
             position: toast?.POSITION?.TOP_RIGHT,
             toastId: 'required-value-toast',
                 icon:false,
@@ -1839,50 +1839,50 @@ export default function Adjustments({user ,lang ,setLang}) {
         }
 
         if (!billingInfo.firstName.trim()) {
-            setError({ firstName: 'Your first name field is empty.' })
+            setError({ firstName: lang === 'ar' ? 'حقل الاسم الأول فارغ' : 'Your first name field is empty.' })
             return false
         }
         if (!billingInfo.lastName.trim()) {
-            setError({ lastName: 'Your last name field is empty.' })
+            setError({ lastName: lang === 'ar' ? 'حقل اسم العائلة فارغ' : 'Your last name field is empty.' })
             return false
         };
 
         if (!billingInfo.email.trim()) {
-            setError({ email: 'Your email field is empty' })
+            setError({ email: lang === 'ar' ? 'حقل البريد الإلكتروني فارغ' : 'Your email field is empty' })
             return false
         } else if (!/^[\w-.]+@[\w-]+\.[a-z]{2,4}$/i.test(billingInfo.email)) {
             setError({ email: 'Invalid email format' })
             return false
         }
         if (!billingInfo.phone.trim()) {
-            setError({ phone: 'Your phone number field is empty.' })
+            setError({ phone: lang === 'ar' ? 'حقل رقم الهاتف فارغ' : 'Your phone number field is empty.' })
             return false
         }
 
         if (!billingInfo.country.trim()) {
-            setError({ country: 'Your country field is empty.' })
+            setError({ country: lang === 'ar' ? 'حقل الدولة فارغ' : 'Your country field is empty.' })
             return false
         };
         if (!billingInfo.city.trim()) {
-            setError({ city: 'Your city field is empty.' })
+            setError({ city: lang === 'ar' ? 'حقل المدينة فارغ' : 'Your city field is empty.' })
 
             return false
         };
         if (!billingInfo.vat_registered.trim() && billingInfo?.country === 'Saudi Arabia') {
-            setError({ vat_registered: 'Your tax treatment field is empty.' })
+            setError({ vat_registered: lang === 'ar' ? 'حقل التسجيل الضريبي فارغ' : 'Your tax treatment field is empty.' })
 
             return false
         };
         if (!billingInfo.trn.trim() && billingInfo?.vat_registered === 'vat') {
-            setError({ trn: 'Your TRN Number field is empty.' })
+            setError({ trn: lang === 'ar' ? 'حقل الرقم الضريبي فارغ' : 'Your TRN Number field is empty.' })
 
             return false
         };
         if (!billingInfo.postalCode.trim()) {
-            setError({ postalCode: 'Your postal code field is empty.' })
+            setError({ postalCode: lang === 'ar' ? 'حقل الرمز البريدي فارغ' : 'Your postal code field is empty.' })
             return false
         } else if (!/^[0-9]{2,5}$/.test(billingInfo.postalCode)) {
-            setError({ postalCode: 'Your postal code must be 2 or 5 digits.' })
+            setError({ postalCode: lang === 'ar' ? 'خمسة أرقام يجب أن يكون الرمز البريدي من رقمين إلى ' : 'Your postal code must be 2 or 5 digits.' })
             return false
         }
 
@@ -2457,11 +2457,11 @@ export default function Adjustments({user ,lang ,setLang}) {
                                     {
                                          billingInfo?.country === 'Saudi Arabia' && (
                                         <div className='trn-code mb-[15px]'>
-                                        <label className={`${'vat_registered' in error ? 'text-[red]':'opacity-100'}`}>{lang === 'ar' ? '' :'Tax Treatment'}<span className='text-[red]'>*</span></label>
+                                        <label className={`${'vat_registered' in error ? 'text-[red]':'opacity-100'}`}>{lang === 'ar' ? 'التسجیل الضریبي' :'Tax Treatment'}<span className='text-[red]'>*</span></label>
                                             <select className={`w-[100%] py-[5px] px-2 !rounded-none border-[1px] outline-none  ${'vat_registered' in error ? '!border-[red]' :'border-black border-solid'} `} name='vat_registered' onChange={handleBillingChange}>
                                             <option value={null} disabled selected></option>
-                                                <option value={'vat'}>VAT Registered</option>
-                                                <option value={'non_vat'}>Non-VAT Registered</option>
+                                                <option value={'vat'}>{lang === 'ar' ? 'مسجل بقیمة الضریبة المضافة' : 'VAT Registered'}</option>
+                                                <option value={'non_vat'}>{lang === 'ar' ? 'غیر مسجل بقیمة الضریبة المضافة' : 'Non-VAT Registered'}</option>
                                             </select>
                                         </div>
                                          )
@@ -2470,7 +2470,7 @@ export default function Adjustments({user ,lang ,setLang}) {
                                         {
                                             istax && (
                                                 <div className="trn-code mb-[15px]">
-                                                <label className={`${'vat_registered' in error ? 'text-[red]':'opacity-100'}`}>TRN Number<span className='text-[red]'>*</span></label>
+                                                <label className={`${'trn' in error ? 'text-[red]':'opacity-100'}`}>{lang === 'ar' ? 'الرقم الضریبي' : 'TRN Number'}<span className='text-[red]'>*</span></label>
                                                 <input 
                                                 name="trn" 
                                                 value={billingInfo.trn} 
@@ -2888,11 +2888,11 @@ export default function Adjustments({user ,lang ,setLang}) {
                                         {
                                          billingInfo?.country === 'Saudi Arabia' && (
                                         <div className='trn-code mb-[15px]'>
-                                        <label className={`${'vat_registered' in error ? 'text-[red]':'opacity-100'}`}>{lang === 'ar' ? '' : 'Tax Treatment'}<span className='text-[red]'>*</span></label>
+                                        <label className={`${'vat_registered' in error ? 'text-[red]':'opacity-100'}`}>{lang === 'ar' ? 'التسجیل الضریبي' : 'Tax Treatment'}<span className='text-[red]'>*</span></label>
                                             <select className={`w-[100%] py-[5px] px-2 !rounded-none border-[1px] outline-none  ${'vat_registered' in error ? '!border-[red]' :'border-black border-solid'} `} name='vat_registered' onChange={handleBillingChange}>
                                             <option value={null} disabled selected></option>
-                                                <option value={'vat'}>VAT Registered</option>
-                                                <option value={'non_vat'}>Non-VAT Registered</option>
+                                                <option value={'vat'}>{lang === 'ar' ? 'مسجل بقیمة الضریبة المضافة' : 'VAT Registered'}</option>
+                                                <option value={'non_vat'}>{lang === 'ar' ? 'غیر مسجل بقیمة الضریبة المضافة' : 'Non-VAT Registered'}</option>
                                             </select>
                                         </div>
                                          )
@@ -2900,7 +2900,7 @@ export default function Adjustments({user ,lang ,setLang}) {
                                         {
                                             istax && (
                                                 <div className="trn-code mb-[15px]">
-                                                <label className={`${'vat_registered' in error ? 'text-[red]':'opacity-100'}`}>TRN Number<span className='text-[red]'>*</span></label>
+                                                <label className={`${'trn' in error ? 'text-[red]':'opacity-100'}`}>{lang === 'ar' ? 'الرقم الضریبي' : 'TRN Number'}<span className='text-[red]'>*</span></label>
                                                 <input 
                                                 name="trn" 
                                                 value={billingInfo.trn} 

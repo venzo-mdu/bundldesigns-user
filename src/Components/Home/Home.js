@@ -1861,7 +1861,7 @@ export const Home = ({lang,setLang}) => {
                                                     </li>
                                                     <li className='px-[6px] inner-nav'>
                                                         <a className="" onClick={() => { setProfileVisible(!profileVisible);setSearchShow(false) }}><img src={User} alt="" className="navIcons cursor-pointer"></img></a>
-                                                        <nav className={`w-44 border-black border-[1px] absolute top-full ${lang === 'ar' ? 'left-[6rem] text-left' : 'right-[6rem] text-right'} bg-white   ${profileVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
+                                                        <nav className={`w-44 border-black border-[1px] absolute top-full ${lang === 'ar' ? 'right-[6rem] text-left' : 'right-[6rem] text-right'} bg-white   ${profileVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'
                                                             }`}>
                                                             <div ref={popupRef}>
                                                                 {profileVisible && (

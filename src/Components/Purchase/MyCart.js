@@ -126,7 +126,7 @@ export const MyCart = ({ lang, setLang }) => {
     const removeItem = async (itemId, itemType) => {
         const existLocalData = JSON.parse(localStorage.getItem('payloads')) || {};
         if (itemType == 'bundle') {
-            toast.error(`Package Item Cannot removed`, {
+            toast.error(lang ==='ar' ? 'لا يمكن إزالة عنصر الباقة' :`Package Item Cannot removed`, {
                 position: toast?.POSITION?.TOP_RIGHT,
                 toastId: 'required-value-toast',
                 icon: false,
@@ -247,14 +247,14 @@ export const MyCart = ({ lang, setLang }) => {
         let newErrors = {};
 
         if (!billingInfo.firstName.trim()) {
-            setError({ firstName: 'Your first name field is empty.' })
+            setError({ firstName:  lang === 'ar' ? 'حقل الاسم الأول فارغ' : 'Your first name field is empty.'  })
             return false
         } else if (/\d/.test(billingInfo.firstName)) { 
             setError({ firstName: "First Name should not contain numbers." });
             return false;
         }
         if (!billingInfo.lastName.trim()) {
-            setError({ lastName: 'Your last name field is empty.' })
+            setError({ lastName: lang === 'ar' ? 'حقل اسم العائلة فارغ' : 'Your last name field is empty.' })
             return false
         } else if (/\d/.test(billingInfo.lastName)) { 
             setError({ lastName: "Last Name should not contain numbers." });
@@ -262,40 +262,40 @@ export const MyCart = ({ lang, setLang }) => {
         }
 
         if (!billingInfo.email.trim()) {
-            setError({ email: 'Your email field is empty' })
+            setError({ email:  lang === 'ar' ? 'حقل البريد الإلكتروني فارغ' : 'Your email field is empty' })
             return false
         } else if (!/^[\w-.]+@[\w-]+\.[a-z]{2,4}$/i.test(billingInfo.email)) {
             setError({ email: 'Invalid email format' })
             return false
         }
         if (!billingInfo.phone.trim()) {
-            setError({ phone: 'Your phone number field is empty.' })
+            setError({ phone: lang === 'ar' ? 'حقل رقم الهاتف فارغ' : 'Your phone number field is empty.' })
             return false
         }
 
         if (!billingInfo.country.trim()) {
-            setError({ country: 'Your country field is empty.' })
+            setError({ country: lang === 'ar' ? 'حقل الدولة فارغ' : 'Your country field is empty.' })
             return false
         };
         if (!billingInfo.city.trim()) {
-            setError({ city: 'Your city field is empty.' })
+            setError({ city: lang === 'ar' ? 'حقل المدينة فارغ' : 'Your city field is empty.' })
             return false
         };
         if (!billingInfo.vat_registered.trim() && billingInfo?.country === 'Saudi Arabia') {
-            setError({ vat_registered: 'Your Tax Treatment field is empty.' })
+            setError({ vat_registered: lang === 'ar' ? 'حقل التسجيل الضريبي فارغ' : 'Your tax treatment field is empty.' })
             return false;
         }
         if (!billingInfo.trn.trim() && billingInfo?.vat_registered === 'vat') {
-            setError({ trn_number: 'Your TRN Number field is empty.' })
+            setError({ trn_number:lang === 'ar' ? 'حقل الرقم الضريبي فارغ' : 'Your TRN Number field is empty.'  })
 
             return false
         };
         if (!billingInfo.postalCode.trim()) {
-            setError({ postalCode: 'Your postal code field is empty.' })
+            setError({ postalCode: lang === 'ar' ? 'حقل الرمز البريدي فارغ' : 'Your postal code field is empty.' })
             return false
         }
         else if (!/^[0-9]{2,5}$/.test(billingInfo.postalCode)) {
-            setError({ postalCode: 'Your postal code must be 2 to 5 digits.' })
+            setError({ postalCode: lang === 'ar' ? 'خمسة أرقام يجب أن يكون الرمز البريدي من رقمين إلى ' : 'Your postal code must be 2 or 5 digits.' })
             return false
         }
 
@@ -925,11 +925,11 @@ export const MyCart = ({ lang, setLang }) => {
                                     {
                                         billingInfo?.country === 'Saudi Arabia' && (
                                             <div className='trn-code mb-[15px]'>
-                                                <label className={`${'vat_registered' in error ? 'text-[red]' : 'opacity-50'}`}>{lang === 'ar' ? '' : 'Tax Treatment'}<span className='text-[red]'>*</span></label>
+                                                <label className={`${'vat_registered' in error ? 'text-[red]' : 'opacity-50'}`}>{lang === 'ar' ? 'التسجیل الضریبي' : 'Tax Treatment'}<span className='text-[red]'>*</span></label>
                                                 <select className={`w-[100%] py-[5px] px-2 !rounded-none border-[1px] outline-none  ${'vat_registered' in error ? '!border-[red]' : 'border-black border-solid'} `} name='vat_registered' onChange={handleBillingChange}>
                                                     <option value={null} disabled selected></option>
-                                                    <option value={'vat'}>VAT Registered</option>
-                                                    <option value={'non_vat'}>Non-VAT Registered</option>
+                                                    <option value={'vat'}>{lang === 'ar' ? 'مسجل بقیمة الضریبة المضافة' : 'VAT Registered'}</option>
+                                                    <option value={'non_vat'}>{lang === 'ar' ? 'غیر مسجل بقیمة الضریبة المضافة' : 'Non-VAT Registered'}</option>
                                                 </select>
                                             </div>
                                         )
@@ -938,7 +938,7 @@ export const MyCart = ({ lang, setLang }) => {
                                     {
                                         tax && (
                                             <div className="trn-code mb-[15px]">
-                                                <label className={`${'vat_registered' in error ? 'text-[red]' : 'opacity-50'}`}>TRN Number<span className='text-[red]'>*</span></label>
+                                                <label className={`${'trn' in error ? 'text-[red]' : 'opacity-50'}`}>{lang === 'ar' ? 'الرقم الضریبي' : 'TRN Number'}<span className='text-[red]'>*</span></label>
                                                 <input
                                                     name="trn"
                                                     value={billingInfo.trn}

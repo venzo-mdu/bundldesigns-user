@@ -284,7 +284,7 @@ export const Contactus = ({lang,setLang}) => {
       if (!formData.name) {
         newErrors.name = 'Name is required';
       } else if (formData.name.length < 3) {
-        newErrors.name = 'Name must be at least 3 characters';
+        newErrors.name = lang === 'ar' ? 'على الأقل أحرف 3 يجب أن يحتوي الاسم على  ' : 'Name must be at least 3 characters';
       } else if (/\d/.test(formData.name)) {
         newErrors.name = 'Name must not contain numbers';
       } else if (/[^a-zA-Z\s]/.test(formData.name)) {
@@ -295,10 +295,10 @@ export const Contactus = ({lang,setLang}) => {
       if (!formData.project_name) newErrors.project_name = 'Project name is required';
       else if (formData.project_name.length < 3) newErrors.project_name = 'Project name must be at least 3 characters';
   
-      if (!formData.phone) newErrors.phone = 'Phone number is required';
+      if (!formData.phone) newErrors.phone = lang === 'ar' ? 'رقم الهاتف مطلوب' : 'Phone number is required';
       //   else if (!/^\d{10}$/.test(formData.phone)) newErrors.phone = 'Phone number must be 10 digits';
   
-      if (!formData.email) newErrors.email = 'Email is required';
+      if (!formData.email) newErrors.email = lang === 'ar' ? 'البريد الإلكتروني مطلوب' : 'Email is required';
       else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = 'Email is invalid';
   
       if (!formData.message) newErrors.message = 'Message is required';

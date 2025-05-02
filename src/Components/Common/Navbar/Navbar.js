@@ -307,7 +307,7 @@ export const Navbar = ({isLang,setIsLang}) => {
                           <li className='px-[7px] inner-nav'>
 
                             <a className="w-[26px]" onClick={() => { setProfileVisible(!profileVisible);setSearchShow(false)}}><img src={User} alt="" className="navIcons cursor-pointer"></img></a>
-                            <nav ref={popupRef} className={`w-44 border-black border-[1px] absolute xs:top-[80px] md:top-[80px] shodow-sm ${isLang === 'ar' ? 'left-[6rem] text-left' : 'right-[6rem] text-right'}  bg-white py-0 px-0  ${profileVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'}`}>
+                            <nav ref={popupRef} className={`w-44 border-black border-[1px] absolute xs:top-[80px] md:top-[80px] shodow-sm ${isLang === 'ar' ? 'right-[6rem] text-left' : 'right-[6rem] text-right'}  bg-white py-0 px-0  ${profileVisible ? 'opacity-100 visible z-10' : 'opacity-0 invisible'}`}>
                             <div >
       {profileVisible && (
         <ul>

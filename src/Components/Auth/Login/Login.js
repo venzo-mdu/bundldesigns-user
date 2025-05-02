@@ -137,9 +137,9 @@ export const Login = ({ lang }) => {
     // Email validation
     if (name === 'email') {
       if (!value.trim()) {
-        setError('email', 'Email is required');
+        setError('email', lang === 'ar' ? 'البريد الإلكتروني مطلوب' : 'Email is required');
       } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value)) {
-        setError('email', 'Invalid email address');
+        setError('email',lang === 'ar' ? 'عنوان بريد إلكتروني غير صالح' : 'Invalid email address');
       } else {
         setError('email', ''); // clear error if email is valid
       }
@@ -160,7 +160,7 @@ export const Login = ({ lang }) => {
   const validateForm = () => {
     const errorMessages = {};
     if (!loginData.email.trim()) {
-      errorMessages.email = 'Email is required';
+      errorMessages.email = lang === 'ar' ? 'البريد الإلكتروني مطلوب' : 'Email is required';
     } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(loginData.email)) {
       errorMessages.email = 'Invalid email format';
     }
