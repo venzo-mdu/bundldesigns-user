@@ -650,7 +650,7 @@ export const MyCart = ({ lang, setLang }) => {
                         <Navbar isLang={lang} setIsLang={setLang} />
                         {showModal && (
                             <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
-                                <div className="bg-white rounded-none shadow-lg p-6 max-w-sm">
+                                <div className="bg-white rounded-none shadow-lg p-6 max-w-sm border-black border-[1px]">
                                     <p className="text-lg font-medium text-gray-900 text-center">
                                         Your cart will be empties<br></br>
                                         Are you sure you want to go back?
@@ -664,7 +664,7 @@ export const MyCart = ({ lang, setLang }) => {
                                         </button>
                                         <button
                                             onClick={cancelNavigation}
-                                            className="px-4 py-2 bg-grey  text-white rounded-none hover:bg-grey uppercase"
+                                            className="px-4 py-2 text-black border-[1px] border-black rounded-none uppercase"
                                         >
                                             No
                                         </button>
@@ -985,6 +985,11 @@ export const MyCart = ({ lang, setLang }) => {
                                             loading={paymentLoading}
                                             size={25}
                                         /> : lang === 'ar' ? 'جعل الدفع' : 'Make Payment'}</button>
+
+
+                                    <button className="mt-[5%] h-[40px] w-[100%] bg-[#ffffff] border-black border-[1px] text-black hover:text-white hover:bg-black uppercase" type='button' onClick={()=>setShowModal(true)}>
+                                         {lang === 'ar' ? 'جعل الدفع' : 'Edit order'}</button>    
+
                                     <p className='text-[red] !text-[18px] !font-[400] !mt-2'>{Object.values(error).map(item => {
                                         return item
                                     })}</p>

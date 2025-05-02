@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Navigate, useNavigate, useParams } from 'react-router-dom'
 
 import { Questionnaire1 } from './Questionnaire1'
@@ -8,6 +8,14 @@ import { Questionnaire4 } from './Questionnaire4';
 import { Questionnaire5 } from './Questionnaire5';
 
 export const QuestionnaireLayout = ({lang,setLang}) => {
+
+ useEffect(()=>{
+  document.documentElement.scrollTo({
+    top: 0,
+    left: 0
+  })
+ },[])
+
   const {pageno} = useParams();
   const [formData, setFormData] = useState()
   const questionnairePages = {

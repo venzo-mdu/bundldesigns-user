@@ -18,7 +18,7 @@ export const DashboardPopup = ({ title, subTitle, popupType = 'default', onChang
         transform: 'translate(-50%, -50%)',
         width: isSmallScreen? '95%' :'32%',
         bgcolor: 'background.paper',
-        border: '0px',
+        border: '1px solid black',
         // borderRadius: '8px',
         boxShadow: 24,
         textAlign: 'center',

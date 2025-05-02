@@ -8,6 +8,7 @@ import Rocket from '../../../Images/Bundles/rocket-blue-for-animation.webp'
 import Pinkpaint from '../../../Images/Bundles/pink-paint.webp'
 import { Box, Button, Input, Typography, useMediaQuery } from "@mui/material";
 import popupGIF from '../../../Images/popupGIF.gif'
+import { BorderColor } from '@mui/icons-material';
 
 export const Popup = ({ title, subTitle, popupType = 'default', onChange, save, cancel, openpopup, textArea, saveBtnBg, setPopup, onClick, sx, values, isCancel,cancelClick,isLang }) => {
     
@@ -23,7 +24,7 @@ export const Popup = ({ title, subTitle, popupType = 'default', onChange, save, 
         transform: 'translate(-50%, -50%)',
         width: isSmallScreen ? '90%' : 475,
         bgcolor: 'background.paper',
-        border: '0px',
+        border: '1px solid black',
         // borderRadius: '8px',
         boxShadow: 24,
         textAlign: 'center',
