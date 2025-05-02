@@ -10,6 +10,7 @@ import axios from 'axios'
 import { base_url } from '../Auth/BackendAPIUrl'
 import { ToastContainer, toast } from 'react-toastify'
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
+import { Popup } from '../Common/Popup/Popup'
 
 export const CustomBundl = ({user,lang,setLang}) => {
 
@@ -26,6 +27,7 @@ export const CustomBundl = ({user,lang,setLang}) => {
   const [isSameBundl , setIsSameBundl] = useState(false);
   const [showDetails, setDetails] = useState(false)
   const [isFromLogin, setIsFromLogin] = useState(state?.fromLogin)
+  const [openPopup, setOpenPopup] = useState(false);
 
   useEffect(()=>{
     document.documentElement.scrollTo({
@@ -50,7 +52,6 @@ export const CustomBundl = ({user,lang,setLang}) => {
   useEffect(() => {
     if (isFromLogin) {
       setBrandError(false);
-      console?.log(JSON.parse(localStorage.getItem('payloads')))
       setBrandError(state?.project_name && false);
       // createPayload();
     }
@@ -61,6 +62,23 @@ export const CustomBundl = ({user,lang,setLang}) => {
       getprojects();
     }
   }, [user])
+
+  const emptyCart = async () => {
+    setBrandInput('')
+    setOpenPopup(false);
+    await axios.delete(`${base_url}/api/order/cart/`, ConfigToken());
+    // addToCart(selectedIndex)
+    toast.success('Cart emptied,Now Checkout',
+      {
+        icon: false,
+        style: {
+          color: "#1BA56F",
+          fontWeight: "700" // White text
+        },
+      }
+    );
+    createPayload();
+  }
 
   const createPayload = async() => {
     if (brandInput == '') {
@@ -140,31 +158,56 @@ export const CustomBundl = ({user,lang,setLang}) => {
     
     
   };
+
   const getprojects = async () => {
-    const response = await axios.get(`${base_url}/api/order/`, ConfigToken());
-    if (response.data) {
-        const resProjects = response.data.data.filter(item=> item.order_status!='in_cart')
-        if (resProjects.length) {
-            setFirstOrder(false)
+    try{
+      const response = await axios.get(`${base_url}/api/order/`, ConfigToken());
+      if (response.data) {
+          const resProjects = response.data.data.filter(item=> item.order_status!='in_cart')
+          if (resProjects.length) {
+              setFirstOrder(false)
+          }
+      }
+    }catch (e) {
+      console.log(e)
+      navigate(`/login?next_url=custombundl`, {
+        state: {
+          project_name: brandInput
         }
+      });
     }
+   
 }
 
 useEffect(()=>{
   if(user?.is_active) {
     const getcartData = async() => {
-      const response = await axios.get(`${base_url}/api/order/cart/`, ConfigToken());
-      if(response?.data?.item_details?.bundle_items.length > 0 || response?.data?.item_details?.addon_items.length > 0   ){
-        setBrandInput(response?.data?.project_name);
-        setIsSameBundl(true)
+      try{
+        const response = await axios.get(`${base_url}/api/order/cart/`, ConfigToken());
+        if(response?.data?.order_status === "in_cart" && !state?.isBackToCustom){
+          setOpenPopup(true)
+        }
+        if(response?.data?.item_details?.bundle_items.length > 0 || response?.data?.item_details?.addon_items.length > 0   ){
+          setBrandInput(response?.data?.project_name);
+          setIsSameBundl(true)
+        }
+        else{
+          setIsSameBundl(false)
+        }
+      }catch (e) {
+        console.log(e)
+        navigate(`/login?next_url=custombundl`, {
+          state: {
+            project_name: brandInput
+          }
+        });
       }
-      else{
-        setIsSameBundl(false)
-      }
+     
     }
     getcartData();
   }
 },[user,lang])
+
   return (
     <div>
       <ToastContainer />
@@ -179,7 +222,7 @@ useEffect(()=>{
 
         <div className='bundl-section'>
           <div className='brand-details'>
-            <p style={window.innerWidth<=441 ? {textAlign:lang === 'ar' ? 'right' : 'left',fontSize:'24px',fontWeight: '700'}:{ textAlign:lang === 'ar' ? 'right' : 'left', fontSize: '32px', fontWeight: '700' }}>{lang === 'ar' ? 'ما هو اسم مشروعك؟' : 'What is the name of your brand?'}</p>
+            <p style={window.innerWidth <= 441 ? lang === 'ar' ? { fontSize: '18px', fontWeight: '700', lineHeight: '1.2', textAlign: 'right' } : { fontSize: '18px', fontWeight: '700', lineHeight: '1.2' } : { textAlign: lang === 'ar' ? 'right' : 'left', fontSize: '24px', fontWeight: '700' }}>{lang === 'ar' ? 'ما هو اسم مشروعك؟' : 'What is the name of your brand?'}</p>
             <input id='brandInput'  className={`brand-input ${brandError && '!border-[red]'}`} value={brandInput}
              onChange={(e) => {setBrandInput(e.target.value)   
            setBrandError(false)}} 
@@ -271,9 +314,9 @@ useEffect(()=>{
               </div>
 
               <div className='proceed-checkout'>
-                 <button onClick={createPayload} className='proceed  bg-[#1BA56F] uppercase'>{lang === 'ar' ? ' إتمام الشراء' : 'Proceed To Checkout'}</button> 
+                 <button onClick={createPayload} type='button' className='proceed  bg-[#1BA56F] uppercase'>{lang === 'ar' ? ' إتمام الشراء' : 'Proceed To Checkout'}</button> 
               </div>
-              {firstOrder && <p className='proceed-text'>{lang === 'ar' ? 'الحد الأدنى للطلب ٤٨٨٠ ريال سعوذي' : 'Your minimum total should be above 4880 SAR'}</p>}
+              {/* {firstOrder && <p className='proceed-text'>{lang === 'ar' ? 'الحد الأدنى للطلب ٤٨٨٠ ريال سعوذي' : 'Your minimum total should be above 4880 SAR'}</p>} */}
             </div>
           </div>
         </div>
@@ -283,6 +326,20 @@ useEffect(()=>{
                 <Footer isLang={lang} />
               )
             }
+            {
+                    openPopup &&
+                    <Popup
+                      openpopup={openPopup}
+                      setPopup={setOpenPopup}
+                      title={''}
+                      subTitle={'Are you sure you want to empty the cart.'}
+                      onClick={emptyCart}
+                      save={'Empty Cart'}
+                      cancel={'Cancel'}
+                      cancelClick={setIsFromLogin}
+                      isLang={lang}
+                    />
+                  }
     </div>
   )
 }

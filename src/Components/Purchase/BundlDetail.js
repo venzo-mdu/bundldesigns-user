@@ -83,7 +83,6 @@ export const BundlDetail = ({ user, lang, setLang }) => {
   useEffect(() => {
     if (isFromLogin) {
       setBrandError(false);
-      console?.log(JSON.parse(localStorage.getItem('payloads')))
       setBrandError(state?.project_name && false);
       createPayload();
     }
@@ -365,7 +364,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
 
               <div className='bundl-section'>
                 <div className='brand-details lg:!pt-16 md:!pt-[16] xs:!pt-8'>
-                  <p style={window.innerWidth <= 441 ? lang === 'ar' ? { fontSize: '18px', fontWeight: '700', lineHeight: '1.2', textAlign: 'right' } : { fontSize: '18px', fontWeight: '700', lineHeight: '1.2' } : { textAlign: lang === 'ar' ? 'right' : 'left', fontSize: '30px', fontWeight: '700' }}>{lang === 'ar' ? 'ما هو اسم علامتك التجارية؟' : 'What is the name of your brand?'}</p>
+                  <p style={window.innerWidth <= 441 ? lang === 'ar' ? { fontSize: '18px', fontWeight: '700', lineHeight: '1.2', textAlign: 'right' } : { fontSize: '18px', fontWeight: '700', lineHeight: '1.2' } : { textAlign: lang === 'ar' ? 'right' : 'left', fontSize: '24px', fontWeight: '700' }}>{lang === 'ar' ? 'ما هو اسم علامتك التجارية؟' : 'What is the name of your brand?'}</p>
                   <input id='brandInput' className={`brand-input rounded-none ${brandError && '!border-[red] rounded-none'}`} value={brandInput} onChange={(e) => {
                     setBrandInput(e.target.value)
                     setBrandError(false)

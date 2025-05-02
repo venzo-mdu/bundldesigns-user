@@ -100,6 +100,7 @@ export const MyCart = ({ lang, setLang }) => {
             window.removeEventListener('resize', handleResize);
         };
     }, []);
+
     const getCartData = async () => {
         try {
             setLoading(true)
@@ -138,7 +139,7 @@ export const MyCart = ({ lang, setLang }) => {
         }
         let cartDetailsTemp = cartDetails
         const updatedItemDetails = { ...cartDetailsTemp.item_details };
-        let updatedTotalAmount = cartDetailsTemp.actual_total_amount;
+        let updatedTotalAmount = cartDetailsTemp.actual_total_amount; 
         console.log(updatedTotalAmount)
         let updatedTotalTime = cartDetailsTemp.total_time
         setRemovedItems(itemId)
@@ -211,102 +212,6 @@ export const MyCart = ({ lang, setLang }) => {
     };
 
 
-
-    
-
-    // const removeItem = async (itemId, itemType) => {
-    //     const existLocalData = JSON.parse(localStorage.getItem('payloads')) || {};
-    
-    //     if (itemType === 'bundle') {
-    //         toast.error(`Package Item Cannot be removed`, {
-    //             position: toast?.POSITION?.TOP_RIGHT,
-    //             toastId: 'required-value-toast',
-    //             icon: false,
-    //             style: {
-    //                 color: '#D83D99',
-    //                 fontWeight: '700'
-    //             }
-    //         });
-    //         return;
-    //     }
-    
-    //     setRemovedItems(itemId);
-    
-    //     // Clone cart details to avoid mutation
-    //     const cartDetailsTemp = JSON.parse(JSON.stringify(cartDetails));
-    //     const currentAddons = cartDetailsTemp.item_details.addon_items;
-    
-    //     // Remove the item
-    //     const updatedAddons = currentAddons.filter(item => item.id !== itemId);
-    
-    //     // Recalculate totals
-    //     const updatedTotalAmount = updatedAddons.reduce((sum, item) => sum + item.subtotal_price, 0);
-    //     const updatedTotalTime = updatedAddons.reduce((sum, item) => sum + item.unit_time, 0);
-    
-    //     // Handle coupon discount
-    //     let afterDiscount = updatedTotalAmount;
-    //     if (coupon) {
-    //         afterDiscount = afterDiscount - ((afterDiscount / 100) * coupon.discount);
-    //     }
-    
-    //     // Tax calculation
-    //     let updatedTax = 0;
-    //     if (billingInfo.country.trim().toLowerCase() === 'saudi arabia') {
-    //         updatedTax = afterDiscount * 0.15;
-    //     }
-    
-    //     const updatedGrandTotal = afterDiscount + updatedTax;
-    
-    //     // API call
-    //     await axios.patch(`${base_url}/api/order/cart/`, {
-    //         item_to_delete: itemId,
-    //         total_amount: updatedTotalAmount,
-    //         tax: updatedTax,
-    //         grand_total: updatedGrandTotal
-    //     }, ConfigToken());
-    
-    //     // Update localStorage payload
-    //     if (existLocalData) {
-    //         const addonsData = {
-    //             order_name: "Addons",
-    //             item_list: updatedAddons.map(item => ({
-    //                 design_id: item.item__id,
-    //                 addon_name: item.item_name,
-    //                 addon_arabic: item.item__name_arabic,
-    //                 category: item?.category,
-    //                 total_price: parseFloat(item.subtotal_price),
-    //                 item_type: item.item_type,
-    //                 unit_price: item.unit_price.toFixed(2),
-    //                 unit_time: item.unit_time.toFixed(2),
-    //                 qty: item.qty.toString(),
-    //             }))
-    //         };
-    
-    //         const updatedPayloads = {
-    //             ...existLocalData,
-    //             addons: addonsData
-    //         };
-    
-    //         localStorage.setItem('payloads', JSON.stringify(updatedPayloads));
-    //     }
-    
-    //     // Update state
-    //     setCartDetails(prev => ({
-    //         ...prev,
-    //         item_details: {
-    //             ...prev.item_details,
-    //             addon_items: updatedAddons
-    //         },
-    //         total_amount: afterDiscount,
-    //         actual_total_amount: updatedTotalAmount,
-    //         total_time: updatedTotalTime,
-    //         tax: updatedTax,
-    //         grand_total: updatedGrandTotal
-    //     }));
-    // };
-    
-
-     
     const getTotal = (countryValue, discount = null) => {
         let cartDetailsTemp = cartDetails
         const updatedItemDetails = { ...cartDetailsTemp.item_details };
@@ -685,6 +590,7 @@ export const MyCart = ({ lang, setLang }) => {
     
                 updatedDetails.grand_total = responseData.grand_total;
                 updatedDetails.total_amount = responseData.total_amount;
+                updatedDetails.actual_total_amount = responseData.total_amount;
                 updatedDetails.total_time = responseData.total_time;
     
                 return updatedDetails;
@@ -723,9 +629,9 @@ export const MyCart = ({ lang, setLang }) => {
 
     const navigateToDetailHistory = () => {
         if (cartDetails.bundle_id) {
-            navigate(`/bundldetail/${routeNames[cartDetails.bundle_id]}`, { state: { project_name: cartDetails.project_name,isBackToBundl:cartDetails?.bundle_id ? true : false } })
+            navigate(`/bundldetail/${routeNames[cartDetails.bundle_id]}`, { state: { project_name: cartDetails.project_name } })
         } else {
-            navigate(`/custombundl`, { state: { project_name: cartDetails.project_name } })
+            navigate(`/custombundl`, { state: { project_name: cartDetails.project_name,isBackToCustom:true } })
         }
     };
 
@@ -931,32 +837,6 @@ export const MyCart = ({ lang, setLang }) => {
                                             ))}
                                         </tbody>
                                     </table>}
-                                {
-                                    window?.innerWidth <= 500 && (
-                                <div className='cart-total-container border-[2px] border-black p-[2%_0_0_0]'>
-                                    <div className='total justify-between sm:pl-10 xs:pl-1 mr-4' style={{ display: 'flex' }}>
-                                        <p className='!text-[20px] xs:mb-0 sm:mb-auto' style={{ width: '50%' }}>{lang === 'ar' ? 'ثمن :' : 'Price:'}</p>
-                                        <p className='!text-[20px] xs:mb-0 sm:mb-auto text-right' style={{ width: '50%' }}>{Math.round(cartDetails.total_amount)} {lang === 'ar' ? 'ريال' : 'SAR'}</p>
-                                    </div>
-                                    <div className='total justify-between sm:pl-10 xs:pl-1 mr-4' style={{ display: 'flex' }}>
-                                        <p className='!text-[20px]' style={{ width: '53%' }}>{lang === 'ar' ? 'ضريبه القيمه المضافه:' : 'TAX:'}</p>
-                                        <p className='!text-[20px]  text-right' style={{ width: '40%' }}>{Math.round(cartDetails.tax)} {lang === 'ar' ? 'ريال' : 'SAR'}</p>
-                                    </div>
-                                    <div className='border-t-[2px] border-black p-[2%_0_0_2%]'>
-                                        <div className='justify-between font-[700] mr-4' style={{ display: 'flex' }}>
-                                            <p className='!text-[20px] xs:mb-0 sm:mb-auto ml-[6px]' style={{ width: '50%' }}><img src={BlackDollor} className={`inline-block  ${lang === 'ar' ? 'ml-[18px]' : 'mr-[18px]'}`}></img>{lang === 'ar' ? 'السعر الإجمالي :' : 'Total Price :'}</p>
-                                            <p className='!text-[20px] xs:mb-0 sm:mb-auto text-right' style={{ width: '40%' }}>{isNaN(Math.round(cartDetails.grand_total)) ? 0 : Math.round(cartDetails.grand_total)} {lang === 'ar' ? 'ريال' : 'SAR'} </p>
-                                        </div>
-                                        <div className='justify-between  font-[700] mr-4' style={{ display: 'flex' }}>
-                                            <p className='!text-[20px] mb-0' style={{ width: '67%' }}><img src={BlackTime} className={`inline-block ${lang === 'ar' ? 'ml-3 mr-[-5px]' : 'mr-3'}`}></img>{lang === 'ar' ? 'المدة الإجمالية :' : 'Total Duration :'}</p>
-                                            <p className='!text-[20px]  text-right ' style={{ width: '43%' }}>{isNaN(Math.round(cartDetails.total_time)) ? 0 : Math.round(cartDetails.total_time)} {lang === 'ar' ? 'يوما' : 'Days'}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                    )
-                                }
-                                
-
                             </div>
 
                             <div className='billing'>
@@ -1077,18 +957,17 @@ export const MyCart = ({ lang, setLang }) => {
                                             className={`rounded-none ${'promoCode' in error ? '!border-[red]' : ''}`}
                                         />
                                     </div>
-                                   {
-                                    window?.innerWidth >=500 && (
-                                    <div className='cart-total-container border-[2px] border-black p-[2%_0_0_0]'>
-                                        <div className='total justify-between sm:pl-10 xs:pl-1 mr-4' style={{ display: 'flex' }}>
-                                            <p className='!text-[20px] xs:mb-0 sm:mb-auto' style={{ width: '50%' }}>{lang === 'ar' ? 'ثمن :' : 'Price:'}</p>
-                                            <p className='!text-[20px] xs:mb-0 sm:mb-auto text-right' style={{ width: '50%' }}>{Math.round(cartDetails.total_amount)} {lang === 'ar' ? 'ريال' : 'SAR'}</p>
+                                  
+                                    <div className='cart-total-container border-[1px] border-black p-[2%_0_0_0]'>
+                                        <div className='total justify-between sm:pl-[3%] xs:pl-[3%] mr-4' style={{ display: 'flex' }}>
+                                            <p className='!text-[20px] xs:mb-0 sm:mb-auto !font-[400]' style={{ width: '50%' }}>{lang === 'ar' ? 'ثمن :' : 'Price:'}</p>
+                                            <p className='!text-[20px] xs:mb-0 sm:mb-auto text-right !font-[400]' style={{ width: '50%' }}>{Math.round(cartDetails.total_amount)} {lang === 'ar' ? 'ريال' : 'SAR'}</p>
                                         </div>
-                                        <div className='total justify-between sm:pl-10 xs:pl-1 mr-4' style={{ display: 'flex' }}>
-                                            <p className='!text-[20px]' style={{ width: '53%' }}>{lang === 'ar' ? 'ضريبه القيمه المضافه:' : 'TAX:'}</p>
-                                            <p className='!text-[20px]  text-right' style={{ width: '40%' }}>{Math.round(cartDetails.tax)} {lang === 'ar' ? 'ريال' : 'SAR'}</p>
+                                        <div className='total justify-between sm:pl-[3%] xs:pl-[3%] mr-4' style={{ display: 'flex' }}>
+                                            <p className='!text-[20px] !font-[400]' style={{ width: '53%' }}>{lang === 'ar' ? 'ضريبه القيمه المضافه:' : 'TAX:'}</p>
+                                            <p className='!text-[20px] text-right !font-[400]' style={{ width: '40%' }}>{Math.round(cartDetails.tax)} {lang === 'ar' ? 'ريال' : 'SAR'}</p>
                                         </div>
-                                        <div className='border-t-[2px] border-black p-[2%_0_0_2%]'>
+                                        <div className='border-t-[1px] border-black p-[2%_0_0_2%]'>
                                             <div className='justify-between font-[700] mr-4' style={{ display: 'flex' }}>
                                                 <p className='!text-[20px] xs:mb-0 sm:mb-auto ml-[6px]' style={{ width: '50%' }}><img src={BlackDollor} className={`inline-block  ${lang === 'ar' ? 'ml-[18px]' : 'mr-[18px]'}`}></img>{lang === 'ar' ? 'السعر الإجمالي :' : 'Total Price :'}</p>
                                                 <p className='!text-[20px] xs:mb-0 sm:mb-auto text-right' style={{ width: '40%' }}>{isNaN(Math.round(cartDetails.grand_total)) ? 0 : Math.round(cartDetails.grand_total)} {lang === 'ar' ? 'ريال' : 'SAR'} </p>
@@ -1099,9 +978,6 @@ export const MyCart = ({ lang, setLang }) => {
                                             </div>
                                         </div>
                                     </div>
-                                    )
-                                   }
-                                    
 
                                     <button className="payment uppercase">{paymentLoading ?
                                         <ClipLoader

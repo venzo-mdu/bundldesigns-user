@@ -1895,7 +1895,7 @@ export const Home = ({lang,setLang}) => {
                                                         <a className="" href="/mycart?direct=true"><img src={Cart} alt="" className="navIcons"></img></a>
                                                     </li>
                                                     <li className='px-[6px]'>
-                                                        <a className="cursor-pointer" onClick={()=>changeLanguage(lang == 'ar' ? 'En' :'ar')}>{lang === 'ar' ?<p className='mb-0 font-[700] lg:text-[32px] md:text-[32px] xs:text-[24px] text-black mt-[5px]  lg:hover:text-[#67c1bb] md:hover:text-[#67c1bb] xs:hover:text-[#67c1bb]'>En</p>:<img src={Language} alt="" className="navIcons"></img>}</a>
+                                                        <a className="cursor-pointer" onClick={()=>changeLanguage(lang == 'ar' ? 'En' :'ar')}>{lang === 'ar' ?<p className='mb-0 font-[700] lg:text-[32px] md:text-[32px] xs:text-[24px] text-black mt-[5px] transition-transform duration-300 hover:scale-[1.2]'>En</p>:<img src={Language} alt="" className="navIcons"></img>}</a>
                                                     </li>
                                                     <li className="nav-item xs:!block sm:!hidden  inner-nav text-center !hidden menu mr-auto">
                                                         <button onClick={toggleMenu} type="button" id="menu-toggle">
