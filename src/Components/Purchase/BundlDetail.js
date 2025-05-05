@@ -214,6 +214,17 @@ export const BundlDetail = ({ user, lang, setLang }) => {
   }
   const handleQuantityChange = (designName, change) => {
 
+    const colors = {
+      // '12':'#f175ad',
+      // '4':'#1BA56F',
+      // '22':"#00A8C8",
+      // '13':'#f175ad',
+      'newbie': '#f175ad',
+      'foodie': '#1BA56F',
+      'socialite': "#00A8C8",
+      'boutiquer': '#f175ad',
+    }
+
     if (designName in extraQty == false && change < 0) {
       setMinError([...minError, designName])
       return
@@ -229,8 +240,10 @@ export const BundlDetail = ({ user, lang, setLang }) => {
       autoClose: 3000,
       icon: false,
       style: {
-        color: "#1BA56F",
-        fontWeight: "700"
+        color:colors[packageID],
+        fontWeight: "700",
+        border:`1px solid ${colors[packageID]}`,
+        borderRadius:'0px'
       },
     });
     setExtraQty(prevQuantities => {

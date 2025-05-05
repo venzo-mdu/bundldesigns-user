@@ -2054,7 +2054,7 @@ export default function Adjustments({user ,lang ,setLang}) {
                                                         <button onClick={() => addData(adjustment.id, index)} className='md:w-[15%] lg:w-[15%] xs:w-[30%] py-1 bg-[#1BA56F] text-white '>{lang === 'ar' ? 'ارسال' : 'Submit Edit'}</button></p>
                                                     <p className='font-medium text-[18px]'>{lang === 'ar' ? 'عندك شي تشاركنا إياه؟' : 'Have something to show us?'}</p>
                                                     <p
-                                                        className="border-b-2 w-[150px] !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer"
+                                                        className="border-b-2 w-fit !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer"
                                                         onClick={() => document.getElementById(`file-${adjustment.id}`).click()} // Trigger click on hidden input
                                                     >
                                                         <input
@@ -2351,7 +2351,7 @@ export default function Adjustments({user ,lang ,setLang}) {
                                             </tbody>
                                         </table>}
 
-                                    <div className='cart-total-container '>
+                                    {/* <div className='cart-total-container '>
                                         <div className='total justify-between pl-10  mr-4' style={{ display: 'flex' }}>
                                             <p className='!text-[20px]' style={{ width: '50%' }}>{lang === 'ar' ? 'السعر :' :'Price:'}</p>
                                             <p className='!text-[20px]  text-right' style={{ width: '50%' }}>{totalPrice} {lang === 'ar' ? 'ريال' :'SAR'}</p>
@@ -2370,7 +2370,7 @@ export default function Adjustments({user ,lang ,setLang}) {
                                                 <p className='!text-[20px]  text-right' style={{ width: '45%' }}>{totalTime} {lang === 'ar' ?'يوم':'Days'}</p>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> */}
                                 </div>
                                 <div className='billing !px-[2%]'>
                                     <p>{lang === 'ar' ?'عنوان الفواتير' :'Billing Address'}</p>
@@ -2488,6 +2488,26 @@ export default function Adjustments({user ,lang ,setLang}) {
                                             onChange={handleBillingChange}
                                             className={`rounded-none ${'promoCode' in error ? '!border-[red]' : ''}`}
                                         />
+                                    </div>
+                                    <div className='cart-total-container border-[1px] border-black p-[2%_0_0_0]'>
+                                        <div className='total justify-between pl-10  mr-4' style={{ display: 'flex' }}>
+                                            <p className='!text-[20px] !font-[400]' style={{ width: '50%' }}>{lang === 'ar' ? 'السعر :' :'Price:'}</p>
+                                            <p className='!text-[20px] !font-[400] text-right' style={{ width: '50%' }}>{totalPrice} {lang === 'ar' ? 'ريال' :'SAR'}</p>
+                                        </div>
+                                        <div className='total justify-between pl-10 mr-4' style={{ display: 'flex' }}>
+                                            <p className='!text-[20px] !font-[400]' style={{ width: '53%' }}>{lang === 'ar' ? 'ضريبه القيمه المضافه:':'VAT:'}</p>
+                                            <p className='!text-[20px] !font-[400] text-right' style={{ width: '40%' }}>{tax} {lang === 'ar' ? 'ريال' :'SAR'}</p>
+                                        </div>
+                                        <div className='border-t-[1px] border-black p-[2%_0_0_2%]'>
+                                            <div className='justify-between mr-4' style={{ display: 'flex' }}>
+                                                <p className='!text-[20px] ml-[6px]' style={{ width: '50%' }}><img src={BlackDollor} className={`inline-block mr-[18px] ${lang === 'ar' ? 'mr-[0px] ' :'ml-[0px]'}`}></img>{lang === 'ar' ?'السعر الإجمالي :':'Total Price :'}</p>
+                                                <p className='!text-[20px] text-right' style={{ width: '40%' }}>{totalPrice + tax} {lang === 'ar' ? 'ريال' :'SAR'}</p>
+                                            </div>
+                                            <div className='justify-between mr-4' style={{ display: 'flex' }}>
+                                                <p className='!text-[20px]' style={{ width: '66%' }}><AccessTimeIcon style={lang === 'ar' ? {marginLeft: '4px'} :{ marginRight: '4px' }} /> {lang === 'ar' ? 'المدة الإجمالية :':'Total Duration :'}</p>
+                                                <p className='!text-[20px]  text-right' style={{ width: '45%' }}>{totalTime} {lang === 'ar' ?'يوم':'Days'}</p>
+                                            </div>
+                                        </div>
                                     </div>
                                     <button onClick={() => createAdjustmentOrder()} className="payment uppercase">{loading?<ClipLoader size={25} color={'#FFFFFF'} />:lang === 'ar' ? 'جعل الدفع' : 'Make Payment'}</button>
                                     <p className='text-[red] !text-[20px] !font-[400] !mt-2'>{Object.values(error).map(item => {
@@ -2782,7 +2802,7 @@ export default function Adjustments({user ,lang ,setLang}) {
                                             ))}
                                         </tbody>
                                     </table>
-                                    <div className='cart-total-container '>
+                                    {/* <div className='cart-total-container '>
                                         <div className='total justify-between pl-10  mr-4' style={{ display: 'flex' }}>
                                             <p className='!text-[20px]' style={{ width: '50%' }}>{lang === 'ar' ? 'السعر :' :'Price:'}</p>
                                             <p className='!text-[20px]  text-right' style={{ width: '50%' }}>{totalPrice} {lang === 'ar' ? 'ريال' :'SAR'}</p>
@@ -2801,7 +2821,7 @@ export default function Adjustments({user ,lang ,setLang}) {
                                                 <p className='!text-[20px]  text-right' style={{ width: '45%' }}>{totalTime} {lang === 'ar' ?'يوم':'Days'}</p>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> */}
                                 </div>
                                 <div className='billing !px-[2%]'>
                                     <p>{lang === 'ar' ?'عنوان الفواتير' :'Billing Address'}</p>
@@ -2918,6 +2938,26 @@ export default function Adjustments({user ,lang ,setLang}) {
                                             onChange={handleBillingChange}
                                             className={`rounded-none ${'promoCode' in error ? '!border-[red]' : ''}`}
                                         />
+                                    </div>
+                                    <div className='cart-total-container border-[1px] border-black p-[2%_0_0_0]'>
+                                        <div className='total justify-between pl-10  mr-4' style={{ display: 'flex' }}>
+                                            <p className='!text-[20px] !font-[400]' style={{ width: '50%' }}>{lang === 'ar' ? 'السعر :' :'Price:'}</p>
+                                            <p className='!text-[20px]  text-right !font-[400]' style={{ width: '50%' }}>{totalPrice} {lang === 'ar' ? 'ريال' :'SAR'}</p>
+                                        </div>
+                                        <div className='total justify-between pl-10 mr-4' style={{ display: 'flex' }}>
+                                            <p className='!text-[20px] !font-[400]' style={{ width: '53%' }}>{lang === 'ar' ? 'ضريبه القيمه المضافه:':'VAT:'}</p>
+                                            <p className='!text-[20px]  text-right !font-[400]' style={{ width: '40%' }}>{tax} {lang === 'ar' ? 'ريال' :'SAR'}</p>
+                                        </div>
+                                        <div className='border-t-[1px] border-black p-[2%_0_0_2%]'>
+                                            <div className='justify-between mr-4' style={{ display: 'flex' }}>
+                                                <p className='!text-[20px] ml-[6px]' style={{ width: '50%' }}><img src={BlackDollor} className={`inline-block mr-[18px] ${lang === 'ar' ? 'mr-[0px] ' :'ml-[0px]'}`}></img>{lang === 'ar' ?'السعر الإجمالي :':'Total Price :'}</p>
+                                                <p className='!text-[20px] text-right' style={{ width: '40%' }}>{totalPrice + tax} {lang === 'ar' ? 'ريال' :'SAR'}</p>
+                                            </div>
+                                            <div className='justify-between mr-4' style={{ display: 'flex' }}>
+                                                <p className='!text-[20px]' style={{ width: '66%' }}><AccessTimeIcon style={lang === 'ar' ? {marginLeft: '4px'} :{ marginRight: '4px' }} /> {lang === 'ar' ? 'المدة الإجمالية :':'Total Duration :'}</p>
+                                                <p className='!text-[20px]  text-right' style={{ width: '45%' }}>{totalTime} {lang === 'ar' ?'يوم':'Days'}</p>
+                                            </div>
+                                        </div>
                                     </div>
                                     <button onClick={() => createAdjustmentOrder()} className="payment uppercase"> {loading?<ClipLoader size={25} color={'#FFFFFF'} />:lang === 'ar' ? 'جعل الدفع' : 'Make Payment'}</button>
                                     <p className='text-[red] !text-[20px] !font-[400] !mt-2'>{Object.values(error).map(item => {

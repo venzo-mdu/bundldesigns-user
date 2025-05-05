@@ -23,7 +23,7 @@ export const Questionnaire1 = ({ formData, setFormData, changeLang, setChangeLan
   const [requiredQuestions, setRequiredQuestions] = useState([]);
   const [isFilled, setIsFilled] = useState(null)
   const currentAnswer = useSelector((state) => state.questionnaire1);
-  console.log(currentAnswer, formData, "ee")
+  console.log(currentAnswer, "ee")
   const placeHolders = [
     "Project Name",
     "(ex:Fashion,Food,Services,Personal Brand,etc...)",
@@ -66,7 +66,12 @@ export const Questionnaire1 = ({ formData, setFormData, changeLang, setChangeLan
         console.error("Error fetching questions:", error);
       }
     }
-    setActiveType(currentAnswer?.type != undefined ? currentAnswer?.type : null)
+    if(currentAnswer[4]?.product){
+      setActiveType('product')
+    }
+    if(currentAnswer[4]?.service){
+      setActiveType('service')
+    }
     setFormData(currentAnswer)
     fetchQuestions();
     fetchAnswers();
@@ -295,6 +300,7 @@ export const Questionnaire1 = ({ formData, setFormData, changeLang, setChangeLan
       return; // Stop execution if validation fails
     }
     else {
+      console.log(formData,"next")
       dispatch(questionnaireAction1(formData));
       navigate(`/questionnaire/${2}`, {
         state: {

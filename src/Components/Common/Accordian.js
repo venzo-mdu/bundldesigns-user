@@ -610,18 +610,18 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
                       id={design.id}
                       style={{
                         display: 'flex',
-                        borderBottom: i === addOnData.designs_details[title].design_list.length - 1 ? 'none' : `1px solid ${textColor}`,
+                        borderBottom: i === addOnData.designs_details[title].design_list.length - 1 ? 'none' : `1px solid black`,
                         padding: window.innerWidth<=475 ?'3% 0%' :'1% 0',
                       }}
                       className='items-center flex-wrap'
                     >
                       <Typography
                         sx={{
-                          color:  `${design.id == searchParams?'#0F5C3C': textColor}` ,
+                          // color:  `${design.id == searchParams?'#0F5C3C': textColor}` ,
+                          color:'#000000',
                           display: 'block',
                           marginRight: '5px',
                           marginBottom: '8px',
-
                           fontWeight: '500'
                         }}
                         className={`sm:basis-[35%] basis-[35%] xs:basis-[69%] ${isLang === 'ar' ?'text-right':'text-left'}`}
@@ -640,19 +640,19 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
                         </p>
                       </p>
 
-                      <p style={{ color: textColor }} className={`xs:order-2 sm:order-3 sm:w-[29%] w-[29%] xs:w-[29%] max-h-[36px] !mb-2 flex ${isLang === 'ar' ? 'flex-row-reverse':'flex-row justify-end'}  text-[${textColor}] `}>
+                      <p style={{ color: '#000000' }} className={`xs:order-2 sm:order-3 sm:w-[29%] w-[29%] xs:w-[29%] max-h-[36px] !mb-2 flex ${isLang === 'ar' ? 'flex-row-reverse':'flex-row justify-end'}  text-[${textColor}] `}>
                         <button style={{
-                          borderColor: textColor,
+                          borderColor: '#000000',
                           borderStyle: 'solid', 
                           borderWidth: '1px',
                         }} onClick={() => handleQuantityChange(design.name_english, -1)} className={`${isLang === 'ar' ?'!border-r-0':'!border-r-0'}  !py-[17px]  px-1  flex  items-center`}><RemoveIcon /></button>
                         <span style={{
-                          borderColor: textColor,
+                          borderColor: '#000000',
                           borderStyle: 'solid',
                           borderWidth: '1px',
                         }} className={`${isLang === 'ar' ?'!border-r-0':'!border-r-0'} px-2 !text-[20px]`}> {quantities[design.name_english] || 0}</span>
                         <button style={{
-                          borderColor: textColor,
+                          borderColor: '#000000',
                           borderStyle: 'solid',
                           borderWidth: '1px',
                         }} onClick={() => handleQuantityChange(design.name_english, 1)} className={`flex  items-center px-1  !py-[5px] `}><AddIcon /></button>

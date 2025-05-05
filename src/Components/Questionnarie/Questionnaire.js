@@ -107,16 +107,16 @@ export const Questionnaire = ({
       <div className='questonnaire-actions-height'>
         <div className='questonnaire-actions'>
           {pageNo > 1 && (
-            <button className='back' onClick={onBackClick}>{Qlang === 'ar' ? 'العودة' : 'BACK'}</button>
+            <button type='button' className='back' onClick={onBackClick}>{Qlang === 'ar' ? 'العودة' : 'BACK'}</button>
           )}
           {pageNo < 5 ? (
-            <button style={{ backgroundColor: bgColors[pageNo - 1] }} className='next' onClick={onNextClick}>{Qlang === 'ar' ? 'التالي':'NEXT'}</button>
+            <button type='button' style={{ backgroundColor: bgColors[pageNo - 1] }} className='next' onClick={onNextClick}>{Qlang === 'ar' ? 'التالي':'NEXT'}</button>
           ) :
-            <button className='next' onClick={onNextClick}>{Qlang === 'ar' ? 'إرسال' : 'FINISH'}</button>
+            <button type='button' className='next' onClick={onNextClick}>{Qlang === 'ar' ? 'إرسال' : 'FINISH'}</button>
           }
         </div>
         <div className='questonnaire-actions1'>
-          <button className='save' onClick={onSaveLaterClick}> {Qlang === 'ar' ? 'احفظ لوقت لاحق' : 'SAVE FOR LATER' }</button>
+          <button type='button' className='save' onClick={onSaveLaterClick}> {Qlang === 'ar' ? 'احفظ لوقت لاحق' : 'SAVE FOR LATER' }</button>
         </div>
       </div>
       <div style={{ bottom: '0' }}>

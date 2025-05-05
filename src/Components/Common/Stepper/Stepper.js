@@ -161,10 +161,10 @@ export const Stepper = ({ pageNo ,formData, answersData , fillId , lang }) => {
         <div className="stepper relative" >
             {processData.map((process, index) => (
                 <div
-                    onClick={()=>handleRoute(index+1)}
+                    // onClick={()=>handleRoute(index+1)}
                     key={index}
                     className={`flower ${activeProcess === index ? "active-flower" : ""}`}
-                    style={{ display: "flex", flexDirection: "column", alignItems: "center", cursor: 'pointer' }}
+                    style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
                 >
                     <svg
                         style={{ fill: 'rgb(0,0,0)' }}
@@ -187,7 +187,9 @@ export const Stepper = ({ pageNo ,formData, answersData , fillId , lang }) => {
                         style={{ transition: '1s', opacity: isActiveProcess[index] ? 1 : 0.3 }}
                     >
                         {process.title.split("  ").map((word, i) => (
-                            <span className='xl:text-[14px] lg:text-[14px] md:text-[14px] font-[700] xs:text-[10px]' style={{ cursor: 'pointer' }} onClick={()=>handleRoute(index+1)} key={i}>{word}</span>
+                            <span className='xl:text-[14px] lg:text-[14px] md:text-[14px] font-[700] xs:text-[10px]' 
+                            // onClick={()=>handleRoute(index+1)} 
+                            key={i}>{word}</span>
                         ))}
                     </div>
                 </div>

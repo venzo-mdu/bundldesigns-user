@@ -651,7 +651,7 @@ export const MyCart = ({ lang, setLang }) => {
                         {showModal && (
                             <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
                                 <div className="bg-white rounded-none shadow-lg p-6 max-w-sm border-black border-[1px]">
-                                    <p className="text-lg font-medium text-gray-900 text-center">
+                                    <p className="text-lg font-[400] text-gray-900 text-center">
                                         Your cart will be empties<br></br>
                                         Are you sure you want to go back?
                                     </p>

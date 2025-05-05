@@ -29,7 +29,7 @@ export const Popup = ({ title, subTitle, popupType = 'default', onChange, save, 
         boxShadow: 24,
         textAlign: 'center',
         outline: 'none',
-        p: isSmallScreen ? 2 : 4,
+        p: isSmallScreen ? 2 : 3,
         ...sx
     };
 
@@ -127,7 +127,7 @@ export const Popup = ({ title, subTitle, popupType = 'default', onChange, save, 
                     <Typography id="modal-modal-title" variant="h6" component="h2">
                         {title}
                     </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                    <Typography id="modal-modal-description" sx={{ mt: 0 }}>
                         {subTitle}
                     </Typography>
 
@@ -149,7 +149,7 @@ export const Popup = ({ title, subTitle, popupType = 'default', onChange, save, 
                         getPopupType()
                     )}
 
-                    <Box sx={{ mt: 6 }}>
+                    <Box sx={{ mt: 3 }}>
                         <Button
                             onClick={onClick}
                             sx={{
@@ -172,7 +172,7 @@ export const Popup = ({ title, subTitle, popupType = 'default', onChange, save, 
                                     backgroundColor: '#fff',
                                     borderRadius:'0px',
                                     color: '#000',
-                                    border: '#E2E8F0 1px solid',
+                                    border: '1px solid #000000',
                                     ml: isLang === 'ar' ? 0 : 2,
                                     mr: isLang === 'ar' ? 2 : 0,
                                     mt: isSmallScreen ? 0 : 0,

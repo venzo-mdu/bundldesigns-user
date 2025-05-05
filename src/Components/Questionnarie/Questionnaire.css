@@ -1490,7 +1490,7 @@ body[dir="rtl"] .male-btn, body[dir="rtl"] .female-btn {
     .male-btn,.female-btn{
         font-size: 14px;
         height: 35px;
-        width: 110px;
+        width: 120px;
         margin: 5% 0 0 0;
     }
     .button-shade-group{
