@@ -2490,11 +2490,11 @@ export default function Adjustments({user ,lang ,setLang}) {
                                         />
                                     </div>
                                     <div className='cart-total-container border-[1px] border-black p-[2%_0_0_0]'>
-                                        <div className='total justify-between pl-10  mr-4' style={{ display: 'flex' }}>
+                                        <div className='total justify-between sm:pl-[3%] xs:pl-[3%]  mr-4' style={{ display: 'flex' }}>
                                             <p className='!text-[20px] !font-[400]' style={{ width: '50%' }}>{lang === 'ar' ? 'السعر :' :'Price:'}</p>
                                             <p className='!text-[20px] !font-[400] text-right' style={{ width: '50%' }}>{totalPrice} {lang === 'ar' ? 'ريال' :'SAR'}</p>
                                         </div>
-                                        <div className='total justify-between pl-10 mr-4' style={{ display: 'flex' }}>
+                                        <div className='total justify-between sm:pl-[3%] xs:pl-[3%] mr-4' style={{ display: 'flex' }}>
                                             <p className='!text-[20px] !font-[400]' style={{ width: '53%' }}>{lang === 'ar' ? 'ضريبه القيمه المضافه:':'VAT:'}</p>
                                             <p className='!text-[20px] !font-[400] text-right' style={{ width: '40%' }}>{tax} {lang === 'ar' ? 'ريال' :'SAR'}</p>
                                         </div>
@@ -2940,11 +2940,11 @@ export default function Adjustments({user ,lang ,setLang}) {
                                         />
                                     </div>
                                     <div className='cart-total-container border-[1px] border-black p-[2%_0_0_0]'>
-                                        <div className='total justify-between pl-10  mr-4' style={{ display: 'flex' }}>
+                                        <div className='total justify-between sm:pl-[3%] xs:pl-[3%]  mr-4' style={{ display: 'flex' }}>
                                             <p className='!text-[20px] !font-[400]' style={{ width: '50%' }}>{lang === 'ar' ? 'السعر :' :'Price:'}</p>
                                             <p className='!text-[20px]  text-right !font-[400]' style={{ width: '50%' }}>{totalPrice} {lang === 'ar' ? 'ريال' :'SAR'}</p>
                                         </div>
-                                        <div className='total justify-between pl-10 mr-4' style={{ display: 'flex' }}>
+                                        <div className='total justify-between sm:pl-[3%] xs:pl-[3%] mr-4' style={{ display: 'flex' }}>
                                             <p className='!text-[20px] !font-[400]' style={{ width: '53%' }}>{lang === 'ar' ? 'ضريبه القيمه المضافه:':'VAT:'}</p>
                                             <p className='!text-[20px]  text-right !font-[400]' style={{ width: '40%' }}>{tax} {lang === 'ar' ? 'ريال' :'SAR'}</p>
                                         </div>
