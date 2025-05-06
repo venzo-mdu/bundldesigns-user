@@ -1,0 +1,49 @@
+/* Global Styles */
+* {
+    box-sizing: border-box;
+  }
+  
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Wrapper Layout */
+  .wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    position: relative;
+    padding-bottom: 60px;
+  }
+  
+  /* Left Section */
+  .left-section {
+    width: 75%;
+  }
+  
+  .left-section .block {
+    height: 400px; /* for demonstration */
+  }
+  
+  /* Right Section */
+  .right-section {
+    width: 25%;
+    padding: 20px;
+    position: sticky;
+    top: 0;
+    align-self: flex-start;
+  }
+  
+  /* Block Styles */
+  .block {
+    margin-bottom: 40px;
+    padding: 20px;
+    background-color: #eaeaea;
+    border-radius: 8px;
+  }
+  
+  .block h2 {
+    margin-top: 0;
+  }
+  

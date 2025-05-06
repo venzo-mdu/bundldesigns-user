@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sticky Sidebar Example</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .wrapper {
+      display: flex;
+      align-items: flex-start;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .left-section {
+      flex: 1;
+      padding-right: 30px;
+    }
+
+    .right-section {
+      width: 300px;
+      position: sticky;
+      top: 20px;
+      background-color: #f7f7f7;
+      border: 1px solid #ccc;
+      padding: 20px;
+      height: fit-content;
+    }
+
+    .block {
+      margin-bottom: 40px;
+      padding: 20px;
+      background-color: #eaeaea;
+      border-radius: 8px;
+    }
+
+    .block h2 {
+      margin-top: 0;
+    }
+
+    /* Optional: Add enough height to demonstrate scrolling */
+    .left-section .block {
+      height: 400px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrapper">
+    <!-- Left Side (Scrollable Content) -->
+    <div class="left-section">
+      <div class="block">
+        <h2>Brand Identity</h2>
+        <p>Logo Design, Colors, Typography, and more...</p>
+      </div>
+      <div class="block">
+        <h2>Food & Beverage Collateral</h2>
+        <p>Bags, Stickers, Boxes, and other assets.</p>
+      </div>
+      <div class="block">
+        <h2>Social Media Designs</h2>
+        <p>Posts, Templates, Story Highlights.</p>
+      </div>
+      <div class="block">
+        <h2>Extras</h2>
+        <p>Brand guidelines, usage tips, print-ready files.</p>
+      </div>
+    </div>
+
+    <!-- Right Side (Sticky Summary) -->
+    <div class="right-section">
+      <h3>Summary</h3>
+      <p><strong>The Foodie Bundl:</strong> 8000 SAR</p>
+      <hr />
+      <p><strong>Brand Identity:</strong> +4400 SAR</p>
+      <p><strong>Food & Beverage:</strong></p>
+      <ul>
+        <li>Bag: +480 SAR</li>
+        <li>Sticker: +120 SAR</li>
+        <li>Box: +480 SAR</li>
+      </ul>
+    </div>
+  </div>
+
+</body>
+</html>

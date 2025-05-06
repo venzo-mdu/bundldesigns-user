@@ -30,6 +30,7 @@ import Profile from './Components/Pages/Profile';
 import ResetPassword from './Components/Auth/ResetPassword';
 import { Purchasehistory } from './Components/Pages/Purchasehistory';
 import { Contactus } from './Components/Pages/Contactus';
+import Sticky from './Components/Purchase/Sticky';
 
 const getCookie = (name) => {
   const value = `; ${document.cookie}`;
@@ -119,6 +120,11 @@ export default function AppRouter() {
     {
       path: "/bundldetail/:packageID",
       element: <BundlDetail user={user} lang={transLanguage} setLang={setTransLanguage}/>,
+      //element: <ProtectedRoute element={<BundlDetail />} />,
+    },
+    {
+      path: "/Sticky",
+      element: <Sticky/>,
       //element: <ProtectedRoute element={<BundlDetail />} />,
     },
     {

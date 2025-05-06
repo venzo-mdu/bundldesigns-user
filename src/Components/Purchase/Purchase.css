@@ -48,6 +48,7 @@
 .bundl-section {
     display: flex;
     width: 100%;
+    position: relative;
 }
 
 .brand-details {
