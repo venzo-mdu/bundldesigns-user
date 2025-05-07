@@ -672,7 +672,7 @@ export const MyCart = ({ lang, setLang }) => {
                                 </div>
                             </div>
                         )}
-                        <div className='mycart '>
+                        <div className='mycart' style={{position:'relative'}}>
 
                             <div className='cart !xs:border-none  sm:!pb-[170px] !pb-[170px] xs:!pb-[20px]'>
                                 <p className='flex font-[500]  !text-[18px] items-center text-black mt-[2%]'> <img src={backIcon} className={`${lang === 'ar' ? 'ml-2 scale-x-[-1]' : 'mr-2'} w-[30px] cursor-pointer`} onClick={() => handleBackClick()}></img><span className='cursor-pointer' onClick={() => handleBackClick()}>{lang === 'ar' ? '' : ' Back to Bundl'}</span> </p>
@@ -839,7 +839,7 @@ export const MyCart = ({ lang, setLang }) => {
                                     </table>}
                             </div>
 
-                            <div className='billing'>
+                            <div className='billing sticky top-0 self-start'>
                                 <p>{lang === 'ar' ? 'عنوان الفواتير' : 'Billing Address'}</p>
                                 <form onSubmit={handlePayment} noValidate>
                                     <div className="user-name mb-[15px]">

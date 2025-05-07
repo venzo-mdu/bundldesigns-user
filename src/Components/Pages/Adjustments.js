@@ -2673,7 +2673,7 @@ export default function Adjustments({user ,lang ,setLang}) {
                                         </div>
                                     </div>
                                 </div>
-                                <div className='basis-[28%]  mt-4 py-2'>
+                                <div className='basis-[28%]  mt-4 py-2 sticky top-0 self-start'>
                                     <p className='text-[18px] font-semibold px-3'> {lang === 'ar' ? 'ملخص التعديلات' : 'Summary of Edits'}</p>
 
                                     <div className='my-2'>
@@ -2751,7 +2751,8 @@ export default function Adjustments({user ,lang ,setLang}) {
                             </div>
                         </> :
                         <>
-                            <div className='mycart '>
+                            <div className='mycart ' style={{ position:"relative" }}
+    >
                                 <div className='cart sm:!pb-[170px] !pb-[170px] xs:!pb-[20px]'>
                                     <p className='flex !text-[18px] !font-normal items-center pb-2 cursor-pointer text-black' onClick={() => { setPage('adjustment') }}> <ArrowBackIcon style={lang === 'ar' ? { width: '25px', marginLeft: '10px',transform:'scaleX(-1)' } : { width: '25px', marginRight: '10px' }} /> Back To Adjustments </p>
                                     <p>{lang === 'ar' ? 'سلة التسوق الخاصة بك':'Your Cart'}</p>
@@ -2824,7 +2825,7 @@ export default function Adjustments({user ,lang ,setLang}) {
                                     </div> */}
                                 </div>
                                 <div className='billing !px-[2%]'>
-                                    <p>{lang === 'ar' ?'عنوان الفواتير' :'Billing Address'}</p>
+                                    <p>{lang === 'ar' ?'عنوان الفواتير' :'Billing Address 1111111111'}</p>
                                     <div className="user-name mb-[15px]">
                                         <div className={`${lang === 'ar' ? 'ml-[4%]' :'mr-[4%]'}`}>
                                             <label className={`${'firstName' in error && 'text-[red]'}`}>{lang === 'ar' ? 'الاسم الأول':'First Name'} <span className='text-[red]'>*</span></label>

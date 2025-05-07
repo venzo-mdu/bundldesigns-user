@@ -1252,7 +1252,7 @@ export default function UploadContent({lang,setLang}) {
                             </div>
                         </div>
                         :
-                        <div className='font-Helvetica flex'>
+                        <div className='font-Helvetica flex' style={{ position: "relative" }}>
                             <div className={`basis-3/4 ${lang === 'ar' ? 'border-l':'border-r'} border-black py-4`}>
                                 <p onClick={() => { window.location.href = '/dashboard' }} className='flex cursor-pointer text-[18px] items-center text-black px-4'> <img src={backIcon} className={`${lang === 'ar' ? 'ml-2 scale-x-[-1]':'mr-2'} `} ></img> {lang === 'ar' ? 'العودة إلى لوحة القيادة' : 'Back to dashboard'} </p>
                                 <div className=''>
@@ -1437,7 +1437,7 @@ export default function UploadContent({lang,setLang}) {
                                 </div>
 
                             </div>
-                            <div className={`basis-1/4  my-2 ${lang === 'ar' ? 'pr-[2%]':'pl-[2%]'}`}>
+                            <div className={`basis-1/4 sticky top-0 self-start  my-2 ${lang === 'ar' ? 'pr-[2%]':'pl-[2%]'}`}>
 
                                 <h3 className='text-[22px] font-bold py-2'>{lang === 'ar' ? 'قائمه' :'Checklist'}</h3>
 
