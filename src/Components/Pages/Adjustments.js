@@ -2532,7 +2532,7 @@ export default function Adjustments({user ,lang ,setLang}) {
                                     isLang={lang}
                                 />
                             }
-                            <div className='font-Helvetica md:flex xs:block'>
+                            <div className='font-Helvetica md:flex xs:block' style={{position:'relative'}}>
                                 <div className={`basis-[72%] md:px-8 px-8 xs:px-2  py-4 ${lang === 'ar' ? 'border-l-[1px]':'border-r-[1px]'} border-black`}>
                                     <p className='flex text-[18px] items-center pb-2 text-black cursor-pointer' onClick={() => { window.location.href = '/dashboard' }}> <ArrowBackIcon style={lang === 'ar' ? { width: '25px', marginLeft: '10px',transform:'scaleX(-1)' } : { width: '25px', marginRight: '10px' }} /> {lang === 'ar' ? 'العودة إلى لوحة التحكم' : 'Back to dashboard '} </p>
                                     <div className='lg:px-14 md:px-14 xs:px-2'>
@@ -2751,8 +2751,7 @@ export default function Adjustments({user ,lang ,setLang}) {
                             </div>
                         </> :
                         <>
-                            <div className='mycart ' style={{ position:"relative" }}
-    >
+                            <div className='mycart ' style={{position:'relative'}}>
                                 <div className='cart sm:!pb-[170px] !pb-[170px] xs:!pb-[20px]'>
                                     <p className='flex !text-[18px] !font-normal items-center pb-2 cursor-pointer text-black' onClick={() => { setPage('adjustment') }}> <ArrowBackIcon style={lang === 'ar' ? { width: '25px', marginLeft: '10px',transform:'scaleX(-1)' } : { width: '25px', marginRight: '10px' }} /> Back To Adjustments </p>
                                     <p>{lang === 'ar' ? 'سلة التسوق الخاصة بك':'Your Cart'}</p>
@@ -2824,8 +2823,8 @@ export default function Adjustments({user ,lang ,setLang}) {
                                         </div>
                                     </div> */}
                                 </div>
-                                <div className='billing !px-[2%]'>
-                                    <p>{lang === 'ar' ?'عنوان الفواتير' :'Billing Address 1111111111'}</p>
+                                <div className='billing !px-[2%] sticky top-0 self-start'>
+                                    <p>{lang === 'ar' ?'عنوان الفواتير' :'Billing Address'}</p>
                                     <div className="user-name mb-[15px]">
                                         <div className={`${lang === 'ar' ? 'ml-[4%]' :'mr-[4%]'}`}>
                                             <label className={`${'firstName' in error && 'text-[red]'}`}>{lang === 'ar' ? 'الاسم الأول':'First Name'} <span className='text-[red]'>*</span></label>
