@@ -729,11 +729,10 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                   max-h-[80%] w-full
                   xs:overflow-y-auto lg:overflow-visible md:overflow-visible
                 "
-                // style={{
-                //   height: "100vh", // full viewport height
-                //   boxShadow: "4px 0 6px -2px rgba(0, 0, 0, 0.2)", // Right shadow only
-                //   zIndex: 10,
-                // }}
+                style={{
+                  position: "sticky",
+                  top: 0,
+                }}
                 // style={{
                 //   // maxHeight: showDetails ? "80%" : "200px",
                 //   transition: "all 0.5s ease-in-out",
