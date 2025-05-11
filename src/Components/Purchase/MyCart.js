@@ -649,7 +649,7 @@ export const MyCart = ({ lang, setLang }) => {
                         <ToastContainer />
                         <Navbar isLang={lang} setIsLang={setLang} />
                         {showModal && (
-                            <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
+                            <div className="fixed inset-0 z-50  bg-gray-800 bg-opacity-50 flex items-center justify-center">
                                 <div className="bg-white rounded-none shadow-lg p-6 max-w-sm border-black border-[1px]">
                                     <p className="text-lg font-[400] text-gray-900 text-center">
                                         Your cart will be empties<br></br>
