@@ -649,7 +649,8 @@ export const MyCart = ({ lang, setLang }) => {
                         <ToastContainer />
                         <Navbar isLang={lang} setIsLang={setLang} />
                         {showModal && (
-                            <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
+                            <div className="fixed inset-0 z-50 bg-gray-800 bg-opacity-50 flex items-center justify-center">
+
                                 <div className="bg-white rounded-none shadow-lg p-6 max-w-sm border-black border-[1px]">
                                     <p className="text-lg font-[400] text-gray-900 text-center">
                                         Your cart will be empties<br></br>
@@ -839,7 +840,7 @@ export const MyCart = ({ lang, setLang }) => {
                                     </table>}
                             </div>
 
-                            <div className='billing sticky top-0 self-start'>
+                            <div className='billing position-sticky'>
                                 <p>{lang === 'ar' ? 'عنوان الفواتير' : 'Billing Address'}</p>
                                 <form onSubmit={handlePayment} noValidate>
                                     <div className="user-name mb-[15px]">
@@ -898,8 +899,8 @@ export const MyCart = ({ lang, setLang }) => {
                                                 className={`!rounded-none ${'country' in error ? '!border-[red]' : ''} border !border-black px-2 py-[5px] w-full`}
                                             >
                                                 <option value={null} disabled selected > </option>
-                                                {countries.map(country => (
-                                                    <option>{country}</option>
+                                                {countries.map((country, i) => (
+                                                    <option key={i}>{country}</option>
                                                 ))}
                                             </select>
                                         </div>

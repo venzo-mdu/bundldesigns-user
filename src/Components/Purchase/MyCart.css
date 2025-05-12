@@ -1,73 +1,84 @@
-.mycart{
-   display: flex;
-   width: 100%;
+.mycart {
+  display: flex;
+  width: 100%;
 }
-.billing input{
-    outline: none;
-    padding: 1% 2%;
-    border:1px solid #000000;
+.billing input {
+  outline: none;
+  padding: 1% 2%;
+  border: 1px solid #000000;
 }
-.cart{
-    width: 70%;
-    padding: 2% 3%;
-    border-right: 1px solid #000000;
+.cart {
+  width: 70%;
+  padding: 2% 3%;
+  border-right: 1px solid #000000;
 }
-body[dir="rtl"] .cart{
-    width: 70%;
-    padding: 2% 3%;
-    border-left: 1px solid #000000; 
-    border-right: 0;
+body[dir="rtl"] .cart {
+  width: 70%;
+  padding: 2% 3%;
+  border-left: 1px solid #000000;
+  border-right: 0;
 }
-.billing{
-    width: 30%;
-    padding: 2% 3%;
+.position-sticky {
+  position: sticky;
+  top: 0;
+  align-self: flex-start;
 }
-.cart p{
-    font-size: 24px;
-    /* font-weight: 700; */
+.billing {
+  width: 30%;
+  padding: 2% 3%;
 }
-.billing p{
-    font-size: 24px;
-    font-weight: 700;
+.cart p {
+  font-size: 24px;
+  /* font-weight: 700; */
 }
-form{
-    width: 100%;
+.billing p {
+  font-size: 24px;
+  font-weight: 700;
 }
-.user-name,.country{
-    display: flex;
+form {
+  width: 100%;
 }
-.user-name div , .country div{
-    width: 50%;
+.user-name,
+.country {
+  display: flex;
 }
-.user-name input , .country input{
-    width: 100%;
-    border:1px solid #000000;
+.user-name div,
+.country div {
+  width: 50%;
 }
-.email input,.phonenumber input,.postal-code input , .promo-code input{
-    width: 100%;
-    border:1px solid #000000;
+.user-name input,
+.country input {
+  width: 100%;
+  border: 1px solid #000000;
 }
-.payment{
-    background-color: #0BA6C4;
-    height: 40px;
-    width: 100%;
-    color: #FFFFFF;
-    margin: 5% 0 0 0;
-    outline: none;
-    border: 0;
+.email input,
+.phonenumber input,
+.postal-code input,
+.promo-code input {
+  width: 100%;
+  border: 1px solid #000000;
 }
-.css-6phqnb-MuiTableRow-root td{
-    font-size: 20px !important;
-    font-weight: 700 !important;
+.payment {
+  background-color: #0ba6c4;
+  height: 40px;
+  width: 100%;
+  color: #ffffff;
+  margin: 5% 0 0 0;
+  outline: none;
+  border: 0;
 }
-.css-1xtozoh-MuiTableRow-root th{
-    font-size:20px  !important;
-    font-weight: 400 !important;
-    opacity: 50%;
+.css-6phqnb-MuiTableRow-root td {
+  font-size: 20px !important;
+  font-weight: 700 !important;
+}
+.css-1xtozoh-MuiTableRow-root th {
+  font-size: 20px !important;
+  font-weight: 400 !important;
+  opacity: 50%;
 }
 
-.billing #vacancySelect{
-    padding: 1% 4%;
+.billing #vacancySelect {
+  padding: 1% 4%;
 }
 /* .total p {
     font-size: 20px;
@@ -82,78 +93,79 @@ form{
 .MuiTableRow-root:last-child .MuiTableCell-root {
     border-bottom: none !important;
 } */
-.cart-total-container{
+.cart-total-container {
+  float: right;
+  margin: 4% 0 0 0;
+  width: 100%;
+}
+@media screen and (min-width: 1705px) {
+  .billing #vacancySelect {
+    padding: 1% 2%;
+  }
+}
+@media screen and (max-width: 1705px) and (min-width: 1024px) {
+  .cart-total-container {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 1024px) and (min-width: 768px) {
+  .cart-total-container {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 768px) and (min-width: 441px) {
+  .mycart {
+    flex-direction: column;
+  }
+  .cart {
+    width: 100%;
+    padding: 2% 3%;
+    border-bottom: 1px solid #000000;
+  }
+  body[dir="rtl"] .cart {
+    width: 100%;
+    padding: 2% 3%;
+    border-bottom: 1px solid #000000;
+  }
+  .billing {
+    width: 100%;
+    padding: 2% 3%;
+  }
+}
+
+@media screen and (max-width: 441px) {
+  .mycart {
+    flex-direction: column;
+  }
+  .billing #vacancySelect {
+    padding: 1% 1%;
+    background: url("../../../src/Images/down-arrow.svg") no-repeat right 3px
+      center;
+    background-size: 30px;
+  }
+  body[dir="rtl"] .billing #vacancySelect {
+    padding: 1% 1%;
+    background: url("../../../src/Images/down-arrow.svg") no-repeat left 3px
+      center;
+    background-size: 30px;
+  }
+  .cart {
+    width: 100%;
+    padding: 2% 3%;
+    border-right: 0;
+  }
+  body[dir="rtl"] .cart {
+    width: 100%;
+    padding: 2% 3%;
+    border-right: 0;
+  }
+  .billing {
+    width: 100%;
+    padding: 2% 3%;
+  }
+  .cart-total-container {
     float: right;
     margin: 4% 0 0 0;
     width: 100%;
-}
-@media screen and (min-width:1705px){
-    .billing #vacancySelect {
-        padding: 1% 2%;
-    }
-}
-@media screen and (max-width:1705px) and (min-width:1024px){
-   .cart-total-container{
-    width: 100%;
-   }
-
-}
-@media screen and (max-width:1024px) and (min-width:768px){
-    .cart-total-container{
-        width: 100%;
-    }
-}
-@media screen and (max-width:768px) and (min-width:441px) {
-    .mycart{
-        flex-direction: column;
-    }
-    .cart{
-        width: 100%;
-        padding: 2% 3%;
-        border-bottom: 1px solid #000000;
-    }
-    body[dir="rtl"] .cart{
-        width: 100%;
-        padding: 2% 3%;
-        border-bottom: 1px solid #000000;
-    }
-    .billing{
-        width: 100%;
-        padding: 2% 3%;
-    }
-}
-
-@media screen and (max-width:441px) {
-    .mycart{
-        flex-direction: column;
-    }
-    .billing #vacancySelect{
-        padding: 1% 1%;
-    background: url('../../../src/Images/down-arrow.svg') no-repeat right 3px center;
-    background-size: 30px;
-    }
-    body[dir="rtl"] .billing #vacancySelect{
-        padding: 1% 1%;
-    background: url('../../../src/Images/down-arrow.svg') no-repeat left 3px center;
-    background-size: 30px;
-    }
-    .cart{
-        width: 100%;
-        padding: 2% 3%;
-        border-right: 0;
-    }
-    body[dir="rtl"]  .cart{
-        width: 100%;
-        padding: 2% 3%;
-        border-right: 0;
-    }
-    .billing{
-        width: 100%;
-        padding: 2% 3%;
-    }
-    .cart-total-container{
-        float: right;
-        margin: 4% 0 0 0;
-        width: 100%;
-    }
+  }
 }
