@@ -599,7 +599,7 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
                 border:'none'
               }}
             >
-              <Typography className='!font-[700] !text-[22px]'>{isLang === 'ar' ? addOnData?.designs_details?.[title]?.name_arabic : title}</Typography>
+              <Typography className='!font-[700] !text-[18px]'>{isLang === 'ar' ? addOnData?.designs_details?.[title]?.name_arabic : title}</Typography>
             </AccordionSummary>
             <AccordionDetails >
               <Typography>
@@ -622,7 +622,8 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
                           display: 'block',
                           marginRight: '5px',
                           marginBottom: '8px',
-                          fontWeight: '500'
+                          fontWeight: '500',
+                          fontSize: '18px'
                         }}
                         className={`sm:basis-[35%] basis-[35%] xs:basis-[69%] ${isLang === 'ar' ?'text-right':'text-left'}`}
                       >
