@@ -1,0 +1,21 @@
+.fade-slide-enter {
+  opacity: 0;
+  transform: translateY(-100%);
+}
+
+.fade-slide-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.5s, transform 0.5s;
+}
+
+.fade-slide-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-slide-exit-active {
+  opacity: 0;
+  transform: translateY(-100%);
+  transition: opacity 0.5s, transform 0.5s;
+}
