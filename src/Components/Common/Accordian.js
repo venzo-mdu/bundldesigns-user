@@ -1,289 +1,3 @@
-// import React, { useCallback, useEffect, useState } from 'react';
-// import Accordion from '@mui/material/Accordion';
-// import AccordionDetails from '@mui/material/AccordionDetails';
-// import AccordionSummary from '@mui/material/AccordionSummary';
-// import Typography from '@mui/material/Typography';
-// import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-// import axios from 'axios';
-// import { base_url } from '../Auth/BackendAPIUrl';
-// import { ToastContainer, toast } from 'react-toastify'
-// import BlackDollor from '../../Images/BundlDetail/blackdollor.svg';
-// import BlackTime from '../../Images/BundlDetail/blacktime.svg';
-// import { ConfigToken } from '../Auth/ConfigToken';
-// import AddIcon from '@mui/icons-material/Add';
-// import RemoveIcon from '@mui/icons-material/Remove';
-
-// export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackageId, textColor,searchParams=null,isLang }) => {
-//   const [isDropdown, setIsDropdown] = useState([false, false, false, false, false, false, false]);
-//   const [addOnData, setAddonData] = useState({});
-//   const [quantities, setQuantities] = useState({});
-//   const titleArr = [
-//     "Branding",
-//     "Stationary",
-//     "Social Media",
-//     "Products",
-//     "Documents",
-//     "E-Designs",
-//     "Space Design"
-//   ];
-
-//   useEffect(() => {
-//     getAddons();
-//   }, []);
-
-//   useEffect(() => {
-//     addOnPayload(addOnPayloads());
-//   }, [addOnData, quantities,extraQty,isLang]);
-
-//   const getAddons = async () => {
-//     try {
-//       const url = window.location.pathname === "/custombundl"
-//         ? `${base_url}/api/package/`
-//         : `${base_url}/api/package/?bundle_id=${bundlePackageId}`;
-  
-//       const response = await axios.get(url
-//         // , ConfigToken()
-//       );
-  
-//       if (response.data) {
-//         setAddonData(response.data);
-  
-//         if (searchParams) {
-//           const searchIndex = titleArr.findIndex((key) => {
-//             const designs = response.data.designs_details[key]?.design_list || [];
-//             return designs.some((item) => item.id == searchParams);
-//           });
-  
-//           if (searchIndex !== -1) {
-//             setIsDropdown((prevState) =>
-//               prevState.map((_, i) => (i === searchIndex ? true : false)) // Open only the matched dropdown
-//             );
-//           } else {
-//             console.warn("No matching index found for searchParams");
-//           }
-//         }
-//       }
-//     } catch (error) {
-//       console.error("Error fetching addons data:", error);
-//     }
-//   };
-//   const toggleDropdown = (index) => {
-//     setIsDropdown((prevState) =>
-//       prevState.map((_, i) => (i === index ? !prevState[i] : false))
-//     );
-//   };
-
-//   // const handleQuantityChange = (designName, change) => {
-//   //   setQuantities(prevQuantities => ({
-//   //     ...prevQuantities,
-//   //     [designName]: Math.max(1, (prevQuantities[designName] || 1) + change)
-//   //   }));
-//   // };
-
-//   const handleQuantityChange = (designName, change) => {
-//         toast.success(`Cart updated successfully`, {
-//             position: toast?.POSITION?.TOP_RIGHT,
-//             toastId: 'required-value-toast',
-//               icon: false,
-//               style: {
-//                 color: "#1BA56F",
-//                 fontWeight:"700" // White text
-//             }
-//           });
-//     setQuantities((prevQuantities) => {
-//       const currentQuantity = prevQuantities[designName] || 0; // Default to 0 if not defined
-//       const newQuantity = Math.max(0, currentQuantity + change); // Prevent negative values
-//       return { ...prevQuantities, [designName]: newQuantity };
-//     });
-//   };
-
-//   let total_price = 0
-//   const addOnPayloads = () => {
-//     const allDesigns = titleArr.flatMap(
-//       (title) => addOnData.designs_details?.[title]?.design_list || []
-//     );
-//     let total_time = allDesigns
-//     .filter((design) => (quantities[design.name_english] || 0) + (extraQty[design.name_english] || 0) > 0)
-//     .reduce((max, design) => {
-//       return Math.max(max, design.time);
-//     }, 0);
-
-
-//     // Filter and map designs with non-zero quantities
-//     const item_list = allDesigns
-//     .filter((design) => (quantities[design.name_english] || 0) + (extraQty[design.name_english] || 0) > 0) // Include only non-zero quantities
-//     .map((design) => {
-//       const quantity = (quantities[design.name_english] || 0) + (extraQty[design.name_english] || 0);
-//       const current_total = quantity == 1
-//       ? parseFloat(design.price)
-//       : parseFloat(design.price) + ((parseFloat(design.price) / 100) * design.price_increment * (quantity - 1));
-//       total_price += current_total
-
-//       const foundCategory = titleArr.find((title) => 
-//         addOnData.designs_details?.[title]?.design_list.some((item) => item.id === design.id)
-//       );
-
-//       return {
-//         design_id: design.id,
-//         addon_name: design.name_english,
-//         addon_arabic:design.name_arabic,
-//         unit_price: design.price.toString(),
-//         unit_time: design.time.toString(),
-//         price_increment:design.price_increment,
-//         qty: quantity.toString(),
-//         item_type: "addon",
-//         total_price:current_total,
-//         category: foundCategory 
-//           ? (isLang === 'ar'
-//             ? addOnData.designs_details?.[foundCategory]?.name_arabic
-//             : addOnData.designs_details?.[foundCategory]?.name_english)
-//           : ""
-//       };
-//     });
-//     const taxRate = 18; // Define the tax rate
-//     const tax = Math.round(total_price * (taxRate / 100));
-//     // Prepare payload
-//     const payload = {
-//       order_name: "Addons",
-//       total_time: total_time,
-//       total_price: total_price,
-//       tax_treatment: taxRate,
-//       tax: tax,
-//       item_list: item_list,
-//     };
-
-//     return payload;
-//   };
-  
-//   return (
-//     <div>
-//       <div className='bundl-accordian'>
-//         <p className={`accordian-heading mb-1  leading-[1.2] ${isLang === 'ar' ?'text-right':'text-left'}`}>{accordianTitle}</p>
-//         <p className={`xs:tesxt-[20px] sm:text-[16px] text-[16px] xs:w-full sm:w-full w-full ${isLang === 'ar' ?'text-right':'text-left'}`} style={{ opacity: '50%' }}>{isLang === 'ar' ? 'اطلب أي عناصر تحتاجها ' : 'Add anything you want to your bundle to fit your brand!'}</p>
-//         <div className='tab-buttons !border-b-0'>
-//           {titleArr.map((title, index) => (
-//             <button
-//               key={index}
-//               style={{
-//                 color: isDropdown[index] ? '#fff' : textColor,
-//                 border: `1px solid ${textColor}`,
-//                 backgroundColor: isDropdown[index] ? textColor : '#fff'
-//               }}
-//               className={`!font-[500] uppercase !text-[${textColor}] ${isDropdown[index] ? 'active-button' : 'accordian-button'} accordion-btn-${index+1}`}
-//               onClick={() => {toggleDropdown(index);
-//                 // const element = document.getElementById(`${index}_list`);
-//                 // element.scrollIntoView({ behavior: 'smooth', block: 'start' })
-//                 setTimeout(() => {
-//                   const element = document.getElementById(`${index}_list`);
-//                   if (element) {
-//                     element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-//                   }
-//                 }, 500);
-//               }}
-//             >
-//               {isLang === 'ar' ? addOnData?.designs_details?.[title]?.name_arabic : title}
-//             </button>
-//           ))}
-//         </div>
-
-//         {titleArr.map((title, index) => (
-
-//           <Accordion 
-//           id={`${index}_list`}
-//           sx={{
-//             boxShadow: 'none !important',
-//             borderBottom: index === titleArr.length - 1 ? 'none' : '1px solid #000000',
-//             paddingTop: index == 0 ? '18px' : 'auto',
-//             '&::before': {
-//             display: 'none' // Hides the default before border
-//     }
-//           }} key={index} expanded={isDropdown[index]} >
-//             <AccordionSummary
-//               expandIcon={<ExpandMoreIcon className='text-[#000]' />}
-//               aria-controls={`panel${index + 1}-content`}
-//               id={`panel${index + 1}-header`}
-//               onClick={() => toggleDropdown(index)}
-//               sx={{
-//                 border:'none'
-//               }}
-//             >
-//               <Typography className='!font-[700] !text-[24px]'>{isLang === 'ar' ? addOnData?.designs_details?.[title]?.name_arabic : title}</Typography>
-//             </AccordionSummary>
-//             <AccordionDetails >
-//               <Typography>
-//                 {addOnData && addOnData.designs_details && addOnData.designs_details[title] &&
-//                   addOnData.designs_details[title].design_list.length > 0 ? (
-//                   addOnData.designs_details[title].design_list.map((design, i) => (
-//                     <div
-//                       id={design.id}
-//                       style={{
-//                         display: 'flex',
-//                         borderBottom: i === addOnData.designs_details[title].design_list.length - 1 ? 'none' : `1px solid ${textColor}`,
-//                         padding: window.innerWidth<=475 ?'3% 0%' :'1% 0',
-//                       }}
-//                       className='items-center flex-wrap'
-//                     >
-//                       <Typography
-//                         sx={{
-//                           color:  `${design.id == searchParams?'#0F5C3C': textColor}` ,
-//                           display: 'block',
-//                           marginRight: '5px',
-//                           marginBottom: '8px',
-
-//                           fontWeight: '500'
-//                         }}
-//                         className={`sm:basis-[35%] basis-[35%] xs:basis-[69%] ${isLang === 'ar' ?'text-right':'text-left'}`}
-//                       >
-//                         {isLang === 'ar' ? design.name_arabic : design.name_english}
-//                       </Typography>
-//                       <p className={`flex xs:order-3 sm:order-2 items-center sm:w-[35%] w-[35%] xs:w-[100%] !mb-2 ${bundlePackageId && 'xs:hidden sm:flex'}`}>
-//                         <p className='flex items-center mb-1 sm:min-w-[120px] min-w-[120px] xs:min-w-[100px] font-[500]'>
-//                           <img src={BlackDollor} alt="Price icon" className={`inline-block ${isLang === 'ar' ? 'ml-2':'mr-2'}`} />
-//                           {Math.round(design.price)} {isLang === 'ar' ? 'ريال' :'SAR'}
-//                         </p>
-//                         <p className='flex items-center mb-1 font-[500] uppercase' >
-//                           <img src={BlackTime} alt="Time icon" className={`inline-block ${isLang === 'ar' ?'ml-1':'mr-1'}`} /> 
-//                           {Math.round(design.time)} {isLang === 'ar' ?'يوما':'Days'}
-
-//                         </p>
-//                       </p>
-
-//                       <p style={{ color: textColor }} className={`xs:order-2 sm:order-3 sm:w-[29%] w-[29%] xs:w-[29%] max-h-[36px] !mb-2 flex justify-end text-[${textColor}] `}>
-//                         <button style={{
-//                           borderColor: textColor,
-//                           borderStyle: 'solid', 
-//                           borderWidth: '1px',
-//                         }} onClick={() => handleQuantityChange(design.name_english, -1)} className={`${isLang === 'ar' ?'!border-l-0':'!border-r-0'}  !py-[17px]  px-1  flex  items-center`}><RemoveIcon /></button>
-//                         <span style={{
-//                           borderColor: textColor,
-//                           borderStyle: 'solid',
-//                           borderWidth: '1px',
-//                         }} className={`${isLang === 'ar' ?'!border-l-0':'!border-r-0'} px-2 !text-[20px]`}> {quantities[design.name_english] || 0}</span>
-//                         <button style={{
-//                           borderColor: textColor,
-//                           borderStyle: 'solid',
-//                           borderWidth: '1px',
-//                         }} onClick={() => handleQuantityChange(design.name_english, 1)} className={`flex  items-center px-1  !py-[5px] `}><AddIcon /></button>
-//                       </p>
-
-//                     </div>
-//                   ))
-//                 ) : (
-//                   'No designs available'
-//                 )}
-//               </Typography>
-//             </AccordionDetails>
-//           </Accordion>
-//         ))}
-//       </div>
-//     </div>
-//   );
-
-
-// };
-
-
-
 import React, { useCallback, useEffect, useState } from 'react';
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -292,14 +6,12 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import axios from 'axios';
 import { base_url } from '../Auth/BackendAPIUrl';
-import { ToastContainer, toast } from 'react-toastify'
+
 import BlackDollor from '../../Images/BundlDetail/blackdollor.svg';
 import BlackTime from '../../Images/BundlDetail/blacktime.svg';
 import { ConfigToken } from '../Auth/ConfigToken';
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
 
-export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackageId, textColor,searchParams=null,isLang,isSameBundl }) => {
+export const Accordian = ({ accordianTitle, addOnPayload, bundlePackageId }) => {
   const [isDropdown, setIsDropdown] = useState([false, false, false, false, false, false, false]);
   const [addOnData, setAddonData] = useState({});
   const [quantities, setQuantities] = useState({});
@@ -309,149 +21,34 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
     "Social Media",
     "Products",
     "Documents",
-    "E-Designs",
-    "Space Design"
+    "E-designs",
+    "Special Designs"
   ];
+
+  // useEffect(() => {
+  //   console.log('calls')
+  //   getAddons();
+  //   addOnPayload(addOnPayloads());
+  // }, [quantities]);
 
   useEffect(() => {
     getAddons();
-  }, [isSameBundl]);
+  }, []);
 
   useEffect(() => {
-      addOnPayload(addOnPayloads());
-  }, [addOnData, quantities,extraQty,isLang]);
+    addOnPayload(addOnPayloads());
+  }, [addOnData, quantities]);
 
-  // const getAddons = async () => {
-
-
-  //   try {
-  //     const url = window.location.pathname === "/custombundl"
-  //       ? `${base_url}/api/package/`
-  //       : `${base_url}/api/package/?bundle_id=${bundlePackageId}`;
-
-  //     const response = await axios.get(url
-  //       // , ConfigToken()
-  //     );
-
-  //     const localAddonData = JSON.parse(localStorage.getItem('payloads') || '{}');
-
-  //     if (localAddonData?.addons) {
-  //       const transformedData = localAddonData.addons.item_list.reduce((acc, item) => {
-  //         const categoryKey = item.category;
-  //         const categoryData = response?.data?.designs_details?.[categoryKey];
-      
-  //         if (!categoryData || !categoryData.design_list) return acc;
-      
-  //         const matchedDesign = categoryData.design_list.find(design => design.id === item.design_id);
-      
-  //         if (!matchedDesign) return acc;
-      
-  //         // If the category doesn't exist in the accumulator yet, initialize it with full metadata
-  //         if (!acc.designs_details[categoryKey]) {
-  //           const { name_english, name_arabic, icon } = categoryData;
-  //           acc.designs_details[categoryKey] = {
-  //             name_english,
-  //             name_arabic,
-  //             icon,
-  //             design_list: []
-  //           };
-  //         }
-      
-  //         // Push matched design
-  //         acc.designs_details[categoryKey].design_list.push(matchedDesign);
-      
-  //         return acc;
-  //       }, { designs_details: {} });
-      
-  //       console.log(transformedData, "transformedData");
-  //       setAddonData(transformedData);
-  //     }
-      
-  //     else {
-  //       if (response.data) {
-  //         setAddonData(response.data);
-
-  //         if (searchParams) {
-  //           const searchIndex = titleArr.findIndex((key) => {
-  //             const designs = response.data.designs_details[key]?.design_list || [];
-  //             return designs.some((item) => item.id == searchParams);
-  //           });
-
-  //           if (searchIndex !== -1) {
-  //             setIsDropdown((prevState) =>
-  //               prevState.map((_, i) => (i === searchIndex ? true : false)) // Open only the matched dropdown
-  //             );
-  //           } else {
-  //             console.warn("No matching index found for searchParams");
-  //           }
-  //         }
-  //       }
-  //     }
-
-
-  //   } catch (error) {
-  //     console.error("Error fetching addons data:", error);
-  //   }
-
-  // };
 
   const getAddons = async () => {
     try {
-      const url = window.location.pathname === "/custombundl"
-        ? `${base_url}/api/package/`
-        : `${base_url}/api/package/?bundle_id=${bundlePackageId}`;
-  
-      const response = await axios.get(url);
-      const responseData = response?.data || {};
-  
-      const localAddonData = isSameBundl  ?  JSON.parse(localStorage.getItem('payloads')) : {};
-      const localItems = localAddonData?.addons?.item_list || [];
-  
-      const quantityMap = {}; // To initialize quantities state
-  
-      if (responseData.designs_details) {
-        Object.entries(responseData.designs_details).forEach(([categoryKey, categoryData]) => {
-          if (!categoryData.design_list) return;
-  
-          categoryData.design_list = categoryData.design_list.map(design => {
-            const localMatch = localItems.find(
-              item => item.category === categoryKey && item.design_id === design.id
-            );
-  
-            if (localMatch) {
-              const qty = localMatch.qty || 0;
-              quantityMap[design.name_english] = parseInt(qty);
-              return { ...design, quantity: qty }; // Add quantity to design
-            }
-  
-            return { ...design, quantity: 0 }; // Default quantity if no match
-          });
-        });
-      }
-  
-      setAddonData(responseData);
-      setQuantities(quantityMap); // Sync with state for handleQuantityChange
-  
-      // Dropdown toggle based on searchParams
-      if (searchParams && responseData.designs_details) {
-        const searchIndex = titleArr.findIndex((key) => {
-          const designs = responseData.designs_details[key]?.design_list || [];
-          return designs.some((item) => item.id == searchParams);
-        });
-  
-        if (searchIndex !== -1) {
-          setIsDropdown((prevState) =>
-            prevState.map((_, i) => i === searchIndex)
-          );
-        }
-      }
-  
+      const response = await axios.get(`${base_url}/api/package/?bundle_id=${bundlePackageId}`, ConfigToken());
+      setAddonData(response.data);
     } catch (error) {
       console.error("Error fetching addons data:", error);
     }
   };
-  
-  
+
   const toggleDropdown = (index) => {
     setIsDropdown((prevState) =>
       prevState.map((_, i) => (i === index ? !prevState[i] : false))
@@ -466,15 +63,6 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
   // };
 
   const handleQuantityChange = (designName, change) => {
-        toast.success(`Cart updated successfully`, {
-            position: toast?.POSITION?.TOP_RIGHT,
-            toastId: 'required-value-toast',
-              icon: false,
-              style: {
-                color: "#1BA56F",
-                fontWeight:"700" // White text
-            }
-          });
     setQuantities((prevQuantities) => {
       const currentQuantity = prevQuantities[designName] || 0; // Default to 0 if not defined
       const newQuantity = Math.max(0, currentQuantity + change); // Prevent negative values
@@ -482,51 +70,73 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
     });
   };
 
-  let total_price = 0
+  // const addOnPayloads = () => {
+  //   const allDesigns = titleArr.flatMap(title => addOnData.designs_details?.[title]?.design_list || []);
+  //   let total_price = 0;
+  //   let total_time = 0;
+
+  //   const item_list = allDesigns.map((design, index) => {
+  //   const quantity = quantities[design.name_english] || 1; 
+
+  //     total_price += design.price * quantity;
+  //     total_time += design.time * quantity;
+
+  //     return {
+  //       design_id: design.id,
+  //       addon_name:design.name_english,
+  //       unit_price: design.price.toString(),
+  //       unit_time: design.time.toString(),
+  //       qty: quantity.toString(),
+  //       item_type: "addon"
+  //     };
+  //   });
+
+
+  //   const taxRate = 18;
+  //   const tax = Math.round(total_price * (taxRate / 100));
+
+  //   const payload = {
+  //     order_name: "Addons",
+  //     total_time: total_time,
+  //     total_price: total_price,
+  //     tax_treatment: taxRate,
+  //     tax: tax,
+  //     item_list: item_list
+  //   };
+
+  //   return payload;
+  // };
+
   const addOnPayloads = () => {
     const allDesigns = titleArr.flatMap(
       (title) => addOnData.designs_details?.[title]?.design_list || []
     );
-    let total_time = allDesigns
-    .filter((design) => (quantities[design.name_english] || 0) + (extraQty[design.name_english] || 0) > 0)
-    .reduce((max, design) => {
-      return Math.max(max, design.time);
-    }, 0);
 
+    let total_price = 0;
+    let total_time = 0;
 
     // Filter and map designs with non-zero quantities
     const item_list = allDesigns
-    .filter((design) => (quantities[design.name_english] || 0) + (extraQty[design.name_english] || 0) > 0) // Include only non-zero quantities
-    .map((design) => {
-      const quantity = (quantities[design.name_english] || 0) + (extraQty[design.name_english] || 0);
-      const current_total = quantity == 1
-      ? parseFloat(design.price)
-      : parseFloat(design.price) + ((parseFloat(design.price) / 100) * design.price_increment * (quantity - 1));
-      total_price += current_total
+      .filter((design) => (quantities[design.name_english] || 0) > 0) // Include only non-zero quantities
+      .map((design) => {
+        const quantity = quantities[design.name_english] || 0;
 
-      const foundCategory = titleArr.find((title) => 
-        addOnData.designs_details?.[title]?.design_list.some((item) => item.id === design.id)
-      );
+        total_price += design.price * quantity;
+        total_time += design.time * quantity;
 
-      return {
-        design_id: design.id,
-        addon_name: design.name_english,
-        addon_arabic:design.name_arabic,
-        unit_price: design.price.toString(),
-        unit_time: design.time.toString(),
-        price_increment:design.price_increment,
-        qty: quantity.toString(),
-        item_type: "addon",
-        total_price:current_total,
-        category: foundCategory 
-          ? (isLang === 'ar'
-            ? addOnData.designs_details?.[foundCategory]?.name_arabic
-            : addOnData.designs_details?.[foundCategory]?.name_english)
-          : ""
-      };
-    });
+        return {
+          design_id: design.id,
+          addon_name: design.name_english,
+          unit_price: design.price.toString(),
+          unit_time: design.time.toString(),
+          qty: quantity.toString(),
+          item_type: "addon",
+        };
+      });
+
     const taxRate = 18; // Define the tax rate
     const tax = Math.round(total_price * (taxRate / 100));
+
     // Prepare payload
     const payload = {
       order_name: "Addons",
@@ -539,126 +149,127 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
 
     return payload;
   };
-  
+
+
+
   return (
     <div>
       <div className='bundl-accordian'>
-        <p className={`accordian-heading mb-1  leading-[1.2] ${isLang === 'ar' ?'text-right':'text-left'}`}>{accordianTitle}</p>
-        <p className={`xs:tesxt-[20px] sm:text-[16px] text-[16px] xs:w-full sm:w-full w-full ${isLang === 'ar' ?'text-right':'text-left'}`} style={{ opacity: '50%' }}>{isLang === 'ar' ? 'اطلب أي عناصر تحتاجها ' : 'Add anything you want to your bundle to fit your brand!'}</p>
-        <div className='tab-buttons !border-b-0'>
+        <p className='accordian-heading'>{accordianTitle}</p>
+        <p style={{ opacity: '50%' }}>Add anything you want to your bundle to fit your brand!</p>
+        <div className='tab-buttons'>
           {titleArr.map((title, index) => (
             <button
               key={index}
-              style={{
-                color: isDropdown[index] ? '#fff' : textColor,
-                border: `1px solid ${textColor}`,
-                backgroundColor: isDropdown[index] ? textColor : '#fff'
-              }}
-              className={`!font-[500] uppercase !text-[${textColor}] ${isDropdown[index] ? 'active-button' : 'accordian-button'} accordion-btn-${index+1}`}
-              onClick={() => {toggleDropdown(index);
-                // const element = document.getElementById(`${index}_list`);
-                // element.scrollIntoView({ behavior: 'smooth', block: 'start' })
-                setTimeout(() => {
-                  const element = document.getElementById(`${index}_list`);
-                  if (element) {
-                    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                  }
-                }, 400);
-              }}
+              className={`${isDropdown[index] ? 'active-button' : 'accordian-button'}`}
+              onClick={() => toggleDropdown(index)}
             >
-              {isLang === 'ar' ? addOnData?.designs_details?.[title]?.name_arabic : title}
+              {title}
             </button>
           ))}
         </div>
 
         {titleArr.map((title, index) => (
+          // <Accordion key={index} expanded={isDropdown[index]}>
+          //   <AccordionSummary
+          //     expandIcon={<ExpandMoreIcon />}
+          //     aria-controls={`panel${index + 1}-content`}
+          //     id={`panel${index + 1}-header`}
+          //   >
+          //     <Typography sx={{ color: 'text.secondary' }}>{title}</Typography>
+          //   </AccordionSummary>
+          //   <AccordionDetails>
+          //     <Typography>
+          //       {addOnData && addOnData.designs_details && addOnData.designs_details[title] &&
+          //         addOnData.designs_details[title].design_list.length > 0 ? (
+          //         addOnData.designs_details[title].design_list.map((design, i) => (
+          //           <div key={i} style={{
+          //             display:  window.innerWidth<=441 ?'block':'flex',
+          //             borderBottom: i === addOnData.designs_details[title].design_list.length - 1 ? 'none' : '1px solid #0BA6C4',
+          //             padding: '1% 0%'
+          //           }}>
+          //             <Typography sx={{ color: '#0BA6C4', display: 'block', marginRight: '10px',marginBottom:'5%', width: '60%' }}>
+          //               {design.name_english}
+          //             </Typography>
+          //             <p style={window.innerWidth<=441 ? {width: '50%'}:{ width: '20%' }}><img src={BlackDollor} alt="Price icon" className='inline-block'/>{Math.round(design.price)} SAR</p>
+          //             <p style={window.innerWidth<=441 ? {width: '50%'}:{ width: '20%' }}><img src={BlackTime} alt="Time icon" className='inline-block'/>{Math.round(design.time)} Days</p>
+          //             <div style={{border:'0'}} className="quantity">
+          //               <button style={{border:'1px solid #0BA6C4',color:'#0BA6C4'}} className="" onClick={() => handleQuantityChange(design.name_english, -1)}>&minus;</button>
+          //               <input style={{border:'1px solid #0BA6C4',color:'#0BA6C4',height:'35px'}} type="number" className="input-box" value={quantities[design.name_english] || 0} readOnly />
+          //               <button style={{border:'1px solid #0BA6C4',color:'#0BA6C4'}} className="minus" onClick={() => handleQuantityChange(design.name_english, 1)}>+</button>
+          //             </div>
+          //           </div>
+          //         ))
+          //       ) : (
+          //         'No designs available'
+          //       )}
+          //     </Typography>
+          //   </AccordionDetails>
+          // </Accordion>
 
-          <Accordion 
-          id={`${index}_list`}
-          sx={{
-            boxShadow: 'none !important',
-            borderBottom: index === titleArr.length - 1 ? 'none' : '1px solid #000000',
-            paddingTop: index == 0 ? '18px' : 'auto',
-            '&::before': {
-            display: 'none' // Hides the default before border
-    }
-          }} key={index} expanded={isDropdown[index]} >
+          <Accordion key={index} expanded={isDropdown[index]}>
             <AccordionSummary
-              expandIcon={<ExpandMoreIcon className='text-[#000]' />}
+              expandIcon={<ExpandMoreIcon />}
               aria-controls={`panel${index + 1}-content`}
               id={`panel${index + 1}-header`}
-              onClick={() => {toggleDropdown(index)
-                setTimeout(() => {
-                  const element = document.getElementById(`${index}_list`);
-                  if (element) {
-                    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                  }
-                }, 400);
-              }}
-              sx={{
-                border:'none'
-              }}
             >
-              <Typography className='!font-[700] !text-[18px]'>{isLang === 'ar' ? addOnData?.designs_details?.[title]?.name_arabic : title}</Typography>
+              <Typography sx={{ color: 'text.secondary' }}>{title}</Typography>
             </AccordionSummary>
-            <AccordionDetails >
+            <AccordionDetails>
               <Typography>
                 {addOnData && addOnData.designs_details && addOnData.designs_details[title] &&
-                  addOnData.designs_details[title].design_list?.length > 0 ? (
-                  addOnData.designs_details[title].design_list?.map((design, i) => (
+                  addOnData.designs_details[title].design_list.length > 0 ? (
+                  addOnData.designs_details[title].design_list.map((design, i) => (
                     <div
-                      id={design.id}
+                      key={i}
                       style={{
-                        display: 'flex',
-                        borderBottom: i === addOnData.designs_details[title].design_list.length - 1 ? 'none' : `1px solid black`,
-                        padding: window.innerWidth<=475 ?'3% 0%' :'1% 0',
+                        display: window.innerWidth <= 441 ? 'block' : 'flex',
+                        borderBottom: i === addOnData.designs_details[title].design_list.length - 1 ? 'none' : '1px solid #0BA6C4',
+                        padding: '1% 0%'
                       }}
-                      className='items-center flex-wrap'
                     >
                       <Typography
                         sx={{
-                          // color:  `${design.id == searchParams?'#0F5C3C': textColor}` ,
-                          color:'#000000',
+                          color: '#0BA6C4',
                           display: 'block',
-                          marginRight: '5px',
-                          marginBottom: '8px',
-                          fontWeight: '500',
-                          fontSize: '18px'
+                          marginRight: '10px',
+                          marginBottom: '5%',
+                          width: '60%'
                         }}
-                        className={`sm:basis-[35%]  basis-[35%] xs:basis-[69%] ${isLang === 'ar' ?'text-right':'text-left'}`}
                       >
-                        {isLang === 'ar' ? design.name_arabic : design.name_english}
+                        {design.name_english}
                       </Typography>
-                      <p className={`flex xs:order-3 sm:order-2 items-center sm:w-[35%] w-[35%] xs:w-[100%] !mb-2 ${bundlePackageId && 'xs:hidden sm:flex'}`}>
-                        <p className='flex items-center mb-1 sm:min-w-[120px] min-w-[120px] xs:min-w-[100px] font-[500]'>
-                          <img src={BlackDollor} alt="Price icon" className={`inline-block ${isLang === 'ar' ? 'ml-2':'mr-2'}`} />
-                          {Math.round(design.price)} {isLang === 'ar' ? 'ريال' :'SAR'}
-                        </p>
-                        <p className='flex items-center mb-1 font-[500] uppercase' >
-                          <img src={BlackTime} alt="Time icon" className={`inline-block ${isLang === 'ar' ?'ml-1':'mr-1'}`} /> 
-                          {Math.round(design.time)} {isLang === 'ar' ?'يوما':'Days'}
-
-                        </p>
+                      <p style={window.innerWidth <= 441 ? { width: '50%' } : { width: '20%' }}>
+                        <img src={BlackDollor} alt="Price icon" className="inline-block" />
+                        {Math.round(design.price)} SAR
                       </p>
-
-                      <p style={{ color: '#000000' }} className={`xs:order-2 sm:order-3 sm:w-[29%] w-[29%] xs:w-[29%] max-h-[36px] !mb-2 flex ${isLang === 'ar' ? 'flex-row-reverse':'flex-row justify-end'}  text-[${textColor}] `}>
-                        <button style={{
-                          borderColor: '#000000',
-                          borderStyle: 'solid', 
-                          borderWidth: '1px',
-                        }} onClick={() => handleQuantityChange(design.name_english, -1)} className={`${isLang === 'ar' ?'!border-r-0':'!border-r-0'}  !py-[17px]  px-1  flex  items-center`}><RemoveIcon /></button>
-                        <span style={{
-                          borderColor: '#000000',
-                          borderStyle: 'solid',
-                          borderWidth: '1px',
-                        }} className={`${isLang === 'ar' ?'!border-r-0':'!border-r-0'} px-2 !text-[20px]`}> {quantities[design.name_english] || 0}</span>
-                        <button style={{
-                          borderColor: '#000000',
-                          borderStyle: 'solid',
-                          borderWidth: '1px',
-                        }} onClick={() => handleQuantityChange(design.name_english, 1)} className={`flex  items-center px-1  !py-[5px] `}><AddIcon /></button>
+                      <p style={window.innerWidth <= 441 ? { width: '50%' } : { width: '20%' }}>
+                        <img src={BlackTime} alt="Time icon" className="inline-block" />
+                        {Math.round(design.time)} Days
                       </p>
-
+                      <div style={{ border: '0' }} className="quantity">
+                        <button
+                          style={{ border: '1px solid #0BA6C4', color: '#0BA6C4' }}
+                          className=""
+                          onClick={() => handleQuantityChange(design.name_english, -1)}
+                        >
+                          &minus;
+                        </button>
+                        <input
+                          style={{ border: '1px solid #0BA6C4', color: '#0BA6C4', height: '35px' }}
+                          type="number"
+                          className="input-box"
+                          value={quantities[design.name_english] || 0}
+                          readOnly
+                        />
+                        <button
+                          style={{ border: '1px solid #0BA6C4', color: '#0BA6C4' }}
+                          className="minus"
+                          onClick={() => handleQuantityChange(design.name_english, 1)}
+                        >
+                          +
+                        </button>
+                      </div>
                     </div>
                   ))
                 ) : (
