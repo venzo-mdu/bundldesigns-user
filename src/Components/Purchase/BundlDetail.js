@@ -723,7 +723,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                 className="
                   bundl-summary
                   sticky top-0 self-start
-                  border-l border-black border-r border-r-[rgba(0,0,0,0.1)]
+                  border-l border-r border-r-[rgba(0,0,0,0.1)]
                   mb-[10%]
                   transition-all duration-500 ease-in-out
                   max-h-[80%] w-full
