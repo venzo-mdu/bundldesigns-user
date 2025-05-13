@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 function BundlOrder({
@@ -13,12 +12,6 @@ function BundlOrder({
   setSkipId,
   saveContent,
 }) {
-  const [cartData, setCartData] = useState();
-
-  const handleRemove = (id) => {
-    setCartData((prev) => prev.filter((cart) => cart.id !== id));
-  };
-
   return (
     <AnimatePresence>
       {order.item_details.addon_items

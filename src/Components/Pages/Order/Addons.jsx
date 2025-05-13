@@ -1,6 +1,7 @@
+import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-function BundlOrder({
+function Addons({
   order,
   skipId,
   lang,
@@ -14,13 +15,14 @@ function BundlOrder({
 }) {
   return (
     <AnimatePresence>
-      {order.item_details.addon_items
+      {order?.item_details?.bundle_items
         .filter(
           (item) =>
+            item.item__id !== 76 &&
             !skipId?.includes(item.id) &&
-            item.status === "questionnaire required"
+            item.status == "questionnaire required"
         )
-        .map((item, index, filteredArr) =>
+        .map((item, index, filterArr) =>
           Array.from({ length: item.qty }, (_, qtyIndex) => qtyIndex + 1)
             .filter((qty) => !item.uploaded_qty?.includes(qty))
             .map((filterIndex) => {
@@ -37,22 +39,20 @@ function BundlOrder({
                 >
                   <div
                     className={`${
-                      (filteredArr.length === 1 ||
-                        index === filteredArr.length - 1 ||
-                        order.item_details.addon_items?.length === 0) &&
-                      !hasMultipleQty
+                      filterArr.length === 1 ||
+                      ((index === filterArr.length - 1 ||
+                        order.item_details.bundle_items?.length === 0) &&
+                        hasMultipleQty)
                         ? ""
-                        : "border-b !border-black"
+                        : "border-b border-black"
                     } px-[5%] space-x-2 mt-[2%]`}
                   >
-                    <p className="mb-0 font-semibold text-[22px]">
-                      Addons -{" "}
+                    <p className="mb-0 font-semibold text-[22px">
                       {lang === "ar" ? item?.item__name_arabic : item.item_name}{" "}
                       {item?.qty > 1 && filterIndex}
                     </p>
-
                     {designQuestions[item.item__id]?.language && (
-                      <p className="mt-2 mb-0">
+                      <p className="mt-2">
                         <label
                           className={`${
                             lang === "ar" ? "ml-6" : "mr-6"
@@ -103,7 +103,7 @@ function BundlOrder({
                     )}
 
                     {designQuestions[item.item__id]?.content && (
-                      <p className="flex lg:w-[70%] md:w-[90%] mt-2">
+                      <p className="flex lg:w-[70%] md:w-[90%]">
                         <input
                           placeholder={
                             lang === "ar"
@@ -123,17 +123,17 @@ function BundlOrder({
                               filterIndex
                             )
                           }
-                          className="border !border-black py-2 px-2 w-full rounded-none"
+                          className="border !border-black py-2 px-2 w-full rounded-none "
                           required
                         ></input>
                       </p>
                     )}
                     {designQuestions[item.item__id]?.measurement && (
                       <>
-                        <p className="mb-0 font-bold">
+                        <p className="font-bold">
                           {lang === "ar" ? "القياسات" : "Measurements"}
                         </p>
-                        <p className="ml-2 mt-2">
+                        <p className="mt-2">
                           <label
                             className={`${
                               lang === "ar" ? "ml-6" : "mr-6"
@@ -181,8 +181,8 @@ function BundlOrder({
                             {lang === "ar" ? "قياس خاص " : "Customize"}{" "}
                           </label>
 
-                          {uploadContent[item.id]?.[filterIndex]
-                            ?.measurements === "Customize" && (
+                          {uploadContent[item.id]?.measurements ===
+                            "Customize" && (
                             <>
                               <label className="text-[#1BA56F] mr-2">
                                 {" "}
@@ -280,7 +280,7 @@ function BundlOrder({
                             type="file"
                             hidden
                             name="file"
-                            id={`file-${item.id}_${filterIndex}`} // Use a unique ID for each input
+                            id={`file-${item.id}_${filterIndex}`}
                             onChange={(e) =>
                               uploadFile(
                                 e,
@@ -299,8 +299,8 @@ function BundlOrder({
                         </p>
                       </>
                     )}
-
-                    <p className="my-6">
+                    <p className="my-6 flex justify-start">
+                      {" "}
                       <button
                         onClick={() => {
                           setSkipId([...skipId, item.id]);
@@ -329,4 +329,4 @@ function BundlOrder({
   );
 }
 
-export default BundlOrder;
+export default Addons;
