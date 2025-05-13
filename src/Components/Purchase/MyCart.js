@@ -19,6 +19,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import Riyal from '../../Images/BundlDetail/riyalnew.png'
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import { amountDecimal } from '../Utils/amountDecimal'
 
 export const MyCart = ({ lang, setLang }) => {
     const [searchParams] = useSearchParams();
@@ -970,7 +971,7 @@ export const MyCart = ({ lang, setLang }) => {
                                         <div className='border-t-[1px] border-black p-[2%_0_0_2%]'>
                                             <div className='justify-between font-[700] mr-4' style={{ display: 'flex' }}>
                                                 <p className='!text-[20px] xs:mb-0 sm:mb-auto ml-[6px]' style={{ width: '50%' }}><img src={BlackDollor} className={`inline-block  ${lang === 'ar' ? 'ml-[18px]' : 'mr-[18px]'}`}></img>{lang === 'ar' ? 'السعر الإجمالي :' : 'Total Price :'}</p>
-                                                <p className='!text-[20px] xs:mb-0 sm:mb-auto text-right' style={{ width: '40%' }}>{isNaN(Math.round(cartDetails.grand_total)) ? 0 : Math.round(cartDetails.grand_total)} {lang === 'ar' ? 'ريال' : 'SAR'} </p>
+                                                <p className='!text-[20px] xs:mb-0 sm:mb-auto text-right' style={{ width: '40%' }}>{isNaN(amountDecimal(Math.round(cartDetails.grand_total))) ? 0 : amountDecimal(Math.round(cartDetails.grand_total))} {lang === 'ar' ? 'ريال' : 'SAR'} </p>
                                             </div>
                                             <div className='justify-between  font-[700] mr-4' style={{ display: 'flex' }}>
                                                 <p className='!text-[20px] mb-0' style={{ width: '67%' }}><img src={BlackTime} className={`inline-block ${lang === 'ar' ? 'ml-3 mr-[-5px]' : 'mr-3'}`}></img>{lang === 'ar' ? 'المدة الإجمالية :' : 'Total Duration :'}</p>
