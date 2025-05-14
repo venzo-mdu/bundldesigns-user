@@ -378,7 +378,9 @@ export const BundlDetail = ({ user, lang, setLang }) => {
         `${base_url}/api/order/cart/`,
         ConfigToken()
       );
-      if (response.data.order_status === "in_cart") {
+      const clickedItem = window.location.pathname.split("/")[2];
+      const cartItem = response.data.bundle_name.split(" ")[1].toLowerCase()
+      if (response.data.order_status === "in_cart" && clickedItem !== cartItem) {
         setOpenPopup(response.data.order_status === "in_cart");
       } else {
         setOpenPopup(false);
@@ -387,15 +389,6 @@ export const BundlDetail = ({ user, lang, setLang }) => {
     getcartData();
   }, []);
 
-  console.log(
-    amountDecimal(
-      parseFloat(
-        Number(packageDetail?.package?.price) +
-          Number(addonPayLoads?.total_price)
-      )
-    ),
-    "priceeeeeeeeeeeeeee"
-  );
 
   return (
     <>
@@ -1065,8 +1058,11 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                       } !xs:text-[16px] !sm:text-[20px] sm:mb-3 xs:mb-0`}
                       style={{ width: "40%" }}
                     >
-                      {amountDecimal(parseFloat(Number(packageDetail?.package?.price) +
-                        Number(addonPayLoads?.total_price))
+                      {amountDecimal(
+                        parseFloat(
+                          Number(packageDetail?.package?.price) +
+                            Number(addonPayLoads?.total_price)
+                        )
                       ) +
                         (selectedLanguage === "Both"
                           ? amountDecimal(2000)
