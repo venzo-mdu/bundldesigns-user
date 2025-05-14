@@ -12,6 +12,7 @@ import { useLocation } from 'react-router-dom';
 import { Bgloader } from '../Common/Background/Bgloader';
 import DoneIcon from '@mui/icons-material/Done';
 import { BorderAllRounded } from '@mui/icons-material';
+import { amountDecimal } from '../Utils/amountDecimal'
 
 export const Purchasehistory = ({lang,setLang}) => {
 
@@ -113,7 +114,7 @@ const reOrder = async (id) => {
                                                             {/* Name & Amount */}
                                                             <div className="flex justify-between w-full md:w-[50%]">
                                                                 <p className="text-[22px] font-[700] font-Helvetica">{order.project_name.length > 9 ? order.project_name.substring(0, 5) + " (...)" : order.project_name}</p>
-                                                                <p className="text-[22px] font-[700] font-Helvetica">{Math.round(order.grand_total)} SAR</p>
+                                                                <p className="text-[22px] font-[700] font-Helvetica">{amountDecimal(Math.round(order.grand_total))} SAR</p>
                                                             </div>
         
                                                             {/* ID, Date & Status */}
