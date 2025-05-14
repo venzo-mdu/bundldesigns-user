@@ -1881,14 +1881,13 @@ export default function UploadContent({ lang, setLang }) {
                               } px-[5%] space-x-2 mt-[2%]`}
                             >
                               <div className="border-y border-black py-2 px-2">
-                              <p className="mb-0 font-semibold text-[22px">
-                                {lang === "ar"
-                                  ? item?.item__name_arabic
-                                  : item.item_name}{" "}
-                                {item?.qty > 1 && filterIndex}
-                              </p>
+                                <p className="mb-0 font-semibold text-[22px">
+                                  {lang === "ar"
+                                    ? item?.item__name_arabic
+                                    : item.item_name}{" "}
+                                  {item?.qty > 1 && filterIndex}
+                                </p>
                               </div>
-
 
                               {designQuestions[item.item__id]?.language && (
                                 <p className="mt-2">
@@ -2230,7 +2229,7 @@ export default function UploadContent({ lang, setLang }) {
 
                               <div className="border-y border-black py-2 px-2">
                                 <p className="mb-0 font-medium text-[22px">
-                                  Addons -{" "} 
+                                  Addons -{" "}
                                   {lang === "ar"
                                     ? item?.item__name_arabic
                                     : item.item_name}{" "}
@@ -2549,10 +2548,17 @@ export default function UploadContent({ lang, setLang }) {
               lang === "ar" ? "pr-[2%]" : "pl-[2%]"
             }`}
           >
-            <div className="border-y border-black py-2 px-0 mb-3 mt-3">
+            {/* <div 
+            className="border-y border-black py-2 -mx-4 mb-3 mt-3">
             <h3 className=" mb-0 text-[22px] font-bold py-0">
               {lang === "ar" ? "قائمه" : "Checklist"}
             </h3>
+            </div> */}
+
+            <div className="border-y border-black py-2 mb-3 mt-3 absolute left-0 right-0 px-[5%] ">
+              <h3 className="mb-0 text-[22px] font-bold">
+                {lang === "ar" ? "قائمه" : "Checklist"}
+              </h3>
             </div>
 
             {order && (
