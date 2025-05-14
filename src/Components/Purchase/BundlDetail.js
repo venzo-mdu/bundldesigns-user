@@ -307,7 +307,11 @@ export const BundlDetail = ({ user, lang, setLang }) => {
         `${base_url}/api/order/cart/`,
         ConfigToken()
       );
-      if (response?.data?.order_status && !state?.project_name) {
+      if (
+        response?.data?.order_status &&
+        !state?.project_name &&
+        routeId[packageID] !== response.data.bundle_id
+      ) {
         setOpenPopup(true);
       } else if (
         response?.data?.order_status &&
@@ -373,22 +377,31 @@ export const BundlDetail = ({ user, lang, setLang }) => {
   }, [user, lang, packageDetail]);
 
   useEffect(() => {
-    const getcartData = async () => {
-      const response = await axios.get(
-        `${base_url}/api/order/cart/`,
-        ConfigToken()
-      );
-      const clickedItem = window.location.pathname.split("/")[2];
-      const cartItem = response.data.bundle_name.split(" ")[1].toLowerCase()
-      if (response.data.order_status === "in_cart" && clickedItem !== cartItem) {
-        setOpenPopup(response.data.order_status === "in_cart");
-      } else {
-        setOpenPopup(false);
-      }
-    };
-    getcartData();
+    const {
+      headers: { authorization },
+    } = ConfigToken();
+    if (authorization !== "Token null") {
+      const getcartData = async () => {
+        const response = await axios.get(
+          `${base_url}/api/order/cart/`,
+          ConfigToken()
+        );
+        // const clickedItem = window.location.pathname.split("/")[2];
+        // const cartItem = response?.data?.bundle_name
+        //   ?.split(" ")[1]
+        //   .toLowerCase();
+        if (
+          response.data.order_status === "in_cart" &&
+          routeId[packageID] !== response?.data.bundle_id
+        ) {
+          setOpenPopup(response.data.order_status === "in_cart");
+        } else {
+          setOpenPopup(false);
+        }
+      };
+      getcartData();
+    }
   }, []);
-
 
   return (
     <>
