@@ -1362,7 +1362,7 @@ export default function UploadContent({ lang, setLang }) {
                                 }
                                 className="text-white bg-[#1BA56F] py-1 px-2 uppercase"
                               >
-                                {lang === "ar" ? "حفظ والتالي" : "Save & Next"}
+                                {lang === "ar" ? "حفظ والتالي" : "Save & Next2222"}
                               </button>
                             </p>
                           </div>
@@ -1693,7 +1693,7 @@ export default function UploadContent({ lang, setLang }) {
                                 }
                                 className="text-white bg-[#1BA56F] py-1 px-2 uppercase"
                               >
-                                {lang === "ar" ? "حفظ والتالي" : "Save & Next"}
+                                {lang === "ar" ? "حفظ والتالي" : "Save & Next333"}
                               </button>
                             </p>
                           </div>
@@ -1878,7 +1878,7 @@ export default function UploadContent({ lang, setLang }) {
                                   hasMultipleQty)
                                   ? ""
                                   : ""
-                              } px-[5%] space-x-2 mt-[2%]`}
+                              } pl-[5%] space-x-2 mt-[2%]`}
                             >
                               <div className="border-y border-black py-2 px-2">
                                 <p className="mb-0 font-semibold text-[22px">
@@ -1888,6 +1888,7 @@ export default function UploadContent({ lang, setLang }) {
                                   {item?.qty > 1 && filterIndex}
                                 </p>
                               </div>
+
 
                               {designQuestions[item.item__id]?.language && (
                                 <p className="mt-2">
@@ -2215,7 +2216,7 @@ export default function UploadContent({ lang, setLang }) {
                                 !hasMultipleQty
                                   ? ""
                                   : ""
-                              } px-[5%] space-x-2 mt-[2%]`}
+                              } pl-[5%] space-x-2 mt-[2%]`}
                               key={`${item.qty}_${index}`}
                             >
                               {/* <p className="mb-0 font-semibold text-[22px">
@@ -2532,7 +2533,7 @@ export default function UploadContent({ lang, setLang }) {
                                 >
                                   {lang === "ar"
                                     ? "حفظ والتالي"
-                                    : "Save & Next"}
+                                    : "Save & Next1111"}
                                 </button>
                               </p>
                             </div>
@@ -2543,90 +2544,88 @@ export default function UploadContent({ lang, setLang }) {
               )}
             </div>
           </div>
-          <div
-            className={`basis-1/4 sticky top-0 self-start  my-2 ${
-              lang === "ar" ? "pr-[2%]" : "pl-[2%]"
-            }`}
-          >
-            {/* <div 
-            className="border-y border-black py-2 -mx-4 mb-3 mt-3">
-            <h3 className=" mb-0 text-[22px] font-bold py-0">
-              {lang === "ar" ? "قائمه" : "Checklist"}
-            </h3>
-            </div> */}
-
-            <div className="border-y border-black py-2 mb-3 mt-3 absolute left-0 right-0 px-[5%] ">
-              <h3 className="mb-0 text-[22px] font-bold">
+          <div className="basis-1/4 sticky top-0 self-start  my-2">
+            <div className="border-y border-black my-2 w-[100%]">
+              <h3 className=" mb-0 text-[22px] font-bold py-2 pl-5">
                 {lang === "ar" ? "قائمه" : "Checklist"}
               </h3>
             </div>
 
-            {order && (
-              <>
-                {order.item_details.bundle_items.map((item, itemIndex) => {
-                  if (item.item__id !== 76) {
-                    return (
-                      <div key={itemIndex}>
-                        {Array.from(
-                          { length: Math.max(1, item.qty) },
-                          (_, qtyIndex) => {
-                            const isUploaded = !item?.uploaded_qty?.includes(
-                              qtyIndex + 1
-                            );
-                            return (
-                              <div className="flex items-center gap-[10px] mb-1  text-[#1BA56F]">
-                                {item.status == "questionnaire required" &&
-                                isUploaded ? (
-                                  // <div className="w-4 h-4 border-2 border-[#1BA56F] rounded-full"></div>
-                                  <img src={checkboxIcon} width={"25px"}></img>
-                                ) : (
-                                  <img src={tickCircleIcon}></img>
-                                )}
-                                <p className="mb-0 font-medium">
-                                  {lang === "ar"
-                                    ? item?.item__name_arabic
-                                    : item.item_name}{" "}
-                                  {item?.qty > 1 && qtyIndex + 1}
-                                </p>
-                              </div>
-                            );
-                          }
-                        )}
-                      </div>
-                    );
-                  }
-                  return null;
-                })}
-
-                {order.item_details.addon_items.map((item) =>
-                  Array.from(
-                    { length: Math.max(1, item.qty) },
-                    (_, qtyIndex) => {
-                      const isUploaded = !item?.uploaded_qty?.includes(
-                        qtyIndex + 1
-                      );
+            <div
+              className={` ${
+                lang === "ar" ? "pr-[2%]" : "pl-[5%]"
+              }`}
+            >
+              {order && (
+                <>
+                  {order.item_details.bundle_items.map((item, itemIndex) => {
+                    if (item.item__id !== 76) {
                       return (
-                        <div className="flex items-center gap-[10px] mb-1 text-[#1BA56F]">
-                          {item.status == "questionnaire required" &&
-                          isUploaded ? (
-                            // <div className="w-4 h-4 border-2 border-[#1BA56F] rounded-full"></div>
-                            <img src={checkboxIcon} width={"25px"}></img>
-                          ) : (
-                            <img src={tickCircleIcon}></img>
+                        <div key={itemIndex}>
+                          {Array.from(
+                            { length: Math.max(1, item.qty) },
+                            (_, qtyIndex) => {
+                              const isUploaded = !item?.uploaded_qty?.includes(
+                                qtyIndex + 1
+                              );
+                              return (
+                                <div className="flex items-center gap-[10px] mb-1  text-[#1BA56F]">
+                                  {item.status == "questionnaire required" &&
+                                  isUploaded ? (
+                                    // <div className="w-4 h-4 border-2 border-[#1BA56F] rounded-full"></div>
+                                    <img
+                                      src={checkboxIcon}
+                                      width={"25px"}
+                                    ></img>
+                                  ) : (
+                                    <img src={tickCircleIcon}></img>
+                                  )}
+                                  <p className="mb-0 font-medium">
+                                    {lang === "ar"
+                                      ? item?.item__name_arabic
+                                      : item.item_name}{" "}
+                                    {item?.qty > 1 && qtyIndex + 1}
+                                  </p>
+                                </div>
+                              );
+                            }
                           )}
-                          <p className="mb-0 font-medium">
-                            {lang === "ar"
-                              ? item?.item__name_arabic
-                              : item.item_name}{" "}
-                            {item?.qty > 1 && qtyIndex + 1}
-                          </p>
                         </div>
                       );
                     }
-                  )
-                )}
-              </>
-            )}
+                    return null;
+                  })}
+
+                  {order.item_details.addon_items.map((item) =>
+                    Array.from(
+                      { length: Math.max(1, item.qty) },
+                      (_, qtyIndex) => {
+                        const isUploaded = !item?.uploaded_qty?.includes(
+                          qtyIndex + 1
+                        );
+                        return (
+                          <div className="flex items-center gap-[10px] mb-1 text-[#1BA56F]">
+                            {item.status == "questionnaire required" &&
+                            isUploaded ? (
+                              // <div className="w-4 h-4 border-2 border-[#1BA56F] rounded-full"></div>
+                              <img src={checkboxIcon} width={"25px"}></img>
+                            ) : (
+                              <img src={tickCircleIcon}></img>
+                            )}
+                            <p className="mb-0 font-medium">
+                              {lang === "ar"
+                                ? item?.item__name_arabic
+                                : item.item_name}{" "}
+                              {item?.qty > 1 && qtyIndex + 1}
+                            </p>
+                          </div>
+                        );
+                      }
+                    )
+                  )}
+                </>
+              )}
+            </div>
           </div>
         </div>
       )}
