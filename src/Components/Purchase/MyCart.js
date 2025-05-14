@@ -1187,7 +1187,7 @@ export const MyCart = ({ lang, setLang }) => {
                           </td>
                           {/* <td className=' !py-2' align="center">{row.qty}</td> */}
                           <td className=" !py-2 " align="center">
-                            {row.subtotal_price}
+                            {amountDecimal(row.subtotal_price)}
                           </td>
                           {/* <TableCell align="center"><img style={{width:'23px'}} src={row.DeleteIcon}></img></TableCell> */}
                           <td align="center">
@@ -1517,7 +1517,7 @@ export const MyCart = ({ lang, setLang }) => {
                       className="!text-[20px] text-right !font-[400]"
                       style={{ width: "40%" }}
                     >
-                      {Math.round(cartDetails.tax)}{" "}
+                      {amountDecimal(Math.round(cartDetails.tax))}{" "}
                       {lang === "ar" ? "ريال" : "SAR"}
                     </p>
                   </div>

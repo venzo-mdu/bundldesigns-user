@@ -3589,7 +3589,7 @@ export default function Adjustments({ user, lang, setLang }) {
                                     lang === "ar" ? "ml-2" : "mr-2"
                                   }`}
                                 />
-                                {Math.round(adjustment.time_limit)}{" "}
+                                {amountDecimal(Math.round(adjustment.time_limit))}{" "}
                                 {lang === "ar" ? "يوم" : "Days"}
                               </p>
                             </p>
