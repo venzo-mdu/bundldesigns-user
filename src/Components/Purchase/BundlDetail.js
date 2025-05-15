@@ -18,6 +18,7 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { Bgloader } from "../Common/Background/Bgloader";
 import { Popup } from "../Common/Popup/Popup";
+import { amountDecimal } from "../Utils/amountDecimal";
 
 export const BundlDetail = ({ user, lang, setLang }) => {
   const location = useLocation();
@@ -76,14 +77,6 @@ export const BundlDetail = ({ user, lang, setLang }) => {
       getprojects();
     }
   }, [user]);
-
-  useEffect(() => {
-    if (isFromLogin) {
-      setBrandError(false);
-      setBrandError(state?.project_name && false);
-      createPayload();
-    }
-  });
 
   useEffect(() => {
     const handleResize = () => {
@@ -314,7 +307,11 @@ export const BundlDetail = ({ user, lang, setLang }) => {
         `${base_url}/api/order/cart/`,
         ConfigToken()
       );
-      if (response?.data?.order_status && !state?.project_name) {
+      if (
+        response?.data?.order_status &&
+        !state?.project_name &&
+        routeId[packageID] !== response.data.bundle_id
+      ) {
         setOpenPopup(true);
       } else if (
         response?.data?.order_status &&
@@ -379,6 +376,33 @@ export const BundlDetail = ({ user, lang, setLang }) => {
     }
   }, [user, lang, packageDetail]);
 
+  useEffect(() => {
+    const {
+      headers: { authorization },
+    } = ConfigToken();
+    if (authorization !== "Token null") {
+      const getcartData = async () => {
+        const response = await axios.get(
+          `${base_url}/api/order/cart/`,
+          ConfigToken()
+        );
+        // const clickedItem = window.location.pathname.split("/")[2];
+        // const cartItem = response?.data?.bundle_name
+        //   ?.split(" ")[1]
+        //   .toLowerCase();
+        if (
+          response.data.order_status === "in_cart" &&
+          routeId[packageID] !== response?.data.bundle_id
+        ) {
+          setOpenPopup(response.data.order_status === "in_cart");
+        } else {
+          setOpenPopup(false);
+        }
+      };
+      getcartData();
+    }
+  }, []);
+
   return (
     <>
       {loading ? (
@@ -416,9 +440,10 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                         : ""}
                     </span>{" "}
                     {packageID === "newbie"
-                      ? "4880"
-                      : Math.round(packageDetail?.package?.price) ||
-                        "3750 SAR"}{" "}
+                      ? amountDecimal(4880)
+                      : amountDecimal(
+                          Math.round(packageDetail?.package?.price)
+                        ) || `${amountDecimal(3750)} SAR`}{" "}
                     {lang === "ar" ? "ريال" : "SAR"}
                   </span>
                 </p>
@@ -596,8 +621,8 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                                   onChange={handleRadioChange}
                                 />
                                 {lang === "ar"
-                                  ? "كلاهما ( 2000 + ريال )"
-                                  : "Both (+2000 SAR)"}
+                                  ? `كلاهما (${amountDecimal(2000)} + ريال)`
+                                  : `Both (+${amountDecimal(2000)} SAR)`}
                               </label>
                             </p>
                           </div>
@@ -723,7 +748,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                 className="
                   bundl-summary
                   sticky top-0 self-start
-                  border-l border-black border-r border-r-[rgba(0,0,0,0.1)]
+                  border-r border-r-[rgba(0,0,0,0.1)]
                   mb-[10%]
                   transition-all duration-500 ease-in-out
                   max-h-[80%] w-full
@@ -790,7 +815,9 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                           lang === "ar" ? "text-left" : "text-right"
                         } xs:text-[16px] font-[700] w-[38%] mb-0 pt-0`}
                       >
-                        {Math.round(packageDetail?.package?.price)}{" "}
+                        {amountDecimal(
+                          Math.round(packageDetail?.package?.price)
+                        )}{" "}
                         {lang === "ar" ? "ريال" : "SAR"}
                       </p>
                     </div>
@@ -905,12 +932,16 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                                   >
                                     +{" "}
                                     {item.quantity == 1
-                                      ? parseFloat(item.price) + 2000
-                                      : parseFloat(item.price) +
-                                        (parseFloat(item.price) / 100) *
-                                          item.price_increment *
-                                          (item.quantity - 1) +
-                                        2000}{" "}
+                                      ? amountDecimal(
+                                          parseFloat(item.price) + 2000
+                                        )
+                                      : amountDecimal(
+                                          parseFloat(item.price) +
+                                            (parseFloat(item.price) / 100) *
+                                              item.price_increment *
+                                              (item.quantity - 1) +
+                                            2000
+                                        )}{" "}
                                     {lang === "ar" ? "ريال" : "SAR"}
                                   </p>
                                 ) : (
@@ -922,11 +953,13 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                                   >
                                     +{" "}
                                     {item.quantity == 1
-                                      ? parseFloat(item.price)
-                                      : parseFloat(item.price) +
-                                        (parseFloat(item.price) / 100) *
-                                          item.price_increment *
-                                          (item.quantity - 1)}{" "}
+                                      ? amountDecimal(parseFloat(item.price))
+                                      : amountDecimal(
+                                          parseFloat(item.price) +
+                                            (parseFloat(item.price) / 100) *
+                                              item.price_increment *
+                                              (item.quantity - 1)
+                                        )}{" "}
                                     {lang === "ar" ? "ريال" : "SAR"}
                                   </p>
                                 )}
@@ -1001,7 +1034,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                                   }`}
                                   style={{ color: textColor }}
                                 >
-                                  + {addon.total_price}{" "}
+                                  + {amountDecimal(addon.total_price)}{" "}
                                   {lang === "ar" ? "ريال" : "SAR"}
                                 </p>
                               </div>
@@ -1038,9 +1071,15 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                       } !xs:text-[16px] !sm:text-[20px] sm:mb-3 xs:mb-0`}
                       style={{ width: "40%" }}
                     >
-                      {parseFloat(packageDetail?.package?.price) +
-                        addonPayLoads?.total_price +
-                        (selectedLanguage === "Both" ? 2000 : 0)}{" "}
+                      {amountDecimal(
+                        parseFloat(
+                          Number(packageDetail?.package?.price) +
+                            Number(addonPayLoads?.total_price)
+                        )
+                      ) +
+                        (selectedLanguage === "Both"
+                          ? amountDecimal(2000)
+                          : "")}{" "}
                       {lang === "ar" ? "ريال" : "SAR"}
                     </p>
                   </div>
