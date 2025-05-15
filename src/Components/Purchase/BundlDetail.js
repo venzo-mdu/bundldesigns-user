@@ -133,7 +133,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
       foodie: "#1BA56F",
       socialite: "#00A8C8",
       boutiquer: "#f175ad",
-    };
+    }
     if (state && "project_name" in state) {
       setBrandInput(state.project_name);
     }

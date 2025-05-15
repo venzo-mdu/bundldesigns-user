@@ -665,11 +665,7 @@ export const Accordian = ({
                 border: "none",
               }}
             >
-              <Typography className="!font-[700] !text-[18px]">
-                {isLang === "ar"
-                  ? addOnData?.designs_details?.[title]?.name_arabic
-                  : title}
-              </Typography>
+              <Typography className='!font-[700] !text-[22px]'>{isLang === 'ar' ? addOnData?.designs_details?.[title]?.name_arabic : title}</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Typography>
