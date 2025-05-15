@@ -12,13 +12,16 @@ import blueIcon from "../../Images/blue staked coin.svg";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { base_url } from "../Auth/BackendAPIUrl";
 import { ConfigToken } from "../Auth/ConfigToken";
-import { ToastContainer, toast } from "react-toastify";
+// import { ToastContainer } from "react-toastify";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { Bgloader } from "../Common/Background/Bgloader";
 import { Popup } from "../Common/Popup/Popup";
 import { amountDecimal } from "../Utils/amountDecimal";
+import toast, { Toaster } from "react-hot-toast";
+
+let newToastId = null;
 
 export const BundlDetail = ({ user, lang, setLang }) => {
   const location = useLocation();
@@ -207,6 +210,42 @@ export const BundlDetail = ({ user, lang, setLang }) => {
       });
     }
   };
+
+  const colors = {
+    newbie: "#f175ad",
+    foodie: "#1BA56F",
+    socialite: "#00A8C8",
+    boutiquer: "#f175ad",
+  };
+
+  const [themeColor, setThemeColor] = useState("#000");
+
+  useEffect(() => {
+    const path = window.location.href.split("/")[4];
+    if (colors[path]) {
+      setThemeColor(colors[path]);
+    }
+  }, []);
+
+  const toastMessage = () => {
+    const message = "Cart updated successfully";
+
+    if (newToastId) {
+      toast.dismiss(newToastId);
+    }
+
+    newToastId = toast(message, {
+      duration: 3000,
+      style: {
+        color: themeColor,
+        border: `1px solid ${themeColor}`,
+        fontWeight: "700",
+        background: "#fff",
+        boxShadow: "none",
+      },
+    });
+  };
+
   const handleQuantityChange = (designName, change) => {
     const colors = {
       // '12':'#f175ad',
@@ -230,18 +269,20 @@ export const BundlDetail = ({ user, lang, setLang }) => {
         prevErrors.filter((error) => error !== designName)
       );
     }
-    toast.success(`Cart updated successfully`, {
-      position: toast?.POSITION?.TOP_RIGHT,
-      toastId: "required-value-toast1",
-      autoClose: 3000,
-      icon: false,
-      style: {
-        color: colors[packageID],
-        fontWeight: "700",
-        border: `1px solid ${colors[packageID]}`,
-        borderRadius: "0px",
-      },
-    });
+
+    toastMessage();
+    // toast.success(`Cart updated successfully`, {
+    //   position: toast?.POSITION?.TOP_RIGHT,
+    //   toastId: "required-value-toast1",
+    //   autoClose: 3000,
+    //   icon: false,
+    //   style: {
+    //     color: colors[packageID],
+    //     fontWeight: "700",
+    //     border: `1px solid ${colors[packageID]}`,
+    //     borderRadius: "0px",
+    //   },
+    // });
     setExtraQty((prevQuantities) => {
       let newQuantity = (prevQuantities[designName] || 0) + change;
       return {
@@ -409,7 +450,17 @@ export const BundlDetail = ({ user, lang, setLang }) => {
         <Bgloader />
       ) : (
         <div>
-          <ToastContainer />
+          <Toaster
+            position="top-right"
+            toastOptions={{
+              style: {
+                color: themeColor,
+                fontWeight: "700",
+                border: `1px solid ${themeColor}`,
+              },
+            }}
+          />
+          {/* <ToastContainer /> */}
           <Navbar isLang={lang} setIsLang={setLang} />
           <div className="bundl-detail mt-3">
             <div

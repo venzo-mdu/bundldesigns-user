@@ -3924,7 +3924,7 @@ export default function Adjustments({ user, lang, setLang }) {
                           {lang === "ar" ? item.name_arabic : item.name_english}
                         </p>
                         <div className="flex font-[500] text-[#1BA56F]">
-                          <p
+                          {/* <p
                             className={`flex ${
                               lang === "ar" ? "ml-3" : "mr-3"
                             }`}
@@ -3940,7 +3940,7 @@ export default function Adjustments({ user, lang, setLang }) {
                               {Math.round(item.time * item.qty)}{" "}
                               {lang === "ar" ? "يوم" : "Days"}
                             </span>
-                          </p>
+                          </p> */}
                           <p className="flex items-center">
                             <img
                               width={"18px"}
