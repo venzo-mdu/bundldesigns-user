@@ -865,6 +865,7 @@ export const MyCart = ({ lang, setLang }) => {
         style: {
           color: "#1BA56F",
           fontWeight: "700",
+          borderRadius:"0px"
         },
       });
     } catch (error) {
