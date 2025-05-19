@@ -4,7 +4,7 @@ import "../Purchase/MyCart.css";
 import { Navbar } from "../Common/Navbar/Navbar";
 import { Footer } from "../Common/Footer/Footer";
 import { Popup } from "../Common/Popup/Popup";
-import { ToastContainer, toast } from "react-toastify";
+// import { ToastContainer, toast } from "react-toastify";
 import DeleteIcon from "../../Images/BundlDetail/deleteicon.svg";
 import BlackDollor from "../../Images/BundlDetail/blackdollor.svg";
 import BlackTime from "../../Images/BundlDetail/blacktime.svg";
@@ -20,7 +20,9 @@ import Riyal from "../../Images/BundlDetail/riyalnew.png";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { amountDecimal } from "../Utils/amountDecimal";
+import toast, { Toaster } from "react-hot-toast";
 
+let toastId = null;
 export const MyCart = ({ lang, setLang }) => {
   const [searchParams] = useSearchParams();
   const isDirect = searchParams.get("direct") === "true";
@@ -257,6 +259,40 @@ export const MyCart = ({ lang, setLang }) => {
 
   const [error, setError] = useState({});
   const [errors, setErrors] = useState({});
+
+  const colors = {
+    12: "#f175ad",
+    4: "#1BA56F",
+    22: "#00A8C8",
+    13: "#f175ad",
+  };
+
+  const [themeColor, setThemeColor] = useState("#000");
+
+  useEffect(() => {
+    setThemeColor(colors[cartDetails.bundle_id]);
+  }, [cartDetails]);
+
+  const toastMessage = () => {
+    const message = "Cart updated successfully";
+
+    if (toastId) {
+      toast.dismiss(toastId);
+    }
+
+    toastId = toast(message, {
+      duration: 3000,
+      style: {
+        color: themeColor,
+        border: `1px solid ${themeColor}`,
+        fontWeight: "700",
+        background: "#fff",
+        boxShadow: "none",
+        borderRadius: "0px",
+      },
+    });
+  };
+
   useEffect(() => {
     document.documentElement.scrollTo({ top: 0, left: 0 });
     getCartData();
@@ -858,16 +894,17 @@ export const MyCart = ({ lang, setLang }) => {
         return updatedDetails;
       });
 
-      toast.success("Cart updated successfully", {
-        position: toast?.POSITION?.TOP_RIGHT,
-        toastId: "required-toast-qty",
-        autoClose: 3000,
-        style: {
-          color: "#1BA56F",
-          fontWeight: "700",
-          borderRadius:"0px"
-        },
-      });
+      // toast.success("Cart updated successfully", {
+      //   position: toast?.POSITION?.TOP_RIGHT,
+      //   toastId: "required-toast-qty",
+      //   autoClose: 3000,
+      //   style: {
+      //     color: "#1BA56F",
+      //     fontWeight: "700",
+      //     borderRadius:"0px"
+      //   },
+      // });
+      toastMessage();
     } catch (error) {
       console.error("Error updating addon:", error);
     } finally {
@@ -909,7 +946,16 @@ export const MyCart = ({ lang, setLang }) => {
         <Bgloader />
       ) : (
         <div>
-          <ToastContainer />
+          {/* <ToastContainer /> */}
+          <Toaster
+            position="top-right"
+            toastOptions={{
+              style: {
+                color: "#1BA56F",
+                fontWeight: "700",
+              },
+            }}
+          />
           <Navbar isLang={lang} setIsLang={setLang} />
           {showModal && (
             <div className="fixed inset-0 z-50  bg-gray-800 bg-opacity-50 flex items-center justify-center">
@@ -1121,7 +1167,9 @@ export const MyCart = ({ lang, setLang }) => {
                           {/* <td className=' !py-2' align="center">{row.qty}</td> */}
                           <td className=" !py-2" align="center">
                             {" "}
-                            {amountDecimal(Math.round(cartDetails?.bundle_price))}
+                            {amountDecimal(
+                              Math.round(cartDetails?.bundle_price)
+                            )}
                           </td>
                           {/* <TableCell align="center"><img style={{width:'23px'}} src={row.DeleteIcon}></img></TableCell> */}
                           <td className=" !py-2" align="center">

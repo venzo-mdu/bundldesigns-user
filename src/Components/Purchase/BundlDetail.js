@@ -266,6 +266,26 @@ export const BundlDetail = ({ user, lang, setLang }) => {
     });
   };
 
+  const NewToastSuccMessage = (msg) => {
+    const message = msg;
+
+    if (newToastId) {
+      toast.dismiss(newToastId);
+    }
+
+    newToastId = toast(message, {
+      duration: 3000,
+      style: {
+        color: themeColor,
+        border: `1px solid ${themeColor}`,
+        fontWeight: "700",
+        background: "#fff",
+        boxShadow: "none",
+        borderRadius: "0px",
+      },
+    });
+  };
+
   const handleQuantityChange = (designName, change) => {
     const colors = {
       // '12':'#f175ad',
@@ -316,13 +336,14 @@ export const BundlDetail = ({ user, lang, setLang }) => {
     setOpenPopup(false);
     await axios.delete(`${base_url}/api/order/cart/`, ConfigToken());
     // addToCart(selectedIndex)
-    toast.success("Cart emptied,Now Checkout", {
-      icon: false,
-      style: {
-        color: "#1BA56F",
-        fontWeight: "700", // White text
-      },
-    });
+    // toast.success("Cart emptied,Now Checkout", {
+    //   icon: false,
+    //   style: {
+    //     color: "#1BA56F",
+    //     fontWeight: "700", // White text
+    //   },
+    // });
+    NewToastSuccMessage("Cart emptied,Now Checkout");
     createPayload();
   };
 

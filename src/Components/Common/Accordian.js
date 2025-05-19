@@ -208,8 +208,12 @@ export const Accordian = ({
 
   useEffect(() => {
     const path = window.location.href.split("/")[4];
+    let customBundl = window.location.href.split("/")[3];
+
     if (colors[path]) {
       setThemeColor(colors[path]);
+    } else if (customBundl === "custombundl") {
+      setThemeColor("#1BA56F");
     }
   }, []);
 
@@ -326,7 +330,6 @@ export const Accordian = ({
           style: {
             color: "#1BA56F",
             fontWeight: "700",
-            borderRadius: "0px",
           },
         }}
       />

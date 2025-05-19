@@ -101,11 +101,31 @@ export default function UploadContent({ lang, setLang }) {
   const [themeColor, setThemeColor] = useState("#000");
 
   useEffect(() => {
-    setThemeColor(colors[order?.bundle_id]);
+    setThemeColor("#1BA56F");
   }, [order]);
 
   const toastMessage = () => {
     const message = "Content saved successfully!";
+
+    if (newToastId) {
+      toast.dismiss(newToastId);
+    }
+
+    newToastId = toast(message, {
+      duration: 3000,
+      style: {
+        color: themeColor,
+        border: `1px solid ${themeColor}`,
+        fontWeight: "700",
+        background: "#fff",
+        boxShadow: "none",
+        borderRadius: "0px",
+      },
+    });
+  };
+
+  const toastErrorMessage = (msg) => {
+    const message = msg;
 
     if (newToastId) {
       toast.dismiss(newToastId);
@@ -131,18 +151,27 @@ export default function UploadContent({ lang, setLang }) {
         !uploadContent?.[itemId]?.[idx]?.language &&
         designQuestions[designId]?.language
       ) {
-        toast.error(
+        // toast.error(
+        //   lang === ""
+        //     ? "يرجى اختيار اللغة قبل الحفظ"
+        //     : "Please choose language before saving. 1111111111",
+        //   {
+        //     icon: false,
+        //     toastId: "required-value-toast1",
+        //     style: {
+        //       color: "#D83D99",
+        //       fontWeight: "700",
+        //     },
+        //   }
+        // );
+        // lang === ""
+        //   ? "يرجى اختيار اللغة قبل الحفظ"
+        //   : "Please choose language before saving.";
+        // debugger;
+        toastErrorMessage(
           lang === ""
             ? "يرجى اختيار اللغة قبل الحفظ"
-            : "Please choose language before saving.",
-          {
-            icon: false,
-            toastId: "required-value-toast1",
-            style: {
-              color: "#D83D99",
-              fontWeight: "700",
-            },
-          }
+            : "Please choose language before saving."
         );
         return;
       }
@@ -150,18 +179,23 @@ export default function UploadContent({ lang, setLang }) {
         !uploadContent?.[itemId]?.[idx]?.content &&
         designQuestions[designId]?.textbox
       ) {
-        toast.error(
-          lang === "ar"
+        // toast.error(
+        //   lang === "ar"
+        //     ? "يرجى إضافة المحتوى قبل الحفظ"
+        //     : "Please add content before saving.",
+        //   {
+        //     icon: false,
+        //     toastId: "required-value-toast2",
+        //     style: {
+        //       color: "#D83D99",
+        //       fontWeight: "700",
+        //     },
+        //   }
+        // );
+        toastErrorMessage(
+          lang === ""
             ? "يرجى إضافة المحتوى قبل الحفظ"
-            : "Please add content before saving.",
-          {
-            icon: false,
-            toastId: "required-value-toast2",
-            style: {
-              color: "#D83D99",
-              fontWeight: "700",
-            },
-          }
+            : "Please add content before saving."
         );
         return;
       }
