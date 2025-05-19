@@ -739,9 +739,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                                     lang === "ar" ? "text-right" : "text-left"
                                   }`}
                                 >
-                                  {lang === "ar"
-                                    ? design.name_arabic
-                                    : design.name_english}
+                               
                                 </p>
                                 {minError.includes(design.name_english) &&
                                   isMobile == false && (
