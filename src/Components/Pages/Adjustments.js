@@ -1460,11 +1460,15 @@ import { Popup } from "../Common/Popup/Popup";
 import DeleteIcon from "../../Images/BundlDetail/deleteicon.svg";
 import PhoneNumberInput from "./PhoneNumberInput";
 import CloseIcon from "@mui/icons-material/Close";
-import { toast, ToastContainer } from "react-toastify";
+// import { toast, ToastContainer } from "react-toastify";
 import ClipLoader from "react-spinners/ClipLoader";
 import { amountDecimal } from "../Utils/amountDecimal";
+import toast, { Toaster } from "react-hot-toast";
+import useToastMessage from "./Toaster/Toaster";
 
+let newToastId = null;
 export default function Adjustments({ user, lang, setLang }) {
+  const { showToast, showErrorToast } = useToastMessage();
   const { state } = useLocation();
   const { orderId, orderItemId } = state;
   const [page, setPage] = useState("adjustment");
@@ -1516,6 +1520,8 @@ export default function Adjustments({ user, lang, setLang }) {
     "100%",
     "100%",
   ];
+
+  const [adjustmentError, setAdjustmentError] = useState(false);
 
   const stylesBtnAccordian = ["40%", "60%", "60%", "40%", "45%", "55%", "100%"];
 
@@ -1807,6 +1813,7 @@ export default function Adjustments({ user, lang, setLang }) {
         itemsList,
         adjustmentData
       );
+      showErrorToast("Cart updated successfully", "#1BA56F");
       setTotalPrice(total_price);
       setTotalTime(total_time);
     }
@@ -1898,16 +1905,44 @@ export default function Adjustments({ user, lang, setLang }) {
     setTotalTime(time);
   };
 
+  const toastErrorMessage = (msg, color, fontWeight) => {
+    const message = msg;
+
+    if (newToastId) {
+      toast.dismiss(newToastId);
+    }
+
+    newToastId = toast(message, {
+      duration: 3000,
+      style: {
+        color: color,
+        border: `1px solid ${color}`,
+        fontWeight: fontWeight,
+        background: "#fff",
+        boxShadow: "none",
+        borderRadius: "0px",
+      },
+    });
+  };
+
   const addData = (id, index) => {
     const elementValue = document.getElementById(`${id}_content`).value;
     if (!elementValue) {
-      toast.error(lang === "ar" ? "أضف أفكارك" : `Add your thoughts.`, {
-        icon: false,
-        style: {
-          color: "#D83D99",
-          fontWeight: "700",
-        },
-      });
+      // toast.error(lang === "ar" ? "أضف أفكارك" : `Add your thoughts.`, {
+      //   icon: false,
+      //   style: {
+      //     color: "#D83D99",
+      //     fontWeight: "700",
+      //   },
+      // });
+      // let color = "#D83D99";
+      // let fontWeight = "700";
+      // toastErrorMessage(
+      //   lang === "ar" ? "أضف أفكارك" : `Add your thoughts.`,
+      //   color,
+      //   fontWeight
+      // );
+      setAdjustmentError(true);
       return;
     }
     if (!elementValue) return;
@@ -1926,18 +1961,20 @@ export default function Adjustments({ user, lang, setLang }) {
       });
       setErrorMsg(null);
     }
-    toast.success("Updated Successfully", {
-      position: toast?.POSITION?.TOP_RIGHT,
-      toastId: "required-value-toast",
-      icon: false,
-      style: {
-        color: "#1BA56F",
-        fontWeight: "700", // White text
-      },
-    });
+    // toast.success("Updated Successfully", {
+    //   position: toast?.POSITION?.TOP_RIGHT,
+    //   toastId: "required-value-toast",
+    //   icon: false,
+    //   style: {
+    //     color: "#1BA56F",
+    //     fontWeight: "700", // White text
+    //   },
+    // });
+    showToast("Updated Successfully", "#1BA56F");
   };
 
   const addItem = (index, key, id) => {
+    showToast("Cart updated successfully", "#1BA56F");
     setItemList((prev) => {
       const current = prev[id] ? prev[id] : bundlAddons[key].design_list[index];
       const currentTotal =
@@ -1962,18 +1999,36 @@ export default function Adjustments({ user, lang, setLang }) {
     });
     setErrorMsg(null);
   };
+  // const CheckCart = async (id) => {
+  //   debugger
+  //   if (adjustmentData && Object.values(adjustmentData).length === 0) {
+  //     setErrorMsg(
+  //       lang === "ar"
+  //         ? "لا يمكن أن يكون التعديل فارغًا"
+  //         : `Adjustment cannot be empty`
+  //     );
+  //   } else if (Object.values(adjustmentData).length) {
+  //     setPage("cart");
+  //     setErrorMsg(null);
+  //   } else {
+  //     setErrorMsg("Please fill Adjustment details to checkout");
+  //   }
+  // };
+
   const CheckCart = async (id) => {
     if (adjustmentData && Object.values(adjustmentData).length === 0) {
       setErrorMsg(
         lang === "ar"
           ? "لا يمكن أن يكون التعديل فارغًا"
-          : `Adjustment cannot be empty`
+          : "Adjustment cannot be empty"
       );
+      window.scrollTo({ top: 0, behavior: "smooth" });
     } else if (Object.values(adjustmentData).length) {
       setPage("cart");
       setErrorMsg(null);
     } else {
       setErrorMsg("Please fill Adjustment details to checkout");
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
@@ -2248,7 +2303,18 @@ export default function Adjustments({ user, lang, setLang }) {
 
   return (
     <>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          style: {
+            // color: "#1BA56F",
+            fontWeight: "700",
+            borderRadius: "0px !important",
+            border: `1px solid #1BA56F`,
+          },
+        }}
+      />
       <Navbar isLang={lang} setIsLang={setLang} />
 
       {window.innerWidth <= 475 ? (
@@ -2404,6 +2470,7 @@ export default function Adjustments({ user, lang, setLang }) {
                               {lang === "ar" ? "ارسال" : "Submit Edit"}
                             </button>
                           </p>
+
                           <p className="font-medium text-[18px]">
                             {lang === "ar"
                               ? "عندك شي تشاركنا إياه؟"
@@ -3589,7 +3656,9 @@ export default function Adjustments({ user, lang, setLang }) {
                                     lang === "ar" ? "ml-2" : "mr-2"
                                   }`}
                                 />
-                                {amountDecimal(Math.round(adjustment.time_limit))}{" "}
+                                {amountDecimal(
+                                  Math.round(adjustment.time_limit)
+                                )}{" "}
                                 {lang === "ar" ? "يوم" : "Days"}
                               </p>
                             </p>
@@ -3603,6 +3672,11 @@ export default function Adjustments({ user, lang, setLang }) {
                             <input
                               id={`${adjustment.id}_content`}
                               onInput={(e) => {
+                                if (e.target.value) {
+                                  setAdjustmentError(false);
+                                } else {
+                                  setAdjustmentError(true);
+                                }
                                 setAdjustmentForm((prev) => ({
                                   ...prev,
                                   [adjustment.id]: {
@@ -3630,6 +3704,11 @@ export default function Adjustments({ user, lang, setLang }) {
                               {lang === "ar" ? "ارسال" : "Submit Edit"}
                             </button>
                           </p>
+                          {adjustmentError && (
+                            <p style={{ color: "red" }}>
+                              Please enter the feild
+                            </p>
+                          )}
                           <p className="font-medium text-[18px]">
                             {" "}
                             {lang === "ar"
@@ -4001,7 +4080,7 @@ export default function Adjustments({ user, lang, setLang }) {
                             : item.english_adjustment_name}
                         </p>
                         <div className="flex font-[500] text-[#1BA56F]">
-                          <p
+                          {/* <p
                             className={`flex ${
                               lang === "ar" ? "ml-3" : "mr-3"
                             }`}
@@ -4017,7 +4096,7 @@ export default function Adjustments({ user, lang, setLang }) {
                               {parseInt(item.time_limit)}{" "}
                               {lang === "ar" ? "يوم" : "Days"}
                             </span>
-                          </p>
+                          </p> */}
                           <p className="flex items-center">
                             <img
                               width={"18px"}
