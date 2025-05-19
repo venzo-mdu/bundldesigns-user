@@ -208,8 +208,12 @@ export const Accordian = ({
 
   useEffect(() => {
     const path = window.location.href.split("/")[4];
+    let customBundl = window.location.href.split("/")[3];
+
     if (colors[path]) {
       setThemeColor(colors[path]);
+    } else if (customBundl === "custombundl") {
+      setThemeColor("#1BA56F");
     }
   }, []);
 
@@ -228,6 +232,7 @@ export const Accordian = ({
         fontWeight: "700",
         background: "#fff",
         boxShadow: "none",
+        borderRadius: "0px",
       },
     });
   };
@@ -416,7 +421,11 @@ export const Accordian = ({
                 border: "none",
               }}
             >
-              <Typography className='!font-[700] !text-[22px]'>{isLang === 'ar' ? addOnData?.designs_details?.[title]?.name_arabic : title}</Typography>
+              <Typography className="!font-[700] !text-[22px]">
+                {isLang === "ar"
+                  ? addOnData?.designs_details?.[title]?.name_arabic
+                  : title}
+              </Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Typography>

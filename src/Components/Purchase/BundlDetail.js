@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import "../Purchase/Purchase.css";
 import { Navbar } from "../Common/Navbar/Navbar";
@@ -43,6 +43,8 @@ export const BundlDetail = ({ user, lang, setLang }) => {
   const [actual, setactual] = useState({});
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [isFromLogin, setIsFromLogin] = useState(state?.fromLogin);
+  const requiredToastShown = useRef(false);
+  const activeToasts = useRef({});
   const [routeId, setRouteId] = useState({
     newbie: 12,
     foodie: 4,
@@ -98,21 +100,38 @@ export const BundlDetail = ({ user, lang, setLang }) => {
   };
 
   const validateFields = () => {
-    if (brandInput?.trim() == "") {
-      if (!toast.isActive("required-value-toast")) {
-        toast.error(
-          lang === "ar" ? "الحد اختر اسمًا لمشروعك" : `Name your brand`,
-          {
-            position: toast?.POSITION?.TOP_RIGHT,
-            toastId: "required-value-toast",
-            autoClose: 3000,
-            icon: false,
-            style: {
-              color: "#D83D99",
-              fontWeight: "700",
-            },
-          }
-        );
+    if (brandInput === undefined || brandInput?.trim() == "") {
+      // if (!toast.isActive("required-value-toast")) {
+      //   toast.error(
+      //     lang === "ar" ? "الحد اختر اسمًا لمشروعك" : `Name your brand`,
+      //     {
+      //       position: toast?.POSITION?.TOP_RIGHT,
+      //       toastId: "required-value-toast",
+      //       autoClose: 3000,
+      //       icon: false,
+      //       style: {
+      //         color: "#D83D99",
+      //         fontWeight: "700",
+      //       },
+      //     }
+      //   );
+      // }
+
+      if (!activeToasts.current["required-value-toast"]) {
+        activeToasts.current["required-value-toast"] = true;
+
+        // Do your validation logic here — no popup, no toast
+        const element = document.getElementById("brandInput");
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+
+        setBrandError(true);
+
+        // Reset the flag after 3 seconds
+        setTimeout(() => {
+          activeToasts.current["required-value-toast"] = false;
+        }, 3000);
       }
 
       const element = document.getElementById("brandInput");
@@ -136,7 +155,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
       foodie: "#1BA56F",
       socialite: "#00A8C8",
       boutiquer: "#f175ad",
-    }
+    };
     if (state && "project_name" in state) {
       setBrandInput(state.project_name);
     }
@@ -242,6 +261,27 @@ export const BundlDetail = ({ user, lang, setLang }) => {
         fontWeight: "700",
         background: "#fff",
         boxShadow: "none",
+        borderRadius: "0px",
+      },
+    });
+  };
+
+  const NewToastSuccMessage = (msg) => {
+    const message = msg;
+
+    if (newToastId) {
+      toast.dismiss(newToastId);
+    }
+
+    newToastId = toast(message, {
+      duration: 3000,
+      style: {
+        color: themeColor,
+        border: `1px solid ${themeColor}`,
+        fontWeight: "700",
+        background: "#fff",
+        boxShadow: "none",
+        borderRadius: "0px",
       },
     });
   };
@@ -296,13 +336,14 @@ export const BundlDetail = ({ user, lang, setLang }) => {
     setOpenPopup(false);
     await axios.delete(`${base_url}/api/order/cart/`, ConfigToken());
     // addToCart(selectedIndex)
-    toast.success("Cart emptied,Now Checkout", {
-      icon: false,
-      style: {
-        color: "#1BA56F",
-        fontWeight: "700", // White text
-      },
-    });
+    // toast.success("Cart emptied,Now Checkout", {
+    //   icon: false,
+    //   style: {
+    //     color: "#1BA56F",
+    //     fontWeight: "700", // White text
+    //   },
+    // });
+    NewToastSuccMessage("Cart emptied,Now Checkout");
     createPayload();
   };
 
@@ -457,6 +498,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                 color: themeColor,
                 fontWeight: "700",
                 border: `1px solid ${themeColor}`,
+                borderRadius: "0px !important",
               },
             }}
           />

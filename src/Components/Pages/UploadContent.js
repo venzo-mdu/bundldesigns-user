@@ -13,10 +13,12 @@ import uploadIcon from "../../Images/uploadIcon.svg";
 import { useParams } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Bgloader } from "../Common/Background/Bgloader";
-import { toast, ToastContainer } from "react-toastify";
+// import { toast, ToastContainer } from "react-toastify";
+import toast, { Toaster } from "react-hot-toast";
 import BundlOrder from "./Order/Bundl";
 import Addons from "./Order/Addons";
 
+let newToastId = null;
 export default function UploadContent({ lang, setLang }) {
   const { orderId } = useParams();
   const [loading, setLoading] = useState(false);
@@ -89,6 +91,59 @@ export default function UploadContent({ lang, setLang }) {
   //     getOrderDetails()
   // }
 
+  const colors = {
+    12: "#f175ad",
+    4: "#1BA56F",
+    22: "#00A8C8",
+    13: "#f175ad",
+  };
+
+  const [themeColor, setThemeColor] = useState("#000");
+
+  useEffect(() => {
+    setThemeColor("#1BA56F");
+  }, [order]);
+
+  const toastMessage = () => {
+    const message = "Content saved successfully!";
+
+    if (newToastId) {
+      toast.dismiss(newToastId);
+    }
+
+    newToastId = toast(message, {
+      duration: 3000,
+      style: {
+        color: themeColor,
+        border: `1px solid ${themeColor}`,
+        fontWeight: "700",
+        background: "#fff",
+        boxShadow: "none",
+        borderRadius: "0px",
+      },
+    });
+  };
+
+  const toastErrorMessage = (msg) => {
+    const message = msg;
+
+    if (newToastId) {
+      toast.dismiss(newToastId);
+    }
+
+    newToastId = toast(message, {
+      duration: 3000,
+      style: {
+        color: themeColor,
+        border: `1px solid ${themeColor}`,
+        fontWeight: "700",
+        background: "#fff",
+        boxShadow: "none",
+        borderRadius: "0px",
+      },
+    });
+  };
+
   const saveContent = async (itemId, idx, designId) => {
     console.log(designId);
     try {
@@ -96,18 +151,27 @@ export default function UploadContent({ lang, setLang }) {
         !uploadContent?.[itemId]?.[idx]?.language &&
         designQuestions[designId]?.language
       ) {
-        toast.error(
+        // toast.error(
+        //   lang === ""
+        //     ? "يرجى اختيار اللغة قبل الحفظ"
+        //     : "Please choose language before saving. 1111111111",
+        //   {
+        //     icon: false,
+        //     toastId: "required-value-toast1",
+        //     style: {
+        //       color: "#D83D99",
+        //       fontWeight: "700",
+        //     },
+        //   }
+        // );
+        // lang === ""
+        //   ? "يرجى اختيار اللغة قبل الحفظ"
+        //   : "Please choose language before saving.";
+        // debugger;
+        toastErrorMessage(
           lang === ""
             ? "يرجى اختيار اللغة قبل الحفظ"
-            : "Please choose language before saving.",
-          {
-            icon: false,
-            toastId: "required-value-toast1",
-            style: {
-              color: "#D83D99",
-              fontWeight: "700",
-            },
-          }
+            : "Please choose language before saving."
         );
         return;
       }
@@ -115,18 +179,23 @@ export default function UploadContent({ lang, setLang }) {
         !uploadContent?.[itemId]?.[idx]?.content &&
         designQuestions[designId]?.textbox
       ) {
-        toast.error(
-          lang === "ar"
+        // toast.error(
+        //   lang === "ar"
+        //     ? "يرجى إضافة المحتوى قبل الحفظ"
+        //     : "Please add content before saving.",
+        //   {
+        //     icon: false,
+        //     toastId: "required-value-toast2",
+        //     style: {
+        //       color: "#D83D99",
+        //       fontWeight: "700",
+        //     },
+        //   }
+        // );
+        toastErrorMessage(
+          lang === ""
             ? "يرجى إضافة المحتوى قبل الحفظ"
-            : "Please add content before saving.",
-          {
-            icon: false,
-            toastId: "required-value-toast2",
-            style: {
-              color: "#D83D99",
-              fontWeight: "700",
-            },
-          }
+            : "Please add content before saving."
         );
         return;
       }
@@ -185,14 +254,15 @@ export default function UploadContent({ lang, setLang }) {
 
       if (response.status === 201) {
         console.log("Content saved successfully!");
-        toast.success("Content saved successfully!", {
-          icon: false,
-          toastId: "required-value-toast5",
-          style: {
-            color: "#1BA56F",
-            fontWeight: "700",
-          },
-        });
+        toastMessage();
+        // toast.success("Content saved successfully!", {
+        //   icon: false,
+        //   toastId: "required-value-toast5",
+        //   style: {
+        //     color: "#1BA56F",
+        //     fontWeight: "700",
+        //   },
+        // });
         getOrderDetails();
       } else {
         console.error("Unexpected response:", response);
@@ -272,7 +342,18 @@ export default function UploadContent({ lang, setLang }) {
     <Bgloader />
   ) : (
     <>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          style: {
+            color: themeColor,
+            fontWeight: "700",
+            borderRadius: "0px !important",
+            border: `1px solid ${themeColor}`,
+          },
+        }}
+      />
       <Navbar isLang={lang} setIsLang={setLang} />
       {window.innerWidth <= 475 ? (
         <div className="px-[4%] py-4 font-Helvetica">

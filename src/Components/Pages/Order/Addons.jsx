@@ -27,6 +27,7 @@ function Addons({
             .filter((qty) => !item.uploaded_qty?.includes(qty))
             .map((filterIndex) => {
               const hasMultipleQty = item.qty < 1;
+              console.log(designQuestions[item.item__id]);
               return (
                 <motion.div
                   key={`${item.id}_${filterIndex}`} // <- unique key
