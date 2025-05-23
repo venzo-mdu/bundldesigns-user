@@ -615,20 +615,19 @@ export const Accordian = ({ accordianTitle, addOnPayload,extraQty, bundlePackage
                       }}
                       className='items-center flex-wrap'
                     >
-                      <Typography
-                        sx={{
-                          // color:  `${design.id == searchParams?'#0F5C3C': textColor}` ,
-                          color:'#000000',
-                          display: 'block',
-                          marginRight: '5px',
-                          marginBottom: '8px',
-                          fontWeight: '500',
-                          fontSize: '18px'
-                        }}
-                        className={`sm:basis-[35%] basis-[35%] xs:basis-[69%] ${isLang === 'ar' ?'text-right':'text-left'}`}
-                      >
+<p
+  style={{
+    color: '#000000',
+    display: 'block',
+    marginRight: '5px',
+    marginBottom: '8px',
+    fontWeight: 500,
+    fontSize: '18px',
+  }}
+  className={`sm:basis-[35%] basis-[35%] xs:basis-[69%] ${isLang === 'ar' ? 'text-right' : 'text-left'}`}
+>
                         {isLang === 'ar' ? design.name_arabic : design.name_english}
-                      </Typography>
+                      </p>
                       <p className={`flex xs:order-3 sm:order-2 items-center sm:w-[35%] w-[35%] xs:w-[100%] !mb-2 ${bundlePackageId && 'xs:hidden sm:flex'}`}>
                         <p className='flex items-center mb-1 sm:min-w-[120px] min-w-[120px] xs:min-w-[100px] font-[500]'>
                           <img src={BlackDollor} alt="Price icon" className={`inline-block ${isLang === 'ar' ? 'ml-2':'mr-2'}`} />

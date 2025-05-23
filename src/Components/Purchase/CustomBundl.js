@@ -312,7 +312,7 @@ export const CustomBundl = ({ user, lang, setLang }) => {
                 className="sm:text-[24px] xs:mb-0 xs:flex xs:justify-between sm:block"
                 style={{ fontWeight: "700", padding: "2% 0%" }}
               >
-                <span>{lang === "ar" ? "ملخص" : "Summary"}</span>
+                <span>{lang === "ar" ? "ملخص الطلب​" : "Summary"}</span>
                 {isMobile && (
                   <button
                     onClick={() => setDetails(!showDetails)}
@@ -454,9 +454,9 @@ export const CustomBundl = ({ user, lang, setLang }) => {
           openpopup={openPopup}
           setPopup={setOpenPopup}
           title={""}
-          subTitle={"Are you sure you want to empty the cart."}
+          subTitle={"You already have items in your cart. Would you like to."}
           onClick={emptyCart}
-          save={"Empty Cart"}
+          save={"Continue"}
           cancel={"Cancel"}
           cancelClick={setIsFromLogin}
           isLang={lang}

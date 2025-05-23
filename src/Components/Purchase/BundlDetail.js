@@ -379,6 +379,9 @@ export const BundlDetail = ({ user, lang, setLang }) => {
     }
   }, [user, lang, packageDetail]);
 
+
+  
+
   return (
     <>
       {loading ? (
@@ -411,7 +414,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                     <span className="mr-0 font-[400]">
                       {packageID === "newbie"
                         ? lang === "ar"
-                          ? "بدءا من"
+                          ? "تبدأ من​"
                           : "Starting from"
                         : ""}
                     </span>{" "}
@@ -473,7 +476,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                   }
                 >
                   {lang === "ar"
-                    ? "ما هو اسم علامتك التجارية؟"
+                    ? "ماهو اسم مشروعك؟​"
                     : "What is the name of your brand?"}
                 </p>
                 <input
@@ -563,7 +566,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                                   checked={selectedLanguage === "English"}
                                   onChange={handleRadioChange}
                                 />
-                                {lang === "ar" ? "ا انجليزي" : "English"}
+                                {lang === "ar" ? "انجليزي" : "English"}
                               </label>
                             </p>
 
@@ -579,7 +582,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                                   checked={selectedLanguage === "Arabic"}
                                   onChange={handleRadioChange}
                                 />
-                                {lang === "ar" ? "يا عربي" : "Arabic"}
+                                {lang === "ar" ? "عربي" : "Arabic"}
                               </label>
                             </p>
 
@@ -596,7 +599,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                                   onChange={handleRadioChange}
                                 />
                                 {lang === "ar"
-                                  ? "كلاهما ( 2000 + ريال )"
+                                  ? "كلاهما (+٢٠٠٠ ريال)"
                                   : "Both (+2000 SAR)"}
                               </label>
                             </p>
@@ -754,7 +757,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                     }`}
                   >
                     <span className="font-normal">
-                      {lang === "ar" ? "ملخص" : "Summary"}
+                      {lang === "ar" ? "ملخص الطلب​" : "Summary"}
                     </span>
                     {isMobile && (
                       <button
@@ -1080,7 +1083,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                         className={`proceed uppercase !bg-[${textColor}]`}
                         onClick={createPayload}
                       >
-                        {lang === "ar" ? "متابعة الخروج" : "Proceed Checkout"}
+                        {lang === "ar" ? "المتابعة إلى السلة​" : "Proceed to Cart"}
                       </button>
                     ) : (
                       <button
@@ -1088,7 +1091,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                         className={`proceed uppercase !bg-[${textColor}]`}
                         disabled
                       >
-                        {lang === "ar" ? "متابعة الخروج" : "Proceed Checkout"}
+                        {lang === "ar" ? "المتابعة إلى السلة​" : "Proceed to Cart"}
                       </button>
                     )}
                   </div>
@@ -1105,9 +1108,9 @@ export const BundlDetail = ({ user, lang, setLang }) => {
           openpopup={openPopup}
           setPopup={setOpenPopup}
           title={""}
-          subTitle={"Are you sure you want to empty the cart."}
+          subTitle={"You already have items in your cart. Would you like to."}
           onClick={emptyCart}
-          save={"Empty Cart"}
+          save={"Continue"}
           cancel={"Cancel"}
           cancelClick={setIsFromLogin}
           isLang={lang}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../Login/Login.css";
+import "../ForgotpasswordMail/ForgotpasswordMail.css";
 import Loginlogo from "../../../Images/Login/loginlogo.svg";
 import Anchor from "../../../Images/Login/anchor.svg";
 import Googleicon from "../../../Images/Login/google.svg";
@@ -20,7 +20,7 @@ import GoogleIcon from "../../../Images/Login/icons8-google.svg";
 import { auth } from "../../Firebase/Firebase";
 import { OAuthProvider, signInWithPopup } from "firebase/auth";
 
-export const Login = ({ lang }) => {
+export const ForgotpasswordMail = ({ lang }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -377,7 +377,7 @@ export const Login = ({ lang }) => {
 
             <div className="flex justify-end mt-2">
               <NavLink
-                to="/forgotpassword-mail"
+                to="/ForgotpasswordMail"
                 className="text-[13px] text-[#007bff] hover:underline"
               >
                 {lang === "ar" ? "هل نسيت كلمة المرور؟" : "Forgot Password?"}
@@ -528,4 +528,6 @@ export const Login = ({ lang }) => {
       <Footer isLang={lang} />
     </div>
   );
+
 };
+export default ForgotpasswordMail;

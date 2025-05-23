@@ -67,28 +67,28 @@ export const Footer = ({isLang}) => {
                 <div className='footer'>
                     <div className='left-content'>
                         <img className='bundl-logo-footer' src={Bundllogo} alt='footer-logo'></img>
-                        <p className='footer-text-left'>{isLang === 'ar' ? 'الرتقاء بالعلمات التجارية وتشكيل الموروثات .':'Elevating Brands & Shaping Legacies.'}</p>
+                        <p className='footer-text-left'>{isLang === 'ar' ? '.Elevating Brands & Shaping Legacies':'Elevating Brands & Shaping Legacies.'}</p>
                     </div>
                     <div className='right-content'>
                         <div className='platform'>
-                            <p className='font-medium text-[20px] mb-1 text-[#ECEAEB]'>{isLang === 'ar' ? 'رصيف':'Platform'}</p>
+                            <p className='font-medium text-[20px] mb-1 text-[#ECEAEB]'>{isLang === 'ar' ? 'المنصة​':'Platform'}</p>
                             <ul>
                                 <li>
-                                    <a href='/our-work' className='text-[#ECEAEB] hover:text-[#f175ad]'>{isLang === 'ar' ? 'مجموعات':'Our Work'}</a></li>
-                                <li>   <a href='/#ourBundl' className='text-[#ECEAEB] hover:text-[#f175ad]'>{isLang === 'ar' ? 'عملنا':'Bundls'} </a></li>
-                                <li>   <a href='/dashboard' className='text-[#ECEAEB] hover:text-[#f175ad]'>{isLang === 'ar' ? 'لوحه القياده':'Dashboard'} </a></li>
+                                    <a href='/our-work' className='text-[#ECEAEB] hover:text-[#f175ad]'>{isLang === 'ar' ? 'أعمالنا':'Our Work'}</a></li>
+                                <li>   <a href='/#ourBundl' className='text-[#ECEAEB] hover:text-[#f175ad]'>{isLang === 'ar' ? 'باقاتنا':'Bundls'} </a></li>
+                                <li>   <a href='/dashboard' className='text-[#ECEAEB] hover:text-[#f175ad]'>{isLang === 'ar' ? 'لوحة التحكم​':'Dashboard'} </a></li>
                             </ul>
                         </div>
                         <div className='information'>
-                            <p className='font-medium text-[20px] mb-1 text-[#ECEAEB]'>{isLang === 'ar' ?'معلومات' :'Information'}</p>
+                            <p className='font-medium text-[20px] mb-1 text-[#ECEAEB]'>{isLang === 'ar' ? 'معلومات​' :'Information'}</p>
                             <ul> 
-                                <li>  <a href='/aboutus' className='text-[#ECEAEB] font-normal hover:text-[#f175ad]'>{isLang === 'ar' ?'من نحن':'About us'}</a></li>
-                                <li>  <a href='/faq' className='text-[#ECEAEB] hover:text-[#f175ad]'>{isLang === 'ar' ?'التعليمات' :'FAQs'}</a></li>
+                                <li>  <a href='/aboutus' className='text-[#ECEAEB] font-normal hover:text-[#f175ad]'>{isLang === 'ar' ?'عن بندل':'About us'}</a></li>
+                                <li>  <a href='/faq' className='text-[#ECEAEB] hover:text-[#f175ad]'>{isLang === 'ar' ?'أسئلة شائعة​' :'FAQs'}</a></li>
                                 <li>  <a href='/jobs' className='text-[#ECEAEB] hover:text-[#f175ad]'>{isLang === 'ar' ?'وظائف' :'Jobs'}</a></li>
                             </ul>
                         </div>
                         <div className='contact-us'>
-                            <p className='font-medium !text-[20px] mb-1 text-[#ECEAEB]'>{isLang === 'ar' ? 'اتصل بنا' :'Contact Us'}</p>
+                            <p className='font-medium !text-[20px] mb-1 text-[#ECEAEB]'>{isLang === 'ar' ? 'تواصل معنا' :'Contact Us'}</p>
                             <div className='xs:mt-3 sm:mt-auto' style={{display:'flex',width:'100%'}}>
                                 {
                                     socialIcons.map((item, index) => {
@@ -108,9 +108,9 @@ export const Footer = ({isLang}) => {
                 <div className='footer-bottom'>
                     <p className='copyright'> {isLang === 'ar' ? `${new Date().getFullYear()} BundIDesigns، جميع الحقوق محفوظة`:`${new Date().getFullYear()} BundlDesigns, All rights reserved`}.</p>
                     <div className='policies'>
-                        <a className='!text-[14px] !text-[#FFFFFFCC]' href='/terms-and-conditions'>{isLang === 'ar' ? 'شروط الخدمة':'Terms & Conditions'}</a>
+                        <a className='!text-[14px] !text-[#FFFFFFCC]' href='/terms-and-conditions'>{isLang === 'ar' ? 'الشروط والأحكام':'Terms & Conditions'}</a>
                         <a className='!text-[14px] !text-[#FFFFFFCC]' href='/privacy-policy'>{isLang === 'ar' ? 'سياسة الخصوصية':'Privacy Policy'}</a>
-                        <a className='!text-[14px] !text-[#FFFFFFCC]' href='/legal'>{isLang === 'ar' ? 'ليغا':'Legal'}</a>
+                        <a className='!text-[14px] !text-[#FFFFFFCC]' href='/legal'>{isLang === 'ar' ? 'البيانات القانونية':'Legal'}</a>
                     </div>
                 </div>
             </div>

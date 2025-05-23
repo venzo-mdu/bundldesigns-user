@@ -41,7 +41,7 @@ const Legal = ({lang,setLang}) => {
       <Navbar isLang={lang} setIsLang={setLang}/>
        <div className='font-Helvetica'>
               <div className='text-center py-2 border-b border-black'>
-                  <h1 className='lg:text-[40px] md:text-[40px] xs:text-[30px] lg:mt-[2%] md:mt-[2%] xs:mt-[5%] uppercase'>{lang === 'ar' ? 'المعلومات القانونية' : ' Legal'} </h1>
+                  <h1 className='lg:text-[40px] md:text-[40px] xs:text-[30px] lg:mt-[2%] md:mt-[2%] xs:mt-[5%] uppercase'>{lang === 'ar' ? 'البيانات القانونية ​' : ' Legal'} </h1>
               </div>
               <div className={`mt-[3%] ${lang === 'ar' ? 'lg:p-[1%_25%_4%_5%] md:p-[1%_25%_4%_5%] xs:p-[1%_5%_4%_5%]':'lg:p-[1%_5%_4%_25%] md:p-[1%_5%_4%_25%] xs:p-[1%_5%_4%_5%]'}`}>
                  <p className='lg:text-[24px] md:text-[24px] xs:text-[18px] font-[700] mx-auto uppercase'>{lang === 'ar' ? 'الرخصة التجارية' : 'Trade License'}</p>

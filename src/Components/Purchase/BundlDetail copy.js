@@ -411,7 +411,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                     <span className="mr-0 font-[400]">
                       {packageID === "newbie"
                         ? lang === "ar"
-                          ? "بدءا من"
+                          ? "تبدأ من​"
                           : "Starting from"
                         : ""}
                     </span>{" "}
@@ -473,7 +473,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                   }
                 >
                   {lang === "ar"
-                    ? "ما هو اسم علامتك التجارية؟"
+                    ? "ماهو اسم مشروعك؟​"
                     : "What is the name of your brand?"}
                 </p>
                 <input
@@ -596,7 +596,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                                   onChange={handleRadioChange}
                                 />
                                 {lang === "ar"
-                                  ? "كلاهما ( 2000 + ريال )"
+                                  ? "كلاهما (+٢٠٠٠ ريال)"
                                   : "Both (+2000 SAR)"}
                               </label>
                             </p>
@@ -753,7 +753,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                     }`}
                   >
                     <span className="font-normal">
-                      {lang === "ar" ? "ملخص" : "Summary"}
+                      {lang === "ar" ? "ملخص الطلب​" : "Summary"}
                     </span>
                     {isMobile && (
                       <button

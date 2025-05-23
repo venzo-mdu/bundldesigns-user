@@ -2032,7 +2032,7 @@ export default function Adjustments({user ,lang ,setLang}) {
                                                             </p>
                                                             <p className='flex items-center mb-1 font-[500]' >
                                                                 <AccessTimeIcon className={`${lang === 'ar' ? 'ml-2' : 'mr-2'}`} />
-                                                                {Math.round(adjustment.time_limit)} {lang === 'ar' ?'يوم':'Days'}
+                                                                {Math.round(adjustment.time_limit)} {lang === 'ar' ?'يوم':'Day'}
 
                                                             </p>
                                                         </p>
@@ -2743,7 +2743,7 @@ export default function Adjustments({user ,lang ,setLang}) {
                                         </div>
 
                                         <div className='flex flex-col justify-center items-center'>
-                                            <button onClick={() => CheckCart()} className=' w-[90%]  py-1 lg:mt-[8%] md:mt-[12%] text-[18px] text-white bg-[#1BA56F] uppercase'>{lang === 'ar' ? 'متابعة الخروج' :'Proceed Checkout'}</button>
+                                            <button onClick={() => CheckCart()} className=' w-[90%]  py-1 lg:mt-[8%] md:mt-[12%] text-[18px] text-white bg-[#1BA56F] uppercase'>{lang === 'ar' ? 'المتابعة إلى السلة​' :'Proceed Checkout'}</button>
                                             {errorMsg && <p className='pb-0 text-[16px] text-[red] text-left mt-2'>{errorMsg}*</p>}
                                         </div>
                                     </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../Login/Login.css";
+import "../ForgotPassword/ForgotPassword.css";
 import Loginlogo from "../../../Images/Login/loginlogo.svg";
 import Anchor from "../../../Images/Login/anchor.svg";
 import Googleicon from "../../../Images/Login/google.svg";
@@ -19,8 +19,10 @@ import AppleLogin from "react-apple-login";
 import GoogleIcon from "../../../Images/Login/icons8-google.svg";
 import { auth } from "../../Firebase/Firebase";
 import { OAuthProvider, signInWithPopup } from "firebase/auth";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
-export const Login = ({ lang }) => {
+const ForgotPassword = ({ lang }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -29,10 +31,12 @@ export const Login = ({ lang }) => {
   const { project_name } = location?.state || {};
   const clientId = process.env.REACT_APP_IOS_CLIENTID;
   const redirectURI = process.env.REACT_APP_IOS_REDIRECT_URL;
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const [loginData, setLoginData] = useState({
-    email: "",
     password: "",
+    confirmPassword: "",
     google: false,
   });
   const [loading, setLoading] = useState(false);
@@ -164,19 +168,28 @@ export const Login = ({ lang }) => {
   };
   const validateForm = () => {
     const errorMessages = {};
-    if (!loginData.email.trim()) {
-      errorMessages.email =
-        lang === "ar" ? "البريد الإلكتروني مطلوب" : "Email is required";
-    } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(loginData.email)) {
-      errorMessages.email = "Invalid email format";
+    const { password, confirmPassword } = loginData;
+
+    if (!password.trim()) {
+      errorMessages.password =
+        lang === "ar" ? "كلمة المرور مطلوبة" : "Password is required";
+    } else if (/\s/.test(password)) {
+      errorMessages.password =
+        lang === "ar"
+          ? "لا يمكن أن تحتوي كلمة المرور على مسافات"
+          : "Password must not contain spaces";
+    } else if (password.length > 16) {
+      errorMessages.password =
+        lang === "ar"
+          ? "يجب أن تتكون كلمة المرور من 8 أحرف على الأقل"
+          : "Password must be at least 8 characters long";
     }
-    if (!loginData.password.trim()) {
-      errorMessages.password = "Password is required";
-    } else if (/\s/.test(loginData.password)) {
-      errorMessages.password = "Password must not contain spaces";
-    } else if (loginData.password.length > 16) {
-      errorMessages.password = "Password must be at most 16 characters long";
+
+    if (password !== confirmPassword) {
+      errorMessages.confirmPassword =
+        lang === "ar" ? "كلمتا المرور غير متطابقتين" : "Passwords do not match";
     }
+
     setErrors(errorMessages);
     return Object.keys(errorMessages).length === 0;
   };
@@ -294,7 +307,11 @@ export const Login = ({ lang }) => {
     if (!validateForm()) return;
     setLoading(true);
     try {
-      const response = await axios.post(`${base_url}/api/login/`, loginData);
+      // const response = await axios.post(`${base_url}/api/login/`, loginData);
+      const response = await axios.post(
+        `${base_url}/api/update-password/`,
+        loginData
+      );
       console.log(response);
       if (response.status === 200) {
         document.cookie = `token=${
@@ -325,65 +342,97 @@ export const Login = ({ lang }) => {
         {/* <img className='anchor w-[100px]' src={loginGIF} alt='login-anchor' /> */}
         <div className="login-content ">
           <p className="welcometext">
-            {lang === "ar" ? "مرحبا بكم مجددا" : "Welcome Back!"}
+            {lang === "ar" ? "مرحبا بكم مجددا" : "Forget Password"}
           </p>
           <img className="loginlogo" src={Loginlogo} alt="login" />
+
           <form onSubmit={onSubmit} className="lg:mt-0 md:mt-0 xs:mt-[8%]">
+            {/* New Password */}
             <label className="xs:mb-2">
-              {lang === "ar" ? "البريد الإلكتروني" : "Email address"}{" "}
+              {lang === "ar" ? "كلمة المرور الجديدة" : "New Password"}{" "}
             </label>
-            <input
-              type="email"
-              name="email"
-              placeholder={
-                lang === "ar" ? " بريد إلكتروني" : "Enter your email"
-              }
-              value={loginData.email}
-              onChange={handleChange}
-              className="rounded-none"
-            />
-            {errors.email && <p className="error">{errors.email}</p>}
-            <label className="xs:mb-2" style={{ marginTop: "3%" }}>
-              {lang === "ar" ? "كلمة المرور" : "Password"}
-            </label>
-            <input
-              type="password"
-              name="password"
-              placeholder={lang === "ar" ? " كلمة المرور" : "Password"}
-              value={loginData.password}
-              onChange={handleChange}
-              className="rounded-none"
-            />
+            <div className="relative password-wrapper">
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                placeholder={
+                  lang === "ar"
+                    ? "أدخل كلمة المرور الجديدة"
+                    : "Enter your New Password"
+                }
+                value={loginData.password}
+                onChange={handleChange}
+                className={`password-input ${
+                  lang === "ar" ? "pr-3 pl-10" : "pr-10 pl-3"
+                } w-full rounded-none`}
+              />
+              <span
+                onClick={() => setShowPassword(!showPassword)}
+                className={`eye-icon absolute top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-400 ${
+                  lang === "ar" ? "left-2" : "right-2"
+                }`}
+              >
+                {showPassword ? (
+                  <VisibilityOff fontSize="small" />
+                ) : (
+                  <Visibility fontSize="small" />
+                )}
+              </span>
+            </div>
             {errors.password && <p className="error">{errors.password}</p>}
+
+            {/* Confirm assword */}
+
+            <label className="xs:mb-2" style={{ marginTop: "3%" }}>
+              {lang === "ar" ? "تأكيد كلمة المرور" : "Confirm Password"}
+            </label>
+            <div className="relative password-wrapper">
+              <input
+                type={showConfirmPassword ? "text" : "password"}
+                name="confirmPassword"
+                placeholder={
+                  lang === "ar" ? "تأكيد كلمة المرور" : "Confirm your Password"
+                }
+                value={loginData.confirmPassword}
+                onChange={handleChange}
+                className={`password-input ${
+                  lang === "ar" ? "pr-3 pl-10" : "pr-10 pl-3"
+                } w-full rounded-none`}
+              />
+              <span
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                className={`eye-icon absolute top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-400 ${
+                  lang === "ar" ? "left-2" : "right-2"
+                }`}
+              >
+                {showConfirmPassword ? (
+                  <VisibilityOff fontSize="small" />
+                ) : (
+                  <Visibility fontSize="small" />
+                )}
+              </span>
+            </div>
+
+            {errors.confirmPassword && (
+              <p className="error">{errors.confirmPassword}</p>
+            )}
 
             {/* General error message */}
             {errors.general && <p className="error">{errors.general}</p>}
-            {/* <p className='text-[red] mb-1'>{loginError}</p>
-            <button className='signin !text-[24px] uppercase' type='submit'>
-              {loading ? <ClipLoader size={25} color={'#FFFFFF'} /> :lang === 'ar' ? 'تسجيل دخول' : 'Sign In'}
-            </button>  */}
-
             <p className="text-[red] mb-1">{loginError}</p>
-
-            <button className="signin !text-[24px] uppercase" type="submit">
+            <button
+              className="signin !text-[24px] uppercase"
+              type="submit "
+              disabled={loading}
+            >
               {loading ? (
                 <ClipLoader size={25} color={"#FFFFFF"} />
               ) : lang === "ar" ? (
                 "تسجيل دخول"
               ) : (
-                "Sign In"
+                "Submit"
               )}
             </button>
-
-            <div className="flex justify-end mt-2">
-              <NavLink
-                to="/forgotpassword-mail"
-                className="text-[13px] text-[#007bff] hover:underline"
-              >
-                {lang === "ar" ? "هل نسيت كلمة المرور؟" : "Forgot Password?"}
-              </NavLink>
-            </div>
-
             <p
               className={`or mt-[4vh] flex items-center justify-center ${
                 lang === "ar" ? "mr-2" : "ml-2"
@@ -529,3 +578,4 @@ export const Login = ({ lang }) => {
     </div>
   );
 };
+export default ForgotPassword;

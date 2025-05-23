@@ -751,10 +751,10 @@ export const MyCart = ({ lang, setLang }) => {
                                     <table className='w-full border-none' aria-label="simple table">
                                         <thead>
                                             <tr className={`${lang === 'ar' ? '!text-right' : '!text-left'} text-[20px]`}>
-                                                <td className={`${lang === 'ar' ? 'text-right' : 'text-left'} w-[20%] text-[#00000080] pb-3`} >{lang === 'ar' ? 'بند' : 'Item'}</td>
+                                                <td className={`${lang === 'ar' ? 'text-right' : 'text-left'} w-[20%] text-[#00000080] pb-3`} >{lang === 'ar' ? 'الباقة​' : 'Item'}</td>
                                                 {/* <td className='text-[#00000080] w-[30%] pb-3'  align="center">Quantity</td> */}
-                                                <td className='text-[#00000080] w-[30%]    pb-3' align="center">{lang === 'ar' ? 'ثمن' : 'Price'}</td>
-                                                <td className='text-[#00000080] w-[20%]    pb-3' align="center">{lang === 'ar' ? 'فعل' : 'Action'}</td>
+                                                <td className='text-[#00000080] w-[30%]    pb-3' align="center">{lang === 'ar' ? 'السعر​' : 'Price'}</td>
+                                                <td className='text-[#00000080] w-[20%]    pb-3' align="center">{lang === 'ar' ? 'الإجراء​' : 'Action'}</td>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -984,11 +984,11 @@ export const MyCart = ({ lang, setLang }) => {
                                             color={'#FFFFFF'}
                                             loading={paymentLoading}
                                             size={25}
-                                        /> : lang === 'ar' ? 'جعل الدفع' : 'Make Payment'}</button>
+                                        /> : lang === 'ar' ? 'المتابعة إلى الدفع' : 'Proceed to payment'}</button>
 
 
                                     <button className="mt-[5%] h-[40px] w-[100%] bg-[#ffffff] border-black border-[1px] text-black hover:text-white hover:bg-black uppercase" type='button' onClick={()=>setShowModal(true)}>
-                                         {lang === 'ar' ? 'جعل الدفع' : 'Edit order'}</button>    
+                                         {lang === 'ar' ? 'تعديل الطلب' : 'Edit order'}</button>    
 
                                     <p className='text-[red] !text-[18px] !font-[400] !mt-2'>{Object.values(error).map(item => {
                                         return item

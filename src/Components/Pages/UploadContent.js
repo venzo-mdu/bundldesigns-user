@@ -1125,8 +1125,8 @@ export default function UploadContent({ lang, setLang }) {
                                 <input
                                   placeholder={
                                     lang === "ar"
-                                      ? "الشعار والرقم ...."
-                                      : "Slogan & Number...."
+                                      ? "اضف المحتوى هنا...."
+                                      : "Write content here​...."
                                   }
                                   value={
                                     uploadContent?.[item?.id]?.[filterIndex]
@@ -1362,7 +1362,7 @@ export default function UploadContent({ lang, setLang }) {
                                 }
                                 className="text-white bg-[#1BA56F] py-1 px-2 uppercase"
                               >
-                                {lang === "ar" ? "حفظ والتالي" : "Save & Next2222"}
+                                {lang === "ar" ? "حفظ والتالي" : "Save & Next"}
                               </button>
                             </p>
                           </div>
@@ -1458,8 +1458,8 @@ export default function UploadContent({ lang, setLang }) {
                                 <input
                                   placeholder={
                                     lang === "ar"
-                                      ? "الشعار والرقم ...."
-                                      : "Slogan & Number...."
+                                      ? "اضف المحتوى هنا...."
+                                      : "Write content here​...."
                                   }
                                   value={
                                     uploadContent?.[item?.id]?.[filterIndex]
@@ -1693,7 +1693,7 @@ export default function UploadContent({ lang, setLang }) {
                                 }
                                 className="text-white bg-[#1BA56F] py-1 px-2 uppercase"
                               >
-                                {lang === "ar" ? "حفظ والتالي" : "Save & Next333"}
+                                {lang === "ar" ? "حفظ والتالي" : "Save & Next"}
                               </button>
                             </p>
                           </div>
@@ -1880,14 +1880,17 @@ export default function UploadContent({ lang, setLang }) {
                                   : ""
                               } pl-[5%] space-x-2 mt-[2%]`}
                             >
-                              <div className="border-y border-black py-2 px-2">
-                                <p className="mb-0 font-semibold text-[22px">
-                                  {lang === "ar"
-                                    ? item?.item__name_arabic
-                                    : item.item_name}{" "}
-                                  {item?.qty > 1 && filterIndex}
-                                </p>
+                              <div className="-ml-[5%] w-[calc(100%+5%)] border-y border-black py-2">
+                                <div className="pl-[5%]">
+                                  <p className="mb-0 font-semibold text-[22px">
+                                    {lang === "ar"
+                                      ? item?.item__name_arabic
+                                      : item.item_name}{" "}
+                                    {item?.qty > 1 && filterIndex}
+                                  </p>
+                                </div>
                               </div>
+
 
 
                               {designQuestions[item.item__id]?.language && (
@@ -1946,8 +1949,8 @@ export default function UploadContent({ lang, setLang }) {
                                   <input
                                     placeholder={
                                       lang === "ar"
-                                        ? "الشعار والرقم ...."
-                                        : "Slogan & Number...."
+                                        ? "اضف المحتوى هنا...."
+                                        : "Write content here​...."
                                     }
                                     value={
                                       uploadContent?.[item?.id]?.[filterIndex]
@@ -2228,14 +2231,16 @@ export default function UploadContent({ lang, setLang }) {
                                 {item?.qty > 1 && filterIndex} 
                               </p> */}
 
-                              <div className="border-y border-black py-2 px-2">
-                                <p className="mb-0 font-medium text-[22px">
-                                  Addons -{" "}
-                                  {lang === "ar"
-                                    ? item?.item__name_arabic
-                                    : item.item_name}{" "}
-                                  {item?.qty > 1 && filterIndex}
-                                </p>
+                              <div className="relative left-[-5%] w-[110%] border-y border-black py-2">
+                                <div className="pl-[5%]">
+                                  <p className="mb-0 font-medium text-[22px]">
+                                    Addons -{" "}
+                                    {lang === "ar"
+                                      ? item?.item__name_arabic
+                                      : item.item_name}{" "}
+                                    {item?.qty > 1 && filterIndex}
+                                  </p>
+                                </div>
                               </div>
 
                               {designQuestions[item.item__id]?.language && (
@@ -2294,8 +2299,8 @@ export default function UploadContent({ lang, setLang }) {
                                   <input
                                     placeholder={
                                       lang === "ar"
-                                        ? "الشعار والرقم ...."
-                                        : "Slogan & Number...."
+                                        ? "اضف المحتوى هنا ​...."
+                                        : "Write content here​...."
                                     }
                                     value={
                                       uploadContent?.[item?.id]?.[filterIndex]
@@ -2533,7 +2538,7 @@ export default function UploadContent({ lang, setLang }) {
                                 >
                                   {lang === "ar"
                                     ? "حفظ والتالي"
-                                    : "Save & Next1111"}
+                                    : "Save & Next"}
                                 </button>
                               </p>
                             </div>
@@ -2544,8 +2549,8 @@ export default function UploadContent({ lang, setLang }) {
               )}
             </div>
           </div>
-          <div className="basis-1/4 sticky top-0 self-start  my-2">
-            <div className="border-y border-black my-2 w-[100%]">
+          <div className="basis-1/4 sticky top-0 self-start  my-0">
+            <div className="border-b border-black my-2 w-[100%]">
               <h3 className=" mb-0 text-[22px] font-bold py-2 pl-5">
                 {lang === "ar" ? "قائمه" : "Checklist"}
               </h3>

@@ -19,11 +19,11 @@ export default function OurWork({lang,setLang}) {
   const [projects, setProjects] = useState([])
   const [currentTab, setCurrentTab] = useState('all');
   const categories = {
-    all:lang==='ar'?'كل': 'All',
-    social_media:lang === 'ar' ?'وسائل التواصل الاجتماعي':'Social Media',
+    all:lang==='ar'?'جميع المشاريع​': 'All',
+    social_media:lang === 'ar' ?'سوشال ميديا ​':'Social Media',
     packaging :lang === 'ar'?'التغليف':'Packaging',
-    websites :lang==='ar'?'المواقع الإلكترونية':'Websites',
-    brand_identity:lang==='ar'?'الهويه':'Brand Identity'
+    websites :lang==='ar'?'المتاجر الالكترونية​':'Websites',
+    brand_identity:lang==='ar'?'الهويات البصرية​':'Brand Identity'
   }
   const base_url = process.env.REACT_APP_BACKEND_URL
   const getprojects = async () => {
@@ -87,7 +87,7 @@ export default function OurWork({lang,setLang}) {
           dangerouslySetInnerHTML={{ __html:lang === 'ar' ? project?.description_arabic : project.description_english }}
         />
         <a  target='_blank' href={`${project.instagram? project.instagram:'https://www.instagram.com/bundl_designs'}`} className="lg:w-[70%] xl:w-[60%] md:w-[80%] text-[16px] px-2 block text-center mt-4 bg-black py-2 text-white uppercase">
-         {lang === 'ar' ?'اتبع إنستاغارم لدينا':'Follow Our Instagram'} 
+         {lang === 'ar' ?'تابعنا على الانستاغرام​':'Follow Our Instagram'} 
         </a>
       </div>
 

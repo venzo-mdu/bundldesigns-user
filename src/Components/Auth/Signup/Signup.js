@@ -344,7 +344,7 @@ const login = useGoogleLogin({
         {/* <img className='anchor' id='anchor' src={loginGIF} alt='login-anchor' /> */}
         <div className='signup-content'>
           <p className='welcometext'>
-           {lang == 'ar' ? 'مرحبًا بك' :'Welcome to'}  <span className='bundle-designs'>{lang === 'ar' ? 'مف يبند لديزاين' :'Bundl Designs'} </span>
+           {lang == 'ar' ? 'مرحبًا بك' :'Welcome to'}  <span className='bundle-designs'>{lang === 'ar' ? 'مرحبا بكم في بندل ديزاينز​' :'Bundl Designs'} </span>
           </p>
           <img className='loginlogo' src={Loginlogo} alt='login' />
           <form onSubmit={signUp}>

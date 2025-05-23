@@ -101,7 +101,7 @@ export default function PremiumForm({lang,setLang}) {
 
         <div className='mt-12 mb-10'>
           <h2 className='text-[32px] mb-2 text-center'>{lang === 'ar' ? '' : 'Premium Form'}</h2>
-          <h3 className='text-[24px] mb-2 text-center text-[#1BA56F]'>{lang === 'ar' ? 'اتصل بنا' :'Contact Us!'}</h3>
+          <h3 className='text-[24px] mb-2 text-center text-[#1BA56F]'>{lang === 'ar' ? 'تواصل معنا' :'Contact Us!'}</h3>
           <form onSubmit={handleSubmit} className="p-6 sm:max-w-[90vw] md:max-w-[50vw] mx-auto space-y-4">
             {/* Name Field */}
             <div>
