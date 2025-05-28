@@ -610,7 +610,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                     {lang === "ar" ? "" : "Please enter name of the brand"}
                   </p>
                 )}
-                <div className="commerce-collateral">
+                 <div className="commerce-collateral">
                   {bundlAddons.bundle_details?.map((bundle, index) => {
                     return (
                       <div
@@ -739,7 +739,9 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                                     lang === "ar" ? "text-right" : "text-left"
                                   }`}
                                 >
-                               
+                                  {lang === "ar"
+                                    ? design.name_arabic
+                                    : design.name_english}
                                 </p>
                                 {minError.includes(design.name_english) &&
                                   isMobile == false && (
