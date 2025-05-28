@@ -321,7 +321,7 @@ export const Accordian = ({
 
     return payload;
   };
-
+  const path = window?.location?.href?.split("/")[3];
   return (
     <div>
       <Toaster
@@ -334,7 +334,8 @@ export const Accordian = ({
         }}
       />
 
-      <div className="bundl-accordian">
+      {/* <div className="bundl-accordian"> */}
+       <div className={`${path === "custombundl" ? null : "bundl-accordian"}`}>
         <p
           className={`accordian-heading mb-1  leading-[1.2] ${
             isLang === "ar" ? "text-right" : "text-left"

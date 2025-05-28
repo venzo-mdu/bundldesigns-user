@@ -610,7 +610,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                     {lang === "ar" ? "" : "Please enter name of the brand"}
                   </p>
                 )}
-                 <div className="commerce-collateral">
+                <div className="commerce-collateral">
                   {bundlAddons.bundle_details?.map((bundle, index) => {
                     return (
                       <div
@@ -838,31 +838,31 @@ export const BundlDetail = ({ user, lang, setLang }) => {
               </div>
               {/* // border-black */}
               <div
-                className="
-                  bundl-summary
-                  sticky top-0 self-start
+                // className="
+                //   bundl-summary
+                //   sticky top-0 self-start
+                //   border-r border-r-[rgba(0,0,0,0.1)]
+                //   mb-[10%]
+                //   transition-all duration-500 ease-in-out
+                //   max-h-[80%] w-full
+                //   xs:overflow-y-auto lg:overflow-visible md:overflow-visible
+                // "
+
+                style={{
+                  // maxHeight: showDetails ? "80%" : "200px",
+                  ...(isMobile ? { border: "1px solid" } : {}),
+                  transition: "all 0.5s ease-in-out",
+                }}
+                className={`
+                   
+                ${!isMobile ? "sticky top-0 self-start" : null}
+              
                   border-r border-r-[rgba(0,0,0,0.1)]
-                  mb-[10%]
+                 ${!isMobile ? "mb-[10%]" : null}
                   transition-all duration-500 ease-in-out
-                  max-h-[80%] w-full
+                bundl-summary  max-h-[80%] w-full
                   xs:overflow-y-auto lg:overflow-visible md:overflow-visible
-                "
-                // style={{
-                //   height: "100vh", // full viewport height
-                //   boxShadow: "4px 0 6px -2px rgba(0, 0, 0, 0.2)", // Right shadow only
-                //   zIndex: 10,
-                // }}
-                // style={{
-                //   // maxHeight: showDetails ? "80%" : "200px",
-                //   transition: "all 0.5s ease-in-out",
-                //   position: "sticky",
-                //   top: "0px",
-                //   alignSelf: "flex-start",
-                //   borderRight: "1px solid #000000",
-                //   marginBottom: "10%",
-                //   // borderLeft:'none'
-                // }}
-                // className="bundl-summary  border max-h-[80%] w-full xs:overflow-y-auto lg:overflow-hidden md:overflow-hidden"
+                `}
               >
                 {/* <div style={{borderRight: "1px solid #000000"}}></div> */}
                 <div className="bundl-name ">

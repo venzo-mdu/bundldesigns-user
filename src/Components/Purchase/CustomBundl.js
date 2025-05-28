@@ -356,7 +356,12 @@ export const CustomBundl = ({ user, lang, setLang }) => {
 
           <div
             className="bundl-summary  max-h-[80%]"
-            style={{ position: "sticky", top: "0px", alignSelf: "flex-start" }}
+            style={{
+              position: "sticky",
+              ...(isMobile ? { border: "1px solid" } : {}),
+              top: "0px",
+              alignSelf: "flex-start",
+            }}
           >
             <div className="bundl-name">
               <p
