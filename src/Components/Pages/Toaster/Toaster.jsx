@@ -12,7 +12,6 @@ const useToastMessage = () => {
 
   const showToast = (message, color = "#000", fontWeight = "700") => {
     dismissOldToast();
-
     toastIdRef.current = toast(message, {
       duration: 3000,
       style: {
@@ -30,8 +29,8 @@ const useToastMessage = () => {
     showToast(message, "#1BA56F", "700");
   };
 
-  const showErrorToast = (message = "Something went wrong") => {
-    showToast(message, "#FF4D4F", "700");
+  const showErrorToast = (message = "Something went wrong", color) => {
+    showToast(message, color, "700");
   };
 
   return {

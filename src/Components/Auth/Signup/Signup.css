@@ -24,7 +24,8 @@
     color: #F3B7CE;
 }
 .error {
-    color: rgb(240, 76, 76);
+    /* color: rgb(240, 76, 76); */
+    color:#D83D99;
     font-size: 12px;
     font-weight: 400;
     margin: 0;
