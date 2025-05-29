@@ -2463,12 +2463,18 @@ export default function Adjustments({ user, lang, setLang }) {
                               }
                               className="border px-2 py-1 border-[#000000A0]  md:w-[80%] w-[80%] xs:w-[70%] rounded-none"
                             ></input>
+
                             <button
                               onClick={() => addData(adjustment.id, index)}
                               className="md:w-[15%] lg:w-[15%] xs:w-[30%] py-1 bg-[#1BA56F] text-white "
                             >
                               {lang === "ar" ? "ارسال" : "Submit Edit"}
                             </button>
+                            {adjustmentError && (
+                              <p style={{ color: "red" }}>
+                                Please enter the feild
+                              </p>
+                            )}
                           </p>
 
                           <p className="font-medium text-[18px]">
