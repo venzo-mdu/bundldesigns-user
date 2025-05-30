@@ -21,6 +21,7 @@ import { auth } from "../../Firebase/Firebase";
 import { OAuthProvider, signInWithPopup } from "firebase/auth";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { useParams } from "react-router-dom";
 
 const ForgotPassword = ({ lang }) => {
   const dispatch = useDispatch();
@@ -33,10 +34,11 @@ const ForgotPassword = ({ lang }) => {
   const redirectURI = process.env.REACT_APP_IOS_REDIRECT_URL;
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const { id } = useParams();
 
   const [loginData, setLoginData] = useState({
-    password: "",
-    confirmPassword: "",
+    new_password: "",
+    confirm_password: "",
     google: false,
   });
   const [loading, setLoading] = useState(false);
@@ -166,26 +168,27 @@ const ForgotPassword = ({ lang }) => {
       }
     }
   };
+
   const validateForm = () => {
     const errorMessages = {};
-    const { password, confirmPassword } = loginData;
+    const { new_password, confirm_password } = loginData;
 
-    if (!password.trim()) {
+    if (!new_password.trim()) {
       errorMessages.password =
         lang === "ar" ? "كلمة المرور مطلوبة" : "Password is required";
-    } else if (/\s/.test(password)) {
+    } else if (/\s/.test(new_password)) {
       errorMessages.password =
         lang === "ar"
           ? "لا يمكن أن تحتوي كلمة المرور على مسافات"
           : "Password must not contain spaces";
-    } else if (password.length > 16) {
+    } else if (new_password.length < 8 || new_password.length > 16) {
       errorMessages.password =
         lang === "ar"
-          ? "يجب أن تتكون كلمة المرور من 8 أحرف على الأقل"
-          : "Password must be at least 8 characters long";
+          ? "يجب أن تتكون كلمة المرور من 8 إلى 16 حرفًا"
+          : "Password must be between 8 and 16 characters";
     }
 
-    if (password !== confirmPassword) {
+    if (new_password !== confirm_password) {
       errorMessages.confirmPassword =
         lang === "ar" ? "كلمتا المرور غير متطابقتين" : "Passwords do not match";
     }
@@ -307,30 +310,25 @@ const ForgotPassword = ({ lang }) => {
     if (!validateForm()) return;
     setLoading(true);
     try {
-      // const response = await axios.post(`${base_url}/api/login/`, loginData);
       const response = await axios.post(
-        `${base_url}/api/update-password/`,
+        `${base_url}/api/reset-password/${id}/`,
         loginData
       );
       console.log(response);
-      if (response.status === 200) {
-        document.cookie = `token=${
-          response?.data?.data.token || ""
-        }; path=/; SameSite=None; Secure`;
-        dispatch(loginAction(response.data.user));
-        if (next_url) {
-          navigate(`/${next_url}`, {
-            state: {
-              project_name: project_name,
-              fromLogin: true,
-            },
-          });
-        } else {
-          navigate("/");
-        }
+
+      if (
+        response.status === 200 &&
+        response.data?.message === "Password reset successfully"
+      ) {
+        // Redirect to login page after successful password reset
+        navigate("/login", {
+          state: {
+            fromPasswordReset: true,
+          },
+        });
       }
     } catch (response) {
-      setLoginError(response.response.data.data);
+      setLoginError(response.response?.data?.data || "Password reset failed.");
     } finally {
       setLoading(false);
     }
@@ -341,8 +339,8 @@ const ForgotPassword = ({ lang }) => {
       <div className="login !mb-[8rem] ">
         {/* <img className='anchor w-[100px]' src={loginGIF} alt='login-anchor' /> */}
         <div className="login-content ">
-          <p className="welcometext">
-            {lang === "ar" ? "مرحبا بكم مجددا" : "Forget Password"}
+          <p className="forgot-welcometext">
+            {lang === "ar" ? "مرحبا بكم مجددا" : "Forgot Password"}
           </p>
           <img className="loginlogo" src={Loginlogo} alt="login" />
 
@@ -354,13 +352,13 @@ const ForgotPassword = ({ lang }) => {
             <div className="relative password-wrapper">
               <input
                 type={showPassword ? "text" : "password"}
-                name="password"
+                name="new_password"
                 placeholder={
                   lang === "ar"
                     ? "أدخل كلمة المرور الجديدة"
                     : "Enter your New Password"
                 }
-                value={loginData.password}
+                value={loginData.new_password}
                 onChange={handleChange}
                 className={`password-input ${
                   lang === "ar" ? "pr-3 pl-10" : "pr-10 pl-3"
@@ -381,7 +379,7 @@ const ForgotPassword = ({ lang }) => {
             </div>
             {errors.password && <p className="error">{errors.password}</p>}
 
-            {/* Confirm assword */}
+            {/* Confirm Password */}
 
             <label className="xs:mb-2" style={{ marginTop: "3%" }}>
               {lang === "ar" ? "تأكيد كلمة المرور" : "Confirm Password"}
@@ -389,11 +387,11 @@ const ForgotPassword = ({ lang }) => {
             <div className="relative password-wrapper">
               <input
                 type={showConfirmPassword ? "text" : "password"}
-                name="confirmPassword"
+                name="confirm_password"
                 placeholder={
                   lang === "ar" ? "تأكيد كلمة المرور" : "Confirm your Password"
                 }
-                value={loginData.confirmPassword}
+                value={loginData.confirm_password}
                 onChange={handleChange}
                 className={`password-input ${
                   lang === "ar" ? "pr-3 pl-10" : "pr-10 pl-3"
@@ -422,7 +420,7 @@ const ForgotPassword = ({ lang }) => {
             <p className="text-[red] mb-1">{loginError}</p>
             <button
               className="signin !text-[24px] uppercase"
-              type="submit "
+              type="submit"
               disabled={loading}
             >
               {loading ? (
@@ -433,143 +431,6 @@ const ForgotPassword = ({ lang }) => {
                 "Submit"
               )}
             </button>
-            <p
-              className={`or mt-[4vh] flex items-center justify-center ${
-                lang === "ar" ? "mr-2" : "ml-2"
-              } font-[500] text-[11px]`}
-            >
-              {" "}
-              <span className="border-[#F5F5F5] border-b h-[2px] basis-[41%] mr-[2%] border-[1.5px]"></span>
-              {lang === "ar" ? "أو" : "Or"}
-              <span
-                className={`border-[#F5F5F5] border-b h-[2px] basis-[43%] ${
-                  lang === "ar" ? "mr-[2%]" : "ml-[2%]"
-                } border-[1.5px]`}
-              ></span>
-            </p>
-            <p className="signinwithgoogle !text-[17px] !font-bold">
-              {/* <img src={Googleicon} alt='google-icon' /> Sign in with Google */}
-              <div className="lg:w-[50%] md:w-[45%] xs:w-[100%]">
-                {/* <GoogleLogin
-                  onSuccess={credentialResponse => {
-                    const token = credentialResponse.credential;
-                    const userDetails = jwt_decode(token);
-                    console.log('User Details:', userDetails);
-                    // Example of how to access user info
-                    console.log('Name:', userDetails.name);
-                    console.log('Email:', userDetails.email);
-                    console.log('Profile Picture:', userDetails.picture);
-                    loginWithGoogle({
-                      email: userDetails.email,
-                      full_name: userDetails.name,
-                      password: null,
-                      google: true
-                    })
-                  }}
-                  onError={() => {
-                    console.log('Login Failed');
-                  }}
-                /> */}
-                <button
-                  onClick={login}
-                  type="button"
-                  style={{
-                    backgroundColor: "white",
-                    padding: 10,
-                    fontFamily: "none",
-                    lineHeight: "25px",
-                    fontSize: window?.innerWidth <= 500 ? "12px" : "18px",
-                    border: "1px solid #D9D9D9",
-                    borderRadius: "0px",
-                    fontFamily: "Helvetica",
-                    fontWeight: "400",
-                    width: "100%",
-                  }}
-                >
-                  {/* <img src={GoogleIcon} className='w-[25px] mr-2'></img> */}
-                  <i
-                    class={`fab fa-google ${lang === "ar" ? "ml-2" : "mr-2"}`}
-                  ></i>
-                  {lang === "ar" ? "تسجيل دخول جوجل" : "Sign in with Google"}
-                </button>
-              </div>
-              <div
-                className={`lg:w-[50%] md:w-[45%] xs:w-[100%] ${
-                  lang == "ar" ? "mr-[5%]" : "ml-[5%]"
-                }`}
-              >
-                <AppleSignin
-                  authOptions={{
-                    clientId: clientId,
-                    redirectURI: redirectURI,
-                    scope: "email name",
-                    usePopup: true,
-                    responseType: "code id_token",
-                    responseMode: "form_post",
-                  }}
-                  // className={'lg:w-[50%] md:w-[50%] xs:w-[100%] !lg:text-[18px] !md:text-[18px] !xs:text-[16px]'}
-                  // onSuccess={handleAppleLoginSuccess}
-                  onError={(error) =>
-                    console.error("Apple Login Failed:", error)
-                  }
-                  onClick={handleAppleLogin}
-                  render={(props) => (
-                    <button
-                      {...props}
-                      type="button"
-                      style={{
-                        backgroundColor: "white",
-                        padding: 10,
-                        fontFamily: "none",
-                        lineHeight: "25px",
-                        fontSize: window?.innerWidth <= 500 ? "12px" : "18px",
-                        border: "1px solid #D9D9D9",
-                        borderRadius: "0px",
-                        fontFamily: "Helvetica",
-                        fontWeight: "400",
-                        width: "100%",
-                      }}
-                    >
-                      <i className="fa-brands fa-apple px-2 "></i>
-                      {lang === "ar" ? "تسجيل دخول أبل" : "Sign in with Apple"}
-                    </button>
-                  )}
-                />
-                {/* <AppleLogin
-                clientId="com.bundldesigns.app.client"
-                redirectURI="https://bundldesigns.web.app/login"
-                app
-                usePopup={true}
-                callback={handleAppleLoginSuccess} // Catch the response
-                scope="email name"
-                responseMode="query"
-                render={renderProps => (  //Custom Apple Sign in Button
-                  <button
-                    onClick={renderProps.onClick}
-                    style={{
-                      backgroundColor: "white",
-                      padding: 10,
-                      // border: "1px solid black",
-                      fontFamily: "none",
-                      lineHeight: "25px",
-                      fontSize:window?.innerWidth<=500?"12px":"18px"
-                    }}
-                  >
-                    <i className="fa-brands fa-apple px-2 "></i>
-                    Continue with Apple
-                  </button>
-                )}
-              /> */}
-              </div>
-            </p>
-            <p className="dont !mt-4 w-[100%] sm:w-[100%] xs:w-full">
-              {lang === "ar" ? "ليس لديك حساب؟" : "Don’t Have an account ?"}{" "}
-              <span>
-                <NavLink className="signup !font-[500]" to={"/signup"}>
-                  &nbsp;{lang === "ar" ? "تسجيل حساب" : "Sign Up"}
-                </NavLink>
-              </span>
-            </p>
           </form>
         </div>
         {/* <img className='anchor1 w-[160px]' src={loginGIF} alt='login-anchor' /> */}

@@ -132,6 +132,7 @@ code {
   font-weight: 400; /* Regular weight */
   font-style: normal;
 }
+
 .star {
   clip-path: polygon(
     50% 0%, 

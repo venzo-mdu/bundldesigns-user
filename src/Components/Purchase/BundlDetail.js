@@ -723,15 +723,27 @@ export const BundlDetail = ({ user, lang, setLang }) => {
               </div>
               {/* // border-black */}
               <div
-                className="
-                  bundl-summary
+                // className="
+                //   bundl-summary
+                //   sticky top-0 self-start
+                //   border-l border-black border-r border-r-[rgba(0,0,0,0.1)]
+                //   mb-[10%]
+                //   transition-all duration-500 ease-in-out
+                //   max-h-[80%] w-full
+                //   xs:overflow-y-auto lg:overflow-visible md:overflow-visible
+                // "
+
+
+                   className={`
+                  ${!isMobile ? "bundl-summary" : null}
                   sticky top-0 self-start
-                  border-l border-black border-r border-r-[rgba(0,0,0,0.1)]
+                  border-r border-r-[rgba(0,0,0,0.1)]
                   mb-[10%]
                   transition-all duration-500 ease-in-out
                   max-h-[80%] w-full
                   xs:overflow-y-auto lg:overflow-visible md:overflow-visible
-                "
+                `}
+                
                 // style={{
                 //   height: "100vh", // full viewport height
                 //   boxShadow: "4px 0 6px -2px rgba(0, 0, 0, 0.2)", // Right shadow only

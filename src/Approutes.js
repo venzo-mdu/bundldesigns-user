@@ -30,8 +30,10 @@ import Profile from "./Components/Pages/Profile";
 import ResetPassword from "./Components/Auth/ResetPassword";
 import { Purchasehistory } from "./Components/Pages/Purchasehistory";
 import { Contactus } from "./Components/Pages/Contactus";
-import ForgotpasswordMail from './Components/Auth/ForgotpasswordMail/ForgotpasswordMail'
-import ForgotPassword from "./Components/Auth/ForgotPassword/Forgot";
+import ForgotpasswordMail from "./Components/Auth/ForgotpasswordMail/ForgotpasswordMail";
+import ForgotPassword from "./Components/Auth/ForgotPassword/Forgotpass";
+import PasswordResetSent from "./Components/Auth/ForgotpasswordMail/PasswordResetSent";
+import { useSearchParams } from "react-router-dom";
 
 const getCookie = (name) => {
   const value = `; ${document.cookie}`;
@@ -127,8 +129,12 @@ export default function AppRouter() {
       element: <ForgotpasswordMail lang={transLanguage} />,
     },
     {
-      path: "/forgotpassword",
+      path: "/forgotpassword/:id",
       element: <ForgotPassword lang={transLanguage} />,
+    },
+    {
+      path: "/reset-sent",
+      element: <PasswordResetSent />,
     },
     {
       path: "/signup",
