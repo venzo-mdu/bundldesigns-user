@@ -1452,6 +1452,9 @@ import { loginAction } from "../../Redux/Action";
 import { useDispatch } from "react-redux";
 import plusImage from "../../Images/Bundles/plus-icon.png";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import { amountDecimal } from "../Utils/amountDecimal";
+
 
 export const Home = ({ lang, setLang }) => {
   const dispatch = useDispatch();
