@@ -1936,7 +1936,6 @@ export default function Dashboard({ lang, setLang }) {
                                 {lang === "ar"
                                   ? order?.brand_identity?.item__name_arabic
                                   : order?.brand_identity?.item_name}{" "}
-                                  
                                 {processIndex >= 4 && (
                                   <button
                                     className={`bg-[#1BA56F] px-2 !py-0  text-[16px] ${
@@ -1956,14 +1955,9 @@ export default function Dashboard({ lang, setLang }) {
                                       : "Request Edits"}
                                   </button>
                                 )}{" "}
-                              </p>
-                              
+                              </p>                             
                             </>
                           )}
-                          
-                          
-
-
                           <p
                             className={`text-[22px] ${
                               processIndex < 4 && "text-[#00000080]"

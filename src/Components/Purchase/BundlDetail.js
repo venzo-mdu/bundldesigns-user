@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import "../Purchase/Purchase.css";
 import { Navbar } from "../Common/Navbar/Navbar";
@@ -12,13 +12,16 @@ import blueIcon from "../../Images/blue staked coin.svg";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { base_url } from "../Auth/BackendAPIUrl";
 import { ConfigToken } from "../Auth/ConfigToken";
-import { ToastContainer, toast } from "react-toastify";
+// import { ToastContainer } from "react-toastify";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { Bgloader } from "../Common/Background/Bgloader";
 import { Popup } from "../Common/Popup/Popup";
 import { amountDecimal } from "../Utils/amountDecimal";
+import toast, { Toaster } from "react-hot-toast";
+
+let newToastId = null;
 
 export const BundlDetail = ({ user, lang, setLang }) => {
   const location = useLocation();
@@ -40,6 +43,8 @@ export const BundlDetail = ({ user, lang, setLang }) => {
   const [actual, setactual] = useState({});
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [isFromLogin, setIsFromLogin] = useState(state?.fromLogin);
+  const requiredToastShown = useRef(false);
+  const activeToasts = useRef({});
   const [routeId, setRouteId] = useState({
     newbie: 12,
     foodie: 4,
@@ -95,21 +100,38 @@ export const BundlDetail = ({ user, lang, setLang }) => {
   };
 
   const validateFields = () => {
-    if (brandInput?.trim() == "") {
-      if (!toast.isActive("required-value-toast")) {
-        toast.error(
-          lang === "ar" ? "الحد اختر اسمًا لمشروعك" : `Name your brand`,
-          {
-            position: toast?.POSITION?.TOP_RIGHT,
-            toastId: "required-value-toast",
-            autoClose: 3000,
-            icon: false,
-            style: {
-              color: "#D83D99",
-              fontWeight: "700",
-            },
-          }
-        );
+    if (brandInput === undefined || brandInput?.trim() == "") {
+      // if (!toast.isActive("required-value-toast")) {
+      //   toast.error(
+      //     lang === "ar" ? "الحد اختر اسمًا لمشروعك" : `Name your brand`,
+      //     {
+      //       position: toast?.POSITION?.TOP_RIGHT,
+      //       toastId: "required-value-toast",
+      //       autoClose: 3000,
+      //       icon: false,
+      //       style: {
+      //         color: "#D83D99",
+      //         fontWeight: "700",
+      //       },
+      //     }
+      //   );
+      // }
+
+      if (!activeToasts.current["required-value-toast"]) {
+        activeToasts.current["required-value-toast"] = true;
+
+        // Do your validation logic here — no popup, no toast
+        const element = document.getElementById("brandInput");
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+
+        setBrandError(true);
+
+        // Reset the flag after 3 seconds
+        setTimeout(() => {
+          activeToasts.current["required-value-toast"] = false;
+        }, 3000);
       }
 
       const element = document.getElementById("brandInput");
@@ -133,7 +155,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
       foodie: "#1BA56F",
       socialite: "#00A8C8",
       boutiquer: "#f175ad",
-    }
+    };
     if (state && "project_name" in state) {
       setBrandInput(state.project_name);
     }
@@ -207,6 +229,63 @@ export const BundlDetail = ({ user, lang, setLang }) => {
       });
     }
   };
+
+  const colors = {
+    newbie: "#f175ad",
+    foodie: "#1BA56F",
+    socialite: "#00A8C8",
+    boutiquer: "#f175ad",
+  };
+
+  const [themeColor, setThemeColor] = useState("#000");
+
+  useEffect(() => {
+    const path = window.location.href.split("/")[4];
+    if (colors[path]) {
+      setThemeColor(colors[path]);
+    }
+  }, []);
+
+  const toastMessage = () => {
+    const message = "Cart updated successfully";
+
+    if (newToastId) {
+      toast.dismiss(newToastId);
+    }
+
+    newToastId = toast(message, {
+      duration: 3000,
+      style: {
+        color: themeColor,
+        border: `1px solid ${themeColor}`,
+        fontWeight: "700",
+        background: "#fff",
+        boxShadow: "none",
+        borderRadius: "0px",
+      },
+    });
+  };
+
+  const NewToastSuccMessage = (msg) => {
+    const message = msg;
+
+    if (newToastId) {
+      toast.dismiss(newToastId);
+    }
+
+    newToastId = toast(message, {
+      duration: 3000,
+      style: {
+        color: themeColor,
+        border: `1px solid ${themeColor}`,
+        fontWeight: "700",
+        background: "#fff",
+        boxShadow: "none",
+        borderRadius: "0px",
+      },
+    });
+  };
+
   const handleQuantityChange = (designName, change) => {
     const colors = {
       // '12':'#f175ad',
@@ -230,18 +309,20 @@ export const BundlDetail = ({ user, lang, setLang }) => {
         prevErrors.filter((error) => error !== designName)
       );
     }
-    toast.success(`Cart updated successfully`, {
-      position: toast?.POSITION?.TOP_RIGHT,
-      toastId: "required-value-toast1",
-      autoClose: 3000,
-      icon: false,
-      style: {
-        color: colors[packageID],
-        fontWeight: "700",
-        border: `1px solid ${colors[packageID]}`,
-        borderRadius: "0px",
-      },
-    });
+
+    toastMessage();
+    // toast.success(`Cart updated successfully`, {
+    //   position: toast?.POSITION?.TOP_RIGHT,
+    //   toastId: "required-value-toast1",
+    //   autoClose: 3000,
+    //   icon: false,
+    //   style: {
+    //     color: colors[packageID],
+    //     fontWeight: "700",
+    //     border: `1px solid ${colors[packageID]}`,
+    //     borderRadius: "0px",
+    //   },
+    // });
     setExtraQty((prevQuantities) => {
       let newQuantity = (prevQuantities[designName] || 0) + change;
       return {
@@ -255,13 +336,14 @@ export const BundlDetail = ({ user, lang, setLang }) => {
     setOpenPopup(false);
     await axios.delete(`${base_url}/api/order/cart/`, ConfigToken());
     // addToCart(selectedIndex)
-    toast.success("Cart emptied,Now Checkout", {
-      icon: false,
-      style: {
-        color: "#1BA56F",
-        fontWeight: "700", // White text
-      },
-    });
+    // toast.success("Cart emptied,Now Checkout", {
+    //   icon: false,
+    //   style: {
+    //     color: "#1BA56F",
+    //     fontWeight: "700", // White text
+    //   },
+    // });
+    NewToastSuccMessage("Cart emptied,Now Checkout");
     createPayload();
   };
 
@@ -409,7 +491,18 @@ export const BundlDetail = ({ user, lang, setLang }) => {
         <Bgloader />
       ) : (
         <div>
-          <ToastContainer />
+          <Toaster
+            position="top-right"
+            toastOptions={{
+              style: {
+                color: themeColor,
+                fontWeight: "700",
+                border: `1px solid ${themeColor}`,
+                borderRadius: "0px !important",
+              },
+            }}
+          />
+          {/* <ToastContainer /> */}
           <Navbar isLang={lang} setIsLang={setLang} />
           <div className="bundl-detail mt-3">
             <div
@@ -748,40 +841,32 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                 // className="
                 //   bundl-summary
                 //   sticky top-0 self-start
+
                 //   border-l border-black border-r border-r-[rgba(0,0,0,0.1)]
+
                 //   mb-[10%]
                 //   transition-all duration-500 ease-in-out
                 //   max-h-[80%] w-full
                 //   xs:overflow-y-auto lg:overflow-visible md:overflow-visible
                 // "
 
+                style={{
+                  // maxHeight: showDetails ? "80%" : "200px",
+                  ...(isMobile ? { border: "1px solid" } : {}),
+                  transition: "all 0.5s ease-in-out",
+                }}
+                className={`
+                   
+                ${!isMobile ? "sticky top-0 self-start" : null}
+              
 
-                   className={`
-                  ${!isMobile ? "bundl-summary" : null}
-                  sticky top-0 self-start
                   border-r border-r-[rgba(0,0,0,0.1)]
-                  mb-[10%]
+                 ${!isMobile ? "mb-[10%]" : null}
                   transition-all duration-500 ease-in-out
-                  max-h-[80%] w-full
+                bundl-summary  max-h-[80%] w-full
                   xs:overflow-y-auto lg:overflow-visible md:overflow-visible
                 `}
-                
-                // style={{
-                //   height: "100vh", // full viewport height
-                //   boxShadow: "4px 0 6px -2px rgba(0, 0, 0, 0.2)", // Right shadow only
-                //   zIndex: 10,
-                // }}
-                // style={{
-                //   // maxHeight: showDetails ? "80%" : "200px",
-                //   transition: "all 0.5s ease-in-out",
-                //   position: "sticky",
-                //   top: "0px",
-                //   alignSelf: "flex-start",
-                //   borderRight: "1px solid #000000",
-                //   marginBottom: "10%",
-                //   // borderLeft:'none'
-                // }}
-                // className="bundl-summary  border max-h-[80%] w-full xs:overflow-y-auto lg:overflow-hidden md:overflow-hidden"
+
               >
                 {/* <div style={{borderRight: "1px solid #000000"}}></div> */}
                 <div className="bundl-name ">

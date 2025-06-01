@@ -8,11 +8,13 @@ import BlackTime from "../../Images/BundlDetail/blacktime.svg";
 import { ConfigToken } from "../Auth/ConfigToken";
 import axios from "axios";
 import { base_url } from "../Auth/BackendAPIUrl";
-import { ToastContainer, toast } from "react-toastify";
+// import { ToastContainer, toast } from "react-toastify";
+import toast, { Toaster } from "react-hot-toast";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { Popup } from "../Common/Popup/Popup";
 import { amountDecimal } from "../Utils/amountDecimal";
 
+let newToastId = null;
 export const CustomBundl = ({ user, lang, setLang }) => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -78,19 +80,42 @@ export const CustomBundl = ({ user, lang, setLang }) => {
     createPayload();
   };
 
+  const toastErrorMessage = (msg) => {
+    const message = msg;
+
+    if (newToastId) {
+      toast.dismiss(newToastId);
+    }
+
+    newToastId = toast(message, {
+      duration: 3000,
+      style: {
+        color: "#1BA56F",
+        border: `1px solid #1BA56F`,
+        fontWeight: "700",
+        background: "#fff",
+        boxShadow: "none",
+        borderRadius: "0px",
+      },
+    });
+  };
+
   const createPayload = async () => {
     if (brandInput == "") {
-      toast.error(
-        lang === "ar" ? "الحد اختر اسمًا لمشروعك" : `Name your brand`,
-        {
-          position: toast?.POSITION?.TOP_RIGHT,
-          toastId: "required-value-toast",
-          icon: false,
-          style: {
-            color: "#D83D99",
-            fontWeight: "700",
-          },
-        }
+      // toast.error(
+      //   lang === "ar" ? "الحد اختر اسمًا لمشروعك" : `Name your brand`,
+      //   {
+      //     position: toast?.POSITION?.TOP_RIGHT,
+      //     toastId: "required-value-toast",
+      //     icon: false,
+      //     style: {
+      //       color: "#D83D99",
+      //       fontWeight: "700",
+      //     },
+      //   }
+      // );
+      toastErrorMessage(
+        lang === "ar" ? "الحد اختر اسمًا لمشروعك" : `Name your brand`
       );
       const element = document.getElementById("brandInput");
       if (element) {
@@ -100,36 +125,46 @@ export const CustomBundl = ({ user, lang, setLang }) => {
       return false;
     }
     if (firstOrder && addonPayLoads.total_price < 800) {
-      toast.error(
+      // toast.error(
+      //   lang === "ar"
+      //     ? "الأدنى للطلب يجب أن يكون 800"
+      //     : `Minimum order amount should be 800`,
+      //   {
+      //     position: toast?.POSITION?.TOP_RIGHT,
+      //     toastId: "required-value-toast",
+      //     icon: false,
+      //     style: {
+      //       color: "#D83D99",
+      //       fontWeight: "700",
+      //     },
+      //   }
+      // );
+      toastErrorMessage(
         lang === "ar"
           ? "الأدنى للطلب يجب أن يكون 800"
-          : `Minimum order amount should be 800`,
-        {
-          position: toast?.POSITION?.TOP_RIGHT,
-          toastId: "required-value-toast",
-          icon: false,
-          style: {
-            color: "#D83D99",
-            fontWeight: "700",
-          },
-        }
+          : `Minimum order amount should be 800`
       );
       return false;
     }
     if (addonPayLoads.item_list.length == 0) {
-      toast.error(
+      // toast.error(
+      //   lang === ""
+      //     ? "التسوق يرجى إضافة عنصر إلى سلة"
+      //     : `Please add an Item to Checkout`,
+      //   {
+      //     position: toast?.POSITION?.TOP_RIGHT,
+      //     toastId: "required-value-toast",
+      //     icon: false,
+      //     style: {
+      //       color: "#D83D99",
+      //       fontWeight: "700",
+      //     },
+      //   }
+      // );
+      toastErrorMessage(
         lang === ""
           ? "التسوق يرجى إضافة عنصر إلى سلة"
-          : `Please add an Item to Checkout`,
-        {
-          position: toast?.POSITION?.TOP_RIGHT,
-          toastId: "required-value-toast",
-          icon: false,
-          style: {
-            color: "#D83D99",
-            fontWeight: "700",
-          },
-        }
+          : `Please add an Item to Checkout`
       );
       return false;
     }
@@ -201,7 +236,11 @@ export const CustomBundl = ({ user, lang, setLang }) => {
           );
           if (
             response?.data?.order_status === "in_cart" &&
-            !state?.isBackToCustom
+            response?.data?.bundle_id !== null &&
+            response?.data?.bundle_name !== null &&
+            !state?.isBackToCustom &&
+            response?.data?.item_details?.bundle_id !== null &&
+            response?.data?.item_details?.bundle_name !== null
           ) {
             setOpenPopup(true);
           }
@@ -229,7 +268,18 @@ export const CustomBundl = ({ user, lang, setLang }) => {
 
   return (
     <div>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          style: {
+            color: "#1BA56F",
+            fontWeight: "700",
+            borderRadius: "0px !important",
+            border: `1px solid #1BA56F`,
+          },
+        }}
+      />
       <Navbar isLang={lang} setIsLang={setLang} />
       <div className="bundl-detail mt-3">
         <div style={{ borderBottom: "1.5px solid #000000", width: "100%" }}>
@@ -306,7 +356,12 @@ export const CustomBundl = ({ user, lang, setLang }) => {
 
           <div
             className="bundl-summary  max-h-[80%]"
-            style={{ position: "sticky", top: "0px", alignSelf: "flex-start" }}
+            style={{
+              position: "sticky",
+              ...(isMobile ? { border: "1px solid" } : {}),
+              top: "0px",
+              alignSelf: "flex-start",
+            }}
           >
             <div className="bundl-name">
               <p
@@ -416,7 +471,8 @@ export const CustomBundl = ({ user, lang, setLang }) => {
                   </span>
                 </p>
                 <p className="w-[40%] xs:text-right sm:text-left !font-bold sm:mb-2 xs:mb-0">
-                  {amountDecimal(addonPayLoads.total_price)} {lang === "ar" ? "ريال" : "SAR"}
+                  {amountDecimal(addonPayLoads.total_price)}{" "}
+                  {lang === "ar" ? "ريال" : "SAR"}
                 </p>
               </div>
               <div className="total  flex items-center">
