@@ -11,6 +11,7 @@ import { base_url } from "../Auth/BackendAPIUrl";
 import { ToastContainer, toast } from "react-toastify";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { Popup } from "../Common/Popup/Popup";
+import { amountDecimal } from "../Utils/amountDecimal";
 
 export const CustomBundl = ({ user, lang, setLang }) => {
   const navigate = useNavigate();
@@ -390,7 +391,7 @@ export const CustomBundl = ({ user, lang, setLang }) => {
                                 lang === "ar" ? "text-left" : "text-right"
                               }`}
                             >
-                              + {addon.total_price}{" "}
+                              + {amountDecimal(addon.total_price)}{" "}
                               {lang === "ar" ? "ريال" : "SAR"}
                             </p>
                           </div>
@@ -415,7 +416,7 @@ export const CustomBundl = ({ user, lang, setLang }) => {
                   </span>
                 </p>
                 <p className="w-[40%] xs:text-right sm:text-left !font-bold sm:mb-2 xs:mb-0">
-                  {addonPayLoads.total_price} {lang === "ar" ? "ريال" : "SAR"}
+                  {amountDecimal(addonPayLoads.total_price)} {lang === "ar" ? "ريال" : "SAR"}
                 </p>
               </div>
               <div className="total  flex items-center">

@@ -1452,7 +1452,6 @@ import { loginAction } from "../../Redux/Action";
 import { useDispatch } from "react-redux";
 import plusImage from "../../Images/Bundles/plus-icon.png";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 
 export const Home = ({ lang, setLang }) => {
   const dispatch = useDispatch();
@@ -1569,22 +1568,22 @@ export const Home = ({ lang, setLang }) => {
     },
     {
       title: "UPLOAD CONTENT",
-      arabic_title: "إضافة المحتوى​",
+      arabic_title: "تحميل المحتوى",
       description:
         "You can easily upload the contents for the items in your bundl, to be designed following your approved brand.",
       arabic_description:
-        "يمكنك بسهولة تحميل محتويات العناصر الموجودة في باقتك. التصاميم حتتبع تفاصيل هويتك ​",
+        "يمكنك بسهولة تحميل محتويات العناصر الموجودة في البندل الخاصة بك.التصاميم حتتبع تفاصيل هويتك الموافق عليها.",
       imgSrc: UploadContent,
       fill: "#4FA472",
       color: "#000",
     },
     {
       title: "GET DESIGNS",
-      arabic_title: "حمل / عدل تصاميمك​",
+      arabic_title: "احصل عدل تصاميمك",
       description:
         "Your designs will be sent to your account. Need more items? some adjustments? Just Add-on to your bundl.",
       arabic_description:
-        "سيتم ارسال تصاميمك إلى حسابك. تحتاج مزيد من العناصر؟ بعد التعديلات؟ اضف ما تريد إلى الباقة",
+        "سيتم إرسال تصاميمك إلى حسابك. هل تحتاج إلى المزيد؟ بعض التعديلات؟ فقط اضف ما تريد إلى البندل الخاصة بك",
       imgSrc: Getthedesign,
       fill: "#00A8C8",
       color: "#000",
@@ -1902,7 +1901,7 @@ export const Home = ({ lang, setLang }) => {
                                           previewlistener="true"
                                         >
                                           {lang === "ar"
-                                            ? "المشاريع"
+                                            ? "مشاريعنا"
                                             : "Projects"}
                                         </a>
                                       </li>
@@ -1917,9 +1916,7 @@ export const Home = ({ lang, setLang }) => {
                                           className="text-black"
                                           previewlistener="true"
                                         >
-                                          {lang === "ar"
-                                            ? "تاريخ الطلبات​"
-                                            : "History"}
+                                          {lang === "ar" ? "تاريخ" : "History"}
                                         </a>
                                       </li>
                                       <li
@@ -1931,7 +1928,7 @@ export const Home = ({ lang, setLang }) => {
                                           className="text-black"
                                           previewlistener="true"
                                         >
-                                          {lang === "ar" ? "حسابك​" : "Profile"}
+                                          {lang === "ar" ? "حسابك" : "Profile"}
                                         </a>
                                       </li>
                                       <li
@@ -1947,7 +1944,9 @@ export const Home = ({ lang, setLang }) => {
                                           }}
                                           previewlistener="true"
                                         >
-                                          {lang === "ar" ? "حسابك​" : "Logout"}
+                                          {lang === "ar"
+                                            ? "تسجيل خروج "
+                                            : "Logout"}
                                         </a>
                                       </li>
                                     </>
@@ -3296,7 +3295,7 @@ export const Home = ({ lang, setLang }) => {
                   <div className="sar d-flex align-items-center">
                     {/* <!--<img src="asset/images/money-icon.webp" alt="" className="img-fluid">--> */}
                     <span className="sar_text">
-                      8000 {lang === "ar" ? "ريال" : "SAR"}
+                      {amountDecimal(8000)} {lang === "ar" ? "ريال" : "SAR"}
                     </span>
                   </div>
                   <div className="work_time d-flex align-items-center">
@@ -3499,7 +3498,7 @@ export const Home = ({ lang, setLang }) => {
                   <div className="sar d-flex align-items-center">
                     {/* <!--<img src="asset/images/money-icon.webp" alt="" className="img-fluid">--> */}
                     <span className="sar_text">
-                      8000 {lang === "ar" ? "ريال" : "SAR"}
+                      {amountDecimal(8000)} {lang === "ar" ? "ريال" : "SAR"}
                     </span>
                   </div>
                   <div className="work_time d-flex align-items-center">
@@ -3658,7 +3657,7 @@ export const Home = ({ lang, setLang }) => {
                         justifyContent: "space-between",
                       }}
                     >
-                      <div className="pack-inner-title lg:mobile-t-25 md:mobile-t-25">
+                      <div className="pack-inner-title lg:mobile-t-25 md:mobile-t-25 xs:mt-[7%]">
                         <span>
                           + {lang === "ar" ? "سوشال ميديا" : "Stationery"}
                         </span>
@@ -3705,7 +3704,6 @@ export const Home = ({ lang, setLang }) => {
                         </div>
                       </div>
                     </div>
-
                     <div className="change_brand_name">
                       <div className="second_section_image">
                         <img src={MaginIcon} alt="" className="img-fluid" />

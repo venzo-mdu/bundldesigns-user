@@ -34,6 +34,7 @@ import ForgotpasswordMail from "./Components/Auth/ForgotpasswordMail/Forgotpassw
 import ForgotPassword from "./Components/Auth/ForgotPassword/Forgotpass";
 import PasswordResetSent from "./Components/Auth/ForgotpasswordMail/PasswordResetSent";
 import { useSearchParams } from "react-router-dom";
+import Animation from "./Components/Pages/Animation";
 
 const getCookie = (name) => {
   const value = `; ${document.cookie}`;
@@ -144,6 +145,7 @@ export default function AppRouter() {
       path: "/",
       element: <Home lang={transLanguage} setLang={setTransLanguage} />,
     },
+
     {
       path: "/bundldetail/:packageID",
       element: (
@@ -231,6 +233,17 @@ export default function AppRouter() {
           }
         />
       ),
+    },
+    {
+      path: "/ani",
+      element: (
+        <ProtectedRoute
+          element={
+            <Animation lang={transLanguage} setLang={setTransLanguage} />
+          }
+        />
+      ),
+      // element: <Animation lang={transLanguage} setLang={setTransLanguage}/>,
     },
     {
       path: "/dashboard",
