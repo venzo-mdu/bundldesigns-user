@@ -2471,7 +2471,7 @@ export default function Adjustments({ user, lang, setLang }) {
                               {lang === "ar" ? "ارسال" : "Submit Edit"}
                             </button>
                             {adjustmentError && (
-                              <p style={{ color: "red" }}>
+                              <p style={{color: "#D83D99" }}>
                                 Please enter the feild
                               </p>
                             )}
@@ -2963,7 +2963,7 @@ export default function Adjustments({ user, lang, setLang }) {
                           {lang === "ar" ? "متابعة الخروج" : "Proceed Checkout"}
                         </button>
                         {errorMsg && (
-                          <p className="pb-0 text-[16px] text-[red]">
+                          <p className="pb-0 text-[16px] text-[#D83D99]">
                             {errorMsg}*
                           </p>
                         )}
@@ -3711,7 +3711,7 @@ export default function Adjustments({ user, lang, setLang }) {
                             </button>
                           </p>
                           {adjustmentError && (
-                            <p style={{ color: "red" }}>
+                            <p style={{color: "#D83D99" }}>
                               Please enter the feild
                             </p>
                           )}
@@ -4157,7 +4157,7 @@ export default function Adjustments({ user, lang, setLang }) {
                     {lang === "ar" ? "متابعة الخروج" : "Proceed Checkout"}
                   </button>
                   {errorMsg && (
-                    <p className="pb-0 text-[16px] text-[red] text-left mt-2">
+                    <p className="pb-0 text-[16px] text-[#D83D99] text-left mt-2">
                       {errorMsg}*
                     </p>
                   )}
