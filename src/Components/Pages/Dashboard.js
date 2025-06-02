@@ -1903,7 +1903,7 @@ export default function Dashboard({ lang, setLang }) {
                                   : "Brand & Visual Identity"}
                                 <span className="text-[#1BA56F] lg:text-[18px] md:text-[18px] xs:text-[16px]  font-[500] xs:!float-end lg:!float-none md:!float-none">
                                   {" "}
-                                  -
+                                  -&nbsp;
                                   {processIndex < 2
                                     ? processIndex === 1 &&
                                       order?.order_status !== "in_progress"
@@ -1924,7 +1924,7 @@ export default function Dashboard({ lang, setLang }) {
                               </p>
 
                               <p
-                                className={`font-medium lg:text-[18px] md:text-[18px] xs:text-[16px] ${
+                                className={`font-[600] lg:text-[18px] md:text-[18px] xs:text-[16px] ${
                                   processIndex < 2
                                     ? processIndex === 1 &&
                                       order?.order_status !== "in_progress"
@@ -1955,20 +1955,19 @@ export default function Dashboard({ lang, setLang }) {
                                       : "Request Edits"}
                                   </button>
                                 )}{" "}
-                              </p>
+                              </p>                             
                             </>
                           )}
-
                           <p
                             className={`text-[22px] ${
                               processIndex < 4 && "text-[#00000080]"
                             } font-bold my-2`}
                           >
-                            {lang === "ar" ? "التطبيقات " : "Applications"}
+                            {lang === "ar" ? "الإضافات" : "Add-Ons​"}
 
                             <span className="text-[#1BA56F] lg:text-[18px] md:text-[18px] xs:text-[16px]  font-[500] xs:!float-end lg:!float-none md:!float-none">
                               {" "}
-                              -
+                              -&nbsp;
                               {processIndex < 4
                                 ? lang === "ar"
                                   ? "قيد الانتظار"

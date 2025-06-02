@@ -366,9 +366,7 @@ export const Contactus = ({lang,setLang}) => {
                   <h2 className='text-[38px] mt-4 leading-1 relative text-black w-[340px] mx-auto mb-0'>
                       <img className={`absolute bottom-[10px] xs:w-[90px] sm:w-[150px] sm:bottom-[-20px] lg:bottom-[-40px] md:bottom-[-40px] xs:bottom-[-25px] ${lang === 'ar' ? 'xs:right-0 sm:right-[-10%] right-[-10%] rotate-[45deg]':'xs:left-0 sm:left-[-10%] left-[-10%]'}`} src={Loginlogo} alt='login' /> 
                   </h2>
-                  <h2 className='text-[40px] text-[#F3B7CE] font-[700]'>{lang === 'ar' ? 'اتصل بنا' : 'Contact Us'}</h2>
-                  <p className='sm:text-[18px] xs:pb-8 sm:pb-1 text-[18px] xs:text-[16px] md:w-[100%] lg:w-[92%] xl:w-[62%] xs:w-[350px] mx-auto'>{lang === 'ar' ? 'تميز بهويتك البصرية بمتجرك الفعلي او اونلاين. تشمل هذه الباقة هوية بصرية متكاملة (شعار، دليل استخدام، ألوان، خطوط، وأنماط)، بالإضافة إلى تصاميم مخصصة للمتاجر تعزز تجربة العميل. ولا ننسى تصاميم السوشال ميديا لدعم مبيعاتك وزيادة التفاعل!' : 'Elevate your brand, whether online or in-store. This bundle includes comprehensive brand identity (logo, guidelines, colors, typography, patterns) and commerce collateral to enhance customer experience. Plus, get social media designs to boost sales.'}
-                  </p>
+                  <h2 className='text-[40px] text-[#F3B7CE] font-[700]'>{lang === 'ar' ? 'تواصل معنا' : 'Contact Us'}</h2>                  
                   <img className={`sm:!w-[200px] !w-[200px] xs:!w-[130px] bottom-[-50px] left-[-30px] right-[10%] absolute sm:hidden `} src={ paperPlaneGif}></img>
     
                 </div>
