@@ -114,7 +114,7 @@ const ResetPassword = ({lang,setLang}) => {
                             name='old_password'
                         />
                     </div>
-                    {error.old_password && <p className="text-red-500 text-sm my-2">{error.old_password}</p>}
+                    {error.old_password && <p className="text-[#D83D99] text-sm my-2">{error.old_password}</p>}
 
                     <div className="flex items-center border-b-[2px] border-black  p-2 mb-4">
                         <FaUser className={`text-gray-500 ${lang === 'ar' ? 'ml-2':'mr-2'}`} />
@@ -127,7 +127,7 @@ const ResetPassword = ({lang,setLang}) => {
                             name='new_password'
                         />
                     </div>
-                    {error.new_password && <p className="text-red-500 text-sm my-2">{error.new_password}</p>}
+                    {error.new_password && <p className="text-[#D83D99] text-sm my-2">{error.new_password}</p>}
 
                     <div className="flex items-center border-b-[2px] border-black  p-2 mb-4">
                         <FaUser className={`text-gray-500 ${lang === 'ar' ? 'ml-2':'mr-2'}`} />
@@ -140,7 +140,7 @@ const ResetPassword = ({lang,setLang}) => {
                             name='confirm_password'
                         />
                     </div>
-                    {error.confirm_password && <p className="text-red-500 text-sm my-2">{error.confirm_password}</p>}
+                    {error.confirm_password && <p className="text-[#D83D99] text-sm my-2">{error.confirm_password}</p>}
 
                     <button type='submit' className="w-full bg-[#f3b7ce] text-white py-2 ">
                         {isLoading ? <ClipLoader size={25} color='#FFFFFF' /> :lang === 'ar' ? 'تحديث كلمة المرور' : 'UPDATE PASSWORD'}
