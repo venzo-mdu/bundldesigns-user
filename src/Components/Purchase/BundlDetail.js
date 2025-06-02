@@ -528,7 +528,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                     <span className="mr-0 font-[400]">
                       {packageID === "newbie"
                         ? lang === "ar"
-                          ? "بدءا من"
+                          ? "تبدأ من​"
                           : "Starting from"
                         : ""}
                     </span>{" "}
@@ -591,7 +591,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                   }
                 >
                   {lang === "ar"
-                    ? "ما هو اسم علامتك التجارية؟"
+                    ? "ماهو اسم مشروعك؟​"
                     : "What is the name of your brand?"}
                 </p>
                 <input
@@ -681,7 +681,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                                   checked={selectedLanguage === "English"}
                                   onChange={handleRadioChange}
                                 />
-                                {lang === "ar" ? "ا انجليزي" : "English"}
+                                {lang === "ar" ? "انجليزي" : "English"}
                               </label>
                             </p>
 
@@ -697,7 +697,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                                   checked={selectedLanguage === "Arabic"}
                                   onChange={handleRadioChange}
                                 />
-                                {lang === "ar" ? "يا عربي" : "Arabic"}
+                                {lang === "ar" ? "عربي" : "Arabic"}
                               </label>
                             </p>
 
@@ -841,7 +841,9 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                 // className="
                 //   bundl-summary
                 //   sticky top-0 self-start
-                //   border-r border-r-[rgba(0,0,0,0.1)]
+
+                //   border-l border-black border-r border-r-[rgba(0,0,0,0.1)]
+
                 //   mb-[10%]
                 //   transition-all duration-500 ease-in-out
                 //   max-h-[80%] w-full
@@ -857,12 +859,14 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                    
                 ${!isMobile ? "sticky top-0 self-start" : null}
               
+
                   border-r border-r-[rgba(0,0,0,0.1)]
                  ${!isMobile ? "mb-[10%]" : null}
                   transition-all duration-500 ease-in-out
                 bundl-summary  max-h-[80%] w-full
                   xs:overflow-y-auto lg:overflow-visible md:overflow-visible
                 `}
+
               >
                 {/* <div style={{borderRight: "1px solid #000000"}}></div> */}
                 <div className="bundl-name ">
@@ -872,7 +876,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                     }`}
                   >
                     <span className="font-normal">
-                      {lang === "ar" ? "ملخص" : "Summary"}
+                      {lang === "ar" ? "ملخص الطلب​" : "Summary"}
                     </span>
                     {isMobile && (
                       <button
@@ -1212,7 +1216,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                         className={`proceed uppercase !bg-[${textColor}]`}
                         onClick={createPayload}
                       >
-                        {lang === "ar" ? "متابعة الخروج" : "Proceed Checkout"}
+                        {lang === "ar" ? "المتابعة إلى السلة​" : "Proceed to Cart"}
                       </button>
                     ) : (
                       <button
@@ -1220,7 +1224,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                         className={`proceed uppercase !bg-[${textColor}]`}
                         disabled
                       >
-                        {lang === "ar" ? "متابعة الخروج" : "Proceed Checkout"}
+                        {lang === "ar" ? "المتابعة إلى السلة​" : "Proceed to Cart"}
                       </button>
                     )}
                   </div>
@@ -1237,9 +1241,9 @@ export const BundlDetail = ({ user, lang, setLang }) => {
           openpopup={openPopup}
           setPopup={setOpenPopup}
           title={""}
-          subTitle={"Are you sure you want to empty the cart."}
+          subTitle={"You already have items in your cart. Would you like to."}
           onClick={emptyCart}
-          save={"Empty Cart"}
+          save={"Continue"}
           cancel={"Cancel"}
           cancelClick={setIsFromLogin}
           isLang={lang}

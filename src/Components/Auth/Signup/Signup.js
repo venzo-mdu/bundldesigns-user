@@ -537,6 +537,7 @@ export const Signup = ({ lang }) => {
             <span className="bundle-designs">
               {lang === "ar" ? "مف يبند لديزاين" : "Bundl Designs"}{" "}
             </span>
+
           </p>
           <img className="loginlogo" src={Loginlogo} alt="login" />
           <form onSubmit={signUp}>

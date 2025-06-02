@@ -39,5 +39,4 @@ const useToastMessage = () => {
     showErrorToast,
   };
 };
-
 export default useToastMessage;

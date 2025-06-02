@@ -2,13 +2,13 @@
         "main_title": "Welcome  to your dashboard,",
         "main_title_arabic":"مرحبا بك في لوحة التحكم الخاصة بك،",
         "title_content":"Here you’ll find all that you need about your bundles and much more.",
-        "title_content_arabic":"ستجد هنا كل ما تحتاجه حول حزمك وأكثر من ذلك بكثير .",
+        "title_content_arabic":"ستجد هنا كل ما تحتاجه حول باقاتك وأكثر​",
         "second_title":"My Bundls",
-        "second_title_arabic":"بلدي بوندلز",
+        "second_title_arabic":"باقاتي",
         "project_process": ["Purchase bundl", "Fill Questionnaire","Designing Brand",
         "Adjustment & Brand Approval","Add Ons" ,"Receive Designs"],
-        "project_process_arabic": ["شراء بوندل", "املأ الاستبيان","العلامة التجارية المرغوبة" ,   
-        "التعديل والموافقة على & العلامة التجارية","إضافات" ,"استلام التصاميم"],
+        "project_process_arabic": ["شراء بوندل", "املأ الاستبيان","تصميم الهوية" ,   
+        "التعديل والموافقة على الهوية","إضافات" ,"استلام التصاميم"],
         "process_content":{
             "questionnaire":"Fill out questionnaire to continue the design process!",
             "questionnaire_fill":"Fill Questionnaire",
@@ -61,7 +61,7 @@
         "rate_us":"How would you rate us ?",
         "rate_us_content":"We care about your satisfaction, let us know your thoughts!",
         "review_google":"Review us on Google",
-        "rate_us_arabic":"كيف تقيم لنا؟",
-        "rate_us_content_arabic":"نحن نهتم برضاك ، دعنا نعرف أفكارك !",
-        "review_google_arabic":"مراجعتنا على جوجل"
+        "rate_us_arabic":"كيف كانت تجربتك معنا؟​",
+        "rate_us_content_arabic":"رضاك أولويتنا، شاركنا رأيك​",
+        "review_google_arabic":"اترك تقييمك هنا​"
 }

@@ -288,7 +288,7 @@ export const Navbar = ({isLang,setIsLang}) => {
                               <a className="nav-link" href="/our-work">{isLang === 'ar' ? 'مشاريعنا' :'Work'}</a>
                             </li>
                             <li className="nav-item">
-                              <a className="nav-link" href="/contact-us">{isLang === 'ar' ? 'اتصل بنا' :'Contact Us'}</a>
+                              <a className="nav-link" href="/contact-us">{isLang === 'ar' ? 'تواصل معنا' :'Contact Us'}</a>
                             </li>
                           </ul>
                         </div>
@@ -314,16 +314,16 @@ export const Navbar = ({isLang,setIsLang}) => {
           {token ? (
             <>
               <li className='relative px-3 inner-nav-li' onClick={()=>navigate('/dashboard')}>
-                <a href="/dashboard" className='text-black' previewlistener="true">{isLang === 'ar' ?'مشاريعنا':'Projects'}</a>
+                <a href="/dashboard" className='text-black' previewlistener="true">{isLang === 'ar' ?'المشاريع':'Projects'}</a>
               </li>
               <li className='relative px-3 inner-nav-li' onClick={()=>navigate('/purchase-history')}>
-                <a href="/purchase-history" className='text-black' previewlistener="true">{isLang === 'ar' ?'تاريخ':'History'}</a>
+                <a href="/purchase-history" className='text-black' previewlistener="true">{isLang === 'ar' ?'تاريخ الطلبات​':'History'}</a>
               </li>
               <li className='relative px-3 inner-nav-li' onClick={()=>navigate('/profile')}>
                 <a href="/profile" className='text-black' previewlistener="true">{isLang === 'ar' ? 'حسابك' :'Profile'}</a>
               </li>
               <li className='relative px-3 inner-nav-li' onClick={() => { Logout() }}>
-                <a className='cursor-pointer text-black' onClick={() => { Logout() }} previewlistener="true">{isLang === 'ar' ? 'خروج تسجيل ':'Logout'}</a>
+                <a className='cursor-pointer text-black' onClick={() => { Logout() }} previewlistener="true">{isLang === 'ar' ? 'تسجيل خروج​':'Logout'}</a>
               </li>
             </>
           ) : (
@@ -362,7 +362,7 @@ export const Navbar = ({isLang,setIsLang}) => {
                                   <a href="/aboutus" className='text-black' previewlistener="true">{isLang === 'ar' ? 'عن بندل' : 'About us'}</a>
                                 </li>
                                 <li className='relative p-1 inner-nav-li' onClick={()=>navigate('/contact-us')}>
-                                  <a href="/contact-us" className='text-black' previewlistener="true">{isLang === 'ar' ? 'اتصل بنا' : 'Contact Us'}</a>
+                                  <a href="/contact-us" className='text-black' previewlistener="true">{isLang === 'ar' ? 'تواصل معنا' : 'Contact Us'}</a>
                                 </li>
                               </ul>
                                     )

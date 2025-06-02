@@ -1455,6 +1455,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { amountDecimal } from "../Utils/amountDecimal";
 
+
 export const Home = ({ lang, setLang }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -1537,11 +1538,11 @@ export const Home = ({ lang, setLang }) => {
   const processData = [
     {
       title: "BUY A BUNDL",
-      arabic_title: "إشتري بندل",
+      arabic_title: "اشتري باقة",
       description:
         "Choose from our tailored Bundls, or customize your very own according to your project needs.",
       arabic_description:
-        "اختر البندل المناسب لمشروعك. لم تجد ما تبحث عنه؟ صمم البندل الملائم لك",
+        "اختر الباقة المناسبة لمشروعك، لم تجد ما تبحث عنه؟ صمم الباقة المناسبة لك​",
       imgSrc: BuyBundl,
       fill: "#4FA472",
       color: "#000",
@@ -1828,7 +1829,7 @@ export const Home = ({ lang, setLang }) => {
                           </li>
                           <li className="nav-item">
                             <a className="nav-link" href="/contact-us">
-                              {lang === "ar" ? "اتصل بنا" : "Contact Us"}
+                              {lang === "ar" ? "تواصل معنا" : "Contact Us"}
                             </a>
                           </li>
                         </ul>
@@ -2081,7 +2082,7 @@ export const Home = ({ lang, setLang }) => {
                                       previewlistener="true"
                                     >
                                       {lang === "ar"
-                                        ? "اتصل بنا"
+                                        ? "تواصل معنا"
                                         : "Contact Us"}
                                     </a>
                                   </li>
@@ -2776,7 +2777,7 @@ export const Home = ({ lang, setLang }) => {
                     <div className="box-child">
                       <div className="pack-inner-title">
                         <span>
-                          {lang === "ar" ? "تصميم االهوية" : "Brand Identity"}
+                          {lang === "ar" ? " تصميم الهوية " : "Brand Identity"}
                         </span>
                       </div>
                       <ul className="second_brand_list">
@@ -2817,10 +2818,10 @@ export const Home = ({ lang, setLang }) => {
                         <span>
                           {window.innerWidth <= 475
                             ? lang === "ar"
-                              ? ""
+                              ? "اختر الإضافات المناسبة لك​"
                               : "Choose Your Add-ons"
                             : lang === "ar"
-                            ? ""
+                            ? "اختر الإضافات المناسبة لك"
                             : "Choose Your Add-ons"}
                         </span>
                       </div>
@@ -2845,7 +2846,7 @@ export const Home = ({ lang, setLang }) => {
                 <div className="newbie_description">
                   <div className="third_section_toggle">
                     <div className="brand_identity pink-text">
-                      {lang === "ar" ? "تصميم االهوية" : "Brand Identity"} +{" "}
+                      {lang === "ar" ? "تصميم الهوية" : "Brand Identity"} +{" "}
                       <br />
                       {lang === "ar"
                         ? "إضافات إلى بندل"
@@ -2866,14 +2867,18 @@ export const Home = ({ lang, setLang }) => {
                   <div className="sar d-flex align-items-center">
                     {/* <!--<img src="asset/images/money-icon.webp" alt="" className="img-fluid">--> */}
                     <span className="sar_text">
-                      <span>{lang === "ar" ? "تبدأ من" : "Starting from"}</span>{" "}
-                      {amountDecimal(4880)} {lang === "ar" ? "ريال" : "SAR"}
+                      <span>
+                        {lang === "ar" ? "تبدأ من​" : "Starting from"}
+                      </span>{" "}
+                      4880 {lang === "ar" ? "ريال" : "SAR"}
                     </span>
                   </div>
                   <div className="work_time d-flex align-items-center">
                     {/* <!--<img src="asset/images/time-icon.webp" alt="" className="ing-fluid">--> */}
                     <span className="working_days">
-                      <span>{lang === "ar" ? "تبدأ من" : "Starting from"}</span>{" "}
+                      <span>
+                        {lang === "ar" ? "تبدأ من​" : "Starting from"}
+                      </span>{" "}
                       30 {lang === "ar" ? "أيام عمل" : "WORKING DAYS"}
                     </span>
                   </div>
@@ -2963,7 +2968,7 @@ export const Home = ({ lang, setLang }) => {
                     <div className="box-child">
                       <div className="pack-inner-title">
                         <span>
-                          {lang === "ar" ? "تصميم االهوية" : "Brand Identity"}
+                          {lang === "ar" ? "تصميم الهوية" : "Brand Identity"}
                         </span>
                       </div>
                       <ul className="second_brand_list">
@@ -3004,10 +3009,10 @@ export const Home = ({ lang, setLang }) => {
                         <span>
                           {window.innerWidth <= 475
                             ? lang === "ar"
-                              ? "تصاميم للمطاعم والمقاهي"
+                              ? "تصاميم المطاعم والمقاهي"
                               : "Collateral"
                             : lang === "ar"
-                            ? "تصاميم للمطاعم والمقاهي"
+                            ? "تصاميم المطاعم والمقاهي"
                             : "F&B Collateral"}
                         </span>
                       </div>
@@ -3055,14 +3060,14 @@ export const Home = ({ lang, setLang }) => {
                 <div className="newbie_description">
                   <div className="third_section_toggle">
                     <div className="brand_identity green-text">
-                      {lang === "ar" ? "تصميم االهوية" : "Brand Identity"} +{" "}
+                      {lang === "ar" ? "تصميم الهوية" : "Brand Identity"} +{" "}
                       <br />
                       {window.innerWidth <= 768
                         ? lang === "ar"
-                          ? "تصاميم للمطاعم والمقاهي"
+                          ? "تصاميم المطاعم والمقاهي"
                           : "  F&B Collateral +"
                         : lang === "ar"
-                        ? "تصاميم للمطاعم والمقاهي"
+                        ? "تصاميم المطاعم والمقاهي"
                         : "Food & Beverage Collateral +"}{" "}
                       <br />
                       {lang === "ar"
@@ -3085,7 +3090,7 @@ export const Home = ({ lang, setLang }) => {
                   <div className="sar d-flex align-items-center">
                     {/* <!--<img src="asset/images/money-icon.webp" alt="" className="img-fluid">--> */}
                     <span className="sar_text">
-                      {amountDecimal(8000)} {lang === "ar" ? "ريال" : "SAR"}
+                      8000 {lang === "ar" ? "ريال" : "SAR"}
                     </span>
                   </div>
                   <div className="work_time d-flex align-items-center">
@@ -3176,7 +3181,7 @@ export const Home = ({ lang, setLang }) => {
                     <div className="box-child">
                       <div className="pack-inner-title">
                         <span>
-                          {lang === "ar" ? "تصميم االهوية" : "Brand Identity"}
+                          {lang === "ar" ? "تصميم الهوية" : "Brand Identity"}
                         </span>
                       </div>
                       <ul className="second_brand_list">
@@ -3268,7 +3273,7 @@ export const Home = ({ lang, setLang }) => {
                 <div className="newbie_description">
                   <div className="third_section_toggle">
                     <div className="brand_identity blue-text">
-                      {lang === "ar" ? "تصميم االهوية" : "Brand Identity"} +{" "}
+                      {lang === "ar" ? "تصميم الهوية" : "Brand Identity"} +{" "}
                       <br />
                       {lang === "ar"
                         ? "تصاميم الخدمات"
@@ -3384,7 +3389,7 @@ export const Home = ({ lang, setLang }) => {
                     <div className="box-child">
                       <div className="pack-inner-title">
                         <span>
-                          {lang === "ar" ? "تصميم االهوية" : "Brand Identity"}
+                          {lang === "ar" ? "تصميم الهوية" : "Brand Identity"}
                         </span>
                       </div>
                       <ul className="second_brand_list">
@@ -3425,10 +3430,10 @@ export const Home = ({ lang, setLang }) => {
                         <span>
                           {window.innerWidth <= 475
                             ? lang === "ar"
-                              ? "تصاميم للتجارة"
+                              ? "تصاميم التجارة​"
                               : "Collateral"
                             : lang === "ar"
-                            ? "تصاميم للتجارة"
+                            ? "تصاميم التجارة​"
                             : "Commerce Collateral"}
                         </span>
                       </div>
@@ -3471,10 +3476,10 @@ export const Home = ({ lang, setLang }) => {
                 <div className="newbie_description">
                   <div className="third_section_toggle">
                     <div className="brand_identity pink-text">
-                      {lang === "ar" ? "تصميم االهوية" : "Brand Identity"} +{" "}
+                      {lang === "ar" ? "تصميم الهوية" : "Brand Identity"} +{" "}
                       <br />
                       {lang === "ar"
-                        ? "تصاميم للتجارة"
+                        ? "تصاميم التجارة​"
                         : "Commerce Collateral"}{" "}
                       + <br />
                       {lang === "ar"
@@ -3667,10 +3672,35 @@ export const Home = ({ lang, setLang }) => {
                   <div className="third_section_toggle">
                     <div className="brand_identity">
                       <div className="block">
-                        <span className="newbie">
-                          {lang === "ar" ? "طابق & اخلط" : "Mix & Match"}
-                        </span>
-                        <div className="pkg-sub-title" style={{ opacity: 0 }}>
+                        <div
+                          className="newbie"
+                          style={
+                            lang !== "ar"
+                              ? {
+                                  fontSize: "30px",
+                                  lineHeight: "1.4",
+                                  minHeight: "80px",
+                                  top: "40px",
+                                  position: "relative",
+                                }
+                              : {
+                                  minHeight: "40px",
+                                  position: "relative",
+                                  top: "40px", // ✅ shift Arabic down, keep default font
+                                }
+                          }
+                        >
+                          {lang === "ar" ? (
+                            "اختر ما تحتاجه من قائمة العناص"
+                          ) : (
+                            <>
+                              Choose what you need from <br />
+                              our list of items
+                            </>
+                          )}
+                        </div>
+
+                        <div className="pkg-sub-title" style={{ opacity: "0" }}>
                           {lang === "ar"
                             ? "صمم البندل الخاص بك"
                             : "Customize your Bundl"}
@@ -3967,7 +3997,7 @@ export const Home = ({ lang, setLang }) => {
               </div>
               <div className="flex justify-center mx-auto">
                 <a href="/contact-us" className="btn bundl-btn-border">
-                  {lang === "ar" ? "اترك تقييمك" : "Contact us"}
+                  {lang === "ar" ? "تواصل معنا" : "Contact us"}
                 </a>
               </div>
               {/* <div className="social-link  align-items-center">
