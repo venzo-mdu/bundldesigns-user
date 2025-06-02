@@ -295,7 +295,7 @@ function Addons({
                           <img src={uploadIcon} alt="Upload Icon" />
                           {uploadContent?.[item?.id]?.[filterIndex]?.filename ||
                             (lang === "ar"
-                              ? "تحميل المحتوى"
+                              ? "إضافة المحتوى"
                               : "Upload Content")}
                         </p>
                       </>

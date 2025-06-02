@@ -305,7 +305,7 @@ export const Questionnaire5 = ({formData,setFormData,changeLang,setChangeLang}) 
                             onChange={(e) => uploadFile(e, question.id, 'file')}
                         />
                         <img className='h-[25px] w-[40px]' src={Blackupload} alt="Upload Icon" />
-                        {changeLang === 'ar' ? 'تحميل المحتوى' : 'Upload Content'}
+                        {changeLang === 'ar' ? 'إضافة المحتوى' : 'Upload Content'}
                     </p>
                     </div>
                     <p className='lg:text-[18px] md:text-[18px] xs:text-[14px] font-[400]'>{uploadContent?.[question?.id]?.filename }</p>

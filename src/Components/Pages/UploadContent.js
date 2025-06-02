@@ -674,7 +674,7 @@ export default function UploadContent({ lang, setLang }) {
                                   {uploadContent?.[item?.id]?.[filterIndex]
                                     ?.filename ||
                                     (lang === "ar"
-                                      ? "تحميل المحتوى"
+                                      ? "إضافة المحتوى"
                                       : "Upload Content")}
                                 </p>
                               </>
@@ -1497,7 +1497,7 @@ export default function UploadContent({ lang, setLang }) {
                                     {uploadContent?.[item?.id]?.[filterIndex]
                                       ?.filename ||
                                       (lang === "ar"
-                                        ? "تحميل المحتوى"
+                                        ? "إضافة المحتوى"
                                         : "Upload Content")}
                                   </p>
                                 </>
@@ -1847,7 +1847,7 @@ export default function UploadContent({ lang, setLang }) {
                                     {uploadContent?.[item?.id]?.[filterIndex]
                                       ?.filename ||
                                       (lang === "ar"
-                                        ? "تحميل المحتوى"
+                                        ? "إضافة المحتوى"
                                         : "Upload Content")}
                                   </p>
                                 </>

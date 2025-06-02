@@ -417,7 +417,8 @@ const ForgotPassword = ({ lang }) => {
 
             {/* General error message */}
             {errors.general && <p className="error">{errors.general}</p>}
-            <p className="text-[red] mb-1">{loginError}</p>
+            {/* <p className="text-[red] mb-1">{loginError}</p> */}
+            <p className="error">{loginError}</p>
             <button
               className="signin !text-[24px] uppercase"
               type="submit"

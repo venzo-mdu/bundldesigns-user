@@ -874,7 +874,7 @@ export const Questionnaire4 = ({ formData, setFormData, changeLang, setChangeLan
                               className=''
                             />
                             <img className='h-[25px] w-[40px]' src={Blackupload} alt="Upload Icon" />
-                            {changeLang === 'ar' ? 'تحميل المحتوى' : 'Upload Content'}
+                            {changeLang === 'ar' ? 'إضافة المحتوى' : 'Upload Content'}
                           </p>
                         </>
                       </div>

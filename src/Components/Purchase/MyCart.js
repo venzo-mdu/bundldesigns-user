@@ -1130,20 +1130,20 @@ export const MyCart = ({ lang, setLang }) => {
                           lang === "ar" ? "text-right" : "text-left"
                         } w-[20%] text-[#00000080] pb-3`}
                       >
-                        {lang === "ar" ? "بند" : "Item"}
+                        {lang === "ar" ? "الباقة" : "Item"}
                       </td>
                       {/* <td className='text-[#00000080] w-[30%] pb-3'  align="center">Quantity</td> */}
                       <td
                         className="text-[#00000080] w-[30%]    pb-3"
                         align="center"
                       >
-                        {lang === "ar" ? "ثمن" : "Price"}
+                        {lang === "ar" ? "السعر​" : "Price"}
                       </td>
                       <td
                         className="text-[#00000080] w-[20%]    pb-3"
                         align="center"
                       >
-                        {lang === "ar" ? "فعل" : "Action"}
+                        {lang === "ar" ? "الإجراء" : "Action"}
                       </td>
                     </tr>
                   </thead>
@@ -1637,9 +1637,9 @@ export const MyCart = ({ lang, setLang }) => {
                       size={25}
                     />
                   ) : lang === "ar" ? (
-                    "جعل الدفع"
+                    "المتابعة إلى الدفع​"
                   ) : (
-                    "Make Payment"
+                    "Proceed to payment​"
                   )}
                 </button>
 
@@ -1648,7 +1648,7 @@ export const MyCart = ({ lang, setLang }) => {
                   type="button"
                   onClick={() => setShowModal(true)}
                 >
-                  {lang === "ar" ? "جعل الدفع" : "Edit order"}
+                  {lang === "ar" ? "تعديل الطلب" : "Edit order"}
                 </button>
 
                 <p className="text-[red] !text-[18px] !font-[400] !mt-2">

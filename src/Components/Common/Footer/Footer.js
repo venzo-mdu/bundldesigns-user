@@ -75,7 +75,7 @@ export const Footer = ({isLang}) => {
                             <ul>
                                 <li>
                                     <a href='/our-work' className='text-[#ECEAEB] hover:text-[#f175ad]'>{isLang === 'ar' ? 'أعمالنا':'Our Work'}</a></li>
-                                <li>   <a href='/#ourBundl' className='text-[#ECEAEB] hover:text-[#f175ad]'>{isLang === 'ar' ? 'باقاتنا':'Bundls'} </a></li>
+                                <li>   <a href='/#ourBundl' className='text-[#ECEAEB] hover:text-[#f175ad]'>{isLang === 'ar' ? 'بندل':'Bundls'} </a></li>
                                 <li>   <a href='/dashboard' className='text-[#ECEAEB] hover:text-[#f175ad]'>{isLang === 'ar' ? 'لوحة التحكم​':'Dashboard'} </a></li>
                             </ul>
                         </div>

@@ -1571,22 +1571,22 @@ export const Home = ({ lang, setLang }) => {
     },
     {
       title: "UPLOAD CONTENT",
-      arabic_title: "تحميل المحتوى",
+      arabic_title: "إضافة المحتوى",
       description:
         "You can easily upload the contents for the items in your bundl, to be designed following your approved brand.",
       arabic_description:
-        "يمكنك بسهولة تحميل محتويات العناصر الموجودة في البندل الخاصة بك.التصاميم حتتبع تفاصيل هويتك الموافق عليها.",
+        "يمكنك بسهولة تحميل محتويات العناصر الموجودة في باقتك. التصاميم حتتبع تفاصيل هويتك",
       imgSrc: UploadContent,
       fill: "#4FA472",
       color: "#000",
     },
     {
       title: "GET DESIGNS",
-      arabic_title: "احصل عدل تصاميمك",
+      arabic_title: "حمل / عدل تصاميمك​",
       description:
         "Your designs will be sent to your account. Need more items? some adjustments? Just Add-on to your bundl.",
       arabic_description:
-        "سيتم إرسال تصاميمك إلى حسابك. هل تحتاج إلى المزيد؟ بعض التعديلات؟ فقط اضف ما تريد إلى البندل الخاصة بك",
+        "سيتم ارسال تصاميمك إلى حسابك. تحتاج مزيد من العناصر؟ بعد التعديلات؟ اضف ما تريد إلى الباقة",
       imgSrc: Getthedesign,
       fill: "#00A8C8",
       color: "#000",
@@ -2102,7 +2102,7 @@ export const Home = ({ lang, setLang }) => {
                 <ul className="tag-list h-[46px] scroller__inner">
                   <img src={CarMarquee} className="slidee  w-[54px]"></img>
                   <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">
-                    {lang === "ar" ? "هوية بصرية" : "BRAND identity"}
+                    {lang === "ar" ? "تصميم الهوية" : "BRAND identity"}
                   </span>
                   <img
                     src={LemonMarquee}
@@ -2126,7 +2126,7 @@ export const Home = ({ lang, setLang }) => {
                     className="img-fluid w-[70px] slidee"
                   ></img>
                   <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">
-                    {lang === "ar" ? "هوية بصرية" : "BRAND identity"}
+                    {lang === "ar" ? "تصميم الهوية" : "BRAND identity"}
                   </span>
                   <img
                     src={EyeMarquee}
@@ -2149,7 +2149,7 @@ export const Home = ({ lang, setLang }) => {
                     className="img-fluid w-[54px] slidee"
                   ></img>
                   <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">
-                    {lang === "ar" ? "هوية بصرية" : "BRAND identity"}
+                    {lang === "ar" ? "تصميم الهوية" : "BRAND identity"}
                   </span>
                   <img
                     src={LemonMarquee}
@@ -2173,7 +2173,7 @@ export const Home = ({ lang, setLang }) => {
                     className="img-fluid w-[70px] slidee"
                   ></img>
                   <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">
-                    {lang === "ar" ? "هوية بصرية" : "BRAND identity"}
+                    {lang === "ar" ? "تصميم الهوية" : "BRAND identity"}
                   </span>
                   <img
                     src={EyeMarquee}
@@ -2197,7 +2197,7 @@ export const Home = ({ lang, setLang }) => {
                     className="img-fluid w-[70px] slidee"
                   ></img>
                   <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">
-                    {lang === "ar" ? "هوية بصرية" : "BRAND identity"}
+                    {lang === "ar" ? "تصميم الهوية" : "BRAND identity"}
                   </span>
                   <img
                     src={LemonMarquee}
@@ -2221,7 +2221,7 @@ export const Home = ({ lang, setLang }) => {
                     className="img-fluid w-[70px] slidee"
                   ></img>
                   <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">
-                    {lang === "ar" ? "هوية بصرية" : "BRAND identity"}
+                    {lang === "ar" ? "تصميم الهوية" : "BRAND identity"}
                   </span>
                   <img
                     src={EyeMarquee}
@@ -2241,7 +2241,7 @@ export const Home = ({ lang, setLang }) => {
                   </span>
                   <img src={CarMarquee} className="slidee  w-[54px]"></img>
                   <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">
-                    {lang === "ar" ? "هوية بصرية" : "BRAND identity"}
+                    {lang === "ar" ? "تصميم الهوية" : "BRAND identity"}
                   </span>
                   <img
                     src={LemonMarquee}
@@ -2265,7 +2265,7 @@ export const Home = ({ lang, setLang }) => {
                     className="img-fluid w-[70px] slidee"
                   ></img>
                   <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">
-                    {lang === "ar" ? "هوية بصرية" : "BRAND identity"}
+                    {lang === "ar" ? "تصميم الهوية" : "BRAND identity"}
                   </span>
                   <img
                     src={EyeMarquee}
@@ -2818,7 +2818,7 @@ export const Home = ({ lang, setLang }) => {
                         <span>
                           {window.innerWidth <= 475
                             ? lang === "ar"
-                              ? "اختر الإضافات المناسبة لك​"
+                              ? "اختر الإضافات المناسبة لك​" 
                               : "Choose Your Add-ons"
                             : lang === "ar"
                             ? "اختر الإضافات المناسبة لك"
@@ -3660,7 +3660,7 @@ export const Home = ({ lang, setLang }) => {
                         justifyContent: "space-between",
                       }}
                     >
-                      <div className="pack-inner-title lg:mobile-t-25 md:mobile-t-25 xs:mt-[7%]">
+                      <div className="pack-inner-title">
                         <span>
                           + {lang === "ar" ? "سوشال ميديا" : "Stationery"}
                         </span>
