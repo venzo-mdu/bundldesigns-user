@@ -1830,7 +1830,7 @@ export const Home = ({ lang, setLang }) => {
                           </li>
                           <li className="nav-item">
                             <a className="nav-link" href="/contact-us">
-                              {lang === "ar" ? "تواصل معنا" : "Contact Us"}
+                              {lang === "ar" ? "تواصل معنا" : "Contact Us "}
                             </a>
                           </li>
                         </ul>

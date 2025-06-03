@@ -211,6 +211,7 @@ export const Questionnaire5 = ({
           ...answers4,
           ...formData,
         },
+        language: localStorage.getItem("lang") === "ar" ? "arabic" : "english",
         status: "submit",
         orderId: location.state?.orderId,
       };

@@ -23,6 +23,7 @@ export const ForgotpasswordMail = ({ lang }) => {
 
   const [loginData, setLoginData] = useState({
     email: "",
+    language: localStorage.getItem("lang") === "ar" ? "arabic" : "english",
   });
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
@@ -97,6 +98,7 @@ export const ForgotpasswordMail = ({ lang }) => {
     try {
       const response = await axios.post(`${base_url}/api/forget-password/`, {
         email: loginData.email,
+        language: loginData.language,
       });
 
       if (response.status === 200 || response.status === 201) {

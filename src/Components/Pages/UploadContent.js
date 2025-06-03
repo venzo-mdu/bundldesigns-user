@@ -155,7 +155,7 @@ export default function UploadContent({ lang, setLang }) {
         // toast.error(
         //   lang === ""
         //     ? "يرجى اختيار اللغة قبل الحفظ"
-        //     : "Please choose language before saving. 1111111111",
+        //     : "Please choose language before saving.",
         //   {
         //     icon: false,
         //     toastId: "required-value-toast1",
@@ -168,7 +168,6 @@ export default function UploadContent({ lang, setLang }) {
         // lang === ""
         //   ? "يرجى اختيار اللغة قبل الحفظ"
         //   : "Please choose language before saving.";
-        // debugger;
         toastErrorMessage(
           lang === ""
             ? "يرجى اختيار اللغة قبل الحفظ"

@@ -601,7 +601,7 @@ export const Signup = ({ lang }) => {
                 formErrors={errors}
               />
               {errors.phone && registerData.phone.length === 0 && (
-                <p className="error first-letter:capitalize mt-2 text-[#D83D99]">
+                <p className="first-letter:capitalize mt-2 text-[#D83D99]">
                   {errors.phone}
                 </p>
               )}
@@ -698,7 +698,7 @@ export const Signup = ({ lang }) => {
               </span>
             </label>
             {submitted && !isAgree && (
-              <p className="error">Please agree to the terms and conditions.</p>
+              <p className="error text-[#D83D99]">Please agree to the terms and conditions.</p>
             )}
             <button
               type="submit"

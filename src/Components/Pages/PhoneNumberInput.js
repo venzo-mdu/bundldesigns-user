@@ -76,7 +76,7 @@ const PhoneNumberInput = ({ name, placeholder, value, status, className,setPhone
         />
       </div>
 
-      {error && <span className="text-red-500 text-sm mt-1 block">{error}</span>}
+      {error && <span className="text-[#D83D99] text-sm mt-1 block">{error}</span>}
     </div>
   );
 };

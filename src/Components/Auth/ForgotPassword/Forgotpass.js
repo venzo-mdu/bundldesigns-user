@@ -22,6 +22,7 @@ import { OAuthProvider, signInWithPopup } from "firebase/auth";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useParams } from "react-router-dom";
+import { Language } from "@mui/icons-material";
 
 const ForgotPassword = ({ lang }) => {
   const dispatch = useDispatch();
@@ -35,7 +36,6 @@ const ForgotPassword = ({ lang }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const { id } = useParams();
-
   const [loginData, setLoginData] = useState({
     new_password: "",
     confirm_password: "",

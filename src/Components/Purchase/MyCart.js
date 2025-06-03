@@ -256,6 +256,7 @@ export const MyCart = ({ lang, setLang }) => {
     promoCode: "",
     vat_registered: "",
     trn: "",
+    language: localStorage.getItem("lang") === "ar" ? "arabic" : "english",
   });
 
   const [error, setError] = useState({});
@@ -620,7 +621,6 @@ export const MyCart = ({ lang, setLang }) => {
                 ? null
                 : billingInfo?.trn,
           };
-
           const response = await axios.put(
             `${base_url}/api/order/cart/?initiate=True`,
             formData,
@@ -1382,7 +1382,9 @@ export const MyCart = ({ lang, setLang }) => {
                     value={billingInfo.phone}
                     status={setBillingInfo}
                     extraInputClass={`${
-                      "phone" in error ? "!border-[#D83D99]" : "!border-[#000000]"
+                      "phone" in error
+                        ? "!border-[#D83D99]"
+                        : "!border-[#000000]"
                     } text-[18px]`}
                     setPhoneError={setPhoneError}
                     setErrors={setError}
@@ -1466,7 +1468,9 @@ export const MyCart = ({ lang, setLang }) => {
                   <div className="trn-code mb-[15px]">
                     <label
                       className={`${
-                        "vat_registered" in error ? "text-[#D83D99]" : "opacity-50"
+                        "vat_registered" in error
+                          ? "text-[#D83D99]"
+                          : "opacity-50"
                       }`}
                     >
                       {lang === "ar" ? "التسجیل الضریبي" : "Tax Treatment"}
