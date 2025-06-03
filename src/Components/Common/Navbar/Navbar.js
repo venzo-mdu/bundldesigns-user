@@ -282,7 +282,7 @@ export const Navbar = ({isLang,setIsLang}) => {
                               <a className="nav-link" href="/aboutus">{isLang === 'ar' ? 'عن بندل' :'About'}</a>
                             </li>
                             <li className="nav-item">
-                              <a className="nav-link" href="/#ourBundl">{isLang === 'ar' ? 'باقاتنا' :'Bundls'}</a>
+                              <a className="nav-link" href="/#ourBundl">{isLang === 'ar' ? 'بندل' :'Bundls'}</a>
                             </li>
                             <li className="nav-item">
                               <a className="nav-link" href="/our-work">{isLang === 'ar' ? 'مشاريعنا' :'Work'}</a>
@@ -320,7 +320,7 @@ export const Navbar = ({isLang,setIsLang}) => {
                 <a href="/purchase-history" className='text-black' previewlistener="true">{isLang === 'ar' ?'تاريخ الطلبات​':'History'}</a>
               </li>
               <li className='relative px-3 inner-nav-li' onClick={()=>navigate('/profile')}>
-                <a href="/profile" className='text-black' previewlistener="true">{isLang === 'ar' ? 'حسابك' :'Profile'}</a>
+                <a href="/profile" className='text-black' previewlistener="true">{isLang === 'ar' ? 'حسابك​' :'Profile'}</a>
               </li>
               <li className='relative px-3 inner-nav-li' onClick={() => { Logout() }}>
                 <a className='cursor-pointer text-black' onClick={() => { Logout() }} previewlistener="true">{isLang === 'ar' ? 'تسجيل خروج​':'Logout'}</a>
@@ -353,7 +353,7 @@ export const Navbar = ({isLang,setIsLang}) => {
                                     menuVisible && (
                                 <ul className=' inner-nav-item'>
                                 <li className='relative p-1 inner-nav-li' onClick={()=>navigate('/#ourBundl')}>
-                                  <a href="/#ourBundl" className='text-black' previewlistener="true">{isLang === 'ar' ? 'باقاتنا' : 'Bundls'}</a>
+                                  <a href="/#ourBundl" className='text-black' previewlistener="true">{isLang === 'ar' ? 'بندل' : 'Bundls'}</a>
                                 </li>
                                 <li className='relative p-1 inner-nav-li' onClick={()=>navigate('/our-work')}>
                                   <a href="/our-work" className='text-black' previewlistener="true">{isLang === 'ar' ? 'مشاريعنا' : 'Our Work'}</a>

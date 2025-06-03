@@ -714,7 +714,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                                   onChange={handleRadioChange}
                                 />
                                 {lang === "ar"
-                                  ? `كلاهما (${amountDecimal(2000)} + ريال)`
+                                  ? `كلاهما (+٢٠٠٠  ريال)`
                                   : `Both (+${amountDecimal(2000)} SAR)`}
                               </label>
                             </p>
