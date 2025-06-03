@@ -1223,7 +1223,7 @@ export default function UploadContent({ lang, setLang }) {
                             >
                               <div className="-ml-[5%] w-[calc(100%+5%)] border-y border-black py-2">
                                 <div className="pl-[5%]">
-                                  <p className="mb-0 font-semibold text-[22px">
+                                  <p className="mb-0 font-semibold text-[22px]">
                                     {lang === "ar"
                                       ? item?.item__name_arabic
                                       : item.item_name}{" "}
@@ -1570,7 +1570,7 @@ export default function UploadContent({ lang, setLang }) {
                                 {item?.qty > 1 && filterIndex} 
                               </p> */}
 
-                              <div className="relative left-[-5%] w-[calc(100%+5%)] border-y border-black py-2">
+                              <div className="-ml-[5%] w-[calc(100%+5%)] border-y border-black py-2">
                                 <div className="pl-[5%]">
                                   <p className="mb-0 font-medium text-[22px]">
                                     Addons -{" "}
