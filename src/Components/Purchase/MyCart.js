@@ -1305,18 +1305,18 @@ export const MyCart = ({ lang, setLang }) => {
                   <div className={`${lang === "ar" ? "ml-[4%]" : "mr-[4%]"}`}>
                     <label
                       className={`${
-                        "firstName" in error ? "text-[red]" : "opacity-50"
+                        "firstName" in error ? "text-[#D83D99]" : "opacity-50"
                       }`}
                     >
                       {lang === "ar" ? "الاسم الأول" : "First Name"}{" "}
-                      <span className="text-[red]">*</span>
+                      <span className="text-[#D83D99]">*</span>
                     </label>
                     <input
                       name="firstName"
                       value={billingInfo.firstName}
                       onChange={handleBillingChange}
                       className={`rounded-none ${
-                        "firstName" in error ? "!border-[red]" : ""
+                        "firstName" in error ? "!border-[#D83D99]" : ""
                       }`}
                     />
                   </div>
@@ -1330,18 +1330,18 @@ export const MyCart = ({ lang, setLang }) => {
                   >
                     <label
                       className={`${
-                        "lastName" in error ? "text-[red]" : "opacity-50"
+                        "lastName" in error ? "text-[#D83D99]" : "opacity-50"
                       }`}
                     >
                       {lang === "ar" ? "اسم العائلة" : "Last Name"}{" "}
-                      <span className="text-[red]">*</span>
+                      <span className="text-[#D83D99]">*</span>
                     </label>
                     <input
                       name="lastName"
                       value={billingInfo.lastName}
                       onChange={handleBillingChange}
                       className={`rounded-none ${
-                        "lastName" in error ? "!border-[red]" : ""
+                        "lastName" in error ? "!border-[#D83D99]" : ""
                       }`}
                     />
                   </div>
@@ -1349,29 +1349,29 @@ export const MyCart = ({ lang, setLang }) => {
                 <div className="email mb-[15px]">
                   <label
                     className={`${
-                      "email" in error ? "text-[red]" : "opacity-50"
+                      "email" in error ? "text-[#D83D99]" : "opacity-50"
                     }`}
                   >
                     {lang === "ar" ? "البريد الإلكتروني" : "Email"}{" "}
-                    <span className="text-[red]">*</span>
+                    <span className="text-[#D83D99]">*</span>
                   </label>
                   <input
                     name="email"
                     value={billingInfo.email}
                     onChange={handleBillingChange}
                     className={`rounded-none ${
-                      "email" in error ? "!border-[red]" : ""
+                      "email" in error ? "!border-[#D83D99]" : ""
                     }`}
                   />
                 </div>
                 <div className="phonenumber mb-[15px]">
                   <label
                     className={`${
-                      "phone" in error ? "text-[red]" : "opacity-50"
+                      "phone" in error ? "text-[#D83D99]" : "opacity-50"
                     }`}
                   >
                     {lang === "ar" ? "رقم الهاتف" : "Phone Number"}{" "}
-                    <span className="text-[red]">*</span>
+                    <span className="text-[#D83D99]">*</span>
                   </label>
                   <PhoneNumberInput
                     name="phone"
@@ -1381,7 +1381,7 @@ export const MyCart = ({ lang, setLang }) => {
                     value={billingInfo.phone}
                     status={setBillingInfo}
                     extraInputClass={`${
-                      "phone" in error ? "!border-[red]" : "!border-[#000000]"
+                      "phone" in error ? "!border-[#D83D99]" : "!border-[#000000]"
                     } text-[18px]`}
                     setPhoneError={setPhoneError}
                     setErrors={setError}
@@ -1394,11 +1394,11 @@ export const MyCart = ({ lang, setLang }) => {
                   <div className={`${lang === "ar" ? "ml-[4%]" : "mr-[4%]"}`}>
                     <label
                       className={`${
-                        "country" in error ? "text-[red]" : "opacity-50"
+                        "country" in error ? "text-[#D83D99]" : "opacity-50"
                       }`}
                     >
                       {lang === "ar" ? "بلد" : "Country"}{" "}
-                      <span className="text-[red]">*</span>
+                      <span className="text-[#D83D99]">*</span>
                     </label>
                     <select
                       name="country"
@@ -1406,7 +1406,7 @@ export const MyCart = ({ lang, setLang }) => {
                       value={billingInfo.country || null}
                       onChange={handleBillingChange}
                       className={`!rounded-none ${
-                        "country" in error ? "!border-[red]" : ""
+                        "country" in error ? "!border-[#D83D99]" : ""
                       } border !border-black px-2 py-[5px] w-full`}
                     >
                       <option value={null} disabled selected>
@@ -1427,18 +1427,18 @@ export const MyCart = ({ lang, setLang }) => {
                   >
                     <label
                       className={`${
-                        "city" in error ? "text-[red]" : "opacity-50"
+                        "city" in error ? "text-[#D83D99]" : "opacity-50"
                       }`}
                     >
                       {lang === "ar" ? "مدينة" : "City"}
-                      <span className="text-[red]">*</span>
+                      <span className="text-[#D83D99]">*</span>
                     </label>
                     <input
                       name="city"
                       value={billingInfo.city}
                       onChange={handleBillingChange}
                       className={`rounded-none ${
-                        "city" in error ? "!border-[red]" : ""
+                        "city" in error ? "!border-[#D83D99]" : ""
                       }`}
                     />
                   </div>
@@ -1446,18 +1446,18 @@ export const MyCart = ({ lang, setLang }) => {
                 <div className="postal-code mb-[15px]">
                   <label
                     className={`${
-                      "postalCode" in error ? "text-[red]" : "opacity-50"
+                      "postalCode" in error ? "text-[#D83D99]" : "opacity-50"
                     }`}
                   >
                     {lang === "ar" ? "الرمز البريدي" : "Postal Code"}
-                    <span className="text-[red]">*</span>
+                    <span className="text-[#D83D99]">*</span>
                   </label>
                   <input
                     name="postalCode"
                     value={billingInfo.postalCode}
                     onChange={handleBillingChange}
                     className={`rounded-none ${
-                      "postalCode" in error ? "!border-[red]" : ""
+                      "postalCode" in error ? "!border-[#D83D99]" : ""
                     }`}
                   />
                 </div>
@@ -1465,16 +1465,16 @@ export const MyCart = ({ lang, setLang }) => {
                   <div className="trn-code mb-[15px]">
                     <label
                       className={`${
-                        "vat_registered" in error ? "text-[red]" : "opacity-50"
+                        "vat_registered" in error ? "text-[#D83D99]" : "opacity-50"
                       }`}
                     >
                       {lang === "ar" ? "التسجیل الضریبي" : "Tax Treatment"}
-                      <span className="text-[red]">*</span>
+                      <span className="text-[#D83D99]">*</span>
                     </label>
                     <select
                       className={`w-[100%] py-[5px] px-2 !rounded-none border-[1px] outline-none  ${
                         "vat_registered" in error
-                          ? "!border-[red]"
+                          ? "!border-[#D83D99]"
                           : "border-black border-solid"
                       } `}
                       name="vat_registered"
@@ -1499,18 +1499,18 @@ export const MyCart = ({ lang, setLang }) => {
                   <div className="trn-code mb-[15px]">
                     <label
                       className={`${
-                        "trn" in error ? "text-[red]" : "opacity-50"
+                        "trn" in error ? "text-[#D83D99]" : "opacity-50"
                       }`}
                     >
                       {lang === "ar" ? "الرقم الضریبي" : "TRN Number"}
-                      <span className="text-[red]">*</span>
+                      <span className="text-[#D83D99]">*</span>
                     </label>
                     <input
                       name="trn"
                       value={billingInfo.trn}
                       onChange={handleBillingChange}
                       className={`rounded-none w-[100%] ${
-                        "trn" in error ? "!border-[red]" : ""
+                        "trn" in error ? "!border-[#D83D99]" : ""
                       }`}
                     />
                   </div>
@@ -1518,7 +1518,7 @@ export const MyCart = ({ lang, setLang }) => {
                 <div className="promo-code mb-[15px]">
                   <label
                     className={`${
-                      "promoCode" in error ? "text-[red]" : "opacity-50"
+                      "promoCode" in error ? "text-[#D83D99]" : "opacity-50"
                     }`}
                   >
                     {lang === "ar" ? "الرمز الترويجي" : "Promo Code"}
@@ -1528,7 +1528,7 @@ export const MyCart = ({ lang, setLang }) => {
                     value={billingInfo.promoCode}
                     onChange={handlePromoChange}
                     className={`rounded-none ${
-                      "promoCode" in error ? "!border-[red]" : ""
+                      "promoCode" in error ? "!border-[#D83D99]" : ""
                     }`}
                   />
                 </div>
@@ -1651,7 +1651,7 @@ export const MyCart = ({ lang, setLang }) => {
                   {lang === "ar" ? "تعديل الطلب" : "Edit order"}
                 </button>
 
-                <p className="text-[red] !text-[18px] !font-[400] !mt-2">
+                <p className="text-[#D83D99] !text-[18px] !font-[400] !mt-2">
                   {Object.values(error).map((item) => {
                     return item;
                   })}

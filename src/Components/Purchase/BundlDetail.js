@@ -597,7 +597,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                 <input
                   id="brandInput"
                   className={`brand-input rounded-none ${
-                    brandError && "!border-[red] rounded-none"
+                    brandError && "!border-[#D83D99] rounded-none"
                   }`}
                   value={brandInput}
                   onChange={(e) => {
@@ -606,7 +606,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                   }}
                 />
                 {brandError && (
-                  <p className="text-[red]">
+                  <p className="text-[#D83D99]">
                     {lang === "ar" ? "" : "Please enter name of the brand"}
                   </p>
                 )}

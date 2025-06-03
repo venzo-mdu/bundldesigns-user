@@ -326,7 +326,7 @@ export const CustomBundl = ({ user, lang, setLang }) => {
             </p>
             <input
               id="brandInput"
-              className={`brand-input ${brandError && "!border-[red]"}`}
+              className={`brand-input ${brandError && "!border-[#D83D99]"}`}
               value={brandInput}
               onChange={(e) => {
                 setBrandInput(e.target.value);
@@ -334,7 +334,7 @@ export const CustomBundl = ({ user, lang, setLang }) => {
               }}
             />
             {brandError && (
-              <p className="text-[red]">Please enter name of the brand</p>
+              <p className="text-[#D83D99]">Please enter name of the brand</p>
             )}
             <div style={{ margin: "5% 0 0 0" }}>
               <Accordian

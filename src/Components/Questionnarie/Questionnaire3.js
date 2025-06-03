@@ -1,32 +1,57 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { base_url } from '../Auth/BackendAPIUrl';
-import { Questionnaire } from './Questionnaire';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { questionnaireAction3 } from '../../Redux/Action';
-import { ConfigToken } from "../Auth/ConfigToken"
-import { ToastContainer, toast } from 'react-toastify';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { base_url } from "../Auth/BackendAPIUrl";
+import { Questionnaire } from "./Questionnaire";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { questionnaireAction3 } from "../../Redux/Action";
+import { ConfigToken } from "../Auth/ConfigToken";
+import { ToastContainer, toast } from "react-toastify";
+import useToastMessage from "../Pages/Toaster/Toaster";
+import { Toaster } from "react-hot-toast";
 
-export const Questionnaire3 = ({formData,setFormData,changeLang,setChangeLang}) => {
-
+export const Questionnaire3 = ({
+  formData,
+  setFormData,
+  changeLang,
+  setChangeLang,
+}) => {
+  const { showToast, showErrorToast } = useToastMessage();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
   const answers = useSelector((state) => state.questionnaire2);
-  const currentAnswer = useSelector((state) => state.questionnaire3)
+  const currentAnswer = useSelector((state) => state.questionnaire3);
   const [questions, setQuestions] = useState([]);
   const [sliderValues, setSliderValues] = useState({});
   const [fetchQ3Answers, setFetchQ3Answers] = useState([]);
-  const [isFilled , setIsFilled] = useState(null)
+  const [isFilled, setIsFilled] = useState(null);
 
   const progressLabels = [
-    { left:changeLang === "ar" ? "" : "Masculine",   right:changeLang === "ar" ? "" : "Feminine" },
-    { left:changeLang === "ar" ? "" : "Economical",  right:changeLang === "ar" ? "" : "Luxurious" },
-    { left:changeLang === "ar" ? "" : "Playful",     right:changeLang === "ar" ? "" : "Sophisticated" },
-    { left:changeLang === "ar" ? "" : "Classics",    right:changeLang === "ar" ? "" : "Modern" },
-    { left:changeLang === "ar" ? "" : "Mature",      right:changeLang === "ar" ? "" : "Youthful" },
-    { left:changeLang === "ar" ? "" : "Formal",      right:changeLang === "ar" ? "" : "Casual" },
+    {
+      left: changeLang === "ar" ? "" : "Masculine",
+      right: changeLang === "ar" ? "" : "Feminine",
+    },
+    {
+      left: changeLang === "ar" ? "" : "Economical",
+      right: changeLang === "ar" ? "" : "Luxurious",
+    },
+    {
+      left: changeLang === "ar" ? "" : "Playful",
+      right: changeLang === "ar" ? "" : "Sophisticated",
+    },
+    {
+      left: changeLang === "ar" ? "" : "Classics",
+      right: changeLang === "ar" ? "" : "Modern",
+    },
+    {
+      left: changeLang === "ar" ? "" : "Mature",
+      right: changeLang === "ar" ? "" : "Youthful",
+    },
+    {
+      left: changeLang === "ar" ? "" : "Formal",
+      right: changeLang === "ar" ? "" : "Casual",
+    },
   ];
 
   const placeHolders = [
@@ -34,14 +59,9 @@ export const Questionnaire3 = ({formData,setFormData,changeLang,setChangeLang}) 
     "The story behind the name",
     "BUNDL",
     "(ex: was always passionate about creating my own perfume business)",
-  ]
+  ];
 
-  const placeHolders_arabic = [
-    "",
-    "",
-    "",
-    "",
-  ]
+  const placeHolders_arabic = ["", "", "", ""];
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -59,56 +79,59 @@ export const Questionnaire3 = ({formData,setFormData,changeLang,setChangeLang}) 
 
         // setSliderValues(initialSliderValues);
         setQuestions(response.data);
-
       } catch (error) {
         console.error("Error fetching questions:", error);
       }
     };
     const fetchAnswers = async () => {
       try {
-        if(location.state.orderId != undefined){
-          const response = await axios.get(`${base_url}/api/questionnaire/update/${location.state.orderId}`, ConfigToken());
-          setFetchQ3Answers(response.data.data)
+        if (location.state.orderId != undefined) {
+          const response = await axios.get(
+            `${base_url}/api/questionnaire/update/${location.state.orderId}`,
+            ConfigToken()
+          );
+          setFetchQ3Answers(response.data.data);
           const question14Answer = response.data.data.find(
             (answer) => answer.question_id === 14
           )?.answer;
-  
+
           if (question14Answer && typeof question14Answer === "object") {
             setSliderValues((prev) => ({
               ...prev,
-              ...question14Answer, 
+              ...question14Answer,
             }));
           }
-          setFormData((prev)=>({
+          setFormData((prev) => ({
             ...prev,
-            [14]:question14Answer
-          }))
+            [14]: question14Answer,
+          }));
         }
       } catch (error) {
         console.error("Error fetching questions:", error);
       }
-    }
-    setFormData(currentAnswer)
-    setSliderValues(currentAnswer[14]? currentAnswer[14]:{})
+    };
+    setFormData(currentAnswer);
+    setSliderValues(currentAnswer[14] ? currentAnswer[14] : {});
     fetchQuestions();
     fetchAnswers();
   }, []);
 
   const getAnswerValue = (questionId) => {
-
     const formValue = formData?.[questionId];
     if (formValue !== undefined) {
       return formValue;
     }
 
-    const fetchedAnswer = fetchQ3Answers.find((answer) => answer.question_id === questionId)?.answer;
+    const fetchedAnswer = fetchQ3Answers.find(
+      (answer) => answer.question_id === questionId
+    )?.answer;
     if (fetchedAnswer !== undefined && formValue === undefined) {
       setFormData((prevFormData) => ({
         ...prevFormData,
         [questionId]: fetchedAnswer,
       }));
     }
-    return fetchedAnswer ?? '';
+    return fetchedAnswer ?? "";
   };
 
   const handleChange = (questionId, value) => {
@@ -116,36 +139,43 @@ export const Questionnaire3 = ({formData,setFormData,changeLang,setChangeLang}) 
       ...formValues,
       [questionId]: value,
     }));
-  }
+  };
 
   const showToastMessage = () => {
-    toast.error(changeLang === 'ar' ? '•القيمة مطلوب' :"The Value is required!", {
-      position: toast?.POSITION?.TOP_RIGHT,
-      toastId: 'required-value-toast',
-      icon:false,
-          style:{
-              color:'#D83D99',
-              fontWeight:'700'
-          }
-    });
+    // toast.error(changeLang === 'ar' ? '•القيمة مطلوب' :"The Value is required!", {
+    //   position: toast?.POSITION?.TOP_RIGHT,
+    //   toastId: 'required-value-toast',
+    //   icon:false,
+    //       style:{
+    //           color:'#D83D99',
+    //           fontWeight:'700'
+    //       }
+    // });
+    showErrorToast(
+      changeLang === "ar" ? "•القيمة مطلوب" : "The Value is required!",
+      "#D83D99"
+    );
   };
- 
+
   const validateFields = () => {
     // Filter required questions that are either unanswered or contain invalid values
     const unansweredRequiredQuestions = questions.filter((q) => {
-      console.log(formData[q.id],q.id)
+      console.log(formData[q.id], q.id);
       return (
         q.required && // Check if the question is marked as required
-        (!formData?.[q.id] || (typeof formData?.[q.id] === "string" && formData?.[q.id]?.trim() === "")) // Check if there's no answer or only whitespace
+        (!formData?.[q.id] ||
+          (typeof formData?.[q.id] === "string" &&
+            formData?.[q.id]?.trim() === "")) // Check if there's no answer or only whitespace
       );
     });
 
-
     if (unansweredRequiredQuestions.length > 0) {
-      const element = document.getElementById(`question_${unansweredRequiredQuestions[0]?.id}`);
-      setIsFilled(unansweredRequiredQuestions[0]?.id)
+      const element = document.getElementById(
+        `question_${unansweredRequiredQuestions[0]?.id}`
+      );
+      setIsFilled(unansweredRequiredQuestions[0]?.id);
       if (element) {
-        element.scrollIntoView({ behavior: "smooth"});
+        element.scrollIntoView({ behavior: "smooth" });
       }
       showToastMessage(); // Display the error toast
       return false;
@@ -154,24 +184,25 @@ export const Questionnaire3 = ({formData,setFormData,changeLang,setChangeLang}) 
     return true; // All required fields are valid
   };
   const onBackClick = () => {
-    navigate(`/questionnaire/${2}`, { state: { questionnaireData2: answers,orderId:location.state?.orderId } });
-  }
+    navigate(`/questionnaire/${2}`, {
+      state: { questionnaireData2: answers, orderId: location.state?.orderId },
+    });
+  };
   const onNextClick = () => {
     if (!validateFields()) {
       return; // Stop execution if validation fails
     }
-    dispatch(questionnaireAction3(formData))
+    dispatch(questionnaireAction3(formData));
     navigate(`/questionnaire/${4}`, {
       state: {
-        orderId: location.state?.orderId
-      }
+        orderId: location.state?.orderId,
+      },
     });
     window.scrollTo({
       top: 0,
-      behavior: 'smooth',
+      behavior: "smooth",
     });
-  }
-  
+  };
 
   const onSaveLaterClick = async () => {
     if (!validateFields()) {
@@ -180,26 +211,39 @@ export const Questionnaire3 = ({formData,setFormData,changeLang,setChangeLang}) 
     let data = {
       answers: formData,
       orderId: location.state?.orderId,
-      status: 'not submitted'
-    }
+      status: "not submitted",
+    };
     try {
-      const response = await axios.post(`${base_url}/api/questionnaire/create`, data, ConfigToken());
+      const response = await axios.post(
+        `${base_url}/api/questionnaire/create`,
+        data,
+        ConfigToken()
+      );
       if (response.status === 200) {
-        navigate('/dashboard', {
+        navigate("/dashboard", {
           state: {
-            orderId: location.state?.orderId
-          }
-        })
+            orderId: location.state?.orderId,
+          },
+        });
       }
+    } catch (e) {
+      console.log(e);
     }
-    catch (e) {
-      console.log(e)
-    }
-  }
-
+  };
 
   return (
     <div>
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          style: {
+            // color: "#1BA56F",
+            fontWeight: "700",
+            borderRadius: "0px !important",
+            border: `1px solid #1BA56F`,
+          },
+        }}
+      />
       <ToastContainer />
       <Questionnaire
         pageNo={3}
@@ -209,101 +253,123 @@ export const Questionnaire3 = ({formData,setFormData,changeLang,setChangeLang}) 
         orderId={location.state?.orderId}
         onBackClick={onBackClick}
         onNextClick={onNextClick}
-        onSaveLaterClick={onSaveLaterClick}        
+        onSaveLaterClick={onSaveLaterClick}
         formData={formData}
         setFormData={setFormData}
-
-        questions={
-          questions.map((question, index) => (
-            <div className="questions" key={index} id={`question_${question.id}`}>
-              <p className={`questions-title  xs:w-[90%] sm:w-full md:w-full mx-auto ${index === 0 ? 'mt-[1%]' : 'mt-[0%]'}`}>
-                {changeLang === 'ar' ? question?.question_arabic : question.question}
-                {
-                  question.required && (
-                    <span><sup>*</sup></span>
-                  )
+        questions={questions.map((question, index) => (
+          <div className="questions" key={index} id={`question_${question.id}`}>
+            <p
+              className={`questions-title  xs:w-[90%] sm:w-full md:w-full mx-auto ${
+                index === 0 ? "mt-[1%]" : "mt-[0%]"
+              }`}
+            >
+              {changeLang === "ar"
+                ? question?.question_arabic
+                : question.question}
+              {question.required && (
+                <span>
+                  <sup>*</sup>
+                </span>
+              )}
+            </p>
+            {question.answer_type === "bar" ? (
+              ""
+            ) : (
+              <input
+                value={getAnswerValue(question.id)}
+                placeholder={
+                  changeLang === "ar"
+                    ? placeHolders_arabic[index]
+                    : placeHolders[index]
                 }
-              </p>
-              {
-                question.answer_type === 'bar' ? '' :
-                  <input value={getAnswerValue(question.id)} placeholder={changeLang === 'ar' ? placeHolders_arabic[index] : placeHolders[index]} 
-                  className={`question-input ${isFilled === question?.id ? 'border-red-400 border-b-[2px]':`${window?.innerWidth <= 475 ? 'border-b-[1px]':'border-b-[2px]'} border-black`}`}
-                   onChange={(e) => handleChange(question.id, e.target.value)} />
-              }
-              <div className=' flex items-center justify-center flex-col w-[100%] md:w-[100% xl:w-[100%] lg:w-[100%] mt-[3%] px-2'>
+                className={`question-input ${
+                  isFilled === question?.id
+                    ? "border-[#D83D99] border-b-[2px]"
+                    : `${
+                        window?.innerWidth <= 475
+                          ? "border-b-[1px]"
+                          : "border-b-[2px]"
+                      } border-black`
+                }`}
+                onChange={(e) => handleChange(question.id, e.target.value)}
+              />
+            )}
+            <div className=" flex items-center justify-center flex-col w-[100%] md:w-[100% xl:w-[100%] lg:w-[100%] mt-[3%] px-2">
+              {question.answer_type === "bar" &&
+                progressLabels.map((data, index) => {
+                  const sliderValue = sliderValues[data?.right] || 50;
+                  const leftValue = 100 - sliderValue;
+                  const rightValue = sliderValue;
 
-                {question.answer_type === 'bar' && (
-                  progressLabels.map((data, index) => {
-                    const sliderValue = sliderValues[data?.right] || 50; 
-                    const leftValue =100 - sliderValue;
-                    const rightValue =sliderValue;
-
-                    const handleSliderChange = (newValue, id) => {
-                      const adjustedValue = parseInt(newValue, 10);
-                      const newSlideValues = {
-                        ...sliderValues,
-                        [data?.left]:100 - adjustedValue, 
-                        [data?.right]: adjustedValue, 
-                      }
-                      setSliderValues(newSlideValues);
-                      setFormData((prevFormData) => ({
-                        ...prevFormData,
-                        [id]: newSlideValues
-                      }));
+                  const handleSliderChange = (newValue, id) => {
+                    const adjustedValue = parseInt(newValue, 10);
+                    const newSlideValues = {
+                      ...sliderValues,
+                      [data?.left]: 100 - adjustedValue,
+                      [data?.right]: adjustedValue,
                     };
-                    const leftTextStyle = {
-                      textAlign: "left",
-                      fontSize:window?.innerWidth <= 475 ?"10px" :"18px", 
-                      //fontSize: leftValue > rightValue ? "18px" : "14px",
-                    };
-                
-                    const rightTextStyle = {
-                      textAlign: "left",
-                      fontSize:window?.innerWidth <= 475 ?"10px" :"18px", 
-                      //fontSize: rightValue > leftValue ? "18px" : "14px", 
-                    };
+                    setSliderValues(newSlideValues);
+                    setFormData((prevFormData) => ({
+                      ...prevFormData,
+                      [id]: newSlideValues,
+                    }));
+                  };
+                  const leftTextStyle = {
+                    textAlign: "left",
+                    fontSize: window?.innerWidth <= 475 ? "10px" : "18px",
+                    //fontSize: leftValue > rightValue ? "18px" : "14px",
+                  };
 
-                    return (
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "space-between",
-                          gap: "10px",
-                        }}
-                        className="progress-section-q3"
-                        key={index}
-                      >
-                        <p className="progress-text" style={leftTextStyle}>
-                          {data?.left}
-                        </p>
-                        <input
-                          type="range"
-                          value={sliderValue}
-                          className="question-progress"
-                          min={0}
-                          max={100}
-                          onChange={(e) => handleSliderChange(e.target.value, question.id)}
-                        />
-                        <p className="progress-text" style={rightTextStyle}>
-                          {data?.right}
-                        </p>
-                      </div>
-                    );
-                  })
-                )}
+                  const rightTextStyle = {
+                    textAlign: "left",
+                    fontSize: window?.innerWidth <= 475 ? "10px" : "18px",
+                    //fontSize: rightValue > leftValue ? "18px" : "14px",
+                  };
 
-                {
-                  question.answer_type === 'bar' && (
-                    <div className={`w-[100%] xl:h-[2px] lg:h-[2px] md:h-[2px] sm:h-[2px] xs:h-[1px] ${isFilled === question?.id ? 'bg-red-400':'bg-black'} mt-[3%]`}></div>
-                  )
-                }
-              </div>
+                  return (
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        gap: "10px",
+                      }}
+                      className="progress-section-q3"
+                      key={index}
+                    >
+                      <p className="progress-text" style={leftTextStyle}>
+                        {data?.left}
+                      </p>
+                      <input
+                        type="range"
+                        value={sliderValue}
+                        className="question-progress"
+                        min={0}
+                        max={100}
+                        onChange={(e) =>
+                          handleSliderChange(e.target.value, question.id)
+                        }
+                      />
+                      <p className="progress-text" style={rightTextStyle}>
+                        {data?.right}
+                      </p>
+                    </div>
+                  );
+                })}
 
+              {question.answer_type === "bar" && (
+                <div
+                  className={`w-[100%] xl:h-[2px] lg:h-[2px] md:h-[2px] sm:h-[2px] xs:h-[1px] ${
+                    isFilled === question?.id ? "bg-[#D83D99]" : "bg-black"
+                  } mt-[3%]`}
+                ></div>
+              )}
             </div>
-          ))
+          </div>
+        ))}
+        bgTitle={
+          changeLang === "ar" ? "تصميم هوية مشروعك" : "YOUR project BRANDING"
         }
-        bgTitle={changeLang === 'ar' ? 'تصميم هوية مشروعك' :"YOUR project BRANDING"}
       />
     </div>
   );
