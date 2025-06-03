@@ -149,7 +149,7 @@ const Profile = ({ user ,lang,setLang }) => {
                             name='full_name'
                         />
                     </div>
-                    {error.full_name && <p className="text-red-500 text-sm">{error.full_name}</p>}
+                    {error.full_name && <p className="text-[#D83D99] text-sm">{error.full_name}</p>}
                     <div className="flex items-center border-b-[2px] border-black p-2 mb-4">
                         <FaGlobe className={`text-gray-500 ${lang === 'ar' ? 'ml-2':'mr-2'}`} />
                         <select
@@ -168,7 +168,7 @@ const Profile = ({ user ,lang,setLang }) => {
                             }
                         </select>
                     </div>
-                    {error.country && <p className="text-red-500 text-sm">{error.country}</p>}
+                    {error.country && <p className="text-[#D83D99] text-sm">{error.country}</p>}
                     <div className="flex items-center border-b-[2px] border-black p-2 mb-4">
                         <FaLanguage className={`text-gray-500 ${lang === 'ar' ? 'ml-2':'mr-2'}`} />
                         <select
@@ -184,7 +184,7 @@ const Profile = ({ user ,lang,setLang }) => {
                             <option value={'English'} >English</option>
                         </select>
                     </div>
-                    {error.language && <p className="text-red-500 text-sm">{error.language}</p>}
+                    {error.language && <p className="text-[#D83D99] text-sm">{error.language}</p>}
                     <div className="flex items-center border-b-[2px] border-black  p-2 mb-4">
                         <FaEnvelope className={`text-gray-500 ${lang === 'ar' ? 'ml-2':'mr-2'}`} />
                         <input
@@ -196,7 +196,7 @@ const Profile = ({ user ,lang,setLang }) => {
                             name='email'
                         />
                     </div>
-                    {error.email && <p className="text-red-500 text-sm">{error.email}</p>}
+                    {error.email && <p className="text-[#D83D99] text-sm">{error.email}</p>}
                     <div className="flex items-center border-b-[2px] border-black  p-2 mb-4">
                         <FaPhone className={`text-gray-500 ${lang === 'ar' ? 'ml-2 rotate-[270deg]':'mr-2 rotate-180'}`} />
                         <PhoneNumberInput
@@ -212,7 +212,7 @@ const Profile = ({ user ,lang,setLang }) => {
                             className="w-full  text-[18px]  !rounded-none !border-none"
                         />
                     </div>
-                    {error.phone && <p className="text-red-500 text-sm">{error.phone}</p>}
+                    {error.phone && <p className="text-[#D83D99] text-sm">{error.phone}</p>}
                     <button type='submit' className="w-full bg-[#f3b7ce] text-white py-2 ">
                         {isLoading ? <ClipLoader size={25} color='#FFFFFF' /> : lang === 'ar' ? 'تحديث' : 'UPDATE'}
                     </button>
