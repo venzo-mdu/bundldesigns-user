@@ -17,6 +17,7 @@ import { Bgloader } from "../Common/Background/Bgloader";
 import toast, { Toaster } from "react-hot-toast";
 import BundlOrder from "./Order/Bundl";
 import Addons from "./Order/Addons";
+import { processArabicText } from "../Utils/arabicFontParenthesisChecker";
 
 let newToastId = null;
 export default function UploadContent({ lang, setLang }) {
@@ -406,7 +407,7 @@ export default function UploadContent({ lang, setLang }) {
                           >
                             <p className="mb-0 font-[700] text-[20px]">
                               {lang === "ar"
-                                ? item?.item__name_arabic
+                                ? processArabicText(item?.item__name_arabic)
                                 : item.item_name}{" "}
                               {item?.qty > 1 && filterIndex}
                             </p>
@@ -1094,7 +1095,7 @@ export default function UploadContent({ lang, setLang }) {
                                         >
                                           <p className="mb-0 font-medium w-[95%]">
                                             {lang === "ar"
-                                              ? item?.item__name_arabic
+                                              ? processArabicText(item?.item__name_arabic)
                                               : item.item_name}{" "}
                                             {item.qty > 1 && qtyIndex + 1}
                                           </p>
@@ -1135,7 +1136,7 @@ export default function UploadContent({ lang, setLang }) {
                                       {" "}
                                       Addons -{" "}
                                       {lang === "ar"
-                                        ? item?.item__name_arabic
+                                        ? processArabicText(item?.item__name_arabic)
                                         : item.item_name}{" "}
                                       {item?.qty > 1 && qtyIndex + 1}
                                     </p>
@@ -1225,7 +1226,7 @@ export default function UploadContent({ lang, setLang }) {
                                 <div className="pl-[5%]">
                                   <p className="mb-0 font-semibold text-[22px">
                                     {lang === "ar"
-                                      ? item?.item__name_arabic
+                                      ? processArabicText(item?.item__name_arabic)
                                       : item.item_name}{" "}
                                     {item?.qty > 1 && filterIndex}
                                   </p>
@@ -1575,7 +1576,7 @@ export default function UploadContent({ lang, setLang }) {
                                   <p className="mb-0 font-medium text-[22px]">
                                     Addons -{" "}
                                     {lang === "ar"
-                                      ? item?.item__name_arabic
+                                      ? processArabicText(item?.item__name_arabic)
                                       : item.item_name}{" "}
                                     {item?.qty > 1 && filterIndex}
                                   </p>
@@ -1899,14 +1900,52 @@ export default function UploadContent({ lang, setLang }) {
               </h3>
             </div>
 
-            {/* 👇 Wrapper to align all items under heading */}
-            {/* <div className="pl-5"> */}
-            <div className={`${lang === "ar" ? "pr-5 pl-0" : "pl-5 pr-0"}`}>
-              {order && (
-                <>
-                  {/* Bundle Items */}
-                  {order.item_details.bundle_items.map((item, itemIndex) => {
-                    if (item.item__id !== 76) {
+
+            {order && (
+              <>
+                {order.item_details.bundle_items.map((item, itemIndex) => {
+                  if (item.item__id !== 76) {
+                    return (
+                      <div key={itemIndex}>
+                        {Array.from(
+                          { length: Math.max(1, item.qty) },
+                          (_, qtyIndex) => {
+                            const isUploaded = !item?.uploaded_qty?.includes(
+                              qtyIndex + 1
+                            );
+                            return (
+                              <div className="flex items-center gap-[10px] mb-1  text-[#1BA56F]">
+                                {item.status == "questionnaire required" &&
+                                isUploaded ? (
+                                  // <div className="w-4 h-4 border-2 border-[#1BA56F] rounded-full"></div>
+                                  <img src={checkboxIcon} width={"25px"}></img>
+                                ) : (
+                                  <img src={tickCircleIcon}></img>
+                                )}
+                                <p className="mb-0 font-medium">
+                                  {lang === "ar"
+                                    ? processArabicText(item?.item__name_arabic)
+                                    : item.item_name}{" "}
+                                  {item?.qty > 1 && qtyIndex + 1}
+                                </p>
+                              </div>
+                            );
+                          }
+                        )}
+                      </div>
+                    );
+                  }
+                  return null;
+                })}
+
+                {order.item_details.addon_items.map((item) =>
+                  Array.from(
+                    { length: Math.max(1, item.qty) },
+                    (_, qtyIndex) => {
+                      const isUploaded = !item?.uploaded_qty?.includes(
+                        qtyIndex + 1
+                      );
+
                       return (
                         <div key={itemIndex}>
                           {Array.from(
@@ -1936,6 +1975,13 @@ export default function UploadContent({ lang, setLang }) {
                               );
                             }
                           )}
+                          <p className="mb-0 font-medium">
+                            {lang === "ar"
+                              ? processArabicText(item?.item__name_arabic)
+                              : item.item_name}{" "}
+                            {item?.qty > 1 && qtyIndex + 1}
+                          </p>
+
                         </div>
                       );
                     }

@@ -20,6 +20,7 @@ import { Bgloader } from "../Common/Background/Bgloader";
 import { Popup } from "../Common/Popup/Popup";
 import { amountDecimal } from "../Utils/amountDecimal";
 import toast, { Toaster } from "react-hot-toast";
+import { processArabicText } from "../Utils/arabicFontParenthesisChecker";
 
 let newToastId = null;
 
@@ -556,7 +557,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
               </p>
               <p className="bundl-desc">
                 {lang === "ar"
-                  ? packageDetail?.package?.description_arabic
+                  ?processArabicText(packageDetail?.package?.description_arabic)
                   : packageDetail?.package?.description_english || ""}
               </p>
               <p className="one-minor my-3">
@@ -740,7 +741,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                                   }`}
                                 >
                                   {lang === "ar"
-                                    ? design.name_arabic
+                                    ? processArabicText(design.name_arabic)
                                     : design.name_english}
                                 </p>
                                 {minError.includes(design.name_english) &&

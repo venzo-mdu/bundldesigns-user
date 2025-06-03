@@ -68,6 +68,38 @@ export const Login = ({ lang }) => {
     };
   }, []);
 
+  // AppleCallback.js
+useEffect(() => {
+  const query = new URLSearchParams(window.location.search);
+  const code = query.get("code");
+  const id_token = query.get("id_token");
+
+  if (code && id_token) {
+    const decoded = jwt_decode(id_token);
+    const email = decoded.email;
+
+    const data = {
+      email,
+      full_name: email?.split("@")[0],
+      password: null,
+      google: true,
+    };
+
+    axios.post(`${base_url}/api/login/`, data)
+      .then((res) => {
+        document.cookie = `token=${res.data.data.token}; path=/; SameSite=None; Secure`;
+        dispatch(loginAction(res.data.user));
+        navigate('/');
+      })
+      .catch((err) => {
+        console.error("Apple login error:", err);
+      });
+  }
+}, []);
+
+
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
   // const login = useGoogleLogin({
   //   onSuccess: (tokenResponse) => {
   //     const token = tokenResponse.credential;
@@ -358,13 +390,7 @@ export const Login = ({ lang }) => {
 
             {/* General error message */}
             {errors.general && <p className="error">{errors.general}</p>}
-            {/* <p className='text-[red] mb-1'>{loginError}</p>
-            <button className='signin !text-[24px] uppercase' type='submit'>
-              {loading ? <ClipLoader size={25} color={'#FFFFFF'} /> :lang === 'ar' ? 'تسجيل دخول' : 'Sign In'}
-            </button>  */}
-
             <p className="text-[red] mb-1">{loginError}</p>
-
             <button className="signin !text-[24px] uppercase" type="submit">
               {loading ? (
                 <ClipLoader size={25} color={"#FFFFFF"} />
@@ -374,16 +400,6 @@ export const Login = ({ lang }) => {
                 "Sign In"
               )}
             </button>
-
-            <div className="flex justify-end mt-2">
-              <NavLink
-                to="/forgotpassword-mail"
-                className="text-[13px] text-[#007bff] hover:underline"
-              >
-                {lang === "ar" ? "هل نسيت كلمة المرور؟" : "Forgot Password?"}
-              </NavLink>
-            </div>
-
             <p
               className={`or mt-[4vh] flex items-center justify-center ${
                 lang === "ar" ? "mr-2" : "ml-2"
@@ -454,9 +470,10 @@ export const Login = ({ lang }) => {
                     clientId: clientId,
                     redirectURI: redirectURI,
                     scope: "email name",
-                    usePopup: true,
+                    // usePopup: true,
                     responseType: "code id_token",
-                    responseMode: "form_post",
+                    usePopup: !isMobile, // ✅ Popup on desktop, redirect on mobile
+                    responseMode: isMobile ? "form_post" : "fragment", // ✅ Proper mobile support
                   }}
                   // className={'lg:w-[50%] md:w-[50%] xs:w-[100%] !lg:text-[18px] !md:text-[18px] !xs:text-[16px]'}
                   // onSuccess={handleAppleLoginSuccess}

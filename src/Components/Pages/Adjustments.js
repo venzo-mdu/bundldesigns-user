@@ -1465,6 +1465,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import { amountDecimal } from "../Utils/amountDecimal";
 import toast, { Toaster } from "react-hot-toast";
 import useToastMessage from "./Toaster/Toaster";
+import { processArabicText } from "../Utils/arabicFontParenthesisChecker";
 
 let newToastId = null;
 export default function Adjustments({ user, lang, setLang }) {
@@ -3887,7 +3888,7 @@ export default function Adjustments({ user, lang, setLang }) {
                                       >
                                         <span className="md:basis-[25%] basis-[25%] xs:basis-[100%] text-[16px] md:text-[16px] xs:text-[16px] text-[#1BA56F] font-[500]">
                                           {lang === "ar"
-                                            ? item.name_arabic
+                                            ? processArabicText(item.name_arabic)
                                             : item.name_english}
                                         </span>
                                         <p className="flex mb-0 text-[18px] md:text-[18px] xs:text-[16px] basis-[40%]">

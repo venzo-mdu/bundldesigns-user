@@ -1454,6 +1454,7 @@ import plusImage from "../../Images/Bundles/plus-icon.png";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { amountDecimal } from "../Utils/amountDecimal";
+import { processArabicText } from "../Utils/arabicFontParenthesisChecker";
 
 
 export const Home = ({ lang, setLang }) => {
@@ -3019,7 +3020,7 @@ export const Home = ({ lang, setLang }) => {
                       <ul className="second_brand_list">
                         <li>
                           {lang === "ar"
-                            ? "قائمة الأسعار (للصفحة الواحدة)"
+                            ? processArabicText("قائمة الأسعار (للصفحة الواحدة)")
                             : "1 Page Price List"}
                         </li>
                         <li>{lang === "ar" ? "كيس" : "Bag"}</li>
@@ -3232,7 +3233,7 @@ export const Home = ({ lang, setLang }) => {
                       <ul className="second_brand_list">
                         <li>
                           {lang === "ar"
-                            ? "قائمة الأسعار (للصفحة الواحدة)"
+                            ? processArabicText("قائمة الأسعار (للصفحة الواحدة)")
                             : "1 Page Price List"}
                         </li>
                         <li>{lang === "ar" ? "كيس" : "Bag"}</li>

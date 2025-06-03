@@ -940,6 +940,7 @@ import { useLocation } from "react-router-dom";
 import { Bgloader } from "../Common/Background/Bgloader";
 import DoneIcon from "@mui/icons-material/Done";
 import { BorderAllRounded } from "@mui/icons-material";
+import { processArabicText } from "../Utils/arabicFontParenthesisChecker";
 
 const style = {
   position: "absolute",
@@ -1300,7 +1301,7 @@ export default function Dashboard({ lang, setLang }) {
               >
                 {lang === "ar"
                   ? dashboardJson.process_content.approve_brand_arabic
-                  : dashboardJson.process_content.approve_brand}
+                  : dashboardJson.process_content.approve_brand} 
               </button>
             </p>
           </div>
@@ -1934,7 +1935,7 @@ export default function Dashboard({ lang, setLang }) {
                                 }`}
                               >
                                 {lang === "ar"
-                                  ? order?.brand_identity?.item__name_arabic
+                                  ? processArabicText(order?.brand_identity?.item__name_arabic)
                                   : order?.brand_identity?.item_name}{" "}
                                 {processIndex >= 4 && (
                                   <button
@@ -2003,7 +2004,7 @@ export default function Dashboard({ lang, setLang }) {
                                 >
                                   <span className="lg:text-[16px] md:text-[16px] xs:text-[16px]">
                                     {lang === "ar"
-                                      ? item?.item__name_arabic
+                                      ?processArabicText(item?.item__name_arabic)
                                       : item.item_name}
                                   </span>
                                   <span
