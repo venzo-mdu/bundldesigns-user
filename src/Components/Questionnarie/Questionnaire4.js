@@ -1249,50 +1249,62 @@ export const Questionnaire4 = ({
                             onChange={(e) => uploadFile(e, question.id, "file")}
                             className=""
                           />
-                          <img
-                            className="h-[25px] w-[40px]"
-                            src={Blackupload}
-                            alt="Upload Icon"
-                          />
-                          {changeLang === "ar"
-                            ? "تحميل المحتوى"
-                            : "Upload Content"}
-                        </p>
-                      </>
-                    </div>
-                    {uploadContent?.[question?.id]?.filename}
-                  </>
-                ) : (
-                  ""
-                )}
-                {question.id === 15 || question.id === 16 ? (
-                  <input
-                    placeholder={
-                      changeLang === ""
-                        ? placeHolders_arabic[index]
-                        : placeHolders[index]
-                    }
-                    value={
-                      question.id === 21 ? "" : getAnswerValue(question.id)
-                    }
-                    className={`question-input ${
-                      isFilled === question?.id
-                        ? "border-[#D83D99] border-b-[2px]"
-                        : `${
-                            window?.innerWidth <= 475
-                              ? "border-b-[1px]"
-                              : "border-b-[2px]"
-                          } border-black`
-                    }`}
-                    onChange={(e) => handleChange(question.id, e.target.value)}
-                  />
-                ) : (
-                  <div
-                    className={`w-[100%] xl:h-[2px] lg:h-[2px] md:h-[2px] sm:h-[2px] xs:h-[1px] ${
-                      isFilled === question?.id ? "bg-[#D83D99]" : "bg-black"
-                    } mt-[3%]`}
-                  ></div>
-                )}
+
+                          <button
+                            // onClick={handleAddColor}
+                            style={{
+                              padding: window.innerWidth <= 441 ? '0' : '8px 16px',
+                              backgroundColor: 'transparent',
+                              color: '#fff',
+                              border: 'none',
+                              cursor: 'pointer',
+                              margin: window.innerWidth <= 441 ? changeLang === 'ar' ? '-45px 80% 0px 0%' : '-45px 0px 0px 80%' : changeLang === 'ar' ? '-55px 80% 0px 0%' : '-55px 0px 0px 80%'
+                            }}
+                          >
+                            <img src={Link}></img>
+                          </button>
+
+                        </div>
+                        <>
+
+                          <p
+                            className={`border-1  h-[45px] lg:text-[18px] md:text-[18px] xs:text-[14px] uppercase
+                            ${window?.innerWidth <= 500 ? 'w-[61%]' : 'w-[300px]'} 
+                          !border-[#000000] flex items-center justify-center text-[#000000] cursor-pointer lg:ml-2 lg:mt-4  md:ml-2 md:mt-4  xs:ml-0 xs:mt-0 p-[5px]`}
+                            onClick={() => document.getElementById(`file-${question.id}`).click()}
+                          >
+                            <input
+                              type="file"
+                              hidden
+                              name="file"
+                              id={`file-${question.id}`} // Use a unique ID for each input
+                              onChange={(e) => uploadFile(e, question.id, 'file')}
+                              className=''
+                            />
+                            <img className='h-[25px] w-[40px]' src={Blackupload} alt="Upload Icon" />
+                            {changeLang === 'ar' ? 'إضافة المحتوى' : 'Upload Content'}
+                          </p>
+                        </>
+                      </div>
+                      {uploadContent?.[question?.id]?.filename}
+                    </>
+                    : ''
+                }
+                {
+                  (question.id === 15 || question.id === 16) ? (
+                    <input
+                      placeholder={changeLang === '' ? placeHolders_arabic[index] : placeHolders[index]}
+                      value={question.id === 21 ? '' : getAnswerValue(question.id)}
+                      className={`question-input ${isFilled === question?.id ? 'border-red-400 border-b-[2px]' : `${window?.innerWidth <= 475 ? 'border-b-[1px]' : 'border-b-[2px]'} border-black`}`}
+                      onChange={(e) => handleChange(question.id, e.target.value)}
+                    />
+                  ) : (
+                    <div className={`w-[100%] xl:h-[2px] lg:h-[2px] md:h-[2px] sm:h-[2px] xs:h-[1px] ${isFilled === question?.id ? 'bg-red-400' : 'bg-black'} mt-[3%]`}></div>
+                  )
+                }
+
+
+
               </div>
             ))}
           </>

@@ -365,6 +365,7 @@ export const Questionnaire5 = ({
                           id={`file-${question.id}`} // Use a unique ID for each input
                           onChange={(e) => uploadFile(e, question.id, "file")}
                         />
+
                         <img
                           className="h-[25px] w-[40px]"
                           src={Blackupload}

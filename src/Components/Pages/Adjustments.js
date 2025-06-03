@@ -2505,7 +2505,7 @@ export default function Adjustments({ user, lang, setLang }) {
                             <span className="font-[700] uppercase">
                               {" "}
                               {lang === "ar"
-                                ? "تحميل المحتوى"
+                                ? "إضافة المحتوى"
                                 : "Upload Content"}
                             </span>
                           </p>
@@ -3743,7 +3743,7 @@ export default function Adjustments({ user, lang, setLang }) {
                             <img src={uploadIcon} alt="Upload Icon" />
                             <span className="font-[700] uppercase">
                               {lang === "ar"
-                                ? "تحميل المحتوى"
+                                ? "إضافة المحتوى"
                                 : "Upload Content"}
                             </span>
                           </p>
