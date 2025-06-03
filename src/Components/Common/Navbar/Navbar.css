@@ -1,3 +1,13 @@
+/* .parens-fix::before {
+  content: '(';
+  font-family: Arial;
+}
+.parens-fix::after {
+  content: ')';
+  font-family: Arial;
+} */
+
+
 .common-navbar{
     height: 65px;
     border-bottom: 1px solid black;

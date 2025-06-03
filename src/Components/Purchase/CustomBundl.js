@@ -114,9 +114,9 @@ export const CustomBundl = ({ user, lang, setLang }) => {
       //     },
       //   }
       // );
-      toastErrorMessage(
-        lang === "ar" ? "الحد اختر اسمًا لمشروعك" : `Name your brand`
-      );
+      // toastErrorMessage(
+      //   lang === "ar" ? "الحد اختر اسمًا لمشروعك" : `Name your brand`
+      // );
       const element = document.getElementById("brandInput");
       if (element) {
         element.scrollIntoView({ behavior: "smooth", block: "center" });

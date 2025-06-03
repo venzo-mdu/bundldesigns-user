@@ -17,6 +17,7 @@ import { Bgloader } from "../Common/Background/Bgloader";
 import toast, { Toaster } from "react-hot-toast";
 import BundlOrder from "./Order/Bundl";
 import Addons from "./Order/Addons";
+import { processArabicText } from "../Utils/arabicFontParenthesisChecker";
 
 let newToastId = null;
 export default function UploadContent({ lang, setLang }) {
@@ -406,7 +407,7 @@ export default function UploadContent({ lang, setLang }) {
                           >
                             <p className="mb-0 font-[700] text-[20px]">
                               {lang === "ar"
-                                ? item?.item__name_arabic
+                                ? processArabicText(item?.item__name_arabic)
                                 : item.item_name}{" "}
                               {item?.qty > 1 && filterIndex}
                             </p>
@@ -1094,7 +1095,7 @@ export default function UploadContent({ lang, setLang }) {
                                         >
                                           <p className="mb-0 font-medium w-[95%]">
                                             {lang === "ar"
-                                              ? item?.item__name_arabic
+                                              ? processArabicText(item?.item__name_arabic)
                                               : item.item_name}{" "}
                                             {item.qty > 1 && qtyIndex + 1}
                                           </p>
@@ -1135,7 +1136,7 @@ export default function UploadContent({ lang, setLang }) {
                                       {" "}
                                       Addons -{" "}
                                       {lang === "ar"
-                                        ? item?.item__name_arabic
+                                        ? processArabicText(item?.item__name_arabic)
                                         : item.item_name}{" "}
                                       {item?.qty > 1 && qtyIndex + 1}
                                     </p>
@@ -1225,7 +1226,7 @@ export default function UploadContent({ lang, setLang }) {
                                 <div className="pl-[5%]">
                                   <p className="mb-0 font-semibold text-[22px">
                                     {lang === "ar"
-                                      ? item?.item__name_arabic
+                                      ? processArabicText(item?.item__name_arabic)
                                       : item.item_name}{" "}
                                     {item?.qty > 1 && filterIndex}
                                   </p>
@@ -1577,7 +1578,7 @@ export default function UploadContent({ lang, setLang }) {
                                   <p className="mb-0 font-medium text-[22px]">
                                     Addons -{" "}
                                     {lang === "ar"
-                                      ? item?.item__name_arabic
+                                      ? processArabicText(item?.item__name_arabic)
                                       : item.item_name}{" "}
                                     {item?.qty > 1 && filterIndex}
                                   </p>
@@ -1920,7 +1921,7 @@ export default function UploadContent({ lang, setLang }) {
                                 )}
                                 <p className="mb-0 font-medium">
                                   {lang === "ar"
-                                    ? item?.item__name_arabic
+                                    ? processArabicText(item?.item__name_arabic)
                                     : item.item_name}{" "}
                                   {item?.qty > 1 && qtyIndex + 1}
                                 </p>
@@ -1952,7 +1953,7 @@ export default function UploadContent({ lang, setLang }) {
                           )}
                           <p className="mb-0 font-medium">
                             {lang === "ar"
-                              ? item?.item__name_arabic
+                              ? processArabicText(item?.item__name_arabic)
                               : item.item_name}{" "}
                             {item?.qty > 1 && qtyIndex + 1}
                           </p>

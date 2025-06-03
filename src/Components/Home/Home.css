@@ -9,6 +9,16 @@ body,html {
   /* overflow-x: hidden; */
 }
 
+.parens-fix::before {
+  content: '(';
+  font-family: Arial;
+}
+.parens-fix::after {
+  content: ')';
+  font-family: Arial;
+}
+
+
 .impression{
   margin-top:0;
   animation: margin 8s infinite ease-in-out;

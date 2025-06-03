@@ -14,6 +14,7 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { amountDecimal } from "../Utils/amountDecimal";
 import toast, { Toaster } from "react-hot-toast";
+import { processArabicText } from "../Utils/arabicFontParenthesisChecker";
 
 let toastId = null;
 export const Accordian = ({
@@ -382,7 +383,7 @@ export const Accordian = ({
             >
               {isLang === "ar"
                 ? addOnData?.designs_details?.[title]?.name_arabic
-                : title}
+                : title} 
             </button>
           ))}
         </div>
@@ -425,7 +426,7 @@ export const Accordian = ({
               <Typography className="!font-[700] !text-[22px]">
                 {isLang === "ar"
                   ? addOnData?.designs_details?.[title]?.name_arabic
-                  : title}
+                  : title} 
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
@@ -467,7 +468,7 @@ export const Accordian = ({
                             }`}
                           >
                             {isLang === "ar"
-                              ? design.name_arabic
+                              ? processArabicText(design.name_arabic)
                               : design.name_english}
                           </Typography>
                           <p

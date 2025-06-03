@@ -21,6 +21,7 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { amountDecimal } from "../Utils/amountDecimal";
 import toast, { Toaster } from "react-hot-toast";
+import { processArabicText } from "../Utils/arabicFontParenthesisChecker";
 
 let toastId = null;
 export const MyCart = ({ lang, setLang }) => {
@@ -1010,7 +1011,7 @@ export const MyCart = ({ lang, setLang }) => {
                       <div>
                         <div className="font-[700] text-[20px]">
                           {lang === "ar"
-                            ? cartDetails?.bundl_arabic
+                            ? processArabicText(cartDetails?.bundl_arabic)
                             : cartDetails?.bundl_english}
                         </div>
                         {/* <div className='font-[500] ml-8'> {Math.round(cartDetails.total_amount)} SAR</div> */}
@@ -1041,7 +1042,7 @@ export const MyCart = ({ lang, setLang }) => {
                           <div className="font-[700] "> {row.qty} </div>
                           <div className="font-[700] text-[20px] ml-2">
                             {lang === "ar"
-                              ? row.item__name_arabic
+                              ? processArabicText(row.item__name_arabic)
                               : row.item_name}
                           </div>
                         </div>
@@ -1068,7 +1069,7 @@ export const MyCart = ({ lang, setLang }) => {
                       <div className="w-[70%]">
                         <div className="font-[700] text-[20px] ">
                           {lang === "ar"
-                            ? row.item__name_arabic
+                            ? processArabicText(row.item__name_arabic)
                             : row.item_name}
                         </div>
                         {/* <div className='font-[500] '> {row.subtotal_price} SAR</div> */}
@@ -1161,7 +1162,7 @@ export const MyCart = ({ lang, setLang }) => {
                             scope="row"
                           >
                             {lang === "ar"
-                              ? cartDetails?.bundl_arabic
+                              ? processArabicText(cartDetails?.bundl_arabic)
                               : cartDetails?.bundl_english}
                           </td>
                           {/* <td className=' !py-2' align="center">{row.qty}</td> */}
@@ -1191,7 +1192,7 @@ export const MyCart = ({ lang, setLang }) => {
                           <td className="text-[#000] font-[700] !text-[18px] !px-[2%] !py-1">
                             {row.qty}{" "}
                             {lang === "ar"
-                              ? row.item__name_arabic
+                              ? processArabicText(row.item__name_arabic)
                               : row?.item_name}
                           </td>
                         </tr>
@@ -1216,7 +1217,7 @@ export const MyCart = ({ lang, setLang }) => {
                         <tr
                           key={
                             lang === "ar"
-                              ? row.item__name_arabic
+                              ? processArabicText(row.item__name_arabic)
                               : row.item_name
                           }
                           sx={{
@@ -1231,7 +1232,7 @@ export const MyCart = ({ lang, setLang }) => {
                         >
                           <td className=" !py-2 w-[35%] !px-[2%]" scope="row">
                             {lang === "ar"
-                              ? row.item__name_arabic
+                              ? processArabicText(row.item__name_arabic)
                               : row.item_name}
                           </td>
                           {/* <td className=' !py-2' align="center">{row.qty}</td> */}
