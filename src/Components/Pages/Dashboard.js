@@ -990,11 +990,15 @@ export default function Dashboard({ lang, setLang }) {
   const base_url = process.env.REACT_APP_BACKEND_URL;
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
+
   let purchase_id = queryParams.get("purchase", null);
   const [purchasePopUp, setPurchasePopUp] = useState(
     purchased == "done" ? true : false
   );
   const [showFull, setShowFull] = useState(false);
+
+  const params = new URLSearchParams(window.location.search);
+    const orderId = Number(params.get("order_id"));
 
   const checkPurchase = async () => {
     const response = await axios.get(
@@ -1021,7 +1025,7 @@ export default function Dashboard({ lang, setLang }) {
         response.data.data.filter((item) => item.order_status != "in_cart")
       );
       if (resProjects.length) {
-        getOrderDetails(id ? id : resProjects[0].id);
+        getOrderDetails(id ? id : orderId);
       }
     }
     setLoading(false);
@@ -1301,7 +1305,7 @@ export default function Dashboard({ lang, setLang }) {
               >
                 {lang === "ar"
                   ? dashboardJson.process_content.approve_brand_arabic
-                  : dashboardJson.process_content.approve_brand} 
+                  : dashboardJson.process_content.approve_brand}
               </button>
             </p>
           </div>
@@ -1528,6 +1532,7 @@ export default function Dashboard({ lang, setLang }) {
       }, 1000);
       return () => clearTimeout(timer);
     } else {
+      debugger
       getprojects();
     }
     // Cleanup the timer to avoid memory leaks
@@ -1754,46 +1759,51 @@ export default function Dashboard({ lang, setLang }) {
 
                 <p className="flex lg:overflow-auto md:overflow-auto xs:overflow-hidden mb-0">
                   {window.innerWidth > 768 ? (
-                    projects.map((project) => (
-                      <button
-                        onClick={(e) => getOrderDetails(project.id)}
-                        className={`py-1 px-4 min-w-fit border-[2px] !border-[#1BA56F] ${
-                          project.id == currentTab
-                            ? "bg-[#1BA56F] text-white"
-                            : "bg-white text-[#1BA56F]"
-                        }
+                    projects.map((project) => {
+                      debugger;
+                      return (
+                        <button
+                          onClick={(e) => getOrderDetails(project.id)}
+                          className={`py-1 px-4 min-w-fit border-[2px] !border-[#1BA56F] ${
+                            project.id == currentTab
+                              ? "bg-[#1BA56F] text-white"
+                              : "bg-white text-[#1BA56F]"
+                          }
                                                     flex justify-around items-center border-r-0`}
-                      >
-                        {projectToEdit === project.id ? (
-                          <>
-                            <input
-                              className="px-2 py-1 !text-black w-full rounded-none"
-                              value={projectName}
-                              onChange={(e) => setProjectName(e.target.value)}
-                            />
-                            <button onClick={() => nameChange()}>
-                              <DoneIcon className="ml-2" />
-                            </button>
-                          </>
-                        ) : (
-                          <>
-                            {project.project_name}
-                            {project.id === currentTab && (
-                              <img
-                                width="15px"
-                                className={`${lang === "ar" ? "mr-2" : "ml-2"}`}
-                                src={editIcon}
-                                onClick={() => {
-                                  setProjectEdit(project.id);
-                                  setProjectName(project.project_name);
-                                }}
-                                alt="Edit Icon"
+                        >
+                          {projectToEdit === project.id ? (
+                            <>
+                              <input
+                                className="px-2 py-1 !text-black w-full rounded-none"
+                                value={projectName}
+                                onChange={(e) => setProjectName(e.target.value)}
                               />
-                            )}
-                          </>
-                        )}
-                      </button>
-                    ))
+                              <button onClick={() => nameChange()}>
+                                <DoneIcon className="ml-2" />
+                              </button>
+                            </>
+                          ) : (
+                            <>
+                              {project.project_name}
+                              {project.id === currentTab && (
+                                <img
+                                  width="15px"
+                                  className={`${
+                                    lang === "ar" ? "mr-2" : "ml-2"
+                                  }`}
+                                  src={editIcon}
+                                  onClick={() => {
+                                    setProjectEdit(project.id);
+                                    setProjectName(project.project_name);
+                                  }}
+                                  alt="Edit Icon"
+                                />
+                              )}
+                            </>
+                          )}
+                        </button>
+                      );
+                    })
                   ) : (
                     <div className="xs:px-[5%] xs:flex xs:w-[100%]">
                       {/* <div className="select-container"> */}
@@ -1935,7 +1945,9 @@ export default function Dashboard({ lang, setLang }) {
                                 }`}
                               >
                                 {lang === "ar"
-                                  ? processArabicText(order?.brand_identity?.item__name_arabic)
+                                  ? processArabicText(
+                                      order?.brand_identity?.item__name_arabic
+                                    )
                                   : order?.brand_identity?.item_name}{" "}
                                 {processIndex >= 4 && (
                                   <button
@@ -1956,7 +1968,7 @@ export default function Dashboard({ lang, setLang }) {
                                       : "Request Edits"}
                                   </button>
                                 )}{" "}
-                              </p>                             
+                              </p>
                             </>
                           )}
                           <p
@@ -2004,7 +2016,9 @@ export default function Dashboard({ lang, setLang }) {
                                 >
                                   <span className="lg:text-[16px] md:text-[16px] xs:text-[16px]">
                                     {lang === "ar"
-                                      ?processArabicText(item?.item__name_arabic)
+                                      ? processArabicText(
+                                          item?.item__name_arabic
+                                        )
                                       : item.item_name}
                                   </span>
                                   <span
