@@ -748,7 +748,7 @@
 
 //                                                 <div >
 //                                                     <button onClick={() => CheckCart()} className=' w-[100%] m-auto py-1 mt-2 text-[18px] text-white bg-[#1BA56F] uppercase'> {lang === 'ar' ? 'متابعة الخروج' :'Proceed Checkout'}</button>
-//                                                     {errorMsg && <p className='pb-0 text-[16px] text-[red]'>{errorMsg}*</p>}
+//                                                     {errorMsg && <p className='pb-0 text-[16px] text-[#D83D99]'>{errorMsg}*</p>}
 //                                                 </div>
 //                                             </div>
 
@@ -883,42 +883,42 @@
 //                                     <p>{lang === 'ar' ?'عنوان الفواتير' :'Billing Address'}</p>
 //                                     <div className="user-name mb-[15px]">
 //                                         <div className={`${lang === 'ar' ? 'ml-[4%]' :'mr-[4%]'}`}>
-//                                             <label className={`${'firstName' in error && 'text-[red]'}`}>{lang === 'ar' ? 'الاسم الأول':'First Name'} <span className='text-[red]'>*</span></label>
+//                                             <label className={`${'firstName' in error && 'text-[#D83D99]'}`}>{lang === 'ar' ? 'الاسم الأول':'First Name'} <span className='text-[#D83D99]'>*</span></label>
 //                                             <input
 //                                                 name="firstName"
 //                                                 value={billingInfo.firstName}
 //                                                 onChange={handleBillingChange}
-//                                                 className={`rounded-none ${'firstName' in error ? '!border-[red]' : ''}`}
+//                                                 className={`rounded-none ${'firstName' in error ? '!border-[#D83D99]' : ''}`}
 //                                             />
 //                                         </div>
 //                                         <div className={`${lang === 'ar' ?'ml-[4%]':'mr-[4%]'}`} style={lang === 'ar'?{ margin: '0% 2% 0 0%' }:{ margin: '0% 0 0 2%' }}>
-//                                             <label className={`${'lastName' in error && 'text-[red]'}`}>{lang === 'ar' ? 'اسم العائلة' :'Last Name'}<span className='text-[red]'>*</span></label>
+//                                             <label className={`${'lastName' in error && 'text-[#D83D99]'}`}>{lang === 'ar' ? 'اسم العائلة' :'Last Name'}<span className='text-[#D83D99]'>*</span></label>
 //                                             <input
 //                                                 name="lastName"
 //                                                 value={billingInfo.lastName}
 //                                                 onChange={handleBillingChange}
-//                                                 className={`rounded-none ${'lastName' in error ? '!border-[red]' : ''}`}
+//                                                 className={`rounded-none ${'lastName' in error ? '!border-[#D83D99]' : ''}`}
 //                                             />
 //                                         </div>
 //                                     </div>
 //                                     <div className="email mb-[15px]">
-//                                         <label className={`${'email' in error && 'text-[red]'}`}>{lang === 'ar' ?'البريد الإلكتروني' :'Email'} <span className='text-[red]'>*</span></label>
+//                                         <label className={`${'email' in error && 'text-[#D83D99]'}`}>{lang === 'ar' ?'البريد الإلكتروني' :'Email'} <span className='text-[#D83D99]'>*</span></label>
 //                                         <input
 
 //                                             name="email"
 //                                             value={billingInfo.email}
 //                                             onChange={handleBillingChange}
-//                                             className={`rounded-none ${'email' in error ? '!border-[red]' : ''}`}
+//                                             className={`rounded-none ${'email' in error ? '!border-[#D83D99]' : ''}`}
 //                                         />
 //                                     </div>
 //                                     <div className="phone mb-[15px]">
-//                                         <label className={`${'phone' in error && 'text-[red]'}`}>{lang === 'ar'?'رقم الهاتف':'Phone Number'} <span className='text-[red]'>*</span></label>
+//                                         <label className={`${'phone' in error && 'text-[#D83D99]'}`}>{lang === 'ar'?'رقم الهاتف':'Phone Number'} <span className='text-[#D83D99]'>*</span></label>
 //                                         <PhoneNumberInput
 //                                             name="phone"
 //                                             placeholder={lang === 'ar'?'رقم الهاتف':'Enter Phone Number'}
 //                                             value={billingInfo.phone}
 //                                             status={setBillingInfo}
-//                                             extraInputClass={`${'phone' in error ? '!border-[red]' : '!border-[#000000]'} text-[18px]`}
+//                                             extraInputClass={`${'phone' in error ? '!border-[#D83D99]' : '!border-[#000000]'} text-[18px]`}
 //                                             setPhoneError={setPhoneError}
 //                                             setErrors={setError}
 //                                             formErrors={error}
@@ -928,13 +928,13 @@
 //                                     </div>
 //                                     <div className="country mb-[15px]">
 //                                         <div className={`${lang === 'ar' ? 'ml-[4%]' :'mr-[4%]'}`}>
-//                                             <label className={`${'country' in error && 'text-[red]'}`}>{lang=== 'ar' ? 'بلد':'Country'} <span className='text-[red]'>*</span></label>
+//                                             <label className={`${'country' in error && 'text-[#D83D99]'}`}>{lang=== 'ar' ? 'بلد':'Country'} <span className='text-[#D83D99]'>*</span></label>
 //                                             <select
 //                                                 name="country"
 //                                                 // id='vacancySelect'
 //                                                 value={billingInfo.country|| null}
 //                                                 onChange={handleBillingChange}
-//                                                 className={`!rounded-none ${'country' in error ? '!border-[red]' :''} border !border-black px-2 py-[5px] w-full`}
+//                                                 className={`!rounded-none ${'country' in error ? '!border-[#D83D99]' :''} border !border-black px-2 py-[5px] w-full`}
 //                                             >
 //                                             <option value={null} disabled selected > </option>
 //                                                 { countries.map(country=>(
@@ -943,29 +943,29 @@
 //                                             </select>
 //                                         </div>
 //                                         <div className={`${lang === 'ar' ? 'ml-[4%]' :'mr-[4%]'}`} style={{ margin: '0% 0 0 2%' }}>
-//                                             <label className={`${'city' in error && 'text-[red]'}`}>{lang === 'ar' ? 'مدينة':'City'}<span className='text-[red]'>*</span></label>
+//                                             <label className={`${'city' in error && 'text-[#D83D99]'}`}>{lang === 'ar' ? 'مدينة':'City'}<span className='text-[#D83D99]'>*</span></label>
 //                                             <input
 //                                                 name="city"
 //                                                 value={billingInfo.city}
 //                                                 onChange={handleBillingChange}
-//                                                 className={`rounded-none ${'city' in error ? '!border-[red]' : ''}`}
+//                                                 className={`rounded-none ${'city' in error ? '!border-[#D83D99]' : ''}`}
 //                                             />
 //                                         </div>
 //                                     </div>
 //                                     <div className="postal-code mb-[15px]">
-//                                         <label className={`${'postalCode' in error && 'text-[red]'}`}>{lang === 'ar' ? 'الرمز البريدي' :'Postal Code'}<span className='text-[red]'>*</span></label>
+//                                         <label className={`${'postalCode' in error && 'text-[#D83D99]'}`}>{lang === 'ar' ? 'الرمز البريدي' :'Postal Code'}<span className='text-[#D83D99]'>*</span></label>
 //                                         <input
 //                                             name="postalCode"
 //                                             value={billingInfo.postalCode}
 //                                             onChange={handleBillingChange}
-//                                             className={`rounded-none ${'postalCode' in error ? '!border-[red]' : ''}`}
+//                                             className={`rounded-none ${'postalCode' in error ? '!border-[#D83D99]' : ''}`}
 //                                         />
 //                                     </div>
 //                                     {
 //                                          billingInfo?.country === 'Saudi Arabia' && (
 //                                         <div className='trn-code mb-[15px]'>
-//                                         <label className={`${'vat_registered' in error ? 'text-[red]':'opacity-100'}`}>Tax Treatment<span className='text-[red]'>*</span></label>
-//                                             <select className={`w-[100%] py-[5px] px-2 !rounded-none border-[1px] outline-none  ${'vat_registered' in error ? '!border-[red]' :'border-black border-solid'} `} name='vat_registered' onChange={handleBillingChange}>
+//                                         <label className={`${'vat_registered' in error ? 'text-[#D83D99]':'opacity-100'}`}>Tax Treatment<span className='text-[#D83D99]'>*</span></label>
+//                                             <select className={`w-[100%] py-[5px] px-2 !rounded-none border-[1px] outline-none  ${'vat_registered' in error ? '!border-[#D83D99]' :'border-black border-solid'} `} name='vat_registered' onChange={handleBillingChange}>
 //                                             <option value={null} disabled selected></option>
 //                                                 <option value={'vat'}>VAT Registered</option>
 //                                                 <option value={'non_vat'}>Non-VAT Registered</option>
@@ -977,27 +977,27 @@
 //                                         {
 //                                             istax && (
 //                                                 <div className="trn-code mb-[15px]">
-//                                                 <label className={`${'vat_registered' in error ? 'text-[red]':'opacity-100'}`}>TRN Number<span className='text-[red]'>*</span></label>
+//                                                 <label className={`${'vat_registered' in error ? 'text-[#D83D99]':'opacity-100'}`}>TRN Number<span className='text-[#D83D99]'>*</span></label>
 //                                                 <input
 //                                                 name="trn"
 //                                                 value={billingInfo.trn}
 //                                                 onChange={handleBillingChange}
-//                                                 className={`rounded-none w-[100%] ${'trnNumber' in error ? '!border-[red]' :''}`}
+//                                                 className={`rounded-none w-[100%] ${'trnNumber' in error ? '!border-[#D83D99]' :''}`}
 //                                             />
 //                                             </div>
 //                                             )
 //                                         }
 //                                     <div className="promo-code mb-[15px]">
-//                                         <label className={`${'promoCode' in error && 'text-[red]'}`}>{lang === 'ar' ? 'الرمز الترويجي':'Promo Code'}</label>
+//                                         <label className={`${'promoCode' in error && 'text-[#D83D99]'}`}>{lang === 'ar' ? 'الرمز الترويجي':'Promo Code'}</label>
 //                                         <input
 //                                             name="promoCode"
 //                                             value={billingInfo.promoCode}
 //                                             onChange={handleBillingChange}
-//                                             className={`rounded-none ${'promoCode' in error ? '!border-[red]' : ''}`}
+//                                             className={`rounded-none ${'promoCode' in error ? '!border-[#D83D99]' : ''}`}
 //                                         />
 //                                     </div>
 //                                     <button onClick={() => createAdjustmentOrder()} className="payment uppercase">{loading?<ClipLoader size={25} color={'#FFFFFF'} />:lang === 'ar' ? 'جعل الدفع' : 'Make Payment'}</button>
-//                                     <p className='text-[red] !text-[20px] !font-[400] !mt-2'>{Object.values(error).map(item => {
+//                                     <p className='text-[#D83D99] !text-[20px] !font-[400] !mt-2'>{Object.values(error).map(item => {
 //                                         return item
 //                                     })}</p>
 //                                 </div>
@@ -1218,7 +1218,7 @@
 
 //                                         <div className='flex flex-col justify-center items-center'>
 //                                             <button onClick={() => CheckCart()} className=' w-[90%]  py-1 lg:mt-[8%] md:mt-[12%] text-[18px] text-white bg-[#1BA56F] uppercase'>{lang === 'ar' ? 'متابعة الخروج' :'Proceed Checkout'}</button>
-//                                             {errorMsg && <p className='pb-0 text-[16px] text-[red] text-left mt-2'>{errorMsg}*</p>}
+//                                             {errorMsg && <p className='pb-0 text-[16px] text-[#D83D99] text-left mt-2'>{errorMsg}*</p>}
 //                                         </div>
 //                                     </div>
 //                                 </div>
@@ -1301,42 +1301,42 @@
 //                                     <p>{lang === 'ar' ?'عنوان الفواتير' :'Billing Address'}</p>
 //                                     <div className="user-name mb-[15px]">
 //                                         <div className={`${lang === 'ar' ? 'ml-[4%]' :'mr-[4%]'}`}>
-//                                             <label className={`${'firstName' in error && 'text-[red]'}`}>{lang === 'ar' ? 'الاسم الأول':'First Name'} <span className='text-[red]'>*</span></label>
+//                                             <label className={`${'firstName' in error && 'text-[#D83D99]'}`}>{lang === 'ar' ? 'الاسم الأول':'First Name'} <span className='text-[#D83D99]'>*</span></label>
 //                                             <input
 //                                                 name="firstName"
 //                                                 value={billingInfo.firstName}
 //                                                 onChange={handleBillingChange}
-//                                                 className={`rounded-none ${'firstName' in error ? '!border-[red]' : ''}`}
+//                                                 className={`rounded-none ${'firstName' in error ? '!border-[#D83D99]' : ''}`}
 //                                             />
 //                                         </div>
 //                                         <div className={`${lang === 'ar' ?'ml-[4%]':'mr-[4%]'}`} style={lang === 'ar'?{ margin: '0% 2% 0 0%' }:{ margin: '0% 0 0 2%' }}>
-//                                             <label className={`${'lastName' in error && 'text-[red]'}`}>{lang === 'ar' ? 'اسم العائلة' :'Last Name'} <span className='text-[red]'>*</span></label>
+//                                             <label className={`${'lastName' in error && 'text-[#D83D99]'}`}>{lang === 'ar' ? 'اسم العائلة' :'Last Name'} <span className='text-[#D83D99]'>*</span></label>
 //                                             <input
 //                                                 name="lastName"
 //                                                 value={billingInfo.lastName}
 //                                                 onChange={handleBillingChange}
-//                                                 className={`rounded-none ${'lastName' in error ? '!border-[red]' : ''}`}
+//                                                 className={`rounded-none ${'lastName' in error ? '!border-[#D83D99]' : ''}`}
 //                                             />
 //                                         </div>
 //                                     </div>
 //                                     <div className="email mb-[15px]">
-//                                         <label className={`${'email' in error && 'text-[red]'}`}>{lang === 'ar' ?'البريد الإلكتروني' :'Email'} <span className='text-[red]'>*</span></label>
+//                                         <label className={`${'email' in error && 'text-[#D83D99]'}`}>{lang === 'ar' ?'البريد الإلكتروني' :'Email'} <span className='text-[#D83D99]'>*</span></label>
 //                                         <input
 
 //                                             name="email"
 //                                             value={billingInfo.email}
 //                                             onChange={handleBillingChange}
-//                                             className={`rounded-none ${'email' in error ? '!border-[red]' : ''}`}
+//                                             className={`rounded-none ${'email' in error ? '!border-[#D83D99]' : ''}`}
 //                                         />
 //                                     </div>
 //                                     <div className="phone mb-[15px]">
-//                                         <label className={`${'phone' in error && 'text-[red]'}`}>{lang === 'ar'?'رقم الهاتف':'Phone Number'} <span className='text-[red]'>*</span></label>
+//                                         <label className={`${'phone' in error && 'text-[#D83D99]'}`}>{lang === 'ar'?'رقم الهاتف':'Phone Number'} <span className='text-[#D83D99]'>*</span></label>
 //                                         <PhoneNumberInput
 //                                             name="phone"
 //                                             placeholder={lang === 'ar'?'رقم الهاتف':'Enter Phone Number'}
 //                                             value={billingInfo.phone}
 //                                             status={setBillingInfo}
-//                                             extraInputClass={`${'phone' in error ? '!border-[red]' : '!border-[#000000]'} text-[18px]`}
+//                                             extraInputClass={`${'phone' in error ? '!border-[#D83D99]' : '!border-[#000000]'} text-[18px]`}
 //                                             setPhoneError={setPhoneError}
 //                                             setErrors={setError}
 //                                             formErrors={error}
@@ -1346,13 +1346,13 @@
 //                                     </div>
 //                                     <div className="country mb-[15px]">
 //                                         <div className={`${lang === 'ar' ? 'ml-[4%]' :'mr-[4%]'}`}>
-//                                             <label className={`${'country' in error && 'text-[red]'}`}>{lang=== 'ar' ? 'بلد':'Country'} <span className='text-[red]'>*</span></label>
+//                                             <label className={`${'country' in error && 'text-[#D83D99]'}`}>{lang=== 'ar' ? 'بلد':'Country'} <span className='text-[#D83D99]'>*</span></label>
 //                                             <select
 //                                                 name="country"
 //                                                 // id='vacancySelect'
 //                                                 value={billingInfo.country|| null}
 //                                                 onChange={handleBillingChange}
-//                                                 className={`!rounded-none ${'country' in error ? '!border-[red]' :''} border !border-black px-2 py-[5px] w-full`}
+//                                                 className={`!rounded-none ${'country' in error ? '!border-[#D83D99]' :''} border !border-black px-2 py-[5px] w-full`}
 //                                             >
 //                                             <option value={null} disabled selected > </option>
 //                                                 { countries.map(country=>(
@@ -1361,29 +1361,29 @@
 //                                             </select>
 //                                         </div>
 //                                         <div className={`${lang === 'ar' ? 'ml-[4%]' :'mr-[4%]'}`} style={lang === 'ar' ?{ margin: '0% 2% 0 0%' }:{ margin: '0% 0 0 2%' }}>
-//                                             <label className={`${'city' in error && 'text-[red]'}`}>{lang === 'ar' ? 'مدينة':'City'}<span className='text-[red]'>*</span></label>
+//                                             <label className={`${'city' in error && 'text-[#D83D99]'}`}>{lang === 'ar' ? 'مدينة':'City'}<span className='text-[#D83D99]'>*</span></label>
 //                                             <input
 //                                                 name="city"
 //                                                 value={billingInfo.city}
 //                                                 onChange={handleBillingChange}
-//                                                 className={`rounded-none ${'city' in error ? '!border-[red]' : ''}`}
+//                                                 className={`rounded-none ${'city' in error ? '!border-[#D83D99]' : ''}`}
 //                                             />
 //                                         </div>
 //                                     </div>
 //                                     <div className="postal-code mb-[15px]">
-//                                         <label className={`${'postalCode' in error && 'text-[red]'}`}>{lang === 'ar' ? 'الرمز البريدي' :'Postal Code'}<span className='text-[red]'>*</span></label>
+//                                         <label className={`${'postalCode' in error && 'text-[#D83D99]'}`}>{lang === 'ar' ? 'الرمز البريدي' :'Postal Code'}<span className='text-[#D83D99]'>*</span></label>
 //                                         <input
 //                                             name="postalCode"
 //                                             value={billingInfo.postalCode}
 //                                             onChange={handleBillingChange}
-//                                             className={`rounded-none ${'postalCode' in error ? '!border-[red]' : ''}`}
+//                                             className={`rounded-none ${'postalCode' in error ? '!border-[#D83D99]' : ''}`}
 //                                         />
 //                                     </div>
 //                                         {
 //                                          billingInfo?.country === 'Saudi Arabia' && (
 //                                         <div className='trn-code mb-[15px]'>
-//                                         <label className={`${'vat_registered' in error ? 'text-[red]':'opacity-100'}`}>Tax Treatment<span className='text-[red]'>*</span></label>
-//                                             <select className={`w-[100%] py-[5px] px-2 !rounded-none border-[1px] outline-none  ${'vat_registered' in error ? '!border-[red]' :'border-black border-solid'} `} name='vat_registered' onChange={handleBillingChange}>
+//                                         <label className={`${'vat_registered' in error ? 'text-[#D83D99]':'opacity-100'}`}>Tax Treatment<span className='text-[#D83D99]'>*</span></label>
+//                                             <select className={`w-[100%] py-[5px] px-2 !rounded-none border-[1px] outline-none  ${'vat_registered' in error ? '!border-[#D83D99]' :'border-black border-solid'} `} name='vat_registered' onChange={handleBillingChange}>
 //                                             <option value={null} disabled selected></option>
 //                                                 <option value={'vat'}>VAT Registered</option>
 //                                                 <option value={'non_vat'}>Non-VAT Registered</option>
@@ -1394,27 +1394,27 @@
 //                                         {
 //                                             istax && (
 //                                                 <div className="trn-code mb-[15px]">
-//                                                 <label className={`${'vat_registered' in error ? 'text-[red]':'opacity-100'}`}>TRN Number<span className='text-[red]'>*</span></label>
+//                                                 <label className={`${'vat_registered' in error ? 'text-[#D83D99]':'opacity-100'}`}>TRN Number<span className='text-[#D83D99]'>*</span></label>
 //                                                 <input
 //                                                 name="trn"
 //                                                 value={billingInfo.trn}
 //                                                 onChange={handleBillingChange}
-//                                                 className={`rounded-none w-[100%] ${'trn' in error ? '!border-[red]' :''}`}
+//                                                 className={`rounded-none w-[100%] ${'trn' in error ? '!border-[#D83D99]' :''}`}
 //                                             />
 //                                             </div>
 //                                             )
 //                                         }
 //                                     <div className="promo-code mb-[15px]">
-//                                         <label className={`rounded-none ${'promoCode' in error && 'text-[red]'}`}>{lang === 'ar' ? 'الرمز الترويجي':'Promo Code'}</label>
+//                                         <label className={`rounded-none ${'promoCode' in error && 'text-[#D83D99]'}`}>{lang === 'ar' ? 'الرمز الترويجي':'Promo Code'}</label>
 //                                         <input
 //                                             name="promoCode"
 //                                             value={billingInfo.promoCode}
 //                                             onChange={handleBillingChange}
-//                                             className={`rounded-none ${'promoCode' in error ? '!border-[red]' : ''}`}
+//                                             className={`rounded-none ${'promoCode' in error ? '!border-[#D83D99]' : ''}`}
 //                                         />
 //                                     </div>
 //                                     <button onClick={() => createAdjustmentOrder()} className="payment uppercase"> {loading?<ClipLoader size={25} color={'#FFFFFF'} />:lang === 'ar' ? 'جعل الدفع' : 'Make Payment'}</button>
-//                                     <p className='text-[red] !text-[20px] !font-[400] !mt-2'>{Object.values(error).map(item => {
+//                                     <p className='text-[#D83D99] !text-[20px] !font-[400] !mt-2'>{Object.values(error).map(item => {
 //                                         return item
 //                                     })}</p>
 //                                 </div>
@@ -3225,17 +3225,17 @@ export default function Adjustments({ user, lang, setLang }) {
                 <div className="user-name mb-[15px]">
                   <div className={`${lang === "ar" ? "ml-[4%]" : "mr-[4%]"}`}>
                     <label
-                      className={`${"firstName" in error && "text-[red]"}`}
+                      className={`${"firstName" in error && "text-[#D83D99]"}`}
                     >
                       {lang === "ar" ? "الاسم الأول" : "First Name"}{" "}
-                      <span className="text-[red]">*</span>
+                      <span className="text-[#D83D99]">*</span>
                     </label>
                     <input
                       name="firstName"
                       value={billingInfo.firstName}
                       onChange={handleBillingChange}
                       className={`rounded-none ${
-                        "firstName" in error ? "!border-[red]" : ""
+                        "firstName" in error ? "!border-[#D83D99]" : ""
                       }`}
                     />
                   </div>
@@ -3247,38 +3247,38 @@ export default function Adjustments({ user, lang, setLang }) {
                         : { margin: "0% 0 0 2%" }
                     }
                   >
-                    <label className={`${"lastName" in error && "text-[red]"}`}>
+                    <label className={`${"lastName" in error && "text-[#D83D99]"}`}>
                       {lang === "ar" ? "اسم العائلة" : "Last Name"}
-                      <span className="text-[red]">*</span>
+                      <span className="text-[#D83D99]">*</span>
                     </label>
                     <input
                       name="lastName"
                       value={billingInfo.lastName}
                       onChange={handleBillingChange}
                       className={`rounded-none ${
-                        "lastName" in error ? "!border-[red]" : ""
+                        "lastName" in error ? "!border-[#D83D99]" : ""
                       }`}
                     />
                   </div>
                 </div>
                 <div className="email mb-[15px]">
-                  <label className={`${"email" in error && "text-[red]"}`}>
+                  <label className={`${"email" in error && "text-[#D83D99]"}`}>
                     {lang === "ar" ? "البريد الإلكتروني" : "Email"}{" "}
-                    <span className="text-[red]">*</span>
+                    <span className="text-[#D83D99]">*</span>
                   </label>
                   <input
                     name="email"
                     value={billingInfo.email}
                     onChange={handleBillingChange}
                     className={`rounded-none ${
-                      "email" in error ? "!border-[red]" : ""
+                      "email" in error ? "!border-[#D83D99]" : ""
                     }`}
                   />
                 </div>
                 <div className="phone mb-[15px]">
-                  <label className={`${"phone" in error && "text-[red]"}`}>
+                  <label className={`${"phone" in error && "text-[#D83D99]"}`}>
                     {lang === "ar" ? "رقم الهاتف" : "Phone Number"}{" "}
-                    <span className="text-[red]">*</span>
+                    <span className="text-[#D83D99]">*</span>
                   </label>
                   <PhoneNumberInput
                     name="phone"
@@ -3288,7 +3288,7 @@ export default function Adjustments({ user, lang, setLang }) {
                     value={billingInfo.phone}
                     status={setBillingInfo}
                     extraInputClass={`${
-                      "phone" in error ? "!border-[red]" : "!border-[#000000]"
+                      "phone" in error ? "!border-[#D83D99]" : "!border-[#000000]"
                     } text-[18px]`}
                     setPhoneError={setPhoneError}
                     setErrors={setError}
@@ -3299,9 +3299,9 @@ export default function Adjustments({ user, lang, setLang }) {
                 </div>
                 <div className="country mb-[15px]">
                   <div className={`${lang === "ar" ? "ml-[4%]" : "mr-[4%]"}`}>
-                    <label className={`${"country" in error && "text-[red]"}`}>
+                    <label className={`${"country" in error && "text-[#D83D99]"}`}>
                       {lang === "ar" ? "الدولة" : "Country"}{" "}
-                      <span className="text-[red]">*</span>
+                      <span className="text-[#D83D99]">*</span>
                     </label>
                     <select
                       name="country"
@@ -3309,7 +3309,7 @@ export default function Adjustments({ user, lang, setLang }) {
                       value={billingInfo.country || null}
                       onChange={handleBillingChange}
                       className={`!rounded-none ${
-                        "country" in error ? "!border-[red]" : ""
+                        "country" in error ? "!border-[#D83D99]" : ""
                       } border !border-black px-2 py-[5px] w-full`}
                     >
                       <option value={null} disabled selected>
@@ -3324,31 +3324,31 @@ export default function Adjustments({ user, lang, setLang }) {
                     className={`${lang === "ar" ? "ml-[4%]" : "mr-[4%]"}`}
                     style={{ margin: "0% 0 0 2%" }}
                   >
-                    <label className={`${"city" in error && "text-[red]"}`}>
+                    <label className={`${"city" in error && "text-[#D83D99]"}`}>
                       {lang === "ar" ? "المدينة" : "City"}
-                      <span className="text-[red]">*</span>
+                      <span className="text-[#D83D99]">*</span>
                     </label>
                     <input
                       name="city"
                       value={billingInfo.city}
                       onChange={handleBillingChange}
                       className={`rounded-none ${
-                        "city" in error ? "!border-[red]" : ""
+                        "city" in error ? "!border-[#D83D99]" : ""
                       }`}
                     />
                   </div>
                 </div>
                 <div className="postal-code mb-[15px]">
-                  <label className={`${"postalCode" in error && "text-[red]"}`}>
+                  <label className={`${"postalCode" in error && "text-[#D83D99]"}`}>
                     {lang === "ar" ? "الرمز البريدي" : "Postal Code"}
-                    <span className="text-[red]">*</span>
+                    <span className="text-[#D83D99]">*</span>
                   </label>
                   <input
                     name="postalCode"
                     value={billingInfo.postalCode}
                     onChange={handleBillingChange}
                     className={`rounded-none ${
-                      "postalCode" in error ? "!border-[red]" : ""
+                      "postalCode" in error ? "!border-[#D83D99]" : ""
                     }`}
                   />
                 </div>
@@ -3356,16 +3356,16 @@ export default function Adjustments({ user, lang, setLang }) {
                   <div className="trn-code mb-[15px]">
                     <label
                       className={`${
-                        "vat_registered" in error ? "text-[red]" : "opacity-100"
+                        "vat_registered" in error ? "text-[#D83D99]" : "opacity-100"
                       }`}
                     >
                       {lang === "ar" ? "التسجیل الضریبي" : "Tax Treatment"}
-                      <span className="text-[red]">*</span>
+                      <span className="text-[#D83D99]">*</span>
                     </label>
                     <select
                       className={`w-[100%] py-[5px] px-2 !rounded-none border-[1px] outline-none  ${
                         "vat_registered" in error
-                          ? "!border-[red]"
+                          ? "!border-[#D83D99]"
                           : "border-black border-solid"
                       } `}
                       name="vat_registered"
@@ -3390,24 +3390,24 @@ export default function Adjustments({ user, lang, setLang }) {
                   <div className="trn-code mb-[15px]">
                     <label
                       className={`${
-                        "trn" in error ? "text-[red]" : "opacity-100"
+                        "trn" in error ? "text-[#D83D99]" : "opacity-100"
                       }`}
                     >
                       {lang === "ar" ? "الرقم الضریبي" : "TRN Number"}
-                      <span className="text-[red]">*</span>
+                      <span className="text-[#D83D99]">*</span>
                     </label>
                     <input
                       name="trn"
                       value={billingInfo.trn}
                       onChange={handleBillingChange}
                       className={`rounded-none w-[100%] ${
-                        "trnNumber" in error ? "!border-[red]" : ""
+                        "trnNumber" in error ? "!border-[#D83D99]" : ""
                       }`}
                     />
                   </div>
                 )}
                 <div className="promo-code mb-[15px]">
-                  <label className={`${"promoCode" in error && "text-[red]"}`}>
+                  <label className={`${"promoCode" in error && "text-[#D83D99]"}`}>
                     {lang === "ar" ? "كود الخصم" : "Promo Code"}
                   </label>
                   <input
@@ -3415,7 +3415,7 @@ export default function Adjustments({ user, lang, setLang }) {
                     value={billingInfo.promoCode}
                     onChange={handleBillingChange}
                     className={`rounded-none ${
-                      "promoCode" in error ? "!border-[red]" : ""
+                      "promoCode" in error ? "!border-[#D83D99]" : ""
                     }`}
                   />
                 </div>
@@ -3517,7 +3517,7 @@ export default function Adjustments({ user, lang, setLang }) {
                     "Make Payment"
                   )}
                 </button>
-                <p className="text-[red] !text-[20px] !font-[400] !mt-2">
+                <p className="text-[#D83D99] !text-[20px] !font-[400] !mt-2">
                   {Object.values(error).map((item) => {
                     return item;
                   })}
@@ -4322,16 +4322,16 @@ export default function Adjustments({ user, lang, setLang }) {
               <p>{lang === "ar" ? "عنوان الفواتير" : "Billing Address"}</p>
               <div className="user-name mb-[15px]">
                 <div className={`${lang === "ar" ? "ml-[4%]" : "mr-[4%]"}`}>
-                  <label className={`${"firstName" in error && "text-[red]"}`}>
+                  <label className={`${"firstName" in error && "text-[#D83D99]"}`}>
                     {lang === "ar" ? "الاسم الأول" : "First Name"}{" "}
-                    <span className="text-[red]">*</span>
+                    <span className="text-[#D83D99]">*</span>
                   </label>
                   <input
                     name="firstName"
                     value={billingInfo.firstName}
                     onChange={handleBillingChange}
                     className={`rounded-none ${
-                      "firstName" in error ? "!border-[red]" : ""
+                      "firstName" in error ? "!border-[#D83D99]" : ""
                     }`}
                   />
                 </div>
@@ -4343,38 +4343,38 @@ export default function Adjustments({ user, lang, setLang }) {
                       : { margin: "0% 0 0 2%" }
                   }
                 >
-                  <label className={`${"lastName" in error && "text-[red]"}`}>
+                  <label className={`${"lastName" in error && "text-[#D83D99]"}`}>
                     {lang === "ar" ? "اسم العائلة" : "Last Name"}{" "}
-                    <span className="text-[red]">*</span>
+                    <span className="text-[#D83D99]">*</span>
                   </label>
                   <input
                     name="lastName"
                     value={billingInfo.lastName}
                     onChange={handleBillingChange}
                     className={`rounded-none ${
-                      "lastName" in error ? "!border-[red]" : ""
+                      "lastName" in error ? "!border-[#D83D99]" : ""
                     }`}
                   />
                 </div>
               </div>
               <div className="email mb-[15px]">
-                <label className={`${"email" in error && "text-[red]"}`}>
+                <label className={`${"email" in error && "text-[#D83D99]"}`}>
                   {lang === "ar" ? "البريد الإلكتروني" : "Email"}{" "}
-                  <span className="text-[red]">*</span>
+                  <span className="text-[#D83D99]">*</span>
                 </label>
                 <input
                   name="email"
                   value={billingInfo.email}
                   onChange={handleBillingChange}
                   className={`rounded-none ${
-                    "email" in error ? "!border-[red]" : ""
+                    "email" in error ? "!border-[#D83D99]" : ""
                   }`}
                 />
               </div>
               <div className="phone mb-[15px]">
-                <label className={`${"phone" in error && "text-[red]"}`}>
+                <label className={`${"phone" in error && "text-[#D83D99]"}`}>
                   {lang === "ar" ? "رقم الهاتف" : "Phone Number"}{" "}
-                  <span className="text-[red]">*</span>
+                  <span className="text-[#D83D99]">*</span>
                 </label>
                 <PhoneNumberInput
                   name="phone"
@@ -4384,7 +4384,7 @@ export default function Adjustments({ user, lang, setLang }) {
                   value={billingInfo.phone}
                   status={setBillingInfo}
                   extraInputClass={`${
-                    "phone" in error ? "!border-[red]" : "!border-[#000000]"
+                    "phone" in error ? "!border-[#D83D99]" : "!border-[#000000]"
                   } text-[18px]`}
                   setPhoneError={setPhoneError}
                   setErrors={setError}
@@ -4395,9 +4395,9 @@ export default function Adjustments({ user, lang, setLang }) {
               </div>
               <div className="country mb-[15px]">
                 <div className={`${lang === "ar" ? "ml-[4%]" : "mr-[4%]"}`}>
-                  <label className={`${"country" in error && "text-[red]"}`}>
+                  <label className={`${"country" in error && "text-[#D83D99]"}`}>
                     {lang === "ar" ? "الدولة" : "Country"}{" "}
-                    <span className="text-[red]">*</span>
+                    <span className="text-[#D83D99]">*</span>
                   </label>
                   <select
                     name="country"
@@ -4405,7 +4405,7 @@ export default function Adjustments({ user, lang, setLang }) {
                     value={billingInfo.country || null}
                     onChange={handleBillingChange}
                     className={`!rounded-none ${
-                      "country" in error ? "!border-[red]" : ""
+                      "country" in error ? "!border-[#D83D99]" : ""
                     } border !border-black px-2 py-[5px] w-full`}
                   >
                     <option value={null} disabled selected>
@@ -4424,31 +4424,31 @@ export default function Adjustments({ user, lang, setLang }) {
                       : { margin: "0% 0 0 2%" }
                   }
                 >
-                  <label className={`${"city" in error && "text-[red]"}`}>
+                  <label className={`${"city" in error && "text-[#D83D99]"}`}>
                     {lang === "ar" ? "المدينة" : "City"}
-                    <span className="text-[red]">*</span>
+                    <span className="text-[#D83D99]">*</span>
                   </label>
                   <input
                     name="city"
                     value={billingInfo.city}
                     onChange={handleBillingChange}
                     className={`rounded-none ${
-                      "city" in error ? "!border-[red]" : ""
+                      "city" in error ? "!border-[#D83D99]" : ""
                     }`}
                   />
                 </div>
               </div>
               <div className="postal-code mb-[15px]">
-                <label className={`${"postalCode" in error && "text-[red]"}`}>
+                <label className={`${"postalCode" in error && "text-[#D83D99]"}`}>
                   {lang === "ar" ? "الرمز البريدي" : "Postal Code"}
-                  <span className="text-[red]">*</span>
+                  <span className="text-[#D83D99]">*</span>
                 </label>
                 <input
                   name="postalCode"
                   value={billingInfo.postalCode}
                   onChange={handleBillingChange}
                   className={`rounded-none ${
-                    "postalCode" in error ? "!border-[red]" : ""
+                    "postalCode" in error ? "!border-[#D83D99]" : ""
                   }`}
                 />
               </div>
@@ -4456,16 +4456,16 @@ export default function Adjustments({ user, lang, setLang }) {
                 <div className="trn-code mb-[15px]">
                   <label
                     className={`${
-                      "vat_registered" in error ? "text-[red]" : "opacity-100"
+                      "vat_registered" in error ? "text-[#D83D99]" : "opacity-100"
                     }`}
                   >
                     {lang === "ar" ? "التسجیل الضریبي" : "Tax Treatment"}
-                    <span className="text-[red]">*</span>
+                    <span className="text-[#D83D99]">*</span>
                   </label>
                   <select
                     className={`w-[100%] py-[5px] px-2 !rounded-none border-[1px] outline-none  ${
                       "vat_registered" in error
-                        ? "!border-[red]"
+                        ? "!border-[#D83D99]"
                         : "border-black border-solid"
                     } `}
                     name="vat_registered"
@@ -4489,18 +4489,18 @@ export default function Adjustments({ user, lang, setLang }) {
                 <div className="trn-code mb-[15px]">
                   <label
                     className={`${
-                      "trn" in error ? "text-[red]" : "opacity-100"
+                      "trn" in error ? "text-[#D83D99]" : "opacity-100"
                     }`}
                   >
                     {lang === "ar" ? "الرقم الضریبي" : "TRN Number"}
-                    <span className="text-[red]">*</span>
+                    <span className="text-[#D83D99]">*</span>
                   </label>
                   <input
                     name="trn"
                     value={billingInfo.trn}
                     onChange={handleBillingChange}
                     className={`rounded-none w-[100%] ${
-                      "trn" in error ? "!border-[red]" : ""
+                      "trn" in error ? "!border-[#D83D99]" : ""
                     }`}
                   />
                 </div>
@@ -4508,7 +4508,7 @@ export default function Adjustments({ user, lang, setLang }) {
               <div className="promo-code mb-[15px]">
                 <label
                   className={`rounded-none ${
-                    "promoCode" in error && "text-[red]"
+                    "promoCode" in error && "text-[#D83D99]"
                   }`}
                 >
                   {lang === "ar" ? "كود الخصم" : "Promo Code"}
@@ -4518,7 +4518,7 @@ export default function Adjustments({ user, lang, setLang }) {
                   value={billingInfo.promoCode}
                   onChange={handleBillingChange}
                   className={`rounded-none ${
-                    "promoCode" in error ? "!border-[red]" : ""
+                    "promoCode" in error ? "!border-[#D83D99]" : ""
                   }`}
                 />
               </div>
@@ -4618,7 +4618,7 @@ export default function Adjustments({ user, lang, setLang }) {
                   "Make Payment"
                 )}
               </button>
-              <p className="text-[red] !text-[20px] !font-[400] !mt-2">
+              <p className="text-[#D83D99] !text-[20px] !font-[400] !mt-2">
                 {Object.values(error).map((item) => {
                   return item;
                 })}

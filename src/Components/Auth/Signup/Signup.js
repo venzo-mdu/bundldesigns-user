@@ -236,7 +236,7 @@ export const Signup = ({ lang }) => {
     full_name: "",
     email: "",
     password: "",
-    google: false,
+    google: 'email',
     phone: "",
     country: "",
     language: "Arabic",
@@ -297,7 +297,7 @@ export const Signup = ({ lang }) => {
             email: userDetails.email,
             full_name: userDetails.name,
             password: null,
-            google: true,
+            google: 'google',
           });
         })
         .catch((err) => console.error("Error fetching user details:", err));
@@ -413,6 +413,10 @@ export const Signup = ({ lang }) => {
   };
   const signUp = async (e) => {
     e.preventDefault();
+    setRegisterData((prev) => ({
+      ...prev,
+      google: "email",
+    }));
     if (!validateForm()) return;
     if (!isAgree) {
       setSubmitted(true);
@@ -437,7 +441,10 @@ export const Signup = ({ lang }) => {
       console.log(formattedErrors, response.response, "for");
       setErrors(formattedErrors);
     } finally {
-      setLoading(false);
+      setRegisterData((prev) => ({
+        ...prev,
+        google: "email",
+      }));
     }
   };
 
@@ -510,7 +517,7 @@ export const Signup = ({ lang }) => {
           email: user?.auth?.currentUser?.email,
           full_name: user?.auth?.currentUser?.email?.split("@")[0],
           password: null,
-          google: true,
+          google: 'apple',
         };
 
         const response = await axios.post(`${base_url}/api/register/`, data);
@@ -537,7 +544,6 @@ export const Signup = ({ lang }) => {
             <span className="bundle-designs">
               {lang === "ar" ? "مف يبند لديزاين" : "Bundl Designs"}{" "}
             </span>
-
           </p>
           <img className="loginlogo" src={Loginlogo} alt="login" />
           <form onSubmit={signUp}>
@@ -740,7 +746,13 @@ export const Signup = ({ lang }) => {
                 }}
               /> */}
                 <button
-                  onClick={login}
+                  onClick={() => {
+                    setRegisterData((prev) => ({
+                      ...prev,
+                      google: "google",
+                    }));
+                    login();
+                  }}
                   type="button"
                   style={{
                     backgroundColor: "white",
@@ -779,7 +791,13 @@ export const Signup = ({ lang }) => {
                   }}
                   // className={'lg:w-[50%] md:w-[50%] xs:w-[100%] !lg:text-[18px] !md:text-[18px] !xs:text-[14px]'}
                   // onSuccess={handleAppleSignupSuccess}
-                  onClick={handleAppleLogin}
+                  onClick={() => {
+                    setRegisterData((prev) => ({
+                      ...prev,
+                      google: "apple",
+                    }));
+                    handleAppleLogin();
+                  }}
                   onError={(error) =>
                     console.error("Apple Login Failed:", error)
                   }

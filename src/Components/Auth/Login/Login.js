@@ -18,7 +18,8 @@ import ClipLoader from "react-spinners/ClipLoader";
 import AppleLogin from "react-apple-login";
 import GoogleIcon from "../../../Images/Login/icons8-google.svg";
 import { auth } from "../../Firebase/Firebase";
-import { OAuthProvider, signInWithPopup } from "firebase/auth";
+import { signInWithPopup } from "firebase/auth";
+import { signInWithRedirect, getRedirectResult, OAuthProvider } from "firebase/auth";
 
 export const Login = ({ lang }) => {
   const dispatch = useDispatch();
@@ -33,7 +34,7 @@ export const Login = ({ lang }) => {
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
-    google: false,
+    is_social_login: false,
   });
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
@@ -82,7 +83,7 @@ useEffect(() => {
       email,
       full_name: email?.split("@")[0],
       password: null,
-      google: true,
+      is_social_login: true,
     };
 
     axios.post(`${base_url}/api/login/`, data)
@@ -137,7 +138,7 @@ useEffect(() => {
             email: userDetails.email,
             full_name: userDetails.name,
             password: null,
-            google: true,
+            is_social_login: true,
           });
         })
         .catch((err) => console.error("Error fetching user details:", err));
@@ -283,43 +284,43 @@ useEffect(() => {
 
   // };
 
-  const handleAppleLogin = async () => {
-    const provider = new OAuthProvider("apple.com");
-    try {
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-      console.log("Apple user:", user);
+  // const handleAppleLogin = async () => {
+  //   const provider = new OAuthProvider("apple.com");
+  //   try {
+  //     const result = await signInWithPopup(auth, provider);
+  //     const user = result.user;
+  //     console.log("Apple user:", user);
 
-      if (user?.accessToken) {
-        const data = {
-          email: user?.auth?.currentUser?.email,
-          full_name: user?.auth?.currentUser?.email?.split("@")[0],
-          password: null,
-          google: true,
-        };
-        const response = await axios.post(`${base_url}/api/login/`, data);
-        if (response.status === 200) {
-          document.cookie = `token=${
-            response?.data?.data.token || ""
-          }; path=/; SameSite=None; Secure`;
-          dispatch(loginAction(response.data.user));
-          console.log(next_url);
-          if (next_url) {
-            navigate(`/${next_url}`, {
-              state: {
-                project_name: project_name,
-                fromLogin: true,
-              },
-            });
-          } else {
-            navigate("/");
-          }
-        }
-      }
-    } catch (error) {
-      console.error("Apple sign-in failed:", error.message);
-    }
-  };
+  //     if (user?.accessToken) {
+  //       const data = {
+  //         email: user?.auth?.currentUser?.email,
+  //         full_name: user?.auth?.currentUser?.email?.split("@")[0],
+  //         password: null,
+  //         is_social_login: true,
+  //       };
+  //       const response = await axios.post(`${base_url}/api/login/`, data);
+  //       if (response.status === 200) {
+  //         document.cookie = `token=${
+  //           response?.data?.data.token || ""
+  //         }; path=/; SameSite=None; Secure`;
+  //         dispatch(loginAction(response.data.user));
+  //         console.log(next_url);
+  //         if (next_url) {
+  //           navigate(`/${next_url}`, {
+  //             state: {
+  //               project_name: project_name,
+  //               fromLogin: true,
+  //             },
+  //           });
+  //         } else {
+  //           navigate("/");
+  //         }
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.error("Apple sign-in failed:", error.message);
+  //   }
+  // };
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -350,6 +351,72 @@ useEffect(() => {
       setLoading(false);
     }
   };
+
+
+  // 
+
+  const handleAppleLogin = async () => {
+  const provider = new OAuthProvider("apple.com");
+
+  try {
+    if (isMobile) {
+      await signInWithRedirect(auth, provider);
+    } else {
+      const result = await signInWithPopup(auth, provider);
+      await processAppleUser(result);
+    }
+  } catch (error) {
+    console.error("Apple sign-in failed:", error.message);
+  }
+};
+
+useEffect(() => {
+  const checkRedirectResult = async () => {
+    try {
+      const result = await getRedirectResult(auth);
+      if (result) {
+        await processAppleUser(result);
+      }
+    } catch (error) {
+      console.error("Apple redirect result failed:", error.message);
+    }
+  };
+
+  checkRedirectResult();
+}, []);
+
+const processAppleUser = async (result) => {
+  const user = result.user;
+  console.log("Apple user:", user);
+
+  if (user?.accessToken) {
+    const data = {
+      email: user?.email || user?.auth?.currentUser?.email,
+      full_name: user?.displayName || user?.email?.split("@")[0],
+      password: null,
+      is_social_login: true,
+    };
+
+    const response = await axios.post(`${base_url}/api/login/`, data);
+    if (response.status === 200) {
+      document.cookie = `token=${
+        response?.data?.data.token || ""
+      }; path=/; SameSite=None; Secure`;
+
+      dispatch(loginAction(response.data.user));
+
+      if (next_url) {
+        navigate(`/${next_url}`, {
+          state: { project_name, fromLogin: true },
+        });
+      } else {
+        navigate("/");
+      }
+    }
+  }
+};
+
+
 
   return (
     <div>
