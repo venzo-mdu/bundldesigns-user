@@ -21,10 +21,7 @@ import AppleLogin from "react-apple-login";
 import { useGoogleLogin } from "@react-oauth/google";
 import { auth } from "../../Firebase/Firebase";
 import { OAuthProvider, signInWithPopup } from "firebase/auth";
-import {
-  signInWithRedirect,
-  getRedirectResult,
-} from "firebase/auth";
+
 export const Signup = ({ lang }) => {
   const countries = [
     "Afghanistan",
@@ -239,7 +236,7 @@ export const Signup = ({ lang }) => {
     full_name: "",
     email: "",
     password: "",
-    google: "email",
+    google: 'email',
     phone: "",
     country: "",
     language: "Arabic",
@@ -300,7 +297,7 @@ export const Signup = ({ lang }) => {
             email: userDetails.email,
             full_name: userDetails.name,
             password: null,
-            google: "google",
+            google: 'google',
           });
         })
         .catch((err) => console.error("Error fetching user details:", err));
@@ -508,106 +505,34 @@ export const Signup = ({ lang }) => {
 
   // };
 
-  // const handleAppleLogin = async () => {
-  //   const provider = new OAuthProvider("apple.com");
-  //   try {
-  //     const result = await signInWithPopup(auth, provider);
-  //     const user = result.user;
-  //     console.log("Apple user:", user);
-
-  //     if (user?.accessToken) {
-  //       const data = {
-  //         email: user?.auth?.currentUser?.email,
-  //         full_name: user?.auth?.currentUser?.email?.split("@")[0],
-  //         password: null,
-  //         google: 'apple',
-  //       };
-
-  //       const response = await axios.post(`${base_url}/api/register/`, data);
-  //       if (response.status === 201) {
-  //         document.cookie = `token=${
-  //           response?.data.token || ""
-  //         }; path=/; SameSite=None; Secure`;
-  //         dispatch(loginAction(response.user));
-  //         navigate("/");
-  //       }
-  //     }
-  //   } catch (error) {
-  //     console.error("Apple sign-in failed:", error.message);
-  //   }
-  // };
-
   const handleAppleLogin = async () => {
     const provider = new OAuthProvider("apple.com");
-
-    // iOS device detection
-    const isiOS =
-      /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-
     try {
-      if (isiOS) {
-        // On iPhone/Safari, use redirect flow
-        await signInWithRedirect(auth, provider);
-      } else {
-        // On desktop and non-iOS browsers, use popup
-        const result = await signInWithPopup(auth, provider);
-        const user = result.user;
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      console.log("Apple user:", user);
 
-        console.log("Apple user:", user);
+      if (user?.accessToken) {
+        const data = {
+          email: user?.auth?.currentUser?.email,
+          full_name: user?.auth?.currentUser?.email?.split("@")[0],
+          password: null,
+          google: 'apple',
+        };
 
-        if (user?.accessToken || user?.email) {
-          const data = {
-            email: user?.email,
-            full_name: user?.displayName || user?.email?.split("@")[0],
-            password: null,
-            google: "apple",
-          };
-
-          const response = await axios.post(`${base_url}/api/register/`, data);
-          if (response.status === 201) {
-            document.cookie = `token=${
-              response?.data.token || ""
-            }; path=/; SameSite=None; Secure`;
-            dispatch(loginAction(response.user));
-            navigate("/");
-          }
+        const response = await axios.post(`${base_url}/api/register/`, data);
+        if (response.status === 201) {
+          document.cookie = `token=${
+            response?.data.token || ""
+          }; path=/; SameSite=None; Secure`;
+          dispatch(loginAction(response.user));
+          navigate("/");
         }
       }
     } catch (error) {
       console.error("Apple sign-in failed:", error.message);
     }
   };
-  useEffect(() => {
-    const checkAppleRedirect = async () => {
-      try {
-        const result = await getRedirectResult(auth);
-        if (result?.user) {
-          const user = result.user;
-          console.log("Redirect Apple user:", user);
-
-          const data = {
-            email: user?.email,
-            full_name: user?.displayName || user?.email?.split("@")[0],
-            password: null,
-            google: "apple",
-          };
-
-          const response = await axios.post(`${base_url}/api/register/`, data);
-          if (response.status === 201) {
-            document.cookie = `token=${
-              response?.data.token || ""
-            }; path=/; SameSite=None; Secure`;
-            dispatch(loginAction(response.user));
-            navigate("/");
-          }
-        }
-      } catch (error) {
-        console.error("Apple redirect login failed:", error.message);
-      }
-    };
-
-    checkAppleRedirect();
-  }, []);
 
   return (
     <div>
@@ -773,9 +698,7 @@ export const Signup = ({ lang }) => {
               </span>
             </label>
             {submitted && !isAgree && (
-              <p className="error text-[#D83D99]">
-                Please agree to the terms and conditions.
-              </p>
+              <p className="error text-[#D83D99]">Please agree to the terms and conditions.</p>
             )}
             <button
               type="submit"
