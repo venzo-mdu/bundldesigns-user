@@ -378,9 +378,9 @@ export const Login = ({ lang }) => {
             <div className="flex justify-end mt-2">
               <NavLink
                 to="/forgotpassword-mail"
-                className="text-black text-[18px] no-underline hover:no-underline hover:text-black"
+                className="text-black text-[18px] no-underline"
               >
-                Forgot Password
+                Forgot Password?
               </NavLink>
             </div>
 
