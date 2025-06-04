@@ -35,11 +35,18 @@ const VerifyMail = ({ lang }) => {
   }, [id, navigate]);
 
   return (
-    <div className={`verify-wrapper ${errorMsg&&"relative"}`}>
+    <div className={`verify-wrapper ${errorMsg && "relative"}`}>
       {errorMsg && (
         <div className="error-popup">
           <p>{errorMsg}</p>
-          <button onClick={() => setErrorMsg("")}>Close</button>
+          <button
+            onClick={() => {
+              setErrorMsg("");
+              navigate("/login");
+            }}
+          >
+            Close
+          </button>
         </div>
       )}
 
@@ -48,7 +55,7 @@ const VerifyMail = ({ lang }) => {
           <Bgloader />
         </div>
       )}
-      <div className={`${errorMsg&&'absolute bottom-0 w-full'}`}>
+      <div className={`${errorMsg && "absolute bottom-0 w-full"}`}>
         <Footer isLang={lang} />
       </div>
     </div>

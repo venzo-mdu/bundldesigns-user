@@ -38,6 +38,9 @@ footer.footer {
 /* Responsive padding for small screens */
 @media screen and (max-width: 480px) {
   .verify-loader-center {
-    padding: 4rem 2rem;
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+    box-sizing: border-box;
   }
 }
