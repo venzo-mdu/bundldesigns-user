@@ -35,6 +35,7 @@ import ForgotPassword from "./Components/Auth/ForgotPassword/Forgotpass";
 import PasswordResetSent from "./Components/Auth/ForgotpasswordMail/PasswordResetSent";
 import { useSearchParams } from "react-router-dom";
 import Animation from "./Components/Pages/Animation";
+import VerifyMail from "./Components/Auth/Verifymailpage/verifyMail";
 
 const getCookie = (name) => {
   const value = `; ${document.cookie}`;
@@ -136,6 +137,10 @@ export default function AppRouter() {
     {
       path: "/reset-sent",
       element: <PasswordResetSent />,
+    },
+    {
+      path: "/verify-mail/:id",
+      element: <VerifyMail lang={transLanguage} />,
     },
     {
       path: "/signup",
