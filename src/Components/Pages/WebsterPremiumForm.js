@@ -412,7 +412,7 @@ export default function WebsterPremiumForm({lang,setLang}) {
 
                   className='w-full text-[16px] focus:outline-none px-2 sm:py-2  xs:py-4 border !border-[#b0b0b0] mt-3 !rounded-none'></input>
 
-                {errors.project_name && <p className="text-red-500 text-sm">{errors.project_name}</p>}
+                {errors.project_name && <p className="text-[#D83D99] text-sm">{errors.project_name}</p>}
 
               </div>
 

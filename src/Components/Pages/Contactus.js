@@ -378,7 +378,7 @@ export const Contactus = ({lang,setLang}) => {
                       value={formData.project_name}
                       onChange={handleChange} placeholder={lang === 'ar' ? 'الرجاء كتابة اسم المشروع' :'Enter the name of your project....'}
                       className='w-full text-[16px] focus:outline-none px-2 sm:py-2  xs:py-4 border !border-[#b0b0b0] mt-3 !rounded-none'></input>
-                    {errors.project_name && <p className="text-red-500 text-sm">{errors.project_name}</p>}
+                    {errors.project_name && <p className="text-[#D83D99] text-sm">{errors.project_name}</p>}
                   </div>
                   <div className={`mb-4 sm:mt-4 xs:mt-6 ${lang === 'ar' ? 'text-right':'text-left'}`}>
                     <label className={`font-[500] text-[16px] ${lang === 'ar' ? 'text-right':'text-left'}`} for='name'> {lang === 'ar' ? 'الأسم':'Name'}</label>

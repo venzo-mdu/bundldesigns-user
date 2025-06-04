@@ -113,7 +113,7 @@ export default function PremiumForm({lang,setLang}) {
                 onChange={handleChange}
                 className="w-full border  outline-none p-2 !rounded-none"
               />
-              {errors.project_name && <p className="text-red-500 text-sm">{errors.project_name}</p>}
+              {errors.project_name && <p className="text-[#D83D99] text-sm">{errors.project_name}</p>}
             </div>
 
             <div>

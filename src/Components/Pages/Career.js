@@ -193,7 +193,7 @@ export default function Career({lang,setLang}) {
           onChange={handleChange}
           className="w-full border !border-black p-2 !rounded-none"
         />
-        {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
+        {errors.name && <p className="text-[#D83D99] text-sm">{errors.name}</p>}
       </div>
 
       {/* Phone Field */}
