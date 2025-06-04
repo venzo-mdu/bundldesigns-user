@@ -1025,7 +1025,7 @@ export default function Dashboard({ lang, setLang }) {
         response.data.data.filter((item) => item.order_status != "in_cart")
       );
       if (resProjects.length) {
-        getOrderDetails(id ? id : orderId);
+        getOrderDetails(id ? id : orderId?orderId:resProjects[0].id);
       }
     }
     setLoading(false);
