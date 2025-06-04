@@ -236,7 +236,7 @@ export const Signup = ({ lang }) => {
     full_name: "",
     email: "",
     password: "",
-    google: 'email',
+    auth_provider: 'email',
     phone: "",
     country: "",
     language: "Arabic",
@@ -297,7 +297,7 @@ export const Signup = ({ lang }) => {
             email: userDetails.email,
             full_name: userDetails.name,
             password: null,
-            google: 'google',
+            auth_provider: 'google',
           });
         })
         .catch((err) => console.error("Error fetching user details:", err));
@@ -313,7 +313,7 @@ export const Signup = ({ lang }) => {
     // Update the register data state
     setRegisterData((prevData) => ({
       ...prevData,
-      [name]: value,
+      auth_provider: value,
     }));
 
     // Full name validation
@@ -415,7 +415,7 @@ export const Signup = ({ lang }) => {
     e.preventDefault();
     setRegisterData((prev) => ({
       ...prev,
-      google: "email",
+      auth_provider: "email",
     }));
     if (!validateForm()) return;
     if (!isAgree) {
@@ -443,7 +443,7 @@ export const Signup = ({ lang }) => {
     } finally {
       setRegisterData((prev) => ({
         ...prev,
-        google: "email",
+        auth_provider: "email",
       }));
     }
   };
@@ -517,7 +517,7 @@ export const Signup = ({ lang }) => {
           email: user?.auth?.currentUser?.email,
           full_name: user?.auth?.currentUser?.email?.split("@")[0],
           password: null,
-          google: 'apple',
+          auth_provider: 'apple',
         };
 
         const response = await axios.post(`${base_url}/api/register/`, data);
@@ -749,7 +749,7 @@ export const Signup = ({ lang }) => {
                   onClick={() => {
                     setRegisterData((prev) => ({
                       ...prev,
-                      google: "google",
+                      auth_provider: "google",
                     }));
                     login();
                   }}
@@ -794,7 +794,7 @@ export const Signup = ({ lang }) => {
                   onClick={() => {
                     setRegisterData((prev) => ({
                       ...prev,
-                      google: "apple",
+                      auth_provider: "apple",
                     }));
                     handleAppleLogin();
                   }}
