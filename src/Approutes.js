@@ -35,6 +35,7 @@ import ForgotPassword from "./Components/Auth/ForgotPassword/Forgotpass";
 import PasswordResetSent from "./Components/Auth/ForgotpasswordMail/PasswordResetSent";
 import { useSearchParams } from "react-router-dom";
 import Animation from "./Components/Pages/Animation";
+import VerifyMail from "./Components/Auth/Verifymailpage/verifyMail";
 
 const getCookie = (name) => {
   const value = `; ${document.cookie}`;
@@ -167,6 +168,10 @@ export default function AppRouter() {
         />
       ),
       // element: <ProtectedRoute element={<CustomBundl />} />,
+    },
+    {
+      path: "/verify-mail/:id",
+      element: <VerifyMail lang={transLanguage} />,
     },
     {
       path: "/reset-password",

@@ -19,7 +19,7 @@ import AppleLogin from "react-apple-login";
 import GoogleIcon from "../../../Images/Login/icons8-google.svg";
 import { auth } from "../../Firebase/Firebase";
 import { OAuthProvider, signInWithPopup } from "firebase/auth";
- 
+
 export const Login = ({ lang }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ export const Login = ({ lang }) => {
   const { project_name } = location?.state || {};
   const clientId = process.env.REACT_APP_IOS_CLIENTID;
   const redirectURI = process.env.REACT_APP_IOS_REDIRECT_URL;
- 
+
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
@@ -38,21 +38,21 @@ export const Login = ({ lang }) => {
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
   const [loginError, setLoginError] = useState(false);
- 
+
   useEffect(() => {
     document.documentElement.scrollTo({
       top: 0,
       left: 0,
     });
   }, []);
- 
+
   useEffect(() => {
     const direction = lang === "ar" ? "rtl" : "ltr";
     if (document.body.dir !== direction) {
       document.body.dir = direction;
     }
   }, [lang]);
- 
+
   useEffect(() => {
     const originalAuth = window.AppleID?.auth;
     window.AppleID.auth = {
@@ -62,12 +62,12 @@ export const Login = ({ lang }) => {
         return originalAuth.init(config);
       },
     };
- 
+
     return () => {
       window.AppleID.auth = originalAuth;
     };
   }, []);
- 
+
   // const login = useGoogleLogin({
   //   onSuccess: (tokenResponse) => {
   //     const token = tokenResponse.credential;
@@ -76,7 +76,7 @@ export const Login = ({ lang }) => {
   //     console.log('Name:', userDetails.name);
   //     console.log('Email:', userDetails.email);
   //     console.log('Profile Picture:', userDetails.picture);
- 
+
   //     loginWithGoogle({
   //       email: userDetails.email,
   //       full_name: userDetails.name,
@@ -88,11 +88,11 @@ export const Login = ({ lang }) => {
   //     console.log('Login Failed');
   //   },
   // });
- 
+
   const login = useGoogleLogin({
     onSuccess: (tokenResponse) => {
       console.log("Token Response:", tokenResponse);
- 
+
       const accessToken = tokenResponse.access_token; // Correct way to extract token
       fetch(
         `https://www.googleapis.com/oauth2/v3/userinfo?access_token=${accessToken}`
@@ -100,7 +100,7 @@ export const Login = ({ lang }) => {
         .then((res) => res.json())
         .then((userDetails) => {
           console.log("User Details:", userDetails);
- 
+
           loginWithGoogle({
             email: userDetails.email,
             full_name: userDetails.name,
@@ -116,13 +116,13 @@ export const Login = ({ lang }) => {
   });
   const handleChange = (e) => {
     const { name, value } = e.target;
- 
+
     // Update the login data state
     setLoginData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
- 
+
     // Helper function to set errors
     const setError = (field, errorMessage) => {
       setErrors((prevErrors) => ({
@@ -130,7 +130,7 @@ export const Login = ({ lang }) => {
         [field]: errorMessage,
       }));
     };
- 
+
     // Email validation
     if (name === "email") {
       if (!value.trim()) {
@@ -149,7 +149,7 @@ export const Login = ({ lang }) => {
         setError("email", ""); // clear error if email is valid
       }
     }
- 
+
     // Password validation
     if (name === "password") {
       if (/\s/.test(value)) {
@@ -180,7 +180,7 @@ export const Login = ({ lang }) => {
     setErrors(errorMessages);
     return Object.keys(errorMessages).length === 0;
   };
- 
+
   const loginWithGoogle = async (data) => {
     try {
       const response = await axios.post(`${base_url}/api/login/`, data);
@@ -205,19 +205,19 @@ export const Login = ({ lang }) => {
       setLoginError(response.response.data.data);
     }
   };
- 
+
   // const handleAppleLoginSuccess = async (response) => {
   //   console.log("Apple Login Success:", response);
- 
+
   //   const { authorization, user } = response;
- 
+
   //   console.log(authorization,user,"res")
- 
+
   //   if (!authorization?.id_token || !authorization?.code) {
   //     console.error("Invalid Apple response:", response);
   //     return;
   //   }
- 
+
   //   const decodedToken = jwt_decode(authorization.id_token);
   //   console.log("Decoded Apple ID Token:", decodedToken);
   //   const data = {
@@ -226,7 +226,7 @@ export const Login = ({ lang }) => {
   //     password: null,
   //     google: true
   //   }
- 
+
   //   try {
   //     const response = await axios.post(`${base_url}/api/login/`, data);
   //     if (response.status === 200) {
@@ -241,23 +241,23 @@ export const Login = ({ lang }) => {
   //         })
   //         // window.location.href =`${process.env.REACT_APP_URL}/${next_url}`
   //       } else { navigate('/'); }
- 
+
   //     }
- 
+
   //   } catch (response) {
- 
+
   //     setLoginError(response.response.data.data)
   //   }
- 
+
   // };
- 
+
   const handleAppleLogin = async () => {
     const provider = new OAuthProvider("apple.com");
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
       console.log("Apple user:", user);
- 
+
       if (user?.accessToken) {
         const data = {
           email: user?.auth?.currentUser?.email,
@@ -288,7 +288,7 @@ export const Login = ({ lang }) => {
       console.error("Apple sign-in failed:", error.message);
     }
   };
- 
+
   const onSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
@@ -318,7 +318,7 @@ export const Login = ({ lang }) => {
       setLoading(false);
     }
   };
- 
+
   return (
     <div>
       <div className="login !mb-[8rem] ">
@@ -355,16 +355,16 @@ export const Login = ({ lang }) => {
               className="rounded-none"
             />
             {errors.password && <p className="error">{errors.password}</p>}
- 
+
             {/* General error message */}
             {errors.general && <p className="error">{errors.general}</p>}
             {/* <p className='text-[red] mb-1'>{loginError}</p>
             <button className='signin !text-[24px] uppercase' type='submit'>
               {loading ? <ClipLoader size={25} color={'#FFFFFF'} /> :lang === 'ar' ? 'تسجيل دخول' : 'Sign In'}
             </button>  */}
- 
+
             <p className="text-[#D83D99] mb-1">{loginError}</p>
- 
+
             <button className="signin !text-[24px] uppercase" type="submit">
               {loading ? (
                 <ClipLoader size={25} color={"#FFFFFF"} />
@@ -374,16 +374,16 @@ export const Login = ({ lang }) => {
                 "Sign In"
               )}
             </button>
- 
+
             <div className="flex justify-end mt-2">
               <NavLink
                 to="/forgotpassword-mail"
-                className="text-[#D83D99] text-[18px] hover:underline"
+                className="text-black text-[18px] no-underline hover:no-underline hover:text-black"
               >
-                {lang === "ar" ? "هل نسيت كلمة المرور؟" : "Forgot Password?"}
+                Forgot Password
               </NavLink>
             </div>
- 
+
             <p
               className={`or mt-[4vh] flex items-center justify-center ${
                 lang === "ar" ? "mr-2" : "ml-2"
@@ -529,5 +529,3 @@ export const Login = ({ lang }) => {
     </div>
   );
 };
- 
- 
