@@ -363,7 +363,7 @@ export const Login = ({ lang }) => {
               {loading ? <ClipLoader size={25} color={'#FFFFFF'} /> :lang === 'ar' ? 'تسجيل دخول' : 'Sign In'}
             </button>  */}
  
-            <p className="text-[red] mb-1">{loginError}</p>
+            <p className="text-[#D83D99] mb-1">{loginError}</p>
  
             <button className="signin !text-[24px] uppercase" type="submit">
               {loading ? (
@@ -378,7 +378,7 @@ export const Login = ({ lang }) => {
             <div className="flex justify-end mt-2">
               <NavLink
                 to="/forgotpassword-mail"
-                className="text-[13px] text-[#007bff] hover:underline"
+                className="text-[#D83D99] text-[18px] hover:underline"
               >
                 {lang === "ar" ? "هل نسيت كلمة المرور؟" : "Forgot Password?"}
               </NavLink>
