@@ -3239,6 +3239,12 @@ export default function Adjustments({ user, lang, setLang }) {
                         "firstName" in error ? "!border-[#D83D99]" : ""
                       }`}
                     />
+                                  <p className="text-[#D83D99] !text-[20px] !font-[400] !mt-2">
+                {Object.values(error).map((item) => {
+                  debugger
+                  return item;
+                })}
+              </p>
                   </div>
                   <div
                     className={`${lang === "ar" ? "ml-[4%]" : "mr-[4%]"}`}
