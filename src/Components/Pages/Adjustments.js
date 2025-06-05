@@ -2263,6 +2263,7 @@ export default function Adjustments({ user, lang, setLang }) {
         setLoading(false);
       }
     } else {
+       window.scrollTo({ top: 0, behavior: "smooth" });
       setLoading(false);
     }
   };
