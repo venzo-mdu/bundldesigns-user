@@ -338,6 +338,8 @@ export default function UploadContent({ lang, setLang }) {
     }));
   };
 
+
+
   return loading ? (
     <Bgloader />
   ) : (
@@ -537,7 +539,7 @@ export default function UploadContent({ lang, setLang }) {
           >
             <p
               onClick={() => {
-                window.location.href = "/dashboard";
+                window.location.href = `/dashboard?order_id=${order.id}`;
               }}
               className="flex cursor-pointer text-[18px] items-center text-black px-4"
             >

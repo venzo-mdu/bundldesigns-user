@@ -323,6 +323,7 @@ export const Accordian = ({
     return payload;
   };
   const path = window?.location?.href?.split("/")[3];
+
   return (
     <div>
       <Toaster
