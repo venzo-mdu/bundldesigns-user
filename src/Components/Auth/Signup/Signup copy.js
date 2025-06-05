@@ -545,7 +545,9 @@ export const Signup = ({ lang }) => {
               {lang === "ar" ? "مف يبند لديزاين" : "Bundl Designs"}{" "}
             </span>
           </p>
+          <a className="signup-brand" href="/">
           <img className="loginlogo" src={Loginlogo} alt="login" />
+          </a>
           <form onSubmit={signUp}>
             <label className="mb-2" style={{ width: "100%" }}>
               {lang === "ar" ? "الأسم" : "Name"}

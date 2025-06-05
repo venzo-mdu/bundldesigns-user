@@ -557,7 +557,9 @@ export const BundlDetail = ({ user, lang, setLang }) => {
               </p>
               <p className="bundl-desc">
                 {lang === "ar"
-                  ?processArabicText(packageDetail?.package?.description_arabic)
+                  ? processArabicText(
+                      packageDetail?.package?.description_arabic
+                    )
                   : packageDetail?.package?.description_english || ""}
               </p>
               <p className="one-minor my-3">
@@ -867,7 +869,6 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                 bundl-summary  max-h-[80%] w-full
                   xs:overflow-y-auto lg:overflow-visible md:overflow-visible
                 `}
-
               >
                 {/* <div style={{borderRight: "1px solid #000000"}}></div> */}
                 <div className="bundl-name ">
@@ -903,10 +904,9 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                       >
                         {lang === "ar"
                           ? packageDetail?.package?.name_arabic
-                          : packageDetail?.package?.name_english || ""}{" "}
-                        {lang === "ar"
-                          ? packageDetail?.package?.name_arabic
-                          : packageDetail?.package?.name_english && "Bundl"}
+                          : `${
+                              packageDetail?.package?.name_english || ""
+                            } Bundl`}
                       </p>
                       <p
                         className={`sm:text-[20px] text-[20px] ${
@@ -1217,7 +1217,9 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                         className={`proceed uppercase !bg-[${textColor}]`}
                         onClick={createPayload}
                       >
-                        {lang === "ar" ? "المتابعة إلى السلة​" : "Proceed to Cart"}
+                        {lang === "ar"
+                          ? "المتابعة إلى السلة​"
+                          : "Proceed to Cart"}
                       </button>
                     ) : (
                       <button
@@ -1225,7 +1227,9 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                         className={`proceed uppercase !bg-[${textColor}]`}
                         disabled
                       >
-                        {lang === "ar" ? "المتابعة إلى السلة​" : "Proceed to Cart"}
+                        {lang === "ar"
+                          ? "المتابعة إلى السلة​"
+                          : "Proceed to Cart"}
                       </button>
                     )}
                   </div>

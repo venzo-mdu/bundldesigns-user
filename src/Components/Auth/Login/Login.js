@@ -327,7 +327,9 @@ export const Login = ({ lang }) => {
           <p className="welcometext">
             {lang === "ar" ? "مرحبا بكم مجددا" : "Welcome Back!"}
           </p>
+          <a className="login-brand" href="/">
           <img className="loginlogo" src={Loginlogo} alt="login" />
+          </a>
           <form onSubmit={onSubmit} className="lg:mt-0 md:mt-0 xs:mt-[8%]">
             <label className="xs:mb-2">
               {lang === "ar" ? "البريد الإلكتروني" : "Email address"}{" "}
@@ -378,7 +380,7 @@ export const Login = ({ lang }) => {
             <div className="flex justify-end mt-2">
               <NavLink
                 to="/forgotpassword-mail"
-                className="text-black text-[18px] no-underline"
+                className="text-black text-[18px] no-underline "
               >
                 {lang === "ar" ? "هل نسيت كلمة المرور؟" : "Forgot Password?"}
               </NavLink>
