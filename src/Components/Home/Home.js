@@ -2796,7 +2796,7 @@ export const Home = ({ lang, setLang }) => {
                         <li>
                           {lang === "ar"
                             ? "خيار إضافي للشعار"
-                            : "Logo Variations"}
+                            : "Logo Variations1"}
                         </li>
                         <li>
                           {lang === "ar" ? "لوحة الألوان" : "Color Palette"}
@@ -2987,7 +2987,7 @@ export const Home = ({ lang, setLang }) => {
                         <li>
                           {lang === "ar"
                             ? "خيار إضافي للشعار"
-                            : "Logo Variations"}
+                            : "Logo Variations2"}
                         </li>
                         <li>
                           {lang === "ar" ? "لوحة الألوان" : "Color Palette"}
@@ -3197,11 +3197,11 @@ export const Home = ({ lang, setLang }) => {
                         <li>
                           {lang === "ar" ? "تصميم الشعار" : "Logo Design"}
                         </li>
-                        <li>
+                        {/* <li>
                           {lang === "ar"
                             ? "خيار إضافي للشعار"
                             : "Logo Variations"}
-                        </li>
+                        </li> */}
                         <li>
                           {lang === "ar" ? "لوحة الألوان" : "Color Palette"}
                         </li>
@@ -3673,8 +3673,8 @@ export const Home = ({ lang, setLang }) => {
                   <div className="third_section_toggle">
                     <div className="brand_identity">
                       <div className="block">
-                        <div
-                          className="newbie"
+                        {/* <div
+                          className="newbie choose"
                           style={
                             lang !== "ar"
                               ? {
@@ -3687,10 +3687,12 @@ export const Home = ({ lang, setLang }) => {
                               : {
                                   minHeight: "40px",
                                   position: "relative",
-                                  top: "40px", // ✅ shift Arabic down, keep default font
+                                  top: "40px", 
                                 }
                           }
-                        >
+                        > */}
+
+                        <div className={`newbie choose ${lang === "ar" ? "lang-ar" : "lang-en"}`}>
                           {lang === "ar" ? (
                             "اختر ما تحتاجه من قائمة العناص"
                           ) : (

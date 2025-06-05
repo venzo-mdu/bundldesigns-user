@@ -380,7 +380,7 @@ export const Login = ({ lang }) => {
                 to="/forgotpassword-mail"
                 className="text-black text-[18px] no-underline"
               >
-                Forgot Password?
+                {lang === "ar" ? "هل نسيت كلمة المرور؟" : "Forgot Password?"}
               </NavLink>
             </div>
 

@@ -340,7 +340,7 @@ const ForgotPassword = ({ lang }) => {
         {/* <img className='anchor w-[100px]' src={loginGIF} alt='login-anchor' /> */}
         <div className="login-content ">
           <p className="forgot-welcometext">
-            {lang === "ar" ? "مرحبا بكم مجددا" : "Forgot Password"}
+            {lang === "ar" ? "مرحبا بكم مجددا" : "Forgot Password?"}
           </p>
           <img className="loginlogo" src={Loginlogo} alt="login" />
 
