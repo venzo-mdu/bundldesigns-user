@@ -3787,7 +3787,7 @@ export default function Adjustments({ user, lang, setLang }) {
                   <h2 className="text-[30px]">
                     {lang === "ar"
                       ? "مشروعك يحتاج إضافات؟"
-                      : "Something feels missing ? 222222222222"}
+                      : "Something feels missing ?"}
                   </h2>
                   <p className="text-[16px] text-[#00000080]">
                     {lang === "ar"
