@@ -250,6 +250,7 @@ export const Accordian = ({
 
   let total_price = 0;
   const addOnPayloads = () => {
+    debugger;
     const allDesigns = titleArr.flatMap(
       (title) => addOnData.designs_details?.[title]?.design_list || []
     );
@@ -263,7 +264,7 @@ export const Accordian = ({
       .reduce((max, design) => {
         return Math.max(max, design.time);
       }, 0);
-
+    debugger;
     // Filter and map designs with non-zero quantities
     const item_list = allDesigns
       .filter(
@@ -336,7 +337,7 @@ export const Accordian = ({
       />
 
       {/* <div className="bundl-accordian"> */}
-       <div className={`${path === "custombundl" ? null : "bundl-accordian"}`}>
+      <div className={`${path === "custombundl" ? null : "bundl-accordian"}`}>
         <p
           className={`accordian-heading mb-1  leading-[1.2] ${
             isLang === "ar" ? "text-right" : "text-left"
@@ -383,7 +384,7 @@ export const Accordian = ({
             >
               {isLang === "ar"
                 ? addOnData?.designs_details?.[title]?.name_arabic
-                : title} 
+                : title}
             </button>
           ))}
         </div>
@@ -426,7 +427,7 @@ export const Accordian = ({
               <Typography className="!font-[700] !text-[22px]">
                 {isLang === "ar"
                   ? addOnData?.designs_details?.[title]?.name_arabic
-                  : title} 
+                  : title}
               </Typography>
             </AccordionSummary>
             <AccordionDetails>

@@ -305,7 +305,6 @@ export const BundlDetail = ({ user, lang, setLang }) => {
   };
 
   const handleQuantityChange = (designName, change) => {
-    debugger;
     const colors = {
       // '12':'#f175ad',
       // '4':'#1BA56F',
@@ -828,20 +827,13 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                                     //   )
                                     // }
                                     onClick={() => {
-                                      // const currentQty =
-                                      //   extraQty[design.name_english] ??
-                                      //   design.quantity ??
-                                      //   0;
-                                      // const updatedQty =
-                                      //   currentQty > 0 ? currentQty + 1 ?currentQty=== 0?currentQty+1:0;
-                                      // debugger;
                                       const currentQty =
                                         extraQty[design.name_english] ??
                                         design.quantity ??
                                         0;
                                       const updatedQty =
-                                        parseInt(currentQty) + 1;
-
+                                        currentQty > 0 ? currentQty + 1 : 0;
+                                      debugger;
                                       handleQuantityChange(
                                         design.name_english,
                                         updatedQty
