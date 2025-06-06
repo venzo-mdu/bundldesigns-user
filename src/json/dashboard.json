@@ -7,7 +7,7 @@
         "second_title_arabic":"باقاتي",
         "project_process": ["Purchase bundl", "Fill Questionnaire","Designing Brand",
         "Adjustment & Brand Approval","Add Ons" ,"Receive Designs"],
-        "project_process_arabic": ["باقاتي الباقة", "املأ الاستبيان","تصميم الهوية ​" ,   
+        "project_process_arabic": ["طلب الباقة​", "املأ الاستبيان","تصميم الهوية ​" ,   
         "التعديل والموافقة على الهوية","إضافات" ,"استلام التصاميم"],
         "process_content":{
             "questionnaire":"Fill out questionnaire to continue the design process!",
@@ -53,7 +53,7 @@
         "table_heads_arabic":{
             "id":"رقم الطلب",
             "project_name":"اسم المشروع",
-            "price":"ثمن",
+            "price":"السعر",
             "payment_status":"حالة الدفع",
             "action":"فعل",
             "purchase_date":"تاريخ الشراء"

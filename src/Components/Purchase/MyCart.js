@@ -1545,16 +1545,17 @@ export const MyCart = ({ lang, setLang }) => {
                   >
                     <p
                       className="!text-[20px] xs:mb-0 sm:mb-auto !font-[400]"
-                      style={{ width: "50%" }}
+                      // style={{ width: "50%" }}
                     >
-                      {lang === "ar" ? "ثمن :" : "Price:"}
+                      {lang === "ar" ? "السعر :" : "Price:"}
                     </p>
                     <p
                       className="!text-[20px] xs:mb-0 sm:mb-auto text-right !font-[400]"
-                      style={{ width: "50%" }}
+                      // style={{ width: "50%" }}
                     >
-                      {amountDecimal(Math.round(cartDetails.total_amount))}{" "}
-                      {lang === "ar" ? "ريال" : "SAR"}
+                      {amountDecimal(Math.round(cartDetails.total_amount))}
+                      {/* {lang === "ar" ? "ريال" : "SAR"} */}
+                      {lang === "ar" ? "\u00A0\u00A0ريال" : "\u00A0\u00A0SAR"}
                     </p>
                   </div>
                   <div
@@ -1563,16 +1564,17 @@ export const MyCart = ({ lang, setLang }) => {
                   >
                     <p
                       className="!text-[20px] !font-[400]"
-                      style={{ width: "53%" }}
+                      // style={{ width: "53%" }}
                     >
-                      {lang === "ar" ? "ضريبه القيمه المضافه:" : "TAX:"}
+                      {lang === "ar" ? "ضريبه القيمه المضافه :" : "TAX:"}
                     </p>
                     <p
                       className="!text-[20px] text-right !font-[400]"
-                      style={{ width: "40%" }}
+                      // style={{ width: "40%" }}
                     >
-                      {amountDecimal(Math.round(cartDetails.tax))}{" "}
-                      {lang === "ar" ? "ريال" : "SAR"}
+                      {amountDecimal(Math.round(cartDetails.tax))}
+                      {/* {lang === "ar" ? "ريال" : "SAR"} */}
+                      {lang === "ar" ? "\u00A0\u00A0ريال" : "\u00A0\u00A0SAR"}
                     </p>
                   </div>
                   <div className="border-t-[1px] border-black p-[2%_0_0_2%]">
@@ -1582,7 +1584,7 @@ export const MyCart = ({ lang, setLang }) => {
                     >
                       <p
                         className="!text-[20px] xs:mb-0 sm:mb-auto ml-[6px]"
-                        style={{ width: "50%" }}
+                        // style={{ width: "50%" }}
                       >
                         <img
                           src={BlackDollor}
@@ -1594,7 +1596,7 @@ export const MyCart = ({ lang, setLang }) => {
                       </p>
                       <p
                         className="!text-[20px] xs:mb-0 sm:mb-auto text-right"
-                        style={{ width: "40%" }}
+                        // style={{ width: "40%" }}
                       >
                         {isNaN(
                           amountDecimal(Math.round(cartDetails.grand_total))
@@ -1602,15 +1604,17 @@ export const MyCart = ({ lang, setLang }) => {
                           ? 0
                           : amountDecimal(
                               Math.round(cartDetails.grand_total)
-                            )}{" "}
-                        {lang === "ar" ? "ريال" : "SAR"}{" "}
+                            )}
+                        {/* {lang === "ar" ? "ريال" : `${"  "}SAR`}{" "} */}
+                        {lang === "ar" ? "\u00A0\u00A0ريال" : "\u00A0\u00A0SAR"}
+
                       </p>
                     </div>
                     <div
                       className="justify-between  font-[700] mr-4"
                       style={{ display: "flex" }}
                     >
-                      <p className="!text-[20px] mb-0" style={{ width: "67%" }}>
+                      <p className="!text-[20px] mb-0">
                         <img
                           src={BlackTime}
                           className={`inline-block ${
@@ -1623,7 +1627,7 @@ export const MyCart = ({ lang, setLang }) => {
                       </p>
                       <p
                         className="!text-[20px]  text-right "
-                        style={{ width: "43%" }}
+                        // style={{ width: "43%" }}
                       >
                         {isNaN(Math.round(cartDetails.total_time))
                           ? 0

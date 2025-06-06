@@ -1159,7 +1159,11 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                         alt="Total Price"
                         className="inline-block !font-[700] sm:ml-1 xs:ml-2"
                       />
-                      <span className="sm:ml-3 xs:ml-5 !font-[700]">
+                      <span
+                        className={`${
+                          lang === "ar" ? "mr-3" : "sm:ml-3 xs:ml-5"
+                        } !font-[700]`}
+                      >
                         {lang === "ar" ? "السعر الإجمالي :" : "Total Price :"}
                       </span>
                     </p>
@@ -1177,8 +1181,9 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                       ) +
                         (selectedLanguage === "Both"
                           ? amountDecimal(2000)
-                          : "")}{" "}
-                      {lang === "ar" ? "ريال" : "SAR"}
+                          : "")}
+                      {/* {lang === "ar" ? "ريال" : "SAR"} */}
+                      {lang === "ar" ? "\u00A0\u00A0ريال" : "\u00A0\u00A0SAR"}
                     </p>
                   </div>
                   <div className="total" style={{ display: "flex" }}>
@@ -1189,11 +1194,17 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                       <img
                         src={BlackTime}
                         alt="Total Duration"
-                        className="inline-block"
+                        className={`inline-block ${
+                          lang === "ar" ? "mr-[-5px]" : ""
+                        }`}
                       />
-                      <span className="xs:ml-4 sm:ml-1 ml-1">
+                      <span
+                        className={`${
+                          lang === "ar" ? "mr-2" : "xs:ml-4 sm:ml-1 ml-1"
+                        }`}
+                      >
                         {lang === "ar"
-                          ? "المدة الإجمالية :"
+                          ? "\u00A0المدة الإجمالية :"
                           : "Total Duration :"}
                       </span>
                     </p>
@@ -1203,8 +1214,9 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                       } !sm:text-[20px]`}
                       style={{ width: "40%" }}
                     >
-                      {packageDetail?.package?.time + addonPayLoads.total_time}{" "}
-                      {lang === "ar" ? "يوما" : "Days"}
+                      {packageDetail?.package?.time + addonPayLoads.total_time}
+                      {/* {lang === "ar" ? "يوما" : "Days"} */}
+                      {lang === "ar" ? "\u00A0\u00A0يوما" : "\u00A0\u00A0SAR"}
                     </p>
                   </div>
 
