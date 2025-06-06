@@ -171,6 +171,9 @@ body[dir="rtl"] .loginlogo {
     .react-apple-signin-auth-btn {
         font-size: 16px;
     }
+    /* .forgotpass{
+        width: 550px
+    } */
 }
 
 
@@ -183,6 +186,9 @@ body[dir="rtl"] .loginlogo {
     }
     .signin{
         width: 550px;
+    }
+    .forgotlink{
+        width: 286px;
     }
     .dont{
         margin: 2% 0 0 0;
@@ -199,7 +205,10 @@ body[dir="rtl"] .loginlogo {
     .react-apple-signin-auth-btn {
         font-size: 14px;
     }
+    
 }
+
+
 @media screen and (max-width:441px) {
     .signinwithgoogle{
       width: 100%;
@@ -219,6 +228,10 @@ body[dir="rtl"] .loginlogo {
     .signin{
         width: 100%;
     }
+    /* .forgotpass{
+        width:334px;
+    }
+     */
     .login-content input,.signup-content input{
         width: 100%;
     }
@@ -247,6 +260,9 @@ body[dir="rtl"] .loginlogo {
     .login{
         margin: 30% 0 15% 0;
     }
+       /* .forgotpass{
+        width: 374px;
+    } */
     .signinwithgoogle{
         width: 100%;
       }
@@ -283,6 +299,7 @@ body[dir="rtl"] .loginlogo {
     .react-apple-signin-auth-btn {
         font-size: 12px !important;
     }
+   
 }
 
 @media screen and (max-width:375px) {
@@ -294,4 +311,15 @@ body[dir="rtl"] .loginlogo {
     .signinwithgoogle{
         width: 100%;
       }
+      /* .forgotpass{
+        width: 284px;
+    } */
+
+
+    @media (min-width: 644px) and (max-width: 775px) {
+        .forgotpass{
+        width: 114px;
+    }
+}
+
 }

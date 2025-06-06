@@ -55,14 +55,18 @@ function BundlOrder({
                         order.item_details.addon_items?.length === 0) &&
                       !hasMultipleQty
                         ? ""
-                        : "border-b !border-black"
-                    } px-[5%] space-x-2 mt-[2%]`}
+                        : ""
+                    } pl-[5%] space-x-2 mt-[2%]`}
                   >
+                    <div className="-ml-[5%] w-[calc(100%+5%)] border-y border-black py-2">
+                    <div className="pl-[5%]">
                     <p className="mb-0 font-semibold text-[22px]">
                       Addons -{" "}
                       {lang === "ar" ? item?.item__name_arabic : item.item_name}{" "}
                       {item?.qty > 1 && filterIndex}
                     </p>
+                    </div>
+                    </div>
 
                     {designQuestions[item.item__id]?.language && (
                       <p className="mt-2 mb-0">
@@ -120,8 +124,8 @@ function BundlOrder({
                         <input
                           placeholder={
                             lang === "ar"
-                              ? "الشعار والرقم ...."
-                              : "Slogan & Number...."
+                              ? "اضف المحتوى هنا...."
+                              : "Write content here...."
                           }
                           value={
                             uploadContent?.[item?.id]?.[filterIndex]?.content ||

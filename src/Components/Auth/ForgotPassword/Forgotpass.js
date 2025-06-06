@@ -340,9 +340,11 @@ const ForgotPassword = ({ lang }) => {
         {/* <img className='anchor w-[100px]' src={loginGIF} alt='login-anchor' /> */}
         <div className="login-content ">
           <p className="forgot-welcometext">
-            {lang === "ar" ? "مرحبا بكم مجددا" : "Forgot Password"}
+            {lang === "ar" ? "مرحبا بكم مجددا" : "Forgot Password?"}
           </p>
+          <a className="login-brand" href="/">
           <img className="loginlogo" src={Loginlogo} alt="login" />
+          </a>
 
           <form onSubmit={onSubmit} className="lg:mt-0 md:mt-0 xs:mt-[8%]">
             {/* New Password */}

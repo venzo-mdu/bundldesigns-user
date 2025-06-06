@@ -126,7 +126,9 @@ export const ForgotpasswordMail = ({ lang }) => {
           <p className="forgot-welcometext">
             {lang === "ar" ? "مرحبا بكم مجددا" : "Forgot Password"}
           </p>
+          <a className="forgot-brand" href="/">
           <img className="loginlogo" src={Loginlogo} alt="login" />
+          </a>
           <form onSubmit={onSubmit} className="lg:mt-0 md:mt-0 xs:mt-[8%]">
             <label className="xs:mb-5">
               {lang === "ar"

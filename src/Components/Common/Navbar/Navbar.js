@@ -404,7 +404,7 @@ export const Navbar = ({ isLang, setIsLang }) => {
                         </li>
                         <li className="nav-item">
                           <a className="nav-link" href="/#ourBundl">
-                            {isLang === "ar" ? "بندل" : "Bundls"}
+                            {isLang === "ar" ? "باقاتنا" : "Bundls"}
                           </a>
                         </li>
                         <li className="nav-item">
@@ -624,7 +624,7 @@ export const Navbar = ({ isLang, setIsLang }) => {
                                     className="text-black"
                                     previewlistener="true"
                                   >
-                                    {isLang === "ar" ? "بندل" : "Bundls"}
+                                    {isLang === "ar" ? "باقاتنا" : "Bundls"}
                                   </a>
                                 </li>
                                 <li

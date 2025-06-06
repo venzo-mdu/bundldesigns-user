@@ -587,15 +587,18 @@ export default function UploadContent({ lang, setLang }) {
               )}
             </div>
           </div>
-          <div
-            className={`basis-1/4 sticky top-0 self-start  my-2 ${
-              lang === "ar" ? "pr-[2%]" : "pl-[2%]"
-            }`}
-          >
-            <h3 className="text-[22px] font-bold py-2">
-              {lang === "ar" ? "قائمه" : "Checklist"}
-            </h3>
-
+          <div className="basis-1/4 sticky top-0 self-start my-0">
+            <div className="border-b border-black my-2 w-[100%]">
+              <h3
+                className={`mb-0 text-[22px] font-bold py-2 ${
+                  lang === "ar" ? "pr-5" : "pl-5"
+                }`}
+              >
+                {lang === "ar" ? "قائمه" : "Checklist"}
+              </h3>
+            </div>
+            
+            <div className={`${lang === "ar" ? "pr-5 pl-0" : "pl-5 pr-0"}`}>
             {order && (
               <>
                 {order.item_details.bundle_items.map((item, itemIndex) => {
@@ -662,6 +665,7 @@ export default function UploadContent({ lang, setLang }) {
                 )}
               </>
             )}
+          </div>
           </div>
         </div>
       )}

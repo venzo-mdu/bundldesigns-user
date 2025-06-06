@@ -59,7 +59,9 @@ const PasswordResetSent = () => {
           <p className="forgot-welcometext">
             {lang === "ar" ? "مرحبا بكم مجددا" : "Reset Password"}
           </p>
+          <a className="Rest-brand" href="/">
           <img className="loginlogo" src={Loginlogo} alt="login" />
+          </a>
 
           {/* Message block positioned similar to form in ForgotpasswordMail */}
           <div className="lg:mt-0 md:mt-0 xs:mt-[8%]">

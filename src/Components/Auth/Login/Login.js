@@ -251,6 +251,30 @@ export const Login = ({ lang }) => {
 
   // };
 
+  const [widthClass, setWidthClass] = useState("w-full");
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+
+      if (width > 641 && width < 768) {
+        setWidthClass("w-[460px]");
+      } else if (width >= 768 && width < 1024) {
+        setWidthClass("w-[552px]");
+      } else if (width >= 1024 && width < 1399) {
+        setWidthClass("w-[526px]");
+      } else if (width >= 1440) {
+        setWidthClass("w-[525px]");
+      } else {
+        setWidthClass("w-full");
+      }
+    };
+    handleResize(); // Initial check
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const handleAppleLogin = async () => {
     const provider = new OAuthProvider("apple.com");
     try {
@@ -327,62 +351,76 @@ export const Login = ({ lang }) => {
           <p className="welcometext">
             {lang === "ar" ? "مرحبا بكم مجددا" : "Welcome Back!"}
           </p>
-          <img className="loginlogo" src={Loginlogo} alt="login" />
+          <a className="login-brand" href="/">
+            <img className="loginlogo" src={Loginlogo} alt="login" />
+          </a>
+          {/* < div> */}
           <form onSubmit={onSubmit} className="lg:mt-0 md:mt-0 xs:mt-[8%]">
-            <label className="xs:mb-2">
-              {lang === "ar" ? "البريد الإلكتروني" : "Email address"}{" "}
-            </label>
-            <input
-              type="email"
-              name="email"
-              placeholder={
-                lang === "ar" ? " بريد إلكتروني" : "Enter your email"
-              }
-              value={loginData.email}
-              onChange={handleChange}
-              className="rounded-none"
-            />
-            {errors.email && <p className="error">{errors.email}</p>}
-            <label className="xs:mb-2" style={{ marginTop: "3%" }}>
-              {lang === "ar" ? "كلمة المرور" : "Password"}
-            </label>
-            <input
-              type="password"
-              name="password"
-              placeholder={lang === "ar" ? " كلمة المرور" : "Password"}
-              value={loginData.password}
-              onChange={handleChange}
-              className="rounded-none"
-            />
-            {errors.password && <p className="error">{errors.password}</p>}
+            <div>
+              <label className="xs:mb-2">
+                {lang === "ar" ? "البريد الإلكتروني" : "Email address"}{" "}
+              </label>
+              <input
+                type="email"
+                name="email"
+                placeholder={
+                  lang === "ar" ? " بريد إلكتروني" : "Enter your email"
+                }
+                value={loginData.email}
+                onChange={handleChange}
+                className="rounded-none"
+              />
+              {errors.email && <p className="error">{errors.email}</p>}
+              <label className="xs:mb-2" style={{ marginTop: "3%" }}>
+                {lang === "ar" ? "كلمة المرور" : "Password"}
+              </label>
+              <input
+                type="password"
+                name="password"
+                placeholder={lang === "ar" ? " كلمة المرور" : "Password"}
+                value={loginData.password}
+                onChange={handleChange}
+                className="rounded-none"
+              />
+              {errors.password && <p className="error">{errors.password}</p>}
 
-            {/* General error message */}
-            {errors.general && <p className="error">{errors.general}</p>}
-            {/* <p className='text-[red] mb-1'>{loginError}</p>
+              {/* General error message */}
+              {errors.general && <p className="error">{errors.general}</p>}
+              {/* <p className='text-[red] mb-1'>{loginError}</p>
             <button className='signin !text-[24px] uppercase' type='submit'>
               {loading ? <ClipLoader size={25} color={'#FFFFFF'} /> :lang === 'ar' ? 'تسجيل دخول' : 'Sign In'}
             </button>  */}
 
-            <p className="text-[#D83D99] mb-1">{loginError}</p>
+              <p className="text-[#D83D99] mb-1">{loginError}</p>
 
-            <button className="signin !text-[24px] uppercase" type="submit">
-              {loading ? (
-                <ClipLoader size={25} color={"#FFFFFF"} />
-              ) : lang === "ar" ? (
-                "تسجيل دخول"
-              ) : (
-                "Sign In"
-              )}
-            </button>
-
-            <div className="flex justify-end mt-2">
-              <NavLink
-                to="/forgotpassword-mail"
-                className="text-black text-[18px] no-underline hover:no-underline hover:text-black"
-              >
-                Forgot Password
-              </NavLink>
+              <button className="signin !text-[24px] uppercase" type="submit">
+                {loading ? (
+                  <ClipLoader size={25} color={"#FFFFFF"} />
+                ) : lang === "ar" ? (
+                  "تسجيل دخول"
+                ) : (
+                  "Sign In"
+                )}
+              </button>
+              <div className={` flex forgotpass justify-end ${widthClass}`}>
+                <NavLink
+                  to="/forgotpassword-mail"
+                  className="text-black text-[18px] no-underline 
+               hover:no-underline hover:text-black 
+               focus:text-black active:text-black 
+               visited:text-black"
+                >
+                  {lang === "ar" ? "هل نسيت كلمة المرور؟" : "Forgot Password?"}
+                </NavLink>
+              </div>
             </div>
+            {/* </div> */}
+            {/* <div className="w-[320px] mx-auto mt-2 flex justify-end"> */}
+            {/* <div className="w-[300px] mt-2 flex justify-end"> */}
+            {/* <div className="absolute left-0 mt-2"></div> */}
+            {/* <div className="mt-2" style={{ textAlign: 'right', marginRight:"-15px" }}> */}
+
+            {/* </div> */}
 
             <p
               className={`or mt-[4vh] flex items-center justify-center ${

@@ -5276,3 +5276,67 @@ font-size: 20px;
     }
 }
 
+.newbie.choose {
+  position: relative;
+}
+
+/* English (LTR) styles */
+.lang-en {
+  font-size: 44px;
+  line-height: 1.4;
+  min-height: 80px;
+  top: 40px;
+}
+
+/* Arabic (RTL) styles */
+.lang-ar {
+  top: 40px;
+  min-height: 40px;
+}
+
+/* Mobile (≤576px) */
+@media (max-width: 576px) {
+  .lang-en {
+    top: 25px;
+    font-size: 16px;
+  }
+
+  .lang-ar {
+    font-size: 16px;
+    top: 14px; /* Optional: unify font size */
+  }
+}
+
+@media (max-width: 374px) {
+  .lang-en {
+    top: 44px;
+    font-size: 16px;
+  }
+}
+
+
+
+
+/* Tablets (≥768px) */
+@media (min-width: 768px) {
+  .lang-en {
+    font-size: 24px;
+    
+  }
+}
+
+/* Medium desktops (≥992px) */
+@media (min-width: 992px) {
+  .lang-en {
+    font-size: 28px;
+  }
+}
+
+/* Large desktops (≥1200px) */
+@media (min-width: 1200px) {
+  .lang-en {
+    font-size: 30px;
+  }
+}
+
+
