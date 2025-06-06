@@ -1469,6 +1469,7 @@ import { processArabicText } from "../Utils/arabicFontParenthesisChecker";
 
 let newToastId = null;
 export default function Adjustments({ user, lang, setLang }) {
+
   const { showToast, showErrorToast } = useToastMessage();
   const { state } = useLocation();
   const { orderId, orderItemId } = state;
@@ -1723,14 +1724,17 @@ export default function Adjustments({ user, lang, setLang }) {
     "Zimbabwe",
   ];
 
-  useEffect(() => {
-    document.documentElement.scrollTo({
-      top: 0,
-      left: 0,
-    });
-  }, []);
+useEffect(() => {
+  debugger
+  window.scrollTo({
+    top: 0,
+    left: 0,
+    behavior: "instant", // or "smooth" if you want animation
+  });
+}, []);
 
   useEffect(() => {
+    debugger
     getOrderDetails();
     getBundlData();
   }, []);
@@ -2017,6 +2021,7 @@ export default function Adjustments({ user, lang, setLang }) {
   // };
 
   const CheckCart = async (id) => {
+    // window.scrollTo({ top: 0, behavior: "smooth" });
     if (adjustmentData && Object.values(adjustmentData).length === 0) {
       setErrorMsg(
         lang === "ar"
@@ -2026,6 +2031,7 @@ export default function Adjustments({ user, lang, setLang }) {
       window.scrollTo({ top: 0, behavior: "smooth" });
     } else if (Object.values(adjustmentData).length) {
       setPage("cart");
+      window.scrollTo({ top: 0, behavior: "smooth" });
       setErrorMsg(null);
     } else {
       setErrorMsg("Please fill Adjustment details to checkout");
@@ -2263,10 +2269,15 @@ export default function Adjustments({ user, lang, setLang }) {
         setLoading(false);
       }
     } else {
-       window.scrollTo({ top: 0, behavior: "smooth" });
+      window.scrollTo({ top: 0, behavior: "smooth" });
       setLoading(false);
     }
   };
+
+  // useEffect(() => {
+  //   debugger
+  //   window.scrollTo({ top: 0, behavior: "smooth" });
+  // }, []);
 
   const removeFile = (id, fileNameToRemove) => {
     setAdjustmentsData((prev) => {
@@ -3239,12 +3250,12 @@ export default function Adjustments({ user, lang, setLang }) {
                         "firstName" in error ? "!border-[#D83D99]" : ""
                       }`}
                     />
-                                  <p className="text-[#D83D99] !text-[20px] !font-[400] !mt-2">
-                {Object.values(error).map((item) => {
-                  debugger
-                  return item;
-                })}
-              </p>
+                    <p className="text-[#D83D99] !text-[20px] !font-[400] !mt-2">
+                      {Object.values(error).map((item) => {
+                        debugger;
+                        return item;
+                      })}
+                    </p>
                   </div>
                   <div
                     className={`${lang === "ar" ? "ml-[4%]" : "mr-[4%]"}`}

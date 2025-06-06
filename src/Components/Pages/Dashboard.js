@@ -998,7 +998,7 @@ export default function Dashboard({ lang, setLang }) {
   const [showFull, setShowFull] = useState(false);
 
   const params = new URLSearchParams(window.location.search);
-    const orderId = Number(params.get("order_id"));
+  const orderId = Number(params.get("order_id"));
 
   const checkPurchase = async () => {
     const response = await axios.get(
@@ -1025,7 +1025,7 @@ export default function Dashboard({ lang, setLang }) {
         response.data.data.filter((item) => item.order_status != "in_cart")
       );
       if (resProjects.length) {
-        getOrderDetails(id ? id : orderId?orderId:resProjects[0].id);
+        getOrderDetails(id ? id : orderId ? orderId : resProjects[0].id);
       }
     }
     setLoading(false);
@@ -1646,6 +1646,7 @@ export default function Dashboard({ lang, setLang }) {
     }
   };
 
+
   return (
     <>
       {loading ? (
@@ -1676,7 +1677,7 @@ export default function Dashboard({ lang, setLang }) {
               }
               onClick={() => {
                 setPurchasePopUp(false);
-                navigate("/dashboard");
+                navigate(`/dashboard?order_id=${purchase_id}`);
               }}
               save={"Continue to Dashboard"}
               // cancel={'Cancel'}
