@@ -1,16 +1,15 @@
 {
   "projects": {
     "default": "bundldesigns",
-    "dev": "bundldesigns"
+    "dev": "bundldesigns-env"
   },
-  "targets": {
-    "bundldesigns": {
-      "hosting": {
-        "bundldesigns": [
-          "bundldesigns"
-        ]
-      }
+"targets": {
+  "bundldesigns": {
+    "hosting": {
+      "bundldesigns-uat": ["bundldesigns-uat"],
+      "bundldesigns-env": ["bundldesigns-env"]
     }
-  },
+  }
+},
   "etags": {}
 }

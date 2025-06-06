@@ -1227,7 +1227,9 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                         <button
                           style={{ backgroundColor: textColor }}
                           className={`proceed uppercase !bg-[${textColor}] mt-[3%]`}
-                          onClick={createPayload}
+                          onClick={() => {
+                            window.location.reload();
+                          }}
                         >
                           {lang === "ar"
                             ? "المتابعة إلى السلة​"
@@ -1240,9 +1242,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                         className={`proceed uppercase !bg-[${textColor}]`}
                         disabled
                       >
-                        {lang === "ar"
-                          ? "المتابعة إلى السلة​"
-                          : "Proceed cart"}
+                        {lang === "ar" ? "المتابعة إلى السلة​" : "Proceed cart"}
                       </button>
                     )}
                   </div>
