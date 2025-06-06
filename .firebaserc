@@ -1,12 +1,12 @@
 {
   "projects": {
     "default": "bundldesigns",
-    "dev": "bundldesigns-env"
+    "dev": "bundldesigns"
   },
 "targets": {
   "bundldesigns": {
     "hosting": {
-      "bundldesigns-uat": ["bundldesigns-uat"],
+      "bundldesigns": ["bundldesigns"],
       "bundldesigns-env": ["bundldesigns-env"]
     }
   }
