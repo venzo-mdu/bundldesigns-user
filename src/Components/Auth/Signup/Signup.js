@@ -313,7 +313,7 @@ export const Signup = ({ lang }) => {
     // Update the register data state
     setRegisterData((prevData) => ({
       ...prevData,
-      auth_provider: value,
+       [name]: value,
     }));
 
     // Full name validation

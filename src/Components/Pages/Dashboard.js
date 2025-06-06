@@ -1532,7 +1532,6 @@ export default function Dashboard({ lang, setLang }) {
       }, 1000);
       return () => clearTimeout(timer);
     } else {
-      debugger
       getprojects();
     }
     // Cleanup the timer to avoid memory leaks
@@ -1760,7 +1759,6 @@ export default function Dashboard({ lang, setLang }) {
                 <p className="flex lg:overflow-auto md:overflow-auto xs:overflow-hidden mb-0">
                   {window.innerWidth > 768 ? (
                     projects.map((project) => {
-                      debugger;
                       return (
                         <button
                           onClick={(e) => getOrderDetails(project.id)}

@@ -1238,7 +1238,6 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                         style={{ backgroundColor: textColor }}
                         className={`proceed uppercase !bg-[${textColor}]`}
                         disabled
-                      >
                         {lang === "ar"
                           ? "المتابعة إلى السلة​"
                           : "Proceed to Cart"}

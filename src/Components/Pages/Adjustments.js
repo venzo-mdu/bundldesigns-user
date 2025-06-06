@@ -2263,6 +2263,7 @@ export default function Adjustments({ user, lang, setLang }) {
         setLoading(false);
       }
     } else {
+       window.scrollTo({ top: 0, behavior: "smooth" });
       setLoading(false);
     }
   };
@@ -2472,7 +2473,7 @@ export default function Adjustments({ user, lang, setLang }) {
                               {lang === "ar" ? "ارسال" : "Submit Edit"}
                             </button>
                             {adjustmentError && (
-                              <p style={{color: "#D83D99" }}>
+                              <p style={{ color: "#D83D99" }}>
                                 Please enter the feild
                               </p>
                             )}
@@ -3238,6 +3239,12 @@ export default function Adjustments({ user, lang, setLang }) {
                         "firstName" in error ? "!border-[#D83D99]" : ""
                       }`}
                     />
+                                  <p className="text-[#D83D99] !text-[20px] !font-[400] !mt-2">
+                {Object.values(error).map((item) => {
+                  debugger
+                  return item;
+                })}
+              </p>
                   </div>
                   <div
                     className={`${lang === "ar" ? "ml-[4%]" : "mr-[4%]"}`}
@@ -3247,7 +3254,9 @@ export default function Adjustments({ user, lang, setLang }) {
                         : { margin: "0% 0 0 2%" }
                     }
                   >
-                    <label className={`${"lastName" in error && "text-[#D83D99]"}`}>
+                    <label
+                      className={`${"lastName" in error && "text-[#D83D99]"}`}
+                    >
                       {lang === "ar" ? "اسم العائلة" : "Last Name"}
                       <span className="text-[#D83D99]">*</span>
                     </label>
@@ -3288,7 +3297,9 @@ export default function Adjustments({ user, lang, setLang }) {
                     value={billingInfo.phone}
                     status={setBillingInfo}
                     extraInputClass={`${
-                      "phone" in error ? "!border-[#D83D99]" : "!border-[#000000]"
+                      "phone" in error
+                        ? "!border-[#D83D99]"
+                        : "!border-[#000000]"
                     } text-[18px]`}
                     setPhoneError={setPhoneError}
                     setErrors={setError}
@@ -3299,7 +3310,9 @@ export default function Adjustments({ user, lang, setLang }) {
                 </div>
                 <div className="country mb-[15px]">
                   <div className={`${lang === "ar" ? "ml-[4%]" : "mr-[4%]"}`}>
-                    <label className={`${"country" in error && "text-[#D83D99]"}`}>
+                    <label
+                      className={`${"country" in error && "text-[#D83D99]"}`}
+                    >
                       {lang === "ar" ? "الدولة" : "Country"}{" "}
                       <span className="text-[#D83D99]">*</span>
                     </label>
@@ -3339,7 +3352,9 @@ export default function Adjustments({ user, lang, setLang }) {
                   </div>
                 </div>
                 <div className="postal-code mb-[15px]">
-                  <label className={`${"postalCode" in error && "text-[#D83D99]"}`}>
+                  <label
+                    className={`${"postalCode" in error && "text-[#D83D99]"}`}
+                  >
                     {lang === "ar" ? "الرمز البريدي" : "Postal Code"}
                     <span className="text-[#D83D99]">*</span>
                   </label>
@@ -3356,7 +3371,9 @@ export default function Adjustments({ user, lang, setLang }) {
                   <div className="trn-code mb-[15px]">
                     <label
                       className={`${
-                        "vat_registered" in error ? "text-[#D83D99]" : "opacity-100"
+                        "vat_registered" in error
+                          ? "text-[#D83D99]"
+                          : "opacity-100"
                       }`}
                     >
                       {lang === "ar" ? "التسجیل الضریبي" : "Tax Treatment"}
@@ -3407,7 +3424,9 @@ export default function Adjustments({ user, lang, setLang }) {
                   </div>
                 )}
                 <div className="promo-code mb-[15px]">
-                  <label className={`${"promoCode" in error && "text-[#D83D99]"}`}>
+                  <label
+                    className={`${"promoCode" in error && "text-[#D83D99]"}`}
+                  >
                     {lang === "ar" ? "كود الخصم" : "Promo Code"}
                   </label>
                   <input
@@ -3712,7 +3731,7 @@ export default function Adjustments({ user, lang, setLang }) {
                             </button>
                           </p>
                           {adjustmentError && (
-                            <p style={{color: "#D83D99" }}>
+                            <p style={{ color: "#D83D99" }}>
                               Please enter the feild
                             </p>
                           )}
@@ -3846,6 +3865,20 @@ export default function Adjustments({ user, lang, setLang }) {
                                 ? ""
                                 : "border-b"
                             } border-[#00000080]`}
+                            onClick={() => {
+                              toggleDescription(category);
+                              setTimeout(() => {
+                                const element = document.getElementById(
+                                  `${index}_list`
+                                );
+                                if (element) {
+                                  element.scrollIntoView({
+                                    behavior: "smooth",
+                                    block: "start",
+                                  });
+                                }
+                              }, 200);
+                            }}
                           >
                             {" "}
                             {lang === "ar"
@@ -3888,7 +3921,9 @@ export default function Adjustments({ user, lang, setLang }) {
                                       >
                                         <span className="md:basis-[25%] basis-[25%] xs:basis-[100%] text-[16px] md:text-[16px] xs:text-[16px] text-[#1BA56F] font-[500]">
                                           {lang === "ar"
-                                            ? processArabicText(item.name_arabic)
+                                            ? processArabicText(
+                                                item.name_arabic
+                                              )
                                             : item.name_english}
                                         </span>
                                         <p className="flex mb-0 text-[18px] md:text-[18px] xs:text-[16px] basis-[40%]">
@@ -4322,7 +4357,9 @@ export default function Adjustments({ user, lang, setLang }) {
               <p>{lang === "ar" ? "عنوان الفواتير" : "Billing Address"}</p>
               <div className="user-name mb-[15px]">
                 <div className={`${lang === "ar" ? "ml-[4%]" : "mr-[4%]"}`}>
-                  <label className={`${"firstName" in error && "text-[#D83D99]"}`}>
+                  <label
+                    className={`${"firstName" in error && "text-[#D83D99]"}`}
+                  >
                     {lang === "ar" ? "الاسم الأول" : "First Name"}{" "}
                     <span className="text-[#D83D99]">*</span>
                   </label>
@@ -4343,7 +4380,9 @@ export default function Adjustments({ user, lang, setLang }) {
                       : { margin: "0% 0 0 2%" }
                   }
                 >
-                  <label className={`${"lastName" in error && "text-[#D83D99]"}`}>
+                  <label
+                    className={`${"lastName" in error && "text-[#D83D99]"}`}
+                  >
                     {lang === "ar" ? "اسم العائلة" : "Last Name"}{" "}
                     <span className="text-[#D83D99]">*</span>
                   </label>
@@ -4395,7 +4434,9 @@ export default function Adjustments({ user, lang, setLang }) {
               </div>
               <div className="country mb-[15px]">
                 <div className={`${lang === "ar" ? "ml-[4%]" : "mr-[4%]"}`}>
-                  <label className={`${"country" in error && "text-[#D83D99]"}`}>
+                  <label
+                    className={`${"country" in error && "text-[#D83D99]"}`}
+                  >
                     {lang === "ar" ? "الدولة" : "Country"}{" "}
                     <span className="text-[#D83D99]">*</span>
                   </label>
@@ -4439,7 +4480,9 @@ export default function Adjustments({ user, lang, setLang }) {
                 </div>
               </div>
               <div className="postal-code mb-[15px]">
-                <label className={`${"postalCode" in error && "text-[#D83D99]"}`}>
+                <label
+                  className={`${"postalCode" in error && "text-[#D83D99]"}`}
+                >
                   {lang === "ar" ? "الرمز البريدي" : "Postal Code"}
                   <span className="text-[#D83D99]">*</span>
                 </label>
@@ -4456,7 +4499,9 @@ export default function Adjustments({ user, lang, setLang }) {
                 <div className="trn-code mb-[15px]">
                   <label
                     className={`${
-                      "vat_registered" in error ? "text-[#D83D99]" : "opacity-100"
+                      "vat_registered" in error
+                        ? "text-[#D83D99]"
+                        : "opacity-100"
                     }`}
                   >
                     {lang === "ar" ? "التسجیل الضریبي" : "Tax Treatment"}
