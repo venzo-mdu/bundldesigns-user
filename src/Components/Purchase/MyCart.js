@@ -962,8 +962,7 @@ export const MyCart = ({ lang, setLang }) => {
             <div className="fixed inset-0 z-50  bg-gray-800 bg-opacity-50 flex items-center justify-center">
               <div className="bg-white rounded-none shadow-lg p-6 max-w-sm border-black border-[1px]">
                 <p className="text-lg font-[400] text-gray-900 text-center">
-                  Your cart will be empties<br></br>
-                  Are you sure you want to go back?
+                Your Add-ons will be emptied.
                 </p>
                 <div className="mt-4 flex justify-center gap-3">
                   <button
