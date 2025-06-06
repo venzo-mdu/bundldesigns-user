@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 function Addons({
   order,
@@ -13,6 +14,18 @@ function Addons({
   setSkipId,
   saveContent,
 }) {
+  const navigate = useNavigate();
+  let orderItemRemain = order?.item_details?.bundle_items.filter(
+    (item) =>
+      item.item__id !== 76 &&
+      !skipId?.includes(item.id) &&
+      item.status == "questionnaire required"
+  );
+  useEffect(() => {
+    if (orderItemRemain.length === 0) {
+      navigate(`/dashboard?order_id=${order.id}`);
+    }
+  }, [orderItemRemain]);
   return (
     <AnimatePresence>
       {order?.item_details?.bundle_items

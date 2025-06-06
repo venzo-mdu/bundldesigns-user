@@ -3,14 +3,13 @@
     "default": "bundldesigns",
     "dev": "bundldesigns"
   },
-  "targets": {
-    "bundldesigns": {
-      "hosting": {
-        "bundldesigns": [
-          "bundldesigns"
-        ]
-      }
+"targets": {
+  "bundldesigns": {
+    "hosting": {
+      "bundldesigns": ["bundldesigns"],
+      "bundldesigns-env": ["bundldesigns-env"]
     }
-  },
+  }
+},
   "etags": {}
 }

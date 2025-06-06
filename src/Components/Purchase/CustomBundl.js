@@ -491,13 +491,21 @@ export const CustomBundl = ({ user, lang, setLang }) => {
                 </p>
               </div>
 
-              <div className="proceed-checkout">
+              <div className="proceed-checkout mt-[3%]">
                 <button
                   onClick={createPayload}
                   type="button"
                   className="proceed  bg-[#1BA56F] uppercase"
                 >
                   {lang === "ar" ? " إتمام الشراء" : "Proceed To Checkout"}
+                </button>
+                <button
+                  className="proceed  bg-[#1BA56F] mt-[3%] uppercase"
+                  onClick={() => {
+                    window.location.reload();
+                  }}
+                >
+                  {lang === "ar" ? "المتابعة إلى السلة​" : "Empty to Cart"}
                 </button>
               </div>
               {/* {firstOrder && <p className='proceed-text'>{lang === 'ar' ? 'الحد الأدنى للطلب ٤٨٨٠ ريال سعوذي' : 'Your minimum total should be above 4880 SAR'}</p>} */}
