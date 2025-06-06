@@ -1224,23 +1224,36 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                     {parseFloat(packageDetail?.package?.price) +
                       addonPayLoads.total_price >
                     700 ? (
-                      <button
-                        style={{ backgroundColor: textColor }}
-                        className={`proceed uppercase !bg-[${textColor}]`}
-                        onClick={createPayload}
-                      >
-                        {lang === "ar"
-                          ? "المتابعة إلى السلة​"
-                          : "Proceed to Cart"}
-                      </button>
+                      <div className="flex flex-col gap-[2%]">
+                        <button
+                          style={{ backgroundColor: textColor }}
+                          className={`proceed uppercase !bg-[${textColor}] mt-[3%]`}
+                          onClick={createPayload}
+                        >
+                          {lang === "ar"
+                            ? "المتابعة إلى السلة​"
+                            : "Proceed to Cart"}
+                        </button>
+
+                        <button
+                          style={{ backgroundColor: textColor }}
+                          className={`proceed uppercase !bg-[${textColor}] mt-[3%]`}
+                          onClick={() => {
+                            window.location.reload();
+                          }}
+                        >
+                          {lang === "ar"
+                            ? "المتابعة إلى السلة​"
+                            : "Empty to Cart"}
+                        </button>
+                      </div>
                     ) : (
                       <button
                         style={{ backgroundColor: textColor }}
                         className={`proceed uppercase !bg-[${textColor}]`}
                         disabled
-                        {lang === "ar"
-                          ? "المتابعة إلى السلة​"
-                          : "Proceed to Cart"}
+                      >
+                        {lang === "ar" ? "المتابعة إلى السلة​" : "Proceed cart"}
                       </button>
                     )}
                   </div>
