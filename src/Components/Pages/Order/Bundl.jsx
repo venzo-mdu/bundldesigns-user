@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import CloseIcon from "@mui/icons-material/Close";
 
 function BundlOrder({
   order,
@@ -13,6 +14,8 @@ function BundlOrder({
   uploadIcon,
   setSkipId,
   saveContent,
+  removeFile,
+  uploadFiles
 }) {
   return (
     <AnimatePresence>
@@ -312,13 +315,28 @@ function BundlOrder({
                                 ? "إضافة المحتوى"
                                 : "Upload Content")}
                           </p>
+                          <div className="flex gap-2">
+                            {uploadFiles?.length > 0 &&
+                              uploadFiles
+                                .filter((ele) => ele.id === item.id)
+                                .map((ele, idx) => (
+                                  // <div key={idx}>{ele.url}</div>
+                                  <span className="bg-black text-white py-1 px-2 mr-2">
+                                    {ele.name}{" "}
+                                    <CloseIcon
+                                      onClick={() => removeFile(ele)}
+                                      className="ml-2 cursor-pointer"
+                                    />
+                                  </span>
+                                ))}
+                          </div>
                         </>
                       )}
 
                       <p className="my-6">
                         <button
                           onClick={() => {
-                            debugger
+                            debugger;
                             setSkipId([...skipId, `${item.id}_${filterIndex}`]);
                           }}
                           className={`text-[#1BA56F] py-1 px-2 border !border-[#1BA56F] ${

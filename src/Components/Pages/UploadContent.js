@@ -110,13 +110,13 @@ export default function UploadContent({ lang, setLang }) {
           formData,
           ConfigToken()
         );
-        debugger;
+const fileName = e.target.files[0]?.name || "";
         setUploadFiles((prev) => [
           ...prev,
           {
-            id: id,
-            url: response.data.file_url, 
-            name: e.target.files[0]?.name || "", // ✅ Save original file name separately
+            id,
+            url: response.data.file_url,
+            name: fileName,
           },
         ]);
 
@@ -624,7 +624,7 @@ export default function UploadContent({ lang, setLang }) {
                     saveContent={saveContent}
                   />
 
-                  <BundlOrder
+                  {/* <BundlOrder
                     order={order}
                     skipId={skipId}
                     lang={lang}
@@ -635,7 +635,7 @@ export default function UploadContent({ lang, setLang }) {
                     uploadIcon={uploadIcon}
                     setSkipId={setSkipId}
                     saveContent={saveContent}
-                  />
+                  /> */}
                 </>
               )}
             </div>
