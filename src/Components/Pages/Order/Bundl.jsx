@@ -14,9 +14,16 @@ function BundlOrder({
   uploadIcon,
   setSkipId,
   saveContent,
-  removeFile,
   uploadFiles,
+  setUploadFiles
 }) {
+    const removeFile = (ele) => {
+    setUploadFiles(
+      uploadFiles?.filter((file) => {
+        return !(ele?.id === file?.id && ele?.name === file?.name);
+      })
+    );
+  };
   return (
     <AnimatePresence>
       {order.item_details.addon_items
@@ -301,7 +308,8 @@ function BundlOrder({
                               onChange={(e) =>
                                 uploadFile(
                                   e,
-                                  item.id,
+                                  // item.id,
+                                   `${item.id}_${filterIndex}`,
                                   "file",
                                   item.item_name + "-" + filterIndex,
                                   filterIndex
@@ -318,15 +326,14 @@ function BundlOrder({
                           <div className="flex gap-2">
                             {uploadFiles?.length > 0 &&
                               uploadFiles
-                                .filter((ele) => ele.id === item.id)
+                                // .filter((ele) => ele.id === item.id)
                                 .map((ele, idx) => {
                                   if (ele.id === `${item.id}_${filterIndex}`) {
-                                    // <div key={idx}>{ele.url}</div>
                                     return (
                                       <span className="bg-black text-white py-1 px-2 mr-2">
                                         {ele.name}{" "}
                                         <CloseIcon
-                                          onClick={() => removeFile(ele)}
+                                          onClick={() => removeFile(ele,  `${item.id}_${filterIndex}`)}
                                           className="ml-2 cursor-pointer"
                                         />
                                       </span>
@@ -340,7 +347,6 @@ function BundlOrder({
                       <p className="my-6">
                         <button
                           onClick={() => {
-                            debugger;
                             setSkipId([...skipId, `${item.id}_${filterIndex}`]);
                           }}
                           className={`text-[#1BA56F] py-1 px-2 border !border-[#1BA56F] ${

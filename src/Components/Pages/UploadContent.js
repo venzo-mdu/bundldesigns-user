@@ -627,6 +627,8 @@ export default function UploadContent({ lang, setLang }) {
                   <BundlOrder
                     order={order}
                     skipId={skipId}
+                    uploadFiles={uploadFiles}
+                    setUploadFiles={setUploadFiles}
                     lang={lang}
                     designQuestions={designQuestions}
                     uploadContent={uploadContent}
