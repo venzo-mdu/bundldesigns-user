@@ -1,13 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import CloseIcon from "@mui/icons-material/Close";
 
 function Addons({
   order,
   skipId,
-  uploadFiles,
-  setUploadFiles,
   lang,
   designQuestions,
   uploadContent,
@@ -17,8 +14,6 @@ function Addons({
   setSkipId,
   saveContent,
 }) {
-  console.log(uploadFiles)
-  debugger
   const navigate = useNavigate();
   let orderItemRemain = order?.item_details?.bundle_items.filter(
     (item) =>
@@ -32,13 +27,23 @@ function Addons({
     }
   }, [orderItemRemain]);
 
-  const removeFile = (ele) => {
-    setUploadFiles(
-      uploadFiles?.filter((file) => {
-        return !(ele?.id === file?.id && ele?.name === file?.name);
-      })
-    );
-  };
+  const [selectedFiles, setSelectedFiles] = useState([]);
+const handleFileUploadSequentially = async (fileList) => {
+  const newFiles = Array.from(fileList);
+
+  // Add new files to state
+  setSelectedFiles((prevFiles) => [...prevFiles, ...newFiles]);
+
+  // Sequential upload logic
+  for (const file of newFiles) {
+    try {
+      await uploadFile(file); // imported or prop-based function
+    } catch (err) {
+      console.error("Upload failed for", file.name, err);
+    }
+  }
+};
+
 
   return (
     <AnimatePresence>
@@ -54,6 +59,7 @@ function Addons({
             .filter((qty) => !item.uploaded_qty?.includes(qty))
             .map((filterIndex) => {
               const hasMultipleQty = item.qty < 1;
+              console.log(designQuestions[item.item__id]);
               return (
                 <motion.div
                   key={`${item.id}_${filterIndex}`} // <- unique key
@@ -297,7 +303,7 @@ function Addons({
                             ? "تحب ترسل ملفات اضافية؟"
                             : "Have something to show us?"}
                         </p>
-                        <p
+                        {/* <p
                           className={`border-b-2 ${
                             uploadContent?.[item?.id]?.[filterIndex]?.filename
                               ? "w-fit"
@@ -313,7 +319,6 @@ function Addons({
                             type="file"
                             hidden
                             name="file"
-                            multiple
                             id={`file-${item.id}_${filterIndex}`}
                             onChange={(e) =>
                               uploadFile(
@@ -330,22 +335,57 @@ function Addons({
                             (lang === "ar"
                               ? "إضافة المحتوى"
                               : "Upload Content")}
+                        </p> */}
+
+
+                            <p
+                          className={`border-b-2 ${
+                            uploadContent?.[item?.id]?.[filterIndex]?.filename
+                              ? "w-fit"
+                              : "w-[150px]"
+                          } !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer`}
+                            onClick={() =>
+                            document
+                              .getElementById(`file-${item.id}_${filterIndex}`)
+                              .click()
+                          } // Trigger click on hidden input
+                        >
+                          <input
+                            type="file"
+                            className="rounded-none"
+                            hidden
+                            name="file"
+                            id={`file-${item.id}_${filterIndex}`}
+                            multiple
+                            onChange={(e) =>
+                              handleFileUploadSequentially(e.target.files)
+                            }
+                          />
+                          <img src={uploadIcon} alt="Upload Icon" />
+                          <span className="font-[700] uppercase">
+                            {lang === "ar" ? "إضافة المحتوى" : "Upload Content"}
+                          </span>
                         </p>
-                        <div className="flex gap-2">
-                          {uploadFiles?.length > 0 &&
-                            uploadFiles
-                              .filter((ele) => ele.id === item.id)
-                              .map((ele, idx) => (
-                                // <div key={idx}>{ele.url}</div>
-                                <span className="bg-black text-white py-1 px-2 mr-2">
-                                  {ele.name}{" "}
-                                  <CloseIcon
-                                    onClick={() => removeFile(ele)}
-                                    className="ml-2 cursor-pointer"
-                                  />
-                                </span>
-                              ))}
-                        </div>
+
+                        {/* ✅ Show Selected Files Below */}
+                        <ul className="mt-4 space-y-2">
+                          {selectedFiles.map((file, index) => (
+                            <li
+                              key={index}
+                              className="flex items-center justify-between border p-2 rounded"
+                            >
+                              <span className="truncate max-w-[80%]">
+                                {file.name}
+                              </span>
+                              <button
+                                onClick={() => handleDeleteFile(index)}
+                                className="text-red-500 font-bold ml-2"
+                              >
+                                ✕
+                              </button>
+                            </li>
+                          ))}
+                        </ul>
                       </>
                     )}
                     <p className="my-6 flex justify-start">

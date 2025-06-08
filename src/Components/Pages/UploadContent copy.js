@@ -57,50 +57,6 @@ export default function UploadContent({ lang, setLang }) {
 
   let [uploadFiles, setUploadFiles] = useState([]);
 
-  const uploadFile = async (e, id, field, name, idx) => {
-    const fileName = e.target.files[0]?.name || "";
-    if (e.target.files.length) {
-      const formData = new FormData();
-      formData.append("file", e.target.files[0]);
-      formData.append("file_name", e.target.files[0]?.name);
-
-      try {
-        const response = await axios.post(
-          `${base_url}/api/upload_file/`,
-          formData,
-          ConfigToken()
-        );
-        debugger;
-        setUploadFiles((prev) => [
-          ...prev,
-          {
-            id,
-            url: response.data.file_url,
-            name: fileName,
-          },
-        ]);
-
-        setUploadContent((prev) => ({
-          ...prev,
-          [id]: {
-            ...prev[id],
-            [idx]: {
-              ...prev[id]?.[idx],
-              [field]: field === "file" && response.data.file_url,
-              ...(field === "file" && {
-                filename: e.target.files[0]?.name || "",
-              }),
-              item_sub_name: name,
-            },
-          },
-        }));
-      } catch (error) {
-        console.error("Upload failed", error);
-      }
-      e.target.value = "";
-    }
-  };
-
   // const uploadFile = async (e, id, field, name, idx) => {
   //   if (e.target.files.length) {
   //     const formData = new FormData();
@@ -141,6 +97,49 @@ export default function UploadContent({ lang, setLang }) {
   //     const response = await axios.post(`${base_url}/api/upload_content/`, formData, ConfigToken());
   //     getOrderDetails()
   // }
+
+  const uploadFile = async (e, id, field, name, idx) => {
+    if (e.target.files.length) {
+      const formData = new FormData();
+      formData.append("file", e.target.files[0]);
+      formData.append("file_name", e.target.files[0]?.name);
+
+      try {
+        const response = await axios.post(
+          `${base_url}/api/upload_file/`,
+          formData,
+          ConfigToken()
+        );
+        debugger;
+        setUploadFiles((prev) => [
+          ...prev,
+          {
+            id: id,
+            url: response.data.file_url, 
+            name: e.target.files[0]?.name || "", // ✅ Save original file name separately
+          },
+        ]);
+
+        setUploadContent((prev) => ({
+          ...prev,
+          [id]: {
+            ...prev[id],
+            [idx]: {
+              ...prev[id]?.[idx],
+              [field]: field === "file" && response.data.file_url,
+              ...(field === "file" && {
+                filename: e.target.files[0]?.name || "",
+              }),
+              item_sub_name: name,
+            },
+          },
+        }));
+      } catch (error) {
+        console.error("Upload failed", error);
+      }
+      e.target.value = "";
+    }
+  };
 
   const colors = {
     12: "#f175ad",
@@ -613,6 +612,8 @@ export default function UploadContent({ lang, setLang }) {
                   <Addons
                     order={order}
                     skipId={skipId}
+                    uploadFiles={uploadFiles}
+                    setUploadFiles={setUploadFiles}
                     lang={lang}
                     designQuestions={designQuestions}
                     uploadContent={uploadContent}
@@ -621,8 +622,6 @@ export default function UploadContent({ lang, setLang }) {
                     uploadIcon={uploadIcon}
                     setSkipId={setSkipId}
                     saveContent={saveContent}
-                    uploadFiles={uploadFiles}
-                    setUploadFiles={setUploadFiles}
                   />
 
                   <BundlOrder
