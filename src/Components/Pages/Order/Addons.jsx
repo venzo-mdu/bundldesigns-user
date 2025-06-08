@@ -17,8 +17,6 @@ function Addons({
   setSkipId,
   saveContent,
 }) {
-  console.log(uploadFiles)
-  debugger
   const navigate = useNavigate();
   let orderItemRemain = order?.item_details?.bundle_items.filter(
     (item) =>

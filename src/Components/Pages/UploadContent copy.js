@@ -110,7 +110,6 @@ export default function UploadContent({ lang, setLang }) {
           formData,
           ConfigToken()
         );
-        debugger;
         setUploadFiles((prev) => [
           ...prev,
           {
