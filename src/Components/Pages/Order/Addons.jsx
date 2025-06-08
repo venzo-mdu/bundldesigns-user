@@ -322,7 +322,8 @@ function Addons({
                               onChange={(e) =>
                                 uploadFile(
                                   e,
-                                  item.id,
+                                  // item.id,
+                                  `${item.id}_${filterIndex}`,
                                   "file",
                                   item.item_name + "-" + filterIndex,
                                   filterIndex
@@ -339,17 +340,18 @@ function Addons({
                           <div className="flex gap-2">
                             {uploadFiles?.length > 0 &&
                               uploadFiles
-                                .filter((ele) => ele.id === item.id)
-                                .map((ele, idx) => (
-                                  // <div key={idx}>{ele.url}</div>
-                                  <span className="bg-black text-white py-1 px-2 mr-2">
+                                // .filter((ele) => ele.id === item.id)
+                                .map((ele, idx) => {
+                                  if(ele.id === `${item.id}_${filterIndex}`){
+                                    return  <span className="bg-black text-white py-1 px-2 mr-2">
                                     {ele.name}{" "}
                                     <CloseIcon
                                       onClick={() => removeFile(ele)}
                                       className="ml-2 cursor-pointer"
                                     />
                                   </span>
-                                ))}
+                                  }
+                                })}
                           </div>
                         </>
                       )}

@@ -15,7 +15,7 @@ function BundlOrder({
   setSkipId,
   saveContent,
   removeFile,
-  uploadFiles
+  uploadFiles,
 }) {
   return (
     <AnimatePresence>
@@ -319,16 +319,20 @@ function BundlOrder({
                             {uploadFiles?.length > 0 &&
                               uploadFiles
                                 .filter((ele) => ele.id === item.id)
-                                .map((ele, idx) => (
-                                  // <div key={idx}>{ele.url}</div>
-                                  <span className="bg-black text-white py-1 px-2 mr-2">
-                                    {ele.name}{" "}
-                                    <CloseIcon
-                                      onClick={() => removeFile(ele)}
-                                      className="ml-2 cursor-pointer"
-                                    />
-                                  </span>
-                                ))}
+                                .map((ele, idx) => {
+                                  if (ele.id === `${item.id}_${filterIndex}`) {
+                                    // <div key={idx}>{ele.url}</div>
+                                    return (
+                                      <span className="bg-black text-white py-1 px-2 mr-2">
+                                        {ele.name}{" "}
+                                        <CloseIcon
+                                          onClick={() => removeFile(ele)}
+                                          className="ml-2 cursor-pointer"
+                                        />
+                                      </span>
+                                    );
+                                  }
+                                })}
                           </div>
                         </>
                       )}
