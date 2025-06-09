@@ -275,6 +275,44 @@ export const Login = ({ lang }) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // const handleAppleLogin = async () => {
+  //   const provider = new OAuthProvider("apple.com");
+  //   try {
+  //     const result = await signInWithPopup(auth, provider);
+  //     const user = result.user;
+  //     console.log("Apple user:", user);
+
+  //     if (user?.accessToken) {
+  //       const data = {
+  //         email: user?.auth?.currentUser?.email,
+  //         full_name: user?.auth?.currentUser?.email?.split("@")[0],
+  //         password: null,
+  //         is_social_login: true,
+  //       };
+  //       const response = await axios.post(`${base_url}/api/login/`, data);
+  //       if (response.status === 200) {
+  //         document.cookie = `token=${
+  //           response?.data?.data.token || ""
+  //         }; path=/; SameSite=None; Secure`;
+  //         dispatch(loginAction(response.data.user));
+  //         console.log(next_url);
+  //         if (next_url) {
+  //           navigate(`/${next_url}`, {
+  //             state: {
+  //               project_name: project_name,
+  //               fromLogin: true,
+  //             },
+  //           });
+  //         } else {
+  //           navigate("/");
+  //         }
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.error("Apple sign-in failed:", error.message);
+  //   }
+  // };
+
   const handleAppleLogin = async () => {
     const provider = new OAuthProvider("apple.com");
     try {
