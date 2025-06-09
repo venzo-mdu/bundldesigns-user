@@ -3797,7 +3797,7 @@ useEffect(() => {
                   <h2 className="text-[30px]">
                     {lang === "ar"
                       ? "مشروعك يحتاج إضافات؟"
-                      : "Something feels missing ?"}
+                      : "Something feels missing?"}
                   </h2>
                   <p className="text-[16px] text-[#00000080]">
                     {lang === "ar"
@@ -3909,6 +3909,20 @@ useEffect(() => {
                                 src={
                                   expantedTabs[category] ? upArrow : downArrow
                                 }
+                                onClick={() => {
+                                toggleDescription(category);
+                                setTimeout(() => {
+                                  const element = document.getElementById(
+                                    `${index}_list`
+                                  );
+                                  if (element) {
+                                    element.scrollIntoView({
+                                      behavior: "smooth",
+                                      block: "start",
+                                    });
+                                  }
+                                }, 200);
+                              }}
                               ></img>
                             </button>
                           </p>
