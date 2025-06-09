@@ -110,13 +110,12 @@ export default function UploadContent({ lang, setLang }) {
           formData,
           ConfigToken()
         );
-        const fileName = e.target.files[0]?.name || "";
         setUploadFiles((prev) => [
           ...prev,
           {
-            id,
-            url: response.data.file_url,
-            name: fileName,
+            id: id,
+            url: response.data.file_url, 
+            name: e.target.files[0]?.name || "", // ✅ Save original file name separately
           },
         ]);
 
@@ -627,8 +626,6 @@ export default function UploadContent({ lang, setLang }) {
                   <BundlOrder
                     order={order}
                     skipId={skipId}
-                    uploadFiles={uploadFiles}
-                    setUploadFiles={setUploadFiles}
                     lang={lang}
                     designQuestions={designQuestions}
                     uploadContent={uploadContent}

@@ -1725,7 +1725,6 @@ export default function Adjustments({ user, lang, setLang }) {
   ];
 
 useEffect(() => {
-  debugger
   window.scrollTo({
     top: 0,
     left: 0,
@@ -1734,7 +1733,6 @@ useEffect(() => {
 }, []);
 
   useEffect(() => {
-    debugger
     getOrderDetails();
     getBundlData();
   }, []);
@@ -2005,7 +2003,6 @@ useEffect(() => {
     setErrorMsg(null);
   };
   // const CheckCart = async (id) => {
-  //   debugger
   //   if (adjustmentData && Object.values(adjustmentData).length === 0) {
   //     setErrorMsg(
   //       lang === "ar"
@@ -2274,10 +2271,6 @@ useEffect(() => {
     }
   };
 
-  // useEffect(() => {
-  //   debugger
-  //   window.scrollTo({ top: 0, behavior: "smooth" });
-  // }, []);
 
   const removeFile = (id, fileNameToRemove) => {
     setAdjustmentsData((prev) => {
@@ -3252,7 +3245,6 @@ useEffect(() => {
                     />
                     <p className="text-[#D83D99] !text-[20px] !font-[400] !mt-2">
                       {Object.values(error).map((item) => {
-                        debugger;
                         return item;
                       })}
                     </p>
