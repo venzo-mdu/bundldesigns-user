@@ -1597,7 +1597,7 @@ export const MyCart = ({ lang, setLang }) => {
                         className="!text-[20px] xs:mb-0 sm:mb-auto text-right"
                         // style={{ width: "40%" }}
                       >
-                        {/* {isNaN(
+                         {isNaN(
                           amountDecimal(Math.round(cartDetails.grand_total))
                         )
                           ? 0

@@ -144,6 +144,10 @@ export const CustomBundl = ({ user, lang, setLang }) => {
           ? "الأدنى للطلب يجب أن يكون 800"
           : `Minimum order amount should be 800`
       );
+      const element = document.getElementById("brandInput");
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
       return false;
     }
     if (addonPayLoads.item_list.length == 0) {
