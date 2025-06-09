@@ -389,33 +389,21 @@ export default function UploadContent({ lang, setLang }) {
     }));
   };
 
-  const count = order?.item_details?.bundle_items
-    ?.filter(
-      (item) => item.item__id !== 76 && item.status === "questionnaire required"
-    )
-    .reduce((total, item) => {
-      const missingUploads = Array.from({ length: item.qty }, (_, i) => i + 1)
-        .filter((qty) => !(item.uploaded_qty ?? []).includes(qty))
-        .filter((qty) => !skipId.includes(`${item.id}_${qty}`));
+  const orderCount =
+    order?.item_details?.addon_items?.length &&
+    order?.item_details?.addon_items?.reduce((acc, cru) => acc + cru.qty, 0);
 
-      return total + missingUploads.length;
-    }, 0);
-
-  const addonCount = order?.item_details?.addon_items
-    ?.filter((item) => item.status === "questionnaire required")
-    .reduce((total, item) => {
-      const missingUploads = Array.from({ length: item.qty }, (_, i) => i + 1)
-        .filter((qty) => !(item.uploaded_qty ?? []).includes(qty))
-        .filter((qty) => !skipId.includes(`${item.id}_${qty}`));
-
-      return total + missingUploads.length;
-    }, 0);
+  const addonCount =
+    order?.item_details?.bundle_items?.length &&
+    order?.item_details?.bundle_items?.reduce((acc, cru) => acc + cru.qty, 0);
 
   useEffect(() => {
-    if (addonCount + count === 0) {
-      navigate(`/dashboard?order_id=${orderId}`);
+    debugger;
+    if (skipId.length === orderCount + addonCount) {
+      debugger;
+      navigate("/dashboard");
     }
-  }, [skipId, count, addonCount]); // Add all relevant dependencies
+  }, [orderCount, skipId]);
 
   return loading ? (
     <Bgloader />
@@ -469,6 +457,7 @@ export default function UploadContent({ lang, setLang }) {
                   uploadIcon={uploadIcon}
                   setSkipId={setSkipId}
                   saveContent={saveContent}
+                  orderCount={orderCount}
                 />
                 <BundlOrder
                   order={order}
@@ -481,6 +470,7 @@ export default function UploadContent({ lang, setLang }) {
                   uploadIcon={uploadIcon}
                   setSkipId={setSkipId}
                   saveContent={saveContent}
+                  orderCount={orderCount}
                 />
               </>
             )}
@@ -652,6 +642,7 @@ export default function UploadContent({ lang, setLang }) {
                     uploadIcon={uploadIcon}
                     setSkipId={setSkipId}
                     saveContent={saveContent}
+                    orderCount={orderCount}
                   />
 
                   <BundlOrder
@@ -667,6 +658,7 @@ export default function UploadContent({ lang, setLang }) {
                     uploadIcon={uploadIcon}
                     setSkipId={setSkipId}
                     saveContent={saveContent}
+                    orderCount={orderCount}
                   />
                 </>
               )}
