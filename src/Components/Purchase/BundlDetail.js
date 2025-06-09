@@ -364,95 +364,99 @@ export const BundlDetail = ({ user, lang, setLang }) => {
     createPayload();
   };
 
-  const createPayload = async () => {
-    const isValid = await validateFields();
-    if (!isValid) {
-      return;
+ const createPayload = async () => {
+  if (brandInput.trim() === "") {
+    const element = document.getElementById("brandInput");
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "center" });
     }
-    if (!validateFields()) return;
-    if (!bundlAddons.bundle_details) {
-      console.warn("No bundle details available yet.");
-      return;
-    }
+    setBrandError(true);
+    return; 
+  }
 
-    const item_list = bundlAddons.bundle_details.flatMap((bundle, index) =>
-      bundle.design_list.map((design, idx) => {
-        const quantity = quantities[design.name_english] || 1;
-        return {
-          design_id: design.id,
-          unit_price: design.price.toString(),
-          unit_time: design.time.toString(),
-          qty: quantity.toString(),
-          item_type: "bundl",
-        };
-      })
+
+  const isValid = await validateFields();
+  if (!isValid) {
+    return;
+  }
+
+  
+  if (!bundlAddons.bundle_details) {
+    console.warn("No bundle details available yet.");
+    return;
+  }
+
+
+  const item_list = bundlAddons.bundle_details.flatMap((bundle) =>
+    bundle.design_list.map((design) => {
+      const quantity = quantities[design.name_english] || 1;
+      return {
+        design_id: design.id,
+        unit_price: design.price.toString(),
+        unit_time: design.time.toString(),
+        qty: quantity.toString(),
+        item_type: "bundl",
+      };
+    })
+  );
+
+  const savedPayload = JSON.parse(localStorage.getItem("payloads") || "{}");
+  const payload = isFromLogin
+    ? savedPayload
+    : {
+        order_name: brandInput,
+        bundle_id: routeId[packageID],
+        total_time:
+          packageDetail?.package?.time + addonPayLoads.total_time,
+        total_price:
+          parseFloat(packageDetail?.package?.price) +
+          addonPayLoads.total_price +
+          (selectedLanguage === "Both" ? 2000 : 0),
+        item_list: item_list,
+        addons: addonPayLoads,
+        order_status: "in_cart",
+        language: selectedLanguage,
+        isBackToBundl: state?.isBackToBundl,
+      };
+
+  try {
+    const response = await axios.get(
+      `${base_url}/api/order/cart/`,
+      ConfigToken()
     );
-    const savedPayload = JSON.parse(localStorage.getItem("payloads") || "{}");
-    const payload = isFromLogin
-      ? savedPayload
-      : {
-          order_name: brandInput,
-          bundle_id: routeId[packageID],
-          total_time: packageDetail?.package?.time + addonPayLoads.total_time,
-          total_price:
-            parseFloat(packageDetail?.package?.price) +
-            addonPayLoads.total_price +
-            (selectedLanguage === "Both" ? 2000 : 0),
-          item_list: item_list,
-          addons: addonPayLoads,
-          order_status: "in_cart",
-          language: selectedLanguage,
-          isBackToBundl: state?.isBackToBundl,
-        };
 
-    try {
-      const response = await axios.get(
-        `${base_url}/api/order/cart/`,
+    const isCartConflict =
+      response?.data?.order_status &&
+      !state?.project_name &&
+      routeId[packageID] !== response.data.bundle_id;
+
+    const isReLoginFlow =
+      response?.data?.order_status &&
+      state?.project_name &&
+      state?.fromLogin;
+
+    if (isCartConflict || isReLoginFlow) {
+      setOpenPopup(true);
+    } else {
+      localStorage?.setItem("payloads", JSON.stringify(payload));
+      const createResponse = await axios.post(
+        `${base_url}/api/order/create/`,
+        payload,
         ConfigToken()
       );
-      if (
-        response?.data?.order_status &&
-        !state?.project_name &&
-        routeId[packageID] !== response.data.bundle_id
-      ) {
-        setOpenPopup(true);
-      } else if (
-        response?.data?.order_status &&
-        state?.project_name &&
-        state?.fromLogin
-      ) {
-        setOpenPopup(true);
-      } else if (state?.project_name) {
-        localStorage?.setItem("payloads", JSON.stringify(payload));
-        const createResponse = await axios.post(
-          `${base_url}/api/order/create/`,
-          payload,
-          ConfigToken()
-        );
-        navigate("/mycart", {
-          state: { orderData: createResponse.data.data.data },
-        });
-      } else {
-        localStorage?.setItem("payloads", JSON.stringify(payload));
-        const createResponse = await axios.post(
-          `${base_url}/api/order/create/`,
-          payload,
-          ConfigToken()
-        );
-        navigate("/mycart", {
-          state: { orderData: createResponse.data.data.data },
-        });
-      }
-    } catch (error) {
-      console.error("Error creating order:", error);
-      localStorage?.setItem("payloads", JSON.stringify(payload));
-      navigate(`/login?next_url=bundldetail/${packageID}`, {
-        state: {
-          project_name: brandInput,
-        },
+      navigate("/mycart", {
+        state: { orderData: createResponse.data.data.data },
       });
     }
-  };
+  } catch (error) {
+    console.error("Error creating order:", error);
+    localStorage?.setItem("payloads", JSON.stringify(payload));
+    navigate(`/login?next_url=bundldetail/${packageID}`, {
+      state: { project_name: brandInput },
+    });
+  }
+};
+
 
   useEffect(() => {
     if (user?.is_active) {
