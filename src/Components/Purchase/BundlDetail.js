@@ -72,6 +72,26 @@ export const BundlDetail = ({ user, lang, setLang }) => {
     }))
   );
 
+  const toastErrorMessage = (msg) => {
+      const message = msg;
+  
+      if (newToastId) {
+        toast.dismiss(newToastId);
+      }
+  
+      newToastId = toast(message, {
+        duration: 3000,
+        style: {
+          color: "#D83D99",
+          border: `1px solid #D83D99`,
+          fontWeight: "700",
+          background: "#fff",
+          boxShadow: "none",
+          borderRadius: "0px",
+        },
+      });
+    };
+
   useEffect(() => {
     document.documentElement.scrollTo({ top: 0, left: 0 });
     getBundlData();
@@ -100,7 +120,12 @@ export const BundlDetail = ({ user, lang, setLang }) => {
     setSelectedLanguage(e.target.value);
   };
 
-  const validateFields = () => {
+  const validateFields = async () => {
+    const isToast = await getprojects(); 
+    if (isToast === false) {
+      return false;
+    }
+
     if (brandInput === undefined || brandInput?.trim() == "") {
       // if (!toast.isActive("required-value-toast")) {
       //   toast.error(
@@ -205,19 +230,10 @@ export const BundlDetail = ({ user, lang, setLang }) => {
           total_price < 4880 &&
           packageID == "newbie"
         ) {
-          toast.error(
+          toastErrorMessage(
             lang === "ar"
               ? "الأدنى للطلب يجب أن يكون 4,880"
               : `Minimum order amount should be 4880`,
-            {
-              position: toast?.POSITION?.TOP_RIGHT,
-              toastId: "required-value-toast2",
-              icon: false,
-              style: {
-                color: "#D83D99",
-                fontWeight: "700",
-              },
-            }
           );
           return false;
         }
@@ -349,6 +365,10 @@ export const BundlDetail = ({ user, lang, setLang }) => {
   };
 
   const createPayload = async () => {
+    const isValid = await validateFields();
+    if (!isValid) {
+      return;
+    }
     if (!validateFields()) return;
     if (!bundlAddons.bundle_details) {
       console.warn("No bundle details available yet.");

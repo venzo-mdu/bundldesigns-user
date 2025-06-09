@@ -1672,7 +1672,7 @@ export const MyCart = ({ lang, setLang }) => {
               openpopup={openPopup}
               isCancel={true}
               setPopup={setOpenPopup}
-              title={" was empty"}
+              title={" Are you sure, you want to empty the cart."}
               // subTitle={'Are you sure, you want to empty the cart.'}
               onClick={() => navigate("/")}
               save={"Continue to Homepage"}
