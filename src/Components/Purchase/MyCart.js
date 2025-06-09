@@ -1601,11 +1601,9 @@ export const MyCart = ({ lang, setLang }) => {
                         className="!text-[20px] xs:mb-0 sm:mb-auto text-right"
                         // style={{ width: "40%" }}
                       >
-                        {isNaN(
-                          amountDecimal(Math.round(cartDetails.grand_total))
-                        )
-                          ? 0
-                          : amountDecimal(Math.round(cartDetails.grand_total))}
+                        {amountDecimal(Math.round(cartDetails.grand_total))
+                          ? amountDecimal(Math.round(cartDetails.grand_total))
+                          : 0}
                         {/* {lang === "ar" ? "ريال" : `${"  "}SAR`}{" "} */}
                         {lang === "ar" ? "\u00A0\u00A0ريال" : "\u00A0\u00A0SAR"}
                       </p>
