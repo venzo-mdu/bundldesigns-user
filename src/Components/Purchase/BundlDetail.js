@@ -1240,7 +1240,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                     >
                       {packageDetail?.package?.time + addonPayLoads.total_time}
                       {/* {lang === "ar" ? "يوما" : "Days"} */}
-                      {lang === "ar" ? "\u00A0\u00A0يوما" : "\u00A0\u00A0Days"}
+                      {lang === "ar" ? "\u00A0\u00A0يوم" : "\u00A0\u00A0Days"}
                     </p>
                   </div>
 

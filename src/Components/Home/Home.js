@@ -2796,7 +2796,7 @@ export const Home = ({ lang, setLang }) => {
                         <li>
                           {lang === "ar"
                             ? "خيار إضافي للشعار"
-                            : "Logo Variations1"}
+                            : "Logo Variations"}
                         </li>
                         <li>
                           {lang === "ar" ? "لوحة الألوان" : "Color Palette"}
@@ -2987,7 +2987,7 @@ export const Home = ({ lang, setLang }) => {
                         <li>
                           {lang === "ar"
                             ? "خيار إضافي للشعار"
-                            : "Logo Variations2"}
+                            : "Logo Variations"}
                         </li>
                         <li>
                           {lang === "ar" ? "لوحة الألوان" : "Color Palette"}
