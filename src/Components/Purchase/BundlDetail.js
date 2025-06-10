@@ -509,6 +509,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
     }
   }, []);
 
+  let isSelectedLanguage = selectedLanguage === "Both" && 2000;
   return (
     <>
       {loading ? (
