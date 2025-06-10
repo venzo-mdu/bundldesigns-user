@@ -398,9 +398,7 @@ export default function UploadContent({ lang, setLang }) {
     order?.item_details?.bundle_items?.reduce((acc, cru) => acc + cru.qty, 0);
 
   useEffect(() => {
-    debugger;
     if (skipId.length === orderCount + addonCount) {
-      debugger;
       navigate("/dashboard");
     }
   }, [orderCount, skipId]);
