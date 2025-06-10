@@ -365,6 +365,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
   };
 
  const createPayload = async () => {
+
   if (brandInput?.trim() === "") {
     const element = document?.getElementById("brandInput");
     if (element) {
