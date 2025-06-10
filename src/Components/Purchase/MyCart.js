@@ -1627,11 +1627,10 @@ export const MyCart = ({ lang, setLang }) => {
                         className="!text-[20px]  text-right "
                         // style={{ width: "43%" }}
                       >
-                        {cartDetails.total_time
-                          ? Math.round(cartDetails.total_time)
-                          : 0}
-
-                        {lang === "ar" ? "يوما" : "Days"}
+                        {isNaN(Math.round(cartDetails.total_time))
+                          ? 0
+                          : Math.round(cartDetails.total_time)}
+                        {lang === "ar" ? "\u00A0\u00A0\u00A0يوم" : "\u00A0Days"}
                       </p>
                     </div>
                   </div>
