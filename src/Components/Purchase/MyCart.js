@@ -1601,7 +1601,7 @@ export const MyCart = ({ lang, setLang }) => {
                         className="!text-[20px] xs:mb-0 sm:mb-auto text-right"
                         // style={{ width: "40%" }}
                       >
-                        {amountDecimal(Math.round(cartDetails.grand_total))
+                        {cartDetails.grand_total
                           ? amountDecimal(Math.round(cartDetails.grand_total))
                           : 0}
                         {/* {lang === "ar" ? "ريال" : `${"  "}SAR`}{" "} */}
@@ -1627,9 +1627,10 @@ export const MyCart = ({ lang, setLang }) => {
                         className="!text-[20px]  text-right "
                         // style={{ width: "43%" }}
                       >
-                        {isNaN(Math.round(cartDetails.total_time))
-                          ? 0
-                          : Math.round(cartDetails.total_time)}{" "}
+                        {cartDetails.total_time
+                          ? Math.round(cartDetails.total_time)
+                          : 0}
+
                         {lang === "ar" ? "يوما" : "Days"}
                       </p>
                     </div>

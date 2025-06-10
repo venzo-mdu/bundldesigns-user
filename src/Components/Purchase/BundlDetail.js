@@ -504,6 +504,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
   }, []);
 
   let isSelectedLanguage = selectedLanguage === "Both" && 2000;
+  debugger
   return (
     <>
       {loading ? (
@@ -1267,7 +1268,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                         >
                           {lang === "ar"
                             ? "المتابعة إلى السلة​"
-                            : "Empty to Cart"}
+                            : "Empty Cart"}
                         </button>
                       </div>
                     ) : (
