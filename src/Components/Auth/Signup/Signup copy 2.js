@@ -236,7 +236,7 @@ export const Signup = ({ lang }) => {
     full_name: "",
     email: "",
     password: "",
-    auth_provider: "email",
+    auth_provider: 'email',
     phone: "",
     country: "",
     language: "Arabic",
@@ -297,7 +297,7 @@ export const Signup = ({ lang }) => {
             email: userDetails.email,
             full_name: userDetails.name,
             password: null,
-            auth_provider: "google",
+            auth_provider: 'google',
           });
         })
         .catch((err) => console.error("Error fetching user details:", err));
@@ -313,7 +313,7 @@ export const Signup = ({ lang }) => {
     // Update the register data state
     setRegisterData((prevData) => ({
       ...prevData,
-      [name]: value,
+       [name]: value,
     }));
 
     // Full name validation
@@ -505,36 +505,7 @@ export const Signup = ({ lang }) => {
 
   // };
 
-  // const handleAppleLogin = async () => {
-  //   const provider = new OAuthProvider("apple.com");
-  //   try {
-  //     const result = await signInWithPopup(auth, provider);
-  //     const user = result.user;
-  //     console.log("Apple user:", user);
-
-  //     if (user?.accessToken) {
-  //       const data = {
-  //         email: user?.auth?.currentUser?.email,
-  //         full_name: user?.auth?.currentUser?.email?.split("@")[0],
-  //         password: null,
-  //         auth_provider: "apple",
-  //       };
-
-  //       const response = await axios.post(`${base_url}/api/register/`, data);
-  //       if (response.status === 201) {
-  //         document.cookie = `token=${
-  //           response?.data.token || ""
-  //         }; path=/; SameSite=None; Secure`;
-  //         dispatch(loginAction(response.user));
-  //         navigate("/");
-  //       }
-  //     }
-  //   } catch (error) {
-  //     console.error("Apple sign-in failed:", error.message);
-  //   }
-  // };
-
-    const handleAppleLogin = async () => {
+  const handleAppleLogin = async () => {
     const provider = new OAuthProvider("apple.com");
     try {
       const result = await signInWithPopup(auth, provider);
@@ -546,21 +517,22 @@ export const Signup = ({ lang }) => {
           email: user?.auth?.currentUser?.email,
           full_name: user?.auth?.currentUser?.email?.split("@")[0],
           password: null,
-          auth_provider: "apple",
-        }
+          auth_provider: 'apple',
+        };
 
         const response = await axios.post(`${base_url}/api/register/`, data);
         if (response.status === 201) {
-          document.cookie = `token=${response?.data.token || ""}; path=/; SameSite=None; Secure`;
+          document.cookie = `token=${
+            response?.data.token || ""
+          }; path=/; SameSite=None; Secure`;
           dispatch(loginAction(response.user));
-          navigate('/');
+          navigate("/");
         }
-
-    }
+      }
     } catch (error) {
-    console.error("Apple sign-in failed:", error.message);
-  }
-};
+      console.error("Apple sign-in failed:", error.message);
+    }
+  };
 
   return (
     <div>
@@ -574,7 +546,7 @@ export const Signup = ({ lang }) => {
             </span>
           </p>
           <a className="signup-brand" href="/">
-            <img className="loginlogo" src={Loginlogo} alt="login" />
+          <img className="loginlogo" src={Loginlogo} alt="login" />
           </a>
           <form onSubmit={signUp}>
             <label className="mb-2" style={{ width: "100%" }}>
@@ -728,9 +700,7 @@ export const Signup = ({ lang }) => {
               </span>
             </label>
             {submitted && !isAgree && (
-              <p className="error text-[#D83D99]">
-                Please agree to the terms and conditions.
-              </p>
+              <p className="error text-[#D83D99]">Please agree to the terms and conditions.</p>
             )}
             <button
               type="submit"
@@ -823,7 +793,13 @@ export const Signup = ({ lang }) => {
                   }}
                   // className={'lg:w-[50%] md:w-[50%] xs:w-[100%] !lg:text-[18px] !md:text-[18px] !xs:text-[14px]'}
                   // onSuccess={handleAppleSignupSuccess}
-                  onClick={handleAppleLogin}
+                  onClick={() => {
+                    setRegisterData((prev) => ({
+                      ...prev,
+                      auth_provider: "apple",
+                    }));
+                    handleAppleLogin();
+                  }}
                   onError={(error) =>
                     console.error("Apple Login Failed:", error)
                   }
