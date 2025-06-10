@@ -1724,13 +1724,13 @@ export default function Adjustments({ user, lang, setLang }) {
     "Zimbabwe",
   ];
 
-useEffect(() => {
-  window.scrollTo({
-    top: 0,
-    left: 0,
-    behavior: "instant", // or "smooth" if you want animation
-  });
-}, []);
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "instant", // or "smooth" if you want animation
+    });
+  }, []);
 
   useEffect(() => {
     getOrderDetails();
@@ -3797,7 +3797,7 @@ useEffect(() => {
                   <h2 className="text-[30px]">
                     {lang === "ar"
                       ? "مشروعك يحتاج إضافات؟"
-                      : "Something feels missing ?"}
+                      : "Something feels missing?"}
                   </h2>
                   <p className="text-[16px] text-[#00000080]">
                     {lang === "ar"
@@ -3909,6 +3909,20 @@ useEffect(() => {
                                 src={
                                   expantedTabs[category] ? upArrow : downArrow
                                 }
+                                onClick={() => {
+                                  toggleDescription(category);
+                                  setTimeout(() => {
+                                    const element = document.getElementById(
+                                      `${index}_list`
+                                    );
+                                    if (element) {
+                                      element.scrollIntoView({
+                                        behavior: "smooth",
+                                        block: "start",
+                                      });
+                                    }
+                                  }, 200);
+                                }}
                               ></img>
                             </button>
                           </p>
@@ -4145,7 +4159,7 @@ useEffect(() => {
                           <p className="flex items-center">
                             <img
                               width={"18px"}
-                              className="mr-[5px] h-[18px]"
+                              className="mr-[5px] h-[18px]" 
                               src={dollorIcon}
                             ></img>
                             <span>
@@ -4164,14 +4178,20 @@ useEffect(() => {
                 <div className=" flex items-center mb-1">
                   <img
                     src={BlackDollor}
-                    className="ml-[6px] mr-4"
+                    className={`${lang === "ar" ? "ml-2 mr-2" : "ml-[6px] mr-4"}`}
                     alt="Total Price"
                   />
                   <p className="basis-3/5 font-bold text-[18px] mb-0">
-                    {lang === "ar" ? "السعر الإجمالي :" : "Total Price :"}
+                    {lang === "ar" ? "\u00A0السعر الإجمالي :" : "Total Price :"}
                   </p>
-                  <p className="basis-2/5 font-bold text-[18px]  mb-0">
-                    {amountDecimal(totalPrice)} {lang === "ar" ? "ريال" : "SAR"}
+                  <p
+                    className={`text-[18px] !mb-0 font-bold ${
+                      lang === "ar" ? "text-start" : "text-end"
+                    }`}
+                    style={{ width: "40%" }}
+                  >
+                    {amountDecimal(totalPrice)}{" "}
+                    {lang === "ar" ? "\u00A0ريال" : "\u00A0\u00A0\u00A0SAR"}
                   </p>
                 </div>
                 <div className=" flex">
@@ -4183,8 +4203,14 @@ useEffect(() => {
                   <p className="basis-3/5 text-[18px] mb-0">
                     {lang === "ar" ? "المدة الإجمالية :" : "Total Duration :"}
                   </p>
-                  <p className="basis-2/5 text-[18px] mb-0">
-                    {totalTime} {lang === "ar" ? "يوم" : "Days"}
+                  <p
+                    className={`text-[18px] !mb-0 ${
+                      lang === "ar" ? "text-start" : "text-end"
+                    }`}
+                    style={{ width: "40%" }}
+                  >
+                    {totalTime}{" "}
+                    {lang === "ar" ? "\u00A0\u00A0يوم" : "\u00A0\u00A0Days"}
                   </p>
                 </div>
 

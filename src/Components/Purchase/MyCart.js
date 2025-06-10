@@ -638,6 +638,10 @@ export const MyCart = ({ lang, setLang }) => {
         }
       }
     } else {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
       setPaymentLoading(false);
     }
   };
@@ -962,7 +966,7 @@ export const MyCart = ({ lang, setLang }) => {
             <div className="fixed inset-0 z-50  bg-gray-800 bg-opacity-50 flex items-center justify-center">
               <div className="bg-white rounded-none shadow-lg p-6 max-w-sm border-black border-[1px]">
                 <p className="text-lg font-[400] text-gray-900 text-center">
-                Your Add-ons will be emptied.
+                  Your Add-ons will be emptied.
                 </p>
                 <div className="mt-4 flex justify-center gap-3">
                   <button
@@ -1597,13 +1601,9 @@ export const MyCart = ({ lang, setLang }) => {
                         className="!text-[20px] xs:mb-0 sm:mb-auto text-right"
                         // style={{ width: "40%" }}
                       >
-                        {/* {isNaN(
-                          amountDecimal(Math.round(cartDetails.grand_total))
-                        )
-                          ? 0
-                          : amountDecimal(
-                              Math.round(cartDetails.grand_total)
-                            )}
+                        {cartDetails.grand_total
+                          ? amountDecimal(Math.round(cartDetails.grand_total))
+                          : 0}
                         {/* {lang === "ar" ? "ريال" : `${"  "}SAR`}{" "} */}
                         {lang === "ar" ? "\u00A0\u00A0ريال" : "\u00A0\u00A0SAR"}
                       </p>
@@ -1629,8 +1629,8 @@ export const MyCart = ({ lang, setLang }) => {
                       >
                         {isNaN(Math.round(cartDetails.total_time))
                           ? 0
-                          : Math.round(cartDetails.total_time)}{" "}
-                        {lang === "ar" ? "يوما" : "Days"}
+                          : Math.round(cartDetails.total_time)}
+                        {lang === "ar" ? "\u00A0\u00A0\u00A0يوم" : "\u00A0Days"}
                       </p>
                     </div>
                   </div>

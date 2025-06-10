@@ -205,7 +205,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
       (item) => item.design_list
     );
 
-    const data = flatList.reduce((acc, item) => {
+    const data = flatList?.reduce((acc, item) => {
       acc[item.name_english] = item.quantity;
       return acc;
     }, {});
@@ -233,7 +233,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
           toastErrorMessage(
             lang === "ar"
               ? "الأدنى للطلب يجب أن يكون 4,880"
-              : `Minimum order amount should be 4880`,
+              : `Minimum order amount should be 4880`
           );
           return false;
         }
@@ -360,13 +360,14 @@ export const BundlDetail = ({ user, lang, setLang }) => {
     //     fontWeight: "700", // White text
     //   },
     // });
-    NewToastSuccMessage("Cart emptied,Now Checkout");
+    NewToastSuccMessage("Cart updated successfully");
     createPayload();
   };
 
  const createPayload = async () => {
-  if (brandInput.trim() === "") {
-    const element = document.getElementById("brandInput");
+
+  if (brandInput?.trim() === "") {
+    const element = document?.getElementById("brandInput");
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "center" });
     }
@@ -374,13 +375,11 @@ export const BundlDetail = ({ user, lang, setLang }) => {
     return; 
   }
 
-
   const isValid = await validateFields();
   if (!isValid) {
     return;
   }
 
-  
   if (!bundlAddons.bundle_details) {
     console.warn("No bundle details available yet.");
     return;
