@@ -1629,8 +1629,8 @@ export const MyCart = ({ lang, setLang }) => {
                       >
                         {isNaN(Math.round(cartDetails.total_time))
                           ? 0
-                          : Math.round(cartDetails.total_time)}{" "}
-                        {lang === "ar" ? "يوم" : "Days"}
+                          : Math.round(cartDetails.total_time)}
+                        {lang === "ar" ? "\u00A0\u00A0\u00A0يوم" : "\u00A0Days"}
                       </p>
                     </div>
                   </div>
