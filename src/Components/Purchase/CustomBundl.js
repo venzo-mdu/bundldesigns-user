@@ -370,9 +370,10 @@ export const CustomBundl = ({ user, lang, setLang }) => {
             <div className="bundl-name">
               <p
                 className="sm:text-[24px] xs:mb-0 xs:flex xs:justify-between sm:block"
-                style={{ fontWeight: "700", padding: "2% 0%" }}
+                style={{ fontWeight: "700", padding: "2% 0%", textAlign: lang === "ar" ? "right" : "left",}}
               >
                 <span>{lang === "ar" ? "ملخص الطلب​" : "Summary"}</span>
+
                 {isMobile && (
                   <button
                     onClick={() => setDetails(!showDetails)}
