@@ -70,7 +70,7 @@ export const CustomBundl = ({ user, lang, setLang }) => {
     setOpenPopup(false);
     await axios.delete(`${base_url}/api/order/cart/`, ConfigToken());
     // addToCart(selectedIndex)
-    toast.success("Cart emptied,Now Checkout", {
+    toast.success("Cart updated successfully", {
       icon: false,
       style: {
         color: "#1BA56F",
@@ -502,7 +502,7 @@ export const CustomBundl = ({ user, lang, setLang }) => {
                   type="button"
                   className="proceed  bg-[#1BA56F] uppercase"
                 >
-                  {lang === "ar" ? " إتمام الشراء" : "Proceed To Checkout"}
+                  {lang === "ar" ? " إتمام الشراء" : "Proceed To Cart"}
                 </button>
                 <button
                   className="proceed  bg-[#1BA56F] mt-[3%] uppercase"

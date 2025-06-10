@@ -360,7 +360,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
     //     fontWeight: "700", // White text
     //   },
     // });
-    NewToastSuccMessage("Cart emptied,Now Checkout");
+    NewToastSuccMessage("Cart updated successfully");
     createPayload();
   };
 
