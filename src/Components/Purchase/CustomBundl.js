@@ -509,7 +509,7 @@ export const CustomBundl = ({ user, lang, setLang }) => {
                     window.location.reload();
                   }}
                 >
-                  {lang === "ar" ? "المتابعة إلى السلة​" : "Empty to Cart"}
+                  {lang === "ar" ? "المتابعة إلى السلة​" : "Empty Cart"}
                 </button>
               </div>
               {/* {firstOrder && <p className='proceed-text'>{lang === 'ar' ? 'الحد الأدنى للطلب ٤٨٨٠ ريال سعوذي' : 'Your minimum total should be above 4880 SAR'}</p>} */}

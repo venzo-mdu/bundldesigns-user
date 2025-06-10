@@ -19,6 +19,7 @@ import AppleLogin from "react-apple-login";
 import GoogleIcon from "../../../Images/Login/icons8-google.svg";
 import { auth } from "../../Firebase/Firebase";
 import { OAuthProvider, signInWithPopup } from "firebase/auth";
+import { signInWithRedirect, getRedirectResult } from "firebase/auth";
 
 export const Login = ({ lang }) => {
   const dispatch = useDispatch();
@@ -313,27 +314,80 @@ export const Login = ({ lang }) => {
   //   }
   // };
 
-  const handleAppleLogin = async () => {
-    const provider = new OAuthProvider("apple.com");
-    try {
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-      console.log("Apple user:", user);
+  // const handleAppleLogin = async () => {
+  //   const provider = new OAuthProvider("apple.com");
+  //   try {
+  //     const result = await signInWithPopup(auth, provider);
+  //     const user = result.user;
+  //     console.log("Apple user:", user);
 
-      if (user?.accessToken) {
+  //     if (user?.accessToken) {
+  //       const data = {
+  //         email: user?.auth?.currentUser?.email,
+  //         full_name: user?.auth?.currentUser?.email?.split("@")[0],
+  //         password: null,
+  //         is_social_login: true,
+  //       };
+  //       const response = await axios.post(`${base_url}/api/login/`, data);
+  //       if (response.status === 200) {
+  //         document.cookie = `token=${
+  //           response?.data?.data.token || ""
+  //         }; path=/; SameSite=None; Secure`;
+  //         dispatch(loginAction(response.data.user));
+  //         console.log(next_url);
+  //         if (next_url) {
+  //           navigate(`/${next_url}`, {
+  //             state: {
+  //               project_name: project_name,
+  //               fromLogin: true,
+  //             },
+  //           });
+  //         } else {
+  //           navigate("/");
+  //         }
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.error("Apple sign-in failed:", error.message);
+  //   }
+  // };
+
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+  useEffect(() => {
+    // Check if we're returning from an Apple redirect login
+    const checkRedirectResult = async () => {
+      try {
+        const result = await getRedirectResult(auth);
+        if (result) {
+          console.log("Redirect result:", result);
+          handleLoginResult(result);
+        }
+      } catch (error) {
+        console.error("Redirect sign-in failed:", error.message);
+      }
+    };
+
+    checkRedirectResult();
+  }, []);
+
+  const handleLoginResult = async (result) => {
+    const user = result.user;
+    if (user?.accessToken) {
+      try {
+        const email = user?.email || user?.auth?.currentUser?.email;
         const data = {
-          email: user?.auth?.currentUser?.email,
-          full_name: user?.auth?.currentUser?.email?.split("@")[0],
+          email: email,
+          full_name: email?.split("@")[0],
           password: null,
           is_social_login: true,
         };
+
         const response = await axios.post(`${base_url}/api/login/`, data);
         if (response.status === 200) {
-          document.cookie = `token=${
-            response?.data?.data.token || ""
-          }; path=/; SameSite=None; Secure`;
+          document.cookie = `token=${response?.data?.data.token || ""}; path=/; SameSite=None; Secure`;
           dispatch(loginAction(response.data.user));
-          console.log(next_url);
+
           if (next_url) {
             navigate(`/${next_url}`, {
               state: {
@@ -345,8 +399,26 @@ export const Login = ({ lang }) => {
             navigate("/");
           }
         }
+      } catch (error) {
+        console.error("Login failed:", error.message);
+      }
+    }
+  };
+
+  const handleAppleLogin = async () => {
+    const provider = new OAuthProvider("apple.com");
+
+    try {
+      if (isIOS) {
+        alert("Using redirect for iOS", auth, provider);
+        await signInWithRedirect(auth, provider);
+      } else {
+        alert("Using popup for desktop", auth, provider);
+        const result = await signInWithPopup(auth, provider);
+        handleLoginResult(result);
       }
     } catch (error) {
+      alert(error.message || "Authentication error");
       console.error("Apple sign-in failed:", error.message);
     }
   };
