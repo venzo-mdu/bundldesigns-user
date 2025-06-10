@@ -24,7 +24,8 @@ export const processArabicText = (text) => {
 
     lastIndex = regex.lastIndex;
   }
-  if (lastIndex < text.length) {
+  console.log(text, 'text')
+  if (lastIndex < text?.length) {
     parts.push(text.slice(lastIndex));
   }
 

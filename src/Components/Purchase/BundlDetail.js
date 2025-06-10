@@ -205,7 +205,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
       (item) => item.design_list
     );
 
-    const data = flatList.reduce((acc, item) => {
+    const data = flatList?.reduce((acc, item) => {
       acc[item.name_english] = item.quantity;
       return acc;
     }, {});
@@ -504,7 +504,6 @@ export const BundlDetail = ({ user, lang, setLang }) => {
   }, []);
 
   let isSelectedLanguage = selectedLanguage === "Both" && 2000;
-  debugger
   return (
     <>
       {loading ? (
