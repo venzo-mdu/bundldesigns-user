@@ -439,7 +439,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
           ConfigToken()
         );
         navigate("/mycart", {
-          state: { orderData: createResponse.data.data.data },
+          state: { orderData: createResponse.data.data.data, selectedLanguage },
         });
       }
     } catch (error) {
@@ -1266,9 +1266,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                             window.location.reload();
                           }}
                         >
-                          {lang === "ar"
-                            ? "المتابعة إلى السلة​"
-                            : "Empty Cart"}
+                          {lang === "ar" ? "المتابعة إلى السلة​" : "Empty Cart"}
                         </button>
                       </div>
                     ) : (

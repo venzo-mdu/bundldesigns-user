@@ -70,13 +70,13 @@ export const CustomBundl = ({ user, lang, setLang }) => {
     setOpenPopup(false);
     await axios.delete(`${base_url}/api/order/cart/`, ConfigToken());
     // addToCart(selectedIndex)
-    toast.success("Cart emptied,Now Checkout", {
-      icon: false,
-      style: {
-        color: "#1BA56F",
-        fontWeight: "700", // White text
-      },
-    });
+    // toast.success("Cart emptied,Now Checkout", {
+    //   icon: false,
+    //   style: {
+    //     color: "#1BA56F",
+    //     fontWeight: "700", // White text
+    //   },
+    // });
     createPayload();
   };
 

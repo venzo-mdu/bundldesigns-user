@@ -3148,7 +3148,7 @@ export default function Adjustments({ user, lang, setLang }) {
                             1
                           </td>
                           <td className=" !py-2" align="center">
-                            {Math.round(row.price)}
+                            {amountDecimal(Math.round(row.price))}
                           </td>
                           <td align="center">
                             <p className="flex items-center !mb-0 justify-center">
@@ -3184,7 +3184,7 @@ export default function Adjustments({ user, lang, setLang }) {
                             {row.qty}
                           </td>
                           <td className=" !py-2" align="center" scope="row">
-                            {Math.round(row.price)}
+                            {amountDecimal(Math.round(row.price))}
                           </td>
                           {/* <TableCell align="center"><img style={{width:'23px'}} src={row.DeleteIcon}></img></TableCell> */}
                           <td className=" !py-2" align="center" scope="row">
@@ -4311,7 +4311,7 @@ export default function Adjustments({ user, lang, setLang }) {
                         1
                       </td>
                       <td className=" !py-2" align="center">
-                        {Math.round(row.price)}
+                        {amountDecimal(Math.round(row.price))}
                       </td>
                       <td align="center">
                         <p className="flex items-center !mb-0 justify-center">
@@ -4343,7 +4343,7 @@ export default function Adjustments({ user, lang, setLang }) {
                         {row.qty}
                       </td>
                       <td className=" !py-2" align="center" scope="row">
-                        {Math.round(row.price)}
+                        {amountDecimal(Math.round(row.price))}
                       </td>
                       {/* <TableCell align="center"><img style={{width:'23px'}} src={row.DeleteIcon}></img></TableCell> */}
                       <td className=" !py-2" align="center" scope="row">
