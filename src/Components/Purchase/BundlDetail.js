@@ -364,14 +364,23 @@ export const BundlDetail = ({ user, lang, setLang }) => {
     createPayload();
   };
 
-  const createPayload = async () => {
-    if (brandInput?.trim() === "") {
-      const element = document?.getElementById("brandInput");
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth", block: "center" });
-      }
-      setBrandError(true);
-      return;
+// <<<<<<< cartChanges-V.4
+//   const createPayload = async () => {
+//     if (brandInput?.trim() === "") {
+//       const element = document?.getElementById("brandInput");
+//       if (element) {
+//         element.scrollIntoView({ behavior: "smooth", block: "center" });
+//       }
+//       setBrandError(true);
+//       return;
+// =======
+ const createPayload = async () => {
+
+  if (brandInput?.trim() === "") {
+    const element = document?.getElementById("brandInput");
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "center" });
+// >>>>>>> cartchanges
     }
 
     const isValid = await validateFields();
