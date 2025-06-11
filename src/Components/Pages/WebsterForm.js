@@ -123,7 +123,7 @@ export default function WebsterForm({lang,setLang}) {
               onChange={handleChange}
               className="w-full border  p-2 !rounded-none"
             />
-            {errors.name && <p className="text-[#D83D99] text-sm">{errors.name}</p>}
+            {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
           </div>
 
           {/* Phone Field */}
@@ -135,7 +135,7 @@ export default function WebsterForm({lang,setLang}) {
           onChange={handlePhone}
           className="w-full border  p-2 !rounded-none"
       />
-            {errors.phone && <p className="text-[#D83D99] text-sm">{errors.phone}</p>}
+            {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
           </div>
     
           {/* Email Field */}
@@ -148,7 +148,7 @@ export default function WebsterForm({lang,setLang}) {
               onChange={handleChange}
               className="w-full border  p-2 !rounded-none"
             />
-            {errors.email && <p className="text-[#D83D99] text-sm">{errors.email}</p>}
+            {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
           </div>
     
           {/* Description Field */}
@@ -160,7 +160,7 @@ export default function WebsterForm({lang,setLang}) {
               onChange={handleChange}
               className="w-full border  p-2 !rounded-none"
             />
-            {errors.message && <p className="text-[#D83D99] text-sm">{errors.message}</p>}
+            {errors.message && <p className="text-red-500 text-sm">{errors.message}</p>}
           </div>
     
     

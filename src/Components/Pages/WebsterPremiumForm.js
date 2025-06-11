@@ -454,7 +454,7 @@ export default function WebsterPremiumForm({lang,setLang}) {
 
               />
 
-              {errors.name && <p className="text-[#D83D99] text-sm">{errors.name}</p>}
+              {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
 
             </div>
 
@@ -492,7 +492,7 @@ export default function WebsterPremiumForm({lang,setLang}) {
 
       />
 
-              {errors.phone && <p className="text-[#D83D99] text-sm">{errors.phone}</p>}
+              {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
 
             </div>
 
@@ -520,7 +520,7 @@ export default function WebsterPremiumForm({lang,setLang}) {
 
               />
 
-              {errors.email && <p className="text-[#D83D99] text-sm">{errors.email}</p>}
+              {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
 
             </div>
 
@@ -548,7 +548,7 @@ export default function WebsterPremiumForm({lang,setLang}) {
 
               />
 
-              {errors.message && <p className="text-[#D83D99] text-sm">{errors.message}</p>}
+              {errors.message && <p className="text-red-500 text-sm">{errors.message}</p>}
 
             </div>
 

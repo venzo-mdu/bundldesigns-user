@@ -437,7 +437,7 @@ export const Contactus = ({ lang, setLang }) => {
                 className="w-full border text-[16px]  !border-[#b0b0b0] focus:outline-none px-2 sm:py-2  xs:py-3 !rounded-none"
               />
               {errors.name && (
-                <p className="text-[#D83D99] text-sm">{errors.name}</p>
+                <p className="text-red-500 text-sm">{errors.name}</p>
               )}
             </div>
 
@@ -467,7 +467,7 @@ export const Contactus = ({ lang, setLang }) => {
                 successmsg={successMsg}
               />
               {errors.phone && (
-                <p className="text-[#D83D99] text-sm">{errors.phone}</p>
+                <p className="text-red-500 text-sm">{errors.phone}</p>
               )}
             </div>
 
@@ -492,7 +492,7 @@ export const Contactus = ({ lang, setLang }) => {
                 className="w-full border text-[16px] !border-[#b0b0b0] focus:outline-none px-2 sm:py-2  xs:py-3 !rounded-none"
               />
               {errors.email && (
-                <p className="text-[#D83D99] text-sm">{errors.email}</p>
+                <p className="text-red-500 text-sm">{errors.email}</p>
               )}
             </div>
 
@@ -518,7 +518,7 @@ export const Contactus = ({ lang, setLang }) => {
                 rows={4}
               />
               {errors.message && (
-                <p className="text-[#D83D99] text-sm">{errors.message}</p>
+                <p className="text-red-500 text-sm">{errors.message}</p>
               )}
             </div>
 
