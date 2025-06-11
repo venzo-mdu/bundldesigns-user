@@ -46,7 +46,7 @@
     "eject": "react-scripts eject",
     "pretty": "prettier --write \"./**/*.{js,jsx,ts,tsx,json}\"",
     "deploy": "firebase deploy --only hosting:bundldesigns",
-    "deploy-env":"firebase deploy --only hosting:bundldesigns-env"
+    "deploy-env": "firebase deploy --only hosting:bundldesigns-env"
   },
   "eslintConfig": {
     "extends": [

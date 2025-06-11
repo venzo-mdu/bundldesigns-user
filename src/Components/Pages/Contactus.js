@@ -225,13 +225,15 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { base_url } from "../Auth/BackendAPIUrl";
 import { Bgloader } from "../Common/Background/Bgloader";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import PhoneNumberInput from "./PhoneNumberInput";
 import paperPlaneGif from "../../Images/ourWorkGIF.gif";
 import websterGif from "../../Images/aboutus/website.gif";
 import paperPlaneReverse from "../../Images/ourWorkGIFReverse.gif";
 import "react-phone-number-input/style.css";
 import CloseIcon from "@mui/icons-material/Close";
+import toast, { Toaster } from "react-hot-toast";
+import useToastMessage from "../Pages/Toaster/Toaster";
 
 export const Contactus = ({ lang, setLang }) => {
   const { form_type } = useParams();
@@ -249,6 +251,7 @@ export const Contactus = ({ lang, setLang }) => {
   const [successMsg, setSuccessMsg] = useState("");
   // Error state
   const [errors, setErrors] = useState({});
+  const { showToast, showErrorToast, showSuccessToast } = useToastMessage();
 
   const validate = () => {
     const newErrors = {};
@@ -306,16 +309,17 @@ export const Contactus = ({ lang, setLang }) => {
           formData
         );
         if (response.data) {
-          setSuccessMsg("Submitted Successfully");
-          toast.success(`Form submitted successfully`, {
-            position: toast?.POSITION?.TOP_RIGHT,
-            toastId: "required-value-toast",
-            icon: false,
-            style: {
-              color: "#1BA56F",
-              fontWeight: "700", // White text
-            },
-          });
+          // setSuccessMsg("Submitted Successfully");
+          // toast.success(`Form submitted successfully`, {
+          //   position: toast?.POSITION?.TOP_RIGHT,
+          //   toastId: "required-value-toast",
+          //   icon: false,
+          //   style: {
+          //     color: "#1BA56F",
+          //     fontWeight: "700", // White text
+          //   },
+          // });
+          showErrorToast("Form submitted successfully", "#D83D99");
         }
         setErrors({});
 
@@ -334,6 +338,18 @@ export const Contactus = ({ lang, setLang }) => {
     <Bgloader />
   ) : (
     <>
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          style: {
+            // color: "#1BA56F",
+            fontWeight: "700",
+            borderRadius: "0px !important",
+            border: `1px solid #1BA56F`,
+          },
+        }}
+      />
+
       <ToastContainer />
       <Navbar isLang={lang} setIsLang={setLang} />
       <div className=" font-Helvetica flex sm:pt-10 xs:pt-0 pt-10 xs:block sm:flex sm:pb-24 xs:pb-2 pb-24 overflow-hidden">
