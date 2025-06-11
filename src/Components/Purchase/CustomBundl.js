@@ -70,6 +70,15 @@ export const CustomBundl = ({ user, lang, setLang }) => {
     setOpenPopup(false);
     await axios.delete(`${base_url}/api/order/cart/`, ConfigToken());
     // addToCart(selectedIndex)
+
+    toast.success("Cart updated successfully", {
+      icon: false,
+      style: {
+        color: "#1BA56F",
+        fontWeight: "700", // White text
+      },
+    });
+
     // toast.success("Cart emptied,Now Checkout", {
     //   icon: false,
     //   style: {
@@ -370,9 +379,10 @@ export const CustomBundl = ({ user, lang, setLang }) => {
             <div className="bundl-name">
               <p
                 className="sm:text-[24px] xs:mb-0 xs:flex xs:justify-between sm:block"
-                style={{ fontWeight: "700", padding: "2% 0%" }}
+                style={{ fontWeight: "700", padding: "2% 0%", textAlign: lang === "ar" ? "right" : "left",}}
               >
                 <span>{lang === "ar" ? "ملخص الطلب​" : "Summary"}</span>
+
                 {isMobile && (
                   <button
                     onClick={() => setDetails(!showDetails)}
@@ -501,7 +511,7 @@ export const CustomBundl = ({ user, lang, setLang }) => {
                   type="button"
                   className="proceed  bg-[#1BA56F] uppercase"
                 >
-                  {lang === "ar" ? " إتمام الشراء" : "Proceed To Checkout"}
+                  {lang === "ar" ? " إتمام الشراء" : "Proceed To Cart"}
                 </button>
                 <button
                   className="proceed  bg-[#1BA56F] mt-[3%] uppercase"
@@ -509,7 +519,7 @@ export const CustomBundl = ({ user, lang, setLang }) => {
                     window.location.reload();
                   }}
                 >
-                  {lang === "ar" ? "المتابعة إلى السلة​" : "Empty Cart"}
+                  {lang === "ar" ? "عربة فارغة" : "Empty Cart"}
                 </button>
               </div>
               {/* {firstOrder && <p className='proceed-text'>{lang === 'ar' ? 'الحد الأدنى للطلب ٤٨٨٠ ريال سعوذي' : 'Your minimum total should be above 4880 SAR'}</p>} */}

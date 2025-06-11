@@ -1646,7 +1646,6 @@ export default function Dashboard({ lang, setLang }) {
     }
   };
 
-
   return (
     <>
       {loading ? (
@@ -1671,15 +1670,23 @@ export default function Dashboard({ lang, setLang }) {
               openpopup={purchasePopUp}
               isCancel={true}
               setPopup={setPurchasePopUp}
-              title={"Thank you for your purchase"}
+              title={
+                lang === "ar" ? "شكرا لطلبك!" : "Thank you for your purchase"
+              }
               subTitle={
-                "We're so happy you're here! Let's create something amazing together."
+                lang === "ar"
+                  ? "خلينا نبدأ أول خطوة في رحلتك الإبداعية"
+                  : "We're so happy you're here! Let's create something amazing together."
               }
               onClick={() => {
                 setPurchasePopUp(false);
                 navigate(`/dashboard?order_id=${purchase_id}`);
               }}
-              save={"Continue to Dashboard"}
+              save={
+                lang === "ar"
+                  ? "الذهاب إلى لوحة التحكم​"
+                  : "Continue to Dashboard"
+              }
               // cancel={'Cancel'}
             />
           )}

@@ -205,7 +205,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
       (item) => item.design_list
     );
 
-    const data = flatList.reduce((acc, item) => {
+    const data = flatList?.reduce((acc, item) => {
       acc[item.name_english] = item.quantity;
       return acc;
     }, {});
@@ -360,18 +360,27 @@ export const BundlDetail = ({ user, lang, setLang }) => {
     //     fontWeight: "700", // White text
     //   },
     // });
-    NewToastSuccMessage("Cart emptied,Now Checkout");
+    NewToastSuccMessage("Cart updated successfully");
     createPayload();
   };
 
-  const createPayload = async () => {
-    if (brandInput?.trim() === "") {
-      const element = document?.getElementById("brandInput");
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth", block: "center" });
-      }
-      setBrandError(true);
-      return;
+// <<<<<<< cartChanges-V.4
+//   const createPayload = async () => {
+//     if (brandInput?.trim() === "") {
+//       const element = document?.getElementById("brandInput");
+//       if (element) {
+//         element.scrollIntoView({ behavior: "smooth", block: "center" });
+//       }
+//       setBrandError(true);
+//       return;
+// =======
+ const createPayload = async () => {
+
+  if (brandInput?.trim() === "") {
+    const element = document?.getElementById("brandInput");
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "center" });
+// >>>>>>> cartchanges
     }
 
     const isValid = await validateFields();
@@ -383,6 +392,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
       console.warn("No bundle details available yet.");
       return;
     }
+
 
     const item_list = bundlAddons.bundle_details.flatMap((bundle) =>
       bundle.design_list.map((design) => {
@@ -450,6 +460,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
       });
     }
   };
+
 
   useEffect(() => {
     if (user?.is_active) {
@@ -1207,7 +1218,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                         //   ? amountDecimal(2000)
                         //   : "")} */}
                       {/* {lang === "ar" ? "ريال" : "SAR"} */}
-                      {lang === "ar" ? "\u00A0\u00A0ريال" : "\u00A0\u00A0SAR"}
+                      {lang === "ar" ? "\u00A0\u00A0ريال" : "\u00A0\u00A0\u00A0SAR"}
                     </p>
                   </div>
                   <div className="total" style={{ display: "flex" }}>
@@ -1228,7 +1239,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                         }`}
                       >
                         {lang === "ar"
-                          ? "المدة الإجمالية :"
+                          ? "\u00A0المدة الإجمالية :"
                           : "Total Duration :"}
                       </span>
                     </p>

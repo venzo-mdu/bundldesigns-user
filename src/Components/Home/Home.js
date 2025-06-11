@@ -2871,7 +2871,7 @@ export const Home = ({ lang, setLang }) => {
                       <span>
                         {lang === "ar" ? "تبدأ من​" : "Starting from"}
                       </span>{" "}
-                      4880 {lang === "ar" ? "ريال" : "SAR"}
+                      {amountDecimal(4880)}  {lang === "ar" ? "ريال" : "SAR"}
                     </span>
                   </div>
                   <div className="work_time d-flex align-items-center">
@@ -3091,7 +3091,7 @@ export const Home = ({ lang, setLang }) => {
                   <div className="sar d-flex align-items-center">
                     {/* <!--<img src="asset/images/money-icon.webp" alt="" className="img-fluid">--> */}
                     <span className="sar_text">
-                      8000 {lang === "ar" ? "ريال" : "SAR"}
+                     {amountDecimal (8000) } {lang === "ar" ? "ريال" : "SAR"}
                     </span>
                   </div>
                   <div className="work_time d-flex align-items-center">

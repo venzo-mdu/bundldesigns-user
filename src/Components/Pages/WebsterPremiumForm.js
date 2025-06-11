@@ -250,17 +250,20 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { base_url } from '../Auth/BackendAPIUrl';
 import { Bgloader } from '../Common/Background/Bgloader';
-import { ToastContainer, toast } from 'react-toastify'
+import { ToastContainer} from 'react-toastify'
 import PhoneNumberInput from './PhoneNumberInput';
 import paperPlaneGif from '../../Images/ourWorkGIF.gif'
 import websterGif from '../../Images/aboutus/website.gif'
 import paperPlaneReverse from '../../Images/ourWorkGIFReverse.gif'
 import 'react-phone-number-input/style.css';
 import CloseIcon from '@mui/icons-material/Close';
+import toast, { Toaster } from "react-hot-toast";
+import useToastMessage from "../Pages/Toaster/Toaster";
 
 export default function WebsterPremiumForm({lang,setLang}) {
   const { form_type } = useParams();
   const [phoneError,setPhoneError] = useState(false)
+  const { showToast, showErrorToast, showSuccessToast } = useToastMessage();
   const [formData, setFormData] = useState({
     project_name: '',
     name: '',
@@ -320,16 +323,17 @@ export default function WebsterPremiumForm({lang,setLang}) {
       if(phoneError == false){
         const response = await axios.post(`${base_url}/api/send-mail?form_type=${form_type}`, formData);
         if (response.data) {
-          setSuccessMsg('Submitted Successfully')
-          toast.success(`Form submitted successfully`, {
-            position: toast?.POSITION?.TOP_RIGHT,
-            toastId: 'required-value-toast',
-            icon: false,
-            style: {
-              color: "#1BA56F",
-              fontWeight: "700" // White text
-            },
-                  });
+          // setSuccessMsg('Submitted Successfully')
+          // toast.success(`Form submitted successfully`, {
+          //   position: toast?.POSITION?.TOP_RIGHT,
+          //   toastId: 'required-value-toast',
+          //   icon: false,
+          //   style: {
+          //     color: "#1BA56F",
+          //     fontWeight: "700" // White text
+          //   },
+          //         });
+          showErrorToast("Form submitted successfully", "#D83D99");
         }
         setErrors({})
 
@@ -357,6 +361,18 @@ export default function WebsterPremiumForm({lang,setLang}) {
 
       <>
 
+      <Toaster
+              position="top-right"
+              toastOptions={{
+                style: {
+                  // color: "#1BA56F",
+                  fontWeight: "700",
+                  borderRadius: "0px !important",
+                  border: `1px solid #1BA56F`,
+                },
+              }}
+            />
+
       <ToastContainer />
 
         <Navbar isLang={lang} setIsLang={setLang}/>
@@ -378,8 +394,10 @@ export default function WebsterPremiumForm({lang,setLang}) {
             <div className='text-center xs:border-b border-black relative sm:border-none '>
 
               <h2 className='text-[40px] mt-4 leading-1 relative text-black w-[340px] mx-auto mb-0'>
-                  <a className="webster-brand" href="/">
-                  <img className={`absolute bottom-[10px] xs:w-[90px] sm:w-[150px] sm:bottom-[10px] xs:bottom-[20px] ${lang === 'ar' ? 'xs:right-0 sm:right-[-10%] right-[-10%] rotate-[45deg]' :'xs:left-0 sm:left-[-10%] left-[-10%]' }`} src={Loginlogo} alt='login' />{lang === 'ar' ? 'أدخل المحتوى هنا' : 'Welcome to'}
+                  <a className="webster-brand">      
+                  <a href='/'>
+                  < img className={`absolute bottom-[10px] xs:w-[90px] sm:w-[150px] sm:bottom-[10px] xs:bottom-[20px] ${lang === 'ar' ? 'xs:right-0 sm:right-[-10%] right-[-10%] rotate-[45deg]' :'xs:left-0 sm:left-[-10%] left-[-10%]' }`} src={Loginlogo} alt='login' /></a>
+                  {lang === 'ar' ? 'أدخل المحتوى هنا' : 'Welcome to'}        
                   </a>
               </h2>
 

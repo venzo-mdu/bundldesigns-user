@@ -4149,7 +4149,7 @@ h6 {
 p,
 ul,
 li {
-  font-size: 16px;
+  font-size: 14px;
 }
 
 address,
@@ -4248,13 +4248,14 @@ sup {
 }
 
 a {
-  color: #032d60;
+  color: black;
   text-decoration: none;
   background-color: transparent
 }
 
 a:hover {
-  color: #032d60;
+  text-decoration: none;
+  color: black;
   /* text-decoration: underline */
 }
 
