@@ -110,20 +110,6 @@ export const Login = ({ lang }) => {
           "email",
           lang === "ar" ? "البريد الإلكتروني مطلوب" : "Email is required"
         );
-      } else {
-        setError("email", "");
-      }
-    }
-
-    // Password validation
-    if (name === "password") {
-      if (/\s/.test(value)) {
-        // Check for spaces
-        setError("password", "Password cannot contain spaces");
-      } else if (!value.trim()) {
-        setError("password", "Password is required");
-      } else {
-        setError("password", ""); // clear error if password is valid
       }
     }
   };
@@ -307,9 +293,7 @@ export const Login = ({ lang }) => {
               {/* General error message */}
               {errors.general && <p className="error">{errors.general}</p>}
 
-              {loginData.password && loginData.password && (
-                <p className="text-[#D83D99] error mb-1">{loginError}</p>
-              )}
+              <p className="text-[#D83D99] mb-1">{loginError}</p>
 
               <button className="signin !text-[24px] uppercase" type="submit">
                 {loading ? (

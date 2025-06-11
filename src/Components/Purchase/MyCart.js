@@ -45,6 +45,8 @@ export const MyCart = ({ lang, setLang }) => {
   const [tax, setTax] = useState(false);
   const [isBack, setIsBack] = useState(false);
 
+  const [popupMessage, setPopupMessage] = useState("Are you sure, you want to empty the cart?");
+
   const [routeNames, setRouteNames] = useState({
     4: "foodie",
     12: "newbie",
@@ -316,7 +318,6 @@ export const MyCart = ({ lang, setLang }) => {
 
   const getCartData = async () => {
     try {
-      debugger
       setLoading(true);
       // const response = await axios.get(`${base_url}/api/order/${location.state.orderData.id}/`);
       getProfile();
@@ -338,6 +339,9 @@ export const MyCart = ({ lang, setLang }) => {
           response?.data?.item_details?.addon_items.length === 0)
       ) {
         setOpenPopup(true);
+      }
+      if(response.status === 206) {
+        setPopupMessage("Your cart is empty keep continue dashboard");
       }
     } catch (e) {
       navigate("/login");
@@ -1711,7 +1715,7 @@ export const MyCart = ({ lang, setLang }) => {
               openpopup={openPopup}
               isCancel={true}
               setPopup={setOpenPopup}
-              title={" Are you sure, you want to empty the cart."}
+              title={popupMessage}
               // subTitle={'Are you sure, you want to empty the cart.'}
               onClick={() => navigate("/")}
               save={"Continue to Homepage"}
