@@ -9,7 +9,7 @@ import DeleteIcon from "../../Images/BundlDetail/deleteicon.svg";
 import BlackDollor from "../../Images/BundlDetail/blackdollor.svg";
 import BlackTime from "../../Images/BundlDetail/blacktime.svg";
 import { base_url } from "../Auth/BackendAPIUrl";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ConfigToken } from "../Auth/ConfigToken";
 import PhoneNumberInput from "../Pages/PhoneNumberInput";
 import backIcon from "../../Images/backIcon.svg";
@@ -22,10 +22,13 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import { amountDecimal } from "../Utils/amountDecimal";
 import toast, { Toaster } from "react-hot-toast";
 import { processArabicText } from "../Utils/arabicFontParenthesisChecker";
+import useToastMessage from "../Pages/Toaster/Toaster";
 
 let toastId = null;
 export const MyCart = ({ lang, setLang }) => {
+  const { showToast, showErrorToast, showSuccessToast } = useToastMessage();
   const [searchParams] = useSearchParams();
+  const location = useLocation();
   const isDirect = searchParams.get("direct") === "true";
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -41,6 +44,8 @@ export const MyCart = ({ lang, setLang }) => {
   const [profile, setProfile] = useState({});
   const [tax, setTax] = useState(false);
   const [isBack, setIsBack] = useState(false);
+
+  const [popupMessage, setPopupMessage] = useState("Are you sure, you want to empty the cart?");
 
   const [routeNames, setRouteNames] = useState({
     4: "foodie",
@@ -275,25 +280,25 @@ export const MyCart = ({ lang, setLang }) => {
     setThemeColor(colors[cartDetails.bundle_id]);
   }, [cartDetails]);
 
-  const toastMessage = () => {
-    const message = "Cart updated successfully";
+  // const toastMessage = () => {
+  //   const message = "Cart updated successfully";
 
-    if (toastId) {
-      toast.dismiss(toastId);
-    }
+  //   if (toastId) {
+  //     toast.dismiss(toastId);
+  //   }
 
-    toastId = toast(message, {
-      duration: 3000,
-      style: {
-        color: themeColor,
-        border: `1px solid ${themeColor}`,
-        fontWeight: "700",
-        background: "#fff",
-        boxShadow: "none",
-        borderRadius: "0px",
-      },
-    });
-  };
+  //   toastId = toast(message, {
+  //     duration: 3000,
+  //     style: {
+  //       color: themeColor,
+  //       border: `1px solid ${themeColor}`,
+  //       fontWeight: "700",
+  //       background: "#fff",
+  //       boxShadow: "none",
+  //       borderRadius: "0px",
+  //     },
+  //   });
+  // };
 
   useEffect(() => {
     document.documentElement.scrollTo({ top: 0, left: 0 });
@@ -334,6 +339,9 @@ export const MyCart = ({ lang, setLang }) => {
           response?.data?.item_details?.addon_items.length === 0)
       ) {
         setOpenPopup(true);
+      }
+      if(response.status === 206) {
+        setPopupMessage("Your cart is empty keep continue dashboard");
       }
     } catch (e) {
       navigate("/login");
@@ -601,41 +609,75 @@ export const MyCart = ({ lang, setLang }) => {
     e.preventDefault();
     setPaymentLoading(true);
     if (validateFields()) {
-      if (phoneError == false) {
-        try {
-          const formData = {
-            ...billingInfo,
-            user_name: billingInfo.firstName + " " + billingInfo.lastName,
-            phone: billingInfo.phone,
-            promo_code: billingInfo.promoCode,
-            total_amount: cartDetails.total_amount,
-            total_time: cartDetails.total_time,
-            grand_total: cartDetails.grand_total,
-            tax_treatment: cartDetails.tax_treatment,
-            tax: cartDetails.tax,
-            items_to_delete: removedItems,
-            vat_registered:
-              billingInfo?.vat_registered === "vat" ? true : false,
-            trn:
-              billingInfo?.vat_registered === "non_vat"
-                ? null
-                : billingInfo?.trn,
-          };
-          const response = await axios.put(
-            `${base_url}/api/order/cart/?initiate=True`,
-            formData,
-            ConfigToken()
-          );
-          if (response.data) {
-            window.location.href = response.data.data.redirect_url;
+      if (
+        (cartDetails.total_amount >= 4800 &&
+          cartDetails.bundl_english === "The Newbie") ||
+        (cartDetails.total_amount >= 800 && cartDetails.bundl_english === "")
+      ) {
+        if (phoneError == false) {
+          try {
+            const formData = {
+              ...billingInfo,
+              user_name: billingInfo.firstName + " " + billingInfo.lastName,
+              phone: billingInfo.phone,
+              promo_code: billingInfo.promoCode,
+              total_amount: cartDetails.total_amount,
+              total_time: cartDetails.total_time,
+              grand_total: cartDetails.grand_total,
+              tax_treatment: cartDetails.tax_treatment,
+              tax: cartDetails.tax,
+              items_to_delete: removedItems,
+              vat_registered:
+                billingInfo?.vat_registered === "vat" ? true : false,
+              trn:
+                billingInfo?.vat_registered === "non_vat"
+                  ? null
+                  : billingInfo?.trn,
+            };
+            const response = await axios.put(
+              `${base_url}/api/order/cart/?initiate=True`,
+              formData,
+              ConfigToken()
+            );
+            if (response.data) {
+              window.location.href = response.data.data.redirect_url;
+            }
+            // navigate('/dashboard', { state: { reDirect: true} });
+            console.log("Payment successful:", response.data);
+          } catch (error) {
+            console.error("Payment error:", error);
+          } finally {
+            setPaymentLoading(false);
           }
-          // navigate('/dashboard', { state: { reDirect: true} });
-          console.log("Payment successful:", response.data);
-        } catch (error) {
-          console.error("Payment error:", error);
-        } finally {
-          setPaymentLoading(false);
         }
+      } else {
+        // toast.error(
+        //   lang === "ar"
+        //     ? "لا يمكن إزالة عنصر الباقة"
+        //     : `Package Item Cannot removed`,
+        //   {
+        //     position: toast?.POSITION?.TOP_RIGHT,
+        //     toastId: "required-value-toast",
+        //     icon: false,
+        //     style: {
+        //       color: "#D83D99",
+        //       fontWeight: "700",
+        //     },
+        //   }
+        // );
+        showErrorToast(
+          lang === "ar"
+            ? "الأدنى للطلب يجب أن يكون 4,880"
+            : `Minimum order amount should be ${
+                cartDetails.bundl_english === "The Newbie" ? 4880 : 800
+              }`,
+          cartDetails.bundl_english === "The Newbie" ? "#D83D99" : "#1BA56F"
+        );
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+        setPaymentLoading(false);
       }
     } else {
       window.scrollTo({
@@ -909,7 +951,8 @@ export const MyCart = ({ lang, setLang }) => {
       //     borderRadius:"0px"
       //   },
       // });
-      toastMessage();
+      // toastMessage();
+      showSuccessToast("Cart updated successfully", "#D83D99");
     } catch (error) {
       console.error("Error updating addon:", error);
     } finally {
@@ -1172,7 +1215,7 @@ export const MyCart = ({ lang, setLang }) => {
                           <td className=" !py-2" align="center">
                             {" "}
                             {amountDecimal(
-                              Math.round(cartDetails?.bundle_price)
+                              Math.round(cartDetails?.bundle_price + (location.state?.selectedLanguage === "Both" && 2000))
                             )}
                           </td>
                           {/* <TableCell align="center"><img style={{width:'23px'}} src={row.DeleteIcon}></img></TableCell> */}
@@ -1672,7 +1715,7 @@ export const MyCart = ({ lang, setLang }) => {
               openpopup={openPopup}
               isCancel={true}
               setPopup={setOpenPopup}
-              title={" Are you sure, you want to empty the cart."}
+              title={popupMessage}
               // subTitle={'Are you sure, you want to empty the cart.'}
               onClick={() => navigate("/")}
               save={"Continue to Homepage"}
