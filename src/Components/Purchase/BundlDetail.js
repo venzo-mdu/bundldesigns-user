@@ -1209,7 +1209,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                         //   ? amountDecimal(2000)
                         //   : "")} */}
                       {/* {lang === "ar" ? "ريال" : "SAR"} */}
-                      {lang === "ar" ? "\u00A0\u00A0ريال" : "\u00A0\u00A0SAR"}
+                      {lang === "ar" ? "\u00A0\u00A0ريال" : "\u00A0\u00A0\u00A0SAR"}
                     </p>
                   </div>
                   <div className="total" style={{ display: "flex" }}>

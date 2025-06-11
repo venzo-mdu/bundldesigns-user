@@ -378,8 +378,10 @@ export default function WebsterPremiumForm({lang,setLang}) {
             <div className='text-center xs:border-b border-black relative sm:border-none '>
 
               <h2 className='text-[40px] mt-4 leading-1 relative text-black w-[340px] mx-auto mb-0'>
-                  <a className="webster-brand" href="/">
-                  <img className={`absolute bottom-[10px] xs:w-[90px] sm:w-[150px] sm:bottom-[10px] xs:bottom-[20px] ${lang === 'ar' ? 'xs:right-0 sm:right-[-10%] right-[-10%] rotate-[45deg]' :'xs:left-0 sm:left-[-10%] left-[-10%]' }`} src={Loginlogo} alt='login' />{lang === 'ar' ? 'أدخل المحتوى هنا' : 'Welcome to'}
+                  <a className="webster-brand">      
+                  <a href='/'>
+                  < img className={`absolute bottom-[10px] xs:w-[90px] sm:w-[150px] sm:bottom-[10px] xs:bottom-[20px] ${lang === 'ar' ? 'xs:right-0 sm:right-[-10%] right-[-10%] rotate-[45deg]' :'xs:left-0 sm:left-[-10%] left-[-10%]' }`} src={Loginlogo} alt='login' /></a>
+                  {lang === 'ar' ? 'أدخل المحتوى هنا' : 'Welcome to'}        
                   </a>
               </h2>
 
