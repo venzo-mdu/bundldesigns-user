@@ -210,7 +210,7 @@ export default function Career({lang,setLang}) {
         formErrors = {errors}
         idName={'websterSelect'}
       />
-        {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
+        {errors.phone && <p className="text-[#D83D99] text-sm">{errors.phone}</p>}
       </div>
 
       {/* Email Field */}
@@ -223,7 +223,7 @@ export default function Career({lang,setLang}) {
           onChange={handleChange}
           className="w-full border !border-black p-2 !rounded-none"
         />
-        {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+        {errors.email && <p className="text-[#D83D99] text-sm">{errors.email}</p>}
       </div>
 
       {/* Description Field */}
@@ -235,7 +235,7 @@ export default function Career({lang,setLang}) {
           onChange={handleChange}
           className="w-full border !border-black p-2 !rounded-none"
         />
-        {errors.message && <p className="text-red-500 text-sm">{errors.message}</p>}
+        {errors.message && <p className="text-[#D83D99] text-sm">{errors.message}</p>}
       </div>
 
       {/* Select Field */}
@@ -250,7 +250,7 @@ export default function Career({lang,setLang}) {
             <option  disabled value={''} selected>{lang === 'ar' ? 'اختر الوظيفة الشاغرة':' Choose the vacancy'} </option>
         {vacancies.map(vacancy => <option className='text-[#000000]' value={vacancy.id}>{vacancy.vacancy_english}</option>)}
         </select>
-        {errors.vacancy && <p className="text-red-500 text-sm">{errors.vacancy}</p>}
+        {errors.vacancy && <p className="text-[#D83D99] text-sm">{errors.vacancy}</p>}
       </div>
 
       {/* File Upload Field */}
@@ -274,7 +274,7 @@ export default function Career({lang,setLang}) {
       </label>
 
       {/* Display validation error */}
-      {errors.file && <p className="text-red-500 text-sm">{errors.file}</p>}
+      {errors.file && <p className="text-[#D83D99] text-sm">{errors.file}</p>}
     </div>
 
       {/* Submit Button */}
