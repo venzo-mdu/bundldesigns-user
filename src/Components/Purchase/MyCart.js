@@ -45,7 +45,9 @@ export const MyCart = ({ lang, setLang }) => {
   const [tax, setTax] = useState(false);
   const [isBack, setIsBack] = useState(false);
 
-  const [popupMessage, setPopupMessage] = useState("Are you sure, you want to empty the cart?");
+  const [popupMessage, setPopupMessage] = useState(
+    "Are you sure, you want to empty the cart?"
+  );
 
   const [routeNames, setRouteNames] = useState({
     4: "foodie",
@@ -339,8 +341,9 @@ export const MyCart = ({ lang, setLang }) => {
           response?.data?.item_details?.addon_items.length === 0)
       ) {
         setOpenPopup(true);
+         setPopupMessage("Your cart is empty keep continue dashboard");
       }
-      if(response.status === 206) {
+      if (response.status === 206) {
         setPopupMessage("Your cart is empty keep continue dashboard");
       }
     } catch (e) {
@@ -986,7 +989,6 @@ export const MyCart = ({ lang, setLang }) => {
     setShowModal(false);
   };
 
-  console.log(cartDetails);
 
   return (
     <>
@@ -1086,10 +1088,30 @@ export const MyCart = ({ lang, setLang }) => {
                           } w-full`}
                         >
                           <div className="font-[700] "> {row.qty} </div>
+                          {/* <div className="font-[700] text-[20px] ml-2">
+                            {lang === "ar"
+                              ? processArabicText(row.item__name_arabic)
+                              : row.item_name}
+                              
+                          </div> */}
                           <div className="font-[700] text-[20px] ml-2">
                             {lang === "ar"
                               ? processArabicText(row.item__name_arabic)
                               : row.item_name}
+
+                            {row?.item_name === "Logo & Identity" && (
+                              <>
+                                {" "}
+                                {location?.state?.selectedLanguage === "Both"
+                                  ? "(English & Arabic)"
+                                  : location?.state?.selectedLanguage ===
+                                    "English"
+                                  ? "(English)"
+                                  : location?.state?.selectedLanguage === "Arabic"
+                                  ? "(Arabic)"
+                                  : ""}
+                              </>
+                            )}
                           </div>
                         </div>
                       )
@@ -1209,13 +1231,17 @@ export const MyCart = ({ lang, setLang }) => {
                           >
                             {lang === "ar"
                               ? processArabicText(cartDetails?.bundl_arabic)
-                              : cartDetails?.bundl_english }
+                              : cartDetails?.bundl_english}
                           </td>
                           {/* <td className=' !py-2' align="center">{row.qty}</td> */}
                           <td className=" !py-2" align="center">
                             {" "}
                             {amountDecimal(
-                              Math.round(cartDetails?.bundle_price + (location.state?.selectedLanguage === "Both" && 2000))
+                              Math.round(
+                                cartDetails?.bundle_price +
+                                  (location?.state?.selectedLanguage ===
+                                    "Both" && 2000)
+                              )
                             )}
                           </td>
                           {/* <TableCell align="center"><img style={{width:'23px'}} src={row.DeleteIcon}></img></TableCell> */}
@@ -1236,10 +1262,22 @@ export const MyCart = ({ lang, setLang }) => {
                           } w-full`}
                         >
                           <td className="text-[#000] font-[700] !text-[18px] !px-[2%] !py-1">
-                            {row.qty}{" "} 
+                            {row.qty}{" "}
                             {lang === "ar"
                               ? processArabicText(row.item__name_arabic)
-                              : row?.item_name === 'Logo & Identity'? `${row?.item_name} ${location.state.selectedLanguage === 'Both'?'(English & Arabic)':location.state.selectedLanguage === 'English'?'(English)':location.state.selectedLanguage === 'Arabic'?'(Arabic)':''}`  : row?.item_name}
+                              : row?.item_name === "Logo & Identity"
+                              ? `${row?.item_name} ${
+                                  location?.state?.selectedLanguage === "Both"
+                                    ? "(English & Arabic)"
+                                    : location?.state?.selectedLanguage ===
+                                      "English"
+                                    ? "(English)"
+                                    : location?.state?.selectedLanguage ===
+                                      "Arabic"
+                                    ? "(Arabic)"
+                                    : ""
+                                }`
+                              : row?.item_name}
                           </td>
                         </tr>
                       )
