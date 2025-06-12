@@ -197,7 +197,6 @@ export default function UploadContent({ lang, setLang }) {
   };
 
   const saveContent = async (itemId, idx, designId) => {
-    console.log(designId);
     try {
       if (
         !uploadContent?.[itemId]?.[idx]?.language &&
@@ -254,7 +253,20 @@ export default function UploadContent({ lang, setLang }) {
         !uploadContent?.[itemId]?.[idx]?.measurements &&
         designQuestions[designId]?.measurement
       ) {
-        toast.error(
+        // toast.error(
+        //   lang === "ar"
+        //     ? "يرجى إضافة المقاسات قبل الحفظ"
+        //     : "Please add measurements before saving.",
+        //   {
+        //     icon: false,
+        //     toastId: "required-value-toast3",
+        //     style: {
+        //       color: "#D83D99",
+        //       fontWeight: "700",
+        //     },
+        //   }
+        // );
+        toastErrorMessage(
           lang === "ar"
             ? "يرجى إضافة المقاسات قبل الحفظ"
             : "Please add measurements before saving.",
@@ -286,7 +298,6 @@ export default function UploadContent({ lang, setLang }) {
         );
         return;
       }
-
       const formData = {
         answers: {
           [itemId]: {

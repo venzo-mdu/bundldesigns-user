@@ -372,7 +372,7 @@ function Addons({
                             saveContent(
                               item.id,
                               filterIndex,
-                              `${item.id}_${filterIndex}`
+                              item.item__id
                             )
                           }
                           className="text-white bg-[#1BA56F] py-1 px-2 text-[19px] font-[500] uppercase"
