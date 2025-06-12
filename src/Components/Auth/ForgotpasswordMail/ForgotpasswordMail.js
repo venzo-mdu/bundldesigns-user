@@ -92,6 +92,7 @@ export const ForgotpasswordMail = ({ lang }) => {
   };
 
   const onSubmit = async (e) => {
+    debugger
     e.preventDefault();
     if (!validateForm()) return;
     setLoading(true);

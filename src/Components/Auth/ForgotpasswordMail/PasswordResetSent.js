@@ -13,6 +13,8 @@ const PasswordResetSent = () => {
   const [loading, setLoading] = useState(false);
   const [resendStatus, setResendStatus] = useState("");
 
+  let language = localStorage.getItem("lang") === "ar" ? "arabic" : "english";
+
   useEffect(() => {
     document.documentElement.scrollTo({
       top: 0,
@@ -33,6 +35,7 @@ const PasswordResetSent = () => {
     try {
       const response = await axios.post(`${base_url}/api/forget-password/`, {
         email,
+        language,
       });
       if (response.status === 200 || response.status === 201) {
         setResendStatus(
@@ -60,12 +63,18 @@ const PasswordResetSent = () => {
             {lang === "ar" ? "مرحبا بكم مجددا" : "Reset Password"}
           </p>
           <a className="Rest-brand" href="/">
-          <img className="loginlogo" src={Loginlogo} alt="login" />
+            <img className="loginlogo" src={Loginlogo} alt="login" />
           </a>
 
           {/* Message block positioned similar to form in ForgotpasswordMail */}
           <div className="lg:mt-0 md:mt-0 xs:mt-[8%]">
-            <p style={{ textAlign: "center", fontSize: "18px", marginBottom: "20px" }}>
+            <p
+              style={{
+                textAlign: "center",
+                fontSize: "18px",
+                marginBottom: "20px",
+              }}
+            >
               {lang === "ar"
                 ? "تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني."
                 : "Password reset link has been sent to your email."}
