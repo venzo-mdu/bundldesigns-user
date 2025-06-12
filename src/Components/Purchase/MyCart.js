@@ -1209,7 +1209,7 @@ export const MyCart = ({ lang, setLang }) => {
                           >
                             {lang === "ar"
                               ? processArabicText(cartDetails?.bundl_arabic)
-                              : cartDetails?.bundl_english}
+                              : cartDetails?.bundl_english }
                           </td>
                           {/* <td className=' !py-2' align="center">{row.qty}</td> */}
                           <td className=" !py-2" align="center">
@@ -1236,10 +1236,10 @@ export const MyCart = ({ lang, setLang }) => {
                           } w-full`}
                         >
                           <td className="text-[#000] font-[700] !text-[18px] !px-[2%] !py-1">
-                            {row.qty}{" "}
+                            {row.qty}{" "} 
                             {lang === "ar"
                               ? processArabicText(row.item__name_arabic)
-                              : row?.item_name}
+                              : row?.item_name === 'Logo & Identity'? `${row?.item_name} ${location.state.selectedLanguage === 'Both'?'(English & Arabic)':location.state.selectedLanguage === 'English'?'(English)':location.state.selectedLanguage === 'Arabic'?'(Arabic)':''}`  : row?.item_name}
                           </td>
                         </tr>
                       )
