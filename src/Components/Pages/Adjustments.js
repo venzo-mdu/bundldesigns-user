@@ -1810,7 +1810,6 @@ export default function Adjustments({ user, lang, setLang }) {
       item[id].total_price = parseFloat(
         (item[id].total_price - item[id].price).toFixed(2)
       );
-      debugger
     } else {
       const priceDecrementValue =
         (Number(item[id].price) * Number(item[id]?.price_increment)) / 100;
@@ -1826,7 +1825,6 @@ export default function Adjustments({ user, lang, setLang }) {
       adjustmentForEachItem(itemsList, id);
       itemsList[id].qty -= 1;
 
-      // debugger;
       // itemsList[id].total_price = parseFloat(
       //   (itemsList[id].total_price - itemsList[id].price).toFixed(2)
       // );
@@ -1839,7 +1837,6 @@ export default function Adjustments({ user, lang, setLang }) {
         adjustmentData
       );
       showErrorToast("Cart updated successfully", "#1BA56F");
-      debugger;
       setTotalPrice(total_price);
       setTotalTime(total_time);
     }
@@ -1903,7 +1900,6 @@ export default function Adjustments({ user, lang, setLang }) {
         (acc, item) => acc + parseFloat(item.price || 0),
         0
       );
-    debugger;
     // Find the maximum "day" value among all items
     const maxItemTime = Object.values(items || {}).reduce(
       (max, item) => Math.max(max, item.time || 0),
@@ -2499,7 +2495,7 @@ export default function Adjustments({ user, lang, setLang }) {
                             </button>
                             {adjustmentError && (
                               <p style={{ color: "#D83D99" }}>
-                                Please enter the feild
+                                Please enter your comments
                               </p>
                             )}
                           </p>
@@ -3756,7 +3752,7 @@ export default function Adjustments({ user, lang, setLang }) {
                           </p>
                           {adjustmentError && (
                             <p style={{ color: "#D83D99" }}>
-                              Please enter the feild
+                              Please enter your comments
                             </p>
                           )}
                           <p className="font-medium text-[18px]">
