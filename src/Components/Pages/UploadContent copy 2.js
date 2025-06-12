@@ -332,9 +332,17 @@ export default function UploadContent({ lang, setLang }) {
         );
         return;
       }
-      if (uploadContent?.[filterIndex][idx].fileName.length > 0) {
-        toastErrorMessage(
-          lang === "ar" ? "يرجى رفع المحتوى" : "Please upload the content."
+      if (uploadContent?.[filterIndex][idx].fileName) {
+        toast.error(
+          lang === "ar" ? "يرجى رفع المحتوى" : "Please upload the content.",
+          {
+            icon: false,
+            toastId: "required-value-toast4",
+            style: {
+              color: "#D83D99",
+              fontWeight: "700",
+            },
+          }
         );
       }
       debugger;
@@ -384,23 +392,18 @@ export default function UploadContent({ lang, setLang }) {
       }
     } catch (error) {
       console.error("Save failed:", error.response?.data || error.message);
-      // toast.error(
-      //   error.response?.data?.message || lang === "ar"
-      //     ? "المحاولة مرة أخرى يرجى فشل في حفظ المحتوى "
-      //     : "Failed to save content. Please try again.",
-      //   {
-      //     icon: false,
-      //     toastId: "required-value-toast7",
-      //     style: {
-      //       color: "#D83D99",
-      //       fontWeight: "700",
-      //     },
-      //   }
-      // );
-      toastErrorMessage(
+      toast.error(
         error.response?.data?.message || lang === "ar"
           ? "المحاولة مرة أخرى يرجى فشل في حفظ المحتوى "
-          : "Failed to save content. Please try again."
+          : "Failed to save content. Please try again.",
+        {
+          icon: false,
+          toastId: "required-value-toast7",
+          style: {
+            color: "#D83D99",
+            fontWeight: "700",
+          },
+        }
       );
     }
   };

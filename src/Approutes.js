@@ -170,7 +170,7 @@ export default function AppRouter() {
       // element: <ProtectedRoute element={<CustomBundl />} />,
     },
     {
-      path: "/verify-mail/:id",
+      path: "/verify/:id",
       element: <VerifyMail lang={transLanguage} />,
     },
     {

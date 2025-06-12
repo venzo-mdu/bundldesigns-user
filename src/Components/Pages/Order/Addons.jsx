@@ -30,11 +30,40 @@ function Addons({
     }
   }, [orderItemRemain]);
 
-  const removeFile = (ele) => {
+  // const removeFile = (ele) => {
+  //   setUploadFiles(
+  //     uploadFiles?.filter((file) => {
+  //       return !(ele?.id === file?.id && ele?.name === file?.name);
+  //     })
+  //   );
+  // };
+
+  const removeFile = (fileItem, nameIndex) => {
     setUploadFiles(
-      uploadFiles?.filter((file) => {
-        return !(ele?.id === file?.id && ele?.name === file?.name);
-      })
+      (prev) =>
+        prev
+          .map((file) => {
+            if (file.id === fileItem.id) {
+              const newNames = [...file.name];
+              const newUrls = [...file.url];
+
+              newNames.splice(nameIndex, 1);
+              newUrls.splice(nameIndex, 1);
+
+              // Remove object if no names/urls left
+              if (newNames.length === 0) {
+                return null;
+              }
+
+              return {
+                ...file,
+                name: newNames,
+                url: newUrls,
+              };
+            }
+            return file;
+          })
+          .filter(Boolean) // remove nulls (empty objects)
     );
   };
 
@@ -337,7 +366,7 @@ function Addons({
                                 ? "إضافة المحتوى"
                                 : "Upload Content")}
                           </p>
-                          <div className="flex gap-2">
+                          {/* <div className="flex gap-2">
                             {uploadFiles?.length > 0 &&
                               uploadFiles
                                 // .filter((ele) => ele.id === item.id)
@@ -352,14 +381,36 @@ function Addons({
                                   </span>
                                   }
                                 })}
-                          </div>
+                          </div> */}
+
+                          {uploadFiles?.length > 0 &&
+                            uploadFiles.map((ele, idx) => {
+                              if (ele.id === `${item.id}_${filterIndex}`) {
+                                return (
+                                  <div key={idx} className="flex flex-wrap">
+                                    {ele.name.map((name, i) => (
+                                      <div
+                                        key={i}
+                                        className="bg-black text-white py-1 px-2 mr-2 mb-2 flex items-center"
+                                      >
+                                        {name}
+                                        <CloseIcon
+                                          onClick={() => removeFile(ele, i)}
+                                          className="ml-2 cursor-pointer"
+                                        />
+                                      </div>
+                                    ))}
+                                  </div>
+                                );
+                              }
+                            })}
                         </>
                       )}
                       <p className="my-6 flex justify-start">
                         {" "}
                         <button
                           onClick={() => {
-                           setSkipId([...skipId, `${item.id}_${filterIndex}`]);
+                            setSkipId([...skipId, `${item.id}_${filterIndex}`]);
                           }}
                           className={`text-[#1BA56F] py-1 px-2 border !border-[#1BA56F] ${
                             lang === "ar" ? "ml-2" : "mr-2"
@@ -372,6 +423,7 @@ function Addons({
                             saveContent(
                               item.id,
                               filterIndex,
+                              item.item__id,
                               `${item.id}_${filterIndex}`
                             )
                           }

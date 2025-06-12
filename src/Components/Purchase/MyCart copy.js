@@ -320,6 +320,7 @@ export const MyCart = ({ lang, setLang }) => {
 
   const getCartData = async () => {
     try {
+      debugger
       setLoading(true);
       // const response = await axios.get(`${base_url}/api/order/${location.state.orderData.id}/`);
       getProfile();
@@ -341,7 +342,7 @@ export const MyCart = ({ lang, setLang }) => {
           response?.data?.item_details?.addon_items.length === 0)
       ) {
         setOpenPopup(true);
-        setPopupMessage("Your cart is empty keep continue dashboard");
+         setPopupMessage("Your cart is empty keep continue dashboard");
       }
       if (response.status === 206) {
         setPopupMessage("Your cart is empty keep continue dashboard");
@@ -612,14 +613,10 @@ export const MyCart = ({ lang, setLang }) => {
     e.preventDefault();
     setPaymentLoading(true);
     if (validateFields()) {
-      debugger;
       if (
         (cartDetails.total_amount >= 4800 &&
           cartDetails.bundl_english === "The Newbie") ||
-        (cartDetails.total_amount >= 800 && cartDetails.bundl_english === "") ||
-        cartDetails.bundl_english === "The Socialite" ||
-        cartDetails.bundl_english === "The Boutiquer" ||
-        cartDetails.bundl_english === "The Foodie"
+        (cartDetails.total_amount >= 800 && cartDetails.bundl_english === "")
       ) {
         if (phoneError == false) {
           try {
@@ -658,6 +655,20 @@ export const MyCart = ({ lang, setLang }) => {
           }
         }
       } else {
+        // toast.error(
+        //   lang === "ar"
+        //     ? "لا يمكن إزالة عنصر الباقة"
+        //     : `Package Item Cannot removed`,
+        //   {
+        //     position: toast?.POSITION?.TOP_RIGHT,
+        //     toastId: "required-value-toast",
+        //     icon: false,
+        //     style: {
+        //       color: "#D83D99",
+        //       fontWeight: "700",
+        //     },
+        //   }
+        // );
         showErrorToast(
           lang === "ar"
             ? "الأدنى للطلب يجب أن يكون 4,880"
@@ -979,6 +990,7 @@ export const MyCart = ({ lang, setLang }) => {
     setShowModal(false);
   };
 
+
   return (
     <>
       {loading ? (
@@ -1096,8 +1108,7 @@ export const MyCart = ({ lang, setLang }) => {
                                   : location?.state?.selectedLanguage ===
                                     "English"
                                   ? "(English)"
-                                  : location?.state?.selectedLanguage ===
-                                    "Arabic"
+                                  : location?.state?.selectedLanguage === "Arabic"
                                   ? "(Arabic)"
                                   : ""}
                               </>
