@@ -1469,7 +1469,6 @@ import { processArabicText } from "../Utils/arabicFontParenthesisChecker";
 
 let newToastId = null;
 export default function Adjustments({ user, lang, setLang }) {
-
   const { showToast, showErrorToast } = useToastMessage();
   const { state } = useLocation();
   const { orderId, orderItemId } = state;
@@ -1806,9 +1805,32 @@ export default function Adjustments({ user, lang, setLang }) {
     setDesignListTab(Object.keys(response.data.designs_details)[0]);
   };
 
+  const adjustmentForEachItem = (item, id) => {
+    if (item?.qty === 1) {
+      item[id].total_price = parseFloat(
+        (item[id].total_price - item[id].price).toFixed(2)
+      );
+      debugger
+    } else {
+      const priceDecrementValue =
+        (Number(item[id].price) * Number(item[id]?.price_increment)) / 100;
+
+      item[id].total_price = parseFloat(
+        (item[id].total_price - priceDecrementValue).toFixed(2)
+      );
+    }
+  };
+
   const remove_item = (id) => {
     if (itemsList[id]) {
+      adjustmentForEachItem(itemsList, id);
       itemsList[id].qty -= 1;
+
+      // debugger;
+      // itemsList[id].total_price = parseFloat(
+      //   (itemsList[id].total_price - itemsList[id].price).toFixed(2)
+      // );
+
       if (itemsList[id].qty <= 0) {
         delete itemsList[id]; // Remove item completely if quantity is zero
       }
@@ -1817,6 +1839,7 @@ export default function Adjustments({ user, lang, setLang }) {
         adjustmentData
       );
       showErrorToast("Cart updated successfully", "#1BA56F");
+      debugger;
       setTotalPrice(total_price);
       setTotalTime(total_time);
     }
@@ -1880,7 +1903,7 @@ export default function Adjustments({ user, lang, setLang }) {
         (acc, item) => acc + parseFloat(item.price || 0),
         0
       );
-
+    debugger;
     // Find the maximum "day" value among all items
     const maxItemTime = Object.values(items || {}).reduce(
       (max, item) => Math.max(max, item.time || 0),
@@ -1902,7 +1925,6 @@ export default function Adjustments({ user, lang, setLang }) {
   const updateTotals = (items, adjustments) => {
     const { price, time } = calculateTotals(items, adjustments);
     let temptax = price * (billingInfo.country === "Saudi Arabia" ? 0.15 : 0);
-
     setTax(temptax);
     setTotalPrice(price);
     setTotalTime(time);
@@ -2270,7 +2292,6 @@ export default function Adjustments({ user, lang, setLang }) {
       setLoading(false);
     }
   };
-
 
   const removeFile = (id, fileNameToRemove) => {
     setAdjustmentsData((prev) => {
@@ -4159,7 +4180,7 @@ export default function Adjustments({ user, lang, setLang }) {
                           <p className="flex items-center">
                             <img
                               width={"18px"}
-                              className="mr-[5px] h-[18px]" 
+                              className="mr-[5px] h-[18px]"
                               src={dollorIcon}
                             ></img>
                             <span>
@@ -4178,7 +4199,9 @@ export default function Adjustments({ user, lang, setLang }) {
                 <div className=" flex items-center mb-1">
                   <img
                     src={BlackDollor}
-                    className={`${lang === "ar" ? "ml-2 mr-2" : "ml-[6px] mr-4"}`}
+                    className={`${
+                      lang === "ar" ? "ml-2 mr-2" : "ml-[6px] mr-4"
+                    }`}
                     alt="Total Price"
                   />
                   <p className="basis-3/5 font-bold text-[18px] mb-0">
