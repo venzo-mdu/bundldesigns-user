@@ -941,6 +941,8 @@ import { Bgloader } from "../Common/Background/Bgloader";
 import DoneIcon from "@mui/icons-material/Done";
 import { BorderAllRounded } from "@mui/icons-material";
 import { processArabicText } from "../Utils/arabicFontParenthesisChecker";
+import workOurGIF from '../../Images/ourWorkGIF.gif'
+import workBrandGIF from '../../Images/ourWorkBranding.gif'
 
 const style = {
   position: "absolute",
@@ -2115,12 +2117,23 @@ export default function Dashboard({ lang, setLang }) {
                 </div>
               </div>
             ) : (
-              <div className="text-center p-10">
-                <h1 className="text-[#00000080]">No Orders</h1>
-                <a href="/" className="text-blue-500 hover:underline">
-                  Make Some Orders
-                </a>
+              // <div className="text-center p-10">
+              //   <h1 className="text-[#00000080]">No Orders</h1>
+              //   <a href="/" className="text-blue-500 hover:underline">
+              //     Make Some Orders
+              //   </a>
+              // </div>
+
+              <div className='relative py-10 pb-0'>
+              <img className={`absolute ${lang === 'ar' ? 'sm:right-12 right-12 xs:right-[-3rem]' : 'sm:left-12 left-12 xs:left-[-3rem]'} sm:w-[200px] w-[200px] xs:w-[125px]`} style={{ transform: 'rotate(350deg)' }} src={workOurGIF}></img>
+              <div className='w-[48%] text-center mx-auto'>
+                <h1 className='text-[24px] font-semibold text-black mb-4'> {lang === 'ar' ? 'لا توجد طلبات حتى الآن.' : 'No orders yet.'}</h1>
+                <p className='flex justify-center mb-0 mt-0'> <img className='animate-rotate-animation' width='150px' height='110px' src={workBrandGIF}></img></p>
+              <h2 className='lg:text-[32px] md:text-[32px] xs:text-[24px] sm:text-[32px] !mt-6 lg:mx-auto md:mx-auto xs:mx-0 lg:py-0 lg:px-0 md:py-0 md:px-0 xs:py-[2%] xs:px-[5%]  text-black'>{lang === 'ar' ? 'جاهز تبدأ رحلتك الابداعية معنا؟ ' : 'Inspired to start your journey to launch your next big thing ?'}</h2>
+                <p className='text-center'> <button onClick={() => { window.location.href = '/' }} className='py-1 px-3  !mt-[50px] border-black border-[1px] !mb-8 bg-white hover:!bg-black text-black uppercase  hover:text-white'>{lang === 'ar' ? 'ابدأ مشروعك الآن' : 'Get started !'}</button> </p>
               </div>
+              <img width='300px' className={`absolute sm:w-[300px] w-[300px] xs:w-[150px] xs:top-[30%] sm:top-[14%] ${lang === 'ar' ? 'xs:left-[-14%]  sm:left-[3%] left-[3%]' : 'xs:right-[-14%]  sm:right-[3%] right-[3%]'} `} style={{ transform: 'rotate(320deg)' }} src={workOurGIF}></img>
+            </div>
             )}
 
             {/* {
@@ -2189,7 +2202,7 @@ export default function Dashboard({ lang, setLang }) {
                                     </div> 
                             } */}
 
-            <div className="font-Helvetica">
+            {/* <div className="font-Helvetica">
               <div className="text-center lg:pt-0 lg:pb-16 md:pt-0 md:pb-16 xs:pt-4 xs:pb-16">
                 <h2 className="lg:text-[30px] md:text-[24px] xs:text-[24px] xs:font-[700] xs:px-[15%]">
                   {lang === "ar"
@@ -2223,7 +2236,7 @@ export default function Dashboard({ lang, setLang }) {
                   </a>
                 )}
               </div>
-            </div>
+            </div> */}
           </div>
           <Modal
             open={showPdf}
