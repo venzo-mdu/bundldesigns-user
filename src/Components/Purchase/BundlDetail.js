@@ -1278,7 +1278,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                             window.location.reload();
                           }}
                         >
-                          {lang === "ar" ? "المتابعة إلى السلة​" : "Empty Cart"}
+                          {lang === "ar" ? "عربة فارغة" : "Empty Cart"}
                         </button>
                       </div>
                     ) : (
