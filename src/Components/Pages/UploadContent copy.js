@@ -220,7 +220,7 @@ export default function UploadContent({ lang, setLang }) {
         //   ? "يرجى اختيار اللغة قبل الحفظ"
         //   : "Please choose language before saving.";
         toastErrorMessage(
-          lang === ""
+          lang === "ar"
             ? "يرجى اختيار اللغة قبل الحفظ"
             : "Please choose language before saving."
         );

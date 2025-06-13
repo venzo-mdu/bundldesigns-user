@@ -145,7 +145,7 @@ export default function Animation({ lang, setLang }) {
         designQuestions[designId]?.language
       ) {
         toast.error(
-          lang === ""
+          lang === "ar"
             ? "يرجى اختيار اللغة قبل الحفظ"
             : "Please choose language before saving.",
           {
