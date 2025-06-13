@@ -11,11 +11,12 @@ import Instagram from "../../../Images/Footer/Instagram.svg";
 import mailIcon from "../../../Images/Footer/mailicon.svg";
 import WhatsappIcon from "../../../Images/Footer/WhatsappBlack.svg";
 import X from "../../../Images/Footer/icons8-twitterx-16.svg";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import axios from "axios";
 import { base_url } from "../../Auth/BackendAPIUrl";
 
 export const Footer = ({ isLang }) => {
+  const location = useLocation();
   const [mediaUrls, setmediaUrls] = useState({
     instagram: "",
     facebook: "",
@@ -64,7 +65,7 @@ export const Footer = ({ isLang }) => {
     },
   ];
   return (
-    <div className="footer-section">
+    <div className="footer-section"   >
       <div>
         <div className="footer">
           <div className="left-content">
