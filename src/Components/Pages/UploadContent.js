@@ -37,6 +37,7 @@ export default function UploadContent({ lang, setLang }) {
       `${base_url}/api/order/${orderId}/`,
       ConfigToken()
     );
+    
     if (response.data) {
       setOrder(response.data.data);
       setDesignQuestions(response.data.design_question);
@@ -101,7 +102,6 @@ export default function UploadContent({ lang, setLang }) {
   // }
 
   const uploadFile = async (e, id, field, name, idx) => {
-    debugger;
     if (e.target.files.length) {
       const formData = new FormData();
       formData.append("file", e.target.files[0]);
@@ -114,7 +114,6 @@ export default function UploadContent({ lang, setLang }) {
           ConfigToken()
         );
         const fileName = e.target.files[0]?.name || "";
-        debugger;
         console.log("uploadFiles", uploadFiles);
         // setUploadFiles((prev) => [
         //   ...prev,
@@ -314,30 +313,28 @@ export default function UploadContent({ lang, setLang }) {
         );
         return;
       }
-      debugger;
-      if (
-        !uploadContent?.[itemId]?.[idx]?.filename &&
-        designQuestions[designId]?.attachemnt
-      ) {
-        toast.error(
-          lang === "ar" ? "يرجى رفع المحتوى" : "Please upload the content.",
-          {
-            icon: false,
-            toastId: "required-value-toast4",
-            style: {
-              color: "#D83D99",
-              fontWeight: "700",
-            },
-          }
-        );
-        return;
-      }
-      if (uploadContent?.[filterIndex][idx].fileName.length > 0) {
+      // if (
+      //   !uploadContent?.[itemId]?.[idx]?.filename &&
+      //   designQuestions[designId]?.attachemnt
+      // ) {
+      //   toast.error(
+      //     lang === "ar" ? "يرجى رفع المحتوى" : "Please upload the content.",
+      //     {
+      //       icon: false,
+      //       toastId: "required-value-toast4",
+      //       style: {
+      //         color: "#D83D99",
+      //         fontWeight: "700",
+      //       },
+      //     }
+      //   );
+      //   return;
+      // }
+      if (uploadContent?.[filterIndex][idx].file.length > 0) {
         toastErrorMessage(
           lang === "ar" ? "يرجى رفع المحتوى" : "Please upload the content."
         );
       }
-      debugger;
       const formData = {
         answers: {
           [itemId]: {
@@ -347,6 +344,20 @@ export default function UploadContent({ lang, setLang }) {
         orderId: order.id,
         status: "save_later",
       };
+
+      for (let key in uploadContent) {
+        if (key == itemId) {
+          uploadContent[itemId][idx].file_links = uploadFiles
+            .filter((file) => {
+              return file.id === `${itemId}_${idx}`;
+            })
+            .map((file) => {
+              return {
+                url: file.url,
+              };
+            });
+        }
+      }
 
       const response = await axios.post(
         `${base_url}/api/upload_content/`,
@@ -468,6 +479,7 @@ export default function UploadContent({ lang, setLang }) {
     }, 0);
 
   useEffect(() => {
+    
     if (addonCount + count === 0) {
       navigate(`/dashboard?order_id=${orderId}`);
     }
@@ -676,6 +688,7 @@ export default function UploadContent({ lang, setLang }) {
           >
             <p
               onClick={() => {
+                
                 window.location.href = `/dashboard?order_id=${order.id}`;
               }}
               className="flex cursor-pointer text-[18px] items-center text-black px-4"

@@ -37,7 +37,9 @@ export default function UploadContent({ lang, setLang }) {
       `${base_url}/api/order/${orderId}/`,
       ConfigToken()
     );
+    
     if (response.data) {
+      
       setOrder(response.data.data);
       setDesignQuestions(response.data.design_question);
     }
@@ -101,7 +103,7 @@ export default function UploadContent({ lang, setLang }) {
   // }
 
   const uploadFile = async (e, id, field, name, idx) => {
-    debugger;
+    ;
     if (e.target.files.length) {
       const formData = new FormData();
       formData.append("file", e.target.files[0]);
@@ -114,7 +116,7 @@ export default function UploadContent({ lang, setLang }) {
           ConfigToken()
         );
         const fileName = e.target.files[0]?.name || "";
-        debugger;
+        ;
         console.log("uploadFiles", uploadFiles);
         // setUploadFiles((prev) => [
         //   ...prev,
@@ -314,7 +316,7 @@ export default function UploadContent({ lang, setLang }) {
         );
         return;
       }
-      debugger;
+      ;
       if (
         !uploadContent?.[itemId]?.[idx]?.filename &&
         designQuestions[designId]?.attachemnt
@@ -345,7 +347,7 @@ export default function UploadContent({ lang, setLang }) {
           }
         );
       }
-      debugger;
+      ;
       const formData = {
         answers: {
           [itemId]: {
