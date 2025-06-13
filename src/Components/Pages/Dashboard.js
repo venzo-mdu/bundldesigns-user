@@ -1037,7 +1037,7 @@ export default function Dashboard({ lang, setLang }) {
       `${base_url}/api/order/${orderId}/`,
       ConfigToken()
     );
-    
+
     const orderData = response.data.data;
     if (orderData) {
       orderData.item_details = orderData.item_details = [
@@ -1647,7 +1647,6 @@ export default function Dashboard({ lang, setLang }) {
     }
   };
 
-
   return (
     <>
       {loading ? (
@@ -1682,7 +1681,7 @@ export default function Dashboard({ lang, setLang }) {
               }
               onClick={() => {
                 setPurchasePopUp(false);
-                navigate(`/dashboard?order_id=${purchase_id}`);
+                // navigate(`/dashboard?order_id=${purchase_id}`);
               }}
               save={
                 lang === "ar"

@@ -18,17 +18,17 @@ function Addons({
   saveContent,
 }) {
   const navigate = useNavigate();
-  let orderItemRemain = order?.item_details?.bundle_items.filter(
-    (item) =>
-      item.item__id !== 76 &&
-      !skipId?.includes(item.id) &&
-      item.status == "questionnaire required"
-  );
-  useEffect(() => {
-    if (orderItemRemain.length === 0) {
-      navigate(`/dashboard?order_id=${order.id}`);
-    }
-  }, [orderItemRemain]);
+  // let orderItemRemain = order?.item_details?.bundle_items.filter(
+  //   (item) =>
+  //     item.item__id !== 76 &&
+  //     !skipId?.includes(item.id) &&
+  //     item.status == "questionnaire required"
+  // );
+  // useEffect(() => {
+  //   if (orderItemRemain.length === 0) {
+  //     navigate(`/dashboard?order_id=${order.id}`);
+  //   }
+  // }, [orderItemRemain]);
 
   // const removeFile = (ele) => {
   //   setUploadFiles(

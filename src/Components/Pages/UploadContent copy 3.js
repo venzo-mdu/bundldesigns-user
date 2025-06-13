@@ -234,22 +234,6 @@ export default function UploadContent({ lang, setLang }) {
         !uploadContent?.[itemId]?.[idx]?.language &&
         designQuestions[designId]?.language
       ) {
-        // toast.error(
-        //   lang === ""
-        //     ? "يرجى اختيار اللغة قبل الحفظ"
-        //     : "Please choose language before saving.",
-        //   {
-        //     icon: false,
-        //     toastId: "required-value-toast1",
-        //     style: {
-        //       color: "#D83D99",
-        //       fontWeight: "700",
-        //     },
-        //   }
-        // );
-        // lang === ""
-        //   ? "يرجى اختيار اللغة قبل الحفظ"
-        //   : "Please choose language before saving.";
         toastErrorMessage(
           lang === ""
             ? "يرجى اختيار اللغة قبل الحفظ"
@@ -261,19 +245,6 @@ export default function UploadContent({ lang, setLang }) {
         !uploadContent?.[itemId]?.[idx]?.content &&
         designQuestions[designId]?.textbox
       ) {
-        // toast.error(
-        //   lang === "ar"
-        //     ? "يرجى إضافة المحتوى قبل الحفظ"
-        //     : "Please add content before saving.",
-        //   {
-        //     icon: false,
-        //     toastId: "required-value-toast2",
-        //     style: {
-        //       color: "#D83D99",
-        //       fontWeight: "700",
-        //     },
-        //   }
-        // );
         toastErrorMessage(
           lang === ""
             ? "يرجى إضافة المحتوى قبل الحفظ"
@@ -285,19 +256,6 @@ export default function UploadContent({ lang, setLang }) {
         !uploadContent?.[itemId]?.[idx]?.measurements &&
         designQuestions[designId]?.measurement
       ) {
-        // toast.error(
-        //   lang === "ar"
-        //     ? "يرجى إضافة المقاسات قبل الحفظ"
-        //     : "Please add measurements before saving.",
-        //   {
-        //     icon: false,
-        //     toastId: "required-value-toast3",
-        //     style: {
-        //       color: "#D83D99",
-        //       fontWeight: "700",
-        //     },
-        //   }
-        // );
         toastErrorMessage(
           lang === "ar"
             ? "يرجى إضافة المقاسات قبل الحفظ"
@@ -313,23 +271,23 @@ export default function UploadContent({ lang, setLang }) {
         );
         return;
       }
-      if (
-        !uploadContent?.[itemId]?.[idx]?.filename &&
-        designQuestions[designId]?.attachemnt
-      ) {
-        toast.error(
-          lang === "ar" ? "يرجى رفع المحتوى" : "Please upload the content.",
-          {
-            icon: false,
-            toastId: "required-value-toast4",
-            style: {
-              color: "#D83D99",
-              fontWeight: "700",
-            },
-          }
-        );
-        return;
-      }
+      // if (
+      //   !uploadContent?.[itemId]?.[idx]?.filename &&
+      //   designQuestions[designId]?.attachemnt
+      // ) {
+      //   toast.error(
+      //     lang === "ar" ? "يرجى رفع المحتوى" : "Please upload the content.",
+      //     {
+      //       icon: false,
+      //       toastId: "required-value-toast4",
+      //       style: {
+      //         color: "#D83D99",
+      //         fontWeight: "700",
+      //       },
+      //     }
+      //   );
+      //   return;
+      // }
       if (uploadContent?.[filterIndex][idx].file.length > 0) {
         toastErrorMessage(
           lang === "ar" ? "يرجى رفع المحتوى" : "Please upload the content."
@@ -478,12 +436,12 @@ export default function UploadContent({ lang, setLang }) {
       return total + missingUploads.length;
     }, 0);
 
-  useEffect(() => {
+  // useEffect(() => {
     
-    if (addonCount + count === 0) {
-      navigate(`/dashboard?order_id=${orderId}`);
-    }
-  }, [skipId, count, addonCount]); // Add all relevant dependencies
+  //   if (addonCount + count === 0) {
+  //     navigate(`/dashboard?order_id=${orderId}`);
+  //   }
+  // }, [skipId, count, addonCount]); // Add all relevant dependencies
 
   return loading ? (
     <Bgloader />
