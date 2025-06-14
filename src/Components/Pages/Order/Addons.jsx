@@ -412,7 +412,7 @@ function Addons({
                           onClick={() => {
                             setSkipId([...skipId, `${item.id}_${filterIndex}`]);
                           }}
-                          className={`text-[#1BA56F] py-1 px-2 border !border-[#1BA56F] ${
+                          className={`text-[#1BA56F] cursor-pointer py-1 px-2 border !border-[#1BA56F] ${
                             lang === "ar" ? "ml-2" : "mr-2"
                           } text-[18px] font-[500] uppercase`}
                         >
@@ -427,7 +427,7 @@ function Addons({
                               `${item.id}_${filterIndex}`
                             )
                           }
-                          className="text-white bg-[#1BA56F] py-1 px-2 text-[19px] font-[500] uppercase"
+                          className="text-white cursor-pointer bg-[#1BA56F] py-1 px-2 text-[19px] font-[500] uppercase"
                         >
                           {lang === "ar" ? "حفظ والتالي" : "Save & Next"}
                         </button>
