@@ -1836,7 +1836,10 @@ export default function Adjustments({ user, lang, setLang }) {
         itemsList,
         adjustmentData
       );
-      showErrorToast("Cart updated successfully", "#1BA56F");
+      showErrorToast(
+  lang === "ar" ? "تم تحديث السلة بنجاح." : "Cart updated successfully",
+  "#1BA56F"
+);
       setTotalPrice(total_price);
       setTotalTime(total_time);
     }
@@ -1995,7 +1998,10 @@ export default function Adjustments({ user, lang, setLang }) {
   };
 
   const addItem = (index, key, id) => {
-    showToast("Cart updated successfully", "#1BA56F");
+    showErrorToast(
+  lang === "ar" ? "تم تحديث السلة بنجاح." : "Cart updated successfully",
+  "#1BA56F"
+);
     setItemList((prev) => {
       const current = prev[id] ? prev[id] : bundlAddons[key].design_list[index];
       const currentTotal =

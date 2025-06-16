@@ -945,7 +945,10 @@ export const MyCart = ({ lang, setLang }) => {
       //   },
       // });
       // toastMessage();
-      showSuccessToast("Cart updated successfully", "#D83D99");
+      showSuccessToast(
+  lang === "ar" ? "تم تحديث السلة بنجاح." : "Cart updated successfully",
+  "#D83D99"
+);
     } catch (error) {
       console.error("Error updating addon:", error);
     } finally {

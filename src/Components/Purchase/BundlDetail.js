@@ -264,7 +264,10 @@ export const BundlDetail = ({ user, lang, setLang }) => {
   }, []);
 
   const toastMessage = () => {
-    const message = "Cart updated successfully";
+    const message = lang === "ar" 
+  ? "تم تحديث السلة بنجاح." 
+  : "Cart updated successfully";
+    
 
     if (newToastId) {
       toast.dismiss(newToastId);
@@ -360,7 +363,9 @@ export const BundlDetail = ({ user, lang, setLang }) => {
     //     fontWeight: "700", // White text
     //   },
     // });
-    NewToastSuccMessage("Cart updated successfully");
+    NewToastSuccMessage(lang === "ar"
+          ? "التسوق يرجى إضافة عنصر إلى سلة"
+          : `Please add an Item to Checkout`);
     createPayload();
   };
 

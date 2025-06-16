@@ -291,7 +291,7 @@ export const Purchasehistory = ({ lang, setLang }) => {
             ? { position: "absolute", bottom: 0 }
             : {}
         }>
-              <Footer
+      <Footer
         isLang={lang}
           // style={
           //   location.pathname === "/purchase-history"

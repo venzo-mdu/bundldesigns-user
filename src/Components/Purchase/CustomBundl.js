@@ -71,14 +71,16 @@ export const CustomBundl = ({ user, lang, setLang }) => {
     await axios.delete(`${base_url}/api/order/cart/`, ConfigToken());
     // addToCart(selectedIndex)
 
-    toast.success("Cart updated successfully", {
-      icon: false,
-      style: {
-        color: "#1BA56F",
-        fontWeight: "700", // White text
-      },
-    });
-
+    toast.success(
+  lang === "ar" ? "تم تحديث السلة بنجاح." : "Cart updated successfully",
+  {
+    icon: false,
+    style: {
+      color: "#1BA56F",
+      fontWeight: "700",
+    },
+  }
+);
     // toast.success("Cart emptied,Now Checkout", {
     //   icon: false,
     //   style: {
@@ -175,7 +177,7 @@ export const CustomBundl = ({ user, lang, setLang }) => {
       //   }
       // );
       toastErrorMessage(
-        lang === ""
+        lang === "ar"
           ? "التسوق يرجى إضافة عنصر إلى سلة"
           : `Please add an Item to Checkout`
       );
