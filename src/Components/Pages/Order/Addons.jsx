@@ -100,7 +100,7 @@ function Addons({
                           hasMultipleQty)
                           ? ""
                           : ""
-                      } pl-[5%] space-x-2 mt-[2%]`}
+                      } pl-[5%] space-x-2 mt-[2%] ${lang === "ar" ? "mr-8" : "text-left"}`}
                     >
                       <div className="-ml-[5%] w-[calc(100%+5%)] border-y border-black py-2">
                         <div className="pl-[5%]">
