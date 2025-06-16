@@ -1943,59 +1943,66 @@ export default function Dashboard({ lang, setLang }) {
                                     : "IN PROGRESS"}
                                 </span>
                               </p>
-                           <div className="flex items-center justify-between w-full">
-  {/* Left side: Text + Left button */}
-  <div className="flex items-center gap-4">
-    <p
-      className={`font-[600] lg:text-[18px] md:text-[18px] xs:text-[16px] m-0 ${
-        processIndex < 2
-          ? processIndex === 1 && order?.order_status !== "in_progress"
-            ? "text-[#00000080]"
-            : "text-black"
-          : "text-[#000]"
-      }`}
-    >
-      {lang === "ar"
-        ? processArabicText(order?.brand_identity?.item__name_arabic)
-        : order?.brand_identity?.item_name}
-    </p>
-    {processIndex >= 4 && (
-      <button
-        className="bg-[#1BA56F] px-2 py-1 text-[14px] text-white font-[400] uppercase"
-        onClick={() => {
-          navigate("/adjustment", {
-            state: {
-              orderId: order.id,
-              orderItemId: null,
-              purchaseAddOns: false,
-            },
-          });
-        }}
-      >
-        {lang === "ar" ? "طلب تعديلات" : "Request Edits"}
-      </button>
-    )}
-  </div>
+                              <div className="flex items-center justify-between w-full">
+                                {/* Left side: Text + Left button */}
+                                <div className="flex items-center gap-4">
+                                  <p
+                                    className={`font-[600] lg:text-[18px] md:text-[18px] xs:text-[16px] m-0 ${
+                                      processIndex < 2
+                                        ? processIndex === 1 &&
+                                          order?.order_status !== "in_progress"
+                                          ? "text-[#00000080]"
+                                          : "text-black"
+                                        : "text-[#000]"
+                                    }`}
+                                  >
+                                    {lang === "ar"
+                                      ? processArabicText(
+                                          order?.brand_identity
+                                            ?.item__name_arabic
+                                        )
+                                      : order?.brand_identity?.item_name}
+                                  </p>
+                                  {processIndex >= 4 && (
+                                    <button
+                                      className="bg-[#1BA56F] px-2 py-1 text-[14px] text-white font-[400] uppercase"
+                                      onClick={() => {
+                                        navigate("/adjustment", {
+                                          state: {
+                                            orderId: order.id,
+                                            orderItemId: null,
+                                            purchaseAddOns: false,
+                                          },
+                                        });
+                                      }}
+                                    >
+                                      {lang === "ar"
+                                        ? "طلب تعديلات"
+                                        : "Request Edits"}
+                                    </button>
+                                  )}
+                                </div>
 
-  {/* Right side: Button */}
-  {processIndex >= 4 && (
-    <button
-      className="bg-[#1BA56F] px-2 py-1 text-[14px] text-white font-[400] uppercase"
-      onClick={() => {
-        navigate("/adjustment", {
-          state: {
-            orderId: order.id,
-            orderItemId: null,
-            purchaseAddOns: true,
-          },
-        });
-      }}
-    >
-      {lang === "ar" ? "شراء إضافات" : "Purchase Add Ons"}
-    </button>
-  )}
-</div>
-
+                                {/* Right side: Button */}
+                                {processIndex >= 4 && (
+                                  <button
+                                    className="bg-[#1BA56F] px-2 py-1 text-[14px] text-white font-[400] uppercase"
+                                    onClick={() => {
+                                      navigate("/adjustment", {
+                                        state: {
+                                          orderId: order.id,
+                                          orderItemId: null,
+                                          purchaseAddOns: true,
+                                        },
+                                      });
+                                    }}
+                                  >
+                                    {lang === "ar"
+                                      ? "شراء إضافات"
+                                      : "Purchase Add Ons"}
+                                  </button>
+                                )}
+                              </div>
                             </>
                           )}
                           <p

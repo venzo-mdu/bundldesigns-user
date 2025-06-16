@@ -329,10 +329,10 @@ function Addons({
                               : "Have something to show us?"}
                           </p>
                           <p
-                            className={`border-b-2 ${
+                            className={`border-b-2 ${lang === 'ar'?'w-[100px]':'w-[126px]'} ${
                               uploadContent?.[item?.id]?.[filterIndex]?.filename
                                 ? "w-fit"
-                                : "w-[126px]"
+                                : ""
                             } !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer`}
                             onClick={() =>
                               document

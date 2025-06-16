@@ -1837,9 +1837,9 @@ export default function Adjustments({ user, lang, setLang }) {
         adjustmentData
       );
       showErrorToast(
-  lang === "ar" ? "تم تحديث السلة بنجاح." : "Cart updated successfully",
-  "#1BA56F"
-);
+        lang === "ar" ? "تم تحديث السلة بنجاح." : "Cart updated successfully",
+        "#1BA56F"
+      );
       setTotalPrice(total_price);
       setTotalTime(total_time);
     }
@@ -1999,9 +1999,9 @@ export default function Adjustments({ user, lang, setLang }) {
 
   const addItem = (index, key, id) => {
     showErrorToast(
-  lang === "ar" ? "تم تحديث السلة بنجاح." : "Cart updated successfully",
-  "#1BA56F"
-);
+      lang === "ar" ? "تم تحديث السلة بنجاح." : "Cart updated successfully",
+      "#1BA56F"
+    );
     setItemList((prev) => {
       const current = prev[id] ? prev[id] : bundlAddons[key].design_list[index];
       const currentTotal =
@@ -2132,7 +2132,11 @@ export default function Adjustments({ user, lang, setLang }) {
   const validateFields = () => {
     let newErrors = {};
 
-    if (!state.purchaseAddOns && adjustmentData && Object.values(adjustmentData).length === 0) {
+    if (
+      !state.purchaseAddOns &&
+      adjustmentData &&
+      Object.values(adjustmentData).length === 0
+    ) {
       // toast.error(
       //   lang === "ar"
       //     ? "لا يمكن أن يكون التعديل فارغًا"
@@ -2309,8 +2313,11 @@ export default function Adjustments({ user, lang, setLang }) {
     };
     if (validateFields()) {
       try {
+        debugger
         const res = await axios.post(
-          `${base_url}/api/adjustment_create/${itemId}/`,
+          `${base_url}/api/adjustment_create/?orderId=${orderId}&type=${
+            state.purchaseAddOns ? "addon" : "adj"
+          }`,
           formData,
           ConfigToken()
         );
