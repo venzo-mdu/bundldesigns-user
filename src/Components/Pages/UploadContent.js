@@ -271,7 +271,7 @@ export default function UploadContent({ lang, setLang }) {
         );
         return;
       }
-      // debugger
+  
       // if (
       //   !uploadContent?.[itemId]?.[idx]?.filename &&
       //   designQuestions[designId]?.attachemnt
@@ -289,7 +289,7 @@ export default function UploadContent({ lang, setLang }) {
       //   );
       //   return;
       // }
-      debugger
+
       if (uploadContent?.[filterIndex][idx].file.length < 0) {
         toastErrorMessage(
           lang === "ar" ? "يرجى رفع المحتوى" : "Please upload the content."
