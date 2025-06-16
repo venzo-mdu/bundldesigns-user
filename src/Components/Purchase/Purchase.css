@@ -32,11 +32,12 @@
 
 .bundl-desc {
     font-size: 18px;
+    text-align: center;
     color: #000000;
     font-weight: 400;
     width: 43%;
     margin: auto;
-    text-align: justify;
+    /* text-align: justify; */
 }
 
 .one-minor {
@@ -423,6 +424,7 @@ body[dir="rtl"] .brand-details {
     }
     .bundl-desc{
         width: 90%;
+        text-align: center;
         font-size: 16px;
         line-height: 1.5;
         padding: 1% 1%;

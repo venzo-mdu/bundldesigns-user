@@ -206,7 +206,7 @@ export const Questionnaire4 = ({
     //   }
     // });
     showErrorToast(
-      changeLang === "ar" ? "•القيمة مطلوب" : "The Value is required!",
+      changeLang === "ar" ? "القيمة مطلوب" : "The Value is required!",
       "#D83D99"
     );
   };

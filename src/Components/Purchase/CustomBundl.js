@@ -349,7 +349,9 @@ export const CustomBundl = ({ user, lang, setLang }) => {
               }}
             />
             {brandError && (
-              <p className="text-[#D83D99]">Please enter name of the brand</p>
+              <p className="text-[#D83D99]">
+                {lang === "ar" ? "" : "Please enter name of the brand"}
+              </p>
             )}
             <div style={{ margin: "5% 0 0 0" }}>
               <Accordian

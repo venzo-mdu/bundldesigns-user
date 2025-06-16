@@ -90,7 +90,7 @@ export const Questionnaire1 = ({
   const showToastMessage = () => {
     if (!toast.isActive("required-value-toast")) {
       showErrorToast(
-        changeLang === "ar" ? "•القيمة مطلوب" : "The Value is required!",
+        changeLang === "ar" ? "القيمة مطلوب" : "The Value is required!",
         "#D83D99"
       );
     }
