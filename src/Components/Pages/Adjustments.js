@@ -2301,7 +2301,6 @@ export default function Adjustments({ user, lang, setLang }) {
       total_price: totalPrice + tax,
       total_time: totalTime,
     };
-    debugger
     if (validateFields()) {
       try {
         const res = await axios.post(
