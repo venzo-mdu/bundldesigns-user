@@ -2042,15 +2042,29 @@ export default function Adjustments({ user, lang, setLang }) {
   // };
 
   const CheckCart = async (id) => {
-    // window.scrollTo({ top: 0, behavior: "smooth" });
-    if (adjustmentData && Object.values(adjustmentData).length === 0) {
+    if (state.purchaseAddOns && Object.keys(itemsList).length === 0) {
       setErrorMsg(
         lang === "ar"
           ? "لا يمكن أن يكون التعديل فارغًا"
           : "Adjustment cannot be empty"
       );
       window.scrollTo({ top: 0, behavior: "smooth" });
-    } else if (Object.values(adjustmentData).length) {
+    }
+    if (
+      !state.purchaseAddOns &&
+      adjustmentData &&
+      Object.values(adjustmentData).length === 0
+    ) {
+      setErrorMsg(
+        lang === "ar"
+          ? "لا يمكن أن يكون التعديل فارغًا"
+          : "Adjustment cannot be empty"
+      );
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else if (
+      Object.values(adjustmentData).length ||
+      (state.purchaseAddOns && Object.keys(itemsList).length)
+    ) {
       setPage("cart");
       window.scrollTo({ top: 0, behavior: "smooth" });
       setErrorMsg(null);
@@ -2118,18 +2132,38 @@ export default function Adjustments({ user, lang, setLang }) {
   const validateFields = () => {
     let newErrors = {};
 
-    if (adjustmentData && Object.values(adjustmentData).length === 0) {
-      toast.error(
+    if (!state.purchaseAddOns && adjustmentData && Object.values(adjustmentData).length === 0) {
+      // toast.error(
+      //   lang === "ar"
+      //     ? "لا يمكن أن يكون التعديل فارغًا"
+      //     : "Adjustment cannot be empty",
+      //   {
+      //     position: toast?.POSITION?.TOP_RIGHT,
+      //     toastId: "required-value-toast",
+      //     icon: false,
+      //     style: {
+      //       color: "#D83D99",
+      //       fontWeight: "700",
+      //     },
+      //   }
+      // );
+      if (newToastId) {
+        toast.dismiss(newToastId);
+      }
+
+      newToastId = toast(
         lang === "ar"
           ? "لا يمكن أن يكون التعديل فارغًا"
           : "Adjustment cannot be empty",
         {
-          position: toast?.POSITION?.TOP_RIGHT,
-          toastId: "required-value-toast",
-          icon: false,
+          duration: 3000,
           style: {
-            color: "#D83D99",
-            fontWeight: "700",
+            color: "#1BA56F",
+            border: `1px solid #1BA56F`,
+            fontWeight: 700,
+            background: "#fff",
+            boxShadow: "none",
+            borderRadius: "0px",
           },
         }
       );
@@ -2233,7 +2267,6 @@ export default function Adjustments({ user, lang, setLang }) {
 
     // if (!billingInfo.promoCode.trim()) newErrors.promoCode = 'Promo code is required';
     setError(newErrors);
-
     // Return true if there are no errors
     return true;
   };
@@ -3618,204 +3651,213 @@ export default function Adjustments({ user, lang, setLang }) {
                   : "Back to dashboard "}{" "}
               </p>
               <div className="lg:px-14 md:px-14 xs:px-2">
-                <h1 className="lg:text-[38px] text-[#000] md:text-[30px]">
-                  {lang === "ar" ? "التعديلات" : "Adjustments"}{" "}
-                </h1>
-                <p className="lg:text-[18px] mb-2 md:text-[16px] text-[#00000080]">
-                  {" "}
-                  {lang === "ar"
-                    ? "هنا يمكنك تعديل هويتك البصرية وإضافة عناصر إلى الباقة الخاصة بك !"
-                    : "Here you can edit your brand and add items to your bundl! "}{" "}
-                </p>
-                <p className="lg:text-[30px] font-bold md:text-[22px] mt-[2%]">
-                  {" "}
-                  {lang === "ar"
-                    ? "ما الذي تريد تعديله؟"
-                    : "What would you like to edit ?"}
-                </p>
-                <div className="">
-                  <div className=" flex overflow-auto md:max-w-[62vw] max-w-[62vw] xs:max-w-[100%]">
-                    {adjustments.map((adjustment, index) => {
-                      return (
-                        <button
-                          className={`uppercase font-[500] h-[40px] lg:px-[20px] md:px-[10px] basis-[20%] min-w-[100px] md:py-[3px] md:text-[14px] lg:py-[5px]  ${
-                            adjustmenTab ==
-                            (lang === "ar"
-                              ? adjustment.arabic_adjustment_name
-                              : adjustment.english_adjustment_name)
-                              ? "text-white bg-[#1BA56F] "
-                              : "text-[#1BA56F] bg-white "
-                          } ${
-                            lang === "ar"
-                              ? "border-l border-t border-b"
-                              : "border-r border-t border-b"
-                          }  
+                {!state?.purchaseAddOns && (
+                  <>
+                    <h1 className="lg:text-[38px] text-[#000] md:text-[30px]">
+                      {lang === "ar" ? "التعديلات" : "Adjustments"}{" "}
+                    </h1>
+                    <p className="lg:text-[18px] mb-2 md:text-[16px] text-[#00000080]">
+                      {" "}
+                      {lang === "ar"
+                        ? "هنا يمكنك تعديل هويتك البصرية وإضافة عناصر إلى الباقة الخاصة بك !"
+                        : "Here you can edit your brand and add items to your bundl! "}{" "}
+                    </p>
+                    <p className="lg:text-[30px] font-bold md:text-[22px] mt-[2%]">
+                      {" "}
+                      {lang === "ar"
+                        ? "ما الذي تريد تعديله؟"
+                        : "What would you like to edit ?"}
+                    </p>
+                    <div className="">
+                      <div className=" flex overflow-auto md:max-w-[62vw] max-w-[62vw] xs:max-w-[100%]">
+                        {adjustments.map((adjustment, index) => {
+                          return (
+                            <button
+                              className={`uppercase font-[500] h-[40px] lg:px-[20px] md:px-[10px] basis-[20%] min-w-[100px] md:py-[3px] md:text-[14px] lg:py-[5px]  ${
+                                adjustmenTab ==
+                                (lang === "ar"
+                                  ? adjustment.arabic_adjustment_name
+                                  : adjustment.english_adjustment_name)
+                                  ? "text-white bg-[#1BA56F] "
+                                  : "text-[#1BA56F] bg-white "
+                              } ${
+                                lang === "ar"
+                                  ? "border-l border-t border-b"
+                                  : "border-r border-t border-b"
+                              }  
                                     ${
                                       index == 0 &&
                                       (lang === "ar" ? "border-r" : "border-l")
                                     } ${
-                            index == adjustments.length &&
-                            (lang === "ar"
-                              ? "border-r-0 border-l"
-                              : "border-l-0 border-r")
-                          } !border-[#1BA56F]`}
-                          onClick={() => {
-                            setAdjustmentTab(
-                              lang === "ar"
-                                ? adjustment.arabic_adjustment_name
-                                : adjustment.english_adjustment_name
-                            );
-                            // setAdjustmentForm({ content: null, file_name: null })
-                          }}
-                        >
-                          {lang === "ar"
-                            ? adjustment.arabic_adjustment_name
-                            : adjustment.english_adjustment_name}
-                        </button>
-                      );
-                    })}
-                  </div>
-
-                  {adjustments.map((adjustment, index) => {
-                    if (
-                      (lang === "ar"
-                        ? adjustment.arabic_adjustment_name
-                        : adjustment.english_adjustment_name) == adjustmenTab
-                    ) {
-                      return (
-                        <div className="my-[5%]">
-                          <div className="flex justify-between my-1">
-                            <span className="font-bold">
+                                index == adjustments.length &&
+                                (lang === "ar"
+                                  ? "border-r-0 border-l"
+                                  : "border-l-0 border-r")
+                              } !border-[#1BA56F]`}
+                              onClick={() => {
+                                setAdjustmentTab(
+                                  lang === "ar"
+                                    ? adjustment.arabic_adjustment_name
+                                    : adjustment.english_adjustment_name
+                                );
+                                // setAdjustmentForm({ content: null, file_name: null })
+                              }}
+                            >
                               {lang === "ar"
                                 ? adjustment.arabic_adjustment_name
                                 : adjustment.english_adjustment_name}
-                            </span>
-                            <p className="flex items-center text-[#1BA56F] !mb-2">
-                              <p className="flex items-center mb-1 sm:min-w-[120px] min-w-[120px] xs:min-w-[100px] font-[500]">
-                                <img
-                                  src={dollorIcon}
-                                  alt="Price icon"
-                                  className={`inline-block ${
-                                    lang === "ar" ? "ml-2" : "mr-2"
-                                  }`}
-                                />
-                                {amountDecimal(Math.round(adjustment.price))}{" "}
-                                {lang === "ar" ? "ريال" : "SAR"}
-                              </p>
-                              <p className="flex items-center mb-1 font-[500]">
-                                <AccessTimeIcon
-                                  className={`${
-                                    lang === "ar" ? "ml-2" : "mr-2"
-                                  }`}
-                                />
-                                {amountDecimal(
-                                  Math.round(adjustment.time_limit)
-                                )}{" "}
-                                {lang === "ar" ? "يوم" : "Days"}
-                              </p>
-                            </p>
-                          </div>
-                          <p className="font-medium text-[18px]">
-                            {lang === "ar"
-                              ? "ما الذي تريد تغييره؟"
-                              : "What would you like to change?"}
-                          </p>
-                          <p>
-                            <input
-                              id={`${adjustment.id}_content`}
-                              onInput={(e) => {
-                                if (e.target.value) {
-                                  setAdjustmentError(false);
-                                } else {
-                                  setAdjustmentError(true);
-                                }
-                                setAdjustmentForm((prev) => ({
-                                  ...prev,
-                                  [adjustment.id]: {
-                                    ...prev[adjustment.id], // Preserve existing properties
-                                    content: e.target.value, // Update content
-                                  },
-                                }));
-                              }}
-                              placeholder={
-                                lang === "ar"
-                                  ? "شاركنا رأيك "
-                                  : "Tell us your thoughts..."
-                              }
-                              value={
-                                adjustmentForm?.[adjustment?.id]?.content
-                                  ? adjustmentForm?.[adjustment?.id]?.content
-                                  : ""
-                              }
-                              className="border px-2 py-1 border-[#000000A0]  md:w-[80%] w-[80%] xs:w-[70%] rounded-none"
-                            ></input>
-                            <button
-                              onClick={() => addData(adjustment.id, index)}
-                              className="md:w-[20%] w-[20%] xs:w-[30%] py-1 px-2 bg-[#1BA56F] text-white text-[17.2px] font-[500] uppercase"
-                            >
-                              {lang === "ar" ? "ارسال" : "Submit Edit"}
                             </button>
-                          </p>
-                          {adjustmentError && (
-                            <p style={{ color: "#D83D99" }}>
-                              Please enter your comments
-                            </p>
-                          )}
-                          <p className="font-medium text-[18px]">
-                            {" "}
-                            {lang === "ar"
-                              ? "عندك شي تشاركنا إياه؟"
-                              : "Have something to show us?"}
-                          </p>
-                          <p
-                            className="border-b-2 w-fit !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer"
-                            onClick={() =>
-                              document
-                                .getElementById(`file-${adjustment.id}`)
-                                .click()
-                            } // Trigger click on hidden input
-                          >
-                            <input
-                              type="file"
-                              className="rounded-none"
-                              hidden
-                              name="file"
-                              id={`file-${adjustment.id}`} // Use a unique ID for each input
-                              onChange={(e) =>
-                                uploadFile(e, adjustment.id, index)
-                              }
-                            />
-                            <img src={uploadIcon} alt="Upload Icon" />
-                            <span className="font-[700] uppercase">
-                              {lang === "ar"
-                                ? "إضافة المحتوى"
-                                : "Upload Content"}
-                            </span>
-                          </p>
-                          <p>
-                            {adjustmentData[adjustment.id]
-                              ? adjustmentData[adjustment.id].file_name?.map(
-                                  (name) => {
-                                    return (
-                                      <span className="bg-black text-white py-1 px-2 mr-2">
-                                        {name}{" "}
-                                        <CloseIcon
-                                          onClick={() => {
-                                            removeFile(adjustment.id, name);
-                                          }}
-                                          className="ml-2 cursor-pointer"
-                                        />
-                                      </span>
-                                    );
+                          );
+                        })}
+                      </div>
+
+                      {adjustments.map((adjustment, index) => {
+                        if (
+                          (lang === "ar"
+                            ? adjustment.arabic_adjustment_name
+                            : adjustment.english_adjustment_name) ==
+                          adjustmenTab
+                        ) {
+                          return (
+                            <div className="my-[5%]">
+                              <div className="flex justify-between my-1">
+                                <span className="font-bold">
+                                  {lang === "ar"
+                                    ? adjustment.arabic_adjustment_name
+                                    : adjustment.english_adjustment_name}
+                                </span>
+                                <p className="flex items-center text-[#1BA56F] !mb-2">
+                                  <p className="flex items-center mb-1 sm:min-w-[120px] min-w-[120px] xs:min-w-[100px] font-[500]">
+                                    <img
+                                      src={dollorIcon}
+                                      alt="Price icon"
+                                      className={`inline-block ${
+                                        lang === "ar" ? "ml-2" : "mr-2"
+                                      }`}
+                                    />
+                                    {amountDecimal(
+                                      Math.round(adjustment.price)
+                                    )}{" "}
+                                    {lang === "ar" ? "ريال" : "SAR"}
+                                  </p>
+                                  <p className="flex items-center mb-1 font-[500]">
+                                    <AccessTimeIcon
+                                      className={`${
+                                        lang === "ar" ? "ml-2" : "mr-2"
+                                      }`}
+                                    />
+                                    {amountDecimal(
+                                      Math.round(adjustment.time_limit)
+                                    )}{" "}
+                                    {lang === "ar" ? "يوم" : "Days"}
+                                  </p>
+                                </p>
+                              </div>
+                              <p className="font-medium text-[18px]">
+                                {lang === "ar"
+                                  ? "ما الذي تريد تغييره؟"
+                                  : "What would you like to change?"}
+                              </p>
+                              <p>
+                                <input
+                                  id={`${adjustment.id}_content`}
+                                  onInput={(e) => {
+                                    if (e.target.value) {
+                                      setAdjustmentError(false);
+                                    } else {
+                                      setAdjustmentError(true);
+                                    }
+                                    setAdjustmentForm((prev) => ({
+                                      ...prev,
+                                      [adjustment.id]: {
+                                        ...prev[adjustment.id], // Preserve existing properties
+                                        content: e.target.value, // Update content
+                                      },
+                                    }));
+                                  }}
+                                  placeholder={
+                                    lang === "ar"
+                                      ? "شاركنا رأيك "
+                                      : "Tell us your thoughts..."
                                   }
-                                )
-                              : ""}
-                          </p>
-                        </div>
-                      );
-                    }
-                  })}
-                </div>
+                                  value={
+                                    adjustmentForm?.[adjustment?.id]?.content
+                                      ? adjustmentForm?.[adjustment?.id]
+                                          ?.content
+                                      : ""
+                                  }
+                                  className="border px-2 py-1 border-[#000000A0]  md:w-[80%] w-[80%] xs:w-[70%] rounded-none"
+                                ></input>
+                                <button
+                                  onClick={() => addData(adjustment.id, index)}
+                                  className="md:w-[20%] w-[20%] xs:w-[30%] py-1 px-2 bg-[#1BA56F] text-white text-[17.2px] font-[500] uppercase"
+                                >
+                                  {lang === "ar" ? "ارسال" : "Submit Edit"}
+                                </button>
+                              </p>
+                              {adjustmentError && (
+                                <p style={{ color: "#D83D99" }}>
+                                  Please enter your comments
+                                </p>
+                              )}
+                              <p className="font-medium text-[18px]">
+                                {" "}
+                                {lang === "ar"
+                                  ? "عندك شي تشاركنا إياه؟"
+                                  : "Have something to show us?"}
+                              </p>
+                              <p
+                                className="border-b-2 w-fit !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer"
+                                onClick={() =>
+                                  document
+                                    .getElementById(`file-${adjustment.id}`)
+                                    .click()
+                                } // Trigger click on hidden input
+                              >
+                                <input
+                                  type="file"
+                                  className="rounded-none"
+                                  hidden
+                                  name="file"
+                                  id={`file-${adjustment.id}`} // Use a unique ID for each input
+                                  onChange={(e) =>
+                                    uploadFile(e, adjustment.id, index)
+                                  }
+                                />
+                                <img src={uploadIcon} alt="Upload Icon" />
+                                <span className="font-[700] uppercase">
+                                  {lang === "ar"
+                                    ? "إضافة المحتوى"
+                                    : "Upload Content"}
+                                </span>
+                              </p>
+                              <p>
+                                {adjustmentData[adjustment.id]
+                                  ? adjustmentData[
+                                      adjustment.id
+                                    ].file_name?.map((name) => {
+                                      return (
+                                        <span className="bg-black text-white py-1 px-2 mr-2">
+                                          {name}{" "}
+                                          <CloseIcon
+                                            onClick={() => {
+                                              removeFile(adjustment.id, name);
+                                            }}
+                                            className="ml-2 cursor-pointer"
+                                          />
+                                        </span>
+                                      );
+                                    })
+                                  : ""}
+                              </p>
+                            </div>
+                          );
+                        }
+                      })}
+                    </div>
+                  </>
+                )}
+
                 <div className="lg:mt-16 md:mt-16 xs:mt-8">
                   <h2 className="text-[30px]">
                     {lang === "ar"

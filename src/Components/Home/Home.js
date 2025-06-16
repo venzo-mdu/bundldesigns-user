@@ -3481,7 +3481,7 @@ export const Home = ({ lang, setLang }) => {
                       <br />
                       {lang === "ar"
                         ? "تصاميم التجارة​"
-                        : "Commerce Collateral"}{" "}
+                        : "1w"}{" "}
                       + <br />
                       {lang === "ar"
                         ? "مجموعة السوشال ميديا"

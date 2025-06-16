@@ -235,22 +235,6 @@ export default function UploadContent({ lang, setLang }) {
         !uploadContent?.[itemId]?.[idx]?.language &&
         designQuestions[designId]?.language
       ) {
-        // toast.error(
-        //   lang === ""
-        //     ? "يرجى اختيار اللغة قبل الحفظ"
-        //     : "Please choose language before saving.",
-        //   {
-        //     icon: false,
-        //     toastId: "required-value-toast1",
-        //     style: {
-        //       color: "#D83D99",
-        //       fontWeight: "700",
-        //     },
-        //   }
-        // );
-        // lang === ""
-        //   ? "يرجى اختيار اللغة قبل الحفظ"
-        //   : "Please choose language before saving.";
         toastErrorMessage(
           lang === "ar"
             ? "يرجى اختيار اللغة قبل الحفظ"
@@ -265,19 +249,6 @@ export default function UploadContent({ lang, setLang }) {
         !uploadContent?.[itemId]?.[idx]?.content &&
         designQuestions[designId]?.textbox
       ) {
-        // toast.error(
-        //   lang === "ar"
-        //     ? "يرجى إضافة المحتوى قبل الحفظ"
-        //     : "Please add content before saving.",
-        //   {
-        //     icon: false,
-        //     toastId: "required-value-toast2",
-        //     style: {
-        //       color: "#D83D99",
-        //       fontWeight: "700",
-        //     },
-        //   }
-        // );
         toastErrorMessage(
           lang === "ar"
             ? "يرجى إضافة المحتوى قبل الحفظ"
@@ -289,19 +260,6 @@ export default function UploadContent({ lang, setLang }) {
         !uploadContent?.[itemId]?.[idx]?.measurements &&
         designQuestions[designId]?.measurement
       ) {
-        // toast.error(
-        //   lang === "ar"
-        //     ? "يرجى إضافة المقاسات قبل الحفظ"
-        //     : "Please add measurements before saving.",
-        //   {
-        //     icon: false,
-        //     toastId: "required-value-toast3",
-        //     style: {
-        //       color: "#D83D99",
-        //       fontWeight: "700",
-        //     },
-        //   }
-        // );
         toastErrorMessage(
           lang === "ar"
             ? "يرجى إضافة المقاسات قبل الحفظ"
@@ -317,30 +275,32 @@ export default function UploadContent({ lang, setLang }) {
         );
         return;
       }
-      debugger;
-      if (
-        !uploadContent?.[itemId]?.[idx]?.filename &&
-        designQuestions[designId]?.attachemnt
-      ) {
-        toast.error(
-          lang === "ar" ? "يرجى رفع المحتوى" : "Please upload the content.",
-          {
-            icon: false,
-            toastId: "required-value-toast4",
-            style: {
-              color: "#D83D99",
-              fontWeight: "700",
-            },
-          }
-        );
-        return;
-      }
-      if (uploadContent?.[filterIndex][idx].fileName.length > 0) {
+
+  
+      // if (
+      //   !uploadContent?.[itemId]?.[idx]?.filename &&
+      //   designQuestions[designId]?.attachemnt
+      // ) {
+      //   toast.error(
+      //     lang === "ar" ? "يرجى رفع المحتوى" : "Please upload the content.",
+      //     {
+      //       icon: false,
+      //       toastId: "required-value-toast4",
+      //       style: {
+      //         color: "#D83D99",
+      //         fontWeight: "700",
+      //       },
+      //     }
+      //   );
+      //   return;
+      // }
+
+      if (uploadContent?.[filterIndex][idx].file.length < 0) {
         toastErrorMessage(
           lang === "ar" ? "يرجى رفع المحتوى" : "Please upload the content."
         );
       }
-      debugger;
+
       const formData = {
         answers: {
           [itemId]: {
@@ -360,14 +320,6 @@ export default function UploadContent({ lang, setLang }) {
       if (response.status === 201) {
         console.log("Content saved successfully!");
         toastMessage();
-        // toast.success("Content saved successfully!", {
-        //   icon: false,
-        //   toastId: "required-value-toast5",
-        //   style: {
-        //     color: "#1BA56F",
-        //     fontWeight: "700",
-        //   },
-        // });
         getOrderDetails();
       } else {
         console.error("Unexpected response:", response);
