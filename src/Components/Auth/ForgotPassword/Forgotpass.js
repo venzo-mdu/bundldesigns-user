@@ -24,7 +24,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useParams } from "react-router-dom";
 import { Language } from "@mui/icons-material";
 
-const ForgotPassword = ({ lang }) => {
+const ForgotPassword = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -36,6 +36,8 @@ const ForgotPassword = ({ lang }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const { id } = useParams();
+  const languageQuery = searchParams.get("language");
+  const [lang, setLang] = useState("en");
   const [loginData, setLoginData] = useState({
     new_password: "",
     confirm_password: "",
@@ -51,6 +53,15 @@ const ForgotPassword = ({ lang }) => {
       left: 0,
     });
   }, []);
+
+  useEffect(() => {
+  const langParam = searchParams.get("language");
+  if (langParam === "arabic") {
+    setLang("ar");
+  } else if (langParam === "english") {
+    setLang("en");
+  }
+}, [location.search]);
 
   useEffect(() => {
     const direction = lang === "ar" ? "rtl" : "ltr";
@@ -162,7 +173,7 @@ const ForgotPassword = ({ lang }) => {
         // Check for spaces
         setError("password", "Password cannot contain spaces");
       } else if (!value.trim()) {
-        setError("password", "Password is required");
+        setError("password", lang === "ar" ? "كلمة المرور مطلوبة" : "Password is required");
       } else {
         setError("password", ""); // clear error if password is valid
       }
