@@ -2126,18 +2126,38 @@ export default function Adjustments({ user, lang, setLang }) {
   const validateFields = () => {
     let newErrors = {};
 
-    if (adjustmentData && Object.values(adjustmentData).length === 0) {
-      toast.error(
+    if (!state.purchaseAddOns && adjustmentData && Object.values(adjustmentData).length === 0) {
+      // toast.error(
+      //   lang === "ar"
+      //     ? "لا يمكن أن يكون التعديل فارغًا"
+      //     : "Adjustment cannot be empty",
+      //   {
+      //     position: toast?.POSITION?.TOP_RIGHT,
+      //     toastId: "required-value-toast",
+      //     icon: false,
+      //     style: {
+      //       color: "#D83D99",
+      //       fontWeight: "700",
+      //     },
+      //   }
+      // );
+      if (newToastId) {
+        toast.dismiss(newToastId);
+      }
+
+      newToastId = toast(
         lang === "ar"
           ? "لا يمكن أن يكون التعديل فارغًا"
           : "Adjustment cannot be empty",
         {
-          position: toast?.POSITION?.TOP_RIGHT,
-          toastId: "required-value-toast",
-          icon: false,
+          duration: 3000,
           style: {
-            color: "#D83D99",
-            fontWeight: "700",
+            color: "#1BA56F",
+            border: `1px solid #1BA56F`,
+            fontWeight: 700,
+            background: "#fff",
+            boxShadow: "none",
+            borderRadius: "0px",
           },
         }
       );
@@ -2241,7 +2261,6 @@ export default function Adjustments({ user, lang, setLang }) {
 
     // if (!billingInfo.promoCode.trim()) newErrors.promoCode = 'Promo code is required';
     setError(newErrors);
-
     // Return true if there are no errors
     return true;
   };
@@ -2282,6 +2301,7 @@ export default function Adjustments({ user, lang, setLang }) {
       total_price: totalPrice + tax,
       total_time: totalTime,
     };
+    debugger
     if (validateFields()) {
       try {
         const res = await axios.post(
