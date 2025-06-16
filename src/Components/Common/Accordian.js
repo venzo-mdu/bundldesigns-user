@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState, } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -15,6 +15,7 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import { amountDecimal } from "../Utils/amountDecimal";
 import toast, { Toaster } from "react-hot-toast";
 import { processArabicText } from "../Utils/arabicFontParenthesisChecker";
+import { use } from "react";
 
 let toastId = null;
 export const Accordian = ({
@@ -28,6 +29,8 @@ export const Accordian = ({
   isSameBundl,
   lang,
 }) => {
+  const [isArabic, setIsArabic] = useState(localStorage.getItem("lang"));
+
   const [isDropdown, setIsDropdown] = useState([
     false,
     false,
@@ -56,6 +59,10 @@ export const Accordian = ({
   useEffect(() => {
     addOnPayload(addOnPayloads());
   }, [addOnData, quantities, extraQty, isLang]);
+
+  useEffect(() => {
+    setIsArabic(localStorage.getItem("lang"));
+  }, [localStorage.getItem("lang")]);
 
   // const getAddons = async () => {
 
@@ -220,9 +227,8 @@ export const Accordian = ({
   }, []);
 
   const toastMessage = () => {
-    const message = lang === "ar"
-          ? "تم تحديث السلة بنجاح."
-          : "Cart updated successfully";
+    const message =
+      isArabic === "ar" ? "تم تحديث السلة بنجاح." : "Cart updated successfully";
 
     if (toastId) {
       toast.dismiss(toastId);
@@ -340,7 +346,7 @@ export const Accordian = ({
       />
 
       {/* <div className="bundl-accordian"> */}
-       <div className={`${path === "custombundl" ? null : "bundl-accordian"}`}>
+      <div className={`${path === "custombundl" ? null : "bundl-accordian"}`}>
         <p
           className={`accordian-heading mb-1  leading-[1.2] ${
             isLang === "ar" ? "text-right" : "text-left"
@@ -387,7 +393,7 @@ export const Accordian = ({
             >
               {isLang === "ar"
                 ? addOnData?.designs_details?.[title]?.name_arabic
-                : title} 
+                : title}
             </button>
           ))}
         </div>
@@ -430,7 +436,7 @@ export const Accordian = ({
               <Typography className="!font-[700] !text-[22px]">
                 {isLang === "ar"
                   ? addOnData?.designs_details?.[title]?.name_arabic
-                  : title} 
+                  : title}
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
