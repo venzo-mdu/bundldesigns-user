@@ -15,9 +15,9 @@ function BundlOrder({
   setSkipId,
   saveContent,
   uploadFiles,
-  setUploadFiles,
+  setUploadFiles
 }) {
-  const removeFile = (ele) => {
+    const removeFile = (ele) => {
     setUploadFiles(
       uploadFiles?.filter((file) => {
         return !(ele?.id === file?.id && ele?.name === file?.name);
@@ -309,7 +309,7 @@ function BundlOrder({
                                 uploadFile(
                                   e,
                                   // item.id,
-                                  `${item.id}_${filterIndex}`,
+                                   `${item.id}_${filterIndex}`,
                                   "file",
                                   item.item_name + "-" + filterIndex,
                                   filterIndex
@@ -323,7 +323,7 @@ function BundlOrder({
                                 ? "إضافة المحتوى"
                                 : "Upload Content")}
                           </p>
-                          {/* <div className="flex gap-2">
+                          <div className="flex gap-2">
                             {uploadFiles?.length > 0 &&
                               uploadFiles
                                 // .filter((ele) => ele.id === item.id)
@@ -333,38 +333,13 @@ function BundlOrder({
                                       <span className="bg-black text-white py-1 px-2 mr-2">
                                         {ele.name}{" "}
                                         <CloseIcon
-                                          onClick={() =>
-                                            removeFile(
-                                              ele,
-                                              `${item.id}_${filterIndex}`
-                                            )
-                                          }
+                                          onClick={() => removeFile(ele,  `${item.id}_${filterIndex}`)}
                                           className="ml-2 cursor-pointer"
                                         />
                                       </span>
                                     );
                                   }
                                 })}
-                          </div> */}
-                          <div className="flex flex-wrap gap-2">
-                            {uploadFiles?.length > 0 &&
-                              uploadFiles.map((ele, idx) => {
-                                if (ele.id === `${item.id}_${filterIndex}`) {
-                                  return ele.name.map((name, i) => (
-                                    <span
-                                      key={i}
-                                      className="bg-black text-white py-1 px-2 flex items-center"
-                                    >
-                                      {name}
-                                      <CloseIcon
-                                        onClick={() => removeFile(ele, i)}
-                                        className="ml-2 cursor-pointer"
-                                      />
-                                    </span>
-                                  ));
-                                }
-                                return null;
-                              })}
                           </div>
                         </>
                       )}
@@ -382,12 +357,7 @@ function BundlOrder({
                         </button>
                         <button
                           onClick={() =>
-                            saveContent(
-                              item.id,
-                              filterIndex,
-                              item.item__id,
-                              `${item.id}_${filterIndex}`
-                            )
+                            saveContent(item.id, filterIndex, item.item__id)
                           }
                           className="text-white cursor-pointer bg-[#1BA56F] py-1 px-2 text-[19px] font-[500] uppercase"
                         >

@@ -612,7 +612,7 @@ export const MyCart = ({ lang, setLang }) => {
     e.preventDefault();
     setPaymentLoading(true);
     if (validateFields()) {
-      ;
+      debugger;
       if (
         (cartDetails.total_amount >= 4800 &&
           cartDetails.bundl_english === "The Newbie") ||
@@ -945,7 +945,10 @@ export const MyCart = ({ lang, setLang }) => {
       //   },
       // });
       // toastMessage();
-      showSuccessToast("Cart updated successfully", "#D83D99");
+      showSuccessToast(
+  lang === "ar" ? "تم تحديث السلة بنجاح." : "Cart updated successfully",
+  "#D83D99"
+);
     } catch (error) {
       console.error("Error updating addon:", error);
     } finally {

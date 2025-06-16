@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState, } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -26,6 +26,7 @@ export const Accordian = ({
   searchParams = null,
   isLang,
   isSameBundl,
+  lang,
 }) => {
   const [isDropdown, setIsDropdown] = useState([
     false,
@@ -219,7 +220,9 @@ export const Accordian = ({
   }, []);
 
   const toastMessage = () => {
-    const message = "Cart updated successfully";
+    const message = lang === "ar"
+          ? "تم تحديث السلة بنجاح."
+          : "Cart updated successfully";
 
     if (toastId) {
       toast.dismiss(toastId);

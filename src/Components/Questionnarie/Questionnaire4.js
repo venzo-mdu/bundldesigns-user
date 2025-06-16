@@ -433,17 +433,14 @@ export const Questionnaire4 = ({
       );
       console.log(response.data, "res");
       setUploadContent((prev) => ({
-        ...prev,
-        [id]: {
-          ...prev[id], // Preserve other fields for this ID
-          [field]: response.data.file_url, // Update the file or other field
-          ...(field === "file" && { filename: e.target.files[0]?.name || "" }), // Update filename if file is changed
-        },
-      }));
-      setFormData((prev) => ({
-        ...prev,
-        [id]: response.data.file_url,
-      }));
+      ...prev,
+      [id]: {
+        ...prev[id],
+        [field]: response.data.file_url,
+        ...(field === "file" && { filename: e.target.files[0]?.name || "" }),
+      },
+    }));
+      
     }
   };
 

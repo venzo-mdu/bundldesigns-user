@@ -941,6 +941,8 @@ import { Bgloader } from "../Common/Background/Bgloader";
 import DoneIcon from "@mui/icons-material/Done";
 import { BorderAllRounded } from "@mui/icons-material";
 import { processArabicText } from "../Utils/arabicFontParenthesisChecker";
+import workOurGIF from "../../Images/ourWorkGIF.gif";
+import workBrandGIF from "../../Images/ourWorkBranding.gif";
 
 const style = {
   position: "absolute",
@@ -1037,7 +1039,6 @@ export default function Dashboard({ lang, setLang }) {
       `${base_url}/api/order/${orderId}/`,
       ConfigToken()
     );
-
     const orderData = response.data.data;
     if (orderData) {
       orderData.item_details = orderData.item_details = [
@@ -1287,14 +1288,16 @@ export default function Dashboard({ lang, setLang }) {
                 {lang === "ar" ? "اضغط هنا للتحميل" : "Click Here to Download"}
               </button>
             </p>
-            <p>
+            <p className="flex flex-wrap justify-center gap-2 mt-2">
               <button
                 onClick={() => {
                   navigate("/adjustment", {
                     state: { orderId: order.id, orderItemId: null },
                   });
                 }}
-                className="px-3 py-1 text-[#1BA56F] font-[500] border !border-[#1BA56F] text-[16px] mt-2 mr-2"
+                className={`px-3 py-1 text-[#1BA56F] font-[500] border !border-[#1BA56F] text-[16px] ${
+                  lang === "ar" ? "ml-2" : "mr-2"
+                }`}
               >
                 {lang === "ar"
                   ? dashboardJson.process_content.request_edit_arabic
@@ -1302,7 +1305,7 @@ export default function Dashboard({ lang, setLang }) {
               </button>
               <button
                 onClick={() => approveBrand()}
-                className="bg-[#1BA56F] px-3 py-1 font-[500] text-[#fff] text-[16px] mt-2 uppercase"
+                className="bg-[#1BA56F] px-3 py-1 font-[500] text-[#fff] text-[16px] uppercase"
               >
                 {lang === "ar"
                   ? dashboardJson.process_content.approve_brand_arabic
@@ -1681,7 +1684,7 @@ export default function Dashboard({ lang, setLang }) {
               }
               onClick={() => {
                 setPurchasePopUp(false);
-                // navigate(`/dashboard?order_id=${purchase_id}`);
+                navigate(`/dashboard?order_id=${purchase_id}`);
               }}
               save={
                 lang === "ar"
@@ -2133,11 +2136,66 @@ export default function Dashboard({ lang, setLang }) {
                 </div>
               </div>
             ) : (
-              <div className="text-center p-10">
-                <h1 className="text-[#00000080]">No Orders</h1>
-                <a href="/" className="text-blue-500 hover:underline">
-                  Make Some Orders
-                </a>
+              // <div className="text-center p-10">
+              //   <h1 className="text-[#00000080]">No Orders</h1>
+              //   <a href="/" className="text-blue-500 hover:underline">
+              //     Make Some Orders
+              //   </a>
+              // </div>
+
+              <div className="relative py-10 pb-0">
+                <img
+                  className={`absolute ${
+                    lang === "ar"
+                      ? "sm:right-12 right-12 xs:right-[-3rem]"
+                      : "sm:left-12 left-12 xs:left-[-3rem]"
+                  } sm:w-[200px] w-[200px] xs:w-[125px]`}
+                  style={{ transform: "rotate(350deg)" }}
+                  src={workOurGIF}
+                ></img>
+                <div className="w-[48%] text-center mx-auto">
+                  <h1 className="text-[24px] font-semibold text-black mb-4">
+                    {" "}
+                    {lang === "ar"
+                      ? "لا توجد طلبات حتى الآن."
+                      : "No orders yet."}
+                  </h1>
+                  <p className="flex justify-center mb-0 mt-0">
+                    {" "}
+                    <img
+                      className="animate-rotate-animation"
+                      width="150px"
+                      height="110px"
+                      src={workBrandGIF}
+                    ></img>
+                  </p>
+                  <h2 className="lg:text-[32px] md:text-[32px] xs:text-[24px] sm:text-[32px] !mt-6 lg:mx-auto md:mx-auto xs:mx-0 lg:py-0 lg:px-0 md:py-0 md:px-0 xs:py-[2%] xs:px-[5%]  text-black">
+                    {lang === "ar"
+                      ? "جاهز تبدأ رحلتك الابداعية معنا؟ "
+                      : "Inspired to start your journey to launch your next big thing ?"}
+                  </h2>
+                  <p className="text-center">
+                    {" "}
+                    <button
+                      onClick={() => {
+                        window.location.href = "/";
+                      }}
+                      className="py-1 px-3  !mt-[50px] border-black border-[1px] !mb-8 bg-white hover:!bg-black text-black uppercase  hover:text-white"
+                    >
+                      {lang === "ar" ? "ابدأ مشروعك الآن" : "Get started !"}
+                    </button>{" "}
+                  </p>
+                </div>
+                <img
+                  width="300px"
+                  className={`absolute sm:w-[300px] w-[300px] xs:w-[150px] xs:top-[30%] sm:top-[14%] ${
+                    lang === "ar"
+                      ? "xs:left-[-14%]  sm:left-[3%] left-[3%]"
+                      : "xs:right-[-14%]  sm:right-[3%] right-[3%]"
+                  } `}
+                  style={{ transform: "rotate(320deg)" }}
+                  src={workOurGIF}
+                ></img>
               </div>
             )}
 
@@ -2207,7 +2265,7 @@ export default function Dashboard({ lang, setLang }) {
                                     </div> 
                             } */}
 
-            <div className="font-Helvetica">
+            {/* <div className="font-Helvetica">
               <div className="text-center lg:pt-0 lg:pb-16 md:pt-0 md:pb-16 xs:pt-4 xs:pb-16">
                 <h2 className="lg:text-[30px] md:text-[24px] xs:text-[24px] xs:font-[700] xs:px-[15%]">
                   {lang === "ar"
@@ -2241,7 +2299,7 @@ export default function Dashboard({ lang, setLang }) {
                   </a>
                 )}
               </div>
-            </div>
+            </div> */}
           </div>
           <Modal
             open={showPdf}
