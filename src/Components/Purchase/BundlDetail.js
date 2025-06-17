@@ -363,9 +363,9 @@ export const BundlDetail = ({ user, lang, setLang }) => {
     //     fontWeight: "700", // White text
     //   },
     // });
-    NewToastSuccMessage(lang === "ar"
-          ? "التسوق يرجى إضافة عنصر إلى سلة"
-          : `Please add an Item to Checkout`);
+    // NewToastSuccMessage(lang === "ar"
+    //       ? "التسوق يرجى إضافة عنصر إلى سلة"
+    //       : `Please add an Item to Checkout`);
     createPayload();
   };
 

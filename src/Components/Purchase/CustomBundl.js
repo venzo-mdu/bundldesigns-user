@@ -71,16 +71,16 @@ export const CustomBundl = ({ user, lang, setLang }) => {
     await axios.delete(`${base_url}/api/order/cart/`, ConfigToken());
     // addToCart(selectedIndex)
 
-    toast.success(
-  lang === "ar" ? "تم تحديث السلة بنجاح." : "Cart updated successfully",
-  {
-    icon: false,
-    style: {
-      color: "#1BA56F",
-      fontWeight: "700",
-    },
-  }
-);
+    // toast.success(
+    //   lang === "ar" ? "تم تحديث السلة بنجاح." : "Cart updated successfully",
+    //   {
+    //     icon: false,
+    //     style: {
+    //       color: "#1BA56F",
+    //       fontWeight: "700",
+    //     },
+    //   }
+    // );
     // toast.success("Cart emptied,Now Checkout", {
     //   icon: false,
     //   style: {
@@ -383,7 +383,11 @@ export const CustomBundl = ({ user, lang, setLang }) => {
             <div className="bundl-name">
               <p
                 className="sm:text-[24px] xs:mb-0 xs:flex xs:justify-between sm:block"
-                style={{ fontWeight: "700", padding: "2% 0%", textAlign: lang === "ar" ? "right" : "left",}}
+                style={{
+                  fontWeight: "700",
+                  padding: "2% 0%",
+                  textAlign: lang === "ar" ? "right" : "left",
+                }}
               >
                 <span>{lang === "ar" ? "ملخص الطلب​" : "Summary"}</span>
 
