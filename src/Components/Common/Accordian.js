@@ -16,7 +16,7 @@ import { amountDecimal } from "../Utils/amountDecimal";
 import toast, { Toaster } from "react-hot-toast";
 import { processArabicText } from "../Utils/arabicFontParenthesisChecker";
 import { use } from "react";
-
+import { useLocation } from "react-router-dom";
 let toastId = null;
 export const Accordian = ({
   accordianTitle,
@@ -29,6 +29,8 @@ export const Accordian = ({
   isSameBundl,
   lang,
 }) => {
+  const location = useLocation();
+  const isCustomBundl = location.pathname === "/custombundl";
   const [isArabic, setIsArabic] = useState(localStorage.getItem("lang"));
 
   const [isDropdown, setIsDropdown] = useState([
@@ -397,177 +399,186 @@ export const Accordian = ({
             </button>
           ))}
         </div>
-
-        {titleArr.map((title, index) => (
-          <Accordion
-            id={`${index}_list`}
-            sx={{
-              boxShadow: "none !important",
-              borderBottom:
-                index === titleArr.length - 1 ? "none" : "1px solid #000000",
-              paddingTop: index == 0 ? "18px" : "auto",
-              "&::before": {
-                display: "none", // Hides the default before border
-              },
-            }}
-            key={index}
-            expanded={isDropdown[index]}
-          >
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon className="text-[#000]" />}
-              aria-controls={`panel${index + 1}-content`}
-              id={`panel${index + 1}-header`}
-              onClick={() => {
-                toggleDropdown(index);
-                setTimeout(() => {
-                  const element = document.getElementById(`${index}_list`);
-                  if (element) {
-                    element.scrollIntoView({
-                      behavior: "smooth",
-                      block: "start",
-                    });
-                  }
-                }, 400);
-              }}
+        <div
+          className={`${
+            window.innerWidth <= 475 ? (isCustomBundl ? "pb-8" : "pb-20") : ""
+          }`}
+        >
+          {titleArr.map((title, index) => (
+            <Accordion
+              id={`${index}_list`}
               sx={{
-                border: "none",
+                boxShadow: "none !important",
+                borderBottom:
+                  index === titleArr.length - 1 ? "none" : "1px solid #000000",
+                paddingTop: index == 0 ? "18px" : "auto",
+                "&::before": {
+                  display: "none", // Hides the default before border
+                },
               }}
+              key={index}
+              expanded={isDropdown[index]}
             >
-              <Typography className="!font-[700] !text-[22px]">
-                {isLang === "ar"
-                  ? addOnData?.designs_details?.[title]?.name_arabic
-                  : title}
-              </Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography>
-                {addOnData &&
-                addOnData.designs_details &&
-                addOnData.designs_details[title] &&
-                addOnData.designs_details[title].design_list?.length > 0
-                  ? addOnData.designs_details[title].design_list?.map(
-                      (design, i) => (
-                        <div
-                          id={design.id}
-                          style={{
-                            display: "flex",
-                            borderBottom:
-                              i ===
-                              addOnData.designs_details[title].design_list
-                                .length -
-                                1
-                                ? "none"
-                                : `1px solid black`,
-                            padding:
-                              window.innerWidth <= 475 ? "3% 0%" : "1% 0",
-                          }}
-                          className="items-center flex-wrap"
-                        >
-                          <Typography
-                            sx={{
-                              // color:  `${design.id == searchParams?'#0F5C3C': textColor}` ,
-                              color: "#000000",
-                              display: "block",
-                              marginRight: "5px",
-                              marginBottom: "8px",
-                              fontWeight: "500",
-                              fontSize: "18px",
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon className="text-[#000]" />}
+                aria-controls={`panel${index + 1}-content`}
+                id={`panel${index + 1}-header`}
+                onClick={() => {
+                  toggleDropdown(index);
+                  setTimeout(() => {
+                    const element = document.getElementById(`${index}_list`);
+                    if (element) {
+                      element.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start",
+                      });
+                    }
+                  }, 400);
+                }}
+                sx={{
+                  border: "none",
+                }}
+              >
+                <Typography className="!font-[700] !text-[22px]">
+                  {isLang === "ar"
+                    ? addOnData?.designs_details?.[title]?.name_arabic
+                    : title}
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography>
+                  {addOnData &&
+                  addOnData.designs_details &&
+                  addOnData.designs_details[title] &&
+                  addOnData.designs_details[title].design_list?.length > 0
+                    ? addOnData.designs_details[title].design_list?.map(
+                        (design, i) => (
+                          <div
+                            id={design.id}
+                            style={{
+                              display: "flex",
+                              borderBottom:
+                                i ===
+                                addOnData.designs_details[title].design_list
+                                  .length -
+                                  1
+                                  ? "none"
+                                  : `1px solid black`,
+                              padding:
+                                window.innerWidth <= 475 ? "3% 0%" : "1% 0",
                             }}
-                            className={`sm:basis-[35%] basis-[35%] xs:basis-[69%] ${
-                              isLang === "ar" ? "text-right" : "text-left"
-                            }`}
+                            className="items-center flex-wrap"
                           >
-                            {isLang === "ar"
-                              ? processArabicText(design.name_arabic)
-                              : design.name_english}
-                          </Typography>
-                          <p
-                            className={`flex xs:order-3 sm:order-2 items-center sm:w-[35%] w-[35%] xs:w-[100%] !mb-2 ${
-                              bundlePackageId && "xs:hidden sm:flex"
-                            }`}
-                          >
-                            <p className="flex items-center mb-1 sm:min-w-[120px] min-w-[120px] xs:min-w-[100px] font-[500]">
-                              <img
-                                src={BlackDollor}
-                                alt="Price icon"
-                                className={`inline-block ${
-                                  isLang === "ar" ? "ml-2" : "mr-2"
-                                }`}
-                              />
-                              {amountDecimal(Math.round(design.price))}{" "}
-                              {isLang === "ar" ? "ريال" : "SAR"}
+                            <Typography
+                              sx={{
+                                // color:  `${design.id == searchParams?'#0F5C3C': textColor}` ,
+                                color: "#000000",
+                                display: "block",
+                                marginRight: "5px",
+                                marginBottom: "8px",
+                                fontWeight: "500",
+                                fontSize: "18px",
+                              }}
+                              className={`sm:basis-[35%] basis-[35%] xs:basis-[69%] ${
+                                isLang === "ar" ? "text-right" : "text-left"
+                              }`}
+                            >
+                              {isLang === "ar"
+                                ? processArabicText(design.name_arabic)
+                                : design.name_english}
+                            </Typography>
+                            <p
+                              className={`flex xs:order-3 sm:order-2 items-center sm:w-[35%] w-[35%] xs:w-[100%] !mb-2 ${
+                                bundlePackageId && "xs:hidden sm:flex"
+                              }`}
+                            >
+                              <p className="flex items-center mb-1 sm:min-w-[120px] min-w-[120px] xs:min-w-[100px] font-[500]">
+                                <img
+                                  src={BlackDollor}
+                                  alt="Price icon"
+                                  className={`inline-block ${
+                                    isLang === "ar" ? "ml-2" : "mr-2"
+                                  }`}
+                                />
+                                {amountDecimal(Math.round(design.price))}{" "}
+                                {isLang === "ar" ? "ريال" : "SAR"}
+                              </p>
+                              <p className="flex items-center mb-1 font-[500] uppercase">
+                                <img
+                                  src={BlackTime}
+                                  alt="Time icon"
+                                  className={`inline-block ${
+                                    isLang === "ar" ? "ml-1" : "mr-1"
+                                  }`}
+                                />
+                                {Math.round(design.time)}{" "}
+                                {isLang === "ar" ? "يوما" : "Days"}
+                              </p>
                             </p>
-                            <p className="flex items-center mb-1 font-[500] uppercase">
-                              <img
-                                src={BlackTime}
-                                alt="Time icon"
-                                className={`inline-block ${
-                                  isLang === "ar" ? "ml-1" : "mr-1"
-                                }`}
-                              />
-                              {Math.round(design.time)}{" "}
-                              {isLang === "ar" ? "يوما" : "Days"}
-                            </p>
-                          </p>
 
-                          <p
-                            style={{ color: "#000000" }}
-                            className={`xs:order-2 sm:order-3 sm:w-[29%] w-[29%] xs:w-[29%] max-h-[36px] !mb-2 flex ${
-                              isLang === "ar"
-                                ? "flex-row-reverse"
-                                : "flex-row justify-end"
-                            }  text-[${textColor}] `}
-                          >
-                            <button
-                              style={{
-                                borderColor: "#000000",
-                                borderStyle: "solid",
-                                borderWidth: "1px",
-                              }}
-                              onClick={() =>
-                                handleQuantityChange(design.name_english, -1)
-                              }
-                              className={`${
-                                isLang === "ar" ? "!border-r-0" : "!border-r-0"
-                              }  !py-[17px]  px-1  flex  items-center`}
+                            <p
+                              style={{ color: "#000000" }}
+                              className={`xs:order-2 sm:order-3 sm:w-[29%] w-[29%] xs:w-[29%] max-h-[36px] !mb-2 flex ${
+                                isLang === "ar"
+                                  ? "flex-row-reverse"
+                                  : "flex-row justify-end"
+                              }  text-[${textColor}] `}
                             >
-                              <RemoveIcon />
-                            </button>
-                            <span
-                              style={{
-                                borderColor: "#000000",
-                                borderStyle: "solid",
-                                borderWidth: "1px",
-                              }}
-                              className={`${
-                                isLang === "ar" ? "!border-r-0" : "!border-r-0"
-                              } px-2 !text-[20px]`}
-                            >
-                              {" "}
-                              {quantities[design.name_english] || 0}
-                            </span>
-                            <button
-                              style={{
-                                borderColor: "#000000",
-                                borderStyle: "solid",
-                                borderWidth: "1px",
-                              }}
-                              onClick={() =>
-                                handleQuantityChange(design.name_english, 1)
-                              }
-                              className={`flex  items-center px-1  !py-[5px] `}
-                            >
-                              <AddIcon />
-                            </button>
-                          </p>
-                        </div>
+                              <button
+                                style={{
+                                  borderColor: "#000000",
+                                  borderStyle: "solid",
+                                  borderWidth: "1px",
+                                }}
+                                onClick={() =>
+                                  handleQuantityChange(design.name_english, -1)
+                                }
+                                className={`${
+                                  isLang === "ar"
+                                    ? "!border-r-0"
+                                    : "!border-r-0"
+                                }  !py-[17px]  px-1  flex  items-center`}
+                              >
+                                <RemoveIcon />
+                              </button>
+                              <span
+                                style={{
+                                  borderColor: "#000000",
+                                  borderStyle: "solid",
+                                  borderWidth: "1px",
+                                }}
+                                className={`${
+                                  isLang === "ar"
+                                    ? "!border-r-0"
+                                    : "!border-r-0"
+                                } px-2 !text-[20px]`}
+                              >
+                                {" "}
+                                {quantities[design.name_english] || 0}
+                              </span>
+                              <button
+                                style={{
+                                  borderColor: "#000000",
+                                  borderStyle: "solid",
+                                  borderWidth: "1px",
+                                }}
+                                onClick={() =>
+                                  handleQuantityChange(design.name_english, 1)
+                                }
+                                className={`flex  items-center px-1  !py-[5px] `}
+                              >
+                                <AddIcon />
+                              </button>
+                            </p>
+                          </div>
+                        )
                       )
-                    )
-                  : "No designs available"}
-              </Typography>
-            </AccordionDetails>
-          </Accordion>
-        ))}
+                    : "No designs available"}
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
+          ))}
+        </div>
       </div>
     </div>
   );
