@@ -2313,7 +2313,6 @@ export default function Adjustments({ user, lang, setLang }) {
     };
     if (validateFields()) {
       try {
-        debugger
         const res = await axios.post(
           `${base_url}/api/adjustment_create/?orderId=${orderId}&type=${
             state.purchaseAddOns ? "addon" : "adj"
@@ -2612,7 +2611,7 @@ export default function Adjustments({ user, lang, setLang }) {
                       ? "اطلب أي عناصر تحتاجها "
                       : "Add anything you want to your bundle to fit your brand!"}
                   </p>
-                  <div className="flex flex-wrap w-[100%]">
+                  <div className="flex flex-wrap w-[100%] cursor-pointer">
                     {" "}
                     {Object.keys(bundlAddons).map((category, index) => {
                       return (
@@ -2656,7 +2655,7 @@ export default function Adjustments({ user, lang, setLang }) {
                       return (
                         <div id={`${index}_list`}>
                           <p
-                            className={`flex justify-between font-semibold text-[24px] pb-2  ${
+                            className={`flex cursor-pointer justify-between font-semibold text-[24px] pb-2  ${
                               expantedTabs[category] ||
                               category === "Social Media"
                                 ? ""
@@ -3929,7 +3928,7 @@ export default function Adjustments({ user, lang, setLang }) {
                     })}
                   </div>
 
-                  <div className="mt-10">
+                  <div className="mt-10 cursor-pointer" >
                     {Object.keys(bundlAddons).map((category, index) => {
                       return (
                         <div id={`${index}_list`}>

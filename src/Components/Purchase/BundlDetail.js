@@ -653,11 +653,17 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                       <div
                         key={index}
                         className="bundle-section"
-                        style={
-                          window.innerWidth <= 475
-                            ? { margin: "5% 0 0 0" }
-                            : { margin: "3% 0 0 0" }
-                        }
+                        // style={
+                          
+                        //   window.innerWidth <= 475
+                        //     ? { margin: "5% 0 0 0" }
+                        //     : { margin: "3% 0 0 0" },
+                        //     {cursor: "pointer"}
+                        // }
+                        style={{
+  margin: window.innerWidth <= 475 ? "5% 0 0 0" : "3% 0 0 0",
+  cursor: "pointer",
+}}
                       >
                         <p
                           className={`collateral-text mb-[2px] leading-[1.2] ${
