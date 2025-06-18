@@ -544,7 +544,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
               className="xs:px-2 sm:px-auto px-auto"
               style={{ borderBottom: "1.5px solid #000000", width: "100%" }}
             >
-              <h2 className="sm:text-[38px] text-[38px] xs:text-[30px]">
+              <h2 className="sm:text-[38px] text-[38px] xs:text-[24px]">
                 {lang === "ar"
                   ? packageDetail?.package?.name_arabic
                   : packageDetail?.package?.name_english || ""}
@@ -673,7 +673,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                             : bundle.name_english}
                         </p>
                         <p
-                          className={`text-[16px] sm:text-[16px] xs:text-[18px] ${
+                          className={`text-[16px] sm:text-[16px] xs:text-[16px] ${
                             lang === "ar" ? "text-right" : "text-left"
                           }`}
                           style={{ opacity: "50%" }}

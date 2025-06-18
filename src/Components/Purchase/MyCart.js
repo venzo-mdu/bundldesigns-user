@@ -1086,7 +1086,7 @@ export const MyCart = ({ lang, setLang }) => {
                               : row.item_name}
                               
                           </div> */}
-                          <div className="font-[700] text-[20px] ml-2">
+                          <div className="font-[700] text-[18px] ml-2">
                             {lang === "ar"
                               ? processArabicText(row.item__name_arabic)
                               : row.item_name}
@@ -1110,6 +1110,7 @@ export const MyCart = ({ lang, setLang }) => {
                       )
                     )}
                   </div>
+
                   {cartDetails?.item_details?.addon_items?.length > 0 && (
                     <div
                       className={`font-[700] text-[20px] mt-2 ${
@@ -1128,7 +1129,7 @@ export const MyCart = ({ lang, setLang }) => {
                       } w-full mt-2`}
                     >
                       <div className="w-[70%]">
-                        <div className="font-[700] text-[20px] ">
+                        <div className="font-[700] text-[18px] ">
                           {lang === "ar"
                             ? processArabicText(row.item__name_arabic)
                             : row.item_name}

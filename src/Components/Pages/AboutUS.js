@@ -192,7 +192,7 @@ export const AboutUs = ({ lang, setLang }) => {
                           onMouseEnter={() => setIsHovered(lang !== 'ar' ? 'brandIdentity' : 'brandIdentity_arabic')}
                           onMouseLeave={() => setIsHovered(null)}
                           className={`cursor-pointer BIText ${isHovered ? 'no-underline' : 'underline'} hover:text-[#1BA56F]  md:text-[22px] sm:text-[22px] xs:text-[22px] font-bold`}>
-                          {lang === 'ar' ? 'تصميم الهوية' : 'Brand Identity'}
+                          {lang === 'ar' ? 'تصميم الهوية' : 'Brand Identity1'}
                         </p>
                         <p
                           onClick={() => {

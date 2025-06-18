@@ -1689,7 +1689,7 @@ export default function Dashboard({ lang, setLang }) {
               save={
                 lang === "ar"
                   ? "الذهاب إلى لوحة التحكم​"
-                  : "Continue to Dashboard"
+                  : "CONTINUE TO DASHBOARD"
               }
               // cancel={'Cancel'}
             />
@@ -1704,7 +1704,7 @@ export default function Dashboard({ lang, setLang }) {
                 "That's a wrap on the design project! It's been a fun and creative process. Enjoy the files."
               }
               onClick={() => window.location.reload()}
-              save={"Continue to Dashboard"}
+              save={"COTINUE TO DASHBOARD"}
             />
           )}
           <div className="font-Helvetica">

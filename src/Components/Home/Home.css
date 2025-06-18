@@ -553,12 +553,20 @@ margin-right: auto;
 margin-left: auto
 }
 
+.bundl-box-inner .title{
+  font-size: 24px;
+}
+
 @media (min-width:576px) {
 
 .container,
 .container-sm {
   max-width: 540px
 }
+}
+
+.bundl-box-inner .title{
+  font-size: 24px;
 }
 
 @media (min-width:768px) {
@@ -3785,7 +3793,7 @@ animation-delay: 2s;
 
 .content_s,
 .sub-headeing {
-  font-size: 18px;
+  font-size: 24px;
 }
 
 .pick_design_content {
@@ -4149,7 +4157,7 @@ h6 {
 p,
 ul,
 li {
-  font-size: 14px;
+  font-size: 16px;
 }
 
 address,
@@ -4916,7 +4924,7 @@ font-size: 20px;
   font-size: 12px;
 }
 .bundl-box-inner .title{
-  font-size: 23px;
+  font-size: 24px;
 }
 .bt-1{
   width: 100%;
@@ -5341,6 +5349,9 @@ width:225px;
     font-size: 24px;
     
   }
+}
+.bundl-box-inner .title{
+  font-size: 24px;
 }
 
 /* Medium desktops (≥992px) */
