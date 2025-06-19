@@ -612,7 +612,7 @@ export const MyCart = ({ lang, setLang }) => {
     e.preventDefault();
     setPaymentLoading(true);
     if (validateFields()) {
-      debugger;
+      ;
       if (
         (cartDetails.total_amount >= 4800 &&
           cartDetails.bundl_english === "The Newbie") ||

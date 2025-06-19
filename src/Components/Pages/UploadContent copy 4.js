@@ -59,6 +59,47 @@ export default function UploadContent({ lang, setLang }) {
 
   let [uploadFiles, setUploadFiles] = useState([]);
 
+  // const uploadFile = async (e, id, field, name, idx) => {
+  //   if (e.target.files.length) {
+  //     const formData = new FormData();
+  //     formData.append("file", e.target.files[0]);
+  //     formData.append("file_name", e.target.files[0]?.name);
+  //     const response = await axios.post(
+  //       `${base_url}/api/upload_file/`,
+  //       formData,
+  //       ConfigToken()
+  //     );
+  //     setUploadFiles((prev) => [
+  //       ...prev,
+  //       { id: id, url: response.data.file_url },
+  //     ]);
+
+  //     setUploadContent((prev) => ({
+  //       ...prev,
+  //       [id]: {
+  //         ...prev[id], // Preserve other fields for this ID
+  //         [idx]: {
+  //           ...prev[id]?.[idx],
+  //           [field]: field === "file" && response.data.file_url,
+  //           ...(field === "file" && {
+  //             filename: e.target.files[0]?.name || "",
+  //           }),
+  //           item_sub_name: name,
+  //         },
+  //       },
+  //     }));
+  //   }
+  // };
+
+  // const saveContent = async (itemId) => {
+  //     if(uploadContent?.[item?.id]?.content){
+
+  //     }
+  //     const formData = { answers: { [itemId]: uploadContent[itemId] }, orderId: order.id, status: 'save_later' }
+  //     const response = await axios.post(`${base_url}/api/upload_content/`, formData, ConfigToken());
+  //     getOrderDetails()
+  // }
+
   const uploadFile = async (e, id, field, name, idx) => {
     if (e.target.files.length) {
       const formData = new FormData();
@@ -98,6 +139,28 @@ export default function UploadContent({ lang, setLang }) {
             ];
           }
         });
+        // const docId = id.split("_")[0];
+        // setUploadContent((prev) => {
+        //   const existing = prev[docId];
+        //   ;
+        //   return {
+        //     ...prev,
+        //     [docId]: {
+        //       ...prev[docId],
+        //       [idx]: {
+        //         ...prev[docId]?.[idx],
+        //         ["file_url"]: field === "file" && [
+        //           ...(existing?.file_url || []),
+        //           response.data.file_url,
+        //         ],
+        //         ...(field === "file" && {
+        //           filename: e.target.files[0]?.name || "",
+        //         }),
+        //         item_sub_name: name,
+        //       },
+        //     },
+        //   };
+        // });
         const docId = id.split("_")[0];
         setUploadContent((prev) => {
           const existing = prev[docId]?.[idx] || {};
@@ -224,25 +287,40 @@ export default function UploadContent({ lang, setLang }) {
         return;
       }
 
+      // if (
+      //   !uploadContent?.[itemId]?.[idx]?.filename &&
+      //   designQuestions[designId]?.attachemnt
+      // ) {
+      //   toast.error(
+      //     lang === "ar" ? "يرجى رفع المحتوى" : "Please upload the content.",
+      //     {
+      //       icon: false,
+      //       toastId: "required-value-toast4",
+      //       style: {
+      //         color: "#D83D99",
+      //         fontWeight: "700",
+      //       },
+      //     }
+      //   );
+      //   return;
+      // }
+
       if (uploadContent?.[itemId][idx].file_url.length < 0) {
         toastErrorMessage(
           lang === "ar" ? "يرجى رفع المحتوى" : "Please upload the content."
         );
       }
+      ;
       const formData = {
         answers: {
           [itemId]: {
             [idx]: uploadContent?.[itemId]?.[idx] || {},
           },
         },
-
         orderId: order.id,
         status: "save_later",
       };
-
-      formData.answers[itemId][idx].file_links =
-        formData.answers[itemId][idx].file_url;
-      delete formData.answers[itemId][idx].file_url;
+      ;
       const response = await axios.post(
         `${base_url}/api/upload_content/`,
         formData,

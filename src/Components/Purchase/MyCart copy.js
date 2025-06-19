@@ -320,7 +320,7 @@ export const MyCart = ({ lang, setLang }) => {
 
   const getCartData = async () => {
     try {
-      debugger
+      
       setLoading(true);
       // const response = await axios.get(`${base_url}/api/order/${location.state.orderData.id}/`);
       getProfile();

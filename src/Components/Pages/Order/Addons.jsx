@@ -76,10 +76,10 @@ function Addons({
             // !skipId?.includes(item.id) &&
             item.status == "questionnaire required"
         )
-        .map((item, index, filterArr) =>
+        ?.map((item, index, filterArr) =>
           Array.from({ length: item.qty }, (_, qtyIndex) => qtyIndex + 1)
-            .filter((qty) => !item.uploaded_qty?.includes(qty))
-            .map((filterIndex) => {
+            ?.filter((qty) => !item.uploaded_qty?.includes(qty))
+            ?.map((filterIndex) => {
               const hasMultipleQty = item.qty < 1;
               if (!skipId.includes(`${item.id}_${filterIndex}`)) {
                 return (
@@ -388,7 +388,7 @@ function Addons({
                               if (ele.id === `${item.id}_${filterIndex}`) {
                                 return (
                                   <div key={idx} className="flex flex-wrap">
-                                    {ele.name.map((name, i) => (
+                                    {ele?.name?.map((name, i) => (
                                       <div
                                         key={i}
                                         className="bg-black text-white py-1 px-2 mr-2 mb-2 flex items-center"
