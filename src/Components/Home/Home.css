@@ -3779,6 +3779,7 @@ animation-delay: 2s;
 
 .h-list {
   display: flex !important; flex-direction: row;
+  margin-top: -12px;
 }
 .h-list li{width: auto;}
 
