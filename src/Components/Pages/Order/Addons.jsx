@@ -76,10 +76,10 @@ function Addons({
             // !skipId?.includes(item.id) &&
             item.status == "questionnaire required"
         )
-        ?.map((item, index, filterArr) =>
+        .map((item, index, filterArr) =>
           Array.from({ length: item.qty }, (_, qtyIndex) => qtyIndex + 1)
-            ?.filter((qty) => !item.uploaded_qty?.includes(qty))
-            ?.map((filterIndex) => {
+            .filter((qty) => !item.uploaded_qty?.includes(qty))
+            .map((filterIndex) => {
               const hasMultipleQty = item.qty < 1;
               if (!skipId.includes(`${item.id}_${filterIndex}`)) {
                 return (
@@ -100,7 +100,9 @@ function Addons({
                           hasMultipleQty)
                           ? ""
                           : ""
-                      } pl-[5%] space-x-2 mt-[2%] ${lang === "ar" ? "mr-8" : "text-left"}`}
+                      } pl-[5%] space-x-2 mt-[2%] ${
+                        lang === "ar" ? "mr-8" : "text-left"
+                      }`}
                     >
                       <div className="-ml-[5%] w-[calc(100%+5%)] border-y border-black py-2">
                         <div className="pl-[5%]">
@@ -329,7 +331,9 @@ function Addons({
                               : "Have something to show us?"}
                           </p>
                           <p
-                            className={`border-b-2 ${lang === 'ar'?'w-[100px]':'w-[126px]'} ${
+                            className={`border-b-2 ${
+                              lang === "ar" ? "w-[100px]" : "w-[126px]"
+                            } ${
                               uploadContent?.[item?.id]?.[filterIndex]?.filename
                                 ? "w-fit"
                                 : ""
@@ -345,8 +349,8 @@ function Addons({
                             <input
                               type="file"
                               hidden
-                              name="file"
                               multiple
+                              name="file"
                               id={`file-${item.id}_${filterIndex}`}
                               onChange={(e) =>
                                 uploadFile(
@@ -388,7 +392,7 @@ function Addons({
                               if (ele.id === `${item.id}_${filterIndex}`) {
                                 return (
                                   <div key={idx} className="flex flex-wrap">
-                                    {ele?.name?.map((name, i) => (
+                                    {ele.name.map((name, i) => (
                                       <div
                                         key={i}
                                         className="bg-black text-white py-1 px-2 mr-2 mb-2 flex items-center"

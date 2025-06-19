@@ -302,6 +302,7 @@ function BundlOrder({
                           >
                             <input
                               type="file"
+                              multiple
                               hidden
                               name="file"
                               id={`file-${item.id}_${filterIndex}`} // Use a unique ID for each input
@@ -323,7 +324,7 @@ function BundlOrder({
                                 ? "إضافة المحتوى"
                                 : "Upload Content")}
                           </p>
-                          <div className="flex gap-2">
+                          {/* <div className="flex gap-2">
                             {uploadFiles?.length > 0 &&
                               uploadFiles
                                 // .filter((ele) => ele.id === item.id)
@@ -340,7 +341,30 @@ function BundlOrder({
                                     );
                                   }
                                 })}
-                          </div>
+                          </div> */}
+
+                          
+                          {uploadFiles?.length > 0 &&
+                            uploadFiles.map((ele, idx) => {
+                              if (ele.id === `${item.id}_${filterIndex}`) {
+                                return (
+                                  <div key={idx} className="flex flex-wrap">
+                                    {ele.name.map((name, i) => (
+                                      <div
+                                        key={i}
+                                        className="bg-black text-white py-1 px-2 mr-2 mb-2 flex items-center"
+                                      >
+                                        {name}
+                                        <CloseIcon
+                                          onClick={() => removeFile(ele, i)}
+                                          className="ml-2 cursor-pointer"
+                                        />
+                                      </div>
+                                    ))}
+                                  </div>
+                                );
+                              }
+                            })}
                         </>
                       )}
 

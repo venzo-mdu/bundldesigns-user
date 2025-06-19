@@ -38,6 +38,7 @@ export default function UploadContent({ lang, setLang }) {
       ConfigToken()
     );
     if (response.data) {
+      debugger
       setOrder(response.data.data);
       setDesignQuestions(response.data.design_question);
     }
@@ -59,11 +60,84 @@ export default function UploadContent({ lang, setLang }) {
 
   let [uploadFiles, setUploadFiles] = useState([]);
 
+  // const uploadFile = async (e, id, field, name, idx) => {
+  //   if (e.target.files.length) {
+  //     const formData = new FormData();
+  //     formData.append("file", e.target.files[0]);
+  //     formData.append("file_name", e.target.files[0]?.name);
+
+  //     try {
+  //       const response = await axios.post(
+  //         `${base_url}/api/upload_file/`,
+  //         formData,
+  //         ConfigToken()
+  //       );
+  //       const fileName = e.target.files[0]?.name || "";
+  //       setUploadFiles((prev) => {
+  //         const existing = prev.find((file) => file.id === id);
+  //         if (existing) {
+  //           return prev.map((file) =>
+  //             file.id === id
+  //               ? {
+  //                   ...file,
+  //                   url: [...existing.url, response.data.file_url],
+  //                   name: [
+  //                     ...(Array.isArray(file.name) ? file.name : [file.name]),
+  //                     fileName,
+  //                   ],
+  //                 }
+  //               : file
+  //           );
+  //         } else {
+  //           return [
+  //             ...prev,
+  //             {
+  //               id,
+  //               url: [response.data.file_url],
+  //               name: [fileName],
+  //             },
+  //           ];
+  //         }
+  //       });
+  //       const docId = id.split("_")[0];
+  //       setUploadContent((prev) => {
+  //         const existing = prev[docId]?.[idx] || {};
+  //         return {
+  //           ...prev,
+  //           [docId]: {
+  //             ...prev[docId],
+  //             [idx]: {
+  //               ...existing,
+  //               ...(field === "file" && {
+  //                 file_url: [
+  //                   ...(existing.file_url || []),
+  //                   response.data.file_url,
+  //                 ],
+  //                 filename: e.target.files[0]?.name || "",
+  //               }),
+  //               item_sub_name: name,
+  //             },
+  //           },
+  //         };
+  //       });
+  //     } catch (error) {
+  //       console.error("Upload failed", error);
+  //     }
+  //     e.target.value = "";
+  //   }
+  // };
+
   const uploadFile = async (e, id, field, name, idx) => {
-    if (e.target.files.length) {
+    const files = Array.from(e.target.files);
+    if (!files.length) return;
+
+    const uploadedUrls = [];
+    const uploadedNames = [];
+
+    for (const file of files) {
       const formData = new FormData();
-      formData.append("file", e.target.files[0]);
-      formData.append("file_name", e.target.files[0]?.name);
+      formData.append("file", file);
+      formData.append("file_name", file.name);
 
       try {
         const response = await axios.post(
@@ -71,33 +145,10 @@ export default function UploadContent({ lang, setLang }) {
           formData,
           ConfigToken()
         );
-        const fileName = e.target.files[0]?.name || "";
-        setUploadFiles((prev) => {
-          const existing = prev.find((file) => file.id === id);
-          if (existing) {
-            return prev.map((file) =>
-              file.id === id
-                ? {
-                    ...file,
-                    url: [...existing.url, response.data.file_url],
-                    name: [
-                      ...(Array.isArray(file.name) ? file.name : [file.name]),
-                      fileName,
-                    ],
-                  }
-                : file
-            );
-          } else {
-            return [
-              ...prev,
-              {
-                id,
-                url: [response.data.file_url],
-                name: [fileName],
-              },
-            ];
-          }
-        });
+
+        uploadedUrls.push(response.data.file_url);
+        uploadedNames.push(file.name);
+
         const docId = id.split("_")[0];
         setUploadContent((prev) => {
           const existing = prev[docId]?.[idx] || {};
@@ -112,7 +163,7 @@ export default function UploadContent({ lang, setLang }) {
                     ...(existing.file_url || []),
                     response.data.file_url,
                   ],
-                  filename: e.target.files[0]?.name || "",
+                  filename: file.name,
                 }),
                 item_sub_name: name,
               },
@@ -122,8 +173,36 @@ export default function UploadContent({ lang, setLang }) {
       } catch (error) {
         console.error("Upload failed", error);
       }
-      e.target.value = "";
     }
+
+    setUploadFiles((prev) => {
+      const existing = prev.find((file) => file.id === id);
+      if (existing) {
+        return prev.map((file) =>
+          file.id === id
+            ? {
+                ...file,
+                url: [...existing.url, ...uploadedUrls],
+                name: [
+                  ...(Array.isArray(file.name) ? file.name : [file.name]),
+                  ...uploadedNames,
+                ],
+              }
+            : file
+        );
+      } else {
+        return [
+          ...prev,
+          {
+            id,
+            url: uploadedUrls,
+            name: uploadedNames,
+          },
+        ];
+      }
+    });
+
+    e.target.value = "";
   };
 
   const colors = {
