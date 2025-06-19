@@ -24,19 +24,6 @@ function Addons({
       !skipId?.includes(item.id) &&
       item.status == "questionnaire required"
   );
-  useEffect(() => {
-    if (orderItemRemain.length === 0) {
-      navigate(`/dashboard?order_id=${order.id}`);
-    }
-  }, [orderItemRemain]);
-
-  // const removeFile = (ele) => {
-  //   setUploadFiles(
-  //     uploadFiles?.filter((file) => {
-  //       return !(ele?.id === file?.id && ele?.name === file?.name);
-  //     })
-  //   );
-  // };
 
   const removeFile = (fileItem, nameIndex) => {
     setUploadFiles(

@@ -38,7 +38,6 @@ export default function UploadContent({ lang, setLang }) {
       ConfigToken()
     );
     if (response.data) {
-      debugger
       setOrder(response.data.data);
       setDesignQuestions(response.data.design_question);
     }
@@ -303,11 +302,11 @@ export default function UploadContent({ lang, setLang }) {
         return;
       }
 
-      if (uploadContent?.[itemId][idx].file_url.length < 0) {
-        toastErrorMessage(
-          lang === "ar" ? "يرجى رفع المحتوى" : "Please upload the content."
-        );
-      }
+      // if (uploadContent?.[itemId][idx].file_url.length < 0) {
+      //   toastErrorMessage(
+      //     lang === "ar" ? "يرجى رفع المحتوى" : "Please upload the content."
+      //   );
+      // }
       const formData = {
         answers: {
           [itemId]: {
