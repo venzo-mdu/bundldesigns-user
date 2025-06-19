@@ -598,7 +598,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
               </p>
               <p className="one-minor my-3">
                 {lang === "ar"
-                  ? ""
+                  ? "هذي الباقة تشمل تعديل مجاني واحد"
                   : "* This Bundl includes one minor revision"}
               </p>
             </div>

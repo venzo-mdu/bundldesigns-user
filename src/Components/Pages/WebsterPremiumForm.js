@@ -333,7 +333,11 @@ export default function WebsterPremiumForm({lang,setLang}) {
           //     fontWeight: "700" // White text
           //   },
           //         });
-          showErrorToast("Form submitted successfully", "#D83D99");
+          showErrorToast(
+  lang === 'ar' ? "تم إرسال النموذج بنجاح" : "Form submitted successfully",
+  "#D83D99"
+);
+          
         }
         setErrors({})
 
