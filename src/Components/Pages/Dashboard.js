@@ -1662,7 +1662,9 @@ export default function Dashboard({ lang, setLang }) {
               openpopup={openPopup}
               isCancel={false}
               setPopup={setOpenPopup}
-              title={lang === "ar" ? "هل ترغب في إفراغ السلة؟" : "Empty your Cart"}
+              title={
+                lang === "ar" ? "هل ترغب في إفراغ السلة؟" : "Empty your Cart"
+              }
               // subTitle={'Are you sure, you want to empty the cart.'}
               onClick={() => reOrder(reOrderId)}
               save={"Yes"}
@@ -2272,7 +2274,7 @@ export default function Dashboard({ lang, setLang }) {
                                     </div> 
                             } */}
 
-            {/* <div className="font-Helvetica">
+            <div className="font-Helvetica">
               <div className="text-center lg:pt-0 lg:pb-16 md:pt-0 md:pb-16 xs:pt-4 xs:pb-16">
                 <h2 className="lg:text-[30px] md:text-[24px] xs:text-[24px] xs:font-[700] xs:px-[15%]">
                   {lang === "ar"
@@ -2306,7 +2308,7 @@ export default function Dashboard({ lang, setLang }) {
                   </a>
                 )}
               </div>
-            </div> */}
+            </div>
           </div>
           <Modal
             open={showPdf}
