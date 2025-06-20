@@ -2394,7 +2394,7 @@ export default function Adjustments({ user, lang, setLang }) {
                 openpopup={openPopup}
                 isCancel={false}
                 setPopup={setOpenPopup}
-                title={"empty your Cart"}
+                title={lang === "ar" ? "هل ترغب في إفراغ السلة؟" : "Empty your Cart"}
                 // subTitle={'Are you sure, you want to empty the cart.'}
                 onClick={() => createAdjustmentOrder()}
                 save={"Yes"}
@@ -3618,7 +3618,7 @@ export default function Adjustments({ user, lang, setLang }) {
               openpopup={openPopup}
               isCancel={false}
               setPopup={setOpenPopup}
-              title={"empty your Cart"}
+              title={lang === "ar" ? "هل ترغب في إفراغ السلة؟" : "Empty your Cart"}
               // subTitle={'Are you sure, you want to empty the cart.'}
               onClick={() => createAdjustmentOrder()}
               save={"Yes"}

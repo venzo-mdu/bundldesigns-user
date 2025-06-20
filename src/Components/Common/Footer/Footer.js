@@ -102,7 +102,7 @@ export const Footer = ({ isLang }) => {
                     href="/#ourBundl"
                     className="text-[#ECEAEB] hover:text-[#f175ad]"
                   >
-                    {isLang === "ar" ? "بندل" : "Bundls"}{" "}
+                    {isLang === "ar" ? "باقاتنا" : "Bundls"}{" "}
                   </a>
                 </li>
                 <li>

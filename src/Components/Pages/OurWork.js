@@ -23,7 +23,7 @@ export default function OurWork({lang,setLang}) {
     social_media:lang === 'ar' ?'سوشال ميديا ​':'Social Media',
     packaging :lang === 'ar'?'التغليف':'Packaging',
     websites :lang==='ar'?'المتاجر الالكترونية​':'Websites',
-    brand_identity:lang==='ar'?'الهويات البصرية​':'Brand Identity2'
+    brand_identity:lang==='ar'?'تصميم الهوية':'Brand Identity'
   }
   const base_url = process.env.REACT_APP_BACKEND_URL
   const getprojects = async () => {

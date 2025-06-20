@@ -306,7 +306,7 @@ export const Purchasehistory = ({ lang, setLang }) => {
           openpopup={openPopup}
           isCancel={false}
           setPopup={setOpenPopup}
-          title={"Empty your cart"}
+          title={lang === "ar" ? "هل ترغب في إفراغ السلة؟" : "Empty your Cart"}
           onClick={() => reOrder(reOrderId)}
           save={"Yes"}
           cancel={"Cancel"}

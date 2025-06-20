@@ -46,8 +46,10 @@ export const MyCart = ({ lang, setLang }) => {
   const [isBack, setIsBack] = useState(false);
 
   const [popupMessage, setPopupMessage] = useState(
-    "Are you sure, you want to empty the cart?"
-  );
+  lang === "ar"
+    ? "هل أنت متأكد من إفراغ السلة؟"
+    : "Are you sure you want to empty the cart?"
+);
 
   const [routeNames, setRouteNames] = useState({
     4: "foodie",
@@ -1049,7 +1051,7 @@ export const MyCart = ({ lang, setLang }) => {
                   className="cursor-pointer"
                   onClick={() => handleBackClick()}
                 >
-                  {lang === "ar" ? "" : " Back to Bundl"}
+                  {lang === "ar" ? "العودة إلى الباقة" : " Back to Bundl"}
                 </span>{" "}
               </p>
               {/* {isDirect == false && <p onClick={()=>handleBackClick()} className='flex font-[500] cursor-pointer !text-[18px] items-center text-black mt-[2%]'> <img src={backIcon} className='mr-2 w-[30px]' onClick={()=>handleBackClick()}></img> Back to Bundl </p>}           */}
