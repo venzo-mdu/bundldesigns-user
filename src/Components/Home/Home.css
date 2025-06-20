@@ -553,12 +553,20 @@ margin-right: auto;
 margin-left: auto
 }
 
+.bundl-box-inner .title{
+  font-size: 24px;
+}
+
 @media (min-width:576px) {
 
 .container,
 .container-sm {
   max-width: 540px
 }
+}
+
+.bundl-box-inner .title{
+  font-size: 24px;
 }
 
 @media (min-width:768px) {
@@ -3771,6 +3779,7 @@ animation-delay: 2s;
 
 .h-list {
   display: flex !important; flex-direction: row;
+  margin-top: -12px;
 }
 .h-list li{width: auto;}
 
@@ -3785,7 +3794,7 @@ animation-delay: 2s;
 
 .content_s,
 .sub-headeing {
-  font-size: 30px;
+  font-size: 24px;
 }
 
 .pick_design_content {
@@ -4149,7 +4158,7 @@ h6 {
 p,
 ul,
 li {
-  font-size: 14px;
+  font-size: 16px;
 }
 
 address,
@@ -4916,7 +4925,7 @@ font-size: 20px;
   font-size: 12px;
 }
 .bundl-box-inner .title{
-  font-size: 23px;
+  font-size: 24px;
 }
 .bt-1{
   width: 100%;
@@ -5011,7 +5020,7 @@ font-size: 20px;
   align-items: center;
 }
 .our-process h2{
-  font-size: 30px;
+  font-size: 20px;
   line-height: 15px;
 }
 .dotted-line{
@@ -5127,6 +5136,7 @@ font-size: 20px;
 }
 .pack-inner-title {
   font-size: 12px;
+  padding-top: 10px;
 }
 .newbie{
   font-size: 16px;
@@ -5270,11 +5280,19 @@ font-size: 20px;
   .rocket{
     left: -2%;
   }
+
+  .button-container {
+width:225px;
+}
 }
 @media screen and (max-width:400px) {
   .img-animation{
     height: 85px !important; 
     }
+
+    .button-container {
+width:225px;
+}
 }
 
 .newbie.choose {
@@ -5306,6 +5324,10 @@ font-size: 20px;
     font-size: 16px;
     top: 14px; /* Optional: unify font size */
   }
+
+  .button-container {
+width:225px;
+}
 }
 
 @media (max-width: 374px) {
@@ -5313,6 +5335,10 @@ font-size: 20px;
     top: 44px;
     font-size: 16px;
   }
+
+  .button-container {
+width:225px;
+}
 }
 
 
@@ -5324,6 +5350,9 @@ font-size: 20px;
     font-size: 24px;
     
   }
+}
+.bundl-box-inner .title{
+  font-size: 24px;
 }
 
 /* Medium desktops (≥992px) */

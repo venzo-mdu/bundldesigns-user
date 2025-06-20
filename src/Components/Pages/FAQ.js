@@ -88,7 +88,7 @@ export default function FAQ({lang,setLang}) {
     if (validate()) {
       const response = await axios.post(`${base_url}/api/send-mail?form_type=contactus`, formData);
       if (response.data) {
-        toast.success(`Form submitted successfully`, {
+        toast.success(`lang === 'ar' ? "تم إرسال النموذج بنجاح" : "Form submitted successfully"`, {
           position: toast?.POSITION?.TOP_RIGHT,
           toastId: 'required-value-toast',
           icon: false,
