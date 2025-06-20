@@ -672,7 +672,7 @@ export default function UploadContent({ lang, setLang }) {
           </div>
         </div>
       ) : (
-        <div className="font-Helvetica flex" style={{ minHeight:"511px" }}>
+        <div className="font-Helvetica flex" style={{ position: "relative" }}>
           <div
             className={`basis-3/4 ${
               lang === "ar" ? "border-l" : "border-r"
@@ -821,7 +821,7 @@ export default function UploadContent({ lang, setLang }) {
           </div>
         </div>
       )}
-      {window?.innerWidth >= 500 && <div className=""><Footer isLang={lang} /></div>}
+      {window?.innerWidth >= 500 && <Footer isLang={lang} />}
     </div>
   );
 }

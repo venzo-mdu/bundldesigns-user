@@ -286,11 +286,11 @@ export const Purchasehistory = ({ lang, setLang }) => {
           />
         </div>
       )}
-      <div className="w-full" style={
+      {/* <div className="w-full" style={
           location.pathname === "/purchase-history"
             ? { position: "absolute", bottom: 0 }
             : {}
-        }>
+        }> */}
       <Footer
         isLang={lang}
           // style={
@@ -299,7 +299,7 @@ export const Purchasehistory = ({ lang, setLang }) => {
           //     : {}
           // }
       />
-      </div>
+      {/* </div> */}
 
       {openPopup && (
         <DashboardPopup
