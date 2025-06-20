@@ -190,13 +190,13 @@ export const Purchasehistory = ({ lang, setLang }) => {
         <div className="w-full px-[8%] my-[10%]">
           <div className="flex justify-between items-center">
             <p className="text-[20px] font-[500] font-Helvetica opacity-50">
-              {lang === "ar" ? "تاريخ الشراء" : "Purchase History"}
+              {lang === "ar" ? "تاريخ الشراء" : "Purchase History "}
             </p>
             <p
               className="underline text-[20px] font-[500] font-Helvetica text-[#1BA56F] cursor-pointer"
               onClick={() => setShowFull(!showFull)}
             >
-              {showFull ? "Show Less" : "See More"}
+              {purchases.length > 1? showFull ? "Show Less" : "See More":null}
             </p>
           </div>
           <div

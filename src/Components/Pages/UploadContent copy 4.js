@@ -64,79 +64,47 @@ export default function UploadContent({ lang, setLang }) {
   //     const formData = new FormData();
   //     formData.append("file", e.target.files[0]);
   //     formData.append("file_name", e.target.files[0]?.name);
+  //     const response = await axios.post(
+  //       `${base_url}/api/upload_file/`,
+  //       formData,
+  //       ConfigToken()
+  //     );
+  //     setUploadFiles((prev) => [
+  //       ...prev,
+  //       { id: id, url: response.data.file_url },
+  //     ]);
 
-  //     try {
-  //       const response = await axios.post(
-  //         `${base_url}/api/upload_file/`,
-  //         formData,
-  //         ConfigToken()
-  //       );
-  //       const fileName = e.target.files[0]?.name || "";
-  //       setUploadFiles((prev) => {
-  //         const existing = prev.find((file) => file.id === id);
-  //         if (existing) {
-  //           return prev.map((file) =>
-  //             file.id === id
-  //               ? {
-  //                   ...file,
-  //                   url: [...existing.url, response.data.file_url],
-  //                   name: [
-  //                     ...(Array.isArray(file.name) ? file.name : [file.name]),
-  //                     fileName,
-  //                   ],
-  //                 }
-  //               : file
-  //           );
-  //         } else {
-  //           return [
-  //             ...prev,
-  //             {
-  //               id,
-  //               url: [response.data.file_url],
-  //               name: [fileName],
-  //             },
-  //           ];
-  //         }
-  //       });
-  //       const docId = id.split("_")[0];
-  //       setUploadContent((prev) => {
-  //         const existing = prev[docId]?.[idx] || {};
-  //         return {
-  //           ...prev,
-  //           [docId]: {
-  //             ...prev[docId],
-  //             [idx]: {
-  //               ...existing,
-  //               ...(field === "file" && {
-  //                 file_url: [
-  //                   ...(existing.file_url || []),
-  //                   response.data.file_url,
-  //                 ],
-  //                 filename: e.target.files[0]?.name || "",
-  //               }),
-  //               item_sub_name: name,
-  //             },
-  //           },
-  //         };
-  //       });
-  //     } catch (error) {
-  //       console.error("Upload failed", error);
-  //     }
-  //     e.target.value = "";
+  //     setUploadContent((prev) => ({
+  //       ...prev,
+  //       [id]: {
+  //         ...prev[id], // Preserve other fields for this ID
+  //         [idx]: {
+  //           ...prev[id]?.[idx],
+  //           [field]: field === "file" && response.data.file_url,
+  //           ...(field === "file" && {
+  //             filename: e.target.files[0]?.name || "",
+  //           }),
+  //           item_sub_name: name,
+  //         },
+  //       },
+  //     }));
   //   }
   // };
 
+  // const saveContent = async (itemId) => {
+  //     if(uploadContent?.[item?.id]?.content){
+
+  //     }
+  //     const formData = { answers: { [itemId]: uploadContent[itemId] }, orderId: order.id, status: 'save_later' }
+  //     const response = await axios.post(`${base_url}/api/upload_content/`, formData, ConfigToken());
+  //     getOrderDetails()
+  // }
+
   const uploadFile = async (e, id, field, name, idx) => {
-    const files = Array.from(e.target.files);
-    if (!files.length) return;
-
-    const uploadedUrls = [];
-    const uploadedNames = [];
-
-    for (const file of files) {
+    if (e.target.files.length) {
       const formData = new FormData();
-      formData.append("file", file);
-      formData.append("file_name", file.name);
+      formData.append("file", e.target.files[0]);
+      formData.append("file_name", e.target.files[0]?.name);
 
       try {
         const response = await axios.post(
@@ -144,10 +112,55 @@ export default function UploadContent({ lang, setLang }) {
           formData,
           ConfigToken()
         );
-
-        uploadedUrls.push(response.data.file_url);
-        uploadedNames.push(file.name);
-
+        const fileName = e.target.files[0]?.name || "";
+        setUploadFiles((prev) => {
+          const existing = prev.find((file) => file.id === id);
+          if (existing) {
+            return prev.map((file) =>
+              file.id === id
+                ? {
+                    ...file,
+                    url: [...existing.url, response.data.file_url],
+                    name: [
+                      ...(Array.isArray(file.name) ? file.name : [file.name]),
+                      fileName,
+                    ],
+                  }
+                : file
+            );
+          } else {
+            return [
+              ...prev,
+              {
+                id,
+                url: [response.data.file_url],
+                name: [fileName],
+              },
+            ];
+          }
+        });
+        // const docId = id.split("_")[0];
+        // setUploadContent((prev) => {
+        //   const existing = prev[docId];
+        //   ;
+        //   return {
+        //     ...prev,
+        //     [docId]: {
+        //       ...prev[docId],
+        //       [idx]: {
+        //         ...prev[docId]?.[idx],
+        //         ["file_url"]: field === "file" && [
+        //           ...(existing?.file_url || []),
+        //           response.data.file_url,
+        //         ],
+        //         ...(field === "file" && {
+        //           filename: e.target.files[0]?.name || "",
+        //         }),
+        //         item_sub_name: name,
+        //       },
+        //     },
+        //   };
+        // });
         const docId = id.split("_")[0];
         setUploadContent((prev) => {
           const existing = prev[docId]?.[idx] || {};
@@ -162,7 +175,7 @@ export default function UploadContent({ lang, setLang }) {
                     ...(existing.file_url || []),
                     response.data.file_url,
                   ],
-                  filename: file.name,
+                  filename: e.target.files[0]?.name || "",
                 }),
                 item_sub_name: name,
               },
@@ -172,36 +185,8 @@ export default function UploadContent({ lang, setLang }) {
       } catch (error) {
         console.error("Upload failed", error);
       }
+      e.target.value = "";
     }
-
-    setUploadFiles((prev) => {
-      const existing = prev.find((file) => file.id === id);
-      if (existing) {
-        return prev.map((file) =>
-          file.id === id
-            ? {
-                ...file,
-                url: [...existing.url, ...uploadedUrls],
-                name: [
-                  ...(Array.isArray(file.name) ? file.name : [file.name]),
-                  ...uploadedNames,
-                ],
-              }
-            : file
-        );
-      } else {
-        return [
-          ...prev,
-          {
-            id,
-            url: uploadedUrls,
-            name: uploadedNames,
-          },
-        ];
-      }
-    });
-
-    e.target.value = "";
   };
 
   const colors = {
@@ -302,25 +287,40 @@ export default function UploadContent({ lang, setLang }) {
         return;
       }
 
-      // if (uploadContent?.[itemId][idx].file_url.length < 0) {
-      //   toastErrorMessage(
-      //     lang === "ar" ? "يرجى رفع المحتوى" : "Please upload the content."
+      // if (
+      //   !uploadContent?.[itemId]?.[idx]?.filename &&
+      //   designQuestions[designId]?.attachemnt
+      // ) {
+      //   toast.error(
+      //     lang === "ar" ? "يرجى رفع المحتوى" : "Please upload the content.",
+      //     {
+      //       icon: false,
+      //       toastId: "required-value-toast4",
+      //       style: {
+      //         color: "#D83D99",
+      //         fontWeight: "700",
+      //       },
+      //     }
       //   );
+      //   return;
       // }
+
+      if (uploadContent?.[itemId][idx].file_url.length < 0) {
+        toastErrorMessage(
+          lang === "ar" ? "يرجى رفع المحتوى" : "Please upload the content."
+        );
+      }
+      ;
       const formData = {
         answers: {
           [itemId]: {
             [idx]: uploadContent?.[itemId]?.[idx] || {},
           },
         },
-
         orderId: order.id,
         status: "save_later",
       };
-
-      formData.answers[itemId][idx].file_links =
-        formData.answers[itemId][idx].file_url;
-      delete formData.answers[itemId][idx].file_url;
+      ;
       const response = await axios.post(
         `${base_url}/api/upload_content/`,
         formData,
@@ -490,7 +490,6 @@ export default function UploadContent({ lang, setLang }) {
                   uploadIcon={uploadIcon}
                   setSkipId={setSkipId}
                   saveContent={saveContent}
-                  setUploadContent={setUploadContent}
                 />
                 <BundlOrder
                   order={order}
@@ -503,7 +502,6 @@ export default function UploadContent({ lang, setLang }) {
                   uploadIcon={uploadIcon}
                   setSkipId={setSkipId}
                   saveContent={saveContent}
-                  setUploadContent={setUploadContent}
                 />
               </>
             )}
@@ -675,7 +673,6 @@ export default function UploadContent({ lang, setLang }) {
                     uploadIcon={uploadIcon}
                     setSkipId={setSkipId}
                     saveContent={saveContent}
-                    setUploadContent={setUploadContent}
                   />
 
                   <BundlOrder
@@ -691,7 +688,6 @@ export default function UploadContent({ lang, setLang }) {
                     uploadIcon={uploadIcon}
                     setSkipId={setSkipId}
                     saveContent={saveContent}
-                    setUploadContent={setUploadContent}
                   />
                 </>
               )}
@@ -711,8 +707,8 @@ export default function UploadContent({ lang, setLang }) {
             <div className={`${lang === "ar" ? "pr-5 pl-0" : "pl-5 pr-0"}`}>
               {order && (
                 <>
-                  {order?.item_details?.bundle_items?.map((item, itemIndex) => {
-                    if (item?.item__id !== 76) {
+                  {order.item_details.bundle_items.map((item, itemIndex) => {
+                    if (item.item__id !== 76) {
                       return (
                         <div key={itemIndex}>
                           {Array.from(

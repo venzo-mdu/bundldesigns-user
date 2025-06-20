@@ -16,6 +16,7 @@ function Addons({
   uploadIcon,
   setSkipId,
   saveContent,
+  setUploadContent,
 }) {
   const navigate = useNavigate();
   let orderItemRemain = order?.item_details?.bundle_items.filter(
@@ -24,49 +25,98 @@ function Addons({
       !skipId?.includes(item.id) &&
       item.status == "questionnaire required"
   );
-  useEffect(() => {
-    if (orderItemRemain.length === 0) {
-      navigate(`/dashboard?order_id=${order.id}`);
-    }
-  }, [orderItemRemain]);
 
-  // const removeFile = (ele) => {
+  // const removeFile = (fileItem, nameIndex) => {
   //   setUploadFiles(
-  //     uploadFiles?.filter((file) => {
-  //       return !(ele?.id === file?.id && ele?.name === file?.name);
-  //     })
+  //     (prev) =>
+  //       prev
+  //         .map((file) => {
+  //           if (file.id === fileItem.id) {
+  //             const newNames = [...file.name];
+  //             const newUrls = [...file.url];
+
+  //             newNames.splice(nameIndex, 1);
+  //             newUrls.splice(nameIndex, 1);
+
+  //             // Remove object if no names/urls left
+  //             if (newNames.length === 0) {
+  //               return null;
+  //             }
+
+  //             return {
+  //               ...file,
+  //               name: newNames,
+  //               url: newUrls,
+  //             };
+  //           }
+  //           return file;
+  //         })
+  //         .filter(Boolean) // remove nulls (empty objects)
   //   );
   // };
 
-  const removeFile = (fileItem, nameIndex) => {
-    setUploadFiles(
-      (prev) =>
-        prev
-          .map((file) => {
-            if (file.id === fileItem.id) {
-              const newNames = [...file.name];
-              const newUrls = [...file.url];
+  const removeFile = (id, indexToRemove) => {
+    if (typeof id.id !== "string") {
+      console.error("Invalid id in removeFile:", id);
+      return;
+    }
 
-              newNames.splice(nameIndex, 1);
-              newUrls.splice(nameIndex, 1);
+    // 1. Update uploadFiles (array-based)
+    setUploadFiles((prev) => {
+      const fileIndex = prev.findIndex((file) => file.id === id.id);
+      if (fileIndex === -1) return prev;
 
-              // Remove object if no names/urls left
-              if (newNames.length === 0) {
-                return null;
-              }
+      const updated = [...prev];
+      const fileEntry = updated[fileIndex];
 
-              return {
-                ...file,
-                name: newNames,
-                url: newUrls,
-              };
-            }
-            return file;
-          })
-          .filter(Boolean) // remove nulls (empty objects)
-    );
+      const updatedNames = [...fileEntry.name];
+      const updatedUrls = [...fileEntry.url];
+
+      updatedNames.splice(indexToRemove, 1);
+      updatedUrls.splice(indexToRemove, 1);
+
+      if (updatedNames.length === 0) {
+        updated.splice(fileIndex, 1);
+      } else {
+        updated[fileIndex] = {
+          ...fileEntry,
+          name: updatedNames,
+          url: updatedUrls,
+        };
+      }
+
+      return updated;
+    });
+
+    // 2. Update uploadContent (object-based)
+    const docId = id.id.split("_")[0];
+    const idx = parseInt(id.id.split("_")[1], 10);
+
+    setUploadContent((prev) => {
+      const existing = prev?.[docId]?.[idx];
+      if (!existing) return prev;
+
+      const updatedUrls = [...(existing.file_url || [])];
+      updatedUrls.splice(indexToRemove, 1);
+
+      const updatedEntry = {
+        ...existing,
+        file_url: updatedUrls,
+      };
+
+      if (updatedUrls.length === 0) {
+        delete updatedEntry.filename;
+        delete updatedEntry.file_url;
+      }
+      return {
+        ...prev,
+        [docId]: {
+          ...prev[docId],
+          [idx]: updatedEntry,
+        },
+      };
+    });
   };
-
   return (
     <AnimatePresence>
       {order?.item_details?.bundle_items
@@ -100,7 +150,9 @@ function Addons({
                           hasMultipleQty)
                           ? ""
                           : ""
-                      } pl-[5%] space-x-2 mt-[2%] ${lang === "ar" ? "mr-8" : "text-left"}`}
+                      } pl-[5%] space-x-2 mt-[2%] ${
+                        lang === "ar" ? "mr-8" : "text-left"
+                      }`}
                     >
                       <div className="-ml-[5%] w-[calc(100%+5%)] border-y border-black py-2">
                         <div className="pl-[5%]">
@@ -242,8 +294,8 @@ function Addons({
                               {lang === "ar" ? "قياس خاص " : "Customize"}{" "}
                             </label>
 
-                            {uploadContent[item.id]?.measurements ===
-                              "Customize" && (
+                            {uploadContent[item.id]?.[filterIndex]
+                              ?.measurements === "Customize" && (
                               <>
                                 <label className="text-[#1BA56F] mr-2">
                                   {" "}
@@ -329,7 +381,9 @@ function Addons({
                               : "Have something to show us?"}
                           </p>
                           <p
-                            className={`border-b-2 ${lang === 'ar'?'w-[100px]':'w-[126px]'} ${
+                            className={`border-b-2 ${
+                              lang === "ar" ? "w-[100px]" : "w-[126px]"
+                            } ${
                               uploadContent?.[item?.id]?.[filterIndex]?.filename
                                 ? "w-fit"
                                 : ""
@@ -345,8 +399,8 @@ function Addons({
                             <input
                               type="file"
                               hidden
-                              name="file"
                               multiple
+                              name="file"
                               id={`file-${item.id}_${filterIndex}`}
                               onChange={(e) =>
                                 uploadFile(
@@ -360,11 +414,11 @@ function Addons({
                               }
                             />
                             <img src={uploadIcon} alt="Upload Icon" />
-                            {uploadContent?.[item?.id]?.[filterIndex]
-                              ?.filename ||
-                              (lang === "ar"
-                                ? "إضافة المحتوى"
-                                : "Upload Content")}
+                            {
+                              // uploadContent?.[item?.id]?.[filterIndex]
+                              //   ?.filename ||
+                              lang === "ar" ? "إضافة المحتوى" : "Upload Content"
+                            }
                           </p>
                           {/* <div className="flex gap-2">
                             {uploadFiles?.length > 0 &&

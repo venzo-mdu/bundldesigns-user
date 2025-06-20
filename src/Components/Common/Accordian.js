@@ -406,6 +406,7 @@ export const Accordian = ({
         >
           {titleArr.map((title, index) => (
             <Accordion
+             style={{ cursor: "pointer" }}
               id={`${index}_list`}
               sx={{
                 boxShadow: "none !important",

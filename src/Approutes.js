@@ -190,6 +190,7 @@ export default function AppRouter() {
           element={
             <Profile
               user={user}
+              setUser={setUser}
               lang={transLanguage}
               setLang={setTransLanguage}
             />
