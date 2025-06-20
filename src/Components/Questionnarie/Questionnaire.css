@@ -52,6 +52,8 @@
     justify-content: center;
     /* margin: 2% 0 10% 0; */
     gap: 30px;
+    text-decoration: underline;
+    
 }
 .questonnaire-actions-height{
     height: 170px;

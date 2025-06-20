@@ -46,8 +46,10 @@ export const MyCart = ({ lang, setLang }) => {
   const [isBack, setIsBack] = useState(false);
 
   const [popupMessage, setPopupMessage] = useState(
-    "Are you sure, you want to empty the cart?"
-  );
+  lang === "ar"
+    ? "هل أنت متأكد من إفراغ السلة؟"
+    : "Are you sure you want to empty the cart?"
+);
 
   const [routeNames, setRouteNames] = useState({
     4: "foodie",
@@ -946,9 +948,9 @@ export const MyCart = ({ lang, setLang }) => {
       // });
       // toastMessage();
       showSuccessToast(
-  lang === "ar" ? "تم تحديث السلة بنجاح." : "Cart updated successfully",
-  "#D83D99"
-);
+        lang === "ar" ? "تم تحديث السلة بنجاح." : "Cart updated successfully",
+        "#D83D99"
+      );
     } catch (error) {
       console.error("Error updating addon:", error);
     } finally {
@@ -1037,7 +1039,7 @@ export const MyCart = ({ lang, setLang }) => {
                   className="cursor-pointer"
                   onClick={() => handleBackClick()}
                 >
-                  {lang === "ar" ? "" : " Back to Bundl"}
+                  {lang === "ar" ? "العودة إلى الباقة" : " Back to Bundl"}
                 </span>{" "}
               </p>
               {/* {isDirect == false && <p onClick={()=>handleBackClick()} className='flex font-[500] cursor-pointer !text-[18px] items-center text-black mt-[2%]'> <img src={backIcon} className='mr-2 w-[30px]' onClick={()=>handleBackClick()}></img> Back to Bundl </p>}           */}
@@ -1086,7 +1088,7 @@ export const MyCart = ({ lang, setLang }) => {
                               : row.item_name}
                               
                           </div> */}
-                          <div className="font-[700] text-[20px] ml-2">
+                          <div className="font-[700] text-[18px] ml-2">
                             {lang === "ar"
                               ? processArabicText(row.item__name_arabic)
                               : row.item_name}
@@ -1110,6 +1112,7 @@ export const MyCart = ({ lang, setLang }) => {
                       )
                     )}
                   </div>
+
                   {cartDetails?.item_details?.addon_items?.length > 0 && (
                     <div
                       className={`font-[700] text-[20px] mt-2 ${
@@ -1128,7 +1131,7 @@ export const MyCart = ({ lang, setLang }) => {
                       } w-full mt-2`}
                     >
                       <div className="w-[70%]">
-                        <div className="font-[700] text-[20px] ">
+                        <div className="font-[700] text-[18px] ">
                           {lang === "ar"
                             ? processArabicText(row.item__name_arabic)
                             : row.item_name}
@@ -1228,14 +1231,14 @@ export const MyCart = ({ lang, setLang }) => {
                           </td>
                           {/* <td className=' !py-2' align="center">{row.qty}</td> */}
                           <td className=" !py-2" align="center">
-                            {" "}
                             {amountDecimal(
                               Math.round(
                                 cartDetails?.bundle_price +
                                   (location?.state?.selectedLanguage ===
                                     "Both" && 2000)
                               )
-                            )}
+                            )}{" "}
+                            {lang === "ar" ? "ر.س" : "SAR"}
                           </td>
                           {/* <TableCell align="center"><img style={{width:'23px'}} src={row.DeleteIcon}></img></TableCell> */}
                           <td className=" !py-2" align="center">
@@ -1314,7 +1317,8 @@ export const MyCart = ({ lang, setLang }) => {
                           </td>
                           {/* <td className=' !py-2' align="center">{row.qty}</td> */}
                           <td className=" !py-2 " align="center">
-                            {amountDecimal(row.subtotal_price)}
+                            {amountDecimal(row.subtotal_price)}{" "}
+                            {lang === "ar" ? "ر.س" : "SAR"}
                           </td>
                           {/* <TableCell align="center"><img style={{width:'23px'}} src={row.DeleteIcon}></img></TableCell> */}
                           <td align="center">

@@ -570,7 +570,7 @@ export const Signup = ({ lang }) => {
           <p className="welcometext">
             {lang == "ar" ? "مرحبًا بك" : "Welcome to"}{" "}
             <span className="bundle-designs">
-              {lang === "ar" ? "مف يبند لديزاين" : "Bundl Designs"}{" "}
+              {lang === "ar" ? "مرحبا بكم في بندل ديزاينز​" : "Bundl Designs"}{" "}
             </span>
           </p>
           <a className="signup-brand" href="/">
