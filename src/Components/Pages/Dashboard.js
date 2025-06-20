@@ -1662,7 +1662,9 @@ export default function Dashboard({ lang, setLang }) {
               openpopup={openPopup}
               isCancel={false}
               setPopup={setOpenPopup}
-              title={lang === "ar" ? "هل ترغب في إفراغ السلة؟" : "Empty your Cart"}
+              title={
+                lang === "ar" ? "هل ترغب في إفراغ السلة؟" : "Empty your Cart"
+              }
               // subTitle={'Are you sure, you want to empty the cart.'}
               onClick={() => reOrder(reOrderId)}
               save={"Yes"}
@@ -2319,7 +2321,7 @@ export default function Dashboard({ lang, setLang }) {
             <Box sx={style}>
               <div className="min-h-[inherit] overflow-y-auto border-[1px] border-black pt-2 font-Helvetica">
                 <p className="px-2 text-[20px] font-[500] font-Helvetica text-[#1BA56F] uppercase">
-                  Artworks
+                  {lang === "ar" ? "الأعمال الفنية" : "Artworks"}
                 </p>
                 {Files.length > 0 || Links.length > 0 ? (
                   <div>
@@ -2341,9 +2343,10 @@ export default function Dashboard({ lang, setLang }) {
                           } mt-2 px-2`}
                         >
                           <p>Date : {item?.created_at}</p>
-                          <p>Title : File</p>
+                          <p>{lang === "ar" ? "التاريخ:" : "Date:"} {item?.created_at}</p>
+                          <p>{lang === "ar" ? "العنوان:" : "Title:"} File</p>
                           <p onClick={() => handleDownload(item.data)}>
-                            Link :{" "}
+                            {lang === "ar" ? "الرابط:" : "Link:"}{" "}
                             <span className="text-blue-500 cursor-pointer underline">
                               {item.data.replace(/-\d{13,}-\d+/, "").trim()}
                             </span>{" "}
@@ -2368,11 +2371,11 @@ export default function Dashboard({ lang, setLang }) {
                                 "border-b border-black"
                               } mt-2 px-2`}
                             >
-                              <p>Date : {item?.created_at}</p>
-                              <p>Title : Link</p>
+                              <p>{lang === "ar" ? "التاريخ:" : "Date:"} {item?.created_at}</p>
+                              <p>{lang === "ar" ? "العنوان:" : "Title:"} File</p>
                               {/* <p onClick={() => handleDownload(item.data)}>Link : <span className='text-blue-500 cursor-pointer underline'>{item.data.replace(/-\d{13,}-\d+/, "").trim()}</span> </p> */}
                               <p className="flex">
-                                Link :
+                                {lang === "ar" ? "الرابط:" : "Link:"}
                                 <a
                                   key={index}
                                   className="cursor-pointer ml-2 underline block w-fit break-all"

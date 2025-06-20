@@ -3028,7 +3028,7 @@ export default function Adjustments({ user, lang, setLang }) {
                           className=" w-[100%] m-auto py-1 mt-2 text-[18px] text-white bg-[#1BA56F] uppercase"
                         >
                           {" "}
-                          {lang === "ar" ? "متابعة الخروج" : "Proceed Checkout"}
+                          {lang === "ar" ? "المتابعة إلى السلة​" : "Proceed to Cart"}
                         </button>
                         {errorMsg && (
                           <p className="pb-0 text-[16px] text-[#D83D99]">
@@ -3596,9 +3596,9 @@ export default function Adjustments({ user, lang, setLang }) {
                   {loading ? (
                     <ClipLoader size={25} color={"#FFFFFF"} />
                   ) : lang === "ar" ? (
-                    "جعل الدفع"
+                    "المتابعة إلى الدفع​"
                   ) : (
-                    "Make Payment"
+                    "Proceed to payment​"
                   )}
                 </button>
                 <p className="text-[#D83D99] !text-[20px] !font-[400] !mt-2">
@@ -4292,7 +4292,7 @@ export default function Adjustments({ user, lang, setLang }) {
                     onClick={() => CheckCart()}
                     className=" w-[90%]  py-1 lg:mt-[8%] md:mt-[12%] text-[18px] text-white bg-[#1BA56F] uppercase"
                   >
-                    {lang === "ar" ? "متابعة الخروج" : "Proceed Checkout"}
+                    {lang === "ar" ? "المتابعة إلى السلة​" : "Proceed to Cart"}
                   </button>
                   {errorMsg && (
                     <p className="pb-0 text-[16px] text-[#D83D99] text-left mt-2">
@@ -4760,9 +4760,9 @@ export default function Adjustments({ user, lang, setLang }) {
                 {loading ? (
                   <ClipLoader size={25} color={"#FFFFFF"} />
                 ) : lang === "ar" ? (
-                  "جعل الدفع"
+                  "المتابعة إلى الدفع​"
                 ) : (
-                  "Make Payment"
+                  "Proceed to payment"
                 )}
               </button>
               <p className="text-[#D83D99] !text-[20px] !font-[400] !mt-2">
