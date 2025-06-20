@@ -3718,7 +3718,7 @@ export const Home = ({ lang, setLang }) => {
                         className="second_section_text"
                         style={{ paddingTop: "10px" }}
                       >
-                        {lang === "ar" ? "" : "Customized"}
+                        {lang === "ar" ? "باقة خاصة " : "Customized"}
                       </div>
                     </div>
                   </div>
