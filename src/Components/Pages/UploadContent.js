@@ -511,37 +511,36 @@ export default function UploadContent({ lang, setLang }) {
             {order && (
               <>
                 {" "}
-               <Addons
-                    order={order}
-                    skipId={skipId}
-                    uploadFiles={uploadFiles}
-                    setUploadFiles={setUploadFiles}
-                    lang={lang}
-                    designQuestions={designQuestions}
-                    uploadContent={uploadContent}
-                    handleChange={handleChange}
-                    uploadFile={uploadFile}
-                    uploadIcon={uploadIcon}
-                    setSkipId={setSkipId}
-                    saveContent={saveContent}
-                    setUploadContent={setUploadContent}
-                  />
-
-                  <BundlOrder
-                    order={order}
-                    skipId={skipId}
-                    uploadFiles={uploadFiles}
-                    setUploadFiles={setUploadFiles}
-                    lang={lang}
-                    designQuestions={designQuestions}
-                    uploadContent={uploadContent}
-                    handleChange={handleChange}
-                    uploadFile={uploadFile}
-                    uploadIcon={uploadIcon}
-                    setSkipId={setSkipId}
-                    saveContent={saveContent}
-                    setUploadContent={setUploadContent}
-                  />
+                <Addons
+                  order={order}
+                  skipId={skipId}
+                  uploadFiles={uploadFiles}
+                  setUploadFiles={setUploadFiles}
+                  lang={lang}
+                  designQuestions={designQuestions}
+                  uploadContent={uploadContent}
+                  handleChange={handleChange}
+                  uploadFile={uploadFile}
+                  uploadIcon={uploadIcon}
+                  setSkipId={setSkipId}
+                  saveContent={saveContent}
+                  setUploadContent={setUploadContent}
+                />
+                <BundlOrder
+                  order={order}
+                  skipId={skipId}
+                  uploadFiles={uploadFiles}
+                  setUploadFiles={setUploadFiles}
+                  lang={lang}
+                  designQuestions={designQuestions}
+                  uploadContent={uploadContent}
+                  handleChange={handleChange}
+                  uploadFile={uploadFile}
+                  uploadIcon={uploadIcon}
+                  setSkipId={setSkipId}
+                  saveContent={saveContent}
+                  setUploadContent={setUploadContent}
+                />
               </>
             )}
           </div>
@@ -672,8 +671,8 @@ export default function UploadContent({ lang, setLang }) {
           </div>
         </div>
       ) : (
-      //  <div className="font-Helvetica flex" style={{ minHeight:"511px" }}>
-      <div className="font-Helvet min-h-screen flex">
+        //  <div className="font-Helvetica flex" style={{ minHeight:"511px" }}>
+        <div className="font-Helvet min-h-screen flex">
           <div
             className={`basis-3/4 ${
               lang === "ar" ? "border-l" : "border-r"
@@ -822,7 +821,11 @@ export default function UploadContent({ lang, setLang }) {
           </div>
         </div>
       )}
-      {window?.innerWidth >= 500 && <div className=""><Footer isLang={lang} /></div>}
+      {window?.innerWidth >= 500 && (
+        <div className="">
+          <Footer isLang={lang} />
+        </div>
+      )}
     </div>
   );
 }
