@@ -381,7 +381,7 @@ function Addons({
                           </p>
                           <p
                             className={`border-b-2 ${
-                              lang === "ar" ? "w-[100px]" : "w-[150px]"
+                              lang === "ar" ? "w-[100px]" : "w-[140px]"
                             } ${
                               uploadContent?.[item?.id]?.[filterIndex]?.filename
                                 ? "w-fit"

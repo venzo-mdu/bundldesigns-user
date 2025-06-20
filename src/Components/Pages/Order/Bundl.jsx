@@ -372,7 +372,7 @@ function BundlOrder({
                           className={`border-b-2 ${
                             uploadContent?.[item?.id]?.[filterIndex]?.filename
                               ? "w-fit"
-                              : "w-[150px]"
+                              : "w-[140px]"
                           } !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer`}
                           onClick={() =>
                             document
