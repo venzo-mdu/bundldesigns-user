@@ -145,7 +145,7 @@ function BundlOrder({
                   >
                     <div className="-ml-[5%] w-[calc(100%+5%)] border-y border-black py-2">
                       <div className="pl-[5%]">
-                        <p className="mb-0 font-semibold text-[22px]">
+                        <p className="mb-0 font-semibold text-[18px]">
                           Addons -{" "}
                           {lang === "ar"
                             ? item?.item__name_arabic
@@ -450,7 +450,7 @@ function BundlOrder({
                         }}
                         className={`text-[#1BA56F] cursor-pointer py-1 px-2 border !border-[#1BA56F] ${
                           lang === "ar" ? "ml-2" : "mr-2"
-                        } text-[18px] font-[500] uppercase`}
+                        } text-[14px] font-[500] uppercase`}
                       >
                         {lang === "ar" ? "اكمل في وقت لاحق" : "Skip For Now"}
                       </button>
@@ -458,7 +458,7 @@ function BundlOrder({
                         onClick={() =>
                           saveContent(item.id, filterIndex, item.item__id)
                         }
-                        className="text-white cursor-pointer bg-[#1BA56F] py-1 px-2 text-[19px] font-[500] uppercase"
+                        className="text-white cursor-pointer bg-[#1BA56F] py-1 px-2 text-[14px] font-[500] uppercase"
                       >
                         {lang === "ar" ? "حفظ والتالي" : "Save & Next"}
                       </button>
