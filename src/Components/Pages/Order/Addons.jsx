@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
-
 function Addons({
   order,
   skipId,
@@ -382,7 +381,7 @@ function Addons({
                           </p>
                           <p
                             className={`border-b-2 ${
-                              lang === "ar" ? "w-[100px]" : "w-[126px]"
+                              lang === "ar" ? "w-[100px]" : "w-[150px]"
                             } ${
                               uploadContent?.[item?.id]?.[filterIndex]?.filename
                                 ? "w-fit"

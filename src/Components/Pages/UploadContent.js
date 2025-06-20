@@ -19,6 +19,9 @@ import BundlOrder from "./Order/Bundl";
 import Addons from "./Order/Addons";
 import { processArabicText } from "../Utils/arabicFontParenthesisChecker";
 import { useNavigate } from "react-router-dom";
+import "../../Components/Common/Background/Bgloader";
+import Loader from "../../Images/Home/load sticker.png";
+import ourWorkBranding from "../../Images/ourWorkBranding.gif";
 
 let newToastId = null;
 export default function UploadContent({ lang, setLang }) {
@@ -30,7 +33,7 @@ export default function UploadContent({ lang, setLang }) {
   const [skipId, setSkipId] = useState([]);
   const [showDetails, setDetails] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 475);
-
+  const [isSaveAndNext, setIsSaveAndNext] = useState(false);
   const [order, setOrder] = useState(null);
   const getOrderDetails = async () => {
     const response = await axios.get(
@@ -317,7 +320,7 @@ export default function UploadContent({ lang, setLang }) {
         orderId: order.id,
         status: "save_later",
       };
-
+      setIsSaveAndNext(true);
       formData.answers[itemId][idx].file_links =
         formData.answers[itemId][idx].file_url;
       delete formData.answers[itemId][idx].file_url;
@@ -328,10 +331,12 @@ export default function UploadContent({ lang, setLang }) {
       );
 
       if (response.status === 201) {
+        setIsSaveAndNext(false);
         console.log("Content saved successfully!");
         toastMessage();
         getOrderDetails();
       } else {
+        setIsSaveAndNext(false);
         console.error("Unexpected response:", response);
         toast.error(
           lang === "ar"
@@ -348,6 +353,7 @@ export default function UploadContent({ lang, setLang }) {
         );
       }
     } catch (error) {
+      setIsSaveAndNext(false);
       console.error("Save failed:", error.response?.data || error.message);
       // toast.error(
       //   error.response?.data?.message || lang === "ar"
@@ -442,7 +448,33 @@ export default function UploadContent({ lang, setLang }) {
     <Bgloader />
   ) : (
     <>
-      {/* <ToastContainer /> */}
+      <div>
+        {isSaveAndNext && (
+          <div
+            style={{
+              position: "fixed",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: "transparent",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              pointerEvents: "auto",
+              userSelect: "none",
+              zIndex: 9999,
+            }}
+          >
+            <img
+              src={ourWorkBranding}
+              alt="loader-round-icon"
+              style={{ width: 200, height: 200 }}
+              className="loader"
+            />
+          </div>
+        )}
+      </div>
       <Toaster
         position="top-right"
         toastOptions={{
@@ -479,32 +511,37 @@ export default function UploadContent({ lang, setLang }) {
             {order && (
               <>
                 {" "}
-                <Addons
-                  order={order}
-                  skipId={skipId}
-                  lang={lang}
-                  designQuestions={designQuestions}
-                  uploadContent={uploadContent}
-                  handleChange={handleChange}
-                  uploadFile={uploadFile}
-                  uploadIcon={uploadIcon}
-                  setSkipId={setSkipId}
-                  saveContent={saveContent}
-                  setUploadContent={setUploadContent}
-                />
-                <BundlOrder
-                  order={order}
-                  skipId={skipId}
-                  lang={lang}
-                  designQuestions={designQuestions}
-                  uploadContent={uploadContent}
-                  handleChange={handleChange}
-                  uploadFile={uploadFile}
-                  uploadIcon={uploadIcon}
-                  setSkipId={setSkipId}
-                  saveContent={saveContent}
-                  setUploadContent={setUploadContent}
-                />
+               <Addons
+                    order={order}
+                    skipId={skipId}
+                    uploadFiles={uploadFiles}
+                    setUploadFiles={setUploadFiles}
+                    lang={lang}
+                    designQuestions={designQuestions}
+                    uploadContent={uploadContent}
+                    handleChange={handleChange}
+                    uploadFile={uploadFile}
+                    uploadIcon={uploadIcon}
+                    setSkipId={setSkipId}
+                    saveContent={saveContent}
+                    setUploadContent={setUploadContent}
+                  />
+
+                  <BundlOrder
+                    order={order}
+                    skipId={skipId}
+                    uploadFiles={uploadFiles}
+                    setUploadFiles={setUploadFiles}
+                    lang={lang}
+                    designQuestions={designQuestions}
+                    uploadContent={uploadContent}
+                    handleChange={handleChange}
+                    uploadFile={uploadFile}
+                    uploadIcon={uploadIcon}
+                    setSkipId={setSkipId}
+                    saveContent={saveContent}
+                    setUploadContent={setUploadContent}
+                  />
               </>
             )}
           </div>
@@ -784,7 +821,6 @@ export default function UploadContent({ lang, setLang }) {
           </div>
         </div>
       )}
-
       {window?.innerWidth >= 500 && <Footer isLang={lang} />}
     </>
   );
