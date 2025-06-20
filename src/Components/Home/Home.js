@@ -3431,10 +3431,10 @@ export const Home = ({ lang, setLang }) => {
                         <span>
                           {window.innerWidth <= 475
                             ? lang === "ar"
-                              ? "تصاميم التجارة​"
+                              ? "تصاميم التجارة"
                               : "Collateral"
                             : lang === "ar"
-                            ? "تصاميم التجارة​"
+                            ? "تصاميم التجارة"
                             : "Commerce Collateral"}
                         </span>
                       </div>
@@ -3480,7 +3480,7 @@ export const Home = ({ lang, setLang }) => {
                       {lang === "ar" ? "تصميم الهوية" : "Brand Identity"} +{" "}
                       <br />
                       {lang === "ar"
-                        ? "تصاميم التجارة​"
+                        ? "تصاميم التجارة"
                         : "Commerce Collateral"}{" "}
                       + <br />
                       {lang === "ar"

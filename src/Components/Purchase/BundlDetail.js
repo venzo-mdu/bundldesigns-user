@@ -264,10 +264,8 @@ export const BundlDetail = ({ user, lang, setLang }) => {
   }, []);
 
   const toastMessage = () => {
-    const message = lang === "ar" 
-  ? "تم تحديث السلة بنجاح." 
-  : "Cart updated successfully";
-    
+    const message =
+      lang === "ar" ? "تم تحديث السلة بنجاح." : "Cart updated successfully";
 
     if (newToastId) {
       toast.dismiss(newToastId);
@@ -363,9 +361,11 @@ export const BundlDetail = ({ user, lang, setLang }) => {
     //     fontWeight: "700", // White text
     //   },
     // });
-    // NewToastSuccMessage(lang === "ar"
-    //       ? "التسوق يرجى إضافة عنصر إلى سلة"
-    //       : `Please add an Item to Checkout`);
+    NewToastSuccMessage(
+      lang === "ar"
+        ? "التسوق يرجى إضافة عنصر إلى سلة"
+        : `Please add an Item to Checkout`
+    );
     createPayload();
   };
 
@@ -544,7 +544,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
               className="xs:px-2 sm:px-auto px-auto"
               style={{ borderBottom: "1.5px solid #000000", width: "100%" }}
             >
-              <h2 className="sm:text-[38px] text-[38px] xs:text-[30px]">
+              <h2 className="sm:text-[38px] text-[38px] xs:text-[24px]">
                 {lang === "ar"
                   ? packageDetail?.package?.name_arabic
                   : packageDetail?.package?.name_english || ""}
@@ -587,7 +587,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                 </p>
               </div>
               <p className="bundl-desc-title text-[20px] sm:text-[20px] xs:text-[16px] w-full sm:w-full xs:w-[350px] mx-auto">
-                {lang === "ar" ? "" : "Outcomes to Brand Identity + Add-ons."}
+                {lang === "ar" ? "نتائج تصميم الهوية والعناصر الإضافية." : "Outcomes to Brand Identity + Add-ons."}
               </p>
               <p className="bundl-desc">
                 {lang === "ar"
@@ -598,7 +598,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
               </p>
               <p className="one-minor my-3">
                 {lang === "ar"
-                  ? ""
+                  ? "هذي الباقة تشمل تعديل مجاني واحد"
                   : "* This Bundl includes one minor revision"}
               </p>
             </div>
@@ -669,17 +669,19 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                           className={`collateral-text mb-[2px] leading-[1.2] ${
                             lang === "ar" ? "text-right" : "text-left"
                           } ${
-                            bundle.name_english == "Social Media Starter Kit"
+                            bundle.name_english === "Social Media Starter Kit"
                               ? "w-[80%]"
                               : "w-full"
                           }`}
                         >
                           {lang === "ar"
-                            ? bundle?.name_arabic
+                            ? bundle.name_english === "Brand Identity"
+                              ? "تصميم الهوية"
+                              : bundle?.name_arabic
                             : bundle.name_english}
                         </p>
                         <p
-                          className={`text-[16px] sm:text-[16px] xs:text-[18px] ${
+                          className={`text-[16px] sm:text-[16px] xs:text-[16px] ${
                             lang === "ar" ? "text-right" : "text-left"
                           }`}
                           style={{ opacity: "50%" }}
@@ -1002,7 +1004,9 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                           }`}
                         >
                           {lang === "ar"
-                            ? bundleItem?.name_arabic
+                            ? bundleItem?.name_english === "Brand Identity"
+                              ? "تصميم الهوية"
+                              : bundleItem?.name_arabic
                             : bundleItem?.name_english}
                         </p>
 
