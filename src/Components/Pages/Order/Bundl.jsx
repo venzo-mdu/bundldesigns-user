@@ -372,7 +372,7 @@ function BundlOrder({
                           className={`border-b-2 ${
                             uploadContent?.[item?.id]?.[filterIndex]?.filename
                               ? "w-fit"
-                              : "w-[150px]"
+                              : "w-[126px]"
                           } !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer`}
                           onClick={() =>
                             document
@@ -427,7 +427,7 @@ function BundlOrder({
                                   {ele.name.map((name, i) => (
                                     <div
                                       key={i}
-                                      className="bg-black text-white py-1 px-2 mr-2 mb-2 flex items-center"
+                                      className="bg-black text-white py-1 text-[14px] px-2 mr-2 mb-2 flex items-center"
                                     >
                                       {name}
                                       <CloseIcon

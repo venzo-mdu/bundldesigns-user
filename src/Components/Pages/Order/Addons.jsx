@@ -156,7 +156,7 @@ function Addons({
                     >
                       <div className="-ml-[5%] w-[calc(100%+5%)] border-y border-black py-2">
                         <div className="pl-[5%]">
-                          <p className="mb-0 font-semibold text-[22px]">
+                          <p className="mb-0 font-semibold text-[18px]">
                             {lang === "ar"
                               ? item?.item__name_arabic
                               : item.item_name}{" "}
@@ -445,7 +445,7 @@ function Addons({
                                     {ele.name.map((name, i) => (
                                       <div
                                         key={i}
-                                        className="bg-black text-white py-1 px-2 mr-2 mb-2 flex items-center"
+                                        className="bg-black text-[14px] text-white py-1 px-2 mr-2 mb-2 flex items-center"
                                       >
                                         {name}
                                         <CloseIcon
