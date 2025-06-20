@@ -16,13 +16,97 @@ function BundlOrder({
   saveContent,
   uploadFiles,
   setUploadFiles,
+  setUploadContent,
 }) {
-  const removeFile = (ele) => {
-    setUploadFiles(
-      uploadFiles?.filter((file) => {
-        return !(ele?.id === file?.id && ele?.name === file?.name);
-      })
-    );
+  // const removeFile = (fileItem, nameIndex) => {
+  //   setUploadFiles(
+  //     (prev) =>
+  //       prev
+  //         .map((file) => {
+  //           if (file.id === fileItem.id) {
+  //             const newNames = [...file.name];
+  //             const newUrls = [...file.url];
+
+  //             newNames.splice(nameIndex, 1);
+  //             newUrls.splice(nameIndex, 1);
+
+  //             if (newNames.length === 0) {
+  //               return null;
+  //             }
+
+  //             return {
+  //               ...file,
+  //               name: newNames,
+  //               url: newUrls,
+  //             };
+  //           }
+  //           return file;
+  //         })
+  //         .filter(Boolean)
+  //   );
+  // };
+
+  const removeFile = (id, indexToRemove) => {
+    if (typeof id.id !== "string") {
+      console.error("Invalid id in removeFile:", id);
+      return;
+    }
+
+    // 1. Update uploadFiles (array-based)
+    setUploadFiles((prev) => {
+      const fileIndex = prev.findIndex((file) => file.id === id.id);
+      if (fileIndex === -1) return prev;
+
+      const updated = [...prev];
+      const fileEntry = updated[fileIndex];
+
+      const updatedNames = [...fileEntry.name];
+      const updatedUrls = [...fileEntry.url];
+
+      updatedNames.splice(indexToRemove, 1);
+      updatedUrls.splice(indexToRemove, 1);
+
+      if (updatedNames.length === 0) {
+        updated.splice(fileIndex, 1);
+      } else {
+        updated[fileIndex] = {
+          ...fileEntry,
+          name: updatedNames,
+          url: updatedUrls,
+        };
+      }
+
+      return updated;
+    });
+
+    // 2. Update uploadContent (object-based)
+    const docId = id.id.split("_")[0];
+    const idx = parseInt(id.id.split("_")[1], 10);
+
+    setUploadContent((prev) => {
+      const existing = prev?.[docId]?.[idx];
+      if (!existing) return prev;
+
+      const updatedUrls = [...(existing.file_url || [])];
+      updatedUrls.splice(indexToRemove, 1);
+
+      const updatedEntry = {
+        ...existing,
+        file_url: updatedUrls,
+      };
+
+      if (updatedUrls.length === 0) {
+        delete updatedEntry.filename;
+        delete updatedEntry.file_url;
+      }
+      return {
+        ...prev,
+        [docId]: {
+          ...prev[docId],
+          [idx]: updatedEntry,
+        },
+      };
+    });
   };
 
   let removedDocUploaded = order.item_details.addon_items.filter(
@@ -37,7 +121,6 @@ function BundlOrder({
           .map((filterIndex) => {
             const hasMultipleQty = item.qty < 1;
             if (!skipId.includes(`${item.id}_${filterIndex}`)) {
-              debugger;
               return (
                 <motion.div
                   key={`${item.id}_${filterIndex}`} // <- unique key
@@ -315,10 +398,7 @@ function BundlOrder({
                             }
                           />
                           <img src={uploadIcon} alt="Upload Icon" />
-                          {uploadContent?.[item?.id]?.[filterIndex]?.filename ||
-                            (lang === "ar"
-                              ? "إضافة المحتوى"
-                              : "Upload Content")}
+                          {lang === "ar" ? "إضافة المحتوى" : "Upload Content"}
                         </p>
                         {/* <div className="flex gap-2">
                             {uploadFiles?.length > 0 &&

@@ -490,6 +490,7 @@ export default function UploadContent({ lang, setLang }) {
                   uploadIcon={uploadIcon}
                   setSkipId={setSkipId}
                   saveContent={saveContent}
+                  setUploadContent={setUploadContent}
                 />
                 <BundlOrder
                   order={order}
@@ -502,6 +503,7 @@ export default function UploadContent({ lang, setLang }) {
                   uploadIcon={uploadIcon}
                   setSkipId={setSkipId}
                   saveContent={saveContent}
+                  setUploadContent={setUploadContent}
                 />
               </>
             )}
@@ -673,6 +675,7 @@ export default function UploadContent({ lang, setLang }) {
                     uploadIcon={uploadIcon}
                     setSkipId={setSkipId}
                     saveContent={saveContent}
+                    setUploadContent={setUploadContent}
                   />
 
                   <BundlOrder
@@ -688,6 +691,7 @@ export default function UploadContent({ lang, setLang }) {
                     uploadIcon={uploadIcon}
                     setSkipId={setSkipId}
                     saveContent={saveContent}
+                    setUploadContent={setUploadContent}
                   />
                 </>
               )}
@@ -707,8 +711,8 @@ export default function UploadContent({ lang, setLang }) {
             <div className={`${lang === "ar" ? "pr-5 pl-0" : "pl-5 pr-0"}`}>
               {order && (
                 <>
-                  {order.item_details.bundle_items.map((item, itemIndex) => {
-                    if (item.item__id !== 76) {
+                  {order?.item_details?.bundle_items?.map((item, itemIndex) => {
+                    if (item?.item__id !== 76) {
                       return (
                         <div key={itemIndex}>
                           {Array.from(
