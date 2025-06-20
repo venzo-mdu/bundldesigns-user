@@ -672,7 +672,8 @@ export default function UploadContent({ lang, setLang }) {
           </div>
         </div>
       ) : (
-        <div className="font-Helvetica flex" style={{ minHeight:"511px" }}>
+      //  <div className="font-Helvetica flex" style={{ minHeight:"511px" }}>
+      <div className="font-Helvet min-h-screen flex">
           <div
             className={`basis-3/4 ${
               lang === "ar" ? "border-l" : "border-r"
