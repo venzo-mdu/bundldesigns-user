@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
-
 function Addons({
   order,
   skipId,
@@ -156,7 +155,7 @@ function Addons({
                     >
                       <div className="-ml-[5%] w-[calc(100%+5%)] border-y border-black py-2">
                         <div className="pl-[5%]">
-                          <p className="mb-0 font-semibold text-[22px">
+                          <p className="mb-0 font-semibold text-[18px]">
                             {lang === "ar"
                               ? item?.item__name_arabic
                               : item.item_name}{" "}
@@ -382,7 +381,7 @@ function Addons({
                           </p>
                           <p
                             className={`border-b-2 ${
-                              lang === "ar" ? "w-[100px]" : "w-[126px]"
+                              lang === "ar" ? "w-[100px]" : "w-[140px]"
                             } ${
                               uploadContent?.[item?.id]?.[filterIndex]?.filename
                                 ? "w-fit"
@@ -445,7 +444,7 @@ function Addons({
                                     {ele.name.map((name, i) => (
                                       <div
                                         key={i}
-                                        className="bg-black text-white py-1 px-2 mr-2 mb-2 flex items-center"
+                                        className="bg-black text-[14px] text-white py-1 px-2 mr-2 mb-2 flex items-center"
                                       >
                                         {name}
                                         <CloseIcon
@@ -468,7 +467,7 @@ function Addons({
                           }}
                           className={`text-[#1BA56F] cursor-pointer py-1 px-2 border !border-[#1BA56F] ${
                             lang === "ar" ? "ml-2" : "mr-2"
-                          } text-[18px] font-[500] uppercase`}
+                          } text-[14px] font-[500] uppercase`}
                         >
                           {lang === "ar" ? "اكمل في وقت لاحق" : "Skip For Now"}
                         </button>
@@ -481,7 +480,7 @@ function Addons({
                               `${item.id}_${filterIndex}`
                             )
                           }
-                          className="text-white cursor-pointer bg-[#1BA56F] py-1 px-2 text-[19px] font-[500] uppercase"
+                          className="text-white cursor-pointer bg-[#1BA56F] py-1 px-2 text-[14px] font-[500] uppercase"
                         >
                           {lang === "ar" ? "حفظ والتالي" : "Save & Next"}
                         </button>

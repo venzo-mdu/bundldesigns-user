@@ -1821,7 +1821,7 @@ export default function Dashboard({ lang, setLang }) {
                       {/* <div className="select-container"> */}
                       <select
                         id="dashboardSelect"
-                        className="w-full h-[45px] text-[32px] font-[700] outline-none border-none px-0 rounded-none "
+                        className="w-[25%] h-[45px] text-[32px] font-[700] outline-none border-none px-0 rounded-none "
                         onChange={(e) => handleSelectChange(e)}
                       >
                         {projects?.map((project, index) => (
@@ -2274,7 +2274,7 @@ export default function Dashboard({ lang, setLang }) {
                                     </div> 
                             } */}
 
-            {/* <div className="font-Helvetica">
+            <div className="font-Helvetica">
               <div className="text-center lg:pt-0 lg:pb-16 md:pt-0 md:pb-16 xs:pt-4 xs:pb-16">
                 <h2 className="lg:text-[30px] md:text-[24px] xs:text-[24px] xs:font-[700] xs:px-[15%]">
                   {lang === "ar"
@@ -2308,7 +2308,7 @@ export default function Dashboard({ lang, setLang }) {
                   </a>
                 )}
               </div>
-            </div> */}
+            </div>
           </div>
           <Modal
             open={showPdf}
