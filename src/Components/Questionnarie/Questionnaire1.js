@@ -210,6 +210,7 @@ export const Questionnaire1 = ({
   // };
 
   const getAnswerValue = (questionId) => {
+    debugger;
     const formValue = formData?.[questionId];
 
     if (questionId === 4 || questionId === "4") {
@@ -223,7 +224,30 @@ export const Questionnaire1 = ({
         (answer) => Number(answer.question_id) === Number(questionId)
       )?.answer;
 
-      if (fetchedAnswerObj && typeof fetchedAnswerObj === "object") {
+      // if (fetchedAnswerObj && typeof fetchedAnswerObj === "object") {
+      //   // Set activeType if not set
+      //   if (!activeType) {
+      //     if (fetchedAnswerObj.product) {
+      //       setActiveType("product");
+      //     } else if (fetchedAnswerObj.service) {
+      //       setActiveType("service");
+      //     }
+      //   }
+
+      //   // Store in formData
+      //   setFormData((prev) => ({
+      //     ...prev,
+      //     [questionId]: fetchedAnswerObj,
+      //   }));
+
+      //   // return activeType ? fetchedAnswerObj[activeType] : "";
+      // }
+
+      if (
+        !formValue &&
+        fetchedAnswerObj &&
+        typeof fetchedAnswerObj === "object"
+      ) {
         // Set activeType if not set
         if (!activeType) {
           if (fetchedAnswerObj.product) {
@@ -233,19 +257,22 @@ export const Questionnaire1 = ({
           }
         }
 
-        // Store in formData
-        setFormData((prev) => ({
-          ...prev,
-          [questionId]: fetchedAnswerObj,
-        }));
-
-        return activeType ? fetchedAnswerObj[activeType] : "";
+        // Only set formData if it doesn't already exist
+        setFormData((prev) => {
+          if (!prev[questionId]) {
+            return {
+              ...prev,
+              [questionId]: fetchedAnswerObj,
+            };
+          }
+          return prev;
+        });
       }
 
       return "";
     }
 
-    // For other fields (not question 4)
+    // // For other fields (not question 4)
     if (formValue !== undefined) {
       return formValue;
     }
@@ -311,30 +338,26 @@ export const Questionnaire1 = ({
   };
 
   const onSaveLaterClick = async () => {
-    if (!validateFields()) {
-      return;
-    } else {
-      let data = {
-        answers: formData,
-        orderId: location.state?.orderId,
-        status: "not submitted",
-      };
-      try {
-        const response = await axios.post(
-          `${base_url}/api/questionnaire/create`,
-          data,
-          ConfigToken()
-        );
-        if (response.status === 200) {
-          navigate("/dashboard", {
-            state: {
-              orderId: location.state?.orderId,
-            },
-          });
-        }
-      } catch (e) {
-        console.log(e);
+    let data = {
+      answers: formData,
+      orderId: location.state?.orderId,
+      status: "not submitted",
+    };
+    try {
+      const response = await axios.post(
+        `${base_url}/api/questionnaire/create`,
+        data,
+        ConfigToken()
+      );
+      if (response.status === 200) {
+        navigate("/dashboard", {
+          state: {
+            orderId: location.state?.orderId,
+          },
+        });
       }
+    } catch (e) {
+      console.log(e);
     }
   };
 

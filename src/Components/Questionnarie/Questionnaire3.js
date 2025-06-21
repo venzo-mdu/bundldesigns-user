@@ -205,9 +205,6 @@ export const Questionnaire3 = ({
   };
 
   const onSaveLaterClick = async () => {
-    if (!validateFields()) {
-      return; // Stop execution if validation fails
-    }
     let data = {
       answers: formData,
       orderId: location.state?.orderId,
