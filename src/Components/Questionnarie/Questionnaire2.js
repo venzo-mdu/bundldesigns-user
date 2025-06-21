@@ -150,36 +150,23 @@ export const Questionnaire2 = ({
 
   const handleGenderChange = (selected) => {
     if (selectedGender.includes("both")) {
-      // If "both" is selected, toggle individual genders
       if (selected === "male") {
-        setSelectedGender(["female"]); // Keep only "female"
+        setSelectedGender(["female"]);
       } else if (selected === "female") {
-        setSelectedGender(["male"]); // Keep only "male"
+        setSelectedGender(["male"]);
       }
     } else if (selectedGender.includes(selected)) {
-      // Remove the selected value
       setSelectedGender((prev) => prev.filter((gender) => gender !== selected));
     } else if (
       (selected === "male" && selectedGender.includes("female")) ||
       (selected === "female" && selectedGender.includes("male"))
     ) {
-      // If both genders are selected, set "both"
       setSelectedGender(["both"]);
     } else {
-      // Add the selected value
       setSelectedGender((prev) => [...prev, selected]);
     }
   };
   const showToastMessage = () => {
-    // toast.error(changeLang === 'ar' ? '•القيمة مطلوب' :"The Value is required!", {
-    //   position: toast?.POSITION?.TOP_RIGHT,
-    //   toastId: 'required-value-toast',
-    //   icon:false,
-    //       style:{
-    //           color:'#D83D99',
-    //           fontWeight:'700'
-    //       }
-    // });
     showErrorToast(
       changeLang === "ar" ? "القيمة مطلوب" : "The Value is required!",
       "#D83D99"
@@ -391,7 +378,11 @@ export const Questionnaire2 = ({
                               : "female"
                           }
                           value="female"
-                          onClick={() => handleGenderChange("female")}
+                          onClick={() => {
+                            const femaleDisabled =
+                              selectedGender.includes("female");
+                            handleGenderChange("female", !femaleDisabled);
+                          }}
                         >
                           {changeLang === "ar" ? "انثى" : "Female"}
                         </button>
@@ -403,7 +394,11 @@ export const Questionnaire2 = ({
                               : "male"
                           }
                           value={"male"}
-                          onClick={() => handleGenderChange("male")}
+                          onClick={() => {
+                            const maleDisabled =
+                              selectedGender.includes("male");
+                            handleGenderChange("male", !maleDisabled);
+                          }}
                         >
                           {changeLang === "ar" ? "ذكر" : "Male"}
                         </button>
@@ -434,14 +429,14 @@ export const Questionnaire2 = ({
                                       src={femaleImages[index]}
                                       alt={`Female ${index + 1}`}
                                       className="female-image"
-                                      onClick={() =>
+                                      onClick={() => {
                                         handleButtonClick(
                                           `female-${index}`,
                                           "female",
                                           label,
                                           question.id
-                                        )
-                                      }
+                                        );
+                                      }}
                                     />
                                   </div>
                                   <button
