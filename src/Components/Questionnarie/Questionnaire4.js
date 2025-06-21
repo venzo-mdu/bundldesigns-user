@@ -433,14 +433,13 @@ export const Questionnaire4 = ({
       );
       console.log(response.data, "res");
       setUploadContent((prev) => ({
-      ...prev,
-      [id]: {
-        ...prev[id],
-        [field]: response.data.file_url,
-        ...(field === "file" && { filename: e.target.files[0]?.name || "" }),
-      },
-    }));
-      
+        ...prev,
+        [id]: {
+          ...prev[id],
+          [field]: response.data.file_url,
+          ...(field === "file" && { filename: e.target.files[0]?.name || "" }),
+        },
+      }));
     }
   };
 
@@ -1258,7 +1257,12 @@ export const Questionnaire4 = ({
                         </p>
                       </>
                     </div>
-                    {uploadContent?.[question?.id]?.filename}
+
+                    {uploadContent?.[question?.id]?.filename && (
+                      <p className="xs:w-[90%] sm:w-full md:w-full text-center lg:text-[18px] md:text-[18px] xs:text-[14px] font-[400]  break-all">
+                        {uploadContent[question.id].filename}
+                      </p>
+                    )}
                   </>
                 ) : (
                   ""

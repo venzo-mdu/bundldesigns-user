@@ -3635,7 +3635,7 @@ export default function Adjustments({ user, lang, setLang }) {
               } border-black`}
             >
               <p
-                className="flex text-[18px] items-center pb-2 text-black cursor-pointer"
+                className="flex text-[18px] items-center pb-2 text-black cursor-pointer px-[25px]"
                 onClick={() => {
                   window.location.href = "/dashboard";
                 }}
@@ -3802,7 +3802,7 @@ export default function Adjustments({ user, lang, setLang }) {
                                 </button>
                               </p>
                               {adjustmentError && (
-                                <p style={{ color: "#D83D99" }}>
+                                <p style={{ color: "#D83D99", marginTop: "-12px" }}>
                                   Please enter your comments
                                 </p>
                               )}

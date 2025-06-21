@@ -1924,7 +1924,7 @@ export default function Dashboard({ lang, setLang }) {
                                 {lang === "ar"
                                   ? "الهوية البصرية"
                                   : "Brand & Visual Identity"}
-                                <span className="text-[#1BA56F] lg:text-[18px] md:text-[18px] xs:text-[16px]  font-[500] xs:!float-end lg:!float-none md:!float-none">
+                                <span className="text-[#1BA56F] lg:text-[18px] md:text-[18px] xs:text-[16px]  font-[500]  lg:!float-none md:!float-none">
                                   {" "}
                                   -&nbsp;
                                   {processIndex < 2
@@ -2014,7 +2014,7 @@ export default function Dashboard({ lang, setLang }) {
                           >
                             {lang === "ar" ? "الإضافات" : "Add-Ons​"}
 
-                            <span className="text-[#1BA56F] lg:text-[18px] md:text-[18px] xs:text-[16px]  font-[500] xs:!float-end lg:!float-none md:!float-none">
+                            <span className="text-[#1BA56F] lg:text-[18px] md:text-[18px] xs:text-[16px]  font-[500]  lg:!float-none md:!float-none">
                               {" "}
                               -&nbsp;
                               {processIndex < 4
