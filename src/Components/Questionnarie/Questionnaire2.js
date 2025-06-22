@@ -85,6 +85,7 @@ export const Questionnaire2 = ({
 
     const fetchAnswers = async () => {
       try {
+        debugger;
         if (location.state?.orderId) {
           const response = await axios.get(
             `${base_url}/api/questionnaire/update/${location.state.orderId}`,
@@ -100,15 +101,19 @@ export const Questionnaire2 = ({
 
           if (ageDataQuestion?.answer?.female) {
             setActiveFemaleButtons(ageDataQuestion.answer.female);
-            setSelectedGender((prev) =>
-              prev.includes("female") ? prev : [...prev, "female"]
-            );
+            if (ageDataQuestion.answer.female.length > 0) {
+              setSelectedGender((prev) =>
+                prev.includes("female") ? prev : [...prev, "female"]
+              );
+            }
           }
           if (ageDataQuestion?.answer?.male) {
             setActiveMaleButtons(ageDataQuestion.answer.male);
-            setSelectedGender((prev) =>
-              prev.includes("male") ? prev : [...prev, "male"]
-            );
+            if (ageDataQuestion.answer.male.length > 0) {
+              setSelectedGender((prev) =>
+                prev.includes("male") ? prev : [...prev, "male"]
+              );
+            }
           }
         }
       } catch (error) {
@@ -137,8 +142,11 @@ export const Questionnaire2 = ({
     setFormData(location.state?.questionnaireData2 || currentAnswer);
 
     // Fetch data
+    if (!location.state.isBackBtn) {
+      fetchAnswers();
+    }
     fetchQuestions();
-    fetchAnswers();
+
     processCurrentAnswer();
   }, [location.state?.orderId, currentAnswer]);
 
@@ -224,6 +232,7 @@ export const Questionnaire2 = ({
   const validateFields = () => {
     const unansweredRequiredQuestions = questions.filter((q) => {
       if (q.required) {
+        debugger
         // If it's an age-data question, ensure the correct buttons are selected
         if (q.answer_type === "age-data") {
           if (selectedGender?.includes("female")) {
@@ -231,6 +240,9 @@ export const Questionnaire2 = ({
           }
           if (selectedGender?.includes("male")) {
             return !activeMaleButtons || activeMaleButtons.length === 0;
+          }
+           if (selectedGender?.includes("both")) {
+            return !activeMaleButtons || activeMaleButtons.length === 0 || activeFemaleButtons.length === 0;
           }
         }
 

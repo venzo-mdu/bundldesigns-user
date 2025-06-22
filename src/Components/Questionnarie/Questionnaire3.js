@@ -184,8 +184,9 @@ export const Questionnaire3 = ({
     return true; // All required fields are valid
   };
   const onBackClick = () => {
+    debugger
     navigate(`/questionnaire/${2}`, {
-      state: { questionnaireData2: answers, orderId: location.state?.orderId },
+      state: { questionnaireData2: answers, orderId: location.state?.orderId, isBackBtn:true },
     });
   };
   const onNextClick = () => {

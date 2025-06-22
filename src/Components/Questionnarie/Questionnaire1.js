@@ -210,7 +210,6 @@ export const Questionnaire1 = ({
   // };
 
   const getAnswerValue = (questionId) => {
-    debugger;
     const formValue = formData?.[questionId];
 
     if (questionId === 4 || questionId === "4") {
