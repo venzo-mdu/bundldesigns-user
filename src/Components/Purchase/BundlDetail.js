@@ -1319,7 +1319,11 @@ export const BundlDetail = ({ user, lang, setLang }) => {
           openpopup={openPopup}
           setPopup={setOpenPopup}
           title={""}
-          subTitle={"You already have items in your cart. Would you like to."}
+          subTitle={
+  lang === "ar"
+    ? "لديك عناصر في سلة التسوق. هل ترغب في"
+    : "You already have items in your cart. Would you like to."
+}
           onClick={emptyCart}
           save={"Continue"}
           cancel={"Cancel"}

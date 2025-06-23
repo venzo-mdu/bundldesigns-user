@@ -1233,7 +1233,7 @@ export default function Dashboard({ lang, setLang }) {
                   ? " لتعديل الاستبيان"
                   : "to edit your questionnaire"}
               </h2>
-              <p className="text-[18px] text-[#1BA56F] font-medium">
+              <p className="xs:w-[99%] sm:w-full md:w-full text-[18px] text-[#1BA56F] font-medium">
                 {lang === "ar"
                   ? dashboardJson.process_content
                       .questionnaire_edit_content_arabic
@@ -1258,7 +1258,7 @@ export default function Dashboard({ lang, setLang }) {
                 ? dashboardJson.process_content.design_brand_arabic
                 : dashboardJson.process_content.design_brand}
             </h2>
-            <p className="text-[18px] text-[#1BA56F] font-medium">
+            <p className="xs:w-[99%] sm:w-full md:w-full text-[18px] text-[#1BA56F] font-medium">
               {lang === "ar"
                 ? dashboardJson.process_content.expected_date_arabic
                 : dashboardJson.process_content.expected_date}{" "}
@@ -1381,7 +1381,7 @@ export default function Dashboard({ lang, setLang }) {
                 {lang === "ar" ? "اضغط هنا للتحميل" : "Click Here to Download"}
               </button>
             </p>
-            <p className="text-[18px] text-[#1BA56F] font-medium">
+            <p className="xs:w-[99%] sm:w-full md:w-full text-[18px] text-[#1BA56F] font-medium">
               {lang === "ar"
                 ? dashboardJson.process_content.expected_date_arabic
                 : dashboardJson.process_content.expected_date}{" "}
@@ -1980,7 +1980,7 @@ export default function Dashboard({ lang, setLang }) {
                                     >
                                       {lang === "ar"
                                         ? "طلب تعديلات"
-                                        : "Request Edits"}
+                                        : "Request Edits1"}
                                     </button>
                                   )}
                                 </div>
@@ -2101,7 +2101,7 @@ export default function Dashboard({ lang, setLang }) {
                                                 lang === "ar"
                                                   ? "lg:ml-5 md:ml-5 xs:ml-0"
                                                   : "lg:mr-5 md:mr-5 xs:mr-0"
-                                              } px-2 !py-0 text-[16px] ml-4 text-white font-[400] lg:mt-0 md:mt-0 xs:mt-[5%] uppercase`}
+                                              } px-2 !py-0 text-[14px] ml-4 text-white font-[400] lg:mt-0 md:mt-0 xs:mt-[5%] uppercase`}
                                               onClick={() => {
                                                 navigate("/adjustment", {
                                                   state: {
@@ -2275,8 +2275,8 @@ export default function Dashboard({ lang, setLang }) {
                             } */}
 
             <div className="font-Helvetica">
-              <div className="text-center lg:pt-0 lg:pb-16 md:pt-0 md:pb-16 xs:pt-4 xs:pb-16">
-                <h2 className="lg:text-[30px] md:text-[24px] xs:text-[24px] xs:font-[700] xs:px-[15%]">
+              <div className="text-center lg:pt-0 lg:pb-16 md:pt-0 md:pb-16  xs:pb-16">
+                <h2 className="lg:text-[30px] md:text-[24px] xs:text-[23px] xs:font-[700] xs:px-[15%]">
                   {lang === "ar"
                     ? dashboardJson.rate_us_arabic
                     : dashboardJson.rate_us}
