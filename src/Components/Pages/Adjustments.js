@@ -2069,7 +2069,7 @@ export default function Adjustments({ user, lang, setLang }) {
       window.scrollTo({ top: 0, behavior: "smooth" });
       setErrorMsg(null);
     } else {
-      setErrorMsg("Please fill Adjustment details to checkout");
+      setErrorMsg(lang === "ar" ? "يرجى تعبئة تفاصيل التعديل لإتمام الشراء" : "Please fill Adjustment details to checkout");
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
@@ -2201,7 +2201,7 @@ export default function Adjustments({ user, lang, setLang }) {
       });
       return false;
     } else if (!/^[\w-.]+@[\w-]+\.[a-z]{2,4}$/i.test(billingInfo.email)) {
-      setError({ email: "Invalid email format" });
+      setError({ email: lang === "ar" ? "تنسيق البريد الإلكتروني غير صالح" : "Invalid email format" });
       return false;
     }
     if (!billingInfo.phone.trim()) {
@@ -2393,11 +2393,13 @@ export default function Adjustments({ user, lang, setLang }) {
                 openpopup={openPopup}
                 isCancel={false}
                 setPopup={setOpenPopup}
-                title={lang === "ar" ? "هل ترغب في إفراغ السلة؟" : "Empty your Cart"}
+                title={
+                  lang === "ar" ? "إفراغ السلة" : "Empty your Cart"
+                }
                 // subTitle={'Are you sure, you want to empty the cart.'}
                 onClick={() => createAdjustmentOrder()}
-                save={"Yes"}
-                cancel={"Cancel"}
+                save={lang === "ar" ? "نعم" : "Yes"}
+                cancel={lang === "ar" ? "الإلغاء" : "Cancel"}
                 isLang={lang}
               />
             )}
@@ -2540,7 +2542,7 @@ export default function Adjustments({ user, lang, setLang }) {
                             </button>
                             {adjustmentError && (
                               <p style={{ color: "#D83D99" }}>
-                                Please enter your comments
+                                {lang === "ar" ? "يرجى إدخال تعليقاتك" : "Please enter your comments"}
                               </p>
                             )}
                           </p>
@@ -3028,7 +3030,9 @@ export default function Adjustments({ user, lang, setLang }) {
                           className=" w-[100%] m-auto py-1 mt-2 text-[18px] text-white bg-[#1BA56F] uppercase"
                         >
                           {" "}
-                          {lang === "ar" ? "المتابعة إلى السلة​" : "Proceed to Cart"}
+                          {lang === "ar"
+                            ? "المتابعة إلى السلة​"
+                            : "Proceed to Cart"}
                         </button>
                         {errorMsg && (
                           <p className="pb-0 text-[16px] text-[#D83D99]">
@@ -3056,7 +3060,7 @@ export default function Adjustments({ user, lang, setLang }) {
                       onClick={() => confirmNavigation()}
                       className="px-4 py-2 bg-[#0BA6C4] text-white rounded uppercase"
                     >
-                      Yes
+                      {lang === "ar" ? "نعم" : "Yes"}
                     </button>
                     <button
                       onClick={cancelNavigation}
@@ -3617,11 +3621,13 @@ export default function Adjustments({ user, lang, setLang }) {
               openpopup={openPopup}
               isCancel={false}
               setPopup={setOpenPopup}
-              title={lang === "ar" ? "هل ترغب في إفراغ السلة؟" : "Empty your Cart"}
+              title={
+                lang === "ar" ? "إفراغ السلة" : "Empty your Cart"
+              }
               // subTitle={'Are you sure, you want to empty the cart.'}
               onClick={() => createAdjustmentOrder()}
-              save={"Yes"}
-              cancel={"Cancel"}
+              save={lang === "ar" ? "نعم" : "Yes"}
+              cancel={lang === "ar" ? "الإلغاء" : "Cancel"}
               isLang={lang}
             />
           )}
@@ -3802,8 +3808,13 @@ export default function Adjustments({ user, lang, setLang }) {
                                 </button>
                               </p>
                               {adjustmentError && (
-                                <p style={{ color: "#D83D99", marginTop: "-12px" }}>
-                                  Please enter your comments
+                                <p
+                                  style={{
+                                    color: "#D83D99",
+                                    marginTop: "-12px",
+                                  }}
+                                >
+                                  {lang === "ar" ? "يرجى إدخال تعليقاتك" : "Please enter your comments"}
                                 </p>
                               )}
                               <p className="font-medium text-[18px]">
@@ -3928,7 +3939,7 @@ export default function Adjustments({ user, lang, setLang }) {
                     })}
                   </div>
 
-                  <div className="mt-10 cursor-pointer" >
+                  <div className="mt-10 cursor-pointer">
                     {Object.keys(bundlAddons).map((category, index) => {
                       return (
                         <div id={`${index}_list`}>

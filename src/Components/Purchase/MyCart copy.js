@@ -344,10 +344,10 @@ export const MyCart = ({ lang, setLang }) => {
           response?.data?.item_details?.addon_items.length === 0)
       ) {
         setOpenPopup(true);
-         setPopupMessage("Your cart is empty keep continue dashboard");
+         setPopupMessage(lang === "ar" ? "سلة التسوق فارغة, الاستمرار لوحة التحكم" : "Your cart is empty, keep continuing to the dashboard");
       }
       if (response.status === 206) {
-        setPopupMessage("Your cart is empty keep continue dashboard");
+        setPopupMessage(lang === "ar" ? "سلة التسوق فارغة, الاستمرار لوحة التحكم" : "Your cart is empty, keep continuing to the dashboard");
       }
     } catch (e) {
       navigate("/login");
@@ -1024,7 +1024,7 @@ export const MyCart = ({ lang, setLang }) => {
                     onClick={() => confirmNavigation()}
                     className="px-4 py-2 bg-[#0BA6C4] text-white rounded-none uppercase"
                   >
-                    Yes
+                    {lang === "ar" ? "نعم" : "Yes"}
                   </button>
                   <button
                     onClick={cancelNavigation}

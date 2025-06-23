@@ -39,7 +39,7 @@ const PhoneNumberInput = ({ name, placeholder, value, status, className,setPhone
     // Validate phone number length
     if (selectedCountry && value.length !== selectedCountry.phoneLength) {
       setPhoneError(true);
-      setError(`Please enter valid mobile number.`);
+      setError(lang === "ar" ? "يرجى إدخال رقم جوال صالح" : "Please enter valid mobile number.");
     } else {
       setPhoneError(false);
       setError('');

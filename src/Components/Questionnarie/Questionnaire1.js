@@ -109,7 +109,7 @@ export const Questionnaire1 = ({
       if (/[0-9!@#$%^&*(),.?":{}|<>]/g.test(value)) {
         setErrors((prev) => ({
           ...prev,
-          [questionId]: "Should not contain numbers or special characters",
+          [questionId]: lang === "ar" ? "لا يجب أن يحتوي على أرقام أو رموز" : "Should not contain numbers or special characters",
         }));
         return;
       } else {
@@ -122,7 +122,7 @@ export const Questionnaire1 = ({
       if (!activeType) {
         setErrors((prev) => ({
           ...prev,
-          [questionId]: 'Please select either "Product" or "Service" first.',
+          [questionId]: lang === "ar" ? 'يرجى اختيار "منتج" أو "خدمة" أولاً.' : 'Please select either "Product" or "Service" first.',
         }));
         return;
       } else {

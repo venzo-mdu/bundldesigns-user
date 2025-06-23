@@ -236,7 +236,7 @@ const Profile = ({ user, lang, setLang, setUser }) => {
     let errors = {};
 
     if (!formData.full_name.trim()) {
-      errors.full_name = "Name is required";
+      errors.full_name = lang === "ar" ? "الاسم مطلوب" : "Name is required";
     }
 
     if (!formData.email.trim()) {
@@ -245,7 +245,7 @@ const Profile = ({ user, lang, setLang, setUser }) => {
     } else if (
       !/^[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/.test(formData.email)
     ) {
-      errors.email = "Invalid email format";
+      errors.email = lang === "ar" ? "تنسيق البريد الإلكتروني غير صالح" : "Invalid email format";
     }
 
     if (!formData.country) {
@@ -303,7 +303,7 @@ const Profile = ({ user, lang, setLang, setUser }) => {
         //     fontWeight: "700", // White text
         //   },
         // });
-        showToast("Profile updated", "#D83D99");
+        showToast(lang === "ar" ? "تم تحديث الملف الشخصي" : "Profile updated", "#D83D99");
         setTimeout(() => {
           navigate("/");
         }, 2000);
@@ -312,7 +312,7 @@ const Profile = ({ user, lang, setLang, setUser }) => {
       }
     } catch (error) {
       console.error("Error updating profile:", error);
-      setError({ submit: "Failed to update profile. Please try again." });
+      setError({ submit: lang === "ar" ? "فشل في تحديث الملف الشخصي. يرجى المحاولة مرة أخرى" : "Failed to update profile. Please try again." });
     } finally {
       setIsLoading(false);
     }

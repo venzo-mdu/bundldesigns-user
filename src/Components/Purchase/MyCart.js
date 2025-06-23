@@ -343,10 +343,10 @@ export const MyCart = ({ lang, setLang }) => {
           response?.data?.item_details?.addon_items.length === 0)
       ) {
         setOpenPopup(true);
-        setPopupMessage("Your cart is empty keep continue dashboard");
+        setPopupMessage(lang === "ar" ? "سلة التسوق فارغة, الاستمرار لوحة التحكم" : "Your cart is empty, keep continuing to the dashboard");
       }
       if (response.status === 206) {
-        setPopupMessage("Your cart is empty keep continue dashboard");
+        setPopupMessage(lang === "ar" ? "سلة التسوق فارغة, الاستمرار لوحة التحكم" : "Your cart is empty, keep continuing to the dashboard");
       }
     } catch (e) {
       navigate("/login");
@@ -529,7 +529,7 @@ export const MyCart = ({ lang, setLang }) => {
       });
       return false;
     } else if (!/^[\w-.]+@[\w-]+\.[a-z]{2,4}$/i.test(billingInfo.email)) {
-      setError({ email: "Invalid email format" });
+      setError({ email: lang === "ar" ? "تنسيق البريد الإلكتروني غير صالح" : "Invalid email format" });
       return false;
     }
     if (!billingInfo.phone.trim()) {
@@ -952,7 +952,7 @@ export const MyCart = ({ lang, setLang }) => {
         "#D83D99"
       );
     } catch (error) {
-      console.error("Error updating addon:", error);
+      console.error(lang === "ar" ? "خطأ في تحديث الإضافات" : "Error updating addon:", error);
     } finally {
       setLoading(false);
     }
@@ -1012,7 +1012,7 @@ export const MyCart = ({ lang, setLang }) => {
                     onClick={() => confirmNavigation()}
                     className="px-4 py-2 bg-[#0BA6C4] text-white rounded-none uppercase"
                   >
-                    Yes
+                    {lang === "ar" ? "نعم" : "Yes"}
                   </button>
                   <button
                     onClick={cancelNavigation}
@@ -1753,7 +1753,7 @@ export const MyCart = ({ lang, setLang }) => {
               title={popupMessage}
               // subTitle={'Are you sure, you want to empty the cart.'}
               onClick={() => navigate("/")}
-              save={"Continue to Homepage"}
+              save={lang === "ar" ? "الانتقال إلى الصفحة الرئيسية" : "Continue to Homepage"}
               // cancel={'Cancel'}
               isLang={lang}
             />

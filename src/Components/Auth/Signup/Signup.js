@@ -319,14 +319,14 @@ export const Signup = ({ lang }) => {
     // Full name validation
     if (name === "full_name") {
       if (!value.trim()) {
-        setError("full_name", "Full name is required");
+        setError("full_name", lang === "ar" ? "الاسم الكامل مطلوب" : "Full name is required");
       } else if (/[^a-zA-Z\s-]/.test(value)) {
         setError(
           "full_name",
-          "Full name must not contain numbers or special characters"
+          lang === "ar" ? "لا يجب أن يحتوي الاسم الكامل على أرقام أو رموز" : "Full name must not contain numbers or special characters"
         );
       } else if (value.length < 3) {
-        setError("full_name", "Full name must be at least 3 characters");
+        setError("full_name", lang === "ar" ? "يجب أن يكون الاسم الكامل 3 أحرف على الأقل" : "Full name must be at least 3 characters");
       } else {
         setError("full_name", "");
       }
@@ -354,11 +354,11 @@ export const Signup = ({ lang }) => {
     if (name === "password") {
       if (/\s/.test(value)) {
         // Check for spaces
-        setError("password", "Password cannot contain spaces");
+        setError("password", lang === "ar" ? "لا يمكن أن تحتوي كلمة المرور على مسافات" : "Password cannot contain spaces");
       } else if (!value.trim()) {
-        setError("password", "Password is required");
+        setError("password", lang === "ar" ? "كلمة المرور مطلوبة" : "Password is required");
       } else if (value.length < 8) {
-        setError("password", "Password must be at least 8 characters");
+        setError("password", lang === "ar" ? "يجب أن تكون كلمة المرور 8 أحرف على الأقل" : "Password must be at least 8 characters");
       } else {
         setError("password", ""); // clear error if password is valid
       }
@@ -367,12 +367,13 @@ export const Signup = ({ lang }) => {
 
   const validateForm = () => {
     const errors = {};
-    if (!registerData.full_name.trim()) errors.full_name = "Name is required";
+    if (!registerData.full_name.trim()) errors.full_name = lang === "ar" ? "الاسم مطلوب" : "Name is required";
     else if (/[^a-zA-Z\s-]/.test(registerData.full_name)) {
-      errors.full_name =
-        "Full name must not contain numbers or special characters";
+      errors.full_name = lang === "ar" ? "لا يجب أن يحتوي الاسم الكامل على أرقام أو رموز" : "Full name must not contain numbers or special characters";
     } else if (registerData.full_name.length < 3) {
-      errors.full_name = "Full name must be at least 3 characters";
+      errors.full_name = lang === "ar"
+  ? "يجب أن يكون الاسم الكامل 3 أحرف على الأقل"
+  : "Full name must be at least 3 characters";
     }
     if (!registerData.email.trim()) {
       errors.email =
@@ -390,20 +391,22 @@ export const Signup = ({ lang }) => {
     if (!registerData.country.trim()) {
       errors.country = lang === "ar" ? "الدولة مطلوبة" : "Country is required";
     } else if (/[^a-zA-Z\s-]/.test(registerData.country)) {
-      errors.country = "Country name must contain only letters";
+      errors.country = lang === "ar" ? "يجب أن يحتوي اسم الدولة على أحرف فقط" : "Country name must contain only letters";
     }
     if (!registerData.language.trim()) {
       errors.language = "Language is required";
     } else if (/[^a-zA-Z\s-]/.test(registerData.language)) {
-      errors.language = "Language must contain only letters";
+      errors.language = lang === "ar" ? "يجب أن تحتوي اللغة على أحرف فقط" : "Language must contain only letters";
     }
     if (/\s/.test(registerData.password)) {
       // Check for spaces
-      errors.password = "Password cannot contain spaces";
+      errors.password = lang === "ar"
+  ? "لا يمكن أن تحتوي كلمة المرور على مسافات"
+  : "Password cannot contain spaces";
     } else if (!registerData.password.trim()) {
-      errors.password = "Password is required";
+      errors.password = lang === "ar" ? "كلمة المرور مطلوبة" : "Password is required";
     } else if (registerData.password.length < 8) {
-      errors.password = "Password must be at least 8 characters";
+      errors.password = lang === "ar" ? "يجب أن تكون كلمة المرور 8 أحرف على الأقل" : "Password must be at least 8 characters";
     } else if (registerData.password.length > 16) {
       errors.password = "Password must be at most 16 characters long";
     }

@@ -257,22 +257,22 @@ export const Contactus = ({ lang, setLang }) => {
     const newErrors = {};
 
     if (!formData.name) {
-      newErrors.name = "Name is required";
+      newErrors.name = lang === "ar" ? "الاسم مطلوب" : "Name is required";
     } else if (formData.name.length < 3) {
       newErrors.name =
         lang === "ar"
           ? "على الأقل أحرف 3 يجب أن يحتوي الاسم على  "
           : "Name must be at least 3 characters";
     } else if (/\d/.test(formData.name)) {
-      newErrors.name = "Name must not contain numbers";
+      newErrors.name = lang === "ar" ? "لا يجب أن يحتوي الاسم على أرقام" : "Name must not contain numbers";
     } else if (/[^a-zA-Z\s]/.test(formData.name)) {
-      newErrors.name = "Name must not contain special characters";
+      newErrors.name = lang === "ar" ? "لا يجب أن يحتوي الاسم على رموز" : "Name must not contain special characters";
     }
 
     if (!formData.project_name)
-      newErrors.project_name = "Project name is required";
+      newErrors.project_name = lang === "ar" ? "اسم المشروع مطلوب" : "Project name is required";
     else if (formData.project_name.length < 3)
-      newErrors.project_name = "Project name must be at least 3 characters";
+      newErrors.project_name = lang === "ar" ? "يجب أن يحتوي اسم المشروع على 3 أحرف على الأقل" : "Project name must be at least 3 characters";
 
     if (!formData.phone)
       newErrors.phone =
@@ -283,9 +283,10 @@ export const Contactus = ({ lang, setLang }) => {
       newErrors.email =
         lang === "ar" ? "البريد الإلكتروني مطلوب" : "Email is required";
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email))
-      newErrors.email = "Email is invalid";
+      newErrors.email = lang === "ar" ? "البريد الإلكتروني غير صالح" : "Email is invalid";
 
-    if (!formData.message) newErrors.message = "Message is required";
+    if (!formData.message) { newErrors.message = lang === "ar" ? "الرسالة مطلوبة" : "Message is required";
+}
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;

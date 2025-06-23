@@ -57,18 +57,18 @@ export default function Career({lang,setLang}) {
     const newErrors = {};
 
     if (!formData.name) {
-      newErrors.name = 'Name is required';
+      newErrors.name = lang === "ar" ? "الاسم مطلوب" : "Name is required";
     } else if (formData.name.length < 3) {
       newErrors.name = lang === 'ar' ? 'على الأقل أحرف 3 يجب أن يحتوي الاسم على  ' : 'Name must be at least 3 characters';
     } else if (/\d/.test(formData.name)) {
-      newErrors.name = 'Name must not contain numbers';
+      newErrors.name = lang === "ar" ? "لا يجب أن يحتوي الاسم على أرقام" : "Name must not contain numbers";
     }
 
     if (!formData.phone) newErrors.phone = lang === 'ar' ? 'رقم الهاتف مطلوب' : 'Phone number is required';
     // else if (!/^\d{10}$/.test(formData.phone)) newErrors.phone = 'Phone number must be 10 digits';
 
     if (!formData.email) newErrors.email = lang === 'ar' ? 'البريد الإلكتروني مطلوب' : 'Email is required';
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = 'Email is invalid';
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = lang === "ar" ? "البريد الإلكتروني غير صالح" : "Email is invalid";
 
     if (!formData.message) newErrors.message = lang === 'ar' ? 'الوصف مطلوب' : 'Description is required';
 
@@ -108,7 +108,7 @@ export default function Career({lang,setLang}) {
             vacancy: '',
             file: null,
           })
-          setSuccessMsg('Application Submitted Successfully')
+          setSuccessMsg(lang === "ar" ? "تم تقديم الطلب تم الإرسال بنجاح" : "Application Submitted Successfully");
       }
     }
   };
