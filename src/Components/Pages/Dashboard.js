@@ -1915,40 +1915,58 @@ export default function Dashboard({ lang, setLang }) {
                         <>
                           {order?.brand_identity && (
                             <>
-                              <p
-                                className={`lg:text-[22px] md:text-[22px] xs:text-[18px] font-bold my-2 ${
-                                  processIndex < 2
-                                    ? processIndex === 1 &&
-                                      order?.order_status !== "in_progress"
-                                      ? "text-[#00000080]"
-                                      : "text-black"
-                                    : "text-black"
-                                }`}
-                              >
-                                {lang === "ar"
-                                  ? "الهوية البصرية"
-                                  : "Brand & Visual Identity"}
-                                <span className="text-[#1BA56F] lg:text-[18px] md:text-[18px] xs:text-[16px]  font-[500]  lg:!float-none md:!float-none">
-                                  {" "}
-                                  -&nbsp;
-                                  {processIndex < 2
-                                    ? processIndex === 1 &&
-                                      order?.order_status !== "in_progress"
-                                      ? lang === "ar"
-                                        ? "قيد الانتظار"
-                                        : " ON HOLD"
-                                      : lang === "ar"
-                                      ? "قيد التنفيذ"
-                                      : "IN PROGRESS"
-                                    : processIndex >= 4
-                                    ? lang === "ar"
-                                      ? "مكتمل"
-                                      : " COMPLETE"
-                                    : lang === "ar"
-                                    ? "قيد التنفيذ"
-                                    : "IN PROGRESS"}
-                                </span>
-                              </p>
+                              <div className="flex items-center justify-between w-full">
+  {/* Heading */}
+  <p
+    className={`lg:text-[22px] md:text-[22px] xs:text-[18px] font-bold my-2 ${
+      processIndex < 2
+        ? processIndex === 1 && order?.order_status !== "in_progress"
+          ? "text-[#00000080]"
+          : "text-black"
+        : "text-black"
+    }`}
+  >
+    {lang === "ar" ? "الهوية البصرية" : "Brand & Visual Identity"}
+    <span className="text-[#1BA56F] lg:text-[18px] md:text-[18px] xs:text-[16px] font-[500]">
+      {" "}
+      -&nbsp;
+      {processIndex < 2
+        ? processIndex === 1 && order?.order_status !== "in_progress"
+          ? lang === "ar"
+            ? "قيد الانتظار"
+            : "ON HOLD"
+          : lang === "ar"
+          ? "قيد التنفيذ"
+          : "IN PROGRESS"
+        : processIndex >= 4
+        ? lang === "ar"
+          ? "مكتمل"
+          : "COMPLETE"
+        : lang === "ar"
+        ? "قيد التنفيذ"
+        : "IN PROGRESS"}
+    </span>
+  </p>
+
+  {/* Purchase Add Ons button */}
+  {processIndex >= 4 && (
+    <button
+      className="bg-[#1BA56F] px-4 py-2 text-[16px] text-white font-[400] uppercase"
+      onClick={() =>
+        navigate("/adjustment", {
+          state: {
+            orderId: order.id,
+            orderItemId: null,
+            purchaseAddOns: true,
+          },
+        })
+      }
+    >
+      {lang === "ar" ? "شراء إضافات" : "Purchase Add Ons"}
+    </button>
+  )}
+</div>
+                              
                               <div className="flex items-center justify-between w-full">
                                 {/* Left side: Text + Left button */}
                                 <div className="flex items-center gap-4">
@@ -1984,30 +2002,10 @@ export default function Dashboard({ lang, setLang }) {
                                     >
                                       {lang === "ar"
                                         ? "طلب تعديلات"
-                                        : "Request Edits1"}
+                                        : "Request Edits"}
                                     </button>
                                   )}
                                 </div>
-
-                                {/* Right side: Button */}
-                                {processIndex >= 4 && (
-                                  <button
-                                    className="bg-[#1BA56F] px-2 py-1 text-[14px] text-white font-[400] uppercase"
-                                    onClick={() => {
-                                      navigate("/adjustment", {
-                                        state: {
-                                          orderId: order.id,
-                                          orderItemId: null,
-                                          purchaseAddOns: true,
-                                        },
-                                      });
-                                    }}
-                                  >
-                                    {lang === "ar"
-                                      ? "شراء إضافات"
-                                      : "Purchase Add Ons"}
-                                  </button>
-                                )}
                               </div>
                             </>
                           )}

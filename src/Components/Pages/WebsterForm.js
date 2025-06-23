@@ -52,8 +52,10 @@ export default function WebsterForm({lang,setLang}) {
             newErrors.name = lang === "ar" ? "لا يجب أن يحتوي الاسم على رموز" : "Name must not contain special characters";
           }  
       
-          if (!formData.project_name) newErrors.project_name = lang === "ar" ? "اسم المشروع مطلوب" : "Project name is required";
-          else if (formData.project_name.length < 3) newErrors.project_name = lang === "ar" ? "يجب أن يحتوي اسم المشروع على 3 أحرف على الأقل" : "Project name must be at least 3 characters";
+          if (!formData.project_name) {
+            newErrors.project_name = lang === "ar" ? "اسم المشروع مطلوب" : "Project name is required";
+          } else if (formData.project_name.length < 3) { 
+            newErrors.project_name = lang === "ar" ? "يجب أن يحتوي اسم المشروع على 3 أحرف على الأقل" : "Project name must be at least 3 characters";}
 
           if (!formData.phone) newErrors.phone = lang === 'ar' ? 'رقم الهاتف مطلوب' : 'Phone number is required';
         //   else if (!/^\d{10}$/.test(formData.phone)) newErrors.phone = 'Phone number must be 10 digits';

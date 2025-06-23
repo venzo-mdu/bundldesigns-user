@@ -16,6 +16,8 @@ export const Questionnaire1 = ({
   setFormData,
   changeLang,
   setChangeLang,
+  lang,
+  setlang
 }) => {
   const { showToast, showErrorToast } = useToastMessage();
   const location = useLocation();

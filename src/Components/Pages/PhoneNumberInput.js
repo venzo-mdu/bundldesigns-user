@@ -11,7 +11,7 @@ const countries = [
  
 ];
 
-const PhoneNumberInput = ({ name, placeholder, value, status, className,setPhoneError,extraInputClass ,formErrors,setErrors,idName,successmsg=null}) => {
+const PhoneNumberInput = ({ lang, setLang, name, placeholder, value, status, className,setPhoneError,extraInputClass ,formErrors,setErrors,idName,successmsg=null}) => {
   const [selectedCountry, setSelectedCountry] = useState( { code: 'AE', name: 'UAE', countryCode: '+971', phoneLength: 9 });
   const [phoneNumber, setPhoneNumber] = useState(value || '');
   const [error, setError] = useState('');
