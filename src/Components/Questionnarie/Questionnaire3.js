@@ -61,7 +61,7 @@ export const Questionnaire3 = ({
     "(ex: was always passionate about creating my own perfume business)",
   ];
 
-  const placeHolders_arabic = ["", "", "", ""];
+  const placeHolders_arabic = ["قصة مشروعك", "القصة خلف الاسم", "باقة", "مثال: كنت دائمًا شغوف بإطلاق مشروع عطوري الخاص"];
 
   useEffect(() => {
     const fetchQuestions = async () => {

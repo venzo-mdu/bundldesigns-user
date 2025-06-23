@@ -53,7 +53,7 @@ export const Questionnaire4 = ({
 
   console.log(formData, "eee");
   const placeHolders = ["BUNDL", "(ex: Luxury shopping made easy)"];
-  const placeHolders_arabic = ["", ""];
+  const placeHolders_arabic = ["باقة", "تسوق بسهولة"];
 
   useEffect(() => {
     setFormData((prev) => ({

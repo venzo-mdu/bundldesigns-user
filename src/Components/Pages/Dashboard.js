@@ -1701,12 +1701,16 @@ export default function Dashboard({ lang, setLang }) {
               openpopup={completePopup}
               isCancel={true}
               setPopup={setCompletePopup}
-              title={"And that's a wrap!"}
+              title={lang === "ar" ? "وصلنا للنهاية!" : "And that’s a wrap!"}
               subTitle={
-                "That's a wrap on the design project! It's been a fun and creative process. Enjoy the files."
+                lang === "ar" ? "أنهينا مشروع التصميم! كانت تجربة ممتعة ومليئة بالإبداع. استمتع بالملفات." : "That's a wrap on the design project! It's been a fun and creative process. Enjoy the files."
               }
               onClick={() => window.location.reload()}
-              save={"COTINUE TO DASHBOARD"}
+              save={
+                lang === "ar"
+                  ? "الذهاب إلى لوحة التحكم​"
+                  : "CONTINUE TO DASHBOARD"
+              }
             />
           )}
           <div className="font-Helvetica">

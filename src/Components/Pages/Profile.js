@@ -254,7 +254,7 @@ const Profile = ({ user, lang, setLang, setUser }) => {
     }
 
     if (!formData.language) {
-      errors.language = "Please select a language";
+      errors.language = lang === "ar" ? "يرجى اختيار اللغة" : "Please select a language";
     }
 
     if (!formData.phone.trim()) {
