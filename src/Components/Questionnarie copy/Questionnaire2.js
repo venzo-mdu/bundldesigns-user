@@ -67,10 +67,6 @@ export const Questionnaire2 = ({
     (state) => state?.questionAnswer?.questionAndAnswers
   );
 
-  useEffect(() => {
-    dispatch(fetchQuestionAnswer(data));
-  }, []);
-
   /* NEW QUESTIONANSWER */
 
   const [selectedGenderType, setSelectedGenderType] = useState({
@@ -406,7 +402,7 @@ export const Questionnaire2 = ({
         setFormData={setFormData}
         questions={
           <>
-            {questionAndAnswers.slice(7, 10).map((question, index) => {
+            {questionAndAnswers.slice(7, 11).map((question, index) => {
               debugger;
               return (
                 <div

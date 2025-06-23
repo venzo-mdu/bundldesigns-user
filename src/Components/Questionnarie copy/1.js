@@ -39,10 +39,7 @@ export let data = [
     question_arabic: "ماالذي تود تصميم الهوية له؟",
     required: true,
     type: "json",
-    answer: {
-      type: "service",
-      answer: "dd",
-    },
+    answer: { service: "dd" },
   },
 
   {

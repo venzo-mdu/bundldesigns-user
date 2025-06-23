@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Questionnaire } from "./Questionnaire";
 import { base_url } from "../Auth/BackendAPIUrl";
@@ -11,6 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ConfigToken } from "../Auth/ConfigToken";
 import useToastMessage from "../Pages/Toaster/Toaster";
 import { Toaster } from "react-hot-toast";
+import { fetchQuestionAnswer } from "./questionnaire.slice";
 
 export const Questionnaire1 = ({
   formData,
@@ -18,19 +19,30 @@ export const Questionnaire1 = ({
   changeLang,
   setChangeLang,
 }) => {
-  const { showToast, showErrorToast } = useToastMessage();
+  const { showErrorToast } = useToastMessage();
   const location = useLocation();
-  const [questions, setQuestions] = useState([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   // const [formData, setFormData] = useState();
   const [errors, setErrors] = useState({});
-  const [activeType, setActiveType] = useState(null);
-  const [fetchQ1Answers, setFetchQ1Answers] = useState([]);
-  const [requiredQuestions, setRequiredQuestions] = useState([]);
+  // const [activeType, setActiveType] = useState(null);
   const [isFilled, setIsFilled] = useState(null);
-  const currentAnswer = useSelector((state) => state.questionnaire1);
-  const titile = useSelector((state) => state.title);
+
+  /* NEW QUESTIONANSWER */
+
+  const questionAndAnswers = useSelector(
+    (state) => state?.questionAnswer?.questionAndAnswers || []
+  );
+
+  const [questionAnswer1, setQuestionAnswer1] = useState([]);
+
+  useEffect(() => {
+    if (questionAndAnswers.length > 0) {
+      setQuestionAnswer1(questionAndAnswers);
+    }
+  }, [questionAndAnswers]);
+
+  /* NEW QUESTIONANSWER */
 
   const placeHolders = [
     "Project Name",
@@ -52,43 +64,6 @@ export const Questionnaire1 = ({
     "",
   ];
 
-  useEffect(() => {
-    const fetchQuestions = async () => {
-      try {
-        const response = await axios.get(
-          `${base_url}/api/content?section=brand_questions&page=1`
-        );
-        setQuestions(response.data);
-      } catch (error) {
-        console.error("Error fetching questions:", error);
-      }
-    };
-
-    const fetchAnswers = async () => {
-      try {
-        if (location?.state?.orderId != undefined) {
-          const response = await axios.get(
-            `${base_url}/api/questionnaire/update/${location.state.orderId}`,
-            ConfigToken()
-          );
-          console.log(response);
-          setFetchQ1Answers(response.data.data);
-        }
-      } catch (error) {
-        console.error("Error fetching questions:", error);
-      }
-    };
-    if (currentAnswer[4]?.product) {
-      setActiveType("product");
-    }
-    if (currentAnswer[4]?.service) {
-      setActiveType("service");
-    }
-    setFormData(currentAnswer);
-    fetchQuestions();
-    fetchAnswers();
-  }, []);
-
   const showToastMessage = () => {
     if (!toast.isActive("required-value-toast")) {
       showErrorToast(
@@ -97,34 +72,23 @@ export const Questionnaire1 = ({
       );
     }
   };
-  const handleTypeClick = (type) => {
-    setActiveType((prevType) => (prevType === type ? null : type)); // Toggle state
-    let brandingType = activeType;
-    // setFormData((prev) => ({
-    //   ...prev,
-    //   type: type, // Update formData accordingly
-    // }));
+  const handleTypeClick = (questionId, type, ans) => {
+    setQuestionAnswer1((prev) =>
+      prev.map((ele) =>
+        ele.id === questionId
+          ? {
+              ...ele,
+              answer: {
+                type: type,
+                answer: ans,
+              },
+            }
+          : ele
+      )
+    );
   };
 
   const handleInputChange = (questionId, value) => {
-    if (questionId == "1" || questionId == 1) {
-      dispatch(questionnaireTitle(value));
-      if (!activeType) {
-        setErrors((prev) => ({
-          ...prev,
-          [questionId]: "",
-        }));
-        return;
-      } else {
-        let temp_err = { ...errors };
-        delete temp_err[questionId];
-        setErrors(temp_err);
-      }
-      setFormData((prev) => ({
-        ...prev,
-        [questionId]: value,
-      }));
-    }
     if (questionId == "2" || questionId == "3") {
       if (/[0-9!@#$%^&*(),.?":{}|<>]/g.test(value)) {
         setErrors((prev) => ({
@@ -139,103 +103,49 @@ export const Questionnaire1 = ({
       }
     }
     if (questionId == 4 || questionId === "4") {
-      if (!activeType) {
+      // Always update the state, even if value is empty
+      setQuestionAnswer1((prev) =>
+        prev.map((ele) =>
+          ele.id === questionId
+            ? {
+                ...ele,
+                answer: {
+                  ...ele.answer,
+                  answer: value,
+                },
+              }
+            : ele
+        )
+      );
+
+      // Now handle validation
+      if (!value) {
         setErrors((prev) => ({
           ...prev,
           [questionId]: 'Please select either "Product" or "Service" first.',
         }));
-        return;
       } else {
-        let temp_err = { ...errors };
-        delete temp_err[questionId];
-        setErrors(temp_err);
-      }
-
-      setFormData((prev) => ({
-        ...prev,
-        [questionId]: {
-          [activeType.toLowerCase()]: value,
-        },
-      }));
-    } else {
-      setFormData((prev) => ({
-        ...prev,
-        [questionId]: value,
-      }));
-    }
-  };
-
-  const getAnswerValue = (questionId) => {
-    const formValue = formData?.[questionId];
-
-    if (questionId === 4 || questionId === "4") {
-      // If formData already has the value, return based on activeType
-      if (formValue && typeof formValue === "object" && activeType) {
-        return formValue[activeType.toLowerCase()] || "";
-      }
-
-      // Try to get from initial answers
-      const fetchedAnswerObj = fetchQ1Answers.find(
-        (answer) => Number(answer.question_id) === Number(questionId)
-      )?.answer;
-
-      if (
-        !formValue &&
-        fetchedAnswerObj &&
-        typeof fetchedAnswerObj === "object"
-      ) {
-        // Set activeType if not set
-        if (!activeType) {
-          if (fetchedAnswerObj.product) {
-            setActiveType("product");
-          } else if (fetchedAnswerObj.service) {
-            setActiveType("service");
-          }
-        }
-
-        // Only set formData if it doesn't already exist
-        setFormData((prev) => {
-          if (!prev[questionId]) {
-            return {
-              ...prev,
-              [questionId]: fetchedAnswerObj,
-            };
-          }
-          return prev;
+        setErrors((prev) => {
+          const updated = { ...prev };
+          delete updated[questionId];
+          return updated;
         });
       }
 
-      return "";
+      return;
+    } else {
+      setQuestionAnswer1((prev) =>
+        prev.map((ele) =>
+          ele.id === questionId ? { ...ele, answer: value } : ele
+        )
+      );
     }
-
-    // // For other fields (not question 4)
-    if (formValue !== undefined) {
-      return formValue;
-    }
-
-    const fetchedAnswer = fetchQ1Answers.find(
-      (answer) => Number(answer.question_id) === Number(questionId)
-    )?.answer;
-
-    if (fetchedAnswer !== undefined) {
-      setFormData((prev) => ({
-        ...prev,
-        [questionId]: fetchedAnswer,
-      }));
-    }
-
-    return fetchedAnswer ?? "";
   };
 
   const validateFields = () => {
-    // Filter required questions that are either unanswered or contain invalid values
-    const unansweredRequiredQuestions = questions.filter((q) => {
-      // For question 1, check titile (from Redux) or formData[1]
-      if (q.id === 1) {
-        const value = titile || formData?.[1];
-        return !value || (typeof value === "string" && value.trim() === "");
-      }
+    const unansweredRequiredQuestions = questionAnswer1.filter((q) => {
       return (
+        !q.answer &&
         q.required &&
         (!formData?.[q.id] ||
           (typeof formData[q.id] === "string" && formData[q.id].trim() === ""))
@@ -243,15 +153,10 @@ export const Questionnaire1 = ({
     });
 
     if (unansweredRequiredQuestions.length > 0) {
-      const firstUnanswered = unansweredRequiredQuestions[0];
-      setErrors((prev) => ({
-        ...prev,
-        [firstUnanswered.id]: "Project Name is required",
-      }));
       const element = document.getElementById(
-        `question_${firstUnanswered?.id}`
+        `question_${unansweredRequiredQuestions[0]?.id}`
       );
-      setIsFilled(firstUnanswered?.id);
+      setIsFilled(unansweredRequiredQuestions[0]?.id);
       if (element) {
         element.scrollIntoView({ behavior: "smooth" });
       }
@@ -261,16 +166,17 @@ export const Questionnaire1 = ({
       return false;
     }
 
-    return true; // All required fields are valid
+    return true;
   };
 
   const onNextClick = (e) => {
     e.stopPropagation();
     if (!validateFields()) {
-      return; // Stop execution if validation fails
+      return;
     } else {
-      dispatch(questionnaireAction1(formData));
-      dispatch(questionnaireTitle(formData?.[1]));
+      debugger
+      dispatch(fetchQuestionAnswer(questionAnswer1));
+      
       navigate(`/questionnaire/${2}`, {
         state: {
           orderId: location.state?.orderId,
@@ -307,25 +213,6 @@ export const Questionnaire1 = ({
     }
   };
 
-  const getOrderDetails = async () => {
-    if (location.state?.orderId) {
-      const response = await axios.get(
-        `${base_url}/api/order/${location.state?.orderId}/`,
-        ConfigToken()
-      );
-      setFormData((prev) => ({
-        ...prev,
-        1: response.data.data.project_name,
-      }));
-      dispatch(questionnaireTitle(response.data.data.project_name));
-    }
-  };
-  useEffect(() => {
-    if (!titile) {
-      getOrderDetails();
-    }
-  }, []);
-
   return (
     <div>
       <Toaster
@@ -351,74 +238,97 @@ export const Questionnaire1 = ({
         setFormData={setFormData}
         onNextClick={onNextClick}
         onSaveLaterClick={onSaveLaterClick}
-        questions={questions.map((question, index) => (
-          <div className="questions" key={index} id={`question_${question.id}`}>
-            <p
-              className={`questions-title xs:w-[90%] sm:w-full md:w-full mx-auto ${
-                index === 0 ? "mt-[1%]" : "mt-[3%]"
-              }`}
+        questions={questionAnswer1.slice(0, 7).map((question, index) => {
+          return (
+            <div
+              className="questions"
+              key={index}
+              id={`question_${question.id}`}
             >
-              {changeLang === "ar"
-                ? question.question_arabic
-                : question.question}
-              {question.required && (
-                <span>
-                  <sup>*</sup>
-                </span>
+              <p
+                className={`questions-title xs:w-[90%] sm:w-full md:w-full mx-auto ${
+                  index === 0 ? "mt-[1%]" : "mt-[3%]"
+                }`}
+              >
+                {changeLang === "ar"
+                  ? question.question_arabic
+                  : question.question}
+                {question.required && (
+                  <span>
+                    <sup>*</sup>
+                  </span>
+                )}
+              </p>
+              {question.answer_type === "brand" && (
+                <div
+                  style={{ display: "flex", gap: "10px", marginBottom: "3%" }}
+                >
+                  <button
+                    className={`product-btn ${
+                      question.answer.type === "product" ? "active" : ""
+                    }`}
+                    onClick={() => {
+                      handleTypeClick(
+                        question.id,
+                        "product",
+                        question.answer.answer
+                      );
+                    }}
+                  >
+                    {changeLang === "ar" ? "منتج" : "Product"}
+                  </button>
+                  <button
+                    className={`service-btn ${
+                      question.answer.type === "service" ? "active" : ""
+                    }`}
+                    onClick={() =>
+                      handleTypeClick(
+                        question.id,
+                        "service",
+                        question.answer.answer
+                      )
+                    }
+                  >
+                    {changeLang === "ar" ? "خدمة" : "Service"}
+                  </button>
+                </div>
               )}
-            </p>
-            {question.answer_type === "brand" && (
-              <div style={{ display: "flex", gap: "10px", marginBottom: "3%" }}>
-                <button
-                  className={`product-btn ${
-                    activeType === "product" ? "active" : ""
-                  }`}
-                  onClick={() => handleTypeClick("product")}
-                >
-                  {changeLang === "ar" ? "منتج" : "Product"}
-                </button>
-                <button
-                  className={`service-btn ${
-                    activeType === "service" ? "active" : ""
-                  }`}
-                  onClick={() => handleTypeClick("service")}
-                >
-                  {changeLang === "ar" ? "خدمة" : "Service"}
-                </button>
-              </div>
-            )}
-            <input
-              type="text"
-              className={`question-input ${
-                isFilled === question?.id
-                  ? "border-[#D83D99] border-b-[2px]"
-                  : `${
-                      window?.innerWidth <= 475
-                        ? "border-b-[1px]"
-                        : "border-b-[2px]"
-                    } border-black`
-              }`}
-              placeholder={
-                changeLang === "ar"
-                  ? placeHolders_arabic[index]
-                  : placeHolders[index]
-              }
-              // value={formData?.[question.id] || fetchQ1Answers[2].answer }
-              value={question.id === 1 ? titile : getAnswerValue(question.id)}
-              onChange={(e) => handleInputChange(question.id, e.target.value)} // Update Redux
-            />
-            {question.id in errors && (
-              <p className="text-[#D83D99]">{errors[question.id]}</p>
-            )}
-            {index === 0 && window.innerWidth >= 500 ? (
-              <div className="img-rotate-qf">
-                <img className="rotating-image" src={Load} alt="Loading" />
-              </div>
-            ) : (
-              ""
-            )}
-          </div>
-        ))}
+              <input
+                type="text"
+                className={`question-input ${
+                  isFilled === question?.id
+                    ? "border-[#D83D99] border-b-[2px]"
+                    : `${
+                        window?.innerWidth <= 475
+                          ? "border-b-[1px]"
+                          : "border-b-[2px]"
+                      } border-black`
+                }`}
+                placeholder={
+                  changeLang === "ar"
+                    ? placeHolders_arabic[index]
+                    : placeHolders[index]
+                }
+                value={
+                  question.answer_type === "brand"
+                    ? question.answer.answer
+                    : question.answer
+                }
+                onChange={(e) => handleInputChange(question.id, e.target.value)}
+              />
+              {question.id in errors && (
+                <p className="text-[#D83D99]">{errors[question.id]}</p>
+              )}
+              {index === 0 && window.innerWidth >= 500 ? (
+                <div className="img-rotate-qf">
+                  <img className="rotating-image" src={Load} alt="Loading" />
+                </div>
+              ) : (
+                ""
+              )}
+            </div>
+          );
+        })}
       ></Questionnaire>
     </div>
   );

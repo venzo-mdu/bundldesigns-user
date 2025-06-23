@@ -44,7 +44,10 @@ export const Questionnaire = ({
   const dispatch = useDispatch();
   const bgColors = ["#F3B7CE", "#1BA56F", "#00A8C8", "#F3B7CE"];
 
-  
+  useEffect(() => {
+    dispatch(fetchQuestionAnswer(data));
+  }, []);
+
   return (
     <div>
       <Navbar isLang={Qlang} setIsLang={setQLang} />
