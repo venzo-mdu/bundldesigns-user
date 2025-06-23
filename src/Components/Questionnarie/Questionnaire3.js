@@ -183,11 +183,30 @@ export const Questionnaire3 = ({
 
     return true; // All required fields are valid
   };
-  const onBackClick = () => {
-    debugger
-    navigate(`/questionnaire/${2}`, {
-      state: { questionnaireData2: answers, orderId: location.state?.orderId, isBackBtn:true },
-    });
+  const onBackClick = async () => {
+    let data = {
+      answers: formData,
+      orderId: location.state?.orderId,
+      status: "not submitted",
+    };
+    try {
+      const response = await axios.post(
+        `${base_url}/api/questionnaire/create`,
+        data,
+        ConfigToken()
+      );
+      if (response.status === 200) {
+        navigate(`/questionnaire/${2}`, {
+          state: {
+            questionnaireData2: answers,
+            orderId: location.state?.orderId,
+            isBackBtn: true,
+          },
+        });
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
   const onNextClick = () => {
     if (!validateFields()) {

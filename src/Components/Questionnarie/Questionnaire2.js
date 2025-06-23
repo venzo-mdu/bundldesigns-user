@@ -64,13 +64,6 @@ export const Questionnaire2 = ({
     isMale: false,
   });
 
-  console.log(
-    "activeFemaleButtons 00000000000000000",
-    activeFemaleButtons,
-    activeMaleButtons,
-    formData
-  );
-
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
@@ -176,24 +169,21 @@ export const Questionnaire2 = ({
       }
 
       if (selected === "male") {
-        debugger;
         if (selectedGenderType.isMale) {
           updatedData["10"].male = updatedData["10"].male;
         } else {
           updatedData["10"].male = [];
         }
       } else if (selected === "female") {
-        debugger;
         if (selectedGenderType.isFemale) {
           updatedData["10"].female = updatedData["10"].female;
         } else {
           updatedData["10"].female = [];
         }
       }
-
       return updatedData;
     });
-    debugger;
+
     if (selected === "female" && !selectedGenderType.isFemale) {
       setActiveFemaleButtons([]);
     }
@@ -232,7 +222,7 @@ export const Questionnaire2 = ({
   const validateFields = () => {
     const unansweredRequiredQuestions = questions.filter((q) => {
       if (q.required) {
-        debugger
+        debugger;
         // If it's an age-data question, ensure the correct buttons are selected
         if (q.answer_type === "age-data") {
           if (selectedGender?.includes("female")) {
@@ -241,8 +231,12 @@ export const Questionnaire2 = ({
           if (selectedGender?.includes("male")) {
             return !activeMaleButtons || activeMaleButtons.length === 0;
           }
-           if (selectedGender?.includes("both")) {
-            return !activeMaleButtons || activeMaleButtons.length === 0 || activeFemaleButtons.length === 0;
+          if (selectedGender?.includes("both")) {
+            return (
+              !activeMaleButtons ||
+              activeMaleButtons.length === 0 ||
+              activeFemaleButtons.length === 0
+            );
           }
         }
 
@@ -327,10 +321,39 @@ export const Questionnaire2 = ({
     }));
   };
 
-  const onBackClick = () => {
-    navigate(`/questionnaire/${1}`, {
-      state: { questionnaireData1: answers, orderId: location.state?.orderId },
-    });
+  const onBackClick = async () => {
+    if (Object.keys(answers).length > 0) {
+      dispatch(questionnaireAction2(formData));
+      let data = {
+        answers: formData,
+        orderId: location.state?.orderId,
+        status: "not submitted",
+      };
+      try {
+        const response = await axios.post(
+          `${base_url}/api/questionnaire/create`,
+          data,
+          ConfigToken()
+        );
+        if (response.status === 200) {
+          navigate(`/questionnaire/${1}`, {
+            state: {
+              questionnaireData1: answers,
+              orderId: location.state?.orderId,
+            },
+          });
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    } else {
+      navigate(`/questionnaire/${1}`, {
+        state: {
+          questionnaireData1: answers,
+          orderId: location.state?.orderId,
+        },
+      });
+    }
   };
   const onNextClick = () => {
     if (!validateFields()) {
@@ -453,7 +476,7 @@ export const Questionnaire2 = ({
                           onClick={() => {
                             const maleDisabled =
                               !selectedGender.includes("male");
-                            setSelectedGenderType((prev) => !prev.iMale);
+                            setSelectedGenderType((prev) => !prev.isMale);
                             handleGenderChange("male", maleDisabled);
                           }}
                         >

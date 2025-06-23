@@ -193,11 +193,37 @@ export const Questionnaire5 = ({
     }
   };
 
-  const onBackClick = () => {
-    navigate(`/questionnaire/${4}`, {
-      state: { questionnaireData4: answers4, orderId: location.state?.orderId },
-    });
+  const onBackClick = async () => {
+    try {
+      let finalFormData = {
+        answers: {
+          ...answers1,
+          ...answers2,
+          ...answers3,
+          ...answers4,
+          ...formData,
+        },
+        language: localStorage.getItem("lang") === "ar" ? "arabic" : "english",
+        status: "submit",
+        orderId: location.state?.orderId,
+      };
+      const response = await axios.post(
+        `${base_url}/api/questionnaire/create`,
+        finalFormData,
+        ConfigToken()
+      );
+      dispatch(questionnaireAnswers(finalFormData));
+      navigate(`/questionnaire/${4}`, {
+        state: {
+          questionnaireData4: answers4,
+          orderId: location.state?.orderId,
+        },
+      });
+    } catch (error) {
+      console.error("Error submitting data:", error);
+    }
   };
+  
   const FinishClick = async () => {
     if (!validateFields()) {
       return;

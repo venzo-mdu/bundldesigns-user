@@ -9,6 +9,7 @@ const initialState = {
   questionnaire4:[],
   questionnaire5:[],
   questionnaireanswers:[],
+  title:""
 };
 function configureStore(state = initialState) {
   return createStore(reducer, state);

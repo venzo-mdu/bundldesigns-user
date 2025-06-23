@@ -5,12 +5,13 @@ import { base_url } from "../Auth/BackendAPIUrl";
 import Load from "../../Images/Bundles/load_sticker.webp";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { questionnaireAction1 } from "../../Redux/Action";
+import { questionnaireAction1, questionnaireTitle } from "../../Redux/Action";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ConfigToken } from "../Auth/ConfigToken";
 import useToastMessage from "../Pages/Toaster/Toaster";
 import { Toaster } from "react-hot-toast";
+
 export const Questionnaire1 = ({
   formData,
   setFormData,
@@ -29,7 +30,8 @@ export const Questionnaire1 = ({
   const [requiredQuestions, setRequiredQuestions] = useState([]);
   const [isFilled, setIsFilled] = useState(null);
   const currentAnswer = useSelector((state) => state.questionnaire1);
-  console.log(currentAnswer, "ee");
+  const titile = useSelector((state) => state.title);
+
   const placeHolders = [
     "Project Name",
     "(ex:Fashion,Food,Services,Personal Brand,etc...)",
@@ -105,6 +107,24 @@ export const Questionnaire1 = ({
   };
 
   const handleInputChange = (questionId, value) => {
+    if (questionId == "1" || questionId == 1) {
+      dispatch(questionnaireTitle(value));
+      if (!activeType) {
+        setErrors((prev) => ({
+          ...prev,
+          [questionId]: "",
+        }));
+        return;
+      } else {
+        let temp_err = { ...errors };
+        delete temp_err[questionId];
+        setErrors(temp_err);
+      }
+      setFormData((prev) => ({
+        ...prev,
+        [questionId]: value,
+      }));
+    }
     if (questionId == "2" || questionId == "3") {
       if (/[0-9!@#$%^&*(),.?":{}|<>]/g.test(value)) {
         setErrors((prev) => ({
@@ -145,70 +165,6 @@ export const Questionnaire1 = ({
     }
   };
 
-  // const getAnswerValue = (questionId) => {
-  //   const formValue = formData?.[questionId];
-
-  //   if (questionId === 4 || questionId === '4') {
-  //     if (formValue && typeof formValue === 'object' && activeType) {
-  //       return formValue[activeType.toLowerCase()] || '';
-  //     }
-
-  //     // Check in fetched answers and parse if necessary
-  //     const fetchedAnswer = fetchQ1Answers.find((answer) => Number(answer.question_id) === Number(questionId))?.answer;
-
-  //     if (fetchedAnswer) {
-  //       try {
-  //         // Parse the stringified object
-  //         const parsedAnswer = JSON.parse(fetchedAnswer.replace(/'/g, '"')) || fetchedAnswer;
-  //         console.log(parsedAnswer)
-  //         if (!activeType && typeof parsedAnswer === 'object') {
-  //           if (parsedAnswer.product) {
-  //             setActiveType("product");
-  //           } else if (parsedAnswer.service) {
-  //             setActiveType("service");
-  //           }
-  //         }
-  //         setFormData((prevFormData) => ({
-  //           ...prevFormData,
-  //           [questionId]: activeType ? parsedAnswer?.[activeType] : JSON.stringify(parsedAnswer) ,
-  //         }))
-
-  //         // setFormData((prevFormData) => ({
-  //         //   ...prevFormData,
-  //         //   [questionId]: {
-  //         //     [activeType]: activeType
-  //         //       ? parsedAnswer?.[activeType]
-  //         //       : JSON.stringify(parsedAnswer),
-  //         //   },
-  //         // }));
-  //         return activeType ? parsedAnswer?.[activeType] : JSON.stringify(parsedAnswer);
-  //       } catch (error) {
-  //         console.error('Failed to parse fetchedAnswer:', error);
-  //         return '';
-  //       }
-  //     }
-
-  //     return '';
-  //   }
-
-  //   // Handle other questions normally
-  //   if (formValue !== undefined) {
-  //     return formValue;
-  //   }
-
-  //   // Check in fetched answers for other questionIds
-  //   const fetchedAnswer = fetchQ1Answers.find((answer) => Number(answer.question_id) === Number(questionId))?.answer;
-  //   if (fetchedAnswer !== undefined && formValue === undefined) {
-
-  //     setFormData((prevFormData) => ({
-  //       ...prevFormData,
-  //       [questionId]: fetchedAnswer,
-  //     }));
-  //   }
-
-  //   return fetchedAnswer ?? '';
-  // };
-
   const getAnswerValue = (questionId) => {
     const formValue = formData?.[questionId];
 
@@ -222,25 +178,6 @@ export const Questionnaire1 = ({
       const fetchedAnswerObj = fetchQ1Answers.find(
         (answer) => Number(answer.question_id) === Number(questionId)
       )?.answer;
-
-      // if (fetchedAnswerObj && typeof fetchedAnswerObj === "object") {
-      //   // Set activeType if not set
-      //   if (!activeType) {
-      //     if (fetchedAnswerObj.product) {
-      //       setActiveType("product");
-      //     } else if (fetchedAnswerObj.service) {
-      //       setActiveType("service");
-      //     }
-      //   }
-
-      //   // Store in formData
-      //   setFormData((prev) => ({
-      //     ...prev,
-      //     [questionId]: fetchedAnswerObj,
-      //   }));
-
-      //   // return activeType ? fetchedAnswerObj[activeType] : "";
-      // }
 
       if (
         !formValue &&
@@ -293,18 +230,28 @@ export const Questionnaire1 = ({
   const validateFields = () => {
     // Filter required questions that are either unanswered or contain invalid values
     const unansweredRequiredQuestions = questions.filter((q) => {
+      // For question 1, check titile (from Redux) or formData[1]
+      if (q.id === 1) {
+        const value = titile || formData?.[1];
+        return !value || (typeof value === "string" && value.trim() === "");
+      }
       return (
-        q.required && // Check if the question is marked as required
+        q.required &&
         (!formData?.[q.id] ||
-          (typeof formData[q.id] === "string" && formData[q.id].trim() === "")) // Check if there's no answer or only whitespace
+          (typeof formData[q.id] === "string" && formData[q.id].trim() === ""))
       );
     });
 
     if (unansweredRequiredQuestions.length > 0) {
+      const firstUnanswered = unansweredRequiredQuestions[0];
+      setErrors((prev) => ({
+        ...prev,
+        [firstUnanswered.id]: "Project Name is required",
+      }));
       const element = document.getElementById(
-        `question_${unansweredRequiredQuestions[0]?.id}`
+        `question_${firstUnanswered?.id}`
       );
-      setIsFilled(unansweredRequiredQuestions[0]?.id);
+      setIsFilled(firstUnanswered?.id);
       if (element) {
         element.scrollIntoView({ behavior: "smooth" });
       }
@@ -322,8 +269,8 @@ export const Questionnaire1 = ({
     if (!validateFields()) {
       return; // Stop execution if validation fails
     } else {
-      console.log(formData, "next");
       dispatch(questionnaireAction1(formData));
+      dispatch(questionnaireTitle(formData?.[1]));
       navigate(`/questionnaire/${2}`, {
         state: {
           orderId: location.state?.orderId,
@@ -360,21 +307,24 @@ export const Questionnaire1 = ({
     }
   };
 
-  // const getOrderDetails = async () => {
-  //   if (location.state?.orderId) {
-  //     const response = await axios.get(
-  //       `${base_url}/api/order/${location.state?.orderId}/`,
-  //       ConfigToken()
-  //     );
-  //     setFormData((prev) => ({
-  //       ...prev,
-  //       1: response.data.data.project_name,
-  //     }));
-  //   }
-  // };
-  // useEffect(() => {
-  //   getOrderDetails();
-  // }, []);
+  const getOrderDetails = async () => {
+    if (location.state?.orderId) {
+      const response = await axios.get(
+        `${base_url}/api/order/${location.state?.orderId}/`,
+        ConfigToken()
+      );
+      setFormData((prev) => ({
+        ...prev,
+        1: response.data.data.project_name,
+      }));
+      dispatch(questionnaireTitle(response.data.data.project_name));
+    }
+  };
+  useEffect(() => {
+    if (!titile) {
+      getOrderDetails();
+    }
+  }, []);
 
   return (
     <div>
@@ -454,7 +404,7 @@ export const Questionnaire1 = ({
                   : placeHolders[index]
               }
               // value={formData?.[question.id] || fetchQ1Answers[2].answer }
-              value={getAnswerValue(question.id)}
+              value={question.id === 1 ? titile : getAnswerValue(question.id)}
               onChange={(e) => handleInputChange(question.id, e.target.value)} // Update Redux
             />
             {question.id in errors && (

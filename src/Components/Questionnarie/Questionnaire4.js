@@ -372,6 +372,7 @@ export const Questionnaire4 = ({
     } else {
       setShadeBackgroundColor(color);
     }
+    debugger
     setFormData((prevData) => ({
       ...prevData,
       [questionId]: type === "surprise" ? "surprise" : color,
@@ -433,21 +434,40 @@ export const Questionnaire4 = ({
       );
       console.log(response.data, "res");
       setUploadContent((prev) => ({
-      ...prev,
-      [id]: {
-        ...prev[id],
-        [field]: response.data.file_url,
-        ...(field === "file" && { filename: e.target.files[0]?.name || "" }),
-      },
-    }));
-      
+        ...prev,
+        [id]: {
+          ...prev[id],
+          [field]: response.data.file_url,
+          ...(field === "file" && { filename: e.target.files[0]?.name || "" }),
+        },
+      }));
     }
   };
 
-  const onBackClick = () => {
-    navigate(`/questionnaire/${3}`, {
-      state: { questionnaireData3: answers, orderId: location.state?.orderId },
-    });
+  const onBackClick = async () => {
+    let data = {
+      answers: formData,
+      orderId: location.state?.orderId,
+      status: "not submitted",
+    };
+    debugger
+    try {
+      const response = await axios.post(
+        `${base_url}/api/questionnaire/create`,
+        data,
+        ConfigToken()
+      );
+      if (response.status === 200) {
+        navigate(`/questionnaire/${3}`, {
+          state: {
+            questionnaireData3: answers,
+            orderId: location.state?.orderId,
+          },
+        });
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const onNextClick = () => {
