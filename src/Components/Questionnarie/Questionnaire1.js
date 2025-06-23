@@ -174,7 +174,7 @@ export const Questionnaire1 = ({
     if (!validateFields()) {
       return;
     } else {
-      debugger
+      
       dispatch(fetchQuestionAnswer(questionAnswer1));
       
       navigate(`/questionnaire/${2}`, {

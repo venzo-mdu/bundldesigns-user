@@ -403,7 +403,7 @@ export const Questionnaire2 = ({
         questions={
           <>
             {questionAndAnswers.slice(7, 11).map((question, index) => {
-              debugger;
+              ;
               return (
                 <div
                   className="questions"

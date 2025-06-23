@@ -19,10 +19,7 @@ export const QuestionnaireLayout = ({lang,setLang}) => {
   })
  },[])
 
-    useEffect(() => {
-    debugger
-    dispatch(fetchQuestionAnswer(data));
-  }, []);
+
 
   const {pageno} = useParams();
   const [formData, setFormData] = useState()

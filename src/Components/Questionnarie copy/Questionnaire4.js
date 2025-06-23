@@ -379,7 +379,7 @@ export const Questionnaire4 = ({
     } else {
       setShadeBackgroundColor(color);
     }
-    debugger
+    
     setFormData((prevData) => ({
       ...prevData,
       [questionId]: type === "surprise" ? "surprise" : color,
@@ -457,7 +457,7 @@ export const Questionnaire4 = ({
       orderId: location.state?.orderId,
       status: "not submitted",
     };
-    debugger
+    
     try {
       const response = await axios.post(
         `${base_url}/api/questionnaire/create`,
