@@ -443,6 +443,7 @@ export const Signup = ({ lang }) => {
       );
       console.log(formattedErrors, response.response, "for");
       setErrors(formattedErrors);
+      setLoading(false);
     } finally {
       setRegisterData((prev) => ({
         ...prev,

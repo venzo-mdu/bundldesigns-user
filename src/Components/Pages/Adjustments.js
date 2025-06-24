@@ -4018,14 +4018,14 @@ export default function Adjustments({ user, lang, setLang }) {
                                         id={`${item.id}_design_list`}
                                         className="flex flex-wrap justify-between font-semibold text-[18px] py-[1.5%]  border-b !border-[#1BA56F]"
                                       >
-                                        <span className="md:basis-[25%] basis-[25%] xs:basis-[100%] text-[16px] md:text-[16px] xs:text-[16px] text-[#1BA56F] font-[500]">
+                                        <span className="md:basis-[25%] basis-[25%] xs:basis-[100%] text-[16px] md:text-[18px] xs:text-[16px] text-[#000] font-[500]">
                                           {lang === "ar"
                                             ? processArabicText(
                                                 item.name_arabic
                                               )
                                             : item.name_english}
                                         </span>
-                                        <p className="flex mb-0 text-[18px] md:text-[18px] xs:text-[16px] basis-[40%]">
+                                        <p className="flex mb-0 text-[18px] md:text-[18px] xs:text-[16px] basis-[40%] font-normal">
                                           <span className="flex items-center w-[150px]">
                                             <img
                                               src={BlackDollor}
@@ -4055,7 +4055,7 @@ export default function Adjustments({ user, lang, setLang }) {
                                             lang === "ar"
                                               ? "flex-row-reverse"
                                               : "flex-row"
-                                          } items-center text-[#1BA56F] border !border-[#1BA56F]`}
+                                          } items-center text-[#000] border !border-[#000]`}
                                         >
                                           <button
                                             onClick={() => remove_item(item.id)}
