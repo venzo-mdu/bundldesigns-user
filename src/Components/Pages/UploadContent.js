@@ -511,37 +511,36 @@ export default function UploadContent({ lang, setLang }) {
             {order && (
               <>
                 {" "}
-               <Addons
-                    order={order}
-                    skipId={skipId}
-                    uploadFiles={uploadFiles}
-                    setUploadFiles={setUploadFiles}
-                    lang={lang}
-                    designQuestions={designQuestions}
-                    uploadContent={uploadContent}
-                    handleChange={handleChange}
-                    uploadFile={uploadFile}
-                    uploadIcon={uploadIcon}
-                    setSkipId={setSkipId}
-                    saveContent={saveContent}
-                    setUploadContent={setUploadContent}
-                  />
-
-                  <BundlOrder
-                    order={order}
-                    skipId={skipId}
-                    uploadFiles={uploadFiles}
-                    setUploadFiles={setUploadFiles}
-                    lang={lang}
-                    designQuestions={designQuestions}
-                    uploadContent={uploadContent}
-                    handleChange={handleChange}
-                    uploadFile={uploadFile}
-                    uploadIcon={uploadIcon}
-                    setSkipId={setSkipId}
-                    saveContent={saveContent}
-                    setUploadContent={setUploadContent}
-                  />
+                <Addons
+                  order={order}
+                  skipId={skipId}
+                  uploadFiles={uploadFiles}
+                  setUploadFiles={setUploadFiles}
+                  lang={lang}
+                  designQuestions={designQuestions}
+                  uploadContent={uploadContent}
+                  handleChange={handleChange}
+                  uploadFile={uploadFile}
+                  uploadIcon={uploadIcon}
+                  setSkipId={setSkipId}
+                  saveContent={saveContent}
+                  setUploadContent={setUploadContent}
+                />
+                <BundlOrder
+                  order={order}
+                  skipId={skipId}
+                  uploadFiles={uploadFiles}
+                  setUploadFiles={setUploadFiles}
+                  lang={lang}
+                  designQuestions={designQuestions}
+                  uploadContent={uploadContent}
+                  handleChange={handleChange}
+                  uploadFile={uploadFile}
+                  uploadIcon={uploadIcon}
+                  setSkipId={setSkipId}
+                  saveContent={saveContent}
+                  setUploadContent={setUploadContent}
+                />
               </>
             )}
           </div>
@@ -682,7 +681,11 @@ export default function UploadContent({ lang, setLang }) {
               onClick={() => {
                 window.location.href = `/dashboard?order_id=${order.id}`;
               }}
-              className="flex cursor-pointer text-[18px] items-center text-black px-4"
+              className={`flex cursor-pointer text-[18px] items-center text-black px-4 ${
+                lang === "ar"
+                  ? "xs:mr-[-4px] sm:mr-[-8px]  lg:mr-[-13px] xl:mr-[0px]"
+                  : "xs:ml-[-4px] sm:ml-[-8px]  lg:ml-[-11px] xl:ml-[4px]"
+              }`}
             >
               {" "}
               <img

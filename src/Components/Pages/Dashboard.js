@@ -1825,7 +1825,7 @@ export default function Dashboard({ lang, setLang }) {
                       {/* <div className="select-container"> */}
                       <select
                         id="dashboardSelect"
-                        className="w-[25%] h-[45px] text-[32px] font-[700] outline-none border-none px-0 rounded-none appearance-none"
+                        className="w-[25%] h-[45px] text-[32px] font-[700] outline-none border-none px-0 rounded-none appearance-none "
                         onChange={(e) => handleSelectChange(e)}
                       >
                         {projects?.map((project, index) => (

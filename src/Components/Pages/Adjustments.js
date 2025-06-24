@@ -1466,6 +1466,7 @@ import { amountDecimal } from "../Utils/amountDecimal";
 import toast, { Toaster } from "react-hot-toast";
 import useToastMessage from "./Toaster/Toaster";
 import { processArabicText } from "../Utils/arabicFontParenthesisChecker";
+import backIcon from "../../Images/backIcon.svg";
 
 let newToastId = null;
 export default function Adjustments({ user, lang, setLang }) {
@@ -2069,7 +2070,11 @@ export default function Adjustments({ user, lang, setLang }) {
       window.scrollTo({ top: 0, behavior: "smooth" });
       setErrorMsg(null);
     } else {
-      setErrorMsg(lang === "ar" ? "يرجى تعبئة تفاصيل التعديل لإتمام الشراء" : "Please fill Adjustment details to checkout");
+      setErrorMsg(
+        lang === "ar"
+          ? "يرجى تعبئة تفاصيل التعديل لإتمام الشراء"
+          : "Please fill Adjustment details to checkout"
+      );
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
@@ -2201,7 +2206,12 @@ export default function Adjustments({ user, lang, setLang }) {
       });
       return false;
     } else if (!/^[\w-.]+@[\w-]+\.[a-z]{2,4}$/i.test(billingInfo.email)) {
-      setError({ email: lang === "ar" ? "تنسيق البريد الإلكتروني غير صالح" : "Invalid email format" });
+      setError({
+        email:
+          lang === "ar"
+            ? "تنسيق البريد الإلكتروني غير صالح"
+            : "Invalid email format",
+      });
       return false;
     }
     if (!billingInfo.phone.trim()) {
@@ -2393,9 +2403,7 @@ export default function Adjustments({ user, lang, setLang }) {
                 openpopup={openPopup}
                 isCancel={false}
                 setPopup={setOpenPopup}
-                title={
-                  lang === "ar" ? "إفراغ السلة" : "Empty your Cart"
-                }
+                title={lang === "ar" ? "إفراغ السلة" : "Empty your Cart"}
                 // subTitle={'Are you sure, you want to empty the cart.'}
                 onClick={() => createAdjustmentOrder()}
                 save={lang === "ar" ? "نعم" : "Yes"}
@@ -2406,16 +2414,19 @@ export default function Adjustments({ user, lang, setLang }) {
 
             <div className="px-[5%] py-4">
               <p
-                className="flex text-[18px] items-center pb-2 text-black cursor-pointer"
+                className="flex text-[18px] items-center pb-2 text-black cursor-pointer "
                 onClick={() => {
                   window.location.href = "/dashboard";
                 }}
               >
                 {" "}
-                <ArrowBackIcon style={{ width: "25px", marginRight: "10px" }} />
+                <img
+                  src={backIcon}
+                  className={`${lang === "ar" ? "ml-2 scale-x-[-1]" : "mr-2"} `}
+                ></img>{" "}
                 {lang === "ar"
-                  ? "العودة إلى لوحة التحكم"
-                  : "Back to dashboard "}
+                  ? "العودة إلى لوحة القيادة"
+                  : "Back to dashboard"}{" "}
               </p>
               <div className="">
                 <h1 className="lg:text-[38px] text-[#000] md:text-[30px]">
@@ -2542,7 +2553,9 @@ export default function Adjustments({ user, lang, setLang }) {
                             </button>
                             {adjustmentError && (
                               <p style={{ color: "#D83D99" }}>
-                                {lang === "ar" ? "يرجى إدخال تعليقاتك" : "Please enter your comments"}
+                                {lang === "ar"
+                                  ? "يرجى إدخال تعليقاتك"
+                                  : "Please enter your comments"}
                               </p>
                             )}
                           </p>
@@ -3621,9 +3634,7 @@ export default function Adjustments({ user, lang, setLang }) {
               openpopup={openPopup}
               isCancel={false}
               setPopup={setOpenPopup}
-              title={
-                lang === "ar" ? "إفراغ السلة" : "Empty your Cart"
-              }
+              title={lang === "ar" ? "إفراغ السلة" : "Empty your Cart"}
               // subTitle={'Are you sure, you want to empty the cart.'}
               onClick={() => createAdjustmentOrder()}
               save={lang === "ar" ? "نعم" : "Yes"}
@@ -3641,7 +3652,11 @@ export default function Adjustments({ user, lang, setLang }) {
               } border-black`}
             >
               <p
-                className="flex text-[18px] items-center pb-2 text-black cursor-pointer px-[25px]"
+                className={`flex text-[18px] items-center pb-2 text-black cursor-pointer px-[20px]"${
+                lang === "ar"
+                  ? "xs:mr-[-4px] sm:mr-[-8px]  lg:mr-[22px] xl:mr-[23px]"
+                  : "xs:ml-[-4px] sm:ml-[-8px]  lg:ml-[25px] xl:ml-[23px]"
+              }`}
                 onClick={() => {
                   window.location.href = "/dashboard";
                 }}
@@ -3814,7 +3829,9 @@ export default function Adjustments({ user, lang, setLang }) {
                                     marginTop: "-12px",
                                   }}
                                 >
-                                  {lang === "ar" ? "يرجى إدخال تعليقاتك" : "Please enter your comments"}
+                                  {lang === "ar"
+                                    ? "يرجى إدخال تعليقاتك"
+                                    : "Please enter your comments"}
                                 </p>
                               )}
                               <p className="font-medium text-[18px]">
