@@ -9,6 +9,7 @@ import { ConfigToken } from "../Auth/ConfigToken";
 import { ToastContainer, toast } from "react-toastify";
 import useToastMessage from "../Pages/Toaster/Toaster";
 import { Toaster } from "react-hot-toast";
+import { fetchQuestionAnswer } from "./questionnaire.slice";
 
 export const Questionnaire3 = ({
   formData,
@@ -27,13 +28,21 @@ export const Questionnaire3 = ({
   const [fetchQ3Answers, setFetchQ3Answers] = useState([]);
   const [isFilled, setIsFilled] = useState(null);
 
-    /* NEW QUESTIONANSWER */
-  
-    const questionAndAnswers = useSelector(
-      (state) => state?.questionAnswer?.questionAndAnswers
-    );
-  
-    /* NEW QUESTIONANSWER */
+  /* NEW QUESTIONANSWER */
+
+  const questionAndAnswers = useSelector(
+    (state) => state?.questionAnswer?.questionAndAnswers
+  );
+
+  const [questionAnswer3, setQuestionAnswer3] = useState([]);
+
+  useEffect(() => {
+    if (questionAndAnswers.length > 0) {
+      setQuestionAnswer3(questionAndAnswers);
+    }
+  }, [questionAndAnswers]);
+
+  /* NEW QUESTIONANSWER */
 
   const progressLabels = [
     {
@@ -119,46 +128,44 @@ export const Questionnaire3 = ({
       }
     };
     setFormData(currentAnswer);
-    setSliderValues(currentAnswer && currentAnswer[14] ? currentAnswer[14] : {});
+    setSliderValues(
+      currentAnswer && currentAnswer[14] ? currentAnswer[14] : {}
+    );
     fetchQuestions();
     fetchAnswers();
   }, []);
 
-  const getAnswerValue = (questionId) => {
-    const formValue = formData?.[questionId];
-    if (formValue !== undefined) {
-      return formValue;
-    }
+  // const getAnswerValue = (questionId) => {
+  //   const formValue = formData?.[questionId];
+  //   if (formValue !== undefined) {
+  //     return formValue;
+  //   }
 
-    const fetchedAnswer = fetchQ3Answers.find(
-      (answer) => answer.question_id === questionId
-    )?.answer;
-    if (fetchedAnswer !== undefined && formValue === undefined) {
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        [questionId]: fetchedAnswer,
-      }));
-    }
-    return fetchedAnswer ?? "";
-  };
+  //   const fetchedAnswer = fetchQ3Answers.find(
+  //     (answer) => answer.question_id === questionId
+  //   )?.answer;
+  //   if (fetchedAnswer !== undefined && formValue === undefined) {
+  //     setFormData((prevFormData) => ({
+  //       ...prevFormData,
+  //       [questionId]: fetchedAnswer,
+  //     }));
+  //   }
+  //   return fetchedAnswer ?? "";
+  // };
 
   const handleChange = (questionId, value) => {
-    setFormData((formValues) => ({
-      ...formValues,
-      [questionId]: value,
-    }));
+    // setFormData((formValues) => ({
+    //   ...formValues,
+    //   [questionId]: value,
+    // }));
+    setQuestionAnswer3((prev) =>
+      prev.map((ele) =>
+        ele.id === questionId ? { ...ele, answer: value } : ele
+      )
+    );
   };
 
   const showToastMessage = () => {
-    // toast.error(changeLang === 'ar' ? '•القيمة مطلوب' :"The Value is required!", {
-    //   position: toast?.POSITION?.TOP_RIGHT,
-    //   toastId: 'required-value-toast',
-    //   icon:false,
-    //       style:{
-    //           color:'#D83D99',
-    //           fontWeight:'700'
-    //       }
-    // });
     showErrorToast(
       changeLang === "ar" ? "القيمة مطلوب" : "The Value is required!",
       "#D83D99"
@@ -166,14 +173,11 @@ export const Questionnaire3 = ({
   };
 
   const validateFields = () => {
-    // Filter required questions that are either unanswered or contain invalid values
-    const unansweredRequiredQuestions = questions.filter((q) => {
-      console.log(formData[q.id], q.id);
+    const unansweredRequiredQuestions = questionAnswer3.filter((q) => {
       return (
-        q.required && // Check if the question is marked as required
-        (!formData?.[q.id] ||
-          (typeof formData?.[q.id] === "string" &&
-            formData?.[q.id]?.trim() === "")) // Check if there's no answer or only whitespace
+        q.required &&
+        (!q.answer ||
+          (typeof q?.answer === "string" && q?.answer.trim() === ""))
       );
     });
 
@@ -185,13 +189,14 @@ export const Questionnaire3 = ({
       if (element) {
         element.scrollIntoView({ behavior: "smooth" });
       }
-      showToastMessage(); // Display the error toast
+      showToastMessage();
       return false;
     }
 
-    return true; // All required fields are valid
+    return true;
   };
   const onBackClick = async () => {
+    dispatch(fetchQuestionAnswer(questionAnswer3));
     navigate(`/questionnaire/${2}`, {
       state: {
         questionnaireData2: answers,
@@ -204,7 +209,7 @@ export const Questionnaire3 = ({
     if (!validateFields()) {
       return; // Stop execution if validation fails
     }
-    dispatch(questionnaireAction3(formData));
+    dispatch(fetchQuestionAnswer(questionAnswer3));
     navigate(`/questionnaire/${4}`, {
       state: {
         orderId: location.state?.orderId,
@@ -265,7 +270,7 @@ export const Questionnaire3 = ({
         onSaveLaterClick={onSaveLaterClick}
         formData={formData}
         setFormData={setFormData}
-        questions={questionAndAnswers.slice(11, 14).map((question, index) => (
+        questions={questionAnswer3.slice(11, 14).map((question, index) => (
           <div className="questions" key={index} id={`question_${question.id}`}>
             <p
               className={`questions-title  xs:w-[90%] sm:w-full md:w-full mx-auto ${
@@ -285,7 +290,8 @@ export const Questionnaire3 = ({
               ""
             ) : (
               <input
-                value={getAnswerValue(question.id)}
+                // value={getAnswerValue(question.id)}
+                value={question.answer}
                 placeholder={
                   changeLang === "ar"
                     ? placeHolders_arabic[index]

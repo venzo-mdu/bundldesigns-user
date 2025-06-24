@@ -101,7 +101,11 @@ export let data = [
   {
     id: 10,
     question: "Who is your ideal target customer?",
-    answer: { female: ["18-23"], male: [] },
+    // answer: { female: ["11-17"], male: ["18-23"] },
+    answer: [
+      { female: true, value: ["11-17"] },
+      { male: true, value: [] },
+    ],
     answer_type: "age-data",
     category: "compatition",
     question_arabic: "من هو عميلك المثالي؟",
@@ -180,7 +184,6 @@ export let data = [
     id: 17,
     question: "Select your preferred typography style?*",
     answer: ["Surprise"],
-
     answer_type: "font",
     category: "visual",
     question_arabic: "اختر أسلوب الخط الذي تفضله؟",
@@ -190,7 +193,11 @@ export let data = [
   {
     id: 18,
     question: "Which colours seem closest to your brand vision ?",
-    answer: "rgb(9, 50, 108)",
+    answer: {
+      type: "",
+      color: "rgb(9, 50, 108)",
+      textColor: "rgb(0, 0, 0)",
+    },
 
     answer_type: "shade",
     category: "visual",
@@ -201,7 +208,12 @@ export let data = [
   {
     id: 19,
     question: "Are there specific colours you would like to see ?",
-    answer: ["Surprise"],
+    // answer: ["Surprise"],
+    answer: {
+      colorToll: [],
+      inputColor: [],
+      type: "Surprise",
+    },
 
     answer_type: "color",
     category: "visual",
@@ -223,7 +235,7 @@ export let data = [
     id: 21,
     question:
       "Please provide a few links or pictures for inspiration / creative direction?",
-    answer: { link: "http://localhost:3000", document: "" },
+    answer: { link: "", document: "", docName: "" },
 
     answer_type: "file/link",
     category: "visual",

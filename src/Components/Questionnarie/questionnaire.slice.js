@@ -7,7 +7,6 @@ const questionAnswer = createSlice({
   },
   reducers: {
     fetchQuestionAnswer: (state, action) => {
-      
       state.questionAndAnswers = action.payload;
     },
   },

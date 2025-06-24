@@ -147,8 +147,8 @@ export const Questionnaire1 = ({
       return (
         !q.answer &&
         q.required &&
-        (!formData?.[q.id] ||
-          (typeof formData[q.id] === "string" && formData[q.id].trim() === ""))
+        (!q?.answer ||
+          (typeof q?.answer === "string" && q?.answer.trim() === ""))
       );
     });
 
@@ -174,14 +174,9 @@ export const Questionnaire1 = ({
     if (!validateFields()) {
       return;
     } else {
-      
       dispatch(fetchQuestionAnswer(questionAnswer1));
-      
-      navigate(`/questionnaire/${2}`, {
-        state: {
-          orderId: location.state?.orderId,
-        },
-      });
+
+      navigate(`/questionnaire/${2}`);
       window.scrollTo({
         top: 0,
         behavior: "smooth",

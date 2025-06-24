@@ -25,7 +25,6 @@ import { ConfigToken } from "../Auth/ConfigToken";
 import { ToastContainer } from "react-toastify";
 import toast, { Toaster } from "react-hot-toast";
 import useToastMessage from "../Pages/Toaster/Toaster";
-import { fetchQuestionAnswer } from "./questionnaire.slice";
 
 export const Questionnaire4 = ({
   formData,
@@ -201,20 +200,11 @@ export const Questionnaire4 = ({
     );
   };
   const validateFields = () => {
+    // Filter required questions that are either unanswered or contain invalid data
     const unansweredRequiredQuestions = questionAnswer4?.filter((q) => {
       const answer = q.answer;
       if (!q.required) {
         return false;
-      }
-      if (q.id === 21) {
-        const link = q?.answer?.link?.trim?.();
-        const document = q?.answer?.document?.trim?.();
-
-        if (!link && !document) {
-          return true;
-        } else {
-          return false;
-        }
       }
 
       // return !answer || answer.toString().trim() === "";
@@ -247,6 +237,70 @@ export const Questionnaire4 = ({
 
     return true;
   };
+
+  // const handleColorClick = (color, questionId) => {
+  //   let updatedColors = [];
+  //   const isHexCode = /^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/.test(color);
+  //   if (!isHexCode && color !== "Surprise") {
+  //     toast.error(
+  //       changeLang === "ar" ? "HEX يُسمح فقط بكود  " : "Allows only HEX Code!",
+  //       {
+  //         position: toast?.POSITION?.TOP_RIGHT,
+  //         toastId: "required-value-toast",
+  //         icon: false,
+  //         style: {
+  //           color: "#D83D99",
+  //           fontWeight: "700",
+  //         },
+  //       }
+  //     );
+  //     setInputValue("");
+  //     return;
+  //   }
+  //   if (selectedColors?.includes(color)) {
+  //     toast.error(
+  //       changeLang === "ar"
+  //         ? "تمت إضافة اللون مسبقا!"
+  //         : "You have already added!",
+  //       {
+  //         position: toast?.POSITION?.TOP_RIGHT,
+  //         toastId: "required-value-toast",
+  //         icon: false,
+  //         style: {
+  //           color: "#D83D99",
+  //           fontWeight: "700",
+  //         },
+  //       }
+  //     );
+  //   }
+  //   let colorsArray = selectedColors || [];
+
+  //   if (color === "Surprise") {
+  //     updatedColors = ["Surprise"];
+  //   } else {
+  //     updatedColors = colorsArray?.includes("Surprise")
+  //       ? colorsArray.filter((item) => item !== "Surprise")
+  //       : [...colorsArray];
+
+  //     if (!updatedColors?.includes(color)) {
+  //       updatedColors = [...updatedColors, color];
+  //     }
+  //   }
+
+  //   setSelectedColors(updatedColors);
+  //   setInputValue("");
+  //   // setFormData((prevFormData) => ({
+  //   //   ...prevFormData,
+  //   //   [questionId]: updatedColors,
+  //   // }));
+  //   console.log(questionAnswer4[19]);
+  //   debugger;
+  //   setQuestionAnswer4((prev) =>
+  //     prev.map((ele) =>
+  //       ele.id === questionId ? { ...ele, answer: updatedColors } : ele
+  //     )
+  //   );
+  // };
 
   const handleColorClick = (color, questionId) => {
     let updatedColors = [];
@@ -383,34 +437,19 @@ export const Questionnaire4 = ({
     //   ...prevData,
     //   [questionId]: value,
     // }));
-    debugger;
-    if (questionId === 15 || questionId === 16) {
-      debugger;
-      setQuestionAnswer4((prev) =>
-        prev.map((ele) =>
-          ele.id === questionId
-            ? {
-                ...ele,
-                answer: value,
-              }
-            : ele
-        )
-      );
-    } else {
-      setQuestionAnswer4((prev) =>
-        prev.map((ele) =>
-          ele.id === questionId
-            ? {
-                ...ele,
-                answer: {
-                  ...ele.answer,
-                  link: value,
-                },
-              }
-            : ele
-        )
-      );
-    }
+    setQuestionAnswer4((prev) =>
+      prev.map((ele) =>
+        ele.id === questionId
+          ? {
+              ...ele,
+              answer: {
+                ...ele.answer,
+                link: value,
+              },
+            }
+          : ele
+      )
+    );
   };
 
   const handleTextureChange = (e, questionId, isSurprise = false) => {
@@ -461,6 +500,16 @@ export const Questionnaire4 = ({
         formData,
         ConfigToken()
       );
+      console.log(response.data, "res");
+      // setUploadContent((prev) => ({
+      //   ...prev,
+      //   [id]: {
+      //     ...prev[id],
+      //     [field]: response.data.file_url,
+      //     ...(field === "file" && { filename: e.target.files[0]?.name || "" }),
+      //   },
+      // }));
+
       setQuestionAnswer4((prev) =>
         prev.map((ele) =>
           ele.id === id
@@ -468,7 +517,6 @@ export const Questionnaire4 = ({
                 ...ele,
                 answer: {
                   ...ele.answer,
-                  docName: e.target.files[0]?.name,
                   document: response.data.file_url,
                 },
               }
@@ -486,7 +534,7 @@ export const Questionnaire4 = ({
     if (!validateFields()) {
       return; // Stop execution if validation fails
     }
-    dispatch(fetchQuestionAnswer(questionAnswer4));
+    // dispatch(questionnaireAction4(formData));
     navigate(`/questionnaire/${5}`, {
       state: {
         orderId: location.state?.orderId,
@@ -1293,7 +1341,7 @@ export const Questionnaire4 = ({
                         </p>
                       </>
                     </div>
-                    {question?.answer.docName}
+                    {uploadContent?.[question?.id]?.filename}
                   </>
                 ) : (
                   ""
@@ -1307,7 +1355,7 @@ export const Questionnaire4 = ({
                     }
                     value={question.answer}
                     className={`question-input ${
-                      !question.answer
+                      isFilled === question?.id
                         ? "border-red-400 border-b-[2px]"
                         : `${
                             window?.innerWidth <= 475

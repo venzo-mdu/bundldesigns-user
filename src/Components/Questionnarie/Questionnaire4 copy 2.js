@@ -25,7 +25,6 @@ import { ConfigToken } from "../Auth/ConfigToken";
 import { ToastContainer } from "react-toastify";
 import toast, { Toaster } from "react-hot-toast";
 import useToastMessage from "../Pages/Toaster/Toaster";
-import { fetchQuestionAnswer } from "./questionnaire.slice";
 
 export const Questionnaire4 = ({
   formData,
@@ -201,20 +200,11 @@ export const Questionnaire4 = ({
     );
   };
   const validateFields = () => {
+    // Filter required questions that are either unanswered or contain invalid data
     const unansweredRequiredQuestions = questionAnswer4?.filter((q) => {
       const answer = q.answer;
       if (!q.required) {
         return false;
-      }
-      if (q.id === 21) {
-        const link = q?.answer?.link?.trim?.();
-        const document = q?.answer?.document?.trim?.();
-
-        if (!link && !document) {
-          return true;
-        } else {
-          return false;
-        }
       }
 
       // return !answer || answer.toString().trim() === "";
@@ -251,7 +241,6 @@ export const Questionnaire4 = ({
   const handleColorClick = (color, questionId) => {
     let updatedColors = [];
     const isHexCode = /^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/.test(color);
-
     if (!isHexCode && color !== "Surprise") {
       toast.error(
         changeLang === "ar" ? "HEX يُسمح فقط بكود  " : "Allows only HEX Code!",
@@ -268,7 +257,6 @@ export const Questionnaire4 = ({
       setInputValue("");
       return;
     }
-
     if (selectedColors?.includes(color)) {
       toast.error(
         changeLang === "ar"
@@ -285,32 +273,30 @@ export const Questionnaire4 = ({
         }
       );
     }
-
     let colorsArray = selectedColors || [];
-
+    // If "Surprise" is selected, clear all other colors and set only "Surprise"
     if (color === "Surprise") {
       updatedColors = ["Surprise"];
     } else {
-      updatedColors = colorsArray.includes("Surprise")
-        ? colorsArray.filter((item) => item !== "Surprise")
+      // If any other color is selected, remove "Surprise" if it's in the list
+      updatedColors = colorsArray?.includes("Surprise")
+        ? colorsArray.filter((item) => item !== "Surprise") // Remove "Surprise"
         : [...colorsArray];
 
-      if (!updatedColors.includes(color)) {
-        updatedColors.push(color);
+      // Add the selected color if it's not already in the list
+      if (!updatedColors?.includes(color)) {
+        updatedColors = [...updatedColors, color];
       }
     }
 
+    // Update selected colors
     setSelectedColors(updatedColors);
     setInputValue("");
-
-    console.log(questionAnswer4.find((ele) => ele.id == questionId)); // for debugging
-    debugger;
-
-    setQuestionAnswer4((prev) =>
-      prev.map((ele) =>
-        ele.id == questionId ? { ...ele, answer: updatedColors } : ele
-      )
-    );
+    // Update formData with the selected colors for the specific questionId
+    setFormData((prevFormData) => ({
+      ...prevFormData, // Keep existing form data
+      [questionId]: updatedColors, // Update the selected colors for this questionId
+    }));
   };
 
   const handleRemoveColor = (color, questionId) => {
@@ -326,17 +312,11 @@ export const Questionnaire4 = ({
   };
 
   const handleInputChange = (e, questionId) => {
-    // setInputValue(e.target.value);
-    // setFormData((prevData) => ({
-    //   ...prevData,
-    //   [questionId]: e.target.value,
-    // }));
-    debugger;
-    setQuestionAnswer4((prev) =>
-      prev.map((ele) =>
-        ele.id === questionId ? { ...ele, answer: e.target.value } : ele
-      )
-    );
+    setInputValue(e.target.value);
+    setFormData((prevData) => ({
+      ...prevData,
+      [questionId]: e.target.value,
+    }));
   };
 
   const handleButtonClick = (index, questionId, font) => {
@@ -362,6 +342,16 @@ export const Questionnaire4 = ({
         };
       })
     );
+
+    // setActiveButtons((prevButtons = []) =>
+    //   font === "Surprise"
+    //     ? ["Surprise"]
+    //     : prevButtons?.includes("Surprise")
+    //     ? [font]
+    //     : prevButtons?.includes(font)
+    //     ? prevButtons?.filter((btn) => btn !== font)
+    //     : [...prevButtons, font]
+    // );
   };
 
   const handleShadeButtonClick = (color, textColor, type, questionId) => {
@@ -371,82 +361,77 @@ export const Questionnaire4 = ({
       color: color,
       textColor: textColor,
     };
+    debugger;
+    // setShadeBackgroundColor(color);
+    // setshadeColor(textColor);
+    // setShadeType("");
+    // if (type === "surprise") {
+    //   setShadeType(type);
+    //   setShadeBackgroundColor("rgb(228, 222, 216)");
+    // } else {
+    //   setShadeBackgroundColor(color);
+    // }
+
+    // setFormData((prevData) => ({
+    //   ...prevData,
+    //   [questionId]: type === "surprise" ? "surprise" : color,
+    // }));
+
+    // if (type === "surprise") {
+    //   setShadeType(type);
+    //   setShadeBackgroundColor("rgb(228, 222, 216)");
+    // } else {
+    //   setShadeBackgroundColor(color);
+    // }
+
     setQuestionAnswer4((prev) =>
       prev.map((ele) =>
-        ele.id === questionId ? { ...ele, answer: answer } : ele
+        ele.id === questionId
+          ? { ...ele, answer: answer }
+          : ele
       )
     );
   };
 
   const handleChange = (questionId, value) => {
-    // setFormData((prevData) => ({
-    //   ...prevData,
-    //   [questionId]: value,
-    // }));
-    debugger;
-    if (questionId === 15 || questionId === 16) {
-      debugger;
-      setQuestionAnswer4((prev) =>
-        prev.map((ele) =>
-          ele.id === questionId
-            ? {
-                ...ele,
-                answer: value,
-              }
-            : ele
-        )
-      );
-    } else {
-      setQuestionAnswer4((prev) =>
-        prev.map((ele) =>
-          ele.id === questionId
-            ? {
-                ...ele,
-                answer: {
-                  ...ele.answer,
-                  link: value,
-                },
-              }
-            : ele
-        )
-      );
-    }
+    setFormData((prevData) => ({
+      ...prevData,
+      [questionId]: value,
+    }));
   };
 
   const handleTextureChange = (e, questionId, isSurprise = false) => {
     if (isSurprise) {
-      setQuestionAnswer4((prev) =>
-        prev.map((ele) =>
-          ele.id === questionId ? { ...ele, answer: ["Surprise"] } : ele
-        )
-      );
-
+      // Set "Surprise" as the only selected value and clear all others
+      setFormData((prevData) => ({
+        ...prevData,
+        [questionId]: ["Surprise"],
+      }));
       document.querySelectorAll('input[name="13"]').forEach((checkbox) => {
-        checkbox.checked = false;
+        checkbox.checked = false; // Uncheck all checkboxes with name="13"
       });
     } else {
       const { value, checked } = e.target;
-      setQuestionAnswer4((prev) => {
-        return prev.map((ele) => {
-          if (ele.id !== questionId) return ele;
 
-          const currentSelections = ele.answer || [];
+      setFormData((prevData) => {
+        const currentSelections = prevData[questionId] || [];
 
-          if (checked) {
-            return {
-              ...ele,
-              answer: [
-                ...currentSelections.filter((item) => item !== "Surprise"),
-                value,
-              ],
-            };
-          } else {
-            return {
-              ...ele,
-              answer: currentSelections.filter((item) => item !== value),
-            };
-          }
-        });
+        if (checked) {
+          // If a non-Surprise option is selected, clear "Surprise" and add the new value
+          return {
+            ...prevData,
+            [questionId]: [
+              ...currentSelections.filter((item) => item !== "Surprise"),
+              value,
+            ],
+          };
+        } else {
+          // Remove the value if unchecked
+          return {
+            ...prevData,
+            [questionId]: currentSelections.filter((item) => item !== value),
+          };
+        }
       });
     }
   };
@@ -461,20 +446,15 @@ export const Questionnaire4 = ({
         formData,
         ConfigToken()
       );
-      setQuestionAnswer4((prev) =>
-        prev.map((ele) =>
-          ele.id === id
-            ? {
-                ...ele,
-                answer: {
-                  ...ele.answer,
-                  docName: e.target.files[0]?.name,
-                  document: response.data.file_url,
-                },
-              }
-            : ele
-        )
-      );
+      console.log(response.data, "res");
+      setUploadContent((prev) => ({
+        ...prev,
+        [id]: {
+          ...prev[id],
+          [field]: response.data.file_url,
+          ...(field === "file" && { filename: e.target.files[0]?.name || "" }),
+        },
+      }));
     }
   };
 
@@ -486,7 +466,7 @@ export const Questionnaire4 = ({
     if (!validateFields()) {
       return; // Stop execution if validation fails
     }
-    dispatch(fetchQuestionAnswer(questionAnswer4));
+    // dispatch(questionnaireAction4(formData));
     navigate(`/questionnaire/${5}`, {
       state: {
         orderId: location.state?.orderId,
@@ -886,8 +866,8 @@ export const Questionnaire4 = ({
                       <div className="flex justify-center items-center">
                         <input
                           type="text"
-                          value={question.answer}
-                          onChange={(e) => handleInputChange(question.id, e)}
+                          value={inputValue}
+                          onChange={handleInputChange}
                           placeholder="ex: #E1483D"
                           style={{
                             padding: "8px",
@@ -966,7 +946,7 @@ export const Questionnaire4 = ({
                             type="checkbox"
                             name="13"
                             checked={
-                              question.answer.includes("patterns")
+                              formData?.[20]?.includes("patterns")
                                 ? true
                                 : false
                             }
@@ -1004,7 +984,7 @@ export const Questionnaire4 = ({
                             type="checkbox"
                             name="13"
                             checked={
-                              question.answer.includes("textures")
+                              formData?.[20]?.includes("textures")
                                 ? true
                                 : false
                             }
@@ -1041,7 +1021,7 @@ export const Questionnaire4 = ({
                             type="checkbox"
                             name="13"
                             checked={
-                              question.answer.includes("collages")
+                              formData?.[20]?.includes("collages")
                                 ? true
                                 : false
                             }
@@ -1078,7 +1058,7 @@ export const Questionnaire4 = ({
                             type="checkbox"
                             name="13"
                             checked={
-                              question.answer.includes("cleanvisual")
+                              formData?.[20]?.includes("cleanvisual")
                                 ? true
                                 : false
                             }
@@ -1115,7 +1095,7 @@ export const Questionnaire4 = ({
                             type="checkbox"
                             name="13"
                             checked={
-                              question.answer.includes("illustrations")
+                              formData?.[20]?.includes("illustrations")
                                 ? true
                                 : false
                             }
@@ -1152,7 +1132,7 @@ export const Questionnaire4 = ({
                             type="checkbox"
                             name="13"
                             checked={
-                              question.answer.includes("frames") ? true : false
+                              formData?.[20]?.includes("frames") ? true : false
                             }
                             value="frames"
                             id="frames"
@@ -1189,7 +1169,7 @@ export const Questionnaire4 = ({
                       </p>
                       <button
                         className={`${
-                          question.answer.includes("Surprise")
+                          formData?.[question.id]?.includes("Surprise")
                             ? "surprise-active"
                             : "surprise"
                         }`}
@@ -1225,7 +1205,7 @@ export const Questionnaire4 = ({
                           type="text"
                           placeholder="Links"
                           // value={getAnswerValue(question.id)}
-                          value={question.answer.link}
+                          value={question.answer}
                           onChange={(e) =>
                             handleChange(question.id, e.target.value)
                           }
@@ -1293,7 +1273,7 @@ export const Questionnaire4 = ({
                         </p>
                       </>
                     </div>
-                    {question?.answer.docName}
+                    {uploadContent?.[question?.id]?.filename}
                   </>
                 ) : (
                   ""
@@ -1307,7 +1287,7 @@ export const Questionnaire4 = ({
                     }
                     value={question.answer}
                     className={`question-input ${
-                      !question.answer
+                      isFilled === question?.id
                         ? "border-red-400 border-b-[2px]"
                         : `${
                             window?.innerWidth <= 475

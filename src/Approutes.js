@@ -63,7 +63,6 @@ export default function AppRouter() {
   const [user, setUser] = useState([]);
 
   useEffect(() => {
-    debugger;
     dispatch(fetchQuestionAnswer(data));
   }, []);
 

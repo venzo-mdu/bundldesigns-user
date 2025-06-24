@@ -25,7 +25,6 @@ import { ConfigToken } from "../Auth/ConfigToken";
 import { ToastContainer } from "react-toastify";
 import toast, { Toaster } from "react-hot-toast";
 import useToastMessage from "../Pages/Toaster/Toaster";
-import { fetchQuestionAnswer } from "./questionnaire.slice";
 
 export const Questionnaire4 = ({
   formData,
@@ -55,16 +54,8 @@ export const Questionnaire4 = ({
   /* NEW QUESTIONANSWER */
 
   const questionAndAnswers = useSelector(
-    (state) => state?.questionAnswer?.questionAndAnswers || []
+    (state) => state?.questionAnswer?.questionAndAnswers
   );
-
-  const [questionAnswer4, setQuestionAnswer4] = useState([]);
-
-  useEffect(() => {
-    if (questionAndAnswers.length > 0) {
-      setQuestionAnswer4(questionAndAnswers);
-    }
-  }, [questionAndAnswers]);
 
   /* NEW QUESTIONANSWER */
 
@@ -194,27 +185,45 @@ export const Questionnaire4 = ({
 
   const displayedColors = colorCodes.slice(0, 90);
 
+  const getAnswerValue = (questionId) => {
+    const formValue = formData?.[questionId];
+    if (formValue !== undefined) {
+      return formValue;
+    }
+
+    const fetchedAnswer = fetchQ4Answers.find(
+      (answer) => answer.question_id === questionId
+    )?.answer;
+    if (fetchedAnswer !== undefined && formValue === undefined) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [questionId]: fetchedAnswer,
+      }));
+    }
+    return fetchedAnswer ?? "";
+  };
+
   const showToastMessage = () => {
+    // toast.error(changeLang === 'ar' ? '•القيمة مطلوب' :"The Value is required!", {
+    //   position: toast?.POSITION?.TOP_RIGHT,
+    //   toastId: 'required-value-toast',
+    //   icon: false,
+    //   style: {
+    //     color: '#D83D99',
+    //     fontWeight: '700'
+    //   }
+    // });
     showErrorToast(
       changeLang === "ar" ? "القيمة مطلوب" : "The Value is required!",
       "#D83D99"
     );
   };
   const validateFields = () => {
-    const unansweredRequiredQuestions = questionAnswer4?.filter((q) => {
-      const answer = q.answer;
+    // Filter required questions that are either unanswered or contain invalid data
+    const unansweredRequiredQuestions = questions?.filter((q) => {
+      const answer = formData?.[q.id];
       if (!q.required) {
         return false;
-      }
-      if (q.id === 21) {
-        const link = q?.answer?.link?.trim?.();
-        const document = q?.answer?.document?.trim?.();
-
-        if (!link && !document) {
-          return true;
-        } else {
-          return false;
-        }
       }
 
       // return !answer || answer.toString().trim() === "";
@@ -251,7 +260,6 @@ export const Questionnaire4 = ({
   const handleColorClick = (color, questionId) => {
     let updatedColors = [];
     const isHexCode = /^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/.test(color);
-
     if (!isHexCode && color !== "Surprise") {
       toast.error(
         changeLang === "ar" ? "HEX يُسمح فقط بكود  " : "Allows only HEX Code!",
@@ -268,7 +276,6 @@ export const Questionnaire4 = ({
       setInputValue("");
       return;
     }
-
     if (selectedColors?.includes(color)) {
       toast.error(
         changeLang === "ar"
@@ -285,32 +292,30 @@ export const Questionnaire4 = ({
         }
       );
     }
-
     let colorsArray = selectedColors || [];
-
+    // If "Surprise" is selected, clear all other colors and set only "Surprise"
     if (color === "Surprise") {
       updatedColors = ["Surprise"];
     } else {
-      updatedColors = colorsArray.includes("Surprise")
-        ? colorsArray.filter((item) => item !== "Surprise")
+      // If any other color is selected, remove "Surprise" if it's in the list
+      updatedColors = colorsArray?.includes("Surprise")
+        ? colorsArray.filter((item) => item !== "Surprise") // Remove "Surprise"
         : [...colorsArray];
 
-      if (!updatedColors.includes(color)) {
-        updatedColors.push(color);
+      // Add the selected color if it's not already in the list
+      if (!updatedColors?.includes(color)) {
+        updatedColors = [...updatedColors, color];
       }
     }
 
+    // Update selected colors
     setSelectedColors(updatedColors);
     setInputValue("");
-
-    console.log(questionAnswer4.find((ele) => ele.id == questionId)); // for debugging
-    debugger;
-
-    setQuestionAnswer4((prev) =>
-      prev.map((ele) =>
-        ele.id == questionId ? { ...ele, answer: updatedColors } : ele
-      )
-    );
+    // Update formData with the selected colors for the specific questionId
+    setFormData((prevFormData) => ({
+      ...prevFormData, // Keep existing form data
+      [questionId]: updatedColors, // Update the selected colors for this questionId
+    }));
   };
 
   const handleRemoveColor = (color, questionId) => {
@@ -326,127 +331,100 @@ export const Questionnaire4 = ({
   };
 
   const handleInputChange = (e, questionId) => {
-    // setInputValue(e.target.value);
-    // setFormData((prevData) => ({
-    //   ...prevData,
-    //   [questionId]: e.target.value,
-    // }));
-    debugger;
-    setQuestionAnswer4((prev) =>
-      prev.map((ele) =>
-        ele.id === questionId ? { ...ele, answer: e.target.value } : ele
-      )
-    );
+    setInputValue(e.target.value);
+    setFormData((prevData) => ({
+      ...prevData,
+      [questionId]: e.target.value,
+    }));
   };
 
   const handleButtonClick = (index, questionId, font) => {
-    setQuestionAnswer4((prev) =>
-      prev.map((ele) => {
-        if (ele.id !== questionId) return ele;
+    setFormData((prevData) => {
+      let updatedFonts;
 
-        let updatedFonts;
+      if (font === "Surprise") {
+        updatedFonts = ["Surprise"];
+      } else {
+        updatedFonts = prevData?.[questionId]?.includes("Surprise")
+          ? [font]
+          : prevData[questionId]?.includes(font)
+          ? prevData[questionId].filter((f) => f !== font)
+          : [...(prevData[questionId] || []), font];
+      }
 
-        if (font === "Surprise") {
-          updatedFonts = ["Surprise"];
-        } else {
-          updatedFonts = ele.answer?.includes("Surprise")
-            ? [font]
-            : ele.answer?.includes(font)
-            ? ele.answer.filter((f) => f !== font)
-            : [...(ele.answer || []), font];
-        }
+      return {
+        ...prevData,
+        [questionId]: updatedFonts,
+      };
+    });
 
-        return {
-          ...ele,
-          answer: updatedFonts,
-        };
-      })
+    setActiveButtons((prevButtons = []) =>
+      font === "Surprise"
+        ? ["Surprise"]
+        : prevButtons?.includes("Surprise")
+        ? [font]
+        : prevButtons?.includes(font)
+        ? prevButtons?.filter((btn) => btn !== font)
+        : [...prevButtons, font]
     );
   };
 
   const handleShadeButtonClick = (color, textColor, type, questionId) => {
-    console.log(questionAnswer4[17]);
-    let answer = {
-      type,
-      color: color,
-      textColor: textColor,
-    };
-    setQuestionAnswer4((prev) =>
-      prev.map((ele) =>
-        ele.id === questionId ? { ...ele, answer: answer } : ele
-      )
-    );
+    setShadeBackgroundColor(color);
+    setshadeColor(textColor);
+    setShadeType("");
+    if (type === "surprise") {
+      setShadeType(type);
+      setShadeBackgroundColor("rgb(228, 222, 216)");
+    } else {
+      setShadeBackgroundColor(color);
+    }
+
+    setFormData((prevData) => ({
+      ...prevData,
+      [questionId]: type === "surprise" ? "surprise" : color,
+    }));
   };
 
   const handleChange = (questionId, value) => {
-    // setFormData((prevData) => ({
-    //   ...prevData,
-    //   [questionId]: value,
-    // }));
-    debugger;
-    if (questionId === 15 || questionId === 16) {
-      debugger;
-      setQuestionAnswer4((prev) =>
-        prev.map((ele) =>
-          ele.id === questionId
-            ? {
-                ...ele,
-                answer: value,
-              }
-            : ele
-        )
-      );
-    } else {
-      setQuestionAnswer4((prev) =>
-        prev.map((ele) =>
-          ele.id === questionId
-            ? {
-                ...ele,
-                answer: {
-                  ...ele.answer,
-                  link: value,
-                },
-              }
-            : ele
-        )
-      );
-    }
+    setFormData((prevData) => ({
+      ...prevData,
+      [questionId]: value,
+    }));
   };
 
   const handleTextureChange = (e, questionId, isSurprise = false) => {
     if (isSurprise) {
-      setQuestionAnswer4((prev) =>
-        prev.map((ele) =>
-          ele.id === questionId ? { ...ele, answer: ["Surprise"] } : ele
-        )
-      );
-
+      // Set "Surprise" as the only selected value and clear all others
+      setFormData((prevData) => ({
+        ...prevData,
+        [questionId]: ["Surprise"],
+      }));
       document.querySelectorAll('input[name="13"]').forEach((checkbox) => {
-        checkbox.checked = false;
+        checkbox.checked = false; // Uncheck all checkboxes with name="13"
       });
     } else {
       const { value, checked } = e.target;
-      setQuestionAnswer4((prev) => {
-        return prev.map((ele) => {
-          if (ele.id !== questionId) return ele;
 
-          const currentSelections = ele.answer || [];
+      setFormData((prevData) => {
+        const currentSelections = prevData[questionId] || [];
 
-          if (checked) {
-            return {
-              ...ele,
-              answer: [
-                ...currentSelections.filter((item) => item !== "Surprise"),
-                value,
-              ],
-            };
-          } else {
-            return {
-              ...ele,
-              answer: currentSelections.filter((item) => item !== value),
-            };
-          }
-        });
+        if (checked) {
+          // If a non-Surprise option is selected, clear "Surprise" and add the new value
+          return {
+            ...prevData,
+            [questionId]: [
+              ...currentSelections.filter((item) => item !== "Surprise"),
+              value,
+            ],
+          };
+        } else {
+          // Remove the value if unchecked
+          return {
+            ...prevData,
+            [questionId]: currentSelections.filter((item) => item !== value),
+          };
+        }
       });
     }
   };
@@ -461,20 +439,15 @@ export const Questionnaire4 = ({
         formData,
         ConfigToken()
       );
-      setQuestionAnswer4((prev) =>
-        prev.map((ele) =>
-          ele.id === id
-            ? {
-                ...ele,
-                answer: {
-                  ...ele.answer,
-                  docName: e.target.files[0]?.name,
-                  document: response.data.file_url,
-                },
-              }
-            : ele
-        )
-      );
+      console.log(response.data, "res");
+      setUploadContent((prev) => ({
+        ...prev,
+        [id]: {
+          ...prev[id],
+          [field]: response.data.file_url,
+          ...(field === "file" && { filename: e.target.files[0]?.name || "" }),
+        },
+      }));
     }
   };
 
@@ -486,7 +459,7 @@ export const Questionnaire4 = ({
     if (!validateFields()) {
       return; // Stop execution if validation fails
     }
-    dispatch(fetchQuestionAnswer(questionAnswer4));
+    // dispatch(questionnaireAction4(formData));
     navigate(`/questionnaire/${5}`, {
       state: {
         orderId: location.state?.orderId,
@@ -550,7 +523,7 @@ export const Questionnaire4 = ({
         questions={
           <>
             {/* ${question.id == 21 ?'!text-[22px]':''} */}
-            {questionAnswer4.slice(14, 21)?.map((question, index) => (
+            {questionAndAnswers.slice(14, 21)?.map((question, index) => (
               <div
                 className="questions"
                 key={index}
@@ -585,18 +558,13 @@ export const Questionnaire4 = ({
                   <>
                     <div
                       className="shade-background "
-                      style={{
-                        backgroundColor:
-                          question.answer.type !== "surprise"
-                            ? question.answer.color
-                            : "rgb(228, 222, 216)",
-                      }}
+                      style={{ backgroundColor: shadeBackgroundColor }}
                     >
                       <p
                         style={{
                           color:
-                            question.answer.color === "rgb(228, 222, 216)"
-                              ? "rgb(0, 0, 0)"
+                            shadeBackgroundColor === "rgb(228, 222, 216)"
+                              ? ""
                               : "#FFFFFF",
                           width: "100%",
                         }}
@@ -616,8 +584,8 @@ export const Questionnaire4 = ({
                           <img src={Color1}></img>
                           <button
                             className={
-                              question.answer.color === "rgb(228, 222, 216)" &&
-                              question.answer.type !== "surprise"
+                              shadeBackgroundColor === "rgb(228, 222, 216)" &&
+                              shadeType !== "surprise"
                                 ? "shade-btn-active"
                                 : "shade-btn"
                             }
@@ -639,8 +607,8 @@ export const Questionnaire4 = ({
                           <img src={Color2}></img>
                           <button
                             className={
-                              question.answer.color === "rgb(9, 50, 108)" &&
-                              question.answer.type !== "surprise"
+                              shadeBackgroundColor === "rgb(9, 50, 108)" &&
+                              shadeType !== "surprise"
                                 ? "shade-btn-active"
                                 : "shade-btn"
                             }
@@ -662,8 +630,8 @@ export const Questionnaire4 = ({
                           <img src={Color3}></img>
                           <button
                             className={
-                              question.answer.color === "rgb(255, 124, 124)" &&
-                              question.answer.type !== "surprise"
+                              shadeBackgroundColor === "rgb(255, 124, 124)" &&
+                              shadeType !== "surprise"
                                 ? "shade-btn-active"
                                 : "shade-btn"
                             }
@@ -692,7 +660,7 @@ export const Questionnaire4 = ({
                       >
                         <p
                           className="shade-bundl-text"
-                          style={{ color: question.answer.textColor }}
+                          style={{ color: shadeColor }}
                         >
                           Bundl
                         </p>
@@ -703,7 +671,7 @@ export const Questionnaire4 = ({
                         </p>
                         <button
                           className={`lg:mb-[2%] md:mb-[2%] xs:mb-[2%] ${
-                            question.answer.type === "surprise"
+                            shadeType === "surprise"
                               ? "surprise-active"
                               : "surprise"
                           }`}
@@ -742,7 +710,7 @@ export const Questionnaire4 = ({
                               ></img>
                               <button
                                 className={`font-buttons ${
-                                  question.answer?.includes(font?.fontStyle)
+                                  activeButtons?.includes(font?.fontStyle)
                                     ? "font-buttons-active"
                                     : ""
                                 }`}
@@ -770,7 +738,7 @@ export const Questionnaire4 = ({
                     </p>
                     <button
                       className={`${
-                        question.answer?.includes("Surprise")
+                        activeButtons?.includes("Surprise")
                           ? "surprise-active"
                           : "surprise"
                       }`}
@@ -886,8 +854,8 @@ export const Questionnaire4 = ({
                       <div className="flex justify-center items-center">
                         <input
                           type="text"
-                          value={question.answer}
-                          onChange={(e) => handleInputChange(question.id, e)}
+                          value={inputValue}
+                          onChange={handleInputChange}
                           placeholder="ex: #E1483D"
                           style={{
                             padding: "8px",
@@ -966,7 +934,7 @@ export const Questionnaire4 = ({
                             type="checkbox"
                             name="13"
                             checked={
-                              question.answer.includes("patterns")
+                              formData?.[20]?.includes("patterns")
                                 ? true
                                 : false
                             }
@@ -1004,7 +972,7 @@ export const Questionnaire4 = ({
                             type="checkbox"
                             name="13"
                             checked={
-                              question.answer.includes("textures")
+                              formData?.[20]?.includes("textures")
                                 ? true
                                 : false
                             }
@@ -1041,7 +1009,7 @@ export const Questionnaire4 = ({
                             type="checkbox"
                             name="13"
                             checked={
-                              question.answer.includes("collages")
+                              formData?.[20]?.includes("collages")
                                 ? true
                                 : false
                             }
@@ -1078,7 +1046,7 @@ export const Questionnaire4 = ({
                             type="checkbox"
                             name="13"
                             checked={
-                              question.answer.includes("cleanvisual")
+                              formData?.[20]?.includes("cleanvisual")
                                 ? true
                                 : false
                             }
@@ -1115,7 +1083,7 @@ export const Questionnaire4 = ({
                             type="checkbox"
                             name="13"
                             checked={
-                              question.answer.includes("illustrations")
+                              formData?.[20]?.includes("illustrations")
                                 ? true
                                 : false
                             }
@@ -1152,7 +1120,7 @@ export const Questionnaire4 = ({
                             type="checkbox"
                             name="13"
                             checked={
-                              question.answer.includes("frames") ? true : false
+                              formData?.[20]?.includes("frames") ? true : false
                             }
                             value="frames"
                             id="frames"
@@ -1189,7 +1157,7 @@ export const Questionnaire4 = ({
                       </p>
                       <button
                         className={`${
-                          question.answer.includes("Surprise")
+                          formData?.[question.id]?.includes("Surprise")
                             ? "surprise-active"
                             : "surprise"
                         }`}
@@ -1224,8 +1192,7 @@ export const Questionnaire4 = ({
                         <input
                           type="text"
                           placeholder="Links"
-                          // value={getAnswerValue(question.id)}
-                          value={question.answer.link}
+                          value={getAnswerValue(question.id)}
                           onChange={(e) =>
                             handleChange(question.id, e.target.value)
                           }
@@ -1293,7 +1260,7 @@ export const Questionnaire4 = ({
                         </p>
                       </>
                     </div>
-                    {question?.answer.docName}
+                    {uploadContent?.[question?.id]?.filename}
                   </>
                 ) : (
                   ""
@@ -1305,9 +1272,11 @@ export const Questionnaire4 = ({
                         ? placeHolders_arabic[index]
                         : placeHolders[index]
                     }
-                    value={question.answer}
+                    value={
+                      question.id === 21 ? "" : getAnswerValue(question.id)
+                    }
                     className={`question-input ${
-                      !question.answer
+                      isFilled === question?.id
                         ? "border-red-400 border-b-[2px]"
                         : `${
                             window?.innerWidth <= 475
