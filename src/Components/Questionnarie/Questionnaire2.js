@@ -87,7 +87,7 @@ export const Questionnaire2 = ({
       prev.map((ele) => {
         if (ele.id !== id) return ele;
 
-        const updatedAnswer = ele.answer.map((entry) => {
+        const updatedAnswer = ele?.answer?.map((entry) => {
           if (entry[selected] !== undefined) {
             return {
               ...entry,
@@ -142,43 +142,93 @@ export const Questionnaire2 = ({
   };
 
   const validateFields = () => {
-    const unansweredRequiredQuestions = questions.filter((q) => {
-      if (q.required) {
-        // If it's an age-data question, ensure the correct buttons are selected
-        if (q.answer_type === "age-data") {
-          if (selectedGender?.includes("female")) {
-            return !activeFemaleButtons || activeFemaleButtons.length === 0;
+    const unansweredRequiredQuestions = questionAnswer2
+      .slice(7, 10)
+      .filter((q) => {
+        if (q.required) {
+          // If it's an age-data question, ensure the correct buttons are selected
+          // if (q.answer_type === "age-data") {
+          //   if (q.answer[0]?.female) {
+          //     return q.answer[0].value || q.answer[0].value.length === 0;
+          //   }
+          //   if (q.answer[1]?.female) {
+          //     return !q.answer[1].value || q.answer[1].value.length === 0;
+          //   }
+          //   // if (selectedGender?.includes("both")) {
+          //   //   return (
+          //   //     !activeMaleButtons ||
+          //   //     activeMaleButtons.length === 0 ||
+          //   //     activeFemaleButtons.length === 0
+          //   //   );
+          //   // }
+          // }
+
+          // if (q.answer_type === "age-data") {
+          //   const femaleEntry = q.answer.find((a) => a.female);
+          //   const maleEntry = q.answer.find((a) => a.male);
+          //   if (
+          //     femaleEntry &&
+          //     (!femaleEntry.value || femaleEntry.value.length === 0)
+          //   ) {
+          //     return true;
+          //   }
+
+          //   if (
+          //     maleEntry &&
+          //     (!maleEntry.value || maleEntry.value.length === 0)
+          //   ) {
+          //     return true;
+          //   }
+
+          //   return false; // valid
+          // }
+
+          if (q.answer_type === "age-data") {
+            const femaleEntry = q.answer.find((a) => a?.female);
+            const maleEntry = q.answer.find((a) => a?.male);
+
+            const isFemaleSelected = !!femaleEntry;
+            const isMaleSelected = !!maleEntry;
+
+            const isFemaleValid =
+              isFemaleSelected &&
+              Array.isArray(femaleEntry.value) &&
+              femaleEntry.value.length > 0;
+
+            const isMaleValid =
+              isMaleSelected &&
+              Array.isArray(maleEntry.value) &&
+              maleEntry.value.length > 0;
+            if (
+              (isFemaleSelected && !isFemaleValid) ||
+              (isMaleSelected && !isMaleValid)
+            ) {
+              return true;
+            }
+            if (!isFemaleSelected && !isMaleSelected) {
+              return true;
+            }
+            return false;
           }
-          if (selectedGender?.includes("male")) {
-            return !activeMaleButtons || activeMaleButtons.length === 0;
+
+          // Default check for other required questions
+          // return !formData?.[q.id] || formData?.[q.id]?.trim() === "";
+          const value = q.answer;
+
+          if (typeof value === "string") {
+            return value.trim() === "";
           }
-          if (selectedGender?.includes("both")) {
+
+          if (Array.isArray(value)) {
             return (
-              !activeMaleButtons ||
-              activeMaleButtons.length === 0 ||
-              activeFemaleButtons.length === 0
+              value.length === 0 || value.every((item) => item.trim?.() === "")
             );
           }
+
+          return !value;
         }
-
-        // Default check for other required questions
-        // return !formData?.[q.id] || formData?.[q.id]?.trim() === "";
-        const value = formData?.[q.id];
-
-        if (typeof value === "string") {
-          return value.trim() === "";
-        }
-
-        if (Array.isArray(value)) {
-          return (
-            value.length === 0 || value.every((item) => item.trim?.() === "")
-          );
-        }
-
-        return !value;
-      }
-      return false;
-    });
+        return false;
+      });
 
     if (unansweredRequiredQuestions.length > 0) {
       const element = document.getElementById(
@@ -195,6 +245,29 @@ export const Questionnaire2 = ({
     return true;
   };
 
+  // const handleButtonClick = (buttonId, gender, label, questionId) => {
+  //   setQuestionAnswer2((prev) => {
+  //     return prev.map((ele) => {
+  //       if (ele.id !== questionId) return ele;
+
+  //       const updatedAnswer = ele.answer.map((entry) => {
+  //         if (entry?.[gender] !== undefined) {
+  //           return {
+  //             ...entry,
+  //             value: [...entry.value, label],
+  //           };
+  //         }
+  //         return entry;
+  //       });
+
+  //       return {
+  //         ...ele,
+  //         answer: updatedAnswer,
+  //       };
+  //     });
+  //   });
+  // };
+
   const handleButtonClick = (buttonId, gender, label, questionId) => {
     setQuestionAnswer2((prev) => {
       return prev.map((ele) => {
@@ -202,9 +275,14 @@ export const Questionnaire2 = ({
 
         const updatedAnswer = ele.answer.map((entry) => {
           if (entry?.[gender] !== undefined) {
+            const valueExists = entry.value.includes(label);
+
             return {
               ...entry,
-              value: [...entry.value, label],
+              [gender]: true,
+              value: valueExists
+                ? entry.value.filter((v) => v !== label)
+                : [...entry.value, label],
             };
           }
           return entry;
@@ -325,7 +403,7 @@ export const Questionnaire2 = ({
                         >
                           <button
                             className={
-                              question.answer[0].female
+                              question?.answer[0]?.female
                                 ? "female-active"
                                 : "female"
                             }
@@ -344,7 +422,7 @@ export const Questionnaire2 = ({
                           </button>
                           <button
                             className={
-                              question.answer[1].male ? "male-active" : "male"
+                              question?.answer[1]?.male ? "male-active" : "male"
                             }
                             value={"male"}
                             onClick={() => {
@@ -360,7 +438,7 @@ export const Questionnaire2 = ({
                           </button>
                         </div>
                         <div className="border-b-[1px] border-solid border-[#000000] mb-4">
-                          {question.answer[0].female ? (
+                          {question?.answer[0]?.female ? (
                             <div className="female-section mb-[5%]">
                               <div className="female-buttons">
                                 {[
@@ -468,7 +546,6 @@ export const Questionnaire2 = ({
                                 "31-40",
                                 "41-60+",
                               ].map((label, index) => {
-                                debugger;
                                 return (
                                   <div
                                     style={{

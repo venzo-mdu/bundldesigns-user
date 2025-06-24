@@ -11,7 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ConfigToken } from "../Auth/ConfigToken";
 import useToastMessage from "../Pages/Toaster/Toaster";
 import { Toaster } from "react-hot-toast";
-import { fetchQuestionAnswer } from "./questionnaire.slice";
+import { fetchQuestionAnswer, updateOrderID } from "./questionnaire.slice";
 
 export const Questionnaire1 = ({
   formData,
@@ -43,6 +43,12 @@ export const Questionnaire1 = ({
   }, [questionAndAnswers]);
 
   /* NEW QUESTIONANSWER */
+
+  // ${location.state.orderId}
+
+  useEffect(() => {
+    dispatch(updateOrderID(location.state.orderId));
+  }, [location.state.orderId]);
 
   const placeHolders = [
     "Project Name",
@@ -104,18 +110,50 @@ export const Questionnaire1 = ({
     }
     if (questionId == 4 || questionId === "4") {
       // Always update the state, even if value is empty
+      // setQuestionAnswer1((prev) =>
+      //   prev.map((ele) =>
+      //     ele.id === questionId
+      //       ? {
+      //           ...ele,
+      //           answer: {
+      //             ...ele.answer,
+      //             answer: value,
+      //           },
+      //         }
+      //       : ele
+      //   )
+      // );
+
       setQuestionAnswer1((prev) =>
-        prev.map((ele) =>
-          ele.id === questionId
-            ? {
-                ...ele,
-                answer: {
-                  ...ele.answer,
-                  answer: value,
-                },
-              }
-            : ele
-        )
+        prev.map((ele) => {
+          if (ele.id !== questionId) return ele;
+
+          // Check if `type` is selected first
+          if (!ele.answer?.type || ele.answer.type.trim() === "") {
+            // Show error and skip updating the answer
+            setErrors((prev) => ({
+              ...prev,
+              [questionId]:
+                'Please select either "Product" or "Service" first.',
+            }));
+            return ele; // return original without updating
+          }
+
+          // If type is selected, update the answer
+          setErrors((prev) => {
+            const updated = { ...prev };
+            delete updated[questionId];
+            return updated;
+          });
+
+          return {
+            ...ele,
+            answer: {
+              ...ele.answer,
+              answer: value,
+            },
+          };
+        })
       );
 
       // Now handle validation
@@ -143,14 +181,26 @@ export const Questionnaire1 = ({
   };
 
   const validateFields = () => {
-    const unansweredRequiredQuestions = questionAnswer1.filter((q) => {
-      return (
-        !q.answer &&
-        q.required &&
-        (!q?.answer ||
-          (typeof q?.answer === "string" && q?.answer.trim() === ""))
-      );
-    });
+    const unansweredRequiredQuestions = questionAnswer1
+      .slice(0, 6)
+      .filter((q) => {
+        if (q?.id === 4) {
+          return (
+            !q?.answer?.type &&
+            q?.required &&
+            (!q?.answer?.type ||
+              (typeof q?.answer?.answer === "string" &&
+                q?.answer?.answer.trim() === ""))
+          );
+        } else {
+          return (
+            !q.answer &&
+            q.required &&
+            (!q?.answer ||
+              (typeof q?.answer === "string" && q?.answer.trim() === ""))
+          );
+        }
+      });
 
     if (unansweredRequiredQuestions.length > 0) {
       const element = document.getElementById(
@@ -260,7 +310,7 @@ export const Questionnaire1 = ({
                 >
                   <button
                     className={`product-btn ${
-                      question.answer.type === "product" ? "active" : ""
+                      question?.answer?.type === "product" ? "active" : ""
                     }`}
                     onClick={() => {
                       handleTypeClick(
@@ -274,7 +324,7 @@ export const Questionnaire1 = ({
                   </button>
                   <button
                     className={`service-btn ${
-                      question.answer.type === "service" ? "active" : ""
+                      question?.answer?.type === "service" ? "active" : ""
                     }`}
                     onClick={() =>
                       handleTypeClick(
@@ -290,8 +340,20 @@ export const Questionnaire1 = ({
               )}
               <input
                 type="text"
+                // className={`question-input ${
+                //   isFilled === question?.id || question?.id === 4 && question.answer
+                //     ? "border-[#D83D99] border-b-[2px]"
+                //     : `${
+                //         window?.innerWidth <= 475
+                //           ? "border-b-[1px]"
+                //           : "border-b-[2px]"
+                //       } border-black`
+                // }`}
                 className={`question-input ${
-                  isFilled === question?.id
+                  isFilled === question?.id ||
+                  (question?.id === 4 &&
+                    question?.answer?.type &&
+                    question?.answer?.answer)
                     ? "border-[#D83D99] border-b-[2px]"
                     : `${
                         window?.innerWidth <= 475
@@ -305,9 +367,9 @@ export const Questionnaire1 = ({
                     : placeHolders[index]
                 }
                 value={
-                  question.answer_type === "brand"
-                    ? question.answer.answer
-                    : question.answer
+                  question?.answer_type === "brand"
+                    ? question?.answer?.answer
+                    : question?.answer
                 }
                 onChange={(e) => handleInputChange(question.id, e.target.value)}
               />

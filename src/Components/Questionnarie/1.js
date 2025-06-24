@@ -7,7 +7,7 @@ export let data = [
     category: "business",
     required: true,
     type: "char",
-    answer: "B-23",
+    answer: "",
   },
 
   {
@@ -18,7 +18,7 @@ export let data = [
     category: "business",
     required: true,
     type: "char",
-    answer: "B-23",
+    answer: "",
   },
   {
     id: 3,
@@ -28,7 +28,7 @@ export let data = [
     question_arabic: "أين يقع مشروعك؟",
     required: true,
     type: "char",
-    answer: "B-23",
+    answer: "",
   },
 
   {
@@ -40,15 +40,15 @@ export let data = [
     required: true,
     type: "json",
     answer: {
-      type: "service",
-      answer: "dd",
+      type: "",
+      answer: "",
     },
   },
 
   {
     id: 5,
     question: "What are the unique features in your service/product?",
-    answer: "B-23",
+    answer: "",
     answer_type: "input",
     category: "business",
     question_arabic: "ما هي الميزات الفريدة في خدمتك/منتجك؟",
@@ -58,7 +58,7 @@ export let data = [
   {
     id: 6,
     question: "What is your website link?",
-    answer: "B-23",
+    answer: "",
     answer_type: "input",
     category: "business",
     question_arabic: "ما هو رابط موقعك الإلكتروني؟",
@@ -69,7 +69,7 @@ export let data = [
   {
     id: 7,
     question: "What are your social media account handles?",
-    answer: "B-23",
+    answer: "",
     answer_type: "input",
     category: "business",
     question_arabic: "ما هي حساباتك على وسائل التواصل الاجتماعي؟",
@@ -80,7 +80,7 @@ export let data = [
   {
     id: 8,
     question: "Who are your competitors?",
-    answer: "B-23",
+    answer: "",
     answer_type: "input",
     category: "compatition",
     question_arabic: "من هم منافسوك؟",
@@ -90,7 +90,7 @@ export let data = [
   {
     id: 9,
     question: "What do you like/dislike about your competitor's branding?",
-    answer: "B-23",
+    answer: "",
     answer_type: "input",
     category: "compatition",
     question_arabic: "ما الذي يعجبك أو لا يعجبك في هوية منافسيك؟",
@@ -103,8 +103,8 @@ export let data = [
     question: "Who is your ideal target customer?",
     // answer: { female: ["11-17"], male: ["18-23"] },
     answer: [
-      { female: true, value: ["11-17"] },
-      { male: true, value: [] },
+      { female: false, value: [] },
+      { male: false, value: [] },
     ],
     answer_type: "age-data",
     category: "compatition",
@@ -117,7 +117,7 @@ export let data = [
     id: 11,
     question:
       "What hobbies, interests, or values do your target audience commonly hold?",
-    answer: "B-23",
+    answer: "",
     answer_type: "input",
     category: "compatition",
     question_arabic:
@@ -129,7 +129,7 @@ export let data = [
   {
     id: 12,
     question: "What motivated you to start this project?",
-    answer: "B-23",
+    answer: "",
     answer_type: "input",
     category: "brand",
     question_arabic: "ما هي القصة وراء اسم مشروعك؟",
@@ -139,7 +139,7 @@ export let data = [
   {
     id: 13,
     question: "What is the story behind the name of your project?",
-    answer: "B-23",
+    answer: "",
     answer_type: "input",
     category: "brand",
     question_arabic: "ما الذي دفعك لبدء هذا المشروع؟",
@@ -160,8 +160,7 @@ export let data = [
   {
     id: 15,
     question: "How would you like to spell your project's name?",
-    answer: "B-23",
-
+    answer: "",
     answer_type: "input",
     category: "visual",
     question_arabic: "كيف تود تهجئة اسم مشروعك؟",
@@ -171,8 +170,7 @@ export let data = [
   {
     id: 16,
     question: "Do you have a slogan you want to be incorporated in your logo?",
-    answer: "B-23",
-
+    answer: "",
     answer_type: "input",
     category: "visual",
     question_arabic:
@@ -236,7 +234,6 @@ export let data = [
     question:
       "Please provide a few links or pictures for inspiration / creative direction?",
     answer: { link: "", document: "", docName: "" },
-
     answer_type: "file/link",
     category: "visual",
     question_arabic:
@@ -248,8 +245,7 @@ export let data = [
     id: 22,
     question:
       "Is there anything else you would like to communicate to the designer?",
-    answer: "B-23",
-
+    answer: "",
     answer_type: "input",
     category: "final",
     question_arabic: "للمصمم؟ توضحه أن ترغب آخر شئ أي هناك هل",
@@ -259,9 +255,11 @@ export let data = [
   {
     id: 23,
     question: "Do you have any files or documents that might be helpful?",
-    answer:
-      "https://storage.googleapis.com/fir-1-24c24.appspot.com/download_e42c4facfac9f7ce.jpg",
-
+    answer: {
+      document:
+        "https://storage.googleapis.com/fir-1-24c24.appspot.com/download_e42c4facfac9f7ce.jpg",
+      docName: "",
+    },
     answer_type: "file",
     category: "final",
     id: 23,
@@ -274,8 +272,8 @@ export let data = [
     id: 24,
     question:
       "Would you like your brand identity guideline to be in Arabic or English?",
-    answer: "english",
-    answer_type: "input",
+    answer: "",
+    answer_type: "select",
     category: "final",
     question_arabic: "هل تفضل ملف الهوية البصرية باللغة العربية أو الإنجليزية؟",
     required: true,

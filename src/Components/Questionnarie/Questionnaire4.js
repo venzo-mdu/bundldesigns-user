@@ -201,37 +201,39 @@ export const Questionnaire4 = ({
     );
   };
   const validateFields = () => {
-    const unansweredRequiredQuestions = questionAnswer4?.filter((q) => {
-      const answer = q.answer;
-      if (!q.required) {
-        return false;
-      }
-      if (q.id === 21) {
-        const link = q?.answer?.link?.trim?.();
-        const document = q?.answer?.document?.trim?.();
-
-        if (!link && !document) {
-          return true;
-        } else {
+    const unansweredRequiredQuestions = questionAnswer4
+      ?.slice(14, 21)
+      .filter((q) => {
+        const answer = q.answer;
+        if (!q.required) {
           return false;
         }
-      }
+        if (q.id === 21) {
+          const link = q?.answer?.link?.trim?.();
+          const document = q?.answer?.document?.trim?.();
 
-      // return !answer || answer.toString().trim() === "";
-      if (
-        answer === undefined ||
-        answer === null ||
-        (typeof answer === "string" && answer.trim() === "") ||
-        (Array.isArray(answer) && answer.length === 0) ||
-        (typeof answer === "object" &&
-          !Array.isArray(answer) &&
-          Object.keys(answer).length === 0)
-      ) {
-        return true;
-      }
+          if (!link && !document) {
+            return true;
+          } else {
+            return false;
+          }
+        }
 
-      return false; // Valid answer
-    });
+        // return !answer || answer.toString().trim() === "";
+        if (
+          answer === undefined ||
+          answer === null ||
+          (typeof answer === "string" && answer.trim() === "") ||
+          (Array.isArray(answer) && answer.length === 0) ||
+          (typeof answer === "object" &&
+            !Array.isArray(answer) &&
+            Object.keys(answer).length === 0)
+        ) {
+          return true;
+        }
+
+        return false; // Valid answer
+      });
 
     if (unansweredRequiredQuestions?.length > 0) {
       const element = document.getElementById(
@@ -1308,7 +1310,7 @@ export const Questionnaire4 = ({
                     value={question.answer}
                     className={`question-input ${
                       !question.answer
-                        ? "border-red-400 border-b-[2px]"
+                        ? "border-[#D83D99]  border-b-[2px]"
                         : `${
                             window?.innerWidth <= 475
                               ? "border-b-[1px]"
@@ -1320,7 +1322,9 @@ export const Questionnaire4 = ({
                 ) : (
                   <div
                     className={`w-[100%] xl:h-[2px] lg:h-[2px] md:h-[2px] sm:h-[2px] xs:h-[1px] ${
-                      isFilled === question?.id ? "bg-red-400" : "bg-black"
+                      isFilled === question?.id
+                        ? "border-[#D83D99]"
+                        : "bg-black"
                     } mt-[3%]`}
                   ></div>
                 )}
@@ -1333,3 +1337,4 @@ export const Questionnaire4 = ({
     </div>
   );
 };
+

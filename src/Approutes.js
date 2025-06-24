@@ -62,9 +62,21 @@ export default function AppRouter() {
   const location = useLocation();
   const [user, setUser] = useState([]);
 
+  const orderId = useSelector((state) => state.questionAnswer.orderId);
+  async function getQuestionAnswer() {
+
+    if (orderId) {
+      const response = await axios.get(
+        `${base_url}/api/questionnaire/${orderId}/`,
+        ConfigToken()
+      );
+      dispatch(fetchQuestionAnswer(response.data.data));
+    }
+  }
+
   useEffect(() => {
-    dispatch(fetchQuestionAnswer(data));
-  }, []);
+    getQuestionAnswer();
+  }, [orderId]);
 
   const ProtectedRoute = ({ element }) => {
     const token = getCookie("token");

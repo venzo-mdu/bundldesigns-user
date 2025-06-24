@@ -163,36 +163,41 @@ export const Questionnaire5 = ({
   // };
 
   const validateFields = () => {
-    const unansweredRequiredQuestions = questionAnswer5
-      .slice(21, 24)
-      .filter((q) => {
-        if (!q.required) return false;
+  const unansweredRequiredQuestions = questionAnswer5
+    .slice(21, 24) // Assuming you're validating questions with ids 22, 23, 24
+    .filter((q) => {
+      if (!q.required) return false;
 
-        if (q.id === 23) {
-          const doc = q?.answer?.document?.trim?.();
-          return !doc;
-        }
-
-        if (q.id === 24) {
-          return !q.answer || q.answer.trim() === "";
-        }
-        return !q.answer || q.answer.trim() === "";
-      });
-
-    if (unansweredRequiredQuestions.length > 0) {
-      const element = document.getElementById(
-        `question_${unansweredRequiredQuestions[0]?.id}`
-      );
-      setIsFilled(unansweredRequiredQuestions[0]?.id);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
+      if (q.id === 23) {
+        // Required file upload
+        const doc = q?.answer?.document?.trim?.();
+        return !doc;
       }
-      showToastMessage();
-      return false;
-    }
 
-    return true;
-  };
+      if (q.id === 24) {
+        // Required select (string)
+        return !q.answer || q.answer.trim() === "";
+      }
+
+      // Default case (string input like id 22)
+      return !q.answer || q.answer.trim() === "";
+    });
+
+  if (unansweredRequiredQuestions.length > 0) {
+    const element = document.getElementById(
+      `question_${unansweredRequiredQuestions[0]?.id}`
+    );
+    setIsFilled(unansweredRequiredQuestions[0]?.id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+    showToastMessage();
+    return false;
+  }
+
+  return true;
+};
+
 
   const handleChange = (id, value) => {
     setQuestionAnswer5((prev) =>
@@ -246,19 +251,16 @@ export const Questionnaire5 = ({
   };
 
   const FinishClick = async () => {
-    let finalFormData = {
-      answers: newUpdatedAns,
-      language: localStorage.getItem("lang") === "ar" ? "arabic" : "english",
-      status: "submit",
-      orderId: location.state?.orderId,
-    };
+    console.log(newUpdatedAns);
+    debugger
     if (!validateFields()) {
       return;
     }
     try {
+      debugger
       const response = await axios.post(
         `${base_url}/api/questionnaire/create`,
-        finalFormData,
+        questionAnswer5,
         ConfigToken()
       );
       if (response.data.status === 200) {
@@ -458,4 +460,3 @@ export const Questionnaire5 = ({
     </div>
   );
 };
-

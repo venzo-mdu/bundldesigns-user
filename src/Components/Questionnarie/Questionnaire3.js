@@ -173,7 +173,7 @@ export const Questionnaire3 = ({
   };
 
   const validateFields = () => {
-    const unansweredRequiredQuestions = questionAnswer3.filter((q) => {
+    const unansweredRequiredQuestions = questionAnswer3.slice(11, 14).filter((q) => {
       return (
         q.required &&
         (!q.answer ||
