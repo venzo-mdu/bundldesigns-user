@@ -83,6 +83,8 @@ export const Questionnaire2 = ({
   });
 
   const handleGenderChange = (id, selected, isSelected) => {
+    console.log(questionAnswer2)
+    debugger
     setQuestionAnswer2((prev) =>
       prev.map((ele) => {
         if (ele.id !== id) return ele;
@@ -394,7 +396,7 @@ export const Questionnaire2 = ({
                       </span>
                     )}
                   </p>
-                  {question.answer_type === "age-data" && (
+                  {question?.answer_type === "age-data" && (
                     <>
                       <div className="ideal-customers">
                         <div
@@ -403,14 +405,14 @@ export const Questionnaire2 = ({
                         >
                           <button
                             className={
-                              question?.answer[0]?.female
+                              question?.answer?.[0]?.female
                                 ? "female-active"
                                 : "female"
                             }
                             value="female"
                             onClick={() => {
                               const femaleDisabled =
-                                question?.answer[0]?.female;
+                                question?.answer?.[0]?.female;
                               handleGenderChange(
                                 question.id,
                                 "female",
@@ -422,13 +424,13 @@ export const Questionnaire2 = ({
                           </button>
                           <button
                             className={
-                              question?.answer[1]?.male ? "male-active" : "male"
+                              question?.answer?.[1]?.male ? "male-active" : "male"
                             }
                             value={"male"}
                             onClick={() => {
-                              const maleDisabled = question?.answer[1]?.male;
+                              const maleDisabled = question?.answer?.[1]?.male;
                               handleGenderChange(
-                                question.id,
+                                question?.id,
                                 "male",
                                 maleDisabled
                               );
@@ -438,7 +440,7 @@ export const Questionnaire2 = ({
                           </button>
                         </div>
                         <div className="border-b-[1px] border-solid border-[#000000] mb-4">
-                          {question?.answer[0]?.female ? (
+                          {question?.answer?.[0]?.female ? (
                             <div className="female-section mb-[5%]">
                               <div className="female-buttons">
                                 {[
@@ -475,7 +477,7 @@ export const Questionnaire2 = ({
                                       <button
                                         key={`female-${index}`}
                                         className={`female-btn uppercase ${
-                                          question.answer[0].value?.includes(
+                                          question?.answer?.[0].value?.includes(
                                             label
                                           )
                                             ? "active"
@@ -535,7 +537,7 @@ export const Questionnaire2 = ({
                             </div>
                           )}
                         </div>
-                        {question.answer[1].male ? (
+                        {question?.answer?.[1].male ? (
                           <div className="male-section">
                             <div className="male-buttons">
                               {[
@@ -572,7 +574,7 @@ export const Questionnaire2 = ({
                                     <button
                                       key={`male-${index}`}
                                       className={`male-btn uppercase ${
-                                        question.answer[1].value.includes(label)
+                                        question?.answer?.[1].value?.includes(label)
                                           ? "active"
                                           : ""
                                       }`}

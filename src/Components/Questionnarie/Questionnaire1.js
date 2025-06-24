@@ -47,8 +47,10 @@ export const Questionnaire1 = ({
   // ${location.state.orderId}
 
   useEffect(() => {
-    dispatch(updateOrderID(location.state.orderId));
-  }, [location.state.orderId]);
+    if (location?.state?.orderId) {
+      dispatch(updateOrderID(location?.state?.orderId));
+    }
+  }, [location?.state?.orderId]);
 
   const placeHolders = [
     "Project Name",
@@ -314,9 +316,9 @@ export const Questionnaire1 = ({
                     }`}
                     onClick={() => {
                       handleTypeClick(
-                        question.id,
+                        question?.id,
                         "product",
-                        question.answer.answer
+                        question?.answer?.answer
                       );
                     }}
                   >
