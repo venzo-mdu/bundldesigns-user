@@ -74,7 +74,6 @@ export const Questionnaire5 = ({
   useEffect(() => {
     if (sessionStorage.getItem("isReload") === "true") {
       sessionStorage.removeItem("isReload");
-      ;
       navigate("/questionnaire/1");
     }
   }, [navigate]);
@@ -190,7 +189,6 @@ export const Questionnaire5 = ({
           const doc = q?.answer?.document?.trim?.();
           return !doc;
         }
-
         if (q.id === 24) {
           return !q.answer || q.answer.trim() === "";
         }
@@ -201,6 +199,7 @@ export const Questionnaire5 = ({
       const element = document.getElementById(
         `question_${unansweredRequiredQuestions[0]?.id}`
       );
+      debugger;
       setIsFilled(unansweredRequiredQuestions[0]?.id);
       if (element) {
         element.scrollIntoView({ behavior: "smooth" });
@@ -224,6 +223,11 @@ export const Questionnaire5 = ({
         ele.id === questionId ? { ...ele, answer: language } : ele
       )
     );
+    // Update the isFilled array only if questionId is not 24
+    if (questionId === 24) {
+      debugger
+      setIsFilled(null);
+    }
   };
 
   const uploadFile = async (e, id, field) => {
@@ -264,7 +268,6 @@ export const Questionnaire5 = ({
   };
 
   const FinishClick = async () => {
-    ;
     let finalFormData = {
       answers: newUpdatedAns,
       language: localStorage.getItem("lang") === "ar" ? "arabic" : "english",
@@ -299,7 +302,6 @@ export const Questionnaire5 = ({
 
   const onSaveLaterClick = async () => {
     console.log(newUpdatedAns);
-    ;
     try {
       let data = {
         answers: newUpdatedAns,
@@ -397,7 +399,7 @@ export const Questionnaire5 = ({
             {question.id === 24 ? (
               <div
                 className={`w-[100%] xl:h-[2px] lg:h-[2px] md:h-[2px] sm:h-[2px] xs:h-[1px] ${
-                  !question?.answer ? "bg-[#D83D99]" : "bg-black"
+                  isFilled === question.id ? "bg-[#D83D99]" : "bg-black"
                 } lg:mt-[3%] md:mt-[3%] xs:mt-[5%]`}
               ></div>
             ) : question?.id === 23 ? (

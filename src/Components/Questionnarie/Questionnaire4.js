@@ -68,23 +68,24 @@ export const Questionnaire4 = ({
 
   /* NEW QUESTIONANSWER */
 
-  useEffect(() => {
-    window.onbeforeunload = () => {
-      sessionStorage.setItem("isReload", "true");
-    };
-    return () => {
-      window.onbeforeunload = null;
-    };
-  }, []);
+    useEffect(() => {
+      window.onbeforeunload = () => {
+        sessionStorage.setItem("isReload", "true");
+      };
+      return () => {
+        window.onbeforeunload = null;
+      };
+    }, []);
+  
+    // Detect refresh on mount
+    useEffect(() => {
+      if (sessionStorage.getItem("isReload") === "true") {
+        sessionStorage.removeItem("isReload");
+        navigate("/questionnaire/1");
+      }
+    }, [navigate]);
 
-  // Detect refresh on mount
-  useEffect(() => {
-    if (sessionStorage.getItem("isReload") === "true") {
-      sessionStorage.removeItem("isReload");
-      ;
-      navigate("/questionnaire/1");
-    }
-  }, [navigate]);
+  
 
   console.log(formData, "eee");
   const placeHolders = ["BUNDL", "(ex: Luxury shopping made easy)"];
@@ -219,45 +220,34 @@ export const Questionnaire4 = ({
     );
   };
   const validateFields = () => {
-    const unansweredRequiredQuestions = questionAnswer4
-      ?.slice(14, 21)
-      .filter((q) => {
-        
-        const answer = q.answer;
-        if (!q.required) {
-          return false;
-        }
-        if (q.id === 21) {
-          const link = q?.answer?.link?.trim?.();
-          const document = q?.answer?.document?.trim?.();
+    // Filter required questions that are either unanswered or contain invalid data
+    const unansweredRequiredQuestions = questionAnswer4 ?.slice(14, 21).filter((q) => {
+      const answer = q.answer;
+      if (!q.required) {
+        return false;
+      }
 
-          if (!link && !document) {
-            return true;
-          } else {
-            return false;
-          }
-        }
+      debugger
+      if (
+        answer === undefined ||
+        answer === null ||
+        (typeof answer === "string" && answer.trim() === "") ||
+        (Array.isArray(answer) && answer?.length === 0) ||
+        (typeof answer === "object" &&
+          !Array.isArray(answer) &&
+          Object.keys(answer).length === 0)
+      ) {
+        return true;
+      }
 
-        // return !answer || answer.toString().trim() === "";
-        if (
-          answer === undefined ||
-          answer === null ||
-          (typeof answer === "string" && answer.trim() === "") ||
-          (Array.isArray(answer) && answer.length === 0) ||
-          (typeof answer === "object" &&
-            !Array.isArray(answer) &&
-            Object.keys(answer).length === 0)
-        ) {
-          return true;
-        }
-
-        return false; // Valid answer
-      });
+      return false; // Valid answer
+    });
 
     if (unansweredRequiredQuestions?.length > 0) {
       const element = document.getElementById(
         `question_${unansweredRequiredQuestions[0]?.id}`
       );
+      debugger
       setIsFilled(unansweredRequiredQuestions[0]?.id);
       if (element) {
         element.scrollIntoView({ behavior: "smooth" });
@@ -325,7 +315,7 @@ export const Questionnaire4 = ({
     setInputValue("");
 
     console.log(questionAnswer4.find((ele) => ele.id == questionId)); // for debugging
-    ;
+    debugger;
 
     setQuestionAnswer4((prev) =>
       prev.map((ele) =>
@@ -335,24 +325,16 @@ export const Questionnaire4 = ({
   };
 
   const handleRemoveColor = (color, questionId) => {
-    // Remove the color from the selectedColors
     const updatedColors = selectedColors.filter((c) => c !== color);
     setSelectedColors(updatedColors);
 
-    // Update formData to reflect the change for the specific questionId
     setFormData((prevFormData) => ({
-      ...prevFormData, // Keep the existing form data
-      [questionId]: updatedColors, // Update the colors for this specific questionId
+      ...prevFormData,
+      [questionId]: updatedColors,
     }));
   };
 
   const handleInputChange = (e, questionId) => {
-    // setInputValue(e.target.value);
-    // setFormData((prevData) => ({
-    //   ...prevData,
-    //   [questionId]: e.target.value,
-    // }));
-    ;
     setQuestionAnswer4((prev) =>
       prev.map((ele) =>
         ele.id === questionId ? { ...ele, answer: e.target.value } : ele
@@ -386,6 +368,7 @@ export const Questionnaire4 = ({
   };
 
   const handleShadeButtonClick = (color, textColor, type, questionId) => {
+    console.log(questionAnswer4[17]);
     let answer = {
       type,
       color: color,
@@ -399,13 +382,7 @@ export const Questionnaire4 = ({
   };
 
   const handleChange = (questionId, value) => {
-    // setFormData((prevData) => ({
-    //   ...prevData,
-    //   [questionId]: value,
-    // }));
-    ;
     if (questionId === 15 || questionId === 16) {
-      ;
       setQuestionAnswer4((prev) =>
         prev.map((ele) =>
           ele.id === questionId
