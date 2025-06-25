@@ -1354,6 +1354,24 @@ export default function Dashboard({ lang, setLang }) {
                   : dashboardJson.process_content.upload_content}
               </button>
             </p>
+
+            {processIndex >= 4 && (
+    <button
+      className="bg-[#1BA56F] px-4 py-2 text-[16px] text-white font-[400] uppercase md:hidden lg:hidden"
+      onClick={() =>
+        navigate("/adjustment", {
+          state: {
+            orderId: order.id,
+            orderItemId: null,
+            purchaseAddOns: true,
+          },
+        })
+      }
+    >
+      {lang === "ar" ? "شراء إضافات" : "Purchase Add Ons"}
+    </button>
+  )}
+            
           </div>
         );
 
@@ -1951,7 +1969,7 @@ export default function Dashboard({ lang, setLang }) {
   {/* Purchase Add Ons button */}
   {processIndex >= 4 && (
     <button
-      className="bg-[#1BA56F] px-4 py-2 text-[16px] text-white font-[400] uppercase"
+      className=" hidden md:block bg-[#1BA56F] px-4 py-2 text-[16px] text-white font-[400] uppercase"
       onClick={() =>
         navigate("/adjustment", {
           state: {
@@ -2016,7 +2034,7 @@ export default function Dashboard({ lang, setLang }) {
                           >
                             {lang === "ar" ? "الإضافات" : "Add-Ons​"}
 
-                            <span className="text-[#1BA56F] lg:text-[18px] md:text-[18px] xs:text-[16px]  font-[500]  lg:!float-none md:!float-none">
+                            <span className="text-[#1BA56F] lg:text-[18px] md:text-[18px] xs:text-[16px]  font-[500] xs:!float-end lg:!float-none md:!float-none mt-[4px]">
                               {" "}
                               -&nbsp;
                               {processIndex < 4
