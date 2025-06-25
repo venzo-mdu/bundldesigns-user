@@ -171,7 +171,7 @@ const ForgotPassword = () => {
     if (name === "password") {
       if (/\s/.test(value)) {
         // Check for spaces
-        setError("password", "Password cannot contain spaces");
+        setError("password", lang === "ar" ? "لا يمكن أن تحتوي كلمة المرور على مسافات" : "Password cannot contain spaces");
       } else if (!value.trim()) {
         setError("password", lang === "ar" ? "كلمة المرور مطلوبة" : "Password is required");
       } else {
@@ -329,7 +329,10 @@ const ForgotPassword = () => {
 
       if (
         response.status === 200 &&
-        response.data?.message === "Password reset successfully"
+        (
+    response.data?.message === "Password reset successfully" ||
+    response.data?.message === "تم إعادة تعيين كلمة المرور بنجاح"
+  )
       ) {
         // Redirect to login page after successful password reset
         navigate("/login", {
@@ -339,7 +342,7 @@ const ForgotPassword = () => {
         });
       }
     } catch (response) {
-      setLoginError(response.response?.data?.data || "Password reset failed.");
+      setLoginError(response.response?.data?.data || (lang === "ar" ? "فشل في إعادة تعيين كلمة المرور" : "Password reset failed."));
     } finally {
       setLoading(false);
     }

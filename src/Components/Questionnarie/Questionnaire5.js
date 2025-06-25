@@ -377,7 +377,7 @@ export const Questionnaire5 = ({
                           : "Upload Content"}
                       </p>
                     </div>
-                    <p className="lg:text-[18px] md:text-[18px] xs:text-[14px] font-[400]">
+                    <p className="xs:w-[90%] sm:w-full md:w-full text-center lg:text-[18px] md:text-[18px] xs:text-[14px] font-[400]  break-all">
                       {uploadContent?.[question?.id]?.filename}
                     </p>
                   </>

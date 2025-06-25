@@ -85,7 +85,7 @@ export const ForgotpasswordMail = ({ lang }) => {
       errorMessages.email =
         lang === "ar" ? "البريد الإلكتروني مطلوب" : "Email is required";
     } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(loginData.email)) {
-      errorMessages.email = "Invalid email format";
+      errorMessages.email = lang === "ar" ? "تنسيق البريد الإلكتروني غير صالح" : "Invalid email format";
     }
     setErrors(errorMessages);
     return Object.keys(errorMessages).length === 0;

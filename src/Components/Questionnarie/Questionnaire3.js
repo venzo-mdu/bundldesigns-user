@@ -29,28 +29,28 @@ export const Questionnaire3 = ({
 
   const progressLabels = [
     {
-      left: changeLang === "ar" ? "" : "Masculine",
-      right: changeLang === "ar" ? "" : "Feminine",
+      left: changeLang === "ar" ? "رجولي" : "Masculine",
+      right: changeLang === "ar" ? "أنثوي" : "Feminine",
     },
     {
-      left: changeLang === "ar" ? "" : "Economical",
-      right: changeLang === "ar" ? "" : "Luxurious",
+      left: changeLang === "ar" ? "اقتصادي" : "Economical",
+      right: changeLang === "ar" ? "فاخر" : "Luxurious",
     },
     {
-      left: changeLang === "ar" ? "" : "Playful",
-      right: changeLang === "ar" ? "" : "Sophisticated",
+      left: changeLang === "ar" ? "مرح" : "Playful",
+      right: changeLang === "ar" ? "راقي" : "Sophisticated",
     },
     {
-      left: changeLang === "ar" ? "" : "Classics",
-      right: changeLang === "ar" ? "" : "Modern",
+      left: changeLang === "ar" ? "كلاسيكي" : "Classics",
+      right: changeLang === "ar" ? "حديث" : "Modern",
     },
     {
-      left: changeLang === "ar" ? "" : "Mature",
-      right: changeLang === "ar" ? "" : "Youthful",
+      left: changeLang === "ar" ? "ناضج" : "Mature",
+      right: changeLang === "ar" ? "شبابي" : "Youthful",
     },
     {
-      left: changeLang === "ar" ? "" : "Formal",
-      right: changeLang === "ar" ? "" : "Casual",
+      left: changeLang === "ar" ? "رسمي" : "Formal",
+      right: changeLang === "ar" ? "غير رسمي" : "Casual",
     },
   ];
 
@@ -61,7 +61,7 @@ export const Questionnaire3 = ({
     "(ex: was always passionate about creating my own perfume business)",
   ];
 
-  const placeHolders_arabic = ["", "", "", ""];
+  const placeHolders_arabic = ["قصة مشروعك", "القصة خلف الاسم", "باقة", "مثال: كنت دائمًا شغوف بإطلاق مشروع عطوري الخاص"];
 
   useEffect(() => {
     const fetchQuestions = async () => {
