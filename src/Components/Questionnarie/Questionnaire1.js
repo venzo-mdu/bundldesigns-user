@@ -111,21 +111,6 @@ export const Questionnaire1 = ({
       }
     }
     if (questionId == 4 || questionId === "4") {
-      // Always update the state, even if value is empty
-      // setQuestionAnswer1((prev) =>
-      //   prev.map((ele) =>
-      //     ele.id === questionId
-      //       ? {
-      //           ...ele,
-      //           answer: {
-      //             ...ele.answer,
-      //             answer: value,
-      //           },
-      //         }
-      //       : ele
-      //   )
-      // );
-
       setQuestionAnswer1((prev) =>
         prev.map((ele) => {
           if (ele.id !== questionId) return ele;
@@ -140,7 +125,6 @@ export const Questionnaire1 = ({
             }));
             return ele; // return original without updating
           }
-
           // If type is selected, update the answer
           setErrors((prev) => {
             const updated = { ...prev };
@@ -186,23 +170,21 @@ export const Questionnaire1 = ({
     const unansweredRequiredQuestions = questionAnswer1
       .slice(0, 6)
       .filter((q) => {
-        if (q?.id === 4) {
-          return (
-            !q?.answer?.type &&
-            q?.required &&
-            (!q?.answer?.type ||
-              (typeof q?.answer?.answer === "string" &&
-                q?.answer?.answer.trim() === ""))
-          );
-        } else {
-          return (
-            !q.answer &&
-            q.required &&
-            (!q?.answer ||
-              (typeof q?.answer === "string" && q?.answer.trim() === ""))
-          );
+
+        if (q?.id === 4 && q.required) {
+        const type = q?.answer?.type?.trim?.();
+        const answer = q?.answer?.answer?.trim?.();
+        if (!type && !answer) {
+          return true;
         }
-      });
+        return !type || !answer;
+      }
+      return (
+        q.required &&
+        (!q.answer ||
+          (typeof q.answer === "string" && q.answer.trim() === ""))
+      );
+    });
 
     if (unansweredRequiredQuestions.length > 0) {
       const element = document.getElementById(
@@ -345,11 +327,9 @@ export const Questionnaire1 = ({
                 className={`question-input ${
                   isFilled === question?.id
                     ? "border-[#D83D99] border-b-[2px]"
-                    : `${
-                        window?.innerWidth <= 475
-                          ? "border-b-[1px]"
-                          : "border-b-[2px]"
-                      } border-black`
+                    : window?.innerWidth <= 475
+                    ? "border-b-[1px] border-black"
+                    : "border-b-[2px] border-black"
                 }`}
                 // className={`question-input ${
                 //   isFilled === question?.id ||
