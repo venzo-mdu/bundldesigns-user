@@ -2414,7 +2414,7 @@ export default function Adjustments({ user, lang, setLang }) {
 
             <div className="px-[5%] py-4">
               <p
-                className="flex text-[18px] items-center pb-2 text-black cursor-pointer "
+                className="flex text-[18px] items-center ml-[-5px] mr-[-5px] pb-2 text-black cursor-pointer "
                 onClick={() => {
                   window.location.href = "/dashboard";
                 }}
