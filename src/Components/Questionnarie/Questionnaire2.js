@@ -444,7 +444,7 @@ export const Questionnaire2 = ({
         setFormData={setFormData}
         questions={
           <>
-            {questionAnswer2.slice(7, 10).map((question, index) => {
+            {questionAnswer2.slice(7, 11).map((question, index) => {
               return (
                 <div
                   className="questions"
