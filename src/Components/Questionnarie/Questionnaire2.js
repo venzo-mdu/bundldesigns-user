@@ -82,14 +82,84 @@ export const Questionnaire2 = ({
     isMale: false,
   });
 
+  // const handleGenderChange = (id, selected, isSelected) => {
+  //   console.log(questionAnswer2)
+  //   debugger
+  //   setQuestionAnswer2((prev) =>
+  //     prev.map((ele) => {
+  //       if (ele.id !== id) return ele;
+
+  //       const updatedAnswer = ele?.answer?.map((entry) => {
+  //         if (entry[selected] !== undefined) {
+  //           return {
+  //             ...entry,
+  //             [selected]: !isSelected,
+  //             value: !isSelected ? [] : entry.value,
+  //           };
+  //         }
+  //         return entry;
+  //       });
+
+  //       return {
+  //         ...ele,
+  //         answer: updatedAnswer,
+  //       };
+  //     })
+  //   );
+
+  //   if (selected === "female" && !selectedGenderType.isFemale) {
+  //     setActiveFemaleButtons([]);
+  //   }
+
+  //   if (selected === "male" && !selectedGenderType.isMale) {
+  //     setActiveMaleButtons([]);
+  //   }
+
+  //   if (selectedGender.includes("both")) {
+  //     if (selected === "male") {
+  //       setSelectedGender(["female"]);
+  //     } else if (selected === "female") {
+  //       setSelectedGender(["male"]);
+  //     }
+  //   } else if (selectedGender.includes(selected)) {
+  //     setSelectedGender((prev) => prev.filter((gender) => gender !== selected));
+  //   } else if (
+  //     (selected === "male" && selectedGender.includes("female")) ||
+  //     (selected === "female" && selectedGender.includes("male"))
+  //   ) {
+  //     setSelectedGender(["both"]);
+  //   } else {
+  //     setSelectedGender((prev) => {
+  //       console.log(prev);
+  //       return [...prev, selected];
+  //     });
+  //   }
+  // };
+
   const handleGenderChange = (id, selected, isSelected) => {
-    console.log(questionAnswer2)
-    debugger
+    console.log(questionAnswer2);
+    debugger;
+
     setQuestionAnswer2((prev) =>
       prev.map((ele) => {
         if (ele.id !== id) return ele;
 
-        const updatedAnswer = ele?.answer?.map((entry) => {
+        // Initialize answer if it's empty, null or undefined
+        let initialAnswer = ele?.answer;
+        if (
+          !Array.isArray(initialAnswer) ||
+          initialAnswer.length === 0 ||
+          initialAnswer.some(
+            (entry) => entry === null || typeof entry !== "object"
+          )
+        ) {
+          initialAnswer = [
+            { female: false, value: [] },
+            { male: false, value: [] },
+          ];
+        }
+
+        const updatedAnswer = initialAnswer.map((entry) => {
           if (entry[selected] !== undefined) {
             return {
               ...entry,
@@ -107,6 +177,7 @@ export const Questionnaire2 = ({
       })
     );
 
+    // Handle gender toggle buttons and selectedGender state
     if (selected === "female" && !selectedGenderType.isFemale) {
       setActiveFemaleButtons([]);
     }
@@ -129,10 +200,7 @@ export const Questionnaire2 = ({
     ) {
       setSelectedGender(["both"]);
     } else {
-      setSelectedGender((prev) => {
-        console.log(prev);
-        return [...prev, selected];
-      });
+      setSelectedGender((prev) => [...prev, selected]);
     }
   };
 
@@ -186,16 +254,16 @@ export const Questionnaire2 = ({
           // }
 
           if (q.answer_type === "age-data") {
-            const femaleEntry = q.answer.find((a) => a?.female);
-            const maleEntry = q.answer.find((a) => a?.male);
+            const femaleEntry = q?.answer?.find((a) => a?.female);
+            const maleEntry = q?.answer?.find((a) => a?.male);
 
             const isFemaleSelected = !!femaleEntry;
             const isMaleSelected = !!maleEntry;
 
             const isFemaleValid =
               isFemaleSelected &&
-              Array.isArray(femaleEntry.value) &&
-              femaleEntry.value.length > 0;
+              Array.isArray(femaleEntry?.value) &&
+              femaleEntry?.value?.length > 0;
 
             const isMaleValid =
               isMaleSelected &&
@@ -223,7 +291,8 @@ export const Questionnaire2 = ({
 
           if (Array.isArray(value)) {
             return (
-              value.length === 0 || value.every((item) => item.trim?.() === "")
+              value?.length === 0 ||
+              value?.every((item) => item.trim?.() === "")
             );
           }
 
@@ -424,7 +493,9 @@ export const Questionnaire2 = ({
                           </button>
                           <button
                             className={
-                              question?.answer?.[1]?.male ? "male-active" : "male"
+                              question?.answer?.[1]?.male
+                                ? "male-active"
+                                : "male"
                             }
                             value={"male"}
                             onClick={() => {
@@ -574,7 +645,9 @@ export const Questionnaire2 = ({
                                     <button
                                       key={`male-${index}`}
                                       className={`male-btn uppercase ${
-                                        question?.answer?.[1].value?.includes(label)
+                                        question?.answer?.[1].value?.includes(
+                                          label
+                                        )
                                           ? "active"
                                           : ""
                                       }`}
