@@ -294,7 +294,7 @@ export const Questionnaire4 = ({
   //   //   [questionId]: updatedColors,
   //   // }));
   //   console.log(questionAnswer4[19]);
-  //   debugger;
+  //   ;
   //   setQuestionAnswer4((prev) =>
   //     prev.map((ele) =>
   //       ele.id === questionId ? { ...ele, answer: updatedColors } : ele
@@ -358,7 +358,7 @@ export const Questionnaire4 = ({
     setInputValue("");
 
     console.log(questionAnswer4.find((ele) => ele.id == questionId)); // for debugging
-    debugger;
+    ;
 
     setQuestionAnswer4((prev) =>
       prev.map((ele) =>
@@ -385,7 +385,7 @@ export const Questionnaire4 = ({
     //   ...prevData,
     //   [questionId]: e.target.value,
     // }));
-    debugger;
+    ;
     setQuestionAnswer4((prev) =>
       prev.map((ele) =>
         ele.id === questionId ? { ...ele, answer: e.target.value } : ele

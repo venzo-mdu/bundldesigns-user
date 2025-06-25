@@ -361,7 +361,7 @@ export const Questionnaire4 = ({
       color: color,
       textColor: textColor,
     };
-    debugger;
+    ;
     // setShadeBackgroundColor(color);
     // setshadeColor(textColor);
     // setShadeType("");

@@ -148,7 +148,7 @@ export const Questionnaire3 = ({
   useEffect(() => {
     if (sessionStorage.getItem("isReload") === "true") {
       sessionStorage.removeItem("isReload");
-      debugger;
+      ;
       navigate("/questionnaire/1");
     }
   }, [navigate]);
@@ -191,7 +191,7 @@ export const Questionnaire3 = ({
   };
 
   const validateFields = () => {
-    debugger;
+    ;
     const unansweredRequiredQuestions = questionAnswer3
       .slice(11, 14)
       .filter((q) => {

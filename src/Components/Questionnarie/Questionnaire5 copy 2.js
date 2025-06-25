@@ -130,7 +130,7 @@ export const Questionnaire5 = ({
   };
 
   // const validateFields = () => {
-  //   debugger;
+  //   ;
   //   const unansweredRequiredQuestions = questionAnswer5
   //     .slice(21, 24)
   //     .filter((q) => {
@@ -252,12 +252,12 @@ export const Questionnaire5 = ({
 
   const FinishClick = async () => {
     console.log(newUpdatedAns);
-    debugger
+    
     if (!validateFields()) {
       return;
     }
     try {
-      debugger
+      
       const response = await axios.post(
         `${base_url}/api/questionnaire/create`,
         questionAnswer5,
@@ -282,7 +282,7 @@ export const Questionnaire5 = ({
 
   const onSaveLaterClick = async () => {
     console.log(newUpdatedAns);
-    debugger;
+    ;
     try {
       let data = {
         answers: newUpdatedAns,

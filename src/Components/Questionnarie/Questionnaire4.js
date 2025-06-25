@@ -81,7 +81,7 @@ export const Questionnaire4 = ({
   useEffect(() => {
     if (sessionStorage.getItem("isReload") === "true") {
       sessionStorage.removeItem("isReload");
-      debugger;
+      ;
       navigate("/questionnaire/1");
     }
   }, [navigate]);
@@ -222,7 +222,7 @@ export const Questionnaire4 = ({
     const unansweredRequiredQuestions = questionAnswer4
       ?.slice(14, 21)
       .filter((q) => {
-        debugger
+        
         const answer = q.answer;
         if (!q.required) {
           return false;
@@ -325,7 +325,7 @@ export const Questionnaire4 = ({
     setInputValue("");
 
     console.log(questionAnswer4.find((ele) => ele.id == questionId)); // for debugging
-    debugger;
+    ;
 
     setQuestionAnswer4((prev) =>
       prev.map((ele) =>
@@ -352,7 +352,7 @@ export const Questionnaire4 = ({
     //   ...prevData,
     //   [questionId]: e.target.value,
     // }));
-    debugger;
+    ;
     setQuestionAnswer4((prev) =>
       prev.map((ele) =>
         ele.id === questionId ? { ...ele, answer: e.target.value } : ele
@@ -386,7 +386,6 @@ export const Questionnaire4 = ({
   };
 
   const handleShadeButtonClick = (color, textColor, type, questionId) => {
-    console.log(questionAnswer4[17]);
     let answer = {
       type,
       color: color,
@@ -404,9 +403,9 @@ export const Questionnaire4 = ({
     //   ...prevData,
     //   [questionId]: value,
     // }));
-    debugger;
+    ;
     if (questionId === 15 || questionId === 16) {
-      debugger;
+      ;
       setQuestionAnswer4((prev) =>
         prev.map((ele) =>
           ele.id === questionId

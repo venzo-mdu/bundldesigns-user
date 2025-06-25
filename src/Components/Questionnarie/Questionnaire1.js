@@ -343,8 +343,7 @@ export const Questionnaire1 = ({
               <input
                 type="text"
                 className={`question-input ${
-                  isFilled === question?.id 
-                  
+                  isFilled === question?.id
                     ? "border-[#D83D99] border-b-[2px]"
                     : `${
                         window?.innerWidth <= 475

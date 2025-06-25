@@ -95,14 +95,14 @@ export const Questionnaire2 = ({
   useEffect(() => {
     if (sessionStorage.getItem("isReload") === "true") {
       sessionStorage.removeItem("isReload");
-      debugger;
+      ;
       navigate("/questionnaire/1");
     }
   }, [navigate]);
 
   // const handleGenderChange = (id, selected, isSelected) => {
   //   console.log(questionAnswer2)
-  //   debugger
+  //   
   //   setQuestionAnswer2((prev) =>
   //     prev.map((ele) => {
   //       if (ele.id !== id) return ele;
@@ -156,7 +156,7 @@ export const Questionnaire2 = ({
 
   const handleGenderChange = (id, selected, isSelected) => {
     console.log(questionAnswer2);
-    debugger;
+    ;
 
     setQuestionAnswer2((prev) =>
       prev.map((ele) => {

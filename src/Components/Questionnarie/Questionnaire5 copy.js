@@ -198,7 +198,7 @@ export const Questionnaire5 = ({
         formData,
         ConfigToken()
       );
-      debugger;
+      ;
       setQuestionAnswer5((prev) =>
         prev.map((ele) =>
           ele.id === id

@@ -74,7 +74,7 @@ export const Questionnaire5 = ({
   useEffect(() => {
     if (sessionStorage.getItem("isReload") === "true") {
       sessionStorage.removeItem("isReload");
-      debugger;
+      ;
       navigate("/questionnaire/1");
     }
   }, [navigate]);
@@ -148,7 +148,7 @@ export const Questionnaire5 = ({
   };
 
   // const validateFields = () => {
-  //   debugger;
+  //   ;
   //   const unansweredRequiredQuestions = questionAnswer5
   //     .slice(21, 24)
   //     .filter((q) => {
@@ -264,7 +264,7 @@ export const Questionnaire5 = ({
   };
 
   const FinishClick = async () => {
-    debugger;
+    ;
     let finalFormData = {
       answers: newUpdatedAns,
       language: localStorage.getItem("lang") === "ar" ? "arabic" : "english",
@@ -299,7 +299,7 @@ export const Questionnaire5 = ({
 
   const onSaveLaterClick = async () => {
     console.log(newUpdatedAns);
-    debugger;
+    ;
     try {
       let data = {
         answers: newUpdatedAns,
