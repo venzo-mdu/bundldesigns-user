@@ -312,7 +312,7 @@ export const Questionnaire3 = ({
                 onChange={(e) => handleChange(question.id, e.target.value)}
               />
             )}
-            <div className=" flex items-center justify-center flex-col w-[100%] md:w-[100% xl:w-[100%] lg:w-[100%] mt-[3%] px-2">
+            {/* <div className=" flex items-center justify-center flex-col w-[100%] md:w-[100% xl:w-[100%] lg:w-[100%] mt-[3%] px-2">
               {question.answer_type === "bar" &&
                 progressLabels.map((data, index) => {
                   const sliderValue = sliderValues[data?.right] || 50;
@@ -359,6 +359,88 @@ export const Questionnaire3 = ({
                       }}
                       className="progress-section-q3"
                       key={index}
+                    >
+                      <p className="progress-text" style={leftTextStyle}>
+                        {data?.left}
+                      </p>
+                      <input
+                        type="range"
+                        value={sliderValue}
+                        className="question-progress"
+                        min={0}
+                        max={100}
+                        onChange={(e) =>
+                          handleSliderChange(e.target.value, question.id)
+                        }
+                      />
+                      <p className="progress-text" style={rightTextStyle}>
+                        {data?.right}
+                      </p>
+                    </div>
+                  );
+                })}
+
+              {question.answer_type === "bar" && (
+                <div
+                  className={`w-[100%] xl:h-[2px] lg:h-[2px] md:h-[2px] sm:h-[2px] xs:h-[1px] ${
+                    isFilled === question?.id ? "bg-[#D83D99]" : "bg-black"
+                  } mt-[3%]`}
+                ></div>
+              )}
+            </div> */}
+
+            <div className="flex items-center justify-center flex-col w-[100%] md:w-[100%] xl:w-[100%] lg:w-[100%] mt-[3%] px-2">
+              {question.answer_type === "bar" &&
+                progressLabels.map((data, index) => {
+                  // Initialize slider value from answer or default to 50
+                  const sliderValue = question?.answer?.[data?.right] ?? 50;
+                  const leftValue = 100 - sliderValue;
+                  const rightValue = sliderValue;
+
+                  const handleSliderChange = (newValue, id) => {
+                    const adjustedValue = parseInt(newValue, 10);
+
+                    const newSlideValues = {
+                      [data?.left]: 100 - adjustedValue,
+                      [data?.right]: adjustedValue,
+                    };
+
+                    // Update questionAnswer3 state
+                    setQuestionAnswer3((prev) =>
+                      prev.map((ele) =>
+                        ele.id === id
+                          ? {
+                              ...ele,
+                              answer: {
+                                ...ele.answer,
+                                ...newSlideValues,
+                              },
+                            }
+                          : ele
+                      )
+                    );
+                  };
+
+                  const leftTextStyle = {
+                    textAlign: "left",
+                    fontSize: window?.innerWidth <= 475 ? "10px" : "18px",
+                  };
+
+                  const rightTextStyle = {
+                    textAlign: "left",
+                    fontSize: window?.innerWidth <= 475 ? "10px" : "18px",
+                  };
+
+                  return (
+                    <div
+                      key={index}
+                      className="progress-section-q3"
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        gap: "10px",
+                      }}
                     >
                       <p className="progress-text" style={leftTextStyle}>
                         {data?.left}

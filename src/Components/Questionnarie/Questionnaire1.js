@@ -342,20 +342,10 @@ export const Questionnaire1 = ({
               )}
               <input
                 type="text"
-                // className={`question-input ${
-                //   isFilled === question?.id || question?.id === 4 && question.answer
-                //     ? "border-[#D83D99] border-b-[2px]"
-                //     : `${
-                //         window?.innerWidth <= 475
-                //           ? "border-b-[1px]"
-                //           : "border-b-[2px]"
-                //       } border-black`
-                // }`}
                 className={`question-input ${
                   isFilled === question?.id ||
                   (question?.id === 4 &&
-                    question?.answer?.type &&
-                    question?.answer?.answer)
+                    (!question?.answer?.type || !question?.answer?.answer))
                     ? "border-[#D83D99] border-b-[2px]"
                     : `${
                         window?.innerWidth <= 475
@@ -363,6 +353,18 @@ export const Questionnaire1 = ({
                           : "border-b-[2px]"
                       } border-black`
                 }`}
+                // className={`question-input ${
+                //   isFilled === question?.id ||
+                //   (question?.id === 4 &&
+                //     !question?.answer?.type ||
+                //     !question?.answer?.answer)
+                //     ? "border-[#D83D99] border-b-[2px]"
+                //     : `${
+                //         window?.innerWidth <= 475
+                //           ? "border-b-[1px]"
+                //           : "border-b-[2px]"
+                //       } border-black`
+                // }`}
                 placeholder={
                   changeLang === "ar"
                     ? placeHolders_arabic[index]
