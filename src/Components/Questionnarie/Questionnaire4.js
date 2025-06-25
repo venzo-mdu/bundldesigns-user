@@ -68,6 +68,24 @@ export const Questionnaire4 = ({
 
   /* NEW QUESTIONANSWER */
 
+  useEffect(() => {
+    window.onbeforeunload = () => {
+      sessionStorage.setItem("isReload", "true");
+    };
+    return () => {
+      window.onbeforeunload = null;
+    };
+  }, []);
+
+  // Detect refresh on mount
+  useEffect(() => {
+    if (sessionStorage.getItem("isReload") === "true") {
+      sessionStorage.removeItem("isReload");
+      debugger;
+      navigate("/questionnaire/1");
+    }
+  }, [navigate]);
+
   console.log(formData, "eee");
   const placeHolders = ["BUNDL", "(ex: Luxury shopping made easy)"];
   const placeHolders_arabic = ["", ""];
@@ -204,6 +222,7 @@ export const Questionnaire4 = ({
     const unansweredRequiredQuestions = questionAnswer4
       ?.slice(14, 21)
       .filter((q) => {
+        debugger
         const answer = q.answer;
         if (!q.required) {
           return false;

@@ -62,6 +62,24 @@ export const Questionnaire5 = ({
   /* NEW QUESTIONANSWER */
 
   useEffect(() => {
+    window.onbeforeunload = () => {
+      sessionStorage.setItem("isReload", "true");
+    };
+    return () => {
+      window.onbeforeunload = null;
+    };
+  }, []);
+
+  // Detect refresh on mount
+  useEffect(() => {
+    if (sessionStorage.getItem("isReload") === "true") {
+      sessionStorage.removeItem("isReload");
+      debugger;
+      navigate("/questionnaire/1");
+    }
+  }, [navigate]);
+
+  useEffect(() => {
     const fetchQuestions = async () => {
       try {
         const response = await axios.get(

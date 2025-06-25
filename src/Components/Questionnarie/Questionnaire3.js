@@ -135,6 +135,24 @@ export const Questionnaire3 = ({
     fetchAnswers();
   }, []);
 
+  useEffect(() => {
+    window.onbeforeunload = () => {
+      sessionStorage.setItem("isReload", "true");
+    };
+    return () => {
+      window.onbeforeunload = null;
+    };
+  }, []);
+
+  // Detect refresh on mount
+  useEffect(() => {
+    if (sessionStorage.getItem("isReload") === "true") {
+      sessionStorage.removeItem("isReload");
+      debugger;
+      navigate("/questionnaire/1");
+    }
+  }, [navigate]);
+
   // const getAnswerValue = (questionId) => {
   //   const formValue = formData?.[questionId];
   //   if (formValue !== undefined) {
