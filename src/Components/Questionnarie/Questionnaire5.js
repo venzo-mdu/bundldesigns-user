@@ -246,11 +246,12 @@ export const Questionnaire5 = ({
   };
 
   const FinishClick = async () => {
+    debugger;
     let finalFormData = {
       answers: newUpdatedAns,
       language: localStorage.getItem("lang") === "ar" ? "arabic" : "english",
       status: "submit",
-      orderId: location.state?.orderId,
+      orderId: location.state?.orderId || localStorage.getItem("orderId"),
     };
     if (!validateFields()) {
       return;
@@ -340,13 +341,13 @@ export const Questionnaire5 = ({
               {changeLang === "ar"
                 ? question?.question_arabic
                 : question.question}
-              {question.required && (
+              {question?.required && (
                 <span>
                   <sup>*</sup>
                 </span>
               )}
             </p>
-            {question.id === 24 && (
+            {question?.id === 24 && (
               <div className="flex items-center justify-center gap-[20px] mt-2">
                 <div>
                   <button
@@ -364,7 +365,7 @@ export const Questionnaire5 = ({
                   <button
                     onClick={() => handleLanguageChange("english", question.id)}
                     className={`uppercase font-[18px] lg:h-[45px] md:h-[45px] xs:h-[35px] w-[150px] border-[1px] border-solid border-[#000000] ${
-                      question.answer === "english"
+                      question?.answer === "english"
                         ? "bg-[#000000] text-[#FFFFFF]"
                         : "hover:bg-[#000000] hover:text-[#FFFFFF]"
                     }`}
@@ -378,7 +379,7 @@ export const Questionnaire5 = ({
             {question.id === 24 ? (
               <div
                 className={`w-[100%] xl:h-[2px] lg:h-[2px] md:h-[2px] sm:h-[2px] xs:h-[1px] ${
-                  !question.answer ? "bg-[#D83D99]" : "bg-black"
+                  !question?.answer ? "bg-[#D83D99]" : "bg-black"
                 } lg:mt-[3%] md:mt-[3%] xs:mt-[5%]`}
               ></div>
             ) : question?.id === 23 ? (
@@ -430,14 +431,14 @@ export const Questionnaire5 = ({
                       </p>
                     </div>
                     <p className="lg:text-[18px] md:text-[18px] xs:text-[14px] font-[400]">
-                      {question.answer.docName}
+                      {question?.answer?.docName}
                     </p>
                   </>
                 </div>
               </>
             ) : (
               <input
-                placeholder={question.placeholder}
+                placeholder={question?.placeholder}
                 className={`question-input ${
                   isFilled === question?.id
                     ? "border-[#D83D99] border-b-[2px]"
@@ -447,7 +448,7 @@ export const Questionnaire5 = ({
                           : "border-b-[2px]"
                       } border-black`
                 }`}
-                value={question.answer}
+                value={question?.answer}
                 onChange={(e) => handleChange(question.id, e.target.value)}
               />
             )}
@@ -458,4 +459,3 @@ export const Questionnaire5 = ({
     </div>
   );
 };
-

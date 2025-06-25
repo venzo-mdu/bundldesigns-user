@@ -173,13 +173,16 @@ export const Questionnaire3 = ({
   };
 
   const validateFields = () => {
-    const unansweredRequiredQuestions = questionAnswer3.slice(11, 14).filter((q) => {
-      return (
-        q.required &&
-        (!q.answer ||
-          (typeof q?.answer === "string" && q?.answer.trim() === ""))
-      );
-    });
+    debugger;
+    const unansweredRequiredQuestions = questionAnswer3
+      .slice(11, 14)
+      .filter((q) => {
+        return (
+          q.required &&
+          (!q.answer ||
+            (typeof q?.answer === "string" && q?.answer.trim() === ""))
+        );
+      });
 
     if (unansweredRequiredQuestions.length > 0) {
       const element = document.getElementById(
@@ -324,10 +327,15 @@ export const Questionnaire3 = ({
                       [data?.right]: adjustedValue,
                     };
                     setSliderValues(newSlideValues);
-                    setFormData((prevFormData) => ({
-                      ...prevFormData,
-                      [id]: newSlideValues,
-                    }));
+                    // setFormData((prevFormData) => ({
+                    //   ...prevFormData,
+                    //   [id]: newSlideValues,
+                    // }));
+                    setQuestionAnswer3((prev) =>
+                      prev.map((ele) =>
+                        ele.id === id ? { ...ele, answer: newSlideValues } : ele
+                      )
+                    );
                   };
                   const leftTextStyle = {
                     textAlign: "left",

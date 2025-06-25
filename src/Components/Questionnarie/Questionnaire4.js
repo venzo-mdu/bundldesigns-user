@@ -583,21 +583,21 @@ export const Questionnaire4 = ({
                   </p>
                 )}
 
-                {question.answer_type === "shade" && (
+                {question?.answer_type === "shade" && (
                   <>
                     <div
                       className="shade-background "
                       style={{
                         backgroundColor:
-                          question.answer.type !== "surprise"
-                            ? question.answer.color
+                          question?.answer?.type !== "surprise"
+                            ? question?.answer?.color
                             : "rgb(228, 222, 216)",
                       }}
                     >
                       <p
                         style={{
                           color:
-                            question.answer.color === "rgb(228, 222, 216)"
+                            question?.answer?.color === "rgb(228, 222, 216)"
                               ? "rgb(0, 0, 0)"
                               : "#FFFFFF",
                           width: "100%",
@@ -608,7 +608,7 @@ export const Questionnaire4 = ({
                       >
                         {changeLang === "ar"
                           ? question?.question_arabic
-                          : question.question}
+                          : question?.question}
                         <span>
                           <sup>*</sup>
                         </span>
@@ -618,8 +618,8 @@ export const Questionnaire4 = ({
                           <img src={Color1}></img>
                           <button
                             className={
-                              question.answer.color === "rgb(228, 222, 216)" &&
-                              question.answer.type !== "surprise"
+                              question?.answer?.color === "rgb(228, 222, 216)" &&
+                              question?.answer?.type !== "surprise"
                                 ? "shade-btn-active"
                                 : "shade-btn"
                             }
@@ -641,8 +641,8 @@ export const Questionnaire4 = ({
                           <img src={Color2}></img>
                           <button
                             className={
-                              question.answer.color === "rgb(9, 50, 108)" &&
-                              question.answer.type !== "surprise"
+                              question?.answer?.color === "rgb(9, 50, 108)" &&
+                              question?.answer?.type !== "surprise"
                                 ? "shade-btn-active"
                                 : "shade-btn"
                             }
@@ -664,8 +664,8 @@ export const Questionnaire4 = ({
                           <img src={Color3}></img>
                           <button
                             className={
-                              question.answer.color === "rgb(255, 124, 124)" &&
-                              question.answer.type !== "surprise"
+                              question?.answer?.color === "rgb(255, 124, 124)" &&
+                              question?.answer?.type !== "surprise"
                                 ? "shade-btn-active"
                                 : "shade-btn"
                             }
@@ -694,7 +694,7 @@ export const Questionnaire4 = ({
                       >
                         <p
                           className="shade-bundl-text"
-                          style={{ color: question.answer.textColor }}
+                          style={{ color: question?.answer?.textColor }}
                         >
                           Bundl
                         </p>
@@ -705,7 +705,7 @@ export const Questionnaire4 = ({
                         </p>
                         <button
                           className={`lg:mb-[2%] md:mb-[2%] xs:mb-[2%] ${
-                            question.answer.type === "surprise"
+                            question?.answer?.type === "surprise"
                               ? "surprise-active"
                               : "surprise"
                           }`}
@@ -724,7 +724,7 @@ export const Questionnaire4 = ({
                     </div>
                   </>
                 )}
-                {question.answer_type === "font" && (
+                {question?.answer_type === "font" && (
                   <>
                     <div className="font-grid">
                       {textStyle?.map((font, index) => {
@@ -784,7 +784,7 @@ export const Questionnaire4 = ({
                     </button>
                   </>
                 )}
-                {question.answer_type === "color" && (
+                {question?.answer_type === "color" && (
                   <>
                     <div
                       className="color-grid"
@@ -888,7 +888,7 @@ export const Questionnaire4 = ({
                       <div className="flex justify-center items-center">
                         <input
                           type="text"
-                          value={question.answer}
+                          value={question?.answer}
                           onChange={(e) => handleInputChange(question.id, e)}
                           placeholder="ex: #E1483D"
                           style={{
@@ -943,7 +943,7 @@ export const Questionnaire4 = ({
                     </div>
                   </>
                 )}
-                {question.answer_type === "texture" && (
+                {question?.answer_type === "texture" && (
                   <>
                     <div className="form-group lg:w-[75%] md:w-[100%]">
                       <span className="font-error valid-error text-purple"></span>
@@ -968,7 +968,7 @@ export const Questionnaire4 = ({
                             type="checkbox"
                             name="13"
                             checked={
-                              question.answer.includes("patterns")
+                              question?.answer?.includes("patterns")
                                 ? true
                                 : false
                             }
@@ -1006,7 +1006,7 @@ export const Questionnaire4 = ({
                             type="checkbox"
                             name="13"
                             checked={
-                              question.answer.includes("textures")
+                              question?.answer?.includes("textures")
                                 ? true
                                 : false
                             }
@@ -1043,7 +1043,7 @@ export const Questionnaire4 = ({
                             type="checkbox"
                             name="13"
                             checked={
-                              question.answer.includes("collages")
+                              question?.answer?.includes("collages")
                                 ? true
                                 : false
                             }
@@ -1080,7 +1080,7 @@ export const Questionnaire4 = ({
                             type="checkbox"
                             name="13"
                             checked={
-                              question.answer.includes("cleanvisual")
+                              question?.answer?.includes("cleanvisual")
                                 ? true
                                 : false
                             }
@@ -1117,7 +1117,7 @@ export const Questionnaire4 = ({
                             type="checkbox"
                             name="13"
                             checked={
-                              question.answer.includes("illustrations")
+                              question?.answer?.includes("illustrations")
                                 ? true
                                 : false
                             }
@@ -1154,7 +1154,7 @@ export const Questionnaire4 = ({
                             type="checkbox"
                             name="13"
                             checked={
-                              question.answer.includes("frames") ? true : false
+                              question?.answer?.includes("frames") ? true : false
                             }
                             value="frames"
                             id="frames"
@@ -1191,7 +1191,7 @@ export const Questionnaire4 = ({
                       </p>
                       <button
                         className={`${
-                          question.answer.includes("Surprise")
+                          question?.answer?.includes("Surprise")
                             ? "surprise-active"
                             : "surprise"
                         }`}
@@ -1227,7 +1227,7 @@ export const Questionnaire4 = ({
                           type="text"
                           placeholder="Links"
                           // value={getAnswerValue(question.id)}
-                          value={question.answer.link}
+                          value={question?.answer?.link}
                           onChange={(e) =>
                             handleChange(question.id, e.target.value)
                           }
@@ -1295,7 +1295,7 @@ export const Questionnaire4 = ({
                         </p>
                       </>
                     </div>
-                    {question?.answer.docName}
+                    {question?.answer?.docName}
                   </>
                 ) : (
                   ""
