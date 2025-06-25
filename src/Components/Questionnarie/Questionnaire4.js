@@ -589,17 +589,26 @@ export const Questionnaire4 = ({
                       className="shade-background "
                       style={{
                         backgroundColor:
-                          question?.answer?.type !== "surprise"
-                            ? question?.answer?.color
+                          question?.answer?.type !== "surprise" &&
+                          question?.answer?.color
+                            ? question.answer.color
                             : "rgb(228, 222, 216)",
                       }}
                     >
                       <p
+                        // style={{
+                        //   color:
+                        //     question?.answer?.color === "rgb(228, 222, 216)"
+                        //       ? "rgb(0, 0, 0)"
+                        //       : "#FFFFFF",
+                        //   width: "100%",
+                        // }}
                         style={{
                           color:
-                            question?.answer?.color === "rgb(228, 222, 216)"
+                            question?.answer?.color?.trim() ===
+                            "rgb(228, 222, 216)"
                               ? "rgb(0, 0, 0)"
-                              : "#FFFFFF",
+                              : "rgb(0, 0, 0)",
                           width: "100%",
                         }}
                         className={`questions-title mb-3 ${
@@ -618,7 +627,8 @@ export const Questionnaire4 = ({
                           <img src={Color1}></img>
                           <button
                             className={
-                              question?.answer?.color === "rgb(228, 222, 216)" &&
+                              question?.answer?.color ===
+                                "rgb(228, 222, 216)" &&
                               question?.answer?.type !== "surprise"
                                 ? "shade-btn-active"
                                 : "shade-btn"
@@ -664,7 +674,8 @@ export const Questionnaire4 = ({
                           <img src={Color3}></img>
                           <button
                             className={
-                              question?.answer?.color === "rgb(255, 124, 124)" &&
+                              question?.answer?.color ===
+                                "rgb(255, 124, 124)" &&
                               question?.answer?.type !== "surprise"
                                 ? "shade-btn-active"
                                 : "shade-btn"
@@ -1154,7 +1165,9 @@ export const Questionnaire4 = ({
                             type="checkbox"
                             name="13"
                             checked={
-                              question?.answer?.includes("frames") ? true : false
+                              question?.answer?.includes("frames")
+                                ? true
+                                : false
                             }
                             value="frames"
                             id="frames"
@@ -1309,7 +1322,7 @@ export const Questionnaire4 = ({
                     }
                     value={question.answer}
                     className={`question-input ${
-                      !question.answer
+                      !isFilled === question?.id
                         ? "border-[#D83D99]  border-b-[2px]"
                         : `${
                             window?.innerWidth <= 475
@@ -1337,4 +1350,3 @@ export const Questionnaire4 = ({
     </div>
   );
 };
-
