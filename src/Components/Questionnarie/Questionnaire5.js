@@ -50,7 +50,7 @@ export const Questionnaire5 = ({
   const questionAndAnswers = useSelector(
     (state) => state?.questionAnswer?.questionAndAnswers || []
   );
-
+  const orderId = useSelector((state) => state?.questionAnswer?.orderId);
   const [questionAnswer5, setQuestionAnswer5] = useState([]);
 
   useEffect(() => {
@@ -199,7 +199,6 @@ export const Questionnaire5 = ({
       const element = document.getElementById(
         `question_${unansweredRequiredQuestions[0]?.id}`
       );
-      ;
       setIsFilled(unansweredRequiredQuestions[0]?.id);
       if (element) {
         element.scrollIntoView({ behavior: "smooth" });
@@ -225,7 +224,6 @@ export const Questionnaire5 = ({
     );
     // Update the isFilled array only if questionId is not 24
     if (questionId === 24) {
-      
       setIsFilled(null);
     }
   };
@@ -284,9 +282,9 @@ export const Questionnaire5 = ({
         ConfigToken()
       );
       if (response.data.status === 200) {
-        localStorage.removeItem("reduxState")
-        localStorage.removeItem("orderId")
-        dispatch(fetchQuestionAnswer([]))
+        localStorage.removeItem("reduxState");
+        localStorage.removeItem("orderId");
+        dispatch(fetchQuestionAnswer([]));
         dispatch(updateOrderID(""));
       }
 
@@ -309,7 +307,7 @@ export const Questionnaire5 = ({
       let data = {
         answers: questionAnswer5,
         status: "not submitted",
-        orderId: location.state.orderId,
+        orderId: orderId,
       };
       const response = await axios.post(
         `${base_url}/api/questionnaire/create`,
@@ -455,7 +453,6 @@ export const Questionnaire5 = ({
                     </div>
                     <p className="lg:text-[18px] md:text-[18px] xs:text-[14px] font-[400]">
                       {question?.answer?.docName}
-
                     </p>
                   </>
                 </div>

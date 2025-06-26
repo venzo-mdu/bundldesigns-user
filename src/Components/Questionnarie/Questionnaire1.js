@@ -19,7 +19,7 @@ export const Questionnaire1 = ({
   changeLang,
   setChangeLang,
   lang,
-  setlang
+  setlang,
 }) => {
   const { showErrorToast } = useToastMessage();
   const location = useLocation();
@@ -36,6 +36,7 @@ export const Questionnaire1 = ({
     (state) => state?.questionAnswer?.questionAndAnswers || []
   );
 
+  const orderId = useSelector((state) => state?.questionAnswer?.orderId);
   const [questionAnswer1, setQuestionAnswer1] = useState([]);
 
   useEffect(() => {
@@ -103,7 +104,10 @@ export const Questionnaire1 = ({
       if (/[0-9!@#$%^&*(),.?":{}|<>]/g.test(value)) {
         setErrors((prev) => ({
           ...prev,
-          [questionId]: lang === "ar" ? "لا يجب أن يحتوي على أرقام أو رموز" : "Should not contain numbers or special characters",
+          [questionId]:
+            lang === "ar"
+              ? "لا يجب أن يحتوي على أرقام أو رموز"
+              : "Should not contain numbers or special characters",
         }));
         return;
       } else {
@@ -148,7 +152,10 @@ export const Questionnaire1 = ({
       if (!value) {
         setErrors((prev) => ({
           ...prev,
-          [questionId]: lang === "ar" ? 'يرجى اختيار "منتج" أو "خدمة" أولاً.' : 'Please select either "Product" or "Service" first.',
+          [questionId]:
+            lang === "ar"
+              ? 'يرجى اختيار "منتج" أو "خدمة" أولاً.'
+              : 'Please select either "Product" or "Service" first.',
         }));
       } else {
         setErrors((prev) => {
@@ -172,21 +179,20 @@ export const Questionnaire1 = ({
     const unansweredRequiredQuestions = questionAnswer1
       .slice(0, 6)
       .filter((q) => {
-
         if (q?.id === 4 && q.required) {
-        const type = q?.answer?.type?.trim?.();
-        const answer = q?.answer?.answer?.trim?.();
-        if (!type && !answer) {
-          return true;
+          const type = q?.answer?.type?.trim?.();
+          const answer = q?.answer?.answer?.trim?.();
+          if (!type && !answer) {
+            return true;
+          }
+          return !type || !answer;
         }
-        return !type || !answer;
-      }
-      return (
-        q.required &&
-        (!q.answer ||
-          (typeof q.answer === "string" && q.answer.trim() === ""))
-      );
-    });
+        return (
+          q.required &&
+          (!q.answer ||
+            (typeof q.answer === "string" && q.answer.trim() === ""))
+        );
+      });
 
     if (unansweredRequiredQuestions.length > 0) {
       const element = document.getElementById(
@@ -223,7 +229,7 @@ export const Questionnaire1 = ({
   const onSaveLaterClick = async () => {
     let data = {
       answers: questionAnswer1,
-      orderId: location.state?.orderId,
+      orderId: orderId,
       status: "not submitted",
     };
     try {

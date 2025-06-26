@@ -33,7 +33,7 @@ export const Questionnaire3 = ({
   const questionAndAnswers = useSelector(
     (state) => state?.questionAnswer?.questionAndAnswers
   );
-
+  const orderId = useSelector((state) => state?.questionAnswer?.orderId);
   const [questionAnswer3, setQuestionAnswer3] = useState([]);
 
   useEffect(() => {
@@ -46,7 +46,7 @@ export const Questionnaire3 = ({
 
   const progressLabels = [
     {
-      left: changeLang === "ar" ? "رجولي" : "Masculine",
+      left: changeLang === "ar" ? "ذكوري" : "Masculine",
       right: changeLang === "ar" ? "أنثوي" : "Feminine",
     },
     {
@@ -54,7 +54,7 @@ export const Questionnaire3 = ({
       right: changeLang === "ar" ? "فاخر" : "Luxurious",
     },
     {
-      left: changeLang === "ar" ? "مرح" : "Playful",
+      left: changeLang === "ar" ? "لعوب" : "Playful",
       right: changeLang === "ar" ? "راقي" : "Sophisticated",
     },
     {
@@ -78,7 +78,7 @@ export const Questionnaire3 = ({
     "(ex: was always passionate about creating my own perfume business)",
   ];
 
-  const placeHolders_arabic = ["قصة مشروعك", "القصة خلف الاسم", "باقة", "مثال: كنت دائمًا شغوف بإطلاق مشروع عطوري الخاص"];
+  const placeHolders_arabic = ["", "", "", ""];
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -148,7 +148,6 @@ export const Questionnaire3 = ({
   useEffect(() => {
     if (sessionStorage.getItem("isReload") === "true") {
       sessionStorage.removeItem("isReload");
-      ;
       navigate("/questionnaire/1");
     }
   }, [navigate]);
@@ -191,7 +190,6 @@ export const Questionnaire3 = ({
   };
 
   const validateFields = () => {
-    ;
     const unansweredRequiredQuestions = questionAnswer3
       .slice(11, 14)
       .filter((q) => {
@@ -244,8 +242,8 @@ export const Questionnaire3 = ({
 
   const onSaveLaterClick = async () => {
     let data = {
-      answers: formData,
-      orderId: location.state?.orderId,
+      answers: questionAnswer3,
+      orderId: orderId,
       status: "not submitted",
     };
     try {
@@ -265,6 +263,8 @@ export const Questionnaire3 = ({
       console.log(e);
     }
   };
+
+  const isArabic = changeLang === "ar"; // Replace with your actual language check
 
   return (
     <div>
@@ -407,9 +407,10 @@ export const Questionnaire3 = ({
               )}
             </div> */}
 
-            <div className="flex items-center justify-center flex-col w-[100%] md:w-[100%] xl:w-[100%] lg:w-[100%] mt-[3%] px-2">
+            {/* <div className="flex items-center justify-center flex-col w-[100%] md:w-[100%] xl:w-[100%] lg:w-[100%] mt-[3%] px-2">
               {question.answer_type === "bar" &&
                 progressLabels.map((data, index) => {
+                  debugger
                   // Initialize slider value from answer or default to 50
                   const sliderValue = question?.answer?.[data?.right] ?? 50;
                   const leftValue = 100 - sliderValue;
@@ -424,6 +425,7 @@ export const Questionnaire3 = ({
                     };
 
                     // Update questionAnswer3 state
+                    console.log(questionAnswer3[13])
                     setQuestionAnswer3((prev) =>
                       prev.map((ele) =>
                         ele.id === id
@@ -486,6 +488,91 @@ export const Questionnaire3 = ({
                     isFilled === question?.id ? "bg-[#D83D99]" : "bg-black"
                   } mt-[3%]`}
                 ></div>
+              )}
+            </div> */}
+
+            <div
+              className="flex items-center justify-center flex-col w-full mt-[3%] px-2"
+              dir={isArabic ? "rtl" : "ltr"}
+            >
+              {question.answer_type === "bar" &&
+                progressLabels.map((data, index) => {
+                  const sliderValue = question?.answer?.[data?.right] ?? 50;
+                  const leftValue = 100 - sliderValue;
+                  const rightValue = sliderValue;
+
+                  const handleSliderChange = (newValue, id) => {
+                    const adjustedValue = parseInt(newValue, 10);
+
+                    const newSlideValues = {
+                      [data?.left]: 100 - adjustedValue,
+                      [data?.right]: adjustedValue,
+                    };
+
+                    setQuestionAnswer3((prev) =>
+                      prev.map((ele) =>
+                        ele.id === id
+                          ? {
+                              ...ele,
+                              answer: {
+                                ...ele.answer,
+                                ...newSlideValues,
+                              },
+                            }
+                          : ele
+                      )
+                    );
+                  };
+
+                  const textStyle = (align) => ({
+                    textAlign: align,
+                    fontSize: window?.innerWidth <= 475 ? "10px" : "18px",
+                  });
+
+                  return (
+                    <div
+                      key={index}
+                      className="progress-section-q3"
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        flexDirection: isArabic ? "row-reverse" : "row",
+                        gap: "10px",
+                      }}
+                    >
+                      <p
+                        className="progress-text"
+                        style={textStyle(isArabic ? "right" : "left")}
+                      >
+                        {data?.left}
+                      </p>
+                      <input
+                        type="range"
+                        value={sliderValue}
+                        className="question-progress"
+                        min={0}
+                        max={100}
+                        onChange={(e) =>
+                          handleSliderChange(e.target.value, question.id)
+                        }
+                      />
+                      <p
+                        className="progress-text"
+                        style={textStyle(isArabic ? "left" : "right")}
+                      >
+                        {data?.right}
+                      </p>
+                    </div>
+                  );
+                })}
+
+              {question.answer_type === "bar" && (
+                <div
+                  className={`w-full ${
+                    isFilled === question?.id ? "bg-[#D83D99]" : "bg-black"
+                  } mt-[3%] h-[2px]`}
+                />
               )}
             </div>
           </div>

@@ -57,7 +57,7 @@ export const Questionnaire4 = ({
   const questionAndAnswers = useSelector(
     (state) => state?.questionAnswer?.questionAndAnswers || []
   );
-
+const orderId = useSelector((state) => state?.questionAnswer?.orderId);
   const [questionAnswer4, setQuestionAnswer4] = useState([]);
 
   useEffect(() => {
@@ -577,7 +577,7 @@ export const Questionnaire4 = ({
   const onSaveLaterClick = async () => {
     let data = {
       answers: questionAnswer4,
-      orderId: location?.state?.orderId,
+      orderId: orderId,
       status: "not submitted",
     };
     try {
