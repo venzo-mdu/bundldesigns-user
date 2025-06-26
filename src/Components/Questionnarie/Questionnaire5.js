@@ -302,10 +302,9 @@ export const Questionnaire5 = ({
   });
 
   const onSaveLaterClick = async () => {
-    console.log(newUpdatedAns);
     try {
       let data = {
-        answers: questionAnswer5,
+        answers: newUpdatedAns,
         status: "not submitted",
         orderId: orderId,
       };

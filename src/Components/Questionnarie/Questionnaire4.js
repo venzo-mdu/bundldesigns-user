@@ -57,7 +57,7 @@ export const Questionnaire4 = ({
   const questionAndAnswers = useSelector(
     (state) => state?.questionAnswer?.questionAndAnswers || []
   );
-const orderId = useSelector((state) => state?.questionAnswer?.orderId);
+  const orderId = useSelector((state) => state?.questionAnswer?.orderId);
   const [questionAnswer4, setQuestionAnswer4] = useState([]);
 
   useEffect(() => {
@@ -258,10 +258,10 @@ const orderId = useSelector((state) => state?.questionAnswer?.orderId);
   };
 
   const handleColorClick = (color, questionId) => {
-    debugger;
+    ;
     let updatedColors = [];
     if (questionId === 19) {
-      setInputValue("")
+      setInputValue("");
       if (color) {
         if (color === "Surprise") {
           // Reset colors if Surprise
@@ -396,7 +396,7 @@ const orderId = useSelector((state) => state?.questionAnswer?.orderId);
   };
 
   const handleInputChange = (questionId, e) => {
-    debugger
+    ;
     setQuestionAnswer4((prev) =>
       prev.map((ele) =>
         ele.id === questionId ? { ...ele, answer: e.target.value } : ele
@@ -539,17 +539,17 @@ const orderId = useSelector((state) => state?.questionAnswer?.orderId);
             : ele
         )
       );
-// =======
-//       console.log(response.data, "res");
-//       setUploadContent((prev) => ({
-//         ...prev,
-//         [id]: {
-//           ...prev[id],
-//           [field]: response.data.file_url,
-//           ...(field === "file" && { filename: e.target.files[0]?.name || "" }),
-//         },
-//       }));
-// >>>>>>> cartChanges-update
+      // =======
+      //       console.log(response.data, "res");
+      //       setUploadContent((prev) => ({
+      //         ...prev,
+      //         [id]: {
+      //           ...prev[id],
+      //           [field]: response.data.file_url,
+      //           ...(field === "file" && { filename: e.target.files[0]?.name || "" }),
+      //         },
+      //       }));
+      // >>>>>>> cartChanges-update
     }
   };
 
@@ -574,9 +574,16 @@ const orderId = useSelector((state) => state?.questionAnswer?.orderId);
     });
   };
 
+  let newUpdatedAns = questionAnswer4.map((ele) => {
+    return {
+      id: ele.id,
+      answers: ele.answer,
+    };
+  });
+
   const onSaveLaterClick = async () => {
     let data = {
-      answers: questionAnswer4,
+      answers: newUpdatedAns,
       orderId: orderId,
       status: "not submitted",
     };
@@ -1391,7 +1398,6 @@ const orderId = useSelector((state) => state?.questionAnswer?.orderId);
                       </>
                     </div>
                     {question?.answer?.docName}
-
                   </>
                 ) : (
                   ""

@@ -410,7 +410,7 @@ export const Questionnaire3 = ({
             {/* <div className="flex items-center justify-center flex-col w-[100%] md:w-[100%] xl:w-[100%] lg:w-[100%] mt-[3%] px-2">
               {question.answer_type === "bar" &&
                 progressLabels.map((data, index) => {
-                  debugger
+                  
                   // Initialize slider value from answer or default to 50
                   const sliderValue = question?.answer?.[data?.right] ?? 50;
                   const leftValue = 100 - sliderValue;

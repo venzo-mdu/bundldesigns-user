@@ -96,14 +96,13 @@ export const Questionnaire2 = ({
   useEffect(() => {
     if (sessionStorage.getItem("isReload") === "true") {
       sessionStorage.removeItem("isReload");
-      ;
       navigate("/questionnaire/1");
     }
   }, [navigate]);
 
   // const handleGenderChange = (id, selected, isSelected) => {
   //   console.log(questionAnswer2)
-  //   
+  //
   //   setQuestionAnswer2((prev) =>
   //     prev.map((ele) => {
   //       if (ele.id !== id) return ele;
@@ -157,8 +156,6 @@ export const Questionnaire2 = ({
 
   const handleGenderChange = (id, selected, isSelected) => {
     console.log(questionAnswer2);
-    ;
-
     setQuestionAnswer2((prev) =>
       prev.map((ele) => {
         if (ele.id !== id) return ele;
@@ -413,9 +410,17 @@ export const Questionnaire2 = ({
       behavior: "smooth",
     });
   };
+
+  let newUpdatedAns = questionAnswer2.map((ele) => {
+    return {
+      id: ele.id,
+      answers: ele.answer,
+    };
+  });
+
   const onSaveLaterClick = async () => {
     let data = {
-      answers: questionAnswer2,
+      answers: newUpdatedAns,
       orderId: orderId,
       status: "not submitted",
     };

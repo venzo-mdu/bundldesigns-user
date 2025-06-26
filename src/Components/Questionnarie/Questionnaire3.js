@@ -240,9 +240,16 @@ export const Questionnaire3 = ({
     });
   };
 
+  let newUpdatedAns = questionAnswer3.map((ele) => {
+    return {
+      id: ele.id,
+      answers: ele.answer,
+    };
+  });
+
   const onSaveLaterClick = async () => {
     let data = {
-      answers: questionAnswer3,
+      answers: newUpdatedAns,
       orderId: orderId,
       status: "not submitted",
     };
@@ -410,7 +417,7 @@ export const Questionnaire3 = ({
             {/* <div className="flex items-center justify-center flex-col w-[100%] md:w-[100%] xl:w-[100%] lg:w-[100%] mt-[3%] px-2">
               {question.answer_type === "bar" &&
                 progressLabels.map((data, index) => {
-                  debugger
+                  
                   // Initialize slider value from answer or default to 50
                   const sliderValue = question?.answer?.[data?.right] ?? 50;
                   const leftValue = 100 - sliderValue;

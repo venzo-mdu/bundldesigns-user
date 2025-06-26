@@ -226,9 +226,16 @@ export const Questionnaire1 = ({
     }
   };
 
+  let newUpdatedAns = questionAnswer1.map((ele) => {
+    return {
+      id: ele.id,
+      answers: ele.answer,
+    };
+  });
+
   const onSaveLaterClick = async () => {
     let data = {
-      answers: questionAnswer1,
+      answers: newUpdatedAns,
       orderId: orderId,
       status: "not submitted",
     };
