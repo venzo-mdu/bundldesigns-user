@@ -943,7 +943,10 @@ import { BorderAllRounded } from "@mui/icons-material";
 import { processArabicText } from "../Utils/arabicFontParenthesisChecker";
 import workOurGIF from "../../Images/ourWorkGIF.gif";
 import workBrandGIF from "../../Images/ourWorkBranding.gif";
-import { fetchQuestionAnswer, updateOrderID } from "../Questionnarie/questionnaire.slice";
+import {
+  fetchQuestionAnswer,
+  updateOrderID,
+} from "../Questionnarie/questionnaire.slice";
 import { useDispatch } from "react-redux";
 
 const style = {
@@ -1020,6 +1023,7 @@ export default function Dashboard({ lang, setLang }) {
     if (purchase_id) {
       checkPurchase();
     }
+
     if (response.data) {
       const resProjects = response.data.data.filter(
         (item) => item.order_status != "in_cart"
@@ -1046,6 +1050,7 @@ export default function Dashboard({ lang, setLang }) {
       `${base_url}/api/order/${orderId}/`,
       ConfigToken()
     );
+    debugger
     const orderData = response.data.data;
     if (orderData) {
       orderData.item_details = orderData.item_details = [
@@ -1056,6 +1061,10 @@ export default function Dashboard({ lang, setLang }) {
       const index = ProcessIndexDict.indexOf(
         ProcessIndexDict.find((key) => key == orderData.order_status)
       );
+      if (orderData.order_status == "custom_in_progress") {
+        setIsEdit(true);
+         setProcessIndex(1);
+      }
       if (
         orderData.order_status == "in_review" ||
         orderData.order_status == "completed"
@@ -1078,9 +1087,11 @@ export default function Dashboard({ lang, setLang }) {
         }
         if (
           orderData.order_status == "in_progress" &&
-          orderData.next_status !== "in_progress"
+          orderData.next_status !== "in_progress" 
         )
           setProcessIndex(1);
+        if(orderData.order_status == 'custom_in_progress')
+          setProcessIndex(1)
       }
       if (
         orderData.order_status == "send_for_approval" ||
@@ -1207,6 +1218,7 @@ export default function Dashboard({ lang, setLang }) {
     const formattedCounter = `${String(hours).padStart(2, "0")}:${String(
       minutes
     ).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+
     switch (order.order_status) {
       // switch ('send_for_approval') {
 
@@ -1229,8 +1241,55 @@ export default function Dashboard({ lang, setLang }) {
           </div>
         );
 
+      case "custom_in_progress":
+        if (isEdit) {
+          debugger;
+          return (
+            <div className="text-center">
+              <h2 className="lg:text-[22px] md:text-[22px] xs:text-[18px] xs:px-[10%] text-[#000000]">
+                {lang === "ar" ? "لديك" : "You have"}{" "}
+                <span className="text-[#1BA56F]">{formattedCounter}</span>{" "}
+                {lang === "ar"
+                  ? " لتعديل الاستبيان"
+                  : "to edit your questionnaire"}
+              </h2>
+              <p className="xs:w-[99%] sm:w-full md:w-full text-[18px] text-[#1BA56F] font-medium">
+                {lang === "ar"
+                  ? dashboardJson.process_content
+                      .questionnaire_edit_content_arabic
+                  : dashboardJson.process_content.questionnaire_edit_content}
+              </p>
+              <button
+                onClick={() => fillQuestionaire()}
+                className="bg-[#1BA56F] px-2 py-1 text-[#fff] text-[16px] mt-2 uppercase"
+              >
+                {lang === "ar"
+                  ? dashboardJson.process_content
+                      .questionnaire_edit_action_arabic
+                  : dashboardJson.process_content.questionnaire_edit_action}
+              </button>
+            </div>
+          );
+        }
+        return (
+          <div className="text-center flex items-center flex-col">
+            <h2 className="lg:text-[22px] md:text-[22px] xs:text-[18px] xs:px-[10%] text-[#000000] lg:w-[100%] md:w-[100%] xs:w-[90%]">
+              {lang === "ar"
+                ? dashboardJson.process_content.design_brand_arabic
+                : dashboardJson.process_content.design_brand}
+            </h2>
+            <p className="xs:w-[99%] sm:w-full md:w-full text-[18px] text-[#1BA56F] font-medium">
+              {lang === "ar"
+                ? dashboardJson.process_content.expected_date_arabic
+                : dashboardJson.process_content.expected_date}{" "}
+              {expectedDate}
+            </p>
+          </div>
+        );
+
       case "in_progress":
         if (isEdit) {
+          debugger;
           return (
             <div className="text-center">
               <h2 className="lg:text-[22px] md:text-[22px] xs:text-[18px] xs:px-[10%] text-[#000000]">
@@ -1363,22 +1422,21 @@ export default function Dashboard({ lang, setLang }) {
             </p>
 
             {processIndex >= 4 && (
-    <button
-      className="bg-[#1BA56F] px-4 py-2 text-[16px] text-white font-[400] uppercase md:hidden lg:hidden"
-      onClick={() =>
-        navigate("/adjustment", {
-          state: {
-            orderId: order.id,
-            orderItemId: null,
-            purchaseAddOns: true,
-          },
-        })
-      }
-    >
-      {lang === "ar" ? "شراء إضافات" : "Purchase Add Ons"}
-    </button>
-  )}
-            
+              <button
+                className="bg-[#1BA56F] px-4 py-2 text-[16px] text-white font-[400] uppercase md:hidden lg:hidden"
+                onClick={() =>
+                  navigate("/adjustment", {
+                    state: {
+                      orderId: order.id,
+                      orderItemId: null,
+                      purchaseAddOns: true,
+                    },
+                  })
+                }
+              >
+                {lang === "ar" ? "شراء إضافات" : "Purchase Add Ons"}
+              </button>
+            )}
           </div>
         );
 
@@ -1687,9 +1745,7 @@ export default function Dashboard({ lang, setLang }) {
               openpopup={openPopup}
               isCancel={false}
               setPopup={setOpenPopup}
-              title={
-                lang === "ar" ? "إفراغ السلة" : "Empty your Cart"
-              }
+              title={lang === "ar" ? "إفراغ السلة" : "Empty your Cart"}
               // subTitle={'Are you sure, you want to empty the cart.'}
               onClick={() => reOrder(reOrderId)}
               save={lang === "ar" ? "نعم" : "Yes"}
@@ -1728,7 +1784,9 @@ export default function Dashboard({ lang, setLang }) {
               setPopup={setCompletePopup}
               title={lang === "ar" ? "وصلنا للنهاية!" : "And that’s a wrap!"}
               subTitle={
-                lang === "ar" ? "أنهينا مشروع التصميم! كانت تجربة ممتعة ومليئة بالإبداع. استمتع بالملفات." : "That's a wrap on the design project! It's been a fun and creative process. Enjoy the files."
+                lang === "ar"
+                  ? "أنهينا مشروع التصميم! كانت تجربة ممتعة ومليئة بالإبداع. استمتع بالملفات."
+                  : "That's a wrap on the design project! It's been a fun and creative process. Enjoy the files."
               }
               onClick={() => window.location.reload()}
               save={
@@ -1941,57 +1999,63 @@ export default function Dashboard({ lang, setLang }) {
                           {order?.brand_identity && (
                             <>
                               <div className="flex items-center justify-between w-full">
-  {/* Heading */}
-  <p
-    className={`lg:text-[22px] md:text-[22px] xs:text-[18px] font-bold my-2 ${
-      processIndex < 2
-        ? processIndex === 1 && order?.order_status !== "in_progress"
-          ? "text-[#00000080]"
-          : "text-black"
-        : "text-black"
-    }`}
-  >
-    {lang === "ar" ? "الهوية البصرية" : "Brand & Visual Identity"}
-    <span className="text-[#1BA56F] lg:text-[18px] md:text-[18px] xs:text-[16px] font-[500]">
-      {" "}
-      -&nbsp;
-      {processIndex < 2
-        ? processIndex === 1 && order?.order_status !== "in_progress"
-          ? lang === "ar"
-            ? "قيد الانتظار"
-            : "ON HOLD"
-          : lang === "ar"
-          ? "قيد التنفيذ"
-          : "IN PROGRESS"
-        : processIndex >= 4
-        ? lang === "ar"
-          ? "مكتمل"
-          : "COMPLETE"
-        : lang === "ar"
-        ? "قيد التنفيذ"
-        : "IN PROGRESS"}
-    </span>
-  </p>
+                                {/* Heading */}
+                                <p
+                                  className={`lg:text-[22px] md:text-[22px] xs:text-[18px] font-bold my-2 ${
+                                    processIndex < 2
+                                      ? processIndex === 1 &&
+                                        order?.order_status !== "in_progress"
+                                        ? "text-[#00000080]"
+                                        : "text-black"
+                                      : "text-black"
+                                  }`}
+                                >
+                                  {lang === "ar"
+                                    ? "الهوية البصرية"
+                                    : "Brand & Visual Identity"}
+                                  <span className="text-[#1BA56F] lg:text-[18px] md:text-[18px] xs:text-[16px] font-[500]">
+                                    {" "}
+                                    -&nbsp;
+                                    {processIndex < 2
+                                      ? processIndex === 1 &&
+                                        order?.order_status !== "in_progress"
+                                        ? lang === "ar"
+                                          ? "قيد الانتظار"
+                                          : "ON HOLD"
+                                        : lang === "ar"
+                                        ? "قيد التنفيذ"
+                                        : "IN PROGRESS"
+                                      : processIndex >= 4
+                                      ? lang === "ar"
+                                        ? "مكتمل"
+                                        : "COMPLETE"
+                                      : lang === "ar"
+                                      ? "قيد التنفيذ"
+                                      : "IN PROGRESS"}
+                                  </span>
+                                </p>
 
-  {/* Purchase Add Ons button */}
-  {processIndex >= 4 && (
-    <button
-      className=" hidden md:block bg-[#1BA56F] px-4 py-2 text-[16px] text-white font-[400] uppercase"
-      onClick={() =>
-        navigate("/adjustment", {
-          state: {
-            orderId: order.id,
-            orderItemId: null,
-            purchaseAddOns: true,
-          },
-        })
-      }
-    >
-      {lang === "ar" ? "شراء إضافات" : "Purchase Add Ons"}
-    </button>
-  )}
-</div>
-                              
+                                {/* Purchase Add Ons button */}
+                                {processIndex >= 4 && (
+                                  <button
+                                    className=" hidden md:block bg-[#1BA56F] px-4 py-2 text-[16px] text-white font-[400] uppercase"
+                                    onClick={() =>
+                                      navigate("/adjustment", {
+                                        state: {
+                                          orderId: order.id,
+                                          orderItemId: null,
+                                          purchaseAddOns: true,
+                                        },
+                                      })
+                                    }
+                                  >
+                                    {lang === "ar"
+                                      ? "شراء إضافات"
+                                      : "Purchase Add Ons"}
+                                  </button>
+                                )}
+                              </div>
+
                               <div className="flex items-center justify-between w-full">
                                 {/* Left side: Text + Left button */}
                                 <div className="flex items-center gap-4">
@@ -2370,7 +2434,10 @@ export default function Dashboard({ lang, setLang }) {
                           } mt-2 px-2`}
                         >
                           <p>Date : {item?.created_at}</p>
-                          <p>{lang === "ar" ? "التاريخ:" : "Date:"} {item?.created_at}</p>
+                          <p>
+                            {lang === "ar" ? "التاريخ:" : "Date:"}{" "}
+                            {item?.created_at}
+                          </p>
                           <p>{lang === "ar" ? "العنوان:" : "Title:"} File</p>
                           <p onClick={() => handleDownload(item.data)}>
                             {lang === "ar" ? "الرابط:" : "Link:"}{" "}
@@ -2398,8 +2465,13 @@ export default function Dashboard({ lang, setLang }) {
                                 "border-b border-black"
                               } mt-2 px-2`}
                             >
-                              <p>{lang === "ar" ? "التاريخ:" : "Date:"} {item?.created_at}</p>
-                              <p>{lang === "ar" ? "العنوان:" : "Title:"} File</p>
+                              <p>
+                                {lang === "ar" ? "التاريخ:" : "Date:"}{" "}
+                                {item?.created_at}
+                              </p>
+                              <p>
+                                {lang === "ar" ? "العنوان:" : "Title:"} File
+                              </p>
                               {/* <p onClick={() => handleDownload(item.data)}>Link : <span className='text-blue-500 cursor-pointer underline'>{item.data.replace(/-\d{13,}-\d+/, "").trim()}</span> </p> */}
                               <p className="flex">
                                 {lang === "ar" ? "الرابط:" : "Link:"}

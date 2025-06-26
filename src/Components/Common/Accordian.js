@@ -406,7 +406,7 @@ export const Accordian = ({
         >
           {titleArr.map((title, index) => (
             <Accordion
-             style={{ cursor: "pointer" }}
+              style={{ cursor: "pointer" }}
               id={`${index}_list`}
               sx={{
                 boxShadow: "none !important",
@@ -484,9 +484,30 @@ export const Accordian = ({
                                 isLang === "ar" ? "text-right" : "text-left"
                               }`}
                             >
-                              {isLang === "ar"
-                                ? processArabicText(design.name_arabic)
-                                : design.name_english}
+                          {isLang === "ar" ? (
+  processArabicText(design.name_arabic)
+) : title === "Branding" && design.name_english === "Logo & Identity" ? (
+  <div className="flex flex-col gap-2">
+    <span>{design.name_english}</span>
+    <div className="flex gap-4">
+      <div className="flex gap-2 items-center">
+        <input type="radio" name="languageOption" value="english" />
+        <label>English</label>
+      </div>
+      <div className="flex gap-2 items-center">
+        <input type="radio" name="languageOption" value="arabic" />
+        <label>Arabic</label>
+      </div>
+      <div className="flex gap-2 items-center">
+        <input type="radio" name="languageOption" value="both" />
+        <label>Both</label>
+      </div>
+    </div>
+  </div>
+) : (
+  design.name_english
+)}
+
                             </Typography>
                             <p
                               className={`flex xs:order-3 sm:order-2 items-center sm:w-[35%] w-[35%] xs:w-[100%] !mb-2 ${
