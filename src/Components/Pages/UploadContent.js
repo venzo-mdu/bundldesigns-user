@@ -457,7 +457,9 @@ export default function UploadContent({ lang, setLang }) {
               left: 0,
               right: 0,
               bottom: 0,
-              backgroundColor: "transparent",
+              // backgroundColor: "transparent",
+              backgroundColor: "rgba(0, 0, 0, 0.4)",
+
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -466,12 +468,13 @@ export default function UploadContent({ lang, setLang }) {
               zIndex: 9999,
             }}
           >
-            <img
+            {/* <img
               src={ourWorkBranding}
               alt="loader-round-icon"
               style={{ width: 200, height: 200 }}
               className="loader"
-            />
+            /> */}
+            <img className="loader" src={Loader} alt="loader-round-icon"></img>
           </div>
         )}
       </div>

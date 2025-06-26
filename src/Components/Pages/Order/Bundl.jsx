@@ -374,7 +374,7 @@ function BundlOrder({
                               ? "w-fit"
                               : lang === "ar"
                               ? "w-[106px]"
-                              : "w-[140px]"
+                              : "w-[160px]"
                           } !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer`}
                           onClick={() =>
                             document
