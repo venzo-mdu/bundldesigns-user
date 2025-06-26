@@ -227,7 +227,6 @@ export const Questionnaire4 = ({
           return false;
         }
 
-        ;
         if (
           answer === undefined ||
           answer === null ||
@@ -247,7 +246,6 @@ export const Questionnaire4 = ({
       const element = document.getElementById(
         `question_${unansweredRequiredQuestions[0]?.id}`
       );
-      ;
       setIsFilled(unansweredRequiredQuestions[0]?.id);
       if (element) {
         element.scrollIntoView({ behavior: "smooth" });
@@ -260,40 +258,43 @@ export const Questionnaire4 = ({
   };
 
   const handleColorClick = (color, questionId) => {
-    ;
+    debugger;
     let updatedColors = [];
     if (questionId === 19) {
-      if (color === "Surprise") {
-        // Reset colors if Surprise
-        setQuestionAnswer4((prev) =>
-          prev?.map((ele) =>
-            ele.id === questionId
-              ? {
-                  ...ele,
-                  answer: {
-                    type: prev?.answer?.type === "Surprise" ? "" : "Surprise",
-                    color: [],
-                  },
-                }
-              : ele
-          )
-        );
-      } else {
-        // Add selected color
-        setQuestionAnswer4((prev) =>
-          prev.map((ele) =>
-            ele.id === questionId
-              ? {
-                  ...ele,
-                  answer: {
-                    ...ele.answer,
-                    type: "", // optional: distinguish from Surprise
-                    color: [...(ele.answer?.color || []), color],
-                  },
-                }
-              : ele
-          )
-        );
+      setInputValue("")
+      if (color) {
+        if (color === "Surprise") {
+          // Reset colors if Surprise
+          setQuestionAnswer4((prev) =>
+            prev?.map((ele) =>
+              ele.id === questionId
+                ? {
+                    ...ele,
+                    answer: {
+                      type: prev?.answer?.type === "Surprise" ? "" : "Surprise",
+                      color: [],
+                    },
+                  }
+                : ele
+            )
+          );
+        } else {
+          // Add selected color
+          setQuestionAnswer4((prev) =>
+            prev.map((ele) =>
+              ele.id === questionId
+                ? {
+                    ...ele,
+                    answer: {
+                      ...ele.answer,
+                      type: "", // optional: distinguish from Surprise
+                      color: [...(ele.answer?.color || []), color],
+                    },
+                  }
+                : ele
+            )
+          );
+        }
       }
     }
 
@@ -349,13 +350,6 @@ export const Questionnaire4 = ({
 
     setSelectedColors(updatedColors);
     setInputValue("");
-
-    // setQuestionAnswer4((prev) =>
-    //   prev.map((ele) =>
-    //     ele.id == questionId ? { ...ele, answer: {...ele.answers, updatedColors} } : ele
-    //   )
-    // );
-
     setQuestionAnswer4((prev) =>
       prev?.map((ele) =>
         ele.id === questionId
@@ -367,7 +361,7 @@ export const Questionnaire4 = ({
 
   // const handleRemoveColor = (color, questionId) => {
   //   const updatedColors = questionAnswer4?.filter((c) => c.id === questionId?answer: answers:c.answer);
-  //   
+  //
   //   setSelectedColors(updatedColors);
 
   //   setQuestionAnswer4((prevFormData) => ({
@@ -401,13 +395,18 @@ export const Questionnaire4 = ({
     );
   };
 
-  const handleInputChange = (e, questionId) => {
-    ;
+  const handleInputChange = (questionId, e) => {
+    debugger
     setQuestionAnswer4((prev) =>
       prev.map((ele) =>
         ele.id === questionId ? { ...ele, answer: e.target.value } : ele
       )
     );
+    if (e?.target?.value) {
+      setInputValue(e?.target?.value);
+    } else {
+      setInputValue("");
+    }
   };
 
   const handleButtonClick = (index, questionId, font) => {
@@ -591,7 +590,6 @@ export const Questionnaire4 = ({
   useEffect(() => {
     if (questionAnswer4[18]) {
       console.log(questionAnswer4[18]);
-      ;
     }
   }, []);
 
@@ -972,7 +970,7 @@ export const Questionnaire4 = ({
                       <div className="flex justify-center items-center">
                         <input
                           type="text"
-                          value={question?.answer?.updatedColors}
+                          value={inputValue}
                           onChange={(e) => handleInputChange(question.id, e)}
                           placeholder="ex: #E1483D"
                           style={{
