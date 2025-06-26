@@ -21,8 +21,8 @@ export const Thankyoucard = ({lang,setLang}) => {
         <Navbar isLang={lang} setIsLang={setLang}/>
         <div className='thankyou-card'>
           <img src={workBrandGIF} alt='thank-image' className='lg:w-[8%] md:w-[8%] xs:w-[15%]'></img>
-          <p className='thank-you-text'>{lang === 'ar' ? 'شكرا لك !' : 'THANK YOU FOR YOUR ORDER!'}</p>
-          <p className='thank-you-desc'>{ lang === 'ar' ? 'سنتواصل معك بأقرب فرصة.' :  'We’re excited to start on your project!'}</p>
+          <p className='thank-you-text'>{lang === 'ar' ? 'شكرًا على طلبك!' : 'THANK YOU FOR YOUR ORDER!'}</p>
+          <p className='thank-you-desc'>{ lang === 'ar' ? 'متحمسين للبدء في مشروعك!' :  'We’re excited to start on your project!'}</p>
           <NavLink to={"/dashboard"}><button className='back-to-home'>{lang === 'ar' ? 'العودة إلى لوحة القيادة' : 'BACK TO DASHBOARD'}</button></NavLink>
         </div>
         {/* <Footer/> */}

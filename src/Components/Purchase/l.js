@@ -31,7 +31,7 @@ const PaymentForm = () => {
       newErrors.email =
         lang === "ar" ? "البريد الإلكتروني مطلوب" : "Email is required";
     } else if (!/^[\w-.]+@[\w-]+\.[a-z]{2,4}$/i.test(billingInfo.email)) {
-      newErrors.email = "Invalid email format";
+      newErrors.email = lang === "ar" ? "تنسيق البريد الإلكتروني غير صالح" : "Invalid email format";
     }
 
     if (!billingInfo.phoneNumber.trim()) {

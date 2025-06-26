@@ -446,7 +446,7 @@ body[dir="rtl"] .male-btn, body[dir="rtl"] .female-btn {
     padding: 5% 2%;
 }
 .thank-you-text{
-    font-size: 100px;
+    font-size: 90px;
     font-weight: 700;
 }
 .thank-you-desc{
@@ -1576,7 +1576,7 @@ body[dir="rtl"] .male-btn, body[dir="rtl"] .female-btn {
         height: 20px;
     }
     .thank-you-text{
-        font-size: 24px;
+        font-size: 22px;
     }
     .thank-you-desc{
         font-size: 20px;

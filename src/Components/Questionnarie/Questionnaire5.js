@@ -455,6 +455,7 @@ export const Questionnaire5 = ({
                     </div>
                     <p className="lg:text-[18px] md:text-[18px] xs:text-[14px] font-[400]">
                       {question?.answer?.docName}
+
                     </p>
                   </>
                 </div>

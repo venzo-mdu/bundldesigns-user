@@ -71,6 +71,7 @@ body[dir="rtl"] .brand-details {
     padding: 1% 2%;
     outline: none;
     border: 1px solid #000000;
+    border-radius: 0px;
 }
 .brand-input:focus {
     width: 100%;

@@ -1803,7 +1803,7 @@ export const Home = ({ lang, setLang }) => {
                 <div className="row align-items-center">
                   <div className="col-4 col-md-3 col-lg-3 justify-content-between">
                     <div className="navbar navbar-expand-lg justify-content-between">
-                      <a className="navbar-brand" href="#ourBundl">
+                      <a className="navbar-brand1" href="#ourBundl">
                         <img src={HomeLogo} alt="" className="img-fluid"></img>
                       </a>
                     </div>
@@ -1811,7 +1811,7 @@ export const Home = ({ lang, setLang }) => {
 
                   <div className="col-1 col-md-1 col-lg-6" id="nav-menus-ar">
                     <div className="navbar navbar-expand-lg justify-content-end">
-                      <div className=" navbar-collapse !mt-4" id="mainNav">
+                      <div className="nav1 navbar-collapse mt-4 lg:!mt-8" id="mainNav">
                         <ul className=" mx-auto flex align-items-center ">
                           <li className="nav-item">
                             <a className="nav-link" href="/aboutus">
@@ -3718,7 +3718,7 @@ export const Home = ({ lang, setLang }) => {
                         className="second_section_text"
                         style={{ paddingTop: "10px" }}
                       >
-                        {lang === "ar" ? "" : "Customized"}
+                        {lang === "ar" ? "باقة خاصة " : "Customized"}
                       </div>
                     </div>
                   </div>

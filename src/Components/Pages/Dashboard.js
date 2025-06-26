@@ -1240,7 +1240,7 @@ export default function Dashboard({ lang, setLang }) {
                   ? " لتعديل الاستبيان"
                   : "to edit your questionnaire"}
               </h2>
-              <p className="text-[18px] text-[#1BA56F] font-medium">
+              <p className="xs:w-[99%] sm:w-full md:w-full text-[18px] text-[#1BA56F] font-medium">
                 {lang === "ar"
                   ? dashboardJson.process_content
                       .questionnaire_edit_content_arabic
@@ -1265,7 +1265,7 @@ export default function Dashboard({ lang, setLang }) {
                 ? dashboardJson.process_content.design_brand_arabic
                 : dashboardJson.process_content.design_brand}
             </h2>
-            <p className="text-[18px] text-[#1BA56F] font-medium">
+            <p className="xs:w-[99%] sm:w-full md:w-full text-[18px] text-[#1BA56F] font-medium">
               {lang === "ar"
                 ? dashboardJson.process_content.expected_date_arabic
                 : dashboardJson.process_content.expected_date}{" "}
@@ -1361,6 +1361,24 @@ export default function Dashboard({ lang, setLang }) {
                   : dashboardJson.process_content.upload_content}
               </button>
             </p>
+
+            {processIndex >= 4 && (
+    <button
+      className="bg-[#1BA56F] px-4 py-2 text-[16px] text-white font-[400] uppercase md:hidden lg:hidden"
+      onClick={() =>
+        navigate("/adjustment", {
+          state: {
+            orderId: order.id,
+            orderItemId: null,
+            purchaseAddOns: true,
+          },
+        })
+      }
+    >
+      {lang === "ar" ? "شراء إضافات" : "Purchase Add Ons"}
+    </button>
+  )}
+            
           </div>
         );
 
@@ -1388,7 +1406,7 @@ export default function Dashboard({ lang, setLang }) {
                 {lang === "ar" ? "اضغط هنا للتحميل" : "Click Here to Download"}
               </button>
             </p>
-            <p className="text-[18px] text-[#1BA56F] font-medium">
+            <p className="xs:w-[99%] sm:w-full md:w-full text-[18px] text-[#1BA56F] font-medium">
               {lang === "ar"
                 ? dashboardJson.process_content.expected_date_arabic
                 : dashboardJson.process_content.expected_date}{" "}
@@ -1670,12 +1688,12 @@ export default function Dashboard({ lang, setLang }) {
               isCancel={false}
               setPopup={setOpenPopup}
               title={
-                lang === "ar" ? "هل ترغب في إفراغ السلة؟" : "Empty your Cart"
+                lang === "ar" ? "إفراغ السلة" : "Empty your Cart"
               }
               // subTitle={'Are you sure, you want to empty the cart.'}
               onClick={() => reOrder(reOrderId)}
-              save={"Yes"}
-              cancel={"Cancel"}
+              save={lang === "ar" ? "نعم" : "Yes"}
+              cancel={lang === "ar" ? "الإلغاء" : "Cancel"}
             />
           )}
           {purchasePopUp && (
@@ -1708,12 +1726,16 @@ export default function Dashboard({ lang, setLang }) {
               openpopup={completePopup}
               isCancel={true}
               setPopup={setCompletePopup}
-              title={"And that's a wrap!"}
+              title={lang === "ar" ? "وصلنا للنهاية!" : "And that’s a wrap!"}
               subTitle={
-                "That's a wrap on the design project! It's been a fun and creative process. Enjoy the files."
+                lang === "ar" ? "أنهينا مشروع التصميم! كانت تجربة ممتعة ومليئة بالإبداع. استمتع بالملفات." : "That's a wrap on the design project! It's been a fun and creative process. Enjoy the files."
               }
               onClick={() => window.location.reload()}
-              save={"COTINUE TO DASHBOARD"}
+              save={
+                lang === "ar"
+                  ? "الذهاب إلى لوحة التحكم​"
+                  : "CONTINUE TO DASHBOARD"
+              }
             />
           )}
           <div className="font-Helvetica">
@@ -1828,7 +1850,7 @@ export default function Dashboard({ lang, setLang }) {
                       {/* <div className="select-container"> */}
                       <select
                         id="dashboardSelect"
-                        className="w-[25%] h-[45px] text-[32px] font-[700] outline-none border-none px-0 rounded-none "
+                        className="w-[25%] h-[45px] text-[32px] font-[700] outline-none border-none px-0 rounded-none appearance-none "
                         onChange={(e) => handleSelectChange(e)}
                       >
                         {projects?.map((project, index) => (
@@ -1918,40 +1940,58 @@ export default function Dashboard({ lang, setLang }) {
                         <>
                           {order?.brand_identity && (
                             <>
-                              <p
-                                className={`lg:text-[22px] md:text-[22px] xs:text-[18px] font-bold my-2 ${
-                                  processIndex < 2
-                                    ? processIndex === 1 &&
-                                      order?.order_status !== "in_progress"
-                                      ? "text-[#00000080]"
-                                      : "text-black"
-                                    : "text-black"
-                                }`}
-                              >
-                                {lang === "ar"
-                                  ? "الهوية البصرية"
-                                  : "Brand & Visual Identity"}
-                                <span className="text-[#1BA56F] lg:text-[18px] md:text-[18px] xs:text-[16px]  font-[500] xs:!float-end lg:!float-none md:!float-none">
-                                  {" "}
-                                  -&nbsp;
-                                  {processIndex < 2
-                                    ? processIndex === 1 &&
-                                      order?.order_status !== "in_progress"
-                                      ? lang === "ar"
-                                        ? "قيد الانتظار"
-                                        : " ON HOLD"
-                                      : lang === "ar"
-                                      ? "قيد التنفيذ"
-                                      : "IN PROGRESS"
-                                    : processIndex >= 4
-                                    ? lang === "ar"
-                                      ? "مكتمل"
-                                      : " COMPLETE"
-                                    : lang === "ar"
-                                    ? "قيد التنفيذ"
-                                    : "IN PROGRESS"}
-                                </span>
-                              </p>
+                              <div className="flex items-center justify-between w-full">
+  {/* Heading */}
+  <p
+    className={`lg:text-[22px] md:text-[22px] xs:text-[18px] font-bold my-2 ${
+      processIndex < 2
+        ? processIndex === 1 && order?.order_status !== "in_progress"
+          ? "text-[#00000080]"
+          : "text-black"
+        : "text-black"
+    }`}
+  >
+    {lang === "ar" ? "الهوية البصرية" : "Brand & Visual Identity"}
+    <span className="text-[#1BA56F] lg:text-[18px] md:text-[18px] xs:text-[16px] font-[500]">
+      {" "}
+      -&nbsp;
+      {processIndex < 2
+        ? processIndex === 1 && order?.order_status !== "in_progress"
+          ? lang === "ar"
+            ? "قيد الانتظار"
+            : "ON HOLD"
+          : lang === "ar"
+          ? "قيد التنفيذ"
+          : "IN PROGRESS"
+        : processIndex >= 4
+        ? lang === "ar"
+          ? "مكتمل"
+          : "COMPLETE"
+        : lang === "ar"
+        ? "قيد التنفيذ"
+        : "IN PROGRESS"}
+    </span>
+  </p>
+
+  {/* Purchase Add Ons button */}
+  {processIndex >= 4 && (
+    <button
+      className=" hidden md:block bg-[#1BA56F] px-4 py-2 text-[16px] text-white font-[400] uppercase"
+      onClick={() =>
+        navigate("/adjustment", {
+          state: {
+            orderId: order.id,
+            orderItemId: null,
+            purchaseAddOns: true,
+          },
+        })
+      }
+    >
+      {lang === "ar" ? "شراء إضافات" : "Purchase Add Ons"}
+    </button>
+  )}
+</div>
+                              
                               <div className="flex items-center justify-between w-full">
                                 {/* Left side: Text + Left button */}
                                 <div className="flex items-center gap-4">
@@ -1991,26 +2031,6 @@ export default function Dashboard({ lang, setLang }) {
                                     </button>
                                   )}
                                 </div>
-
-                                {/* Right side: Button */}
-                                {processIndex >= 4 && (
-                                  <button
-                                    className="bg-[#1BA56F] px-2 py-1 text-[14px] text-white font-[400] uppercase"
-                                    onClick={() => {
-                                      navigate("/adjustment", {
-                                        state: {
-                                          orderId: order.id,
-                                          orderItemId: null,
-                                          purchaseAddOns: true,
-                                        },
-                                      });
-                                    }}
-                                  >
-                                    {lang === "ar"
-                                      ? "شراء إضافات"
-                                      : "Purchase Add Ons"}
-                                  </button>
-                                )}
                               </div>
                             </>
                           )}
@@ -2021,7 +2041,7 @@ export default function Dashboard({ lang, setLang }) {
                           >
                             {lang === "ar" ? "الإضافات" : "Add-Ons​"}
 
-                            <span className="text-[#1BA56F] lg:text-[18px] md:text-[18px] xs:text-[16px]  font-[500] xs:!float-end lg:!float-none md:!float-none">
+                            <span className="text-[#1BA56F] lg:text-[18px] md:text-[18px] xs:text-[16px]  font-[500] xs:!float-end lg:!float-none md:!float-none mt-[4px]">
                               {" "}
                               -&nbsp;
                               {processIndex < 4
@@ -2108,7 +2128,7 @@ export default function Dashboard({ lang, setLang }) {
                                                 lang === "ar"
                                                   ? "lg:ml-5 md:ml-5 xs:ml-0"
                                                   : "lg:mr-5 md:mr-5 xs:mr-0"
-                                              } px-2 !py-0 text-[16px] ml-4 text-white font-[400] lg:mt-0 md:mt-0 xs:mt-[5%] uppercase`}
+                                              } px-2 !py-0 text-[14px] ml-4 text-white font-[400] lg:mt-0 md:mt-0 xs:mt-[5%] uppercase`}
                                               onClick={() => {
                                                 navigate("/adjustment", {
                                                   state: {
@@ -2282,8 +2302,8 @@ export default function Dashboard({ lang, setLang }) {
                             } */}
 
             <div className="font-Helvetica">
-              <div className="text-center lg:pt-0 lg:pb-16 md:pt-0 md:pb-16 xs:pt-4 xs:pb-16">
-                <h2 className="lg:text-[30px] md:text-[24px] xs:text-[24px] xs:font-[700] xs:px-[15%]">
+              <div className="text-center lg:pt-0 lg:pb-16 md:pt-0 md:pb-16  xs:pb-16">
+                <h2 className="lg:text-[30px] md:text-[24px] xs:text-[22px] xs:font-[700] xs:px-[15%]">
                   {lang === "ar"
                     ? dashboardJson.rate_us_arabic
                     : dashboardJson.rate_us}
@@ -2328,7 +2348,7 @@ export default function Dashboard({ lang, setLang }) {
             <Box sx={style}>
               <div className="min-h-[inherit] overflow-y-auto border-[1px] border-black pt-2 font-Helvetica">
                 <p className="px-2 text-[20px] font-[500] font-Helvetica text-[#1BA56F] uppercase">
-                  Artworks
+                  {lang === "ar" ? "الأعمال الفنية" : "Artworks"}
                 </p>
                 {Files.length > 0 || Links.length > 0 ? (
                   <div>
@@ -2350,9 +2370,10 @@ export default function Dashboard({ lang, setLang }) {
                           } mt-2 px-2`}
                         >
                           <p>Date : {item?.created_at}</p>
-                          <p>Title : File</p>
+                          <p>{lang === "ar" ? "التاريخ:" : "Date:"} {item?.created_at}</p>
+                          <p>{lang === "ar" ? "العنوان:" : "Title:"} File</p>
                           <p onClick={() => handleDownload(item.data)}>
-                            Link :{" "}
+                            {lang === "ar" ? "الرابط:" : "Link:"}{" "}
                             <span className="text-blue-500 cursor-pointer underline">
                               {item.data.replace(/-\d{13,}-\d+/, "").trim()}
                             </span>{" "}
@@ -2377,11 +2398,11 @@ export default function Dashboard({ lang, setLang }) {
                                 "border-b border-black"
                               } mt-2 px-2`}
                             >
-                              <p>Date : {item?.created_at}</p>
-                              <p>Title : Link</p>
+                              <p>{lang === "ar" ? "التاريخ:" : "Date:"} {item?.created_at}</p>
+                              <p>{lang === "ar" ? "العنوان:" : "Title:"} File</p>
                               {/* <p onClick={() => handleDownload(item.data)}>Link : <span className='text-blue-500 cursor-pointer underline'>{item.data.replace(/-\d{13,}-\d+/, "").trim()}</span> </p> */}
                               <p className="flex">
-                                Link :
+                                {lang === "ar" ? "الرابط:" : "Link:"}
                                 <a
                                   key={index}
                                   className="cursor-pointer ml-2 underline block w-fit break-all"

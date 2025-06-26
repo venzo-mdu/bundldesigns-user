@@ -350,7 +350,7 @@ export const CustomBundl = ({ user, lang, setLang }) => {
             />
             {brandError && (
               <p className="text-[#D83D99]">
-                {lang === "ar" ? "" : "Please enter name of the brand"}
+                {lang === "ar" ? "يرجى إدخال اسم المشروع" : "Please enter name of the brand"}
               </p>
             )}
             <div style={{ margin: "5% 0 0 0" }}>
@@ -527,7 +527,7 @@ export const CustomBundl = ({ user, lang, setLang }) => {
                     window.location.reload();
                   }}
                 >
-                  {lang === "ar" ? "عربة فارغة" : "Empty Cart"}
+                  {lang === "ar" ? "إفراغ السلة" : "Empty Cart"}
                 </button>
               </div>
               {/* {firstOrder && <p className='proceed-text'>{lang === 'ar' ? 'الحد الأدنى للطلب ٤٨٨٠ ريال سعوذي' : 'Your minimum total should be above 4880 SAR'}</p>} */}
@@ -541,10 +541,14 @@ export const CustomBundl = ({ user, lang, setLang }) => {
           openpopup={openPopup}
           setPopup={setOpenPopup}
           title={""}
-          subTitle={"You already have items in your cart. Would you like to."}
+          subTitle={
+  lang === "ar"
+    ? "لديك عناصر في سلة التسوق. هل ترغب في"
+    : "You already have items in your cart. Would you like to."
+}
           onClick={emptyCart}
-          save={"Continue"}
-          cancel={"Cancel"}
+          save={lang === "ar" ? "الاستمرار" : "Continue"}
+          cancel={lang === "ar" ? "الإلغاء" : "Cancel"}
           cancelClick={setIsFromLogin}
           isLang={lang}
         />

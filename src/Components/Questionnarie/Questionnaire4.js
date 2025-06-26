@@ -87,7 +87,7 @@ export const Questionnaire4 = ({
 
   console.log(formData, "eee");
   const placeHolders = ["BUNDL", "(ex: Luxury shopping made easy)"];
-  const placeHolders_arabic = ["", ""];
+  const placeHolders_arabic = ["باقة", "تسوق بسهولة"];
 
   useEffect(() => {
     setFormData((prev) => ({
@@ -539,6 +539,17 @@ export const Questionnaire4 = ({
             : ele
         )
       );
+// =======
+//       console.log(response.data, "res");
+//       setUploadContent((prev) => ({
+//         ...prev,
+//         [id]: {
+//           ...prev[id],
+//           [field]: response.data.file_url,
+//           ...(field === "file" && { filename: e.target.files[0]?.name || "" }),
+//         },
+//       }));
+// >>>>>>> cartChanges-update
     }
   };
 
@@ -1380,6 +1391,7 @@ export const Questionnaire4 = ({
                       </>
                     </div>
                     {question?.answer?.docName}
+
                   </>
                 ) : (
                   ""

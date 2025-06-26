@@ -61,20 +61,20 @@ export default function FAQ({lang,setLang}) {
   const validate = () => {
     const newErrors = {};
     if (!formData.name) {
-      newErrors.name = 'Name is required';
+      newErrors.name = lang === "ar" ? "الاسم مطلوب" : "Name is required";
     } else if (formData.name.length < 3) {
       newErrors.name = lang === 'ar' ? 'على الأقل أحرف 3 يجب أن يحتوي الاسم على  ' : 'Name must be at least 3 characters';
     } else if (/\d/.test(formData.name)) {
-      newErrors.name = 'Name must not contain numbers';
+      newErrors.name = lang === "ar" ? "لا يجب أن يحتوي الاسم على أرقام" : "Name must not contain numbers";
     } else if (/[^a-zA-Z\s-]/.test(formData.name)) {
-      newErrors.name = 'Name must not contain special characters';
+      newErrors.name = lang === "ar" ? "لا يجب أن يحتوي الاسم على رموز" : "Name must not contain special characters";
     }
 
     if (!formData.phone) newErrors.phone = lang === 'ar' ? 'رقم الهاتف مطلوب' : 'Phone number is required';
     // else if (!/^\d{10}$/.test(formData.phone)) newErrors.phone = 'Phone number must be 10 digits';
 
     if (!formData.email) newErrors.email = lang === 'ar' ? 'البريد الإلكتروني مطلوب' : 'Email is required';
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = 'Email is invalid';
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = lang === "ar" ? "البريد الإلكتروني غير صالح" : "Email is invalid";
 
     if (!formData.thoughts) newErrors.thoughts = 'Thoughts is required';
 

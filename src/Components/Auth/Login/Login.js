@@ -119,9 +119,9 @@ export const Login = ({ lang }) => {
     if (name === "password") {
       if (/\s/.test(value)) {
         // Check for spaces
-        setError("password", "Password cannot contain spaces");
+        setError("password", lang === "ar" ? "لا يمكن أن تحتوي كلمة المرور على مسافات" : "Password cannot contain spaces");
       } else if (!value.trim()) {
-        setError("password", "Password is required");
+        setError("password", lang === "ar" ? "كلمة المرور مطلوبة" : "Password is required");
       } else {
         setError("password", ""); // clear error if password is valid
       }
@@ -133,10 +133,10 @@ export const Login = ({ lang }) => {
       errorMessages.email =
         lang === "ar" ? "البريد الإلكتروني مطلوب" : "Email is required";
     } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(loginData.email)) {
-      errorMessages.email = "Invalid email format";
+      errorMessages.email = lang === "ar" ? "تنسيق البريد الإلكتروني غير صالح" : "Invalid email format";
     }
     if (!loginData.password.trim()) {
-      errorMessages.password = "Password is required";
+      errorMessages.password = lang === "ar" ? "كلمة المرور مطلوبة" : "Password is required";
     } else if (/\s/.test(loginData.password)) {
       errorMessages.password = "Password must not contain spaces";
     } else if (loginData.password.length > 16) {
