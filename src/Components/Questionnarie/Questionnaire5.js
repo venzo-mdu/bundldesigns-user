@@ -11,6 +11,7 @@ import Blackupload from "../../Images/Questionnaire/upload.svg";
 import useToastMessage from "../Pages/Toaster/Toaster";
 import { Toaster } from "react-hot-toast";
 import { fetchQuestionAnswer, updateOrderID } from "./questionnaire.slice";
+import Loader from "../../Images/Home/load sticker.png";
 
 export const Questionnaire5 = ({
   formData,
@@ -32,6 +33,8 @@ export const Questionnaire5 = ({
   const [selectedLanguage, setSelectedLanguage] = useState(null);
   const [isFilled, setIsFilled] = useState(null);
   const [fetchQ5Answers, setFetchQ5Answers] = useState([]);
+
+  const [isFinishedQuestion, setIsFinished] = useState(false);
 
   const placeHolders = [
     "",
@@ -270,7 +273,7 @@ export const Questionnaire5 = ({
       answers: newUpdatedAns,
       language: localStorage.getItem("lang") === "ar" ? "arabic" : "english",
       status: "submit",
-      orderId: location.state?.orderId || localStorage.getItem("orderId"),
+      orderId: orderId,
     };
     if (!validateFields()) {
       return;
@@ -303,6 +306,7 @@ export const Questionnaire5 = ({
 
   const onSaveLaterClick = async () => {
     try {
+      setIsFinished(true);
       let data = {
         answers: newUpdatedAns,
         status: "not submitted",
@@ -314,16 +318,48 @@ export const Questionnaire5 = ({
         ConfigToken()
       );
       if (response.data.status === 200) {
+        setIsFinished(false);
         dispatch(questionnaireAction5(formData));
         navigate("/dashboard");
       }
     } catch (error) {
+      setIsFinished(false);
       console.error("Error submitting data:", error);
     }
   };
 
   return (
     <div>
+      <div>
+        {isFinishedQuestion && (
+          <div
+            style={{
+              position: "fixed",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              // backgroundColor: "transparent",
+              backgroundColor: "rgba(0, 0, 0, 0.4)",
+
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              pointerEvents: "auto",
+              userSelect: "none",
+              zIndex: 9999,
+            }}
+          >
+            {/* <img
+              src={ourWorkBranding}
+              alt="loader-round-icon"
+              style={{ width: 200, height: 200 }}
+              className="loader"
+            /> */}
+            <img className="loader" src={Loader} alt="loader-round-icon"></img>
+          </div>
+        )}
+      </div>
       <Toaster
         position="top-right"
         toastOptions={{
