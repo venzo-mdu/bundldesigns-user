@@ -21,7 +21,7 @@ export const CustomBundl = ({ user, lang, setLang }) => {
   const query = searchParams.get("search");
   const [brandError, setBrandError] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 440);
-  const [firstOrder, setFirstOrder] = useState(true);
+  const [firstOrder, setFirstOrder] = useState(false);
   const location = useLocation();
   const { state } = location;
   const [addonPayLoads, setAddonPayLoads] = useState({});
@@ -229,6 +229,8 @@ export const CustomBundl = ({ user, lang, setLang }) => {
         );
         if (resProjects.length) {
           setFirstOrder(false);
+        }else{
+          setFirstOrder(true);
         }
       }
     } catch (e) {
@@ -350,7 +352,9 @@ export const CustomBundl = ({ user, lang, setLang }) => {
             />
             {brandError && (
               <p className="text-[#D83D99]">
-                {lang === "ar" ? "يرجى إدخال اسم المشروع" : "Please enter name of the brand"}
+                {lang === "ar"
+                  ? "يرجى إدخال اسم المشروع"
+                  : "Please enter name of the brand"}
               </p>
             )}
             <div style={{ margin: "5% 0 0 0" }}>
@@ -542,10 +546,10 @@ export const CustomBundl = ({ user, lang, setLang }) => {
           setPopup={setOpenPopup}
           title={""}
           subTitle={
-  lang === "ar"
-    ? "لديك عناصر في سلة التسوق. هل ترغب في"
-    : "You already have items in your cart. Would you like to."
-}
+            lang === "ar"
+              ? "لديك عناصر في سلة التسوق. هل ترغب في"
+              : "You already have items in your cart. Would you like to."
+          }
           onClick={emptyCart}
           save={lang === "ar" ? "الاستمرار" : "Continue"}
           cancel={lang === "ar" ? "الإلغاء" : "Cancel"}

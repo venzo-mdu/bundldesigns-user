@@ -45,6 +45,8 @@ export const MyCart = ({ lang, setLang }) => {
   const [tax, setTax] = useState(false);
   const [isBack, setIsBack] = useState(false);
 
+   const [firstOrder, setFirstOrder] = useState(false);
+
   const [popupMessage, setPopupMessage] = useState(
   lang === "ar"
     ? "هل أنت متأكد من إفراغ السلة؟"
@@ -614,9 +616,9 @@ export const MyCart = ({ lang, setLang }) => {
     e.preventDefault();
     setPaymentLoading(true);
     if (validateFields()) {
-      ;
+      getprojects()
       if (
-        (cartDetails.total_amount >= 4800 &&
+        ((cartDetails.total_amount >= 4800 || !firstOrder) &&
           cartDetails.bundl_english === "The Newbie") ||
         (cartDetails.total_amount >= 800 && cartDetails.bundl_english === "") ||
         cartDetails.bundl_english === "The Socialite" ||
@@ -983,6 +985,27 @@ export const MyCart = ({ lang, setLang }) => {
   const cancelNavigation = () => {
     setShowModal(false);
   };
+
+  
+  const getprojects = async () => {
+    try {
+      const response = await axios.get(`${base_url}/api/order/`, ConfigToken());
+      if (response.data) {
+        const resProjects = response.data.data.filter(
+          (item) => item.order_status != "in_cart"
+        );
+        debugger
+        if (resProjects.length) {
+          setFirstOrder(false);
+        }else{
+          setFirstOrder(true);
+        }
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
 
   return (
     <>

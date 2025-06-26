@@ -279,6 +279,7 @@ export const Questionnaire5 = ({
       return;
     }
     try {
+      setIsFinished(true);
       const response = await axios.post(
         `${base_url}/api/questionnaire/create`,
         finalFormData,
@@ -290,9 +291,10 @@ export const Questionnaire5 = ({
         dispatch(fetchQuestionAnswer([]));
         dispatch(updateOrderID(""));
       }
-
+      setIsFinished(false);
       navigate("/thankyou");
     } catch (error) {
+      setIsFinished(false);
       console.error("Error submitting data:", error);
     }
   };
@@ -306,7 +308,6 @@ export const Questionnaire5 = ({
 
   const onSaveLaterClick = async () => {
     try {
-      setIsFinished(true);
       let data = {
         answers: newUpdatedAns,
         status: "not submitted",
@@ -318,12 +319,10 @@ export const Questionnaire5 = ({
         ConfigToken()
       );
       if (response.data.status === 200) {
-        setIsFinished(false);
         dispatch(questionnaireAction5(formData));
         navigate("/dashboard");
       }
     } catch (error) {
-      setIsFinished(false);
       console.error("Error submitting data:", error);
     }
   };
