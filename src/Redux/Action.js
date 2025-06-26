@@ -47,3 +47,10 @@ export const questionnaireAnswers = (payload) => {
     payload,
   };
 };
+
+export const questionnaireTitle = (payload) => {
+  return {
+    type: "questionnaireTitle",
+    payload,
+  };
+};

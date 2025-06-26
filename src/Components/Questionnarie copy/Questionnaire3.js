@@ -9,7 +9,6 @@ import { ConfigToken } from "../Auth/ConfigToken";
 import { ToastContainer, toast } from "react-toastify";
 import useToastMessage from "../Pages/Toaster/Toaster";
 import { Toaster } from "react-hot-toast";
-import { fetchQuestionAnswer } from "./questionnaire.slice";
 
 export const Questionnaire3 = ({
   formData,
@@ -28,46 +27,38 @@ export const Questionnaire3 = ({
   const [fetchQ3Answers, setFetchQ3Answers] = useState([]);
   const [isFilled, setIsFilled] = useState(null);
 
-  /* NEW QUESTIONANSWER */
-
-  const questionAndAnswers = useSelector(
-    (state) => state?.questionAnswer?.questionAndAnswers
-  );
-
-  const [questionAnswer3, setQuestionAnswer3] = useState([]);
-
-  useEffect(() => {
-    if (questionAndAnswers.length > 0) {
-      setQuestionAnswer3(questionAndAnswers);
-    }
-  }, [questionAndAnswers]);
-
-  /* NEW QUESTIONANSWER */
+    /* NEW QUESTIONANSWER */
+  
+    const questionAndAnswers = useSelector(
+      (state) => state?.questionAnswer?.questionAndAnswers
+    );
+  
+    /* NEW QUESTIONANSWER */
 
   const progressLabels = [
     {
-      left: changeLang === "ar" ? "رجولي" : "Masculine",
-      right: changeLang === "ar" ? "أنثوي" : "Feminine",
+      left: changeLang === "ar" ? "" : "Masculine",
+      right: changeLang === "ar" ? "" : "Feminine",
     },
     {
-      left: changeLang === "ar" ? "اقتصادي" : "Economical",
-      right: changeLang === "ar" ? "فاخر" : "Luxurious",
+      left: changeLang === "ar" ? "" : "Economical",
+      right: changeLang === "ar" ? "" : "Luxurious",
     },
     {
-      left: changeLang === "ar" ? "مرح" : "Playful",
-      right: changeLang === "ar" ? "راقي" : "Sophisticated",
+      left: changeLang === "ar" ? "" : "Playful",
+      right: changeLang === "ar" ? "" : "Sophisticated",
     },
     {
-      left: changeLang === "ar" ? "كلاسيكي" : "Classics",
-      right: changeLang === "ar" ? "حديث" : "Modern",
+      left: changeLang === "ar" ? "" : "Classics",
+      right: changeLang === "ar" ? "" : "Modern",
     },
     {
-      left: changeLang === "ar" ? "ناضج" : "Mature",
-      right: changeLang === "ar" ? "شبابي" : "Youthful",
+      left: changeLang === "ar" ? "" : "Mature",
+      right: changeLang === "ar" ? "" : "Youthful",
     },
     {
-      left: changeLang === "ar" ? "رسمي" : "Formal",
-      right: changeLang === "ar" ? "غير رسمي" : "Casual",
+      left: changeLang === "ar" ? "" : "Formal",
+      right: changeLang === "ar" ? "" : "Casual",
     },
   ];
 
@@ -78,7 +69,7 @@ export const Questionnaire3 = ({
     "(ex: was always passionate about creating my own perfume business)",
   ];
 
-  const placeHolders_arabic = ["قصة مشروعك", "القصة خلف الاسم", "باقة", "مثال: كنت دائمًا شغوف بإطلاق مشروع عطوري الخاص"];
+  const placeHolders_arabic = ["", "", "", ""];
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -128,62 +119,46 @@ export const Questionnaire3 = ({
       }
     };
     setFormData(currentAnswer);
-    setSliderValues(
-      currentAnswer && currentAnswer[14] ? currentAnswer[14] : {}
-    );
+    setSliderValues(currentAnswer && currentAnswer[14] ? currentAnswer[14] : {});
     fetchQuestions();
     fetchAnswers();
   }, []);
 
-  useEffect(() => {
-    window.onbeforeunload = () => {
-      sessionStorage.setItem("isReload", "true");
-    };
-    return () => {
-      window.onbeforeunload = null;
-    };
-  }, []);
-
-  // Detect refresh on mount
-  useEffect(() => {
-    if (sessionStorage.getItem("isReload") === "true") {
-      sessionStorage.removeItem("isReload");
-      ;
-      navigate("/questionnaire/1");
+  const getAnswerValue = (questionId) => {
+    const formValue = formData?.[questionId];
+    if (formValue !== undefined) {
+      return formValue;
     }
-  }, [navigate]);
 
-  // const getAnswerValue = (questionId) => {
-  //   const formValue = formData?.[questionId];
-  //   if (formValue !== undefined) {
-  //     return formValue;
-  //   }
-
-  //   const fetchedAnswer = fetchQ3Answers.find(
-  //     (answer) => answer.question_id === questionId
-  //   )?.answer;
-  //   if (fetchedAnswer !== undefined && formValue === undefined) {
-  //     setFormData((prevFormData) => ({
-  //       ...prevFormData,
-  //       [questionId]: fetchedAnswer,
-  //     }));
-  //   }
-  //   return fetchedAnswer ?? "";
-  // };
+    const fetchedAnswer = fetchQ3Answers.find(
+      (answer) => answer.question_id === questionId
+    )?.answer;
+    if (fetchedAnswer !== undefined && formValue === undefined) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [questionId]: fetchedAnswer,
+      }));
+    }
+    return fetchedAnswer ?? "";
+  };
 
   const handleChange = (questionId, value) => {
-    // setFormData((formValues) => ({
-    //   ...formValues,
-    //   [questionId]: value,
-    // }));
-    setQuestionAnswer3((prev) =>
-      prev.map((ele) =>
-        ele.id === questionId ? { ...ele, answer: value } : ele
-      )
-    );
+    setFormData((formValues) => ({
+      ...formValues,
+      [questionId]: value,
+    }));
   };
 
   const showToastMessage = () => {
+    // toast.error(changeLang === 'ar' ? '•القيمة مطلوب' :"The Value is required!", {
+    //   position: toast?.POSITION?.TOP_RIGHT,
+    //   toastId: 'required-value-toast',
+    //   icon:false,
+    //       style:{
+    //           color:'#D83D99',
+    //           fontWeight:'700'
+    //       }
+    // });
     showErrorToast(
       changeLang === "ar" ? "القيمة مطلوب" : "The Value is required!",
       "#D83D99"
@@ -191,16 +166,16 @@ export const Questionnaire3 = ({
   };
 
   const validateFields = () => {
-    ;
-    const unansweredRequiredQuestions = questionAnswer3
-      .slice(11, 14)
-      .filter((q) => {
-        return (
-          q.required &&
-          (!q.answer ||
-            (typeof q?.answer === "string" && q?.answer.trim() === ""))
-        );
-      });
+    // Filter required questions that are either unanswered or contain invalid values
+    const unansweredRequiredQuestions = questions.filter((q) => {
+      console.log(formData[q.id], q.id);
+      return (
+        q.required && // Check if the question is marked as required
+        (!formData?.[q.id] ||
+          (typeof formData?.[q.id] === "string" &&
+            formData?.[q.id]?.trim() === "")) // Check if there's no answer or only whitespace
+      );
+    });
 
     if (unansweredRequiredQuestions.length > 0) {
       const element = document.getElementById(
@@ -210,14 +185,13 @@ export const Questionnaire3 = ({
       if (element) {
         element.scrollIntoView({ behavior: "smooth" });
       }
-      showToastMessage();
+      showToastMessage(); // Display the error toast
       return false;
     }
 
-    return true;
+    return true; // All required fields are valid
   };
   const onBackClick = async () => {
-    dispatch(fetchQuestionAnswer(questionAnswer3));
     navigate(`/questionnaire/${2}`, {
       state: {
         questionnaireData2: answers,
@@ -230,7 +204,7 @@ export const Questionnaire3 = ({
     if (!validateFields()) {
       return; // Stop execution if validation fails
     }
-    dispatch(fetchQuestionAnswer(questionAnswer3));
+    dispatch(questionnaireAction3(formData));
     navigate(`/questionnaire/${4}`, {
       state: {
         orderId: location.state?.orderId,
@@ -291,7 +265,7 @@ export const Questionnaire3 = ({
         onSaveLaterClick={onSaveLaterClick}
         formData={formData}
         setFormData={setFormData}
-        questions={questionAnswer3.slice(11, 14).map((question, index) => (
+        questions={questionAndAnswers.slice(11, 14).map((question, index) => (
           <div className="questions" key={index} id={`question_${question.id}`}>
             <p
               className={`questions-title  xs:w-[90%] sm:w-full md:w-full mx-auto ${
@@ -311,8 +285,7 @@ export const Questionnaire3 = ({
               ""
             ) : (
               <input
-                // value={getAnswerValue(question.id)}
-                value={question.answer}
+                value={getAnswerValue(question.id)}
                 placeholder={
                   changeLang === "ar"
                     ? placeHolders_arabic[index]
@@ -330,7 +303,7 @@ export const Questionnaire3 = ({
                 onChange={(e) => handleChange(question.id, e.target.value)}
               />
             )}
-            {/* <div className=" flex items-center justify-center flex-col w-[100%] md:w-[100% xl:w-[100%] lg:w-[100%] mt-[3%] px-2">
+            <div className=" flex items-center justify-center flex-col w-[100%] md:w-[100% xl:w-[100%] lg:w-[100%] mt-[3%] px-2">
               {question.answer_type === "bar" &&
                 progressLabels.map((data, index) => {
                   const sliderValue = sliderValues[data?.right] || 50;
@@ -345,15 +318,10 @@ export const Questionnaire3 = ({
                       [data?.right]: adjustedValue,
                     };
                     setSliderValues(newSlideValues);
-                    // setFormData((prevFormData) => ({
-                    //   ...prevFormData,
-                    //   [id]: newSlideValues,
-                    // }));
-                    setQuestionAnswer3((prev) =>
-                      prev.map((ele) =>
-                        ele.id === id ? { ...ele, answer: newSlideValues } : ele
-                      )
-                    );
+                    setFormData((prevFormData) => ({
+                      ...prevFormData,
+                      [id]: newSlideValues,
+                    }));
                   };
                   const leftTextStyle = {
                     textAlign: "left",
@@ -377,88 +345,6 @@ export const Questionnaire3 = ({
                       }}
                       className="progress-section-q3"
                       key={index}
-                    >
-                      <p className="progress-text" style={leftTextStyle}>
-                        {data?.left}
-                      </p>
-                      <input
-                        type="range"
-                        value={sliderValue}
-                        className="question-progress"
-                        min={0}
-                        max={100}
-                        onChange={(e) =>
-                          handleSliderChange(e.target.value, question.id)
-                        }
-                      />
-                      <p className="progress-text" style={rightTextStyle}>
-                        {data?.right}
-                      </p>
-                    </div>
-                  );
-                })}
-
-              {question.answer_type === "bar" && (
-                <div
-                  className={`w-[100%] xl:h-[2px] lg:h-[2px] md:h-[2px] sm:h-[2px] xs:h-[1px] ${
-                    isFilled === question?.id ? "bg-[#D83D99]" : "bg-black"
-                  } mt-[3%]`}
-                ></div>
-              )}
-            </div> */}
-
-            <div className="flex items-center justify-center flex-col w-[100%] md:w-[100%] xl:w-[100%] lg:w-[100%] mt-[3%] px-2">
-              {question.answer_type === "bar" &&
-                progressLabels.map((data, index) => {
-                  // Initialize slider value from answer or default to 50
-                  const sliderValue = question?.answer?.[data?.right] ?? 50;
-                  const leftValue = 100 - sliderValue;
-                  const rightValue = sliderValue;
-
-                  const handleSliderChange = (newValue, id) => {
-                    const adjustedValue = parseInt(newValue, 10);
-
-                    const newSlideValues = {
-                      [data?.left]: 100 - adjustedValue,
-                      [data?.right]: adjustedValue,
-                    };
-
-                    // Update questionAnswer3 state
-                    setQuestionAnswer3((prev) =>
-                      prev.map((ele) =>
-                        ele.id === id
-                          ? {
-                              ...ele,
-                              answer: {
-                                ...ele.answer,
-                                ...newSlideValues,
-                              },
-                            }
-                          : ele
-                      )
-                    );
-                  };
-
-                  const leftTextStyle = {
-                    textAlign: "left",
-                    fontSize: window?.innerWidth <= 475 ? "10px" : "18px",
-                  };
-
-                  const rightTextStyle = {
-                    textAlign: "left",
-                    fontSize: window?.innerWidth <= 475 ? "10px" : "18px",
-                  };
-
-                  return (
-                    <div
-                      key={index}
-                      className="progress-section-q3"
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                        gap: "10px",
-                      }}
                     >
                       <p className="progress-text" style={leftTextStyle}>
                         {data?.left}

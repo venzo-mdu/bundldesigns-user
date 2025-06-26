@@ -1,16 +1,18 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Questionnaire } from "./Questionnaire";
 import { base_url } from "../Auth/BackendAPIUrl";
 import Load from "../../Images/Bundles/load_sticker.webp";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { questionnaireAction1 } from "../../Redux/Action";
+import { questionnaireAction1, questionnaireTitle } from "../../Redux/Action";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ConfigToken } from "../Auth/ConfigToken";
 import useToastMessage from "../Pages/Toaster/Toaster";
 import { Toaster } from "react-hot-toast";
+import { fetchQuestionAnswer, updateOrderID } from "./questionnaire.slice";
+
 export const Questionnaire1 = ({
   formData,
   setFormData,
@@ -19,19 +21,39 @@ export const Questionnaire1 = ({
   lang,
   setlang
 }) => {
-  const { showToast, showErrorToast } = useToastMessage();
+  const { showErrorToast } = useToastMessage();
   const location = useLocation();
-  const [questions, setQuestions] = useState([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   // const [formData, setFormData] = useState();
   const [errors, setErrors] = useState({});
-  const [activeType, setActiveType] = useState(null);
-  const [fetchQ1Answers, setFetchQ1Answers] = useState([]);
-  const [requiredQuestions, setRequiredQuestions] = useState([]);
+  // const [activeType, setActiveType] = useState(null);
   const [isFilled, setIsFilled] = useState(null);
-  const currentAnswer = useSelector((state) => state.questionnaire1);
-  console.log(currentAnswer, "ee");
+
+  /* NEW QUESTIONANSWER */
+
+  const questionAndAnswers = useSelector(
+    (state) => state?.questionAnswer?.questionAndAnswers || []
+  );
+
+  const [questionAnswer1, setQuestionAnswer1] = useState([]);
+
+  useEffect(() => {
+    if (questionAndAnswers.length > 0) {
+      setQuestionAnswer1(questionAndAnswers);
+    }
+  }, [questionAndAnswers]);
+
+  /* NEW QUESTIONANSWER */
+
+  // ${location.state.orderId}
+
+  useEffect(() => {
+    if (location?.state?.orderId) {
+      dispatch(updateOrderID(location?.state?.orderId));
+    }
+  }, [location?.state?.orderId]);
+
   const placeHolders = [
     "Project Name",
     "(ex:Fashion,Food,Services,Personal Brand,etc...)",
@@ -52,43 +74,6 @@ export const Questionnaire1 = ({
     "شارك روابط حساباتك على السوشال ميديا",
   ];
 
-  useEffect(() => {
-    const fetchQuestions = async () => {
-      try {
-        const response = await axios.get(
-          `${base_url}/api/content?section=brand_questions&page=1`
-        );
-        setQuestions(response.data);
-      } catch (error) {
-        console.error("Error fetching questions:", error);
-      }
-    };
-
-    const fetchAnswers = async () => {
-      try {
-        if (location?.state?.orderId != undefined) {
-          const response = await axios.get(
-            `${base_url}/api/questionnaire/update/${location.state.orderId}`,
-            ConfigToken()
-          );
-          console.log(response);
-          setFetchQ1Answers(response.data.data);
-        }
-      } catch (error) {
-        console.error("Error fetching questions:", error);
-      }
-    };
-    if (currentAnswer[4]?.product) {
-      setActiveType("product");
-    }
-    if (currentAnswer[4]?.service) {
-      setActiveType("service");
-    }
-    setFormData(currentAnswer);
-    fetchQuestions();
-    fetchAnswers();
-  }, []);
-
   const showToastMessage = () => {
     if (!toast.isActive("required-value-toast")) {
       showErrorToast(
@@ -97,13 +82,20 @@ export const Questionnaire1 = ({
       );
     }
   };
-  const handleTypeClick = (type) => {
-    setActiveType((prevType) => (prevType === type ? null : type)); // Toggle state
-    let brandingType = activeType;
-    // setFormData((prev) => ({
-    //   ...prev,
-    //   type: type, // Update formData accordingly
-    // }));
+  const handleTypeClick = (questionId, type, ans) => {
+    setQuestionAnswer1((prev) =>
+      prev.map((ele) =>
+        ele.id === questionId
+          ? {
+              ...ele,
+              answer: {
+                type: type,
+                answer: ans,
+              },
+            }
+          : ele
+      )
+    );
   };
 
   const handleInputChange = (questionId, value) => {
@@ -121,158 +113,78 @@ export const Questionnaire1 = ({
       }
     }
     if (questionId == 4 || questionId === "4") {
-      if (!activeType) {
+      setQuestionAnswer1((prev) =>
+        prev.map((ele) => {
+          if (ele.id !== questionId) return ele;
+
+          // Check if `type` is selected first
+          if (!ele.answer?.type || ele.answer.type.trim() === "") {
+            // Show error and skip updating the answer
+            setErrors((prev) => ({
+              ...prev,
+              [questionId]:
+                'Please select either "Product" or "Service" first.',
+            }));
+            return ele; // return original without updating
+          }
+          // If type is selected, update the answer
+          setErrors((prev) => {
+            const updated = { ...prev };
+            delete updated[questionId];
+            return updated;
+          });
+
+          return {
+            ...ele,
+            answer: {
+              ...ele.answer,
+              answer: value,
+            },
+          };
+        })
+      );
+
+      // Now handle validation
+      if (!value) {
         setErrors((prev) => ({
           ...prev,
           [questionId]: lang === "ar" ? 'يرجى اختيار "منتج" أو "خدمة" أولاً.' : 'Please select either "Product" or "Service" first.',
         }));
-        return;
       } else {
-        let temp_err = { ...errors };
-        delete temp_err[questionId];
-        setErrors(temp_err);
+        setErrors((prev) => {
+          const updated = { ...prev };
+          delete updated[questionId];
+          return updated;
+        });
       }
 
-      setFormData((prev) => ({
-        ...prev,
-        [questionId]: {
-          [activeType.toLowerCase()]: value,
-        },
-      }));
+      return;
     } else {
-      setFormData((prev) => ({
-        ...prev,
-        [questionId]: value,
-      }));
+      setQuestionAnswer1((prev) =>
+        prev.map((ele) =>
+          ele.id === questionId ? { ...ele, answer: value } : ele
+        )
+      );
     }
-  };
-
-  // const getAnswerValue = (questionId) => {
-  //   const formValue = formData?.[questionId];
-
-  //   if (questionId === 4 || questionId === '4') {
-  //     if (formValue && typeof formValue === 'object' && activeType) {
-  //       return formValue[activeType.toLowerCase()] || '';
-  //     }
-
-  //     // Check in fetched answers and parse if necessary
-  //     const fetchedAnswer = fetchQ1Answers.find((answer) => Number(answer.question_id) === Number(questionId))?.answer;
-
-  //     if (fetchedAnswer) {
-  //       try {
-  //         // Parse the stringified object
-  //         const parsedAnswer = JSON.parse(fetchedAnswer.replace(/'/g, '"')) || fetchedAnswer;
-  //         console.log(parsedAnswer)
-  //         if (!activeType && typeof parsedAnswer === 'object') {
-  //           if (parsedAnswer.product) {
-  //             setActiveType("product");
-  //           } else if (parsedAnswer.service) {
-  //             setActiveType("service");
-  //           }
-  //         }
-  //         setFormData((prevFormData) => ({
-  //           ...prevFormData,
-  //           [questionId]: activeType ? parsedAnswer?.[activeType] : JSON.stringify(parsedAnswer) ,
-  //         }))
-
-  //         // setFormData((prevFormData) => ({
-  //         //   ...prevFormData,
-  //         //   [questionId]: {
-  //         //     [activeType]: activeType
-  //         //       ? parsedAnswer?.[activeType]
-  //         //       : JSON.stringify(parsedAnswer),
-  //         //   },
-  //         // }));
-  //         return activeType ? parsedAnswer?.[activeType] : JSON.stringify(parsedAnswer);
-  //       } catch (error) {
-  //         console.error('Failed to parse fetchedAnswer:', error);
-  //         return '';
-  //       }
-  //     }
-
-  //     return '';
-  //   }
-
-  //   // Handle other questions normally
-  //   if (formValue !== undefined) {
-  //     return formValue;
-  //   }
-
-  //   // Check in fetched answers for other questionIds
-  //   const fetchedAnswer = fetchQ1Answers.find((answer) => Number(answer.question_id) === Number(questionId))?.answer;
-  //   if (fetchedAnswer !== undefined && formValue === undefined) {
-
-  //     setFormData((prevFormData) => ({
-  //       ...prevFormData,
-  //       [questionId]: fetchedAnswer,
-  //     }));
-  //   }
-
-  //   return fetchedAnswer ?? '';
-  // };
-
-  const getAnswerValue = (questionId) => {
-    const formValue = formData?.[questionId];
-
-    if (questionId === 4 || questionId === "4") {
-      // If formData already has the value, return based on activeType
-      if (formValue && typeof formValue === "object" && activeType) {
-        return formValue[activeType.toLowerCase()] || "";
-      }
-
-      // Try to get from initial answers
-      const fetchedAnswerObj = fetchQ1Answers.find(
-        (answer) => Number(answer.question_id) === Number(questionId)
-      )?.answer;
-
-      if (fetchedAnswerObj && typeof fetchedAnswerObj === "object") {
-        // Set activeType if not set
-        if (!activeType) {
-          if (fetchedAnswerObj.product) {
-            setActiveType("product");
-          } else if (fetchedAnswerObj.service) {
-            setActiveType("service");
-          }
-        }
-
-        // Store in formData
-        setFormData((prev) => ({
-          ...prev,
-          [questionId]: fetchedAnswerObj,
-        }));
-
-        return activeType ? fetchedAnswerObj[activeType] : "";
-      }
-
-      return "";
-    }
-
-    // For other fields (not question 4)
-    if (formValue !== undefined) {
-      return formValue;
-    }
-
-    const fetchedAnswer = fetchQ1Answers.find(
-      (answer) => Number(answer.question_id) === Number(questionId)
-    )?.answer;
-
-    if (fetchedAnswer !== undefined) {
-      setFormData((prev) => ({
-        ...prev,
-        [questionId]: fetchedAnswer,
-      }));
-    }
-
-    return fetchedAnswer ?? "";
   };
 
   const validateFields = () => {
-    // Filter required questions that are either unanswered or contain invalid values
-    const unansweredRequiredQuestions = questions.filter((q) => {
+    const unansweredRequiredQuestions = questionAnswer1
+      .slice(0, 6)
+      .filter((q) => {
+
+        if (q?.id === 4 && q.required) {
+        const type = q?.answer?.type?.trim?.();
+        const answer = q?.answer?.answer?.trim?.();
+        if (!type && !answer) {
+          return true;
+        }
+        return !type || !answer;
+      }
       return (
-        q.required && // Check if the question is marked as required
-        (!formData?.[q.id] ||
-          (typeof formData[q.id] === "string" && formData[q.id].trim() === "")) // Check if there's no answer or only whitespace
+        q.required &&
+        (!q.answer ||
+          (typeof q.answer === "string" && q.answer.trim() === ""))
       );
     });
 
@@ -290,21 +202,17 @@ export const Questionnaire1 = ({
       return false;
     }
 
-    return true; // All required fields are valid
+    return true;
   };
 
   const onNextClick = (e) => {
     e.stopPropagation();
     if (!validateFields()) {
-      return; // Stop execution if validation fails
+      return;
     } else {
-      console.log(formData, "next");
-      dispatch(questionnaireAction1(formData));
-      navigate(`/questionnaire/${2}`, {
-        state: {
-          orderId: location.state?.orderId,
-        },
-      });
+      dispatch(fetchQuestionAnswer(questionAnswer1));
+
+      navigate(`/questionnaire/${2}`);
       window.scrollTo({
         top: 0,
         behavior: "smooth",
@@ -313,48 +221,28 @@ export const Questionnaire1 = ({
   };
 
   const onSaveLaterClick = async () => {
-    if (!validateFields()) {
-      return;
-    } else {
-      let data = {
-        answers: formData,
-        orderId: location.state?.orderId,
-        status: "not submitted",
-      };
-      try {
-        const response = await axios.post(
-          `${base_url}/api/questionnaire/create`,
-          data,
-          ConfigToken()
-        );
-        if (response.status === 200) {
-          navigate("/dashboard", {
-            state: {
-              orderId: location.state?.orderId,
-            },
-          });
-        }
-      } catch (e) {
-        console.log(e);
-      }
-    }
-  };
-
-  const getOrderDetails = async () => {
-    if (location.state?.orderId) {
-      const response = await axios.get(
-        `${base_url}/api/order/${location.state?.orderId}/`,
+    let data = {
+      answers: questionAnswer1,
+      orderId: location.state?.orderId,
+      status: "not submitted",
+    };
+    try {
+      const response = await axios.post(
+        `${base_url}/api/questionnaire/create`,
+        data,
         ConfigToken()
       );
-      setFormData((prev) => ({
-        ...prev,
-        1: response.data.data.project_name,
-      }));
+      if (response.status === 200) {
+        navigate("/dashboard", {
+          state: {
+            orderId: location.state?.orderId,
+          },
+        });
+      }
+    } catch (e) {
+      console.log(e);
     }
   };
-  useEffect(() => {
-    getOrderDetails();
-  }, []);
 
   return (
     <div>
@@ -381,74 +269,107 @@ export const Questionnaire1 = ({
         setFormData={setFormData}
         onNextClick={onNextClick}
         onSaveLaterClick={onSaveLaterClick}
-        questions={questions.map((question, index) => (
-          <div className="questions" key={index} id={`question_${question.id}`}>
-            <p
-              className={`questions-title xs:w-[90%] sm:w-full md:w-full mx-auto ${
-                index === 0 ? "mt-[1%]" : "mt-[3%]"
-              }`}
+        questions={questionAnswer1.slice(0, 7).map((question, index) => {
+          return (
+            <div
+              className="questions"
+              key={index}
+              id={`question_${question.id}`}
             >
-              {changeLang === "ar"
-                ? question.question_arabic
-                : question.question}
-              {question.required && (
-                <span>
-                  <sup>*</sup>
-                </span>
+              <p
+                className={`questions-title xs:w-[90%] sm:w-full md:w-full mx-auto ${
+                  index === 0 ? "mt-[1%]" : "mt-[3%]"
+                }`}
+              >
+                {changeLang === "ar"
+                  ? question.question_arabic
+                  : question.question}
+                {question.required && (
+                  <span>
+                    <sup>*</sup>
+                  </span>
+                )}
+              </p>
+              {question.answer_type === "brand" && (
+                <div
+                  style={{ display: "flex", gap: "10px", marginBottom: "3%" }}
+                >
+                  <button
+                    className={`product-btn ${
+                      question?.answer?.type === "product" ? "active" : ""
+                    }`}
+                    onClick={() => {
+                      handleTypeClick(
+                        question?.id,
+                        "product",
+                        question?.answer?.answer
+                      );
+                    }}
+                  >
+                    {changeLang === "ar" ? "منتج" : "Product"}
+                  </button>
+                  <button
+                    className={`service-btn ${
+                      question?.answer?.type === "service" ? "active" : ""
+                    }`}
+                    onClick={() =>
+                      handleTypeClick(
+                        question.id,
+                        "service",
+                        question?.answer?.answer
+                      )
+                    }
+                  >
+                    {changeLang === "ar" ? "خدمة" : "Service"}
+                  </button>
+                </div>
               )}
-            </p>
-            {question.answer_type === "brand" && (
-              <div style={{ display: "flex", gap: "10px", marginBottom: "3%" }}>
-                <button
-                  className={`product-btn ${
-                    activeType === "product" ? "active" : ""
-                  }`}
-                  onClick={() => handleTypeClick("product")}
-                >
-                  {changeLang === "ar" ? "منتج" : "Product"}
-                </button>
-                <button
-                  className={`service-btn ${
-                    activeType === "service" ? "active" : ""
-                  }`}
-                  onClick={() => handleTypeClick("service")}
-                >
-                  {changeLang === "ar" ? "خدمة" : "Service"}
-                </button>
-              </div>
-            )}
-            <input
-              type="text"
-              className={`question-input ${
-                isFilled === question?.id
-                  ? "border-[#D83D99] border-b-[2px]"
-                  : `${
-                      window?.innerWidth <= 475
-                        ? "border-b-[1px]"
-                        : "border-b-[2px]"
-                    } border-black`
-              }`}
-              placeholder={
-                changeLang === "ar"
-                  ? placeHolders_arabic[index]
-                  : placeHolders[index]
-              }
-              // value={formData?.[question.id] || fetchQ1Answers[2].answer }
-              value={getAnswerValue(question.id)}
-              onChange={(e) => handleInputChange(question.id, e.target.value)} // Update Redux
-            />
-            {question.id in errors && (
-              <p className="text-[#D83D99]">{errors[question.id]}</p>
-            )}
-            {index === 0 && window.innerWidth >= 500 ? (
-              <div className="img-rotate-qf">
-                <img className="rotating-image" src={Load} alt="Loading" />
-              </div>
-            ) : (
-              ""
-            )}
-          </div>
-        ))}
+              <input
+                type="text"
+                className={`question-input ${
+                  isFilled === question?.id
+                    ? "border-[#D83D99] border-b-[2px]"
+                    : window?.innerWidth <= 475
+                    ? "border-b-[1px] border-black"
+                    : "border-b-[2px] border-black"
+                }`}
+                // className={`question-input ${
+                //   isFilled === question?.id ||
+                //   (question?.id === 4 &&
+                //     !question?.answer?.type ||
+                //     !question?.answer?.answer)
+                //     ? "border-[#D83D99] border-b-[2px]"
+                //     : `${
+                //         window?.innerWidth <= 475
+                //           ? "border-b-[1px]"
+                //           : "border-b-[2px]"
+                //       } border-black`
+                // }`}
+                placeholder={
+                  changeLang === "ar"
+                    ? placeHolders_arabic[index]
+                    : placeHolders[index]
+                }
+                value={
+                  question?.answer_type === "brand"
+                    ? question?.answer?.answer
+                    : question?.answer
+                }
+                onChange={(e) => handleInputChange(question.id, e.target.value)}
+              />
+              {question.id in errors && (
+                <p className="text-[#D83D99]">{errors[question.id]}</p>
+              )}
+              {index === 0 && window.innerWidth >= 500 ? (
+                <div className="img-rotate-qf">
+                  <img className="rotating-image" src={Load} alt="Loading" />
+                </div>
+              ) : (
+                ""
+              )}
+            </div>
+          );
+        })}
       ></Questionnaire>
     </div>
   );

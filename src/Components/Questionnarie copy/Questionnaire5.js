@@ -10,7 +10,6 @@ import { ToastContainer, toast } from "react-toastify";
 import Blackupload from "../../Images/Questionnaire/upload.svg";
 import useToastMessage from "../Pages/Toaster/Toaster";
 import { Toaster } from "react-hot-toast";
-import { fetchQuestionAnswer, updateOrderID } from "./questionnaire.slice";
 
 export const Questionnaire5 = ({
   formData,
@@ -48,35 +47,10 @@ export const Questionnaire5 = ({
   /* NEW QUESTIONANSWER */
 
   const questionAndAnswers = useSelector(
-    (state) => state?.questionAnswer?.questionAndAnswers || []
+    (state) => state?.questionAnswer?.questionAndAnswers
   );
 
-  const [questionAnswer5, setQuestionAnswer5] = useState([]);
-
-  useEffect(() => {
-    if (questionAndAnswers.length > 0) {
-      setQuestionAnswer5(questionAndAnswers);
-    }
-  }, [questionAndAnswers]);
-
   /* NEW QUESTIONANSWER */
-
-  useEffect(() => {
-    window.onbeforeunload = () => {
-      sessionStorage.setItem("isReload", "true");
-    };
-    return () => {
-      window.onbeforeunload = null;
-    };
-  }, []);
-
-  // Detect refresh on mount
-  useEffect(() => {
-    if (sessionStorage.getItem("isReload") === "true") {
-      sessionStorage.removeItem("isReload");
-      navigate("/questionnaire/1");
-    }
-  }, [navigate]);
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -140,94 +114,65 @@ export const Questionnaire5 = ({
   };
 
   const showToastMessage = () => {
+    // toast.error(changeLang === 'ar' ? '•القيمة مطلوب' :"The Value is required!", {
+    //   position: toast?.POSITION?.TOP_RIGHT,
+    //   toastId: 'required-value-toast',
+    //   icon:false,
+    //       style:{
+    //           color:'#D83D99',
+    //           fontWeight:'700'
+    //       }
+    // });
     showErrorToast(
       changeLang === "ar" ? "القيمة مطلوب" : "The Value is required!",
       "#D83D99"
     );
   };
 
-  // const validateFields = () => {
-  //   ;
-  //   const unansweredRequiredQuestions = questionAnswer5
-  //     .slice(21, 24)
-  //     .filter((q) => {
-  //       if (q.id === 23) {
-  //         return (
-  //           q.required && (q.answer.document || q.answer.document.trim() === "")
-  //         );
-  //       }
-  //       else if (q.id === 24) {
-  //         return (
-  //           q.required && (q.answer && q.answer.trim() !== "")
-  //         );
-  //       } else {
-  //         return q.required && (q.answer || q.answer.trim() === "");
-  //       }
-  //     });
-
-  //   if (unansweredRequiredQuestions.length > 0) {
-  //     const element = document.getElementById(
-  //       `question_${unansweredRequiredQuestions[0]?.id}`
-  //     );
-  //     setIsFilled(unansweredRequiredQuestions[0]?.id);
-  //     if (element) {
-  //       element.scrollIntoView({ behavior: "smooth" });
-  //     }
-  //     showToastMessage();
-  //     return false;
-  //   }
-  //   return true;
-  // };
-
   const validateFields = () => {
-    const unansweredRequiredQuestions = questionAnswer5
-      .slice(21, 24)
-      .filter((q) => {
-        if (!q.required) return false;
-
-        if (q.id === 23) {
-          const doc = q?.answer?.document?.trim?.();
-          return !doc;
-        }
-        if (q.id === 24) {
-          return !q.answer || q.answer.trim() === "";
-        }
-        return !q.answer || q.answer.trim() === "";
-      });
+    // Filter required questions that are either unanswered or contain invalid values
+    const unansweredRequiredQuestions = questions.filter((q) => {
+      return (
+        q.required && // Check if the question is marked as required
+        (!formData?.[q.id] || formData?.[q.id].trim() === "") // Check if there's no answer or only whitespace
+      );
+    });
 
     if (unansweredRequiredQuestions.length > 0) {
       const element = document.getElementById(
         `question_${unansweredRequiredQuestions[0]?.id}`
       );
-      ;
       setIsFilled(unansweredRequiredQuestions[0]?.id);
       if (element) {
         element.scrollIntoView({ behavior: "smooth" });
       }
-      showToastMessage();
+      showToastMessage(); // Display the error toast
       return false;
     }
 
-    return true;
+    // if(((answers1 || answers2 || answers3 ||answers4) === null || undefined || {} || [] ) && unansweredRequiredQuestions.length>0){
+    //   toast.error("You should fill all the mandatory fields", {
+    //     position: toast?.POSITION?.TOP_RIGHT,
+    //     style: { width: "400px",margin:'0 0 0 -25%' },
+    //   });
+    // }
+
+    return true; // All required fields are valid
   };
 
   const handleChange = (id, value) => {
-    setQuestionAnswer5((prev) =>
-      prev.map((ele) => (ele.id === id ? { ...ele, answer: value } : ele))
-    );
+    setFormData((prev) => ({
+      ...prev,
+      [id]: value,
+    }));
   };
 
   const handleLanguageChange = (language, questionId) => {
-    setQuestionAnswer5((prev) =>
-      prev.map((ele) =>
-        ele.id === questionId ? { ...ele, answer: language } : ele
-      )
-    );
-    // Update the isFilled array only if questionId is not 24
-    if (questionId === 24) {
-      
-      setIsFilled(null);
-    }
+    setSelectedLanguage(language);
+    setFormData((prevData) => ({
+      ...prevData,
+      [questionId]: language,
+    }));
   };
 
   const uploadFile = async (e, id, field) => {
@@ -240,25 +185,23 @@ export const Questionnaire5 = ({
         formData,
         ConfigToken()
       );
-      setQuestionAnswer5((prev) =>
-        prev.map((ele) =>
-          ele.id === id
-            ? {
-                ...ele,
-                answer: {
-                  ...ele.answer,
-                  document: response.data.file_url,
-                  docName: e.target.files[0]?.name || "",
-                },
-              }
-            : ele
-        )
-      );
+      console.log(response.data, "res");
+      setUploadContent((prev) => ({
+        ...prev,
+        [id]: {
+          ...prev[id], // Preserve other fields for this ID
+          [field]: response.data.file_url, // Update the file or other field
+          ...(field === "file" && { filename: e.target.files[0]?.name || "" }), // Update filename if file is changed
+        },
+      }));
+      setFormData((prev) => ({
+        ...prev,
+        [id]: response.data.file_url,
+      }));
     }
   };
 
   const onBackClick = async () => {
-    dispatch(fetchQuestionAnswer(questionAnswer5));
     navigate(`/questionnaire/${4}`, {
       state: {
         questionnaireData4: answers4,
@@ -268,46 +211,38 @@ export const Questionnaire5 = ({
   };
 
   const FinishClick = async () => {
-    let finalFormData = {
-      answers: newUpdatedAns,
-      language: localStorage.getItem("lang") === "ar" ? "arabic" : "english",
-      status: "submit",
-      orderId: location.state?.orderId || localStorage.getItem("orderId"),
-    };
     if (!validateFields()) {
       return;
     }
     try {
+      let finalFormData = {
+        answers: {
+          ...answers1,
+          ...answers2,
+          ...answers3,
+          ...answers4,
+          ...formData,
+        },
+        language: localStorage.getItem("lang") === "ar" ? "arabic" : "english",
+        status: "submit",
+        orderId: location.state?.orderId,
+      };
       const response = await axios.post(
         `${base_url}/api/questionnaire/create`,
         finalFormData,
         ConfigToken()
       );
-      if (response.data.status === 200) {
-        localStorage.removeItem("reduxState")
-        localStorage.removeItem("orderId")
-        dispatch(fetchQuestionAnswer([]))
-        dispatch(updateOrderID(""));
-      }
-
+      dispatch(questionnaireAnswers(finalFormData));
       navigate("/thankyou");
     } catch (error) {
       console.error("Error submitting data:", error);
     }
   };
 
-  let newUpdatedAns = questionAnswer5.map((ele) => {
-    return {
-      id: ele.id,
-      answers: ele.answer,
-    };
-  });
-
   const onSaveLaterClick = async () => {
-    console.log(newUpdatedAns);
     try {
       let data = {
-        answers: questionAnswer5,
+        answers: formData,
         status: "not submitted",
         orderId: location.state.orderId,
       };
@@ -316,10 +251,8 @@ export const Questionnaire5 = ({
         data,
         ConfigToken()
       );
-      if (response.data.status === 200) {
-        dispatch(questionnaireAction5(formData));
-        navigate("/dashboard");
-      }
+      dispatch(questionnaireAction5(formData));
+      navigate("/dashboard");
     } catch (error) {
       console.error("Error submitting data:", error);
     }
@@ -350,7 +283,7 @@ export const Questionnaire5 = ({
         onSaveLaterClick={onSaveLaterClick}
         formData={formData}
         setFormData={setFormData}
-        questions={questionAnswer5.slice(21, 24).map((question, index) => (
+        questions={questionAndAnswers.slice(21, 24).map((question, index) => (
           <div
             className="questions"
             key={question.id}
@@ -364,19 +297,19 @@ export const Questionnaire5 = ({
               {changeLang === "ar"
                 ? question?.question_arabic
                 : question.question}
-              {question?.required && (
+              {question.required && (
                 <span>
                   <sup>*</sup>
                 </span>
               )}
             </p>
-            {question?.id === 24 && (
+            {question.id === 24 && (
               <div className="flex items-center justify-center gap-[20px] mt-2">
                 <div>
                   <button
                     onClick={() => handleLanguageChange("arabic", question.id)}
                     className={`uppercase font-[18px] lg:h-[45px] md:h-[45px] xs:h-[35px] w-[150px] border-[1px] border-solid border-[#000000] ${
-                      question.answer === "arabic"
+                      selectedLanguage === "arabic"
                         ? "bg-[#000000] text-[#FFFFFF]"
                         : "hover:bg-[#000000] hover:text-[#FFFFFF]"
                     }`}
@@ -388,7 +321,7 @@ export const Questionnaire5 = ({
                   <button
                     onClick={() => handleLanguageChange("english", question.id)}
                     className={`uppercase font-[18px] lg:h-[45px] md:h-[45px] xs:h-[35px] w-[150px] border-[1px] border-solid border-[#000000] ${
-                      question?.answer === "english"
+                      selectedLanguage === "english"
                         ? "bg-[#000000] text-[#FFFFFF]"
                         : "hover:bg-[#000000] hover:text-[#FFFFFF]"
                     }`}
@@ -402,7 +335,7 @@ export const Questionnaire5 = ({
             {question.id === 24 ? (
               <div
                 className={`w-[100%] xl:h-[2px] lg:h-[2px] md:h-[2px] sm:h-[2px] xs:h-[1px] ${
-                  isFilled === question.id ? "bg-[#D83D99]" : "bg-black"
+                  isFilled === question?.id ? "bg-[#D83D99]" : "bg-black"
                 } lg:mt-[3%] md:mt-[3%] xs:mt-[5%]`}
               ></div>
             ) : question?.id === 23 ? (
@@ -454,15 +387,14 @@ export const Questionnaire5 = ({
                       </p>
                     </div>
                     <p className="lg:text-[18px] md:text-[18px] xs:text-[14px] font-[400]">
-                      {question?.answer?.docName}
-
+                      {uploadContent?.[question?.id]?.filename}
                     </p>
                   </>
                 </div>
               </>
             ) : (
               <input
-                placeholder={question?.placeholder}
+                placeholder={question.placeholder}
                 className={`question-input ${
                   isFilled === question?.id
                     ? "border-[#D83D99] border-b-[2px]"
@@ -472,7 +404,7 @@ export const Questionnaire5 = ({
                           : "border-b-[2px]"
                       } border-black`
                 }`}
-                value={question?.answer}
+                value={getAnswerValue(question.id)}
                 onChange={(e) => handleChange(question.id, e.target.value)}
               />
             )}
