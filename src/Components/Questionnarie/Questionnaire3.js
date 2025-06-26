@@ -244,7 +244,7 @@ export const Questionnaire3 = ({
 
   const onSaveLaterClick = async () => {
     let data = {
-      answers: formData,
+      answers: questionAnswer3,
       orderId: location.state?.orderId,
       status: "not submitted",
     };

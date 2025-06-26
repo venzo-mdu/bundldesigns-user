@@ -61,31 +61,29 @@ export const Questionnaire4 = ({
   const [questionAnswer4, setQuestionAnswer4] = useState([]);
 
   useEffect(() => {
-    if (questionAndAnswers.length > 0) {
+    if (questionAndAnswers?.length > 0) {
       setQuestionAnswer4(questionAndAnswers);
     }
   }, [questionAndAnswers]);
 
   /* NEW QUESTIONANSWER */
 
-    useEffect(() => {
-      window.onbeforeunload = () => {
-        sessionStorage.setItem("isReload", "true");
-      };
-      return () => {
-        window.onbeforeunload = null;
-      };
-    }, []);
-  
-    // Detect refresh on mount
-    useEffect(() => {
-      if (sessionStorage.getItem("isReload") === "true") {
-        sessionStorage.removeItem("isReload");
-        navigate("/questionnaire/1");
-      }
-    }, [navigate]);
+  useEffect(() => {
+    window.onbeforeunload = () => {
+      sessionStorage.setItem("isReload", "true");
+    };
+    return () => {
+      window.onbeforeunload = null;
+    };
+  }, []);
 
-  
+  // Detect refresh on mount
+  useEffect(() => {
+    if (sessionStorage.getItem("isReload") === "true") {
+      sessionStorage.removeItem("isReload");
+      navigate("/questionnaire/1");
+    }
+  }, [navigate]);
 
   console.log(formData, "eee");
   const placeHolders = ["BUNDL", "(ex: Luxury shopping made easy)"];
@@ -130,13 +128,13 @@ export const Questionnaire4 = ({
 
     const fetchAnswers = async () => {
       try {
-        if (location.state.orderId != undefined) {
+        if (location?.state?.orderId != undefined) {
           const response = await axios.get(
-            `${base_url}/api/questionnaire/update/${location.state.orderId}`,
+            `${base_url}/api/questionnaire/update/${location?.state?.orderId}`,
             ConfigToken()
           );
-          setFetchQ4Answers(response.data.data);
-          const answers = response.data.data;
+          setFetchQ4Answers(response?.data?.data);
+          const answers = response?.data?.data;
 
           answers.forEach((item) => {
             const { question_id, answer, answer_type } = item;
@@ -221,33 +219,35 @@ export const Questionnaire4 = ({
   };
   const validateFields = () => {
     // Filter required questions that are either unanswered or contain invalid data
-    const unansweredRequiredQuestions = questionAnswer4 ?.slice(14, 21).filter((q) => {
-      const answer = q.answer;
-      if (!q.required) {
-        return false;
-      }
+    const unansweredRequiredQuestions = questionAnswer4
+      ?.slice(14, 21)
+      .filter((q) => {
+        const answer = q.answer;
+        if (!q.required) {
+          return false;
+        }
 
-      debugger
-      if (
-        answer === undefined ||
-        answer === null ||
-        (typeof answer === "string" && answer.trim() === "") ||
-        (Array.isArray(answer) && answer?.length === 0) ||
-        (typeof answer === "object" &&
-          !Array.isArray(answer) &&
-          Object.keys(answer).length === 0)
-      ) {
-        return true;
-      }
+        ;
+        if (
+          answer === undefined ||
+          answer === null ||
+          (typeof answer === "string" && answer.trim() === "") ||
+          (Array.isArray(answer) && answer?.length === 0) ||
+          (typeof answer === "object" &&
+            !Array.isArray(answer) &&
+            Object.keys(answer).length === 0)
+        ) {
+          return true;
+        }
 
-      return false; // Valid answer
-    });
+        return false; // Valid answer
+      });
 
     if (unansweredRequiredQuestions?.length > 0) {
       const element = document.getElementById(
         `question_${unansweredRequiredQuestions[0]?.id}`
       );
-      debugger
+      ;
       setIsFilled(unansweredRequiredQuestions[0]?.id);
       if (element) {
         element.scrollIntoView({ behavior: "smooth" });
@@ -260,7 +260,43 @@ export const Questionnaire4 = ({
   };
 
   const handleColorClick = (color, questionId) => {
+    ;
     let updatedColors = [];
+    if (questionId === 19) {
+      if (color === "Surprise") {
+        // Reset colors if Surprise
+        setQuestionAnswer4((prev) =>
+          prev?.map((ele) =>
+            ele.id === questionId
+              ? {
+                  ...ele,
+                  answer: {
+                    type: prev?.answer?.type === "Surprise" ? "" : "Surprise",
+                    color: [],
+                  },
+                }
+              : ele
+          )
+        );
+      } else {
+        // Add selected color
+        setQuestionAnswer4((prev) =>
+          prev.map((ele) =>
+            ele.id === questionId
+              ? {
+                  ...ele,
+                  answer: {
+                    ...ele.answer,
+                    type: "", // optional: distinguish from Surprise
+                    color: [...(ele.answer?.color || []), color],
+                  },
+                }
+              : ele
+          )
+        );
+      }
+    }
+
     const isHexCode = /^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/.test(color);
 
     if (!isHexCode && color !== "Surprise") {
@@ -314,27 +350,59 @@ export const Questionnaire4 = ({
     setSelectedColors(updatedColors);
     setInputValue("");
 
-    console.log(questionAnswer4.find((ele) => ele.id == questionId)); // for debugging
-    debugger;
+    // setQuestionAnswer4((prev) =>
+    //   prev.map((ele) =>
+    //     ele.id == questionId ? { ...ele, answer: {...ele.answers, updatedColors} } : ele
+    //   )
+    // );
 
     setQuestionAnswer4((prev) =>
-      prev.map((ele) =>
-        ele.id == questionId ? { ...ele, answer: updatedColors } : ele
+      prev?.map((ele) =>
+        ele.id === questionId
+          ? { ...ele, answer: { ...ele.answer, ...updatedColors } }
+          : ele
       )
     );
   };
 
-  const handleRemoveColor = (color, questionId) => {
-    const updatedColors = selectedColors.filter((c) => c !== color);
+  // const handleRemoveColor = (color, questionId) => {
+  //   const updatedColors = questionAnswer4?.filter((c) => c.id === questionId?answer: answers:c.answer);
+  //   
+  //   setSelectedColors(updatedColors);
+
+  //   setQuestionAnswer4((prevFormData) => ({
+  //     ...prevFormData,
+  //     answer: {
+  //       color: updatedColors,
+  //     },
+  //   }));
+  // };
+
+  const handleRemoveColor = (colorToRemove, questionId) => {
+    const updatedColors =
+      questionAnswer4
+        ?.find((q) => q.id === questionId)
+        ?.answer?.color?.filter((c) => c !== colorToRemove) || [];
+
     setSelectedColors(updatedColors);
 
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [questionId]: updatedColors,
-    }));
+    setQuestionAnswer4((prev) =>
+      prev.map((ele) =>
+        ele.id === questionId
+          ? {
+              ...ele,
+              answer: {
+                ...ele.answer,
+                color: updatedColors,
+              },
+            }
+          : ele
+      )
+    );
   };
 
   const handleInputChange = (e, questionId) => {
+    ;
     setQuestionAnswer4((prev) =>
       prev.map((ele) =>
         ele.id === questionId ? { ...ele, answer: e.target.value } : ele
@@ -344,7 +412,7 @@ export const Questionnaire4 = ({
 
   const handleButtonClick = (index, questionId, font) => {
     setQuestionAnswer4((prev) =>
-      prev.map((ele) => {
+      prev?.map((ele) => {
         if (ele.id !== questionId) return ele;
 
         let updatedFonts;
@@ -375,7 +443,7 @@ export const Questionnaire4 = ({
       textColor: textColor,
     };
     setQuestionAnswer4((prev) =>
-      prev.map((ele) =>
+      prev?.map((ele) =>
         ele.id === questionId ? { ...ele, answer: answer } : ele
       )
     );
@@ -476,6 +544,7 @@ export const Questionnaire4 = ({
   };
 
   const onBackClick = async () => {
+    dispatch(fetchQuestionAnswer(questionAnswer4));
     navigate(`/questionnaire/${3}`);
   };
 
@@ -486,7 +555,7 @@ export const Questionnaire4 = ({
     dispatch(fetchQuestionAnswer(questionAnswer4));
     navigate(`/questionnaire/${5}`, {
       state: {
-        orderId: location.state?.orderId,
+        orderId: location?.state?.orderId,
       },
     });
     window.scrollTo({
@@ -497,8 +566,8 @@ export const Questionnaire4 = ({
 
   const onSaveLaterClick = async () => {
     let data = {
-      answers: formData,
-      orderId: location.state?.orderId,
+      answers: questionAnswer4,
+      orderId: location?.state?.orderId,
       status: "not submitted",
     };
     try {
@@ -510,7 +579,7 @@ export const Questionnaire4 = ({
       if (response.status === 200) {
         navigate("/dashboard", {
           state: {
-            orderId: location.state?.orderId,
+            orderId: location?.state?.orderId,
           },
         });
       }
@@ -518,6 +587,13 @@ export const Questionnaire4 = ({
       console.log(e);
     }
   };
+
+  useEffect(() => {
+    if (questionAnswer4[18]) {
+      console.log(questionAnswer4[18]);
+      ;
+    }
+  }, []);
 
   return (
     <div>
@@ -547,13 +623,13 @@ export const Questionnaire4 = ({
         questions={
           <>
             {/* ${question.id == 21 ?'!text-[22px]':''} */}
-            {questionAnswer4.slice(14, 21)?.map((question, index) => (
+            {questionAnswer4?.slice(14, 21)?.map((question, index) => (
               <div
                 className="questions"
                 key={index}
                 id={`question_${question.id}`}
               >
-                {question.answer_type === "shade" ? (
+                {question?.answer_type === "shade" ? (
                   ""
                 ) : (
                   <p
@@ -563,12 +639,12 @@ export const Questionnaire4 = ({
                   >
                     {changeLang === "ar"
                       ? question?.question_arabic
-                      : question.question}
-                    {question.required && (
+                      : question?.question}
+                    {question?.required && (
                       <span>
                         <sup
                           className={`${
-                            question.id == 21 ? "!text-[22px]" : ""
+                            question?.id == 21 ? "!text-[22px]" : ""
                           }`}
                         >
                           *
@@ -844,36 +920,38 @@ export const Questionnaire4 = ({
                         height: "inherit",
                       }}
                     >
-                      {selectedColors?.[0] === "Surprise"
+                      {question?.answer?.type === "Surprise"
                         ? ""
-                        : selectedColors?.map((color, index) => (
-                            <div
-                              key={index}
-                              className="selected-color"
-                              style={{
-                                backgroundColor: color,
-                                width: "120px",
-                                height: "30px",
-                                border: "1px solid #000000",
-                              }}
-                            >
-                              <span
+                        : question?.answer?.color?.map((color, index) => {
+                            return (
+                              <div
+                                key={index}
+                                className="selected-color"
                                 style={{
-                                  // margin: '-5% 1% 0 0',
-                                  float: "right",
-                                  cursor: "pointer",
+                                  backgroundColor: color,
+                                  width: "120px",
+                                  height: "30px",
+                                  border: "1px solid #000000",
                                 }}
                               >
-                                <img
-                                  src={X}
-                                  alt="X-icon"
-                                  onClick={() =>
-                                    handleRemoveColor(color, question.id)
-                                  }
-                                ></img>
-                              </span>
-                            </div>
-                          ))}
+                                <span
+                                  style={{
+                                    // margin: '-5% 1% 0 0',
+                                    float: "right",
+                                    cursor: "pointer",
+                                  }}
+                                >
+                                  <img
+                                    src={X}
+                                    alt="X-icon"
+                                    onClick={() =>
+                                      handleRemoveColor(color, question.id)
+                                    }
+                                  ></img>
+                                </span>
+                              </div>
+                            );
+                          })}
                     </div>
                     <div
                       className="color-input"
@@ -894,7 +972,7 @@ export const Questionnaire4 = ({
                       <div className="flex justify-center items-center">
                         <input
                           type="text"
-                          value={question?.answer}
+                          value={question?.answer?.updatedColors}
                           onChange={(e) => handleInputChange(question.id, e)}
                           placeholder="ex: #E1483D"
                           style={{
@@ -936,7 +1014,7 @@ export const Questionnaire4 = ({
                       </p>
                       <button
                         className={`${
-                          selectedColors?.includes("Surprise")
+                          question?.answer?.type
                             ? "surprise-active"
                             : "surprise"
                         }`}
@@ -1330,9 +1408,7 @@ export const Questionnaire4 = ({
                 ) : (
                   <div
                     className={`w-[100%] xl:h-[2px] lg:h-[2px] md:h-[2px] sm:h-[2px] xs:h-[1px] ${
-                      isFilled === question?.id
-                        ? "bg-[#D83D99]"
-                        : "bg-black"
+                      isFilled === question?.id ? "bg-[#D83D99]" : "bg-black"
                     } mt-[3%]`}
                   ></div>
                 )}

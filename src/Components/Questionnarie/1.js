@@ -208,8 +208,7 @@ export let data = [
     question: "Are there specific colours you would like to see ?",
     // answer: ["Surprise"],
     answer: {
-      colorToll: [],
-      inputColor: [],
+      color:[],
       type: "Surprise",
     },
 

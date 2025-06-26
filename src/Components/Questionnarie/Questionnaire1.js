@@ -220,7 +220,7 @@ export const Questionnaire1 = ({
 
   const onSaveLaterClick = async () => {
     let data = {
-      answers: formData,
+      answers: questionAnswer1,
       orderId: location.state?.orderId,
       status: "not submitted",
     };
@@ -314,7 +314,7 @@ export const Questionnaire1 = ({
                       handleTypeClick(
                         question.id,
                         "service",
-                        question.answer.answer
+                        question?.answer?.answer
                       )
                     }
                   >

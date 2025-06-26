@@ -10,7 +10,7 @@ import { ToastContainer, toast } from "react-toastify";
 import Blackupload from "../../Images/Questionnaire/upload.svg";
 import useToastMessage from "../Pages/Toaster/Toaster";
 import { Toaster } from "react-hot-toast";
-import { fetchQuestionAnswer } from "./questionnaire.slice";
+import { fetchQuestionAnswer, updateOrderID } from "./questionnaire.slice";
 
 export const Questionnaire5 = ({
   formData,
@@ -199,7 +199,7 @@ export const Questionnaire5 = ({
       const element = document.getElementById(
         `question_${unansweredRequiredQuestions[0]?.id}`
       );
-      debugger;
+      ;
       setIsFilled(unansweredRequiredQuestions[0]?.id);
       if (element) {
         element.scrollIntoView({ behavior: "smooth" });
@@ -225,7 +225,7 @@ export const Questionnaire5 = ({
     );
     // Update the isFilled array only if questionId is not 24
     if (questionId === 24) {
-      debugger
+      
       setIsFilled(null);
     }
   };
@@ -284,7 +284,10 @@ export const Questionnaire5 = ({
         ConfigToken()
       );
       if (response.data.status === 200) {
-        dispatch(fetchQuestionAnswer([]));
+        localStorage.removeItem("reduxState")
+        localStorage.removeItem("orderId")
+        dispatch(fetchQuestionAnswer([]))
+        dispatch(updateOrderID(""));
       }
 
       navigate("/thankyou");
@@ -304,7 +307,7 @@ export const Questionnaire5 = ({
     console.log(newUpdatedAns);
     try {
       let data = {
-        answers: newUpdatedAns,
+        answers: questionAnswer5,
         status: "not submitted",
         orderId: location.state.orderId,
       };

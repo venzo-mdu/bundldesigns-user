@@ -943,6 +943,8 @@ import { BorderAllRounded } from "@mui/icons-material";
 import { processArabicText } from "../Utils/arabicFontParenthesisChecker";
 import workOurGIF from "../../Images/ourWorkGIF.gif";
 import workBrandGIF from "../../Images/ourWorkBranding.gif";
+import { fetchQuestionAnswer, updateOrderID } from "../Questionnarie/questionnaire.slice";
+import { useDispatch } from "react-redux";
 
 const style = {
   position: "absolute",
@@ -960,6 +962,7 @@ const style = {
   // borderRadius:'4px'
 };
 export default function Dashboard({ lang, setLang }) {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState([]);
   const [projectName, setProjectName] = useState("");
@@ -1034,6 +1037,10 @@ export default function Dashboard({ lang, setLang }) {
   };
 
   const getOrderDetails = async (orderId) => {
+    localStorage.removeItem("reduxState");
+    localStorage.removeItem("orderId");
+    dispatch(fetchQuestionAnswer([]));
+    dispatch(updateOrderID(""));
     setCurrentTab(orderId);
     const response = await axios.get(
       `${base_url}/api/order/${orderId}/`,
