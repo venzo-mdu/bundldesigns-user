@@ -111,7 +111,7 @@ export const ForgotpasswordMail = ({ lang }) => {
       setSubmitError(
         error?.response?.data?.message ||
           error?.response?.data?.data ||
-          "Something went wrong"
+           (lang === "ar" ? "مرة أخرى حدث خطأ ما!" : "Something went wrong!")
       );
     } finally {
       setLoading(false);
@@ -158,8 +158,7 @@ export const ForgotpasswordMail = ({ lang }) => {
               {loading ? <ClipLoader size={25} color={'#FFFFFF'} /> :lang === 'ar' ? 'تسجيل دخول' : 'Sign In'}
             </button>  */}
 
-            <p className="text-[red] mb-1">{submitError}</p>
-
+            <p className="text-[#D83D99] mb-1">{submitError}</p>
             {emailSent && (
               <p className="success">
                 {lang === "ar"

@@ -1088,7 +1088,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                                   </p>
                                 ) : (
                                   <p
-                                    className={`sm:text-[18px] text-[18px] xs:text-[16px] font-[400] lg:w-[40%] md:w-[50%] xs:w-[25%]  ${
+                                    className={`sm:text-[18px] text-[18px] xs:text-[16px] font-[400] lg:w-[40%] md:w-[50%] xs:w-[27%]  ${
                                       lang === "ar" ? "text-left" : "text-right"
                                     }`}
                                     style={{ color: textColor }}
@@ -1161,7 +1161,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                             >
                               <div className="flex xs:w-[100%] w-full">
                                 <p
-                                  className={`text-black sm:text-[18px] text-[18px] xs:text-[16px] font-[400] !mb-1 xs:w-[75%]  lg:w-full md:w-full sm:w-full mt-[3px] ${
+                                  className={`text-black sm:text-[18px] text-[18px] xs:text-[16px] font-[400] !mb-1 xs:w-[64%]  lg:w-full md:w-full sm:w-full mt-[3px] ${
                                     lang === "ar" ? "text-right" : "text-left"
                                   }`}
                                 >
@@ -1171,7 +1171,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                                     : addon.addon_name}
                                 </p>
                                 <p
-                                  className={`sm:text-[18px] text-[18px] xs:text-[16px] font-[400] lg:w-[40%] md:w-[50%] xs:w-[25%]  ${
+                                  className={`sm:text-[18px] text-[18px] xs:text-[16px] font-[400] lg:w-[40%] md:w-[50%] xs:w-[36%]  ${
                                     lang === "ar" ? "text-left" : "text-right"
                                   }`}
                                   style={{ color: textColor }}
@@ -1233,7 +1233,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                         //   : "")} */}
                       {/* {lang === "ar" ? "ريال" : "SAR"} */}
                       {lang === "ar"
-                        ? "\u00A0\u00A0ريال"
+                        ? "\u00A0\u00A0\u00A0ريال"
                         : "\u00A0\u00A0\u00A0SAR"}
                     </p>
                   </div>
@@ -1251,11 +1251,11 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                       />
                       <span
                         className={`${
-                          lang === "ar" ? "mr-2" : "xs:ml-4 sm:ml-1 ml-1"
+                          lang === "ar" ? "mr-2 xs:mr-3.5" : "xs:ml-4 sm:ml-1 ml-1"
                         }`}
                       >
                         {lang === "ar"
-                          ? "\u00A0المدة الإجمالية :"
+                          ? "المدة الإجمالية :"
                           : "Total Duration :"}
                       </span>
                     </p>
@@ -1267,7 +1267,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                     >
                       {packageDetail?.package?.time + addonPayLoads.total_time}
                       {/* {lang === "ar" ? "يوما" : "Days"} */}
-                      {lang === "ar" ? "\u00A0\u00A0يوم" : "\u00A0\u00A0Days"}
+                      {lang === "ar" ? "\u00A0\u00A0\u00A0\u00A0يوم" : "\u00A0\u00A0Days"}
                     </p>
                   </div>
 

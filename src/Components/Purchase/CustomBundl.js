@@ -350,7 +350,9 @@ export const CustomBundl = ({ user, lang, setLang }) => {
             />
             {brandError && (
               <p className="text-[#D83D99]">
-                {lang === "ar" ? "يرجى إدخال اسم المشروع" : "Please enter name of the brand"}
+                {lang === "ar"
+                  ? "يرجى إدخال اسم المشروع"
+                  : "Please enter name of the brand"}
               </p>
             )}
             <div style={{ margin: "5% 0 0 0" }}>
@@ -486,34 +488,47 @@ export const CustomBundl = ({ user, lang, setLang }) => {
                   <img
                     src={BlackDollor}
                     alt="Total Price"
-                    className="inline-block ml-1"
+                    className={`inline-block ml-1 ${
+                      lang === "ar" ? "mr-[7px]" : ""
+                    }`}
                   />
-                  <span className="ml-3 font-bold">
-                    {lang === "ar" ? "السعر الإجمالي :" : "Total Price :"}
-                  </span>
+                  <span
+  className={`ml-3 font-bold ${lang === "ar" ? "mr-[7px]" : ""}`}
+>
+  {lang === "ar" ? "السعر الإجمالي :" : "Total Price :"}
+</span>
                 </p>
-                <p className="w-[40%] xs:text-right sm:text-left !font-bold sm:mb-2 xs:mb-0">
+                <p
+                  className={`w-[40%] ${lang !== "ar" ? "xs:text-right" : ""} ${
+                    lang === "ar" ? "sm:text-left" : ""
+                  } !font-bold sm:mb-2 xs:mb-0`}
+                >
                   {amountDecimal(addonPayLoads.total_price)}{" "}
-                  {lang === "ar" ? "ريال" : "SAR"}
+                  {lang === "ar" ? "\u00A0\u00A0ريال" : "\u00A0SAR"}
                 </p>
               </div>
               <div className="total  flex items-center">
-                <p className="w-[60%] flex items-center  sm:mb-2 xs:mb-0">
+                <p className="w-[60%] flex items-center sm:mb-2 xs:mb-0">
                   <img
                     src={BlackTime}
                     alt="Total Duration"
                     className="inline-block"
                   />
-                  <span className="ml-1">
+                  <span className={`${lang === "ar" ? "mr-[11px]" : "ml-1"}`}>
                     {lang === "ar" ? "المدة الإجمالية :" : "Total Duration :"}
                   </span>
                 </p>
-                <p className="w-[40%] xs:text-right sm:text-left sm:mb-2 xs:mb-0">
-                  {addonPayLoads.total_time} {lang === "ar" ? "يوم" : "Days"}
+                <p
+                  className={`w-[40%] ${lang !== "ar" ? "xs:text-right" : ""} ${
+                    lang === "ar" ? "sm:text-left" : ""
+                  } sm:mb-2 xs:mb-0`}
+                >
+                  {addonPayLoads.total_time}{" "}
+                  {lang === "ar" ? "\u00A0\u00A0\u00A0يوم" : "Days"}
                 </p>
               </div>
 
-              <div className="proceed-checkout mt-[3%]">
+              <div className="proceed-checkout mt-[3%] flex flex-col items-center">
                 <button
                   onClick={createPayload}
                   type="button"
@@ -542,10 +557,10 @@ export const CustomBundl = ({ user, lang, setLang }) => {
           setPopup={setOpenPopup}
           title={""}
           subTitle={
-  lang === "ar"
-    ? "لديك عناصر في سلة التسوق. هل ترغب في"
-    : "You already have items in your cart. Would you like to."
-}
+            lang === "ar"
+              ? "لديك عناصر في سلة التسوق. هل ترغب في"
+              : "You already have items in your cart. Would you like to."
+          }
           onClick={emptyCart}
           save={lang === "ar" ? "الاستمرار" : "Continue"}
           cancel={lang === "ar" ? "الإلغاء" : "Cancel"}
