@@ -45,13 +45,13 @@ export const MyCart = ({ lang, setLang }) => {
   const [tax, setTax] = useState(false);
   const [isBack, setIsBack] = useState(false);
 
-   const [firstOrder, setFirstOrder] = useState(false);
+  const [firstOrder, setFirstOrder] = useState(false);
 
   const [popupMessage, setPopupMessage] = useState(
-  lang === "ar"
-    ? "هل أنت متأكد من إفراغ السلة؟"
-    : "Are you sure you want to empty the cart?"
-);
+    lang === "ar"
+      ? "هل أنت متأكد من إفراغ السلة؟"
+      : "Are you sure you want to empty the cart?"
+  );
 
   const [routeNames, setRouteNames] = useState({
     4: "foodie",
@@ -286,6 +286,25 @@ export const MyCart = ({ lang, setLang }) => {
     setThemeColor(colors[cartDetails.bundle_id]);
   }, [cartDetails]);
 
+  const getprojects = async () => {
+    try {
+      const response = await axios.get(`${base_url}/api/order/`, ConfigToken());
+      if (response.data) {
+        const resProjects = response.data.data.filter(
+          (item) => item.order_status != "in_cart"
+        );
+        debugger;
+        if (resProjects.length) {
+          setFirstOrder(false);
+        } else {
+          setFirstOrder(true);
+        }
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   // const toastMessage = () => {
   //   const message = "Cart updated successfully";
 
@@ -345,10 +364,18 @@ export const MyCart = ({ lang, setLang }) => {
           response?.data?.item_details?.addon_items.length === 0)
       ) {
         setOpenPopup(true);
-        setPopupMessage(lang === "ar" ? "سلة التسوق فارغة, الاستمرار لوحة التحكم" : "Your cart is empty, keep continuing to the dashboard");
+        setPopupMessage(
+          lang === "ar"
+            ? "سلة التسوق فارغة, الاستمرار لوحة التحكم"
+            : "Your cart is empty, keep continuing to the dashboard"
+        );
       }
       if (response.status === 206) {
-        setPopupMessage(lang === "ar" ? "سلة التسوق فارغة, الاستمرار لوحة التحكم" : "Your cart is empty, keep continuing to the dashboard");
+        setPopupMessage(
+          lang === "ar"
+            ? "سلة التسوق فارغة, الاستمرار لوحة التحكم"
+            : "Your cart is empty, keep continuing to the dashboard"
+        );
       }
     } catch (e) {
       navigate("/login");
@@ -531,7 +558,12 @@ export const MyCart = ({ lang, setLang }) => {
       });
       return false;
     } else if (!/^[\w-.]+@[\w-]+\.[a-z]{2,4}$/i.test(billingInfo.email)) {
-      setError({ email: lang === "ar" ? "تنسيق البريد الإلكتروني غير صالح" : "Invalid email format" });
+      setError({
+        email:
+          lang === "ar"
+            ? "تنسيق البريد الإلكتروني غير صالح"
+            : "Invalid email format",
+      });
       return false;
     }
     if (!billingInfo.phone.trim()) {
@@ -612,19 +644,158 @@ export const MyCart = ({ lang, setLang }) => {
     }
   };
 
+  // const handlePayment = async (e) => {
+  //   e.preventDefault();
+  //   debugger;
+  //   setPaymentLoading(true);
+  //   if (validateFields()) {
+  //     getprojects();
+  //     if(firstOrder === true){
+
+  //     }
+  //     if (
+  //       (cartDetails.total_amount >= 4800 &&
+  //         !firstOrder &&
+  //         cartDetails.bundl_english === "The Newbie") ||
+  //       (cartDetails.total_amount >= 800 &&
+  //         cartDetails.bundl_english === "" &&
+  //         !firstOrder) ||
+  //       cartDetails.bundl_english === "The Socialite" ||
+  //       cartDetails.bundl_english === "The Boutiquer" ||
+  //       cartDetails.bundl_english === "The Foodie"
+  //     ) {
+  //       if (phoneError == false) {
+  //         try {
+  //           const formData = {
+  //             ...billingInfo,
+  //             user_name: billingInfo.firstName + " " + billingInfo.lastName,
+  //             phone: billingInfo.phone,
+  //             promo_code: billingInfo.promoCode,
+  //             total_amount: cartDetails.total_amount,
+  //             total_time: cartDetails.total_time,
+  //             grand_total: cartDetails.grand_total,
+  //             tax_treatment: cartDetails.tax_treatment,
+  //             tax: cartDetails.tax,
+  //             items_to_delete: removedItems,
+  //             vat_registered:
+  //               billingInfo?.vat_registered === "vat" ? true : false,
+  //             trn:
+  //               billingInfo?.vat_registered === "non_vat"
+  //                 ? null
+  //                 : billingInfo?.trn,
+  //           };
+  //           const response = await axios.put(
+  //             `${base_url}/api/order/cart/?initiate=True`,
+  //             formData,
+  //             ConfigToken()
+  //           );
+  //           if (response.data) {
+  //             window.location.href = response.data.data.redirect_url;
+  //           }
+  //           // navigate('/dashboard', { state: { reDirect: true} });
+  //           console.log("Payment successful:", response.data);
+  //         } catch (error) {
+  //           console.error("Payment error:", error);
+  //         } finally {
+  //           setPaymentLoading(false);
+  //         }
+  //       }
+  //     } else {
+  //       showErrorToast(
+  //         lang === "ar"
+  //           ? "الأدنى للطلب يجب أن يكون 4,880"
+  //           : `Minimum order amount should be ${
+  //               cartDetails.bundl_english === "The Newbie" ? 4880 : 800
+  //             }`,
+  //         cartDetails.bundl_english === "The Newbie" ? "#D83D99" : "#1BA56F"
+  //       );
+  //       window.scrollTo({
+  //         top: 0,
+  //         behavior: "smooth",
+  //       });
+  //       setPaymentLoading(false);
+  //     }
+  //   } else {
+  //     window.scrollTo({
+  //       top: 0,
+  //       behavior: "smooth",
+  //     });
+  //     setPaymentLoading(false);
+  //   }
+  // };
+
   const handlePayment = async (e) => {
     e.preventDefault();
     setPaymentLoading(true);
     if (validateFields()) {
-      getprojects()
-      if (
-        ((cartDetails.total_amount >= 4800 || !firstOrder) &&
-          cartDetails.bundl_english === "The Newbie") ||
-        (cartDetails.total_amount >= 800 && cartDetails.bundl_english === "") ||
-        cartDetails.bundl_english === "The Socialite" ||
-        cartDetails.bundl_english === "The Boutiquer" ||
-        cartDetails.bundl_english === "The Foodie"
-      ) {
+      const response = await axios.get(`${base_url}/api/order/`, ConfigToken());
+      if (response.data) {
+        const resProjects = response.data.data.filter(
+          (item) => item.order_status != "in_cart"
+        );
+        if (resProjects.length === 0) {
+          if (
+            (cartDetails.total_amount >= 4800 &&
+              cartDetails.bundl_english === "The Newbie") ||
+            (cartDetails.total_amount >= 800 &&
+              cartDetails.bundl_english === "") ||
+            cartDetails.bundl_english === "The Socialite" ||
+            cartDetails.bundl_english === "The Boutiquer" ||
+            cartDetails.bundl_english === "The Foodie"
+          ) {
+            if (phoneError == false) {
+              try {
+                const formData = {
+                  ...billingInfo,
+                  user_name: billingInfo.firstName + " " + billingInfo.lastName,
+                  phone: billingInfo.phone,
+                  promo_code: billingInfo.promoCode,
+                  total_amount: cartDetails.total_amount,
+                  total_time: cartDetails.total_time,
+                  grand_total: cartDetails.grand_total,
+                  tax_treatment: cartDetails.tax_treatment,
+                  tax: cartDetails.tax,
+                  items_to_delete: removedItems,
+                  vat_registered:
+                    billingInfo?.vat_registered === "vat" ? true : false,
+                  trn:
+                    billingInfo?.vat_registered === "non_vat"
+                      ? null
+                      : billingInfo?.trn,
+                };
+                const response = await axios.put(
+                  `${base_url}/api/order/cart/?initiate=True`,
+                  formData,
+                  ConfigToken()
+                );
+                if (response.data) {
+                  window.location.href = response.data.data.redirect_url;
+                }
+                // navigate('/dashboard', { state: { reDirect: true} });
+                console.log("Payment successful:", response.data);
+              } catch (error) {
+                console.error("Payment error:", error);
+              } finally {
+                setPaymentLoading(false);
+              }
+            }
+          } else {
+            showErrorToast(
+              lang === "ar"
+                ? "الأدنى للطلب يجب أن يكون 4,880"
+                : `Minimum order amount should be ${
+                    cartDetails.bundl_english === "The Newbie" ? 4880 : 800
+                  }`,
+              cartDetails.bundl_english === "The Newbie" ? "#D83D99" : "#1BA56F"
+            );
+            window.scrollTo({
+              top: 0,
+              behavior: "smooth",
+            });
+            setPaymentLoading(false);
+          }
+        }
+      } else {
         if (phoneError == false) {
           try {
             const formData = {
@@ -661,20 +832,6 @@ export const MyCart = ({ lang, setLang }) => {
             setPaymentLoading(false);
           }
         }
-      } else {
-        showErrorToast(
-          lang === "ar"
-            ? "الأدنى للطلب يجب أن يكون 4,880"
-            : `Minimum order amount should be ${
-                cartDetails.bundl_english === "The Newbie" ? 4880 : 800
-              }`,
-          cartDetails.bundl_english === "The Newbie" ? "#D83D99" : "#1BA56F"
-        );
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth",
-        });
-        setPaymentLoading(false);
       }
     } else {
       window.scrollTo({
@@ -954,7 +1111,10 @@ export const MyCart = ({ lang, setLang }) => {
         "#D83D99"
       );
     } catch (error) {
-      console.error(lang === "ar" ? "خطأ في تحديث الإضافات" : "Error updating addon:", error);
+      console.error(
+        lang === "ar" ? "خطأ في تحديث الإضافات" : "Error updating addon:",
+        error
+      );
     } finally {
       setLoading(false);
     }
@@ -985,27 +1145,6 @@ export const MyCart = ({ lang, setLang }) => {
   const cancelNavigation = () => {
     setShowModal(false);
   };
-
-  
-  const getprojects = async () => {
-    try {
-      const response = await axios.get(`${base_url}/api/order/`, ConfigToken());
-      if (response.data) {
-        const resProjects = response.data.data.filter(
-          (item) => item.order_status != "in_cart"
-        );
-        debugger
-        if (resProjects.length) {
-          setFirstOrder(false);
-        }else{
-          setFirstOrder(true);
-        }
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
 
   return (
     <>
@@ -1049,27 +1188,27 @@ export const MyCart = ({ lang, setLang }) => {
           )}
           <div className="mycart" style={{ position: "relative" }}>
             <div className="cart !xs:border-none  sm:!pb-[170px] !pb-[170px] xs:!pb-[20px]">
-             <p
-  className={`flex items-center text-black mt-[2%] text-[18px] font-[500] ${
-    lang === "ar"
-    ? 'lg:mr-[-68px] sm:mr-[-38px]'
-    : 'lg:ml-[-68px] sm:ml-[-38px]'
-}`}
->
-  <img
-    src={backIcon}
-    alt="Back"
-    className={`w-[24px] sm:w-[30px] cursor-pointer ${
-      lang === "ar"
-        ? "ml-2 scale-x-[-1] sm:mr-[30px]"
-        : "mr-2 sm:ml-[30px]"
-    }`}
-    onClick={handleBackClick}
-  />
-  <span className="cursor-pointer" onClick={handleBackClick}>
-    {lang === "ar" ? "العودة إلى الباقة" : "Back to Bundl"}
-  </span>
-</p>
+              <p
+                className={`flex items-center text-black mt-[2%] text-[18px] font-[500] ${
+                  lang === "ar"
+                    ? "lg:mr-[-68px] sm:mr-[-38px]"
+                    : "lg:ml-[-68px] sm:ml-[-38px]"
+                }`}
+              >
+                <img
+                  src={backIcon}
+                  alt="Back"
+                  className={`w-[24px] sm:w-[30px] cursor-pointer ${
+                    lang === "ar"
+                      ? "ml-2 scale-x-[-1] sm:mr-[30px]"
+                      : "mr-2 sm:ml-[30px]"
+                  }`}
+                  onClick={handleBackClick}
+                />
+                <span className="cursor-pointer" onClick={handleBackClick}>
+                  {lang === "ar" ? "العودة إلى الباقة" : "Back to Bundl"}
+                </span>
+              </p>
               {/* {isDirect == false && <p onClick={()=>handleBackClick()} className='flex font-[500] cursor-pointer !text-[18px] items-center text-black mt-[2%]'> <img src={backIcon} className='mr-2 w-[30px]' onClick={()=>handleBackClick()}></img> Back to Bundl </p>}           */}
               <p className="!xs:text-[16px] font-[700] !sm:text-[20px]">
                 {lang === "ar" ? "عربة التسوق الخاصة بك" : "Your Cart"}
@@ -1781,7 +1920,11 @@ export const MyCart = ({ lang, setLang }) => {
               title={popupMessage}
               // subTitle={'Are you sure, you want to empty the cart.'}
               onClick={() => navigate("/")}
-              save={lang === "ar" ? "الانتقال إلى الصفحة الرئيسية" : "Continue to Homepage"}
+              save={
+                lang === "ar"
+                  ? "الانتقال إلى الصفحة الرئيسية"
+                  : "Continue to Homepage"
+              }
               // cancel={'Cancel'}
               isLang={lang}
             />

@@ -1050,7 +1050,7 @@ export default function Dashboard({ lang, setLang }) {
       `${base_url}/api/order/${orderId}/`,
       ConfigToken()
     );
-    debugger
+
     const orderData = response.data.data;
     if (orderData) {
       orderData.item_details = orderData.item_details = [
