@@ -1113,57 +1113,99 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                           >
                             {category}
                           </p>
+                          {/* {addons.map((addon, idx) => (
+                            <div
+                              key={idx}
+                              className={`
+                        ${idx !== addons.length - 1 && "h-[25px]"} 
+                        ${
+                          addons.length - 1 === idx &&
+                          "border-b-[1px] border-black"
+                        }
+                        sm:block block flex-wrap justify-around`}
+                            >
+                              <div
+                                style={
+                                  window.innerWidth < 475 && {
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "space-between",
+                                  }
+                                }
+                              >
+                                <div
+                                  className="flex xs:w-[100%] mx-4 w-full"
+                                  style={
+                                    window.innerWidth < 475 && {
+                                      display: "flex",
+                                      alignItems: "center",
+                                      justifyContent: "space-between",
+                                    }
+                                  }
+                                >
+                                  <p
+                                    className={`text-black sm:text-[18px] text-[18px] xs:text-[16px] font-[400] !mb-1 lg:w-full md:w-full sm:w-full ${
+                                      lang === "ar" ? "text-right" : "text-left"
+                                    }`}
+                                    style={
+                                      window.innerWidth < 475 && {
+                                        marginBottom: "0px",
+                                      }
+                                    }
+                                  >
+                                    {addon.qty}{" "}
+                                    {lang === "ar" ? (
+                                      addon.addon_arabic
+                                    ) : addon.addon_name ===
+                                      "Logo & Identity" ? (
+                                      <span>
+                                        {addon.addon_name}(
+                                        {addOnLang.find((ele) => ele.isChecked)
+                                          ?.language === "both"
+                                          ? "English & Arabic"
+                                          : addOnLang.find(
+                                              (ele) => ele.isChecked
+                                            )?.language}
+                                        )
+                                      </span>
+                                    ) : (
+                                      addon.addon_name
+                                    )}
+                                  </p>
+                                  <p
+                                    className={`sm:text-[18px] text-[18px] xs:text-[16px] font-[400] lg:w-[40%] md:w-[50%] xs:w-[25%]  ${
+                                      lang === "ar" ? "text-left" : "text-right"
+                                    }`}
+                                    style={{
+                                      ...(window.innerWidth < 475
+                                        ? { marginBottom: "0px" }
+                                        : {}),
+                                      color: textColor,
+                                    }}
+                                  >
+                                    + {amountDecimal(addon.total_price)}{" "}
+                                    {lang === "ar" ? "ريال" : "SAR"}
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          ))} */}
+
                           {addons.map((addon, idx) => {
                             console.log(
                               addon.category,
                               addon.addon_name,
-                              addon,
                               "addon"
                             );
                             debugger;
                             return (
                               <div
                                 key={idx}
-                                // className={`sm:block block flex-wrap justify-around ${
-                                //   idx !== addons.length - 1
-                                //     ? "h-[25px]"
-                                //     : "border-b-[1px] border-black"
-                                // } ${
-                                //   addon.category === "Branding" &&
-                                //   addon.addon_name === "Logo & Identity"
-                                //     ? "mb-8" // or use inline style for spacing
-                                //     : ""
-                                // }
-                                // ${
-                                //   addon.category === "Branding" &&
-                                //   addon.addon_name === "Logo Translation"
-                                //     ? "mt-8" // or use inline style for spacing
-                                //     : ""
-                                // }
-
-                                // `}
-
-                                className={`sm:block block flex-wrap justify-around ${
-                                  idx !== addons.length - 1
-                                    ? "h-[25px]"
-                                    : "border-b-[1px] border-black"
-                                } ${
-                                  addon.category === "Branding" &&
-                                  addon.addon_name === "Logo & Identity" &&
-                                  (addOnLang.find((ele) => ele.isChecked)
-                                    ?.language === "both" ||
-                                    addOnLang.find((ele) => ele.isChecked)
-                                      ?.language === "English") &&
-                                  window.innerWidth >= 475
-                                    ? "mb-8"
-                                    : ""
-                                } ${
-                                  addon.category === "Branding" &&
-                                  addon.addon_name === "Logo Translation" &&
-                                  window.innerWidth >= 475
-                                    ? "mt-8"
-                                    : ""
-                                }`}
+                                className={`
+      ${idx !== addons.length - 1 ? "h-[25px]" : ""}
+      ${idx === addons.length - 1 ? "border-b-[1px] border-black" : ""}
+      sm:block block flex-wrap justify-around
+    `}
                               >
                                 <div
                                   style={
@@ -1178,11 +1220,11 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                                 >
                                   <div
                                     className={`flex xs:w-[100%] w-full mx-4 ${
-                                      addon.category === "Branding" &&
-                                      addon.addon_name === "Logo & Identity"
-                                        ? ""
-                                        : ""
-                                    }`}
+                                        addon.category === "Branding" &&
+                                        addon.addon_name === "Logo & Identity"
+                                          ? "md:mt-16"
+                                          : ""
+                                      }`}
                                     style={
                                       isMobileView
                                         ? {

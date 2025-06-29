@@ -734,6 +734,7 @@ export const MyCart = ({ lang, setLang }) => {
           (item) => item.order_status != "in_cart"
         );
         if (resProjects.length === 0) {
+          // cartDetails.tax
           if (
             (cartDetails.total_amount >= 4800 &&
               cartDetails.bundl_english === "The Newbie") ||
