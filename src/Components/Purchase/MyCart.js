@@ -1300,12 +1300,18 @@ export const MyCart = ({ lang, setLang }) => {
                     >
                       <div className="w-[70%]">
                         <div className="font-[700] text-[18px] ">
-                           {lang === "ar"
-                              ? processArabicText(row.item__name_arabic)
-                              : `${row.item_name} ${row.language === 'both'?'(English & Arabic)':row.language}`}
+                          {lang === "ar"
+                            ? processArabicText(row.item__name_arabic)
+                            : row.language
+                            ? `${row.item_name} ${
+                                row.language === "both"
+                                  ? "(English & Arabic)"
+                                  : row.language
+                              }`
+                            : ''}
                         </div>
                         {/* <div className='font-[500] '> {row.subtotal_price} SAR</div> */}
-                      </div>
+                      </div> 
                       <p
                         className={`xs:order-2 sm:order-3 sm:w-[29%] w-[29%] xs:w-[29%] max-h-[36px] !mb-2 flex justify-end`}
                       >
@@ -1481,7 +1487,11 @@ export const MyCart = ({ lang, setLang }) => {
                           <td className=" !py-2 w-[35%] !px-[2%]" scope="row">
                             {lang === "ar"
                               ? processArabicText(row.item__name_arabic)
-                              : `${row.item_name} ${row.language === 'both'?'(English & Arabic)':row.language}`}
+                              : `${row.item_name} ${
+                                  row.language === "both"
+                                    ? "(English & Arabic)"
+                                    : row.language?row.language:''
+                                }`}
                           </td>
                           {/* <td className=' !py-2' align="center">{row.qty}</td> */}
                           <td className=" !py-2 " align="center">
