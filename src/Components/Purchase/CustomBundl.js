@@ -504,7 +504,7 @@ export const CustomBundl = ({ user, lang, setLang }) => {
                   } !font-bold sm:mb-2 xs:mb-0`}
                 >
                   {amountDecimal(addonPayLoads.total_price)}{" "}
-                  {lang === "ar" ? "\u00A0\u00A0\u00A0ريال" : "\u00A0SAR"}
+                  {lang === "ar" ? "\u00A0\u00A0ريال" : "\u00A0SAR"}
                 </p>
               </div>
               <div className="total  flex items-center">
@@ -520,11 +520,11 @@ export const CustomBundl = ({ user, lang, setLang }) => {
                 </p>
                 <p
                   className={`w-[40%] ${lang !== "ar" ? "xs:text-right" : ""} ${
-                    lang === "ar" ? "sm:text-left sm:pl-1" : ""
+                    lang === "ar" ? "sm:text-left pl-1 sm:pl-1" : ""
                   } sm:mb-2 xs:mb-0`}
                 >
                   {addonPayLoads.total_time}{" "}
-                  {lang === "ar" ? "\u00A0\u00A0\u00A0يوم" : "Days"}
+                  {lang === "ar" ? "\u00A0\u00A0يوم" : "Days"}
                 </p>
               </div>
 
