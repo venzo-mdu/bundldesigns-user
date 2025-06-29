@@ -321,24 +321,6 @@ export const BundlDetail = ({ user, lang, setLang }) => {
     });
   };
 
-  const calculateAmount = (id, amount, payload) => {
-    if (id === "1") {
-      if (payload === "convertPayload") {
-        return Number(amount) + 2000;
-      } else {
-        return amountDecimal(Number(amount) + 2000);
-      }
-    } else {
-      const totalQty = Number(id) - 1;
-      const cal = totalQty * ((Number(amount) + 2000) / 2); // 2000 / 2 = 1000
-      if (payload === "convertPayload") {
-        return cal + Number(amount) + 2000;
-      } else {
-        return amountDecimal(cal + Number(amount) + 2000);
-      }
-    }
-  };
-
   const handleQuantityChange = (designName, change) => {
     const colors = {
       // '12':'#f175ad',
@@ -483,28 +465,6 @@ export const BundlDetail = ({ user, lang, setLang }) => {
         setOpenPopup(true);
       } else {
         localStorage?.setItem("payloads", JSON.stringify(payload));
-        const updatedItemList = payload.addons.item_list.map((ele) => {
-          if (
-            ele.addon_name === "Logo & Identity" &&
-            ele.category === "Branding" &&
-            addOnLang.find((ele) => ele.id === 3)?.isChecked
-          ) {
-            return {
-              ...ele,
-              language: addOnLang.find((ele) => ele.isChecked).language,
-              total_price: calculateAmount(
-                ele.qty,
-                ele.unit_price,
-                "convertPayload"
-              ),
-            };
-          } else {
-            return ele;
-          }
-        });
-
-        payload.addons.item_list = updatedItemList;
-        debugger;
         const createResponse = await axios.post(
           `${base_url}/api/order/create/`,
           payload,
@@ -1154,6 +1114,13 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                             {category}
                           </p>
                           {addons.map((addon, idx) => {
+                            console.log(
+                              addon.category,
+                              addon.addon_name,
+                              addon,
+                              "addon"
+                            );
+                            debugger;
                             return (
                               <div
                                 key={idx}
@@ -1276,15 +1243,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                                         color: textColor,
                                       }}
                                     >
-                                      +{" "}
-                                      {addOnLang.find((ele) => ele.isChecked)
-                                        ?.language === "both"
-                                        ? calculateAmount(
-                                            addon.qty,
-                                            addon.unit_price,
-                                            ""
-                                          )
-                                        : amountDecimal(addon.total_price)}{" "}
+                                      + {amountDecimal(addon.total_price)}{" "}
                                       {lang === "ar" ? "ريال" : "SAR"}
                                     </p>
                                   </div>

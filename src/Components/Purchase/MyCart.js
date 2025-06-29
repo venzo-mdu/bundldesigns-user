@@ -1300,9 +1300,9 @@ export const MyCart = ({ lang, setLang }) => {
                     >
                       <div className="w-[70%]">
                         <div className="font-[700] text-[18px] ">
-                          {lang === "ar"
-                            ? processArabicText(row.item__name_arabic)
-                            : row.item_name}
+                           {lang === "ar"
+                              ? processArabicText(row.item__name_arabic)
+                              : `${row.item_name} ${row.language === 'both'?'(English & Arabic)':row.language}`}
                         </div>
                         {/* <div className='font-[500] '> {row.subtotal_price} SAR</div> */}
                       </div>
@@ -1481,7 +1481,7 @@ export const MyCart = ({ lang, setLang }) => {
                           <td className=" !py-2 w-[35%] !px-[2%]" scope="row">
                             {lang === "ar"
                               ? processArabicText(row.item__name_arabic)
-                              : row.item_name}
+                              : `${row.item_name} ${row.language === 'both'?'(English & Arabic)':row.language}`}
                           </td>
                           {/* <td className=' !py-2' align="center">{row.qty}</td> */}
                           <td className=" !py-2 " align="center">
