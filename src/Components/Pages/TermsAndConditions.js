@@ -100,8 +100,8 @@ const TermsAndConditions = ({lang,setLang}) => {
                         {
                           TermsAndConditionsJson?.terms_and_conditions?.map((items, index) => {
                             return (
-                              <div key={index} className="w-full lg:max-w-[85%] md:max-w-[90%] xs:max-w-[100%] mt-2">
-                                <p className='font-[700] lg:text-[18px] md:text-[18px] xs:text-[14px] lg:w-[45%] md:w-[45%] xs:w-[100%]'>{items?.title}:</p>
+                              <div key={index} className={`w-full lg:max-w-[85%] md:max-w-[90%] xs:max-w-[100%] mt-2 ${lang === 'ar'?'text-right':'text-left'}`}>
+                                <p className='font-[700] lg:text-[18px] md:text-[18px] xs:text-[14px] lg:w-[45%] md:w-[45%] xs:w-[100%]'>{items?.arabic_title}:</p>
                                 <p className='font-[400] lg:text-[18px] md:text-[18px] xs:text-[14px] '>{items?.content}</p>
                                 {
                                   items?.sub_content?.map((item,index)=>{

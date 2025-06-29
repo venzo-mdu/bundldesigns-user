@@ -2,8 +2,11 @@
     "terms_and_conditions": [
       {
         "title": "Ownership of Design Work",
-        "content": "All design work, including but not limited to concepts, sketches, drafts, and final designs, created by Bundl Designs (\"the Studio\") for the client (\"the Client\") shall remain the exclusive property of Bundl Designs until full payment is received, at which point ownership of the final design(s) will transfer to the Client."
+        "arabic_title": "خصة الاستخدام",
+        "content": "All design work, including but not limited to concepts, sketches, drafts, and final designs, created by Bundl Designs (\"the Studio\") for the client (\"the Client\") shall remain the exclusive property of Bundl Designs until full payment is received, at which point ownership of the final design(s) will transfer to the Client.",
+        "arabic_content": "الاستخد"
       },
+
       {
         "title": "Changes and Revisions",
         "content": "Any modifications, alterations, or additions to the final design(s) requested by the Client, which differ from the initially agreed-upon scope, may incur additional charges. Online orders include only 1 revision. Any extra revision requested will be charged separately by purchasing an adjustment through the website. After designs are approved and files are finalized, any extra revisions will require extra payment.",
@@ -11,6 +14,7 @@
           {
             "content":"* Projects that do not receive a response within 90 days after purchase or content upload will be put on hold. A fee of 300 SAR will apply to reactivate the project"
           },
+
           {
             "content":"* Credits for any project that remains inactive, without response, feedback, or content upload, for one full year will expire"
           }
