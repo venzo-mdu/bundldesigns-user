@@ -280,20 +280,41 @@ export const Questionnaire4 = ({
           );
         } else {
           // Add selected color
-          setQuestionAnswer4((prev) =>
-            prev.map((ele) =>
-              ele.id === questionId
-                ? {
-                    ...ele,
-                    answer: {
-                      ...ele.answer,
-                      type: "", // optional: distinguish from Surprise
-                      color: [...(ele.answer?.color || []), color],
-                    },
-                  }
-                : ele
-            )
-          );
+          // setQuestionAnswer4((prev) => {
+          //   debugger;
+          //   prev.map((ele) =>
+          //     ele.id === questionId
+          //       ? {
+          //           ...ele,
+          //           answer: {
+          //             ...ele.answer,
+          //             type: "", // optional: distinguish from Surprise
+          //             color: [...(ele.answer?.color || []), color],
+          //           },
+          //         }
+          //       : ele
+          //   );
+          // });
+          setQuestionAnswer4((prev) => {
+            return prev.map((ele) => {
+              if (ele.id === questionId) {
+                const existingColors = ele.answer?.color || [];
+                if (existingColors.includes(color)) {
+                  return ele; // Color already exists, return original object
+                }
+
+                return {
+                  ...ele,
+                  answer: {
+                    ...ele.answer,
+                    type: "", // optional: distinguish from Surprise
+                    color: [...existingColors, color],
+                  },
+                };
+              }
+              return ele;
+            });
+          });
         }
       }
     }
@@ -301,36 +322,20 @@ export const Questionnaire4 = ({
     const isHexCode = /^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/.test(color);
 
     if (!isHexCode && color !== "Surprise") {
-      toast.error(
+      showErrorToast(
         changeLang === "ar" ? "HEX يُسمح فقط بكود  " : "Allows only HEX Code!",
-        {
-          position: toast?.POSITION?.TOP_RIGHT,
-          toastId: "required-value-toast",
-          icon: false,
-          style: {
-            color: "#D83D99",
-            fontWeight: "700",
-          },
-        }
+        "#D83D99"
       );
       setInputValue("");
       return;
     }
 
     if (selectedColors?.includes(color)) {
-      toast.error(
+      showErrorToast(
         changeLang === "ar"
           ? "تمت إضافة اللون مسبقا!"
           : "You have already added!",
-        {
-          position: toast?.POSITION?.TOP_RIGHT,
-          toastId: "required-value-toast",
-          icon: false,
-          style: {
-            color: "#D83D99",
-            fontWeight: "700",
-          },
-        }
+        "#D83D99"
       );
     }
 

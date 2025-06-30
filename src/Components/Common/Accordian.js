@@ -602,13 +602,17 @@ export const Accordian = ({
                                 </p>
                               </div>
                               {design.name_english === "Logo & Identity" && (
-                                <div className="flex items-center justify-center">
+                                <div className="flex items-center mb-4 justify-center">
                                   <Typography>
-                                    <div className="flex gap-4">
+                                    <div className="flex gap-2">
                                       {addOnLang?.map((ele) => {
                                         return (
                                           <div
-                                            className="flex gap-1 text-[16px] items-center cursor-pointer"
+                                            className={`flex gap-1 ${
+                                              window.innerWidth > 379
+                                                ? "text-[16px]"
+                                                : "text-[15px]"
+                                            }   items-center cursor-pointer`}
                                             key={`${ele.id}-${ele.language}`}
                                           >
                                             <input
@@ -626,8 +630,14 @@ export const Accordian = ({
                                             />
                                             <label
                                               htmlFor={`lang_${ele.id}_${ele.language} `}
-                                              className={`mb-0  ${
-                                                window.minWidth <= 475
+                                              className={`mb-0 ${
+                                                window.innerWidth < 346
+                                                  ? "text-[12px]"
+                                                  : window.innerWidth < 362
+                                                  ? "text-[14px]"
+                                                  : window.innerWidth < 379
+                                                  ? "text-[15px]"
+                                                  : window.innerWidth <= 475
                                                   ? "text-[16px]"
                                                   : "text-[18px]"
                                               } cursor-pointer`}
