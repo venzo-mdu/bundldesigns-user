@@ -1467,6 +1467,7 @@ import toast, { Toaster } from "react-hot-toast";
 import useToastMessage from "./Toaster/Toaster";
 import { processArabicText } from "../Utils/arabicFontParenthesisChecker";
 import backIcon from "../../Images/backIcon.svg";
+import Typography from "@mui/material/Typography";
 
 let newToastId = null;
 export default function Adjustments({ user, lang, setLang }) {
@@ -1723,6 +1724,12 @@ export default function Adjustments({ user, lang, setLang }) {
     "Zambia",
     "Zimbabwe",
   ];
+
+  const [addOnLang, setAddOnLang] = useState([
+    { id: 1, language: "English", label: "English", isChecked: true },
+    { id: 2, language: "Arabic", label: "Arabic", isChecked: false },
+    { id: 3, language: "both", label: "Both (+2,000 SAR)", isChecked: false },
+  ]);
 
   useEffect(() => {
     window.scrollTo({
@@ -2323,7 +2330,6 @@ export default function Adjustments({ user, lang, setLang }) {
     };
     if (validateFields()) {
       try {
-        
         const res = await axios.post(
           `${base_url}/api/adjustment_create/?orderId=${orderId}&type=${
             state.purchaseAddOns ? "addon" : "adj"
@@ -3654,10 +3660,10 @@ export default function Adjustments({ user, lang, setLang }) {
             >
               <p
                 className={`flex text-[18px] items-center pb-2 text-black cursor-pointer px-[20px]"${
-                lang === "ar"
-                  ? "xs:mr-[-4px] sm:mr-[-8px]  lg:mr-[22px] xl:mr-[23px]"
-                  : "xs:ml-[-4px] sm:ml-[-8px]  lg:ml-[25px] xl:ml-[23px]"
-              }`}
+                  lang === "ar"
+                    ? "xs:mr-[-4px] sm:mr-[-8px]  lg:mr-[22px] xl:mr-[23px]"
+                    : "xs:ml-[-4px] sm:ml-[-8px]  lg:ml-[25px] xl:ml-[23px]"
+                }`}
                 onClick={() => {
                   window.location.href = "/dashboard";
                 }}
@@ -4031,80 +4037,157 @@ export default function Adjustments({ user, lang, setLang }) {
                               {category in bundlAddons &&
                                 bundlAddons[category].design_list.map(
                                   (item, index) => {
+                                    debugger;
                                     return (
-                                      <div
-                                        id={`${item.id}_design_list`}
-                                        className="flex flex-wrap justify-between font-semibold text-[18px] py-[1.5%]  border-b !border-[#1BA56F]"
-                                      >
-                                        <span className="md:basis-[25%] basis-[25%] xs:basis-[100%] text-[16px] md:text-[18px] xs:text-[16px] text-[#000] font-[500]">
-                                          {lang === "ar"
-                                            ? processArabicText(
-                                                item.name_arabic
-                                              )
-                                            : item.name_english}
-                                        </span>
-                                        <p className="flex mb-0 text-[18px] md:text-[18px] xs:text-[16px] basis-[40%] font-normal">
-                                          <span className="flex items-center w-[150px]">
-                                            <img
-                                              src={BlackDollor}
-                                              className={`${
-                                                lang === "ar" ? "ml-2" : "mr-2"
-                                              }`}
-                                            ></img>{" "}
-                                            {amountDecimal(
-                                              Math.round(item.price)
-                                            )}{" "}
-                                            {lang === "ar" ? "ريال" : "SAR"}{" "}
-                                          </span>
-                                          <span className="flex items-center w-[120px]">
-                                            <AccessTimeIcon
-                                              style={
-                                                lang === "ar"
-                                                  ? { marginLeft: "5px" }
-                                                  : { marginRight: "5px" }
-                                              }
-                                            />{" "}
-                                            {Math.round(item.time)}{" "}
-                                            {lang === "ar" ? "يوم" : "Days"}
-                                          </span>
-                                        </p>
-                                        <p
-                                          className={`mb-0 lg:basis-[5%] md:basis-[5%] xs:basis-[10%] h-[30px] text-[20px] md:text-[20px] xs:text-[16px] flex ${
-                                            lang === "ar"
-                                              ? "flex-row-reverse"
-                                              : "flex-row"
-                                          } items-center text-[#000] border !border-[#000]`}
+                                      <>
+                                        <div
+                                          id={`${item.id}_design_list`}
+                                          className={`flex flex-wrap justify-between font-semibold text-[18px] ${
+                                            item.name_english ===
+                                            "Logo & Identity"
+                                              ? null
+                                              : "py-[1.5%]"
+                                          }   border-b !border-[#1BA56F]`}
                                         >
-                                          <button
-                                            onClick={() => remove_item(item.id)}
-                                            className={`${
-                                              lang === "ar"
-                                                ? "border-r"
-                                                : "border-r"
-                                            } !border-[#1BA56F] h-full flex items-center md:w-[35px] md:pt-[1%] md:px-[5%]`}
-                                          >
-                                            <RemoveIcon />
-                                          </button>
-                                          <span className="px-2 flex justify-center !border-[#1BA56F] md:w-[35px] md:pt-[1%] md:px-[5%]">
-                                            {" "}
-                                            {item.id in itemsList
-                                              ? itemsList[item.id]["qty"]
-                                              : 0}
+                                          <span className="md:basis-[25%] basis-[25%] xs:basis-[100%] text-[16px] md:text-[18px] xs:text-[16px] text-[#000] font-[500]">
+                                            {lang === "ar"
+                                              ? processArabicText(
+                                                  item.name_arabic
+                                                )
+                                              : item.name_english}
                                           </span>
-                                          <button
-                                            onClick={() =>
-                                              addItem(index, category, item.id)
-                                            }
-                                            className={`flex items-center ${
+                                          <p className="flex mb-0 text-[18px] md:text-[18px] xs:text-[16px] basis-[40%] font-normal">
+                                            <span className="flex items-center w-[150px]">
+                                              <img
+                                                src={BlackDollor}
+                                                className={`${
+                                                  lang === "ar"
+                                                    ? "ml-2"
+                                                    : "mr-2"
+                                                }`}
+                                              ></img>{" "}
+                                              {amountDecimal(
+                                                Math.round(item.price)
+                                              )}{" "}
+                                              {lang === "ar" ? "ريال" : "SAR"}{" "}
+                                            </span>
+                                            <span className="flex items-center w-[120px]">
+                                              <AccessTimeIcon
+                                                style={
+                                                  lang === "ar"
+                                                    ? { marginLeft: "5px" }
+                                                    : { marginRight: "5px" }
+                                                }
+                                              />{" "}
+                                              {Math.round(item.time)}{" "}
+                                              {lang === "ar" ? "يوم" : "Days"}
+                                            </span>
+                                          </p>
+                                          <p
+                                            className={`mb-0 lg:basis-[5%] md:basis-[5%] xs:basis-[10%] h-[30px] text-[20px] md:text-[20px] xs:text-[16px] flex ${
                                               lang === "ar"
-                                                ? "border-l"
-                                                : "border-l"
-                                            } !border-[#1BA56F] h-full md:w-[35px] md:pt-[1%] md:px-[5%]`}
+                                                ? "flex-row-reverse"
+                                                : "flex-row"
+                                            } items-center text-[#000] border !border-[#000]`}
                                           >
-                                            <AddIcon />
-                                          </button>
-                                        </p>
-                                      </div>
+                                            <button
+                                              onClick={() =>
+                                                remove_item(item.id)
+                                              }
+                                              className={`${
+                                                lang === "ar"
+                                                  ? "border-r"
+                                                  : "border-r"
+                                              } !border-[#1BA56F] h-full flex items-center md:w-[35px] md:pt-[1%] md:px-[5%]`}
+                                            >
+                                              <RemoveIcon />
+                                            </button>
+                                            <span className="px-2 flex justify-center !border-[#1BA56F] md:w-[35px] md:pt-[1%] md:px-[5%]">
+                                              {" "}
+                                              {item.id in itemsList
+                                                ? itemsList[item.id]["qty"]
+                                                : 0}
+                                            </span>
+                                            <button
+                                              onClick={() =>
+                                                addItem(
+                                                  index,
+                                                  category,
+                                                  item.id
+                                                )
+                                              }
+                                              className={`flex items-center ${
+                                                lang === "ar"
+                                                  ? "border-l"
+                                                  : "border-l"
+                                              } !border-[#1BA56F] h-full md:w-[35px] md:pt-[1%] md:px-[5%]`}
+                                            >
+                                              <AddIcon />
+                                            </button>
+                                          </p>
+{/* 
+                                          <div className="w-full flex justify-center items-center">
+                                            {item.name_english ===
+                                              "Logo & Identity" && (
+                                              <div className="flex  py-[1.5%] items-center mb-4 justify-center">
+                                                <Typography>
+                                                  <div className="flex gap-2">
+                                                    {addOnLang?.map((ele) => {
+                                                      return (
+                                                        <div
+                                                          className={`flex gap-1 ${
+                                                            window.innerWidth >
+                                                            379
+                                                              ? "text-[16px]"
+                                                              : "text-[15px]"
+                                                          }   items-center cursor-pointer`}
+                                                          key={`${ele.id}-${ele.language}`}
+                                                        >
+                                                          <input
+                                                            type="radio"
+                                                            checked={
+                                                              ele.isChecked
+                                                            }
+                                                            // onChange={() =>
+                                                            //   handleAddOnChange(
+                                                            //     ele.id,
+                                                            //     ele.language
+                                                            //   )
+                                                            // }
+                                                            name="languageOption"
+                                                            value={ele.language}
+                                                            id={`lang_${ele.id}_${ele.language}`}
+                                                          />
+                                                          <label
+                                                            htmlFor={`lang_${ele.id}_${ele.language} `}
+                                                            className={`mb-0 ${
+                                                              window.innerWidth <
+                                                              346
+                                                                ? "text-[12px]"
+                                                                : window.innerWidth <
+                                                                  362
+                                                                ? "text-[14px]"
+                                                                : window.innerWidth <
+                                                                  379
+                                                                ? "text-[15px]"
+                                                                : window.innerWidth <=
+                                                                  475
+                                                                ? "text-[16px]"
+                                                                : "text-[18px]"
+                                                            } cursor-pointer`}
+                                                          >
+                                                            {ele.label}
+                                                          </label>
+                                                        </div>
+                                                      );
+                                                    })}
+                                                  </div>
+                                                </Typography>
+                                              </div>
+                                            )}
+                                          </div> */}
+                                        </div>
+                                      </>
                                     );
                                   }
                                 )}

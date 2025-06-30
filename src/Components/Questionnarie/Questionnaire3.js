@@ -578,7 +578,7 @@ export const Questionnaire3 = ({
                 <div
                   className={`w-full ${
                     isFilled === question?.id ? "bg-[#D83D99]" : "bg-black"
-                  } mt-[3%] h-[2px]`}
+                  } mt-[3%] h-[2px] `}
                 />
               )}
             </div>
