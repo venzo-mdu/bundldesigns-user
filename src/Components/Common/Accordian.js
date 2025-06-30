@@ -36,7 +36,6 @@ export const Accordian = ({
   const isCustomBundl = location.pathname === "/custombundl";
   const [isArabic, setIsArabic] = useState(localStorage.getItem("lang"));
 
-
   const [isDropdown, setIsDropdown] = useState([
     false,
     false,
@@ -339,8 +338,6 @@ export const Accordian = ({
   };
   const path = window?.location?.href?.split("/")[3];
 
-
-
   return (
     <div>
       <Toaster
@@ -605,7 +602,7 @@ export const Accordian = ({
                                 </p>
                               </div>
                               {design.name_english === "Logo & Identity" && (
-                                <div className="flexitems-center">
+                                <div className="flex items-center justify-center">
                                   <Typography>
                                     <div className="flex gap-4">
                                       {addOnLang?.map((ele) => {
@@ -629,7 +626,11 @@ export const Accordian = ({
                                             />
                                             <label
                                               htmlFor={`lang_${ele.id}_${ele.language} `}
-                                              className="mb-0 cursor-pointer"
+                                              className={`mb-0  ${
+                                                window.minWidth <= 475
+                                                  ? "text-[16px]"
+                                                  : "text-[18px]"
+                                              } cursor-pointer`}
                                             >
                                               {ele.label}
                                             </label>

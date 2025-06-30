@@ -504,7 +504,6 @@ export const BundlDetail = ({ user, lang, setLang }) => {
         });
 
         payload.addons.item_list = updatedItemList;
-        ;
         const createResponse = await axios.post(
           `${base_url}/api/order/create/`,
           payload,
