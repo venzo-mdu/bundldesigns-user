@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import CloseIcon from "@mui/icons-material/Close";
 import { base_url } from "../Auth/BackendAPIUrl";
 import { Questionnaire } from "./Questionnaire";
 import { useDispatch, useSelector } from "react-redux";
@@ -258,7 +259,6 @@ export const Questionnaire4 = ({
   };
 
   const handleColorClick = (color, questionId) => {
-    ;
     let updatedColors = [];
     if (questionId === 19) {
       setInputValue("");
@@ -396,7 +396,6 @@ export const Questionnaire4 = ({
   };
 
   const handleInputChange = (questionId, e) => {
-    ;
     setQuestionAnswer4((prev) =>
       prev.map((ele) =>
         ele.id === questionId ? { ...ele, answer: e.target.value } : ele
@@ -515,42 +514,87 @@ export const Questionnaire4 = ({
     }
   };
 
+  // const uploadFile = async (e, id, field) => {
+  //   if (e.target.files.length) {
+  //     const formData = new FormData();
+  //     formData.append("file", e.target.files[0]);
+  //     formData.append("file_name", e.target.files[0]?.name);
+  //     const response = await axios.post(
+  //       `${base_url}/api/upload_file/`,
+  //       formData,
+  //       ConfigToken()
+  //     );
+  //     setQuestionAnswer4((prev) =>
+  //       prev.map((ele) =>
+  //         ele.id === id
+  //           ? {
+  //               ...ele,
+  //               answer: {
+  //                 ...ele.answer,
+  //                 docName: e.target.files[0]?.name,
+  //                 document: response.data.file_url,
+  //               },
+  //             }
+  //           : ele
+  //       )
+  //     );
+  //   }
+  // };
+
   const uploadFile = async (e, id, field) => {
-    if (e.target.files.length) {
-      const formData = new FormData();
-      formData.append("file", e.target.files[0]);
-      formData.append("file_name", e.target.files[0]?.name);
-      const response = await axios.post(
-        `${base_url}/api/upload_file/`,
-        formData,
-        ConfigToken()
-      );
-      setQuestionAnswer4((prev) =>
-        prev.map((ele) =>
-          ele.id === id
-            ? {
-                ...ele,
-                answer: {
-                  ...ele.answer,
-                  docName: e.target.files[0]?.name,
-                  document: response.data.file_url,
-                },
-              }
-            : ele
-        )
-      );
-      // =======
-      //       console.log(response.data, "res");
-      //       setUploadContent((prev) => ({
-      //         ...prev,
-      //         [id]: {
-      //           ...prev[id],
-      //           [field]: response.data.file_url,
-      //           ...(field === "file" && { filename: e.target.files[0]?.name || "" }),
-      //         },
-      //       }));
-      // >>>>>>> cartChanges-update
-    }
+    const files = Array.from(e.target.files);
+    if (!files.length) return;
+
+    const uploadedFiles = await Promise.all(
+      files.map(async (file) => {
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("file_name", file.name);
+
+        const response = await axios.post(
+          `${base_url}/api/upload_file/`,
+          formData,
+          ConfigToken()
+        );
+
+        return {
+          docName: file.name,
+          document: response.data.file_url,
+        };
+      })
+    );
+
+    setQuestionAnswer4((prev) =>
+      prev.map((ele) =>
+        ele.id === id
+          ? {
+              ...ele,
+              answer: {
+                ...ele.answer,
+                documents: uploadedFiles,
+              },
+            }
+          : ele
+      )
+    );
+  };
+
+  const removeDocument = (indexToRemove, id) => {
+    setQuestionAnswer4((prev) =>
+      prev.map((ele) =>
+        ele.id === id
+          ? {
+              ...ele,
+              answer: {
+                ...ele.answer,
+                documents: ele.answer.documents.filter(
+                  (_, i) => i !== indexToRemove
+                ),
+              },
+            }
+          : ele
+      )
+    );
   };
 
   const onBackClick = async () => {
@@ -1381,8 +1425,9 @@ export const Questionnaire4 = ({
                           <input
                             type="file"
                             hidden
+                            multiple
                             name="file"
-                            id={`file-${question.id}`} // Use a unique ID for each input
+                            id={`file-${question.id}`}
                             onChange={(e) => uploadFile(e, question.id, "file")}
                             className=""
                           />
@@ -1397,7 +1442,24 @@ export const Questionnaire4 = ({
                         </p>
                       </>
                     </div>
-                    {question?.answer?.docName}
+                    {question?.answer?.documents?.length > 0 && (
+                      <div className="flex flex-wrap">
+                        {question.answer.documents.map(({ docName }, i) => (
+                          <div
+                            key={i}
+                            className="bg-black text-[14px] text-white py-1 px-2 mr-2 mb-2 flex items-center"
+                          >
+                            {docName}
+                            <CloseIcon
+                              onClick={() => removeDocument(i, question.id)}
+                              className="ml-2 cursor-pointer"
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* {question?.answer?.docName} */}
                   </>
                 ) : (
                   ""
