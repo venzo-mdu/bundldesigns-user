@@ -1013,8 +1013,11 @@ export default function Dashboard({ lang, setLang }) {
       `${base_url}/api/order/${purchase_id}/`,
       ConfigToken()
     );
+    
     if (response.data.data.payment_status) {
       setPurchasePopUp(true);
+    }else{
+      navigate('/mycart')
     }
   };
 
@@ -1243,7 +1246,7 @@ export default function Dashboard({ lang, setLang }) {
 
       case "custom_in_progress":
         if (isEdit) {
-          debugger;
+          ;
           return (
             <div className="text-center">
               <h2 className="lg:text-[22px] md:text-[22px] xs:text-[18px] xs:px-[10%] text-[#000000]">
@@ -1289,7 +1292,7 @@ export default function Dashboard({ lang, setLang }) {
 
       case "in_progress":
         if (isEdit) {
-          debugger;
+          ;
           return (
             <div className="text-center">
               <h2 className="lg:text-[22px] md:text-[22px] xs:text-[18px] xs:px-[10%] text-[#000000]">

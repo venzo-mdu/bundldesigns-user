@@ -2323,6 +2323,7 @@ export default function Adjustments({ user, lang, setLang }) {
     };
     if (validateFields()) {
       try {
+        
         const res = await axios.post(
           `${base_url}/api/adjustment_create/?orderId=${orderId}&type=${
             state.purchaseAddOns ? "addon" : "adj"

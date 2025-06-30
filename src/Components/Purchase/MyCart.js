@@ -293,7 +293,7 @@ export const MyCart = ({ lang, setLang }) => {
         const resProjects = response.data.data.filter(
           (item) => item.order_status != "in_cart"
         );
-        debugger;
+        ;
         if (resProjects.length) {
           setFirstOrder(false);
         } else {
@@ -646,7 +646,7 @@ export const MyCart = ({ lang, setLang }) => {
 
   // const handlePayment = async (e) => {
   //   e.preventDefault();
-  //   debugger;
+  //   ;
   //   setPaymentLoading(true);
   //   if (validateFields()) {
   //     getprojects();
@@ -794,6 +794,39 @@ export const MyCart = ({ lang, setLang }) => {
               behavior: "smooth",
             });
             setPaymentLoading(false);
+          }
+        } else {
+          try {
+            const formData = {
+              ...billingInfo,
+              user_name: billingInfo.firstName + " " + billingInfo.lastName,
+              phone: billingInfo.phone,
+              promo_code: billingInfo.promoCode,
+              total_amount: cartDetails.total_amount,
+              total_time: cartDetails.total_time,
+              grand_total: cartDetails.grand_total,
+              tax_treatment: cartDetails.tax_treatment,
+              tax: cartDetails.tax,
+              items_to_delete: removedItems,
+              vat_registered:
+                billingInfo?.vat_registered === "vat" ? true : false,
+              trn:
+                billingInfo?.vat_registered === "non_vat"
+                  ? null
+                  : billingInfo?.trn,
+            };
+            const response = await axios.put(
+              `${base_url}/api/order/cart/?initiate=True`,
+              formData,
+              ConfigToken()
+            );
+            if (response.data) {
+              window.location.href = response.data.data.redirect_url;
+            }
+            // navigate('/dashboard', { state: { reDirect: true} });
+            console.log("Payment successful:", response.data);
+          } catch (error) {
+            console.error("Payment error:", error);
           }
         }
       } else {
@@ -1308,10 +1341,10 @@ export const MyCart = ({ lang, setLang }) => {
                                   ? "(English & Arabic)"
                                   : row.language
                               }`
-                            : ''}
+                            : ""}
                         </div>
                         {/* <div className='font-[500] '> {row.subtotal_price} SAR</div> */}
-                      </div> 
+                      </div>
                       <p
                         className={`xs:order-2 sm:order-3 sm:w-[29%] w-[29%] xs:w-[29%] max-h-[36px] !mb-2 flex justify-end`}
                       >
@@ -1490,7 +1523,9 @@ export const MyCart = ({ lang, setLang }) => {
                               : `${row.item_name} ${
                                   row.language === "both"
                                     ? "(English & Arabic)"
-                                    : row.language?row.language:''
+                                    : row.language
+                                    ? row.language
+                                    : ""
                                 }`}
                           </td>
                           {/* <td className=' !py-2' align="center">{row.qty}</td> */}
