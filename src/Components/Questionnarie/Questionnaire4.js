@@ -279,35 +279,19 @@ export const Questionnaire4 = ({
             )
           );
         } else {
-          // Add selected color
-          // setQuestionAnswer4((prev) => {
-          //   debugger;
-          //   prev.map((ele) =>
-          //     ele.id === questionId
-          //       ? {
-          //           ...ele,
-          //           answer: {
-          //             ...ele.answer,
-          //             type: "", // optional: distinguish from Surprise
-          //             color: [...(ele.answer?.color || []), color],
-          //           },
-          //         }
-          //       : ele
-          //   );
-          // });
           setQuestionAnswer4((prev) => {
             return prev.map((ele) => {
               if (ele.id === questionId) {
                 const existingColors = ele.answer?.color || [];
                 if (existingColors.includes(color)) {
-                  return ele; // Color already exists, return original object
+                  return ele;
                 }
 
                 return {
                   ...ele,
                   answer: {
                     ...ele.answer,
-                    type: "", // optional: distinguish from Surprise
+                    type: "",
                     color: [...existingColors, color],
                   },
                 };
