@@ -1,73 +1,99 @@
 {
-    "terms_and_conditions": [
-      {
-        "title": "Ownership of Design Work",
-        "arabic_title": "خصة الاستخدام",
-        "content": "All design work, including but not limited to concepts, sketches, drafts, and final designs, created by Bundl Designs (\"the Studio\") for the client (\"the Client\") shall remain the exclusive property of Bundl Designs until full payment is received, at which point ownership of the final design(s) will transfer to the Client.",
-        "arabic_content": "الاستخد"
-      },
+  "terms_and_conditions": [
+    {
+      "title": "Ownership of Design Work",
+      "arabic_title": "خصة الاستخدام",
+      "content": "All design work, including but not limited to concepts, sketches, drafts, and final designs, created by Bundl Designs (\"the Studio\") for the client (\"the Client\") shall remain the exclusive property of Bundl Designs until full payment is received, at which point ownership of the final design(s) will transfer to the Client.",
+      "arabic_content": "على الرغم من أن الدفع الكامل يتم قبل بدء العمل، لا تنتقل ملكية التصميم إلا بعد الموافقة النهائية عليه من قبل العميل."
+    },
+    {
+      "title": "Changes and Revisions",
+      "arabic_title": "التغييرات والتعديلات",
+      "content": "Any modifications, alterations, or additions to the final design(s) requested by the Client, which differ from the initially agreed-upon scope, may incur additional charges. Online orders include only 1 revision. Any extra revision requested will be charged separately by purchasing an adjustment through the website. After designs are approved and files are finalized, any extra revisions will require extra payment.",
+      "arabic_content": "⁠⁠أي تعديلات أو تغييرات أو إضافات إلى التصميم النهائي المطلوب من قبل العميل، والتي تختلف عن نطاق المشروع المتفق عليه أصلاً، قد تتسبب في تكاليف إضافية.",
+      "sub_content": [
+        {
+          "content": "* Projects that do not receive a response within 90 days after purchase or content upload will be put on hold. A fee of 300 SAR will apply to reactivate the project",
+          "arabic_content":"* المشاريع التي لا تتلقى استجابة خلال 90 يومًا من تاريخ الشراء أو رفع المحتوى ستؤدي إلى تجميد المشروع. سيتم تطبيق رسوم بمبلغ 300 ريال سعودي لإعادة تفعيل المشروع."
+        },
+        {
+          "content": "* Credits for any project that remains inactive, without response, feedback, or content upload, for one full year will expire",
+          "arabic_content": "* تنتهي صلاحية الأرصدة لأي مشاريع اذا لكم يكن هناك اسنجابة، او رد من طرف العميل لمدة سنه كاملة."
+        }
+      ]
+    },
+    {
+      "title": "License to Use",
+      "arabic_title":"ترخيص الاستخدام",
+      "content": "Upon full payment and transfer of ownership, Bundl Designs grants the Client a non-exclusive, worldwide, royalty-free license to use, reproduce, and display the final design(s) for the purposes specified in the project scope or agreement.",
+      "arabic_content": "بعد الدفع الكامل ونقل الملكية، يمنح بندل ديزاينز للعميل ترخيصًا غير حصري وعالمي وخاليًا من الإمتياز لاستخدام ونسخ وعرض التصميم(ات) النهائي(ة) لأغراض محددة في نطاق المشروع أو الاتفاق."
+    },
+    {
+      "title": "Originality and Plagiarism",
+      "arabic_title": "الأصالة",
+      "content": "Bundl Designs endeavors to ensure that all design work produced by in-house and freelance designers is original and authentic. While Bundl Designs takes reasonable measures to monitor and prevent plagiarism, it cannot guarantee the actions of individual freelancers. Any instances of suspected plagiarism or infringement will be investigated on a case-by-case basis. If Bundl Designs determines that plagiarism or infringement has occurred, Bundl Designs will redo the design work free of charge. However, Bundl Designs shall not be held liable for any other damages, including but not limited to printing costs, incurred as a result of such plagiarism or infringement.",
+      "arabic_content": "تضمن بندل ديزاينز أن جميع الأعمال التصميمية أصلية ولا تنتهك أي حقوق الملكية الفكرية لأطراف ثالثة. إذا تم استخدام أي مواد من طرف ثالث، ستتم الحصول على الأذونات أو التراخيص اللازمة، وسيتم الكشف عن مثل هذا الاستخدام للعميل."
+    },
+    {
+      "title": "Portfolio and Promotion",
+      "arabic_title": "معرض الأعمال والترويج",
+      "content": "Bundl Designs reserves the right to showcase any completed work in its portfolio and promotional materials. However, the Studio will not disclose sensitive or proprietary information without the Client's consent.",
+      "arabic_content": "تحتفظ بالحق في عرض أي عمل تصميمي منجز في معرض أعمالها وفي مواد الترويج. ومع ذلك، لن يتم الكشف عن معلومات حساسة أو ملكية خاصة دون موافقة العميل."
+    },
+    {
+      "title": "Client's Materials",
+      "arabic_title": "مواد العميل",
+      "content": "Any materials provided by the Client for use in the project, including text, images, and trademarks, shall remain the property of the Client, and Bundl Designs shall not use them for any purpose other than completing the project. All client information will be kept confidential and used solely for this project.",
+      "arabic_content": "تظل كافة المواد التي يقدمها العميل لاستخدامها في المشروع، بما في ذلك النصوص والصور والعلامات التجارية، ملكية العميل، ولن تستخدم بندل ديزاينز هذه المواد لأي غرض آخر سوى إكمال المشروع. سيتم الحفاظ على سرية جميع معلومات العميل واستخدامها فقط للمشروع نفسه."
+    },
+    {
+      "title": "Cookies",
+      "arabic_title": "الكوكيز",
+      "content": "Cookies are files with small amounts of data, which may include an anonymous unique identifier. Cookies are sent to your browser from a website and stored on your computer's hard drive. Like many sites, we use 'cookies' to collect information. You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent. However, if you do not accept cookies, you may not be able to use some portions of our Site.",
+      "arabic_content": "الكوكيز هي ملفات تحتوي على كمية صغيرة من البيانات، والتي قد تشمل معرف فريد مجهول. يتم إرسال الكوكيز إلى متصفحك من موقع الويب ويتم تخزينها على قرص الكمبيوتر الصلب. مثل العديد من المواقع، نستخدم  لجمع المعلومات. يمكنك تعليم متصفحك برفض جميع الكوكيز أو بالإشارة عندما يتم إرسال كوكي معين. ومع ذلك، إذا لم تقبل الكوكيز، فقد لا تتمكن من استخدام بعض أجزاء موقعنا."
+    },
+    {
+      "title": "Security",
+      "arabic_title": "الأمان",
+      "content": "The security of your Personal Information is important to us, but remember that no method of transmission over the Internet, or method of electronic storage, is 100% secure. While we strive to use commercially acceptable means to protect your Personal Information, we cannot guarantee its absolute security. Links To Other Web Sites: Our Service may contain links to third-party web sites or services that are not owned or controlled by Bundl Bundl has no control over, and assumes no responsibility for, the content, privacy policies, or practices of any third party web sites or services. You further acknowledge and agree that Bundl shall not be responsible or liable, directly or indirectly, for any damage or loss caused or alleged to be caused by or in connection with use of or reliance on any such content, goods or services available on or through any such web sites or services. We strongly advise you to read the terms and conditions and privacy policies of any third-party web sites or services that you visit.",
+      "arabic_content":  "يعد أمان معلوماتك الشخصية مهمًا بالنسبة لنا، ولكن تذكر أن أي طريقة لنقل المعلومات عبر الإنترنت، أو وسيلة لتخزين البيانات الإلكترونية، ليست 100% آمنة. بينما نسعى لاستخدام وسائل تجارية قبولها لحماية معلوماتك الشخصية، لا يمكننا ضمان أمانها المطلق."
+    },
+    {
+      "title": "Cancellations and Refunds",
+      "arabic_title": "روابط إلى مواقع الويب الأخرى",
+      "content": "All Bundl artwork is personalized as per each order; therefore, we do not accept cancellations or refunds. In exceptional circumstances where we have made a mistake or the artwork does not match the requested details, we will arrange to amend the artwork as per the requested changes. Please contact info@bundldesigns.com to discuss your particular situation and work for a satisfactory outcome.",
+      "arabic_content": "قد تحتوي خدمتنا على روابط إلى مواقع وخدمات الويب من طرف ثالث لا تمتلكها أو لا تسيطر عليها Bundl. ليس لدينا أي سيطرة على المحتوى أو سياسات الخصوصية أو الممارسات المتبعة في أي موقع ويب أو خدمة من طرف ثالث. بالإضافة إلى ذلك، يتعين عليك أن تقر بأن Bundl ليست مسؤولة مباشرة أو غير مباشرة عن أي ضرر أو خسارة تسببت أو ادعى أنها تسببت بواسطة استخدام أو اعتماد على محتوى أو سلع أو خدمات متاحة على أو من خلال أي من مواقع الويب أو الخدمات المماثلة من طرف ثالث. ننصحك بشدة بقراءة الشروط والأحكام وسياسات الخصوصية لمواقع الويب أو الخدمات من طرف ثالث التي تزورها."
 
-      {
-        "title": "Changes and Revisions",
-        "content": "Any modifications, alterations, or additions to the final design(s) requested by the Client, which differ from the initially agreed-upon scope, may incur additional charges. Online orders include only 1 revision. Any extra revision requested will be charged separately by purchasing an adjustment through the website. After designs are approved and files are finalized, any extra revisions will require extra payment.",
-        "sub_content":[
-          {
-            "content":"* Projects that do not receive a response within 90 days after purchase or content upload will be put on hold. A fee of 300 SAR will apply to reactivate the project"
-          },
-
-          {
-            "content":"* Credits for any project that remains inactive, without response, feedback, or content upload, for one full year will expire"
-          }
-        ]
-      },
-      {
-        "title": "License to Use",
-        "content": "Upon full payment and transfer of ownership, Bundl Designs grants the Client a non-exclusive, worldwide, royalty-free license to use, reproduce, and display the final design(s) for the purposes specified in the project scope or agreement."
-      },
-      {
-        "title": "Originality and Plagiarism",
-        "content": "Bundl Designs endeavors to ensure that all design work produced by in-house and freelance designers is original and authentic. While Bundl Designs takes reasonable measures to monitor and prevent plagiarism, it cannot guarantee the actions of individual freelancers. Any instances of suspected plagiarism or infringement will be investigated on a case-by-case basis. If Bundl Designs determines that plagiarism or infringement has occurred, Bundl Designs will redo the design work free of charge. However, Bundl Designs shall not be held liable for any other damages, including but not limited to printing costs, incurred as a result of such plagiarism or infringement."
-      },
-      {
-        "title": "Portfolio and Promotion",
-        "content": "Bundl Designs reserves the right to showcase any completed work in its portfolio and promotional materials. However, the Studio will not disclose sensitive or proprietary information without the Client's consent."
-      },
-      {
-        "title": "Client's Materials",
-        "content": "Any materials provided by the Client for use in the project, including text, images, and trademarks, shall remain the property of the Client, and Bundl Designs shall not use them for any purpose other than completing the project. All client information will be kept confidential and used solely for this project."
-      },
-      {
-        "title": "Cookies",
-        "content": "Cookies are files with small amounts of data, which may include an anonymous unique identifier. Cookies are sent to your browser from a website and stored on your computer's hard drive. Like many sites, we use 'cookies' to collect information. You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent. However, if you do not accept cookies, you may not be able to use some portions of our Site."
-      },
-      {
-        "title": "Security",
-        "content": "The security of your Personal Information is important to us, but remember that no method of transmission over the Internet, or method of electronic storage, is 100% secure. While we strive to use commercially acceptable means to protect your Personal Information, we cannot guarantee its absolute security. Links To Other Web Sites: Our Service may contain links to third-party web sites or services that are not owned or controlled by Bundl Bundl has no control over, and assumes no responsibility for, the content, privacy policies, or practices of any third party web sites or services. You further acknowledge and agree that Bundl shall not be responsible or liable, directly or indirectly, for any damage or loss caused or alleged to be caused by or in connection with use of or reliance on any such content, goods or services available on or through any such web sites or services. We strongly advise you to read the terms and conditions and privacy policies of any third-party web sites or services that you visit."
-      },
-      {
-        "title": "Cancellations and Refunds",
-        "content": "All Bundl artwork is personalized as per each order; therefore, we do not accept cancellations or refunds. In exceptional circumstances where we have made a mistake or the artwork does not match the requested details, we will arrange to amend the artwork as per the requested changes. Please contact info@bundldesigns.com to discuss your particular situation and work for a satisfactory outcome."
-      },
-      {
-        "title": "Termination",
-        "content": "In the event of project termination or cancellation, the Client will not receive any ownership rights or licenses for the design(s), and Bundl Designs retains full ownership and rights."
-      },
-      {
-        "title": "Payment and Delivery",
-        "content": "The final design(s) will be delivered to the Client upon full payment. Until payment is received, the Client has no rights to use the design(s) for any purpose."
-      },
-      {
-        "title": "Indemnification",
-        "content": "The Client agrees to indemnify and hold Bundl Designs harmless from any claims or actions arising from the use of the design(s) provided by Bundl Designs."
-      },
-      {
-        "title": "Governing Law",
-        "content": "These intellectual property terms are governed by the laws of the Kingdom of Saudi Arabia, and any disputes shall be subject to the exclusive jurisdiction of the courts in the Kingdom of Saudi Arabia."
-      },
-      {
-        "title": "Contact Us",
-        "content": "If you have any questions about this Privacy Policy, please contact us on info@bundldesigns.com or whatsap us on +966547754124"
-      }
-    ]
-  }
-  
+    },
+    {
+      "title": "Termination",
+      "arabic_title": "إلغاء الطلبات والمستردات",
+      "content": "In the event of project termination or cancellation, the Client will not receive any ownership rights or licenses for the design(s), and Bundl Designs retains full ownership and rights.",
+      "arabic_content": "جميع أعمال Bundl مخصصة وفقًا لكل طلب؛ لذلك، للأسف، لا نقبل إلغاء الطلبات أو المستردات."
+    },
+    {
+      "title": "Payment and Delivery",
+      "arabic_title": "الدفع والتسليم",
+      "content": "The final design(s) will be delivered to the Client upon full payment. Until payment is received, the Client has no rights to use the design(s) for any purpose.",
+      "arabic_content": "في الحالات الاستثنائية حيث تكون قد ارتكبنا خطأً أو لا يتطابق العمل الفني مع التفاصيل المطلوبة، سنقوم بتعديل العمل الفني وفقًا للتغييرات المطلوبة."
+    },
+    {
+      "title": "Indemnification",
+      "arabic_title": "التعويض",
+      "content": "The Client agrees to indemnify and hold Bundl Designs harmless from any claims or actions arising from the use of the design(s) provided by Bundl Designs.",
+      "arabic_content": "إنهاء العقد: في حالة إنهاء المشروع أو إلغائه، لن يتلقى العميل أي حقوق ملكية أو تراخيص للتصميم(ات)، وتحتفظ بندل ديزاينزبجميع حقوقها وملكيته."
+    },
+    {
+      "title": "Governing Law",
+      "arabic_title": "الدفع والتسليم",
+      "content": "These intellectual property terms are governed by the laws of the Kingdom of Saudi Arabia, and any disputes shall be subject to the exclusive jurisdiction of the courts in the Kingdom of Saudi Arabia.",
+      "arabic_content": "سيتم تسليم التصميم(ات) النهائي(ة) إلى العميل عند الدفع الكامل. حتى يتم استلام الدفع، ليس لدى العميل أي حقوق لاستخدام التصميم(ات) لأي غرض."
+    },
+    {
+      "title": "Contact Us",
+      "arabic_title": "اتصل بنا",
+      "content": "If you have any questions about this Privacy Policy, please contact us on info@bundldesigns.com or whatsap us on +966547754124",
+      "arabic_content": "ذا كان لديك أي أسئلة حول هذه السياسة الخصوصية، يرجى الاتصال بنا على info@bundldesigns.com  أو التواصل معنا عبر الواتساب على +966547754124."
+    }
+  ]
+}
