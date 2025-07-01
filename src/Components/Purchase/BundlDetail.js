@@ -748,6 +748,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
 
                             <p className="mr-3">
                               <label className="cursor-pointer flex items-center leading-none mb-0">
+                                
                                 <input
                                   type="radio"
                                   name="language"
