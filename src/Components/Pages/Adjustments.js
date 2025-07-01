@@ -2456,31 +2456,33 @@ export default function Adjustments({ user, lang, setLang }) {
                   <div className=" flex flex-wrap overflow-auto w-full">
                     {adjustments.map((adjustment, index) => {
                       return (
-                        <button
-                          className={`uppercase text-[14px] font-[500] px-[5%] py-[2%] w-[${
-                            stylesBtn[index]
-                          }] ${
-                            adjustmenTab ==
-                            (lang === "ar"
-                              ? adjustment.arabic_adjustment_name
-                              : adjustment.english_adjustment_name)
-                              ? "text-white bg-[#1BA56F] "
-                              : "text-[#1BA56F] bg-white "
-                          }  border-[1px]
-                                     !border-[#1BA56F]`}
-                          onClick={() => {
-                            setAdjustmentTab(
-                              lang === "ar"
+                        <>
+                          <button
+                            className={`uppercase text-[14px] font-[500] px-[5%] py-[2%] w-[${
+                              stylesBtn[index]
+                            }] ${
+                              adjustmenTab ==
+                              (lang === "ar"
                                 ? adjustment.arabic_adjustment_name
-                                : adjustment.english_adjustment_name
-                            );
-                            // setAdjustmentForm({ content: null, file_name: null })
-                          }}
-                        >
-                          {lang === "ar"
-                            ? adjustment.arabic_adjustment_name
-                            : adjustment.english_adjustment_name}
-                        </button>
+                                : adjustment.english_adjustment_name)
+                                ? "text-white bg-[#1BA56F] "
+                                : "text-[#1BA56F] bg-white "
+                            }  border-[1px]
+                                     !border-[#1BA56F]`}
+                            onClick={() => {
+                              setAdjustmentTab(
+                                lang === "ar"
+                                  ? adjustment.arabic_adjustment_name
+                                  : adjustment.english_adjustment_name
+                              );
+                              // setAdjustmentForm({ content: null, file_name: null })
+                            }}
+                          >
+                            {lang === "ar"
+                              ? adjustment.arabic_adjustment_name
+                              : adjustment.english_adjustment_name}
+                          </button>
+                        </>
                       );
                     })}
                   </div>
@@ -2798,6 +2800,67 @@ export default function Adjustments({ user, lang, setLang }) {
                                             <AddIcon />
                                           </button>
                                         </p>
+
+                                        <div className="w-full flex justify-center items-center">
+                                          {item.name_english ===
+                                            "Logo & Identity" && (
+                                            <div className="flex   items-center mb-4 justify-center">
+                                              <Typography>
+                                                <div className="flex gap-2">
+                                                  {addOnLang?.map((ele) => {
+                                                    return (
+                                                      <div
+                                                        className={`flex gap-1 ${
+                                                          window.innerWidth >
+                                                          379
+                                                            ? "text-[16px]"
+                                                            : "text-[15px]"
+                                                        }   items-center cursor-pointer`}
+                                                        key={`${ele.id}-${ele.language}`}
+                                                      >
+                                                        <input
+                                                          type="radio"
+                                                          checked={
+                                                            ele.isChecked
+                                                          }
+                                                          // onChange={() =>
+                                                          //   handleAddOnChange(
+                                                          //     ele.id,
+                                                          //     ele.language
+                                                          //   )
+                                                          // }
+                                                          name="languageOption"
+                                                          value={ele.language}
+                                                          id={`lang_${ele.id}_${ele.language}`}
+                                                        />
+                                                        <label
+                                                          htmlFor={`lang_${ele.id}_${ele.language} `}
+                                                          className={`mb-0 ${
+                                                            window.innerWidth <
+                                                            346
+                                                              ? "text-[12px]"
+                                                              : window.innerWidth <
+                                                                362
+                                                              ? "text-[14px]"
+                                                              : window.innerWidth <
+                                                                379
+                                                              ? "text-[15px]"
+                                                              : window.innerWidth <=
+                                                                475
+                                                              ? "text-[16px]"
+                                                              : "text-[18px]"
+                                                          } cursor-pointer`}
+                                                        >
+                                                          {ele.label}
+                                                        </label>
+                                                      </div>
+                                                    );
+                                                  })}
+                                                </div>
+                                              </Typography>
+                                            </div>
+                                          )}
+                                        </div>
                                       </div>
                                     );
                                   }
@@ -4125,7 +4188,7 @@ export default function Adjustments({ user, lang, setLang }) {
                                               <AddIcon />
                                             </button>
                                           </p>
-{/* 
+
                                           <div className="w-full flex justify-center items-center">
                                             {item.name_english ===
                                               "Logo & Identity" && (
@@ -4185,7 +4248,7 @@ export default function Adjustments({ user, lang, setLang }) {
                                                 </Typography>
                                               </div>
                                             )}
-                                          </div> */}
+                                          </div>
                                         </div>
                                       </>
                                     );

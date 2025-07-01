@@ -938,6 +938,7 @@ import { DashboardPopup } from "../Common/Popup/DashboardPopup";
 import { redirect, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { Bgloader } from "../Common/Background/Bgloader";
+import Loader from "../../Images/Home/load sticker.png";
 import DoneIcon from "@mui/icons-material/Done";
 import { BorderAllRounded } from "@mui/icons-material";
 import { processArabicText } from "../Utils/arabicFontParenthesisChecker";
@@ -995,6 +996,7 @@ export default function Dashboard({ lang, setLang }) {
     "add_ons",
     "content_uploaded",
   ];
+  const [isApproveBrand, setIsApproveBrand] = useState(false);
   const base_url = process.env.REACT_APP_BACKEND_URL;
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -1013,11 +1015,11 @@ export default function Dashboard({ lang, setLang }) {
       `${base_url}/api/order/${purchase_id}/`,
       ConfigToken()
     );
-    
+
     if (response.data.data.payment_status) {
       setPurchasePopUp(true);
-    }else{
-      navigate('/mycart')
+    } else {
+      navigate("/mycart");
     }
   };
 
@@ -1053,7 +1055,7 @@ export default function Dashboard({ lang, setLang }) {
       `${base_url}/api/order/${orderId}/`,
       ConfigToken()
     );
-
+    debugger;
     const orderData = response.data.data;
     if (orderData) {
       orderData.item_details = orderData.item_details = [
@@ -1066,7 +1068,7 @@ export default function Dashboard({ lang, setLang }) {
       );
       if (orderData.order_status == "custom_in_progress") {
         setIsEdit(true);
-         setProcessIndex(1);
+        setProcessIndex(1);
       }
       if (
         orderData.order_status == "in_review" ||
@@ -1090,11 +1092,10 @@ export default function Dashboard({ lang, setLang }) {
         }
         if (
           orderData.order_status == "in_progress" &&
-          orderData.next_status !== "in_progress" 
+          orderData.next_status !== "in_progress"
         )
           setProcessIndex(1);
-        if(orderData.order_status == 'custom_in_progress')
-          setProcessIndex(1)
+        if (orderData.order_status == "custom_in_progress") setProcessIndex(1);
       }
       if (
         orderData.order_status == "send_for_approval" ||
@@ -1183,11 +1184,13 @@ export default function Dashboard({ lang, setLang }) {
   };
   const approveBrand = async () => {
     const json = { status: "add_ons" };
+    setIsApproveBrand(true);
     const response = await axios.post(
       `${base_url}/api/order_update/${order.id}/`,
       json,
       ConfigToken()
     );
+     setIsApproveBrand(false);
     getOrderDetails(order.id);
   };
   const completeOrder = async () => {
@@ -1246,7 +1249,6 @@ export default function Dashboard({ lang, setLang }) {
 
       case "custom_in_progress":
         if (isEdit) {
-          ;
           return (
             <div className="text-center">
               <h2 className="lg:text-[22px] md:text-[22px] xs:text-[18px] xs:px-[10%] text-[#000000]">
@@ -1292,7 +1294,6 @@ export default function Dashboard({ lang, setLang }) {
 
       case "in_progress":
         if (isEdit) {
-          ;
           return (
             <div className="text-center">
               <h2 className="lg:text-[22px] md:text-[22px] xs:text-[18px] xs:px-[10%] text-[#000000]">
@@ -1743,6 +1744,40 @@ export default function Dashboard({ lang, setLang }) {
       ) : (
         <>
           <Navbar isLang={lang} setIsLang={setLang} />
+          <div>
+            {isApproveBrand && (
+              <div
+                style={{
+                  position: "fixed",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  // backgroundColor: "transparent",
+                  backgroundColor: "rgba(0, 0, 0, 0.4)",
+
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  pointerEvents: "auto",
+                  userSelect: "none",
+                  zIndex: 9999,
+                }}
+              >
+                {/* <img
+                        src={ourWorkBranding}
+                        alt="loader-round-icon"
+                        style={{ width: 200, height: 200 }}
+                        className="loader"
+                      /> */}
+                <img
+                  className="loader"
+                  src={Loader}
+                  alt="loader-round-icon"
+                ></img>
+              </div>
+            )}
+          </div>
           {openPopup && (
             <DashboardPopup
               openpopup={openPopup}
