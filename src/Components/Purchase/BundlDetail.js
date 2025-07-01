@@ -58,6 +58,13 @@ export const BundlDetail = ({ user, lang, setLang }) => {
     13: "boutiquer",
     22: "socialite",
   });
+
+  const [addOnLang, setAddOnLang] = useState([
+    { id: 1, language: "English", label: "English", isChecked: true },
+    { id: 2, language: "Arabic", label: "Arabic", isChecked: false },
+    { id: 3, language: "both", label: "Both (+2,000 SAR)", isChecked: false },
+  ]);
+
   const [coinIcon, setCoinIcon] = useState(greenIcon);
   const [textColor, setTextColor] = useState("#1BA56F");
   const [showDetails, setDetails] = useState(false);
@@ -71,6 +78,16 @@ export const BundlDetail = ({ user, lang, setLang }) => {
       total_time: (quantities[design.name_english] || 1) * design.time,
     }))
   );
+
+  const handleAddOnChange = (id, language) => {
+    setAddOnLang((prev) =>
+      prev.map((ele) =>
+        ele.id === id && ele.language === language
+          ? { ...ele, isChecked: true }
+          : { ...ele, isChecked: false }
+      )
+    );
+  };
 
   const toastErrorMessage = (msg) => {
     const message = msg;
@@ -304,6 +321,24 @@ export const BundlDetail = ({ user, lang, setLang }) => {
     });
   };
 
+  const calculateAmount = (id, amount, payload) => {
+    if (id === "1") {
+      if (payload === "convertPayload") {
+        return Number(amount) + 2000;
+      } else {
+        return amountDecimal(Number(amount) + 2000);
+      }
+    } else {
+      const totalQty = Number(id) - 1;
+      const cal = totalQty * ((Number(amount) + 2000) / 2); // 2000 / 2 = 1000
+      if (payload === "convertPayload") {
+        return cal + Number(amount) + 2000;
+      } else {
+        return amountDecimal(cal + Number(amount) + 2000);
+      }
+    }
+  };
+
   const handleQuantityChange = (designName, change) => {
     const colors = {
       // '12':'#f175ad',
@@ -448,6 +483,27 @@ export const BundlDetail = ({ user, lang, setLang }) => {
         setOpenPopup(true);
       } else {
         localStorage?.setItem("payloads", JSON.stringify(payload));
+        const updatedItemList = payload.addons.item_list.map((ele) => {
+          if (
+            ele.addon_name === "Logo & Identity" &&
+            ele.category === "Branding" &&
+            addOnLang.find((ele) => ele.id === 3)?.isChecked
+          ) {
+            return {
+              ...ele,
+              language: addOnLang.find((ele) => ele.isChecked).language,
+              total_price: calculateAmount(
+                ele.qty,
+                ele.unit_price,
+                "convertPayload"
+              ),
+            };
+          } else {
+            return ele;
+          }
+        });
+
+        payload.addons.item_list = updatedItemList;
         const createResponse = await axios.post(
           `${base_url}/api/order/create/`,
           payload,
@@ -520,6 +576,14 @@ export const BundlDetail = ({ user, lang, setLang }) => {
 
   let isSelectedLanguage = selectedLanguage === "Both" && 2000;
 
+  const [isMobileView, setIsMobileView] = useState(window.innerWidth < 475);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobileView(window.innerWidth < 475);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <>
       {loading ? (
@@ -587,7 +651,9 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                 </p>
               </div>
               <p className="bundl-desc-title text-[20px] sm:text-[20px] xs:text-[16px] w-full sm:w-full xs:w-[350px] mx-auto">
-                {lang === "ar" ? "نتائج تصميم الهوية والعناصر الإضافية." : "Outcomes to Brand Identity + Add-ons."}
+                {lang === "ar"
+                  ? "نتائج تصميم الهوية والعناصر الإضافية."
+                  : "Outcomes to Brand Identity + Add-ons."}
               </p>
               <p className="bundl-desc">
                 {lang === "ar"
@@ -644,7 +710,9 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                 />
                 {brandError && (
                   <p className="text-[#D83D99]">
-                    {lang === "ar" ? "يرجى إدخال اسم المشروع" : "Please enter name of the brand"}
+                    {lang === "ar"
+                      ? "يرجى إدخال اسم المشروع"
+                      : "Please enter name of the brand"}
                   </p>
                 )}
                 <div className="commerce-collateral">
@@ -654,16 +722,17 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                         key={index}
                         className="bundle-section"
                         // style={
-                          
+
                         //   window.innerWidth <= 475
                         //     ? { margin: "5% 0 0 0" }
                         //     : { margin: "3% 0 0 0" },
                         //     {cursor: "pointer"}
                         // }
                         style={{
-  margin: window.innerWidth <= 475 ? "5% 0 0 0" : "3% 0 0 0",
-  cursor: "pointer",
-}}
+                          margin:
+                            window.innerWidth <= 475 ? "5% 0 0 0" : "3% 0 0 0",
+                          cursor: "pointer",
+                        }}
                       >
                         <p
                           className={`collateral-text mb-[2px] leading-[1.2] ${
@@ -877,9 +946,12 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                       : "Something feels missing ?"
                   }
                   addOnPayload={setAddonPayLoads}
+                  handleAddOnChange={handleAddOnChange}
                   bundlePackageId={routeId[packageID]}
                   isLang={lang}
                   isSameBundl={isSameBundl}
+                  addOnLang={addOnLang}
+                  handleQuantityChange={handleQuantityChange}
                 />
               </div>
               {/* // border-black */}
@@ -916,7 +988,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                 {/* <div style={{borderRight: "1px solid #000000"}}></div> */}
                 <div className="bundl-name ">
                   <p
-                    className={`sm:text-[24px] xs:mb-0 xs:flex xs:justify-between sm:block font-[700] px-0 !mb-2 ${
+                    className={`sm:text-[24px] xs:mb-0 xs:justify-between sm:block font-[700] px-0 !mb-2 ${
                       lang === "ar" ? "text-right" : "text-left"
                     }`}
                   >
@@ -962,37 +1034,6 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                         {lang === "ar" ? "ريال" : "SAR"}
                       </p>
                     </div>
-                    {/* {selectedItems?.map((item, idx) => {
-              return <div key={idx} className='one-brand-identity xs:flex sm:block block flex-wrap justify-around'>
-                 <p className='text-black sm:text-[20px] text-[20px] xs:text-[16px] font-[700] !mb-1 xs:w-[42%] sm:w-full' >{item.quantity} {item.name_english} <span className='sm:text-[16px] text-[16px] xs:text-[14px]'>{item.id =='76' && (selectedLanguage == 'Both' ? '(English & Arabic)' :`(${selectedLanguage})`)} </span></p>
-                 <div className='flex xs:w-[58%]  sm:w-full w-full'>
-                   <p className='sm:text-[20px] xs:ml-10 sm:ml-[2px] text-[20px] xs:text-[16px] font-[700] w-[40%]' style={{color:textColor }}>+ {item.total_time} Days</p>
- { item.id =='76' && selectedLanguage == 'Both'? <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[50%]' style={{color:textColor }}>+ {item.quantity == 1
-         ? parseFloat(item.price) + 2000 
-         : parseFloat(item.price) + ((parseFloat(item.price) / 100) * item.price_increment * (item.quantity - 1)) + 2000} SAR</p>:
- <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[40%]' style={{color:textColor }}>+ {item.quantity == 1
-         ? parseFloat(item.price)
-         : parseFloat(item.price) + ((parseFloat(item.price) / 100) * item.price_increment * (item.quantity - 1))} SAR</p>}
-                 </div>
-               </div>
- })}
-     
-           <div className='bundl-name'>
-               {
-                 addonPayLoads?.item_list?.length > 0 && (
-                   <p className='lg:text-[20px] md:text-[20px] xs:text-[14px] mb-0 font-[700] mt-2'>Add ons</p>
-                 )
-               }
-             </div>
-             {addonPayLoads?.item_list?.map((addon, idx) => (
-               <div key={idx} className=' one-brand-identity xs:flex sm:block block flex-wrap justify-around'>
-                 <p className='text-black sm:text-[20px] text-[20px] xs:text-[16px] font-[700] !mb-1 w-[42%]'>{addon.qty} {addon.addon_name}</p>
-                 <div className='flex xs:w-[58%]  sm:w-full w-full' >
-                   <p className='sm:text-[20px] xs:ml-10 sm:ml-[2px] text-[20px] xs:text-[16px] font-[700] w-[40%]' style={{color:textColor }} >+ {addon.unit_time * addon.qty} Days</p>
-                   <p className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[40%]' style={{color:textColor }}>+ {addon.total_price} SAR</p>
-                 </div>
-               </div>
-             ))} */}
 
                     {bundlAddons?.bundle_details?.map((bundleItem) => (
                       <div
@@ -1010,35 +1051,6 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                               : bundleItem?.name_arabic
                             : bundleItem?.name_english}
                         </p>
-
-                        {/* {bundleItem?.design_list?.map((selectedItem, idx) => (
-                      <div key={idx} className='one-brand-identity xs:flex sm:block block flex-wrap justify-around'>
-                        <div className='flex xs:w-[58%] sm:w-full w-full'>
-                          <p className='text-black sm:text-[20px] text-[20px] xs:text-[16px] font-[700] !mb-1 xs:w-[42%] sm:w-full'>
-                            {selectedItem.quantity} {selectedItem.name_english}
-                            <span className='sm:text-[16px] text-[16px] xs:text-[14px]'>
-                              {selectedItem.id === '76' && (selectedLanguage === 'Both'  ? '(English & Arabic)'  : `(${selectedLanguage})`)}
-                            </span>
-                          </p>
-
-                          {selectedItem.id === '76' && selectedLanguage === 'Both' ? (
-                            <p
-                              className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[50%]'style={{ color: textColor }}>
-                              + {selectedItem.quantity === 1? parseFloat(selectedItem.price) + 2000: parseFloat(selectedItem.price) +((parseFloat(selectedItem.price) / 100) *selectedItem.price_increment *(selectedItem.quantity - 1)) +2000}
-                              SAR
-                            </p>
-                          ) : (
-                            <p
-                              className='sm:text-[20px] text-[20px] xs:text-[16px] font-[700] w-[40%]'
-                              style={{ color: textColor }}
-                            >
-                              + {selectedItem.quantity === 1? parseFloat(selectedItem.price): parseFloat(selectedItem.price) +((parseFloat(selectedItem.price) / 100) *selectedItem.price_increment *(selectedItem.quantity - 1))}
-                              SAR
-                            </p>
-                          )}
-                        </div>
-                      </div>
-                    ))} */}
                         {bundleItem?.design_list?.map((item, idx) => {
                           return (
                             <div
@@ -1125,14 +1137,6 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                       )}
                     </div>
 
-                    {/* {addonPayLoads?.item_list?.map((addon, idx) => (
-               <div key={idx} className={` one-brand-identity ${idx !== addonPayLoads?.item_list?.length-1 && 'h-[25px]' } ${addonPayLoads?.item_list?.length-1 === idx && 'border-b-[1px] border-black'} xs:flex sm:block block flex-wrap justify-around`}>
-                 <div className='flex xs:w-[100%]  w-full' >
-                 <p className='text-black sm:text-[18px] text-[18px] xs:text-[16px] font-[400] !mb-1 xs:w-[75%]  lg:w-full md:w-full sm:w-full'>{addon.qty} {addon.addon_name}</p>
-                   <p className='sm:text-[20px] text-[18px] xs:text-[16px] font-[400] lg:w-[40%] md:w-[50%] xs:w-[25%] text-right' style={{color:textColor }}>+ {addon.total_price} SAR</p>
-                 </div>
-               </div>
-             ))} */}
                     {addonPayLoads?.item_list &&
                       Object.entries(
                         addonPayLoads.item_list.reduce((acc, addon) => {
@@ -1149,40 +1153,145 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                           >
                             {category}
                           </p>
-                          {addons.map((addon, idx) => (
-                            <div
-                              key={idx}
-                              className={`one-brand-identity 
-                        ${idx !== addons.length - 1 && "h-[25px]"} 
-                        ${
-                          addons.length - 1 === idx &&
-                          "border-b-[1px] border-black"
-                        }
-                        xs:flex sm:block block flex-wrap justify-around`}
-                            >
-                              <div className="flex xs:w-[100%] w-full">
-                                <p
-                                  className={`text-black sm:text-[18px] text-[18px] xs:text-[16px] font-[400] !mb-1 xs:w-[64%]  lg:w-full md:w-full sm:w-full mt-[3px] ${
-                                    lang === "ar" ? "text-right" : "text-left"
-                                  }`}
+                          {addons.map((addon, idx) => {
+                            return (
+                              <div
+                                key={idx}
+                                // className={`sm:block block flex-wrap justify-around ${
+                                //   idx !== addons.length - 1
+                                //     ? "h-[25px]"
+                                //     : "border-b-[1px] border-black"
+                                // } ${
+                                //   addon.category === "Branding" &&
+                                //   addon.addon_name === "Logo & Identity"
+                                //     ? "mb-8" // or use inline style for spacing
+                                //     : ""
+                                // }
+                                // ${
+                                //   addon.category === "Branding" &&
+                                //   addon.addon_name === "Logo Translation"
+                                //     ? "mt-8" // or use inline style for spacing
+                                //     : ""
+                                // }
+
+                                // `}
+
+                                className={`sm:block block flex-wrap justify-around ${
+                                  idx !== addons.length - 1
+                                    ? "h-[25px]"
+                                    : "border-b-[1px] border-black"
+                                } ${
+                                  addon.category === "Branding" &&
+                                  addon.addon_name === "Logo & Identity" &&
+                                  (addOnLang.find((ele) => ele.isChecked)
+                                    ?.language === "both" ||
+                                    addOnLang.find((ele) => ele.isChecked)
+                                      ?.language === "English") &&
+                                  window.innerWidth >= 475
+                                    ? "mb-8"
+                                    : ""
+                                } ${
+                                  addon.category === "Branding" &&
+                                  addon.addon_name === "Logo Translation" &&
+                                  window.innerWidth >= 475
+                                    ? "mt-8"
+                                    : ""
+                                }`}
+                              >
+                                <div
+                                  style={
+                                    isMobileView
+                                      ? {
+                                          display: "flex",
+                                          alignItems: "center",
+                                          justifyContent: "space-between",
+                                        }
+                                      : {}
+                                  }
                                 >
-                                  {addon.qty}{" "}
-                                  {lang === "ar"
-                                    ? addon.addon_arabic
-                                    : addon.addon_name}
-                                </p>
-                                <p
-                                  className={`sm:text-[18px] text-[18px] xs:text-[16px] font-[400] lg:w-[40%] md:w-[50%] xs:w-[36%]  ${
-                                    lang === "ar" ? "text-left" : "text-right"
-                                  }`}
-                                  style={{ color: textColor }}
-                                >
-                                  + {amountDecimal(addon.total_price)}{" "}
-                                  {lang === "ar" ? "ريال" : "SAR"}
-                                </p>
+                                  <div
+                                    className={`flex xs:w-[100%] w-full mx-4 ${
+                                      addon.category === "Branding" &&
+                                      addon.addon_name === "Logo & Identity"
+                                        ? ""
+                                        : ""
+                                    }`}
+                                    style={
+                                      isMobileView
+                                        ? {
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "space-between",
+                                          }
+                                        : {}
+                                    }
+                                  >
+                                    <p
+                                      className={`text-black sm:text-[18px] text-[18px] 
+                                      xs:text-[16px] font-[400] !mb-1 ${
+                                        window.innerWidth <= 475
+                                          ? "lg:w-[50%]"
+                                          : "lg:w-[50%]"
+                                      } md:w-[50%] sm:w-full ${
+                                        lang === "ar"
+                                          ? "text-right"
+                                          : "text-left"
+                                      }`}
+                                      style={
+                                        isMobileView
+                                          ? { marginBottom: "0px" }
+                                          : {}
+                                      }
+                                    >
+                                      {addon.qty}{" "}
+                                      {lang === "ar" ? (
+                                        addon.addon_arabic
+                                      ) : addon.addon_name ===
+                                        "Logo & Identity" ? (
+                                        <span>
+                                          {addon.addon_name}(
+                                          {addOnLang.find(
+                                            (ele) => ele.isChecked
+                                          )?.language === "both"
+                                            ? "English & Arabic"
+                                            : addOnLang.find(
+                                                (ele) => ele.isChecked
+                                              )?.language}
+                                          )
+                                        </span>
+                                      ) : (
+                                        addon.addon_name
+                                      )}
+                                    </p>
+                                    <p
+                                      className={`sm:text-[18px] text-[18px] xs:text-[16px] font-[400] lg:w-[40%] md:w-[50%]  md:pr-[44px] xs:w-[25%] ${
+                                        lang === "ar"
+                                          ? "text-left"
+                                          : "text-right"
+                                      }`}
+                                      style={{
+                                        ...(isMobile
+                                          ? { marginBottom: "0px" }
+                                          : {}),
+                                        color: textColor,
+                                      }}
+                                    >
+                                      +{" "}
+                                      {addOnLang.find((ele) => ele.isChecked)
+                                        ?.language === "both"
+                                        ? calculateAmount(
+                                            addon.qty,
+                                            addon.unit_price,
+                                            ""
+                                          )
+                                        : amountDecimal(addon.total_price)}{" "}
+                                      {lang === "ar" ? "ريال" : "SAR"}
+                                    </p>
+                                  </div>
+                                </div>
                               </div>
-                            </div>
-                          ))}
+                            );
+                          })}
                         </div>
                       ))}
                   </>
@@ -1321,10 +1430,10 @@ export const BundlDetail = ({ user, lang, setLang }) => {
           setPopup={setOpenPopup}
           title={""}
           subTitle={
-  lang === "ar"
-    ? "لديك عناصر في سلة التسوق. هل ترغب في"
-    : "You already have items in your cart. Would you like to."
-}
+            lang === "ar"
+              ? "لديك عناصر في سلة التسوق. هل ترغب في"
+              : "You already have items in your cart. Would you like to."
+          }
           onClick={emptyCart}
           save={lang === "ar" ? "الاستمرار" : "Continue"}
           cancel={lang === "ar" ? "الإلغاء" : "Cancel"}

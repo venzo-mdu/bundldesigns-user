@@ -45,6 +45,8 @@ export const MyCart = ({ lang, setLang }) => {
   const [tax, setTax] = useState(false);
   const [isBack, setIsBack] = useState(false);
 
+  const [firstOrder, setFirstOrder] = useState(false);
+
   const [popupMessage, setPopupMessage] = useState(
     lang === "ar"
       ? "هل أنت متأكد من إفراغ السلة؟"
@@ -283,6 +285,25 @@ export const MyCart = ({ lang, setLang }) => {
   useEffect(() => {
     setThemeColor(colors[cartDetails.bundle_id]);
   }, [cartDetails]);
+
+  const getprojects = async () => {
+    try {
+      const response = await axios.get(`${base_url}/api/order/`, ConfigToken());
+      if (response.data) {
+        const resProjects = response.data.data.filter(
+          (item) => item.order_status != "in_cart"
+        );
+        ;
+        if (resProjects.length) {
+          setFirstOrder(false);
+        } else {
+          setFirstOrder(true);
+        }
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   // const toastMessage = () => {
   //   const message = "Cart updated successfully";
@@ -623,18 +644,192 @@ export const MyCart = ({ lang, setLang }) => {
     }
   };
 
+  // const handlePayment = async (e) => {
+  //   e.preventDefault();
+  //   ;
+  //   setPaymentLoading(true);
+  //   if (validateFields()) {
+  //     getprojects();
+  //     if(firstOrder === true){
+
+  //     }
+  //     if (
+  //       (cartDetails.total_amount >= 4800 &&
+  //         !firstOrder &&
+  //         cartDetails.bundl_english === "The Newbie") ||
+  //       (cartDetails.total_amount >= 800 &&
+  //         cartDetails.bundl_english === "" &&
+  //         !firstOrder) ||
+  //       cartDetails.bundl_english === "The Socialite" ||
+  //       cartDetails.bundl_english === "The Boutiquer" ||
+  //       cartDetails.bundl_english === "The Foodie"
+  //     ) {
+  //       if (phoneError == false) {
+  //         try {
+  //           const formData = {
+  //             ...billingInfo,
+  //             user_name: billingInfo.firstName + " " + billingInfo.lastName,
+  //             phone: billingInfo.phone,
+  //             promo_code: billingInfo.promoCode,
+  //             total_amount: cartDetails.total_amount,
+  //             total_time: cartDetails.total_time,
+  //             grand_total: cartDetails.grand_total,
+  //             tax_treatment: cartDetails.tax_treatment,
+  //             tax: cartDetails.tax,
+  //             items_to_delete: removedItems,
+  //             vat_registered:
+  //               billingInfo?.vat_registered === "vat" ? true : false,
+  //             trn:
+  //               billingInfo?.vat_registered === "non_vat"
+  //                 ? null
+  //                 : billingInfo?.trn,
+  //           };
+  //           const response = await axios.put(
+  //             `${base_url}/api/order/cart/?initiate=True`,
+  //             formData,
+  //             ConfigToken()
+  //           );
+  //           if (response.data) {
+  //             window.location.href = response.data.data.redirect_url;
+  //           }
+  //           // navigate('/dashboard', { state: { reDirect: true} });
+  //           console.log("Payment successful:", response.data);
+  //         } catch (error) {
+  //           console.error("Payment error:", error);
+  //         } finally {
+  //           setPaymentLoading(false);
+  //         }
+  //       }
+  //     } else {
+  //       showErrorToast(
+  //         lang === "ar"
+  //           ? "الأدنى للطلب يجب أن يكون 4,880"
+  //           : `Minimum order amount should be ${
+  //               cartDetails.bundl_english === "The Newbie" ? 4880 : 800
+  //             }`,
+  //         cartDetails.bundl_english === "The Newbie" ? "#D83D99" : "#1BA56F"
+  //       );
+  //       window.scrollTo({
+  //         top: 0,
+  //         behavior: "smooth",
+  //       });
+  //       setPaymentLoading(false);
+  //     }
+  //   } else {
+  //     window.scrollTo({
+  //       top: 0,
+  //       behavior: "smooth",
+  //     });
+  //     setPaymentLoading(false);
+  //   }
+  // };
+
   const handlePayment = async (e) => {
     e.preventDefault();
     setPaymentLoading(true);
     if (validateFields()) {
-      if (
-        (cartDetails.total_amount >= 4800 &&
-          cartDetails.bundl_english === "The Newbie") ||
-        (cartDetails.total_amount >= 800 && cartDetails.bundl_english === "") ||
-        cartDetails.bundl_english === "The Socialite" ||
-        cartDetails.bundl_english === "The Boutiquer" ||
-        cartDetails.bundl_english === "The Foodie"
-      ) {
+      const response = await axios.get(`${base_url}/api/order/`, ConfigToken());
+      if (response.data) {
+        const resProjects = response.data.data.filter(
+          (item) => item.order_status != "in_cart"
+        );
+        if (resProjects.length === 0) {
+          // cartDetails.tax
+          if (
+            (cartDetails.total_amount >= 4800 &&
+              cartDetails.bundl_english === "The Newbie") ||
+            (cartDetails.total_amount >= 800 &&
+              cartDetails.bundl_english === "") ||
+            cartDetails.bundl_english === "The Socialite" ||
+            cartDetails.bundl_english === "The Boutiquer" ||
+            cartDetails.bundl_english === "The Foodie"
+          ) {
+            if (phoneError == false) {
+              try {
+                const formData = {
+                  ...billingInfo,
+                  user_name: billingInfo.firstName + " " + billingInfo.lastName,
+                  phone: billingInfo.phone,
+                  promo_code: billingInfo.promoCode,
+                  total_amount: cartDetails.total_amount,
+                  total_time: cartDetails.total_time,
+                  grand_total: cartDetails.grand_total,
+                  tax_treatment: cartDetails.tax_treatment,
+                  tax: cartDetails.tax,
+                  items_to_delete: removedItems,
+                  vat_registered:
+                    billingInfo?.vat_registered === "vat" ? true : false,
+                  trn:
+                    billingInfo?.vat_registered === "non_vat"
+                      ? null
+                      : billingInfo?.trn,
+                };
+                const response = await axios.put(
+                  `${base_url}/api/order/cart/?initiate=True`,
+                  formData,
+                  ConfigToken()
+                );
+                if (response.data) {
+                  window.location.href = response.data.data.redirect_url;
+                }
+                // navigate('/dashboard', { state: { reDirect: true} });
+                console.log("Payment successful:", response.data);
+              } catch (error) {
+                console.error("Payment error:", error);
+              } finally {
+                setPaymentLoading(false);
+              }
+            }
+          } else {
+            showErrorToast(
+              lang === "ar"
+                ? "الأدنى للطلب يجب أن يكون 4,880"
+                : `Minimum order amount should be ${
+                    cartDetails.bundl_english === "The Newbie" ? 4880 : 800
+                  }`,
+              cartDetails.bundl_english === "The Newbie" ? "#D83D99" : "#1BA56F"
+            );
+            window.scrollTo({
+              top: 0,
+              behavior: "smooth",
+            });
+            setPaymentLoading(false);
+          }
+        } else {
+          try {
+            const formData = {
+              ...billingInfo,
+              user_name: billingInfo.firstName + " " + billingInfo.lastName,
+              phone: billingInfo.phone,
+              promo_code: billingInfo.promoCode,
+              total_amount: cartDetails.total_amount,
+              total_time: cartDetails.total_time,
+              grand_total: cartDetails.grand_total,
+              tax_treatment: cartDetails.tax_treatment,
+              tax: cartDetails.tax,
+              items_to_delete: removedItems,
+              vat_registered:
+                billingInfo?.vat_registered === "vat" ? true : false,
+              trn:
+                billingInfo?.vat_registered === "non_vat"
+                  ? null
+                  : billingInfo?.trn,
+            };
+            const response = await axios.put(
+              `${base_url}/api/order/cart/?initiate=True`,
+              formData,
+              ConfigToken()
+            );
+            if (response.data) {
+              window.location.href = response.data.data.redirect_url;
+            }
+            // navigate('/dashboard', { state: { reDirect: true} });
+            console.log("Payment successful:", response.data);
+          } catch (error) {
+            console.error("Payment error:", error);
+          }
+        }
+      } else {
         if (phoneError == false) {
           try {
             const formData = {
@@ -671,20 +866,6 @@ export const MyCart = ({ lang, setLang }) => {
             setPaymentLoading(false);
           }
         }
-      } else {
-        showErrorToast(
-          lang === "ar"
-            ? "الأدنى للطلب يجب أن يكون 4,880"
-            : `Minimum order amount should be ${
-                cartDetails.bundl_english === "The Newbie" ? 4880 : 800
-              }`,
-          cartDetails.bundl_english === "The Newbie" ? "#D83D99" : "#1BA56F"
-        );
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth",
-        });
-        setPaymentLoading(false);
       }
     } else {
       window.scrollTo({
@@ -1154,7 +1335,13 @@ export const MyCart = ({ lang, setLang }) => {
                         <div className="font-[700] text-[18px] ">
                           {lang === "ar"
                             ? processArabicText(row.item__name_arabic)
-                            : row.item_name}
+                            : row.language
+                            ? `${row.item_name} ${
+                                row.language === "both"
+                                  ? "(English & Arabic)"
+                                  : row.language
+                              }`
+                            : ""}
                         </div>
                         {/* <div className='font-[500] '> {row.subtotal_price} SAR</div> */}
                       </div>
@@ -1333,7 +1520,13 @@ export const MyCart = ({ lang, setLang }) => {
                           <td className=" !py-2 w-[35%] !px-[2%]" scope="row">
                             {lang === "ar"
                               ? processArabicText(row.item__name_arabic)
-                              : row.item_name}
+                              : `${row.item_name} ${
+                                  row.language === "both"
+                                    ? "(English & Arabic)"
+                                    : row.language
+                                    ? row.language
+                                    : ""
+                                }`}
                           </td>
                           {/* <td className=' !py-2' align="center">{row.qty}</td> */}
                           <td className=" !py-2 " align="center">

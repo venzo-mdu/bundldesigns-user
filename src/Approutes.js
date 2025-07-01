@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 import { ConfigToken } from "../src/Components/Auth/ConfigToken";
 import { useEffect, useState } from "react";
 import { Navigate, useLocation, useRoutes } from "react-router-dom";
@@ -36,6 +37,9 @@ import PasswordResetSent from "./Components/Auth/ForgotpasswordMail/PasswordRese
 import { useSearchParams } from "react-router-dom";
 import Animation from "./Components/Pages/Animation";
 import VerifyMail from "./Components/Auth/Verifymailpage/verifyMail";
+import { fetchQuestionAnswer } from "./Components/Questionnarie/questionnaire.slice";
+
+import { data } from "./Components/Questionnarie/1";
 
 const getCookie = (name) => {
   const value = `; ${document.cookie}`;
@@ -52,10 +56,27 @@ const getCookie = (name) => {
 // }
 
 export default function AppRouter() {
+  const dispatch = useDispatch();
   const token = getCookie("token");
   const [transLanguage, setTransLanguage] = useState("");
   const location = useLocation();
   const [user, setUser] = useState([]);
+
+  const orderId = useSelector((state) => state.questionAnswer.orderId);
+  async function getQuestionAnswer() {
+
+    if (orderId) {
+      const response = await axios.get(
+        `${base_url}/api/questionnaire/${orderId}/`,
+        ConfigToken()
+      );
+      dispatch(fetchQuestionAnswer(response.data.data));
+    }
+  }
+
+  useEffect(() => {
+    getQuestionAnswer();
+  }, [orderId]);
 
   const ProtectedRoute = ({ element }) => {
     const token = getCookie("token");

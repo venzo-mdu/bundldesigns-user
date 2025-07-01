@@ -1,4 +1,5 @@
 const initialState = {
+    title:"",
     userInfo: {},
     questionnaire1:[],
     questionnaire2:[],
@@ -23,7 +24,9 @@ const initialState = {
       case "questionnaire5":
         return Object.assign({}, state, { questionnaire5: action.payload }); 
       case "questionnaireanswers":
-        return Object.assign({}, state, { questionnaireanswers: action.payload });    
+        return Object.assign({}, state, { questionnaireanswers: action.payload }); 
+        case "questionnaireTitle":
+        return Object.assign({}, state, { title: action.payload });    
       default:
         return state;
     }

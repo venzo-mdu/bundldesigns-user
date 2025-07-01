@@ -21,7 +21,7 @@ export const CustomBundl = ({ user, lang, setLang }) => {
   const query = searchParams.get("search");
   const [brandError, setBrandError] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 440);
-  const [firstOrder, setFirstOrder] = useState(true);
+  const [firstOrder, setFirstOrder] = useState(false);
   const location = useLocation();
   const { state } = location;
   const [addonPayLoads, setAddonPayLoads] = useState({});
@@ -229,6 +229,8 @@ export const CustomBundl = ({ user, lang, setLang }) => {
         );
         if (resProjects.length) {
           setFirstOrder(false);
+        }else{
+          setFirstOrder(true);
         }
       }
     } catch (e) {

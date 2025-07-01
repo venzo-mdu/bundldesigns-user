@@ -23,6 +23,8 @@ import { questionnaireAction2 } from "../../Redux/Action";
 import { ConfigToken } from "../Auth/ConfigToken";
 import useToastMessage from "../Pages/Toaster/Toaster";
 import { Toaster } from "react-hot-toast";
+import { fetchQuestionAnswer } from "./questionnaire.slice";
+import { data } from "./1";
 
 export const Questionnaire2 = ({
   formData,
@@ -59,127 +61,166 @@ export const Questionnaire2 = ({
     "التسوق، الرسم، السفر...الخ",
   ];
 
+  /* NEW QUESTIONANSWER */
+
+  const questionAndAnswers = useSelector(
+    (state) => state?.questionAnswer?.questionAndAnswers
+  );
+  const orderId = useSelector((state) => state?.questionAnswer?.orderId);
+
+  const [questionAnswer2, setQuestionAnswer2] = useState([]);
+
   useEffect(() => {
-    const fetchQuestions = async () => {
-      try {
-        const response = await axios.get(
-          `${base_url}/api/content?section=brand_questions&page=2`
-        );
-        setQuestions(response.data);
-      } catch (error) {
-        console.error("Error fetching questions:", error);
-      }
+    if (questionAndAnswers.length > 0) {
+      setQuestionAnswer2(questionAndAnswers);
+    }
+  }, [questionAndAnswers]);
+
+  /* NEW QUESTIONANSWER */
+
+  const [selectedGenderType, setSelectedGenderType] = useState({
+    isFemale: false,
+    isMale: false,
+  });
+
+  useEffect(() => {
+    window.onbeforeunload = () => {
+      sessionStorage.setItem("isReload", "true");
     };
+    return () => {
+      window.onbeforeunload = null;
+    };
+  }, []);
 
-    const fetchAnswers = async () => {
-      try {
-        if (location.state?.orderId) {
-          const response = await axios.get(
-            `${base_url}/api/questionnaire/update/${location.state.orderId}`,
-            ConfigToken()
-          );
-          const answers = response.data.data;
-          setFetchQ2Answers(answers);
+  // Detect refresh on mount
+  useEffect(() => {
+    if (sessionStorage.getItem("isReload") === "true") {
+      sessionStorage.removeItem("isReload");
+      navigate("/questionnaire/1");
+    }
+  }, [navigate]);
 
-          // Extract age-data answer
-          const ageDataQuestion = answers.find(
-            (item) => item.answer_type === "age-data"
-          );
+  // const handleGenderChange = (id, selected, isSelected) => {
+  //   console.log(questionAnswer2)
+  //
+  //   setQuestionAnswer2((prev) =>
+  //     prev.map((ele) => {
+  //       if (ele.id !== id) return ele;
 
-          if (ageDataQuestion?.answer?.female) {
-            setActiveFemaleButtons(ageDataQuestion.answer.female);
-            setSelectedGender((prev) =>
-              prev.includes("female") ? prev : [...prev, "female"]
-            );
-          }
-          if (ageDataQuestion?.answer?.male) {
-            setActiveMaleButtons(ageDataQuestion.answer.male);
-            setSelectedGender((prev) =>
-              prev.includes("male") ? prev : [...prev, "male"]
-            );
-          }
+  //       const updatedAnswer = ele?.answer?.map((entry) => {
+  //         if (entry[selected] !== undefined) {
+  //           return {
+  //             ...entry,
+  //             [selected]: !isSelected,
+  //             value: !isSelected ? [] : entry.value,
+  //           };
+  //         }
+  //         return entry;
+  //       });
+
+  //       return {
+  //         ...ele,
+  //         answer: updatedAnswer,
+  //       };
+  //     })
+  //   );
+
+  //   if (selected === "female" && !selectedGenderType.isFemale) {
+  //     setActiveFemaleButtons([]);
+  //   }
+
+  //   if (selected === "male" && !selectedGenderType.isMale) {
+  //     setActiveMaleButtons([]);
+  //   }
+
+  //   if (selectedGender.includes("both")) {
+  //     if (selected === "male") {
+  //       setSelectedGender(["female"]);
+  //     } else if (selected === "female") {
+  //       setSelectedGender(["male"]);
+  //     }
+  //   } else if (selectedGender.includes(selected)) {
+  //     setSelectedGender((prev) => prev.filter((gender) => gender !== selected));
+  //   } else if (
+  //     (selected === "male" && selectedGender.includes("female")) ||
+  //     (selected === "female" && selectedGender.includes("male"))
+  //   ) {
+  //     setSelectedGender(["both"]);
+  //   } else {
+  //     setSelectedGender((prev) => {
+  //       console.log(prev);
+  //       return [...prev, selected];
+  //     });
+  //   }
+  // };
+
+  const handleGenderChange = (id, selected, isSelected) => {
+    console.log(questionAnswer2);
+    setQuestionAnswer2((prev) =>
+      prev.map((ele) => {
+        if (ele.id !== id) return ele;
+
+        // Initialize answer if it's empty, null or undefined
+        let initialAnswer = ele?.answer;
+        if (
+          !Array.isArray(initialAnswer) ||
+          initialAnswer.length === 0 ||
+          initialAnswer.some(
+            (entry) => entry === null || typeof entry !== "object"
+          )
+        ) {
+          initialAnswer = [
+            { female: false, value: [] },
+            { male: false, value: [] },
+          ];
         }
-      } catch (error) {
-        console.error("Error fetching answers:", error);
-      }
-    };
 
-    // Process currentAnswer if available
-    const processCurrentAnswer = () => {
-      if ("10" in currentAnswer) {
-        const answer = currentAnswer["10"];
-        setActiveMaleButtons(answer.male || []);
-        setActiveFemaleButtons(answer.female || []);
+        const updatedAnswer = initialAnswer.map((entry) => {
+          if (entry[selected] !== undefined) {
+            return {
+              ...entry,
+              [selected]: !isSelected,
+              value: !isSelected ? [] : entry.value,
+            };
+          }
+          return entry;
+        });
 
-        if (answer.female?.length && answer.male?.length) {
-          setSelectedGender(["both"]);
-        } else if (answer.male?.length) {
-          setSelectedGender(["male"]);
-        } else if (answer.female?.length) {
-          setSelectedGender(["female"]);
-        }
-      }
-    };
+        return {
+          ...ele,
+          answer: updatedAnswer,
+        };
+      })
+    );
 
-    // Initialize form data
-    setFormData(location.state?.questionnaireData2 || currentAnswer);
-
-    // Fetch data
-    fetchQuestions();
-    fetchAnswers();
-    processCurrentAnswer();
-  }, [location.state?.orderId, currentAnswer]);
-
-  const getAnswerValue = (questionId) => {
-    const formValue = formData?.[questionId];
-    if (formValue !== undefined) {
-      return formValue;
+    // Handle gender toggle buttons and selectedGender state
+    if (selected === "female" && !selectedGenderType.isFemale) {
+      setActiveFemaleButtons([]);
     }
 
-    const fetchedAnswer = fetchQ2Answers.find(
-      (answer) => answer.question_id === questionId
-    )?.answer;
-    if (fetchedAnswer !== undefined && formValue === undefined) {
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        [questionId]: fetchedAnswer,
-      }));
+    if (selected === "male" && !selectedGenderType.isMale) {
+      setActiveMaleButtons([]);
     }
-    return fetchedAnswer ?? "";
-  };
 
-  const handleGenderChange = (selected) => {
     if (selectedGender.includes("both")) {
-      // If "both" is selected, toggle individual genders
       if (selected === "male") {
-        setSelectedGender(["female"]); // Keep only "female"
+        setSelectedGender(["female"]);
       } else if (selected === "female") {
-        setSelectedGender(["male"]); // Keep only "male"
+        setSelectedGender(["male"]);
       }
     } else if (selectedGender.includes(selected)) {
-      // Remove the selected value
       setSelectedGender((prev) => prev.filter((gender) => gender !== selected));
     } else if (
       (selected === "male" && selectedGender.includes("female")) ||
       (selected === "female" && selectedGender.includes("male"))
     ) {
-      // If both genders are selected, set "both"
       setSelectedGender(["both"]);
     } else {
-      // Add the selected value
       setSelectedGender((prev) => [...prev, selected]);
     }
   };
+
   const showToastMessage = () => {
-    // toast.error(changeLang === 'ar' ? '•القيمة مطلوب' :"The Value is required!", {
-    //   position: toast?.POSITION?.TOP_RIGHT,
-    //   toastId: 'required-value-toast',
-    //   icon:false,
-    //       style:{
-    //           color:'#D83D99',
-    //           fontWeight:'700'
-    //       }
-    // });
     showErrorToast(
       changeLang === "ar" ? "القيمة مطلوب" : "The Value is required!",
       "#D83D99"
@@ -187,36 +228,94 @@ export const Questionnaire2 = ({
   };
 
   const validateFields = () => {
-    const unansweredRequiredQuestions = questions.filter((q) => {
-      if (q.required) {
-        // If it's an age-data question, ensure the correct buttons are selected
-        if (q.answer_type === "age-data") {
-          if (selectedGender?.includes("female")) {
-            return !activeFemaleButtons || activeFemaleButtons.length === 0;
+    const unansweredRequiredQuestions = questionAnswer2
+      .slice(7, 10)
+      .filter((q) => {
+        if (q.required) {
+          // If it's an age-data question, ensure the correct buttons are selected
+          // if (q.answer_type === "age-data") {
+          //   if (q.answer[0]?.female) {
+          //     return q.answer[0].value || q.answer[0].value.length === 0;
+          //   }
+          //   if (q.answer[1]?.female) {
+          //     return !q.answer[1].value || q.answer[1].value.length === 0;
+          //   }
+          //   // if (selectedGender?.includes("both")) {
+          //   //   return (
+          //   //     !activeMaleButtons ||
+          //   //     activeMaleButtons.length === 0 ||
+          //   //     activeFemaleButtons.length === 0
+          //   //   );
+          //   // }
+          // }
+
+          // if (q.answer_type === "age-data") {
+          //   const femaleEntry = q.answer.find((a) => a.female);
+          //   const maleEntry = q.answer.find((a) => a.male);
+          //   if (
+          //     femaleEntry &&
+          //     (!femaleEntry.value || femaleEntry.value.length === 0)
+          //   ) {
+          //     return true;
+          //   }
+
+          //   if (
+          //     maleEntry &&
+          //     (!maleEntry.value || maleEntry.value.length === 0)
+          //   ) {
+          //     return true;
+          //   }
+
+          //   return false; // valid
+          // }
+
+          if (q.answer_type === "age-data") {
+            const femaleEntry = q?.answer?.find((a) => a?.female);
+            const maleEntry = q?.answer?.find((a) => a?.male);
+
+            const isFemaleSelected = !!femaleEntry;
+            const isMaleSelected = !!maleEntry;
+
+            const isFemaleValid =
+              isFemaleSelected &&
+              Array.isArray(femaleEntry?.value) &&
+              femaleEntry?.value?.length > 0;
+
+            const isMaleValid =
+              isMaleSelected &&
+              Array.isArray(maleEntry.value) &&
+              maleEntry.value.length > 0;
+            if (
+              (isFemaleSelected && !isFemaleValid) ||
+              (isMaleSelected && !isMaleValid)
+            ) {
+              return true;
+            }
+            if (!isFemaleSelected && !isMaleSelected) {
+              return true;
+            }
+            return false;
           }
-          if (selectedGender?.includes("male")) {
-            return !activeMaleButtons || activeMaleButtons.length === 0;
+
+          // Default check for other required questions
+          // return !formData?.[q.id] || formData?.[q.id]?.trim() === "";
+          const value = q.answer;
+
+          if (typeof value === "string") {
+            return value.trim() === "";
           }
+
+          if (Array.isArray(value)) {
+            return (
+              value?.length === 0 ||
+              value?.every((item) => item.trim?.() === "")
+            );
+          }
+
+          return !value;
         }
-
-        // Default check for other required questions
-        // return !formData?.[q.id] || formData?.[q.id]?.trim() === "";
-        const value = formData?.[q.id];
-
-        if (typeof value === "string") {
-          return value.trim() === "";
-        }
-
-        if (Array.isArray(value)) {
-          return (
-            value.length === 0 || value.every((item) => item.trim?.() === "")
-          );
-        }
-
-        return !value;
-      }
-      return false;
-    });
+        return false;
+      });
 
     if (unansweredRequiredQuestions.length > 0) {
       const element = document.getElementById(
@@ -233,65 +332,74 @@ export const Questionnaire2 = ({
     return true;
   };
 
+  // const handleButtonClick = (buttonId, gender, label, questionId) => {
+  //   setQuestionAnswer2((prev) => {
+  //     return prev.map((ele) => {
+  //       if (ele.id !== questionId) return ele;
+
+  //       const updatedAnswer = ele.answer.map((entry) => {
+  //         if (entry?.[gender] !== undefined) {
+  //           return {
+  //             ...entry,
+  //             value: [...entry.value, label],
+  //           };
+  //         }
+  //         return entry;
+  //       });
+
+  //       return {
+  //         ...ele,
+  //         answer: updatedAnswer,
+  //       };
+  //     });
+  //   });
+  // };
+
   const handleButtonClick = (buttonId, gender, label, questionId) => {
-    setFormData((prevFormData) => {
-      // Retrieve the current state of male and female data for the specific question
-      const currentFemaleData = activeFemaleButtons || [];
-      const currentMaleData = activeMaleButtons || [];
-      // Determine the updated data based on the gender
-      let updatedGenderData;
-      if (gender === "female") {
-        updatedGenderData = currentFemaleData.includes(label)
-          ? currentFemaleData.filter((item) => item !== label) // Remove if already selected
-          : [...currentFemaleData, label]; // Add if not present
+    setQuestionAnswer2((prev) => {
+      return prev.map((ele) => {
+        if (ele.id !== questionId) return ele;
 
-        setActiveFemaleButtons(updatedGenderData); // Update active female buttons
-        return {
-          ...prevFormData,
-          [questionId]: {
-            female: updatedGenderData, // Update female data
-            male: currentMaleData, // Preserve male data
-          },
-        };
-      }
+        const updatedAnswer = ele.answer.map((entry) => {
+          if (entry?.[gender] !== undefined) {
+            const valueExists = entry.value.includes(label);
 
-      if (gender === "male") {
-        updatedGenderData = currentMaleData.includes(label)
-          ? currentMaleData.filter((item) => item !== label) // Remove if already selected
-          : [...currentMaleData, label]; // Add if not present
-
-        setActiveMaleButtons(updatedGenderData); // Update active male buttons
+            return {
+              ...entry,
+              [gender]: true,
+              value: valueExists
+                ? entry.value.filter((v) => v !== label)
+                : [...entry.value, label],
+            };
+          }
+          return entry;
+        });
 
         return {
-          ...prevFormData,
-          [questionId]: {
-            female: currentFemaleData, // Preserve female data
-            male: updatedGenderData, // Update male data
-          },
+          ...ele,
+          answer: updatedAnswer,
         };
-      }
-
-      return prevFormData; // Default case (shouldn't occur)
+      });
     });
   };
 
   const handleChange = (questionId, value) => {
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [questionId]: value,
-    }));
+    setQuestionAnswer2((prev) =>
+      prev.map((ele) =>
+        ele.id === questionId ? { ...ele, answer: value } : ele
+      )
+    );
   };
 
-  const onBackClick = () => {
-    navigate(`/questionnaire/${1}`, {
-      state: { questionnaireData1: answers, orderId: location.state?.orderId },
-    });
+  const onBackClick = async () => {
+    dispatch(fetchQuestionAnswer(questionAnswer2));
+    navigate(`/questionnaire/${1}`);
   };
   const onNextClick = () => {
     if (!validateFields()) {
-      return; // Stop execution if validation fails
+      return;
     }
-    dispatch(questionnaireAction2(formData));
+    dispatch(fetchQuestionAnswer(questionAnswer2));
     navigate(`/questionnaire/${3}`, {
       state: {
         orderId: location.state?.orderId,
@@ -302,13 +410,18 @@ export const Questionnaire2 = ({
       behavior: "smooth",
     });
   };
+
+  let newUpdatedAns = questionAnswer2.map((ele) => {
+    return {
+      id: ele.id,
+      answers: ele.answer,
+    };
+  });
+
   const onSaveLaterClick = async () => {
-    if (!validateFields()) {
-      return; // Stop execution if validation fails
-    }
     let data = {
-      answers: formData,
-      orderId: location.state?.orderId,
+      answers: newUpdatedAns,
+      orderId: orderId,
       status: "not submitted",
     };
     try {
@@ -355,65 +468,173 @@ export const Questionnaire2 = ({
         setFormData={setFormData}
         questions={
           <>
-            {questions.map((question, index) => (
-              <div
-                className="questions"
-                key={index}
-                id={`question_${question?.id}`}
-              >
-                <p
-                  className={`questions-title  xs:w-[90%] sm:w-full md:w-full mx-auto ${
-                    index === 0 ? "mt-[1%]" : "mt-[2%]"
-                  }`}
+            {questionAnswer2.slice(7, 11).map((question, index) => {
+              return (
+                <div
+                  className="questions"
+                  key={index}
+                  id={`question_${question?.id}`}
                 >
-                  {changeLang === "ar"
-                    ? question?.question_arabic
-                    : question.question}
-                  {question.required && (
-                    <span>
-                      <sup>*</sup>
-                    </span>
-                  )}
-                </p>
-                {question.answer_type === "age-data" && (
-                  <>
-                    <div className="ideal-customers">
-                      {/* <p className='customer-text'>Who is your ideal customer?</p> */}
-                      <div
-                        style={{ display: "flex", gap: "25px" }}
-                        className="mt-[5%]"
-                      >
-                        <button
-                          className={
-                            selectedGender.includes("female") ||
-                            selectedGender.includes("both")
-                              ? "female-active"
-                              : "female"
-                          }
-                          value="female"
-                          onClick={() => handleGenderChange("female")}
+                  <p
+                    className={`questions-title  xs:w-[90%] sm:w-full md:w-full mx-auto ${
+                      index === 0 ? "mt-[1%]" : "mt-[2%]"
+                    }`}
+                  >
+                    {changeLang === "ar"
+                      ? question?.question_arabic
+                      : question.question}
+                    {question.required && (
+                      <span>
+                        <sup>*</sup>
+                      </span>
+                    )}
+                  </p>
+                  {question?.answer_type === "age-data" && (
+                    <>
+                      <div className="ideal-customers">
+                        <div
+                          style={{ display: "flex", gap: "25px" }}
+                          className="mt-[5%]"
                         >
-                          {changeLang === "ar" ? "انثى" : "Female"}
-                        </button>
-                        <button
-                          className={
-                            selectedGender.includes("male") ||
-                            selectedGender.includes("both")
-                              ? "male-active"
-                              : "male"
-                          }
-                          value={"male"}
-                          onClick={() => handleGenderChange("male")}
-                        >
-                          {changeLang === "ar" ? "ذكر" : "Male"}
-                        </button>
-                      </div>
-                      <div className="border-b-[1px] border-solid border-[#000000] mb-4">
-                        {selectedGender.includes("female") ||
-                        selectedGender.includes("both") ? (
-                          <div className="female-section mb-[5%]">
-                            {/* Render female images */}
-                            <div className="female-buttons">
+                          <button
+                            className={
+                              question?.answer?.[0]?.female
+                                ? "female-active"
+                                : "female"
+                            }
+                            value="female"
+                            onClick={() => {
+                              const femaleDisabled =
+                                question?.answer?.[0]?.female;
+                              handleGenderChange(
+                                question.id,
+                                "female",
+                                femaleDisabled
+                              );
+                            }}
+                          >
+                            {changeLang === "ar" ? "انثى" : "Female"}
+                          </button>
+                          <button
+                            className={
+                              question?.answer?.[1]?.male
+                                ? "male-active"
+                                : "male"
+                            }
+                            value={"male"}
+                            onClick={() => {
+                              const maleDisabled = question?.answer?.[1]?.male;
+                              handleGenderChange(
+                                question?.id,
+                                "male",
+                                maleDisabled
+                              );
+                            }}
+                          >
+                            {changeLang === "ar" ? "ذكر" : "Male"}
+                          </button>
+                        </div>
+                        <div className="border-b-[1px] border-solid border-[#000000] mb-4">
+                          {question?.answer?.[0]?.female ? (
+                            <div className="female-section mb-[5%]">
+                              <div className="female-buttons">
+                                {[
+                                  "10 or Less",
+                                  "11-17",
+                                  "18-23",
+                                  "24-30",
+                                  "31-40",
+                                  "41-60+",
+                                ].map((label, index) => {
+                                  return (
+                                    <div
+                                      style={{
+                                        display: "flex",
+                                        flexDirection: "column",
+                                      }}
+                                    >
+                                      <div className="flex justify-center items-center">
+                                        <img
+                                          key={`female-img-${index}`}
+                                          src={femaleImages[index]}
+                                          alt={`Female ${index + 1}`}
+                                          className="female-image"
+                                          onClick={() => {
+                                            handleButtonClick(
+                                              `female-${index}`,
+                                              "female",
+                                              label,
+                                              question.id
+                                            );
+                                          }}
+                                        />
+                                      </div>
+                                      <button
+                                        key={`female-${index}`}
+                                        className={`female-btn uppercase ${
+                                          question?.answer?.[0].value?.includes(
+                                            label
+                                          )
+                                            ? "active"
+                                            : ""
+                                        }`}
+                                        onClick={() =>
+                                          handleButtonClick(
+                                            `female-${index}`,
+                                            "female",
+                                            label,
+                                            question.id
+                                          )
+                                        }
+                                      >
+                                        {label}
+                                      </button>
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                            </div>
+                          ) : (
+                            <div className="female-section mb-[5%]">
+                              <div className="female-buttons">
+                                {[
+                                  "10 or Less",
+                                  "11-17",
+                                  "18-23",
+                                  "24-30",
+                                  "31-40",
+                                  "41-60+",
+                                ].map((label, index) => (
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      flexDirection: "column",
+                                    }}
+                                  >
+                                    <div className="flex justify-center items-center">
+                                      <img
+                                        key={`female-img-${index}`}
+                                        src={femaleImages[index]}
+                                        alt={`Female ${index + 1}`}
+                                        className="female-image-disable"
+                                      />
+                                    </div>
+                                    <button
+                                      disabled
+                                      key={`female-${index}`}
+                                      className="female-btn uppercase"
+                                    >
+                                      {label}
+                                    </button>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                        {question?.answer?.[1].male ? (
+                          <div className="male-section">
+                            <div className="male-buttons">
                               {[
                                 "10 or Less",
                                 "11-17",
@@ -421,54 +642,58 @@ export const Questionnaire2 = ({
                                 "24-30",
                                 "31-40",
                                 "41-60+",
-                              ].map((label, index) => (
-                                <div
-                                  style={{
-                                    display: "flex",
-                                    flexDirection: "column",
-                                  }}
-                                >
-                                  <div className="flex justify-center items-center">
-                                    <img
-                                      key={`female-img-${index}`}
-                                      src={femaleImages[index]}
-                                      alt={`Female ${index + 1}`}
-                                      className="female-image"
+                              ].map((label, index) => {
+                                return (
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      flexDirection: "column",
+                                    }}
+                                  >
+                                    <div className="flex justify-center items-center">
+                                      <img
+                                        key={`male-img-${index}`}
+                                        src={MaleImages[index]}
+                                        alt={`Male ${index + 1}`}
+                                        className="male-image"
+                                        onClick={() =>
+                                          handleButtonClick(
+                                            `male-${index}`,
+                                            "male",
+                                            label,
+                                            question.id
+                                          )
+                                        }
+                                      />
+                                    </div>
+                                    <button
+                                      key={`male-${index}`}
+                                      className={`male-btn uppercase ${
+                                        question?.answer?.[1].value?.includes(
+                                          label
+                                        )
+                                          ? "active"
+                                          : ""
+                                      }`}
                                       onClick={() =>
                                         handleButtonClick(
-                                          `female-${index}`,
-                                          "female",
+                                          `male-${index}`,
+                                          "male",
                                           label,
                                           question.id
                                         )
                                       }
-                                    />
+                                    >
+                                      {label}
+                                    </button>
                                   </div>
-                                  <button
-                                    key={`female-${index}`}
-                                    className={`female-btn uppercase ${
-                                      activeFemaleButtons?.includes(label)
-                                        ? "active"
-                                        : ""
-                                    }`}
-                                    onClick={() =>
-                                      handleButtonClick(
-                                        `female-${index}`,
-                                        "female",
-                                        label,
-                                        question.id
-                                      )
-                                    }
-                                  >
-                                    {label}
-                                  </button>
-                                </div>
-                              ))}
+                                );
+                              })}
                             </div>
                           </div>
                         ) : (
-                          <div className="female-section mb-[5%]">
-                            <div className="female-buttons">
+                          <div className="male-section">
+                            <div className="male-buttons">
                               {[
                                 "10 or Less",
                                 "11-17",
@@ -485,16 +710,16 @@ export const Questionnaire2 = ({
                                 >
                                   <div className="flex justify-center items-center">
                                     <img
-                                      key={`female-img-${index}`}
-                                      src={femaleImages[index]}
-                                      alt={`Female ${index + 1}`}
-                                      className="female-image-disable"
+                                      key={`male-img-${index}`}
+                                      src={MaleImages[index]}
+                                      alt={`Male ${index + 1}`}
+                                      className="male-image-disable"
                                     />
                                   </div>
                                   <button
                                     disabled
-                                    key={`female-${index}`}
-                                    className="female-btn uppercase"
+                                    key={`male-${index}`}
+                                    className="male-btn uppercase"
                                   >
                                     {label}
                                   </button>
@@ -504,127 +729,31 @@ export const Questionnaire2 = ({
                           </div>
                         )}
                       </div>
-                      {selectedGender.includes("male") ||
-                      selectedGender.includes("both") ? (
-                        <div className="male-section">
-                          {/* Render female images */}
-                          <div className="male-buttons">
-                            {[
-                              "10 or Less",
-                              "11-17",
-                              "18-23",
-                              "24-30",
-                              "31-40",
-                              "41-60+",
-                            ].map((label, index) => (
-                              <div
-                                style={{
-                                  display: "flex",
-                                  flexDirection: "column",
-                                }}
-                              >
-                                <div className="flex justify-center items-center">
-                                  <img
-                                    key={`male-img-${index}`}
-                                    src={MaleImages[index]}
-                                    alt={`Male ${index + 1}`}
-                                    className="male-image"
-                                    onClick={() =>
-                                      handleButtonClick(
-                                        `male-${index}`,
-                                        "male",
-                                        label,
-                                        question.id
-                                      )
-                                    }
-                                  />
-                                </div>
-                                <button
-                                  key={`male-${index}`}
-                                  className={`male-btn uppercase ${
-                                    activeMaleButtons.includes(label)
-                                      ? "active"
-                                      : ""
-                                  }`}
-                                  onClick={() =>
-                                    handleButtonClick(
-                                      `male-${index}`,
-                                      "male",
-                                      label,
-                                      question.id
-                                    )
-                                  }
-                                >
-                                  {label}
-                                </button>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      ) : (
-                        <div className="male-section">
-                          <div className="male-buttons">
-                            {[
-                              "10 or Less",
-                              "11-17",
-                              "18-23",
-                              "24-30",
-                              "31-40",
-                              "41-60+",
-                            ].map((label, index) => (
-                              <div
-                                style={{
-                                  display: "flex",
-                                  flexDirection: "column",
-                                }}
-                              >
-                                <div className="flex justify-center items-center">
-                                  <img
-                                    key={`male-img-${index}`}
-                                    src={MaleImages[index]}
-                                    alt={`Male ${index + 1}`}
-                                    className="male-image-disable"
-                                  />
-                                </div>
-                                <button
-                                  disabled
-                                  key={`male-${index}`}
-                                  className="male-btn uppercase"
-                                >
-                                  {label}
-                                </button>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </>
-                )}
-                <input
-                  className={`question-input ${
-                    isFilled === question?.id
-                      ? "border-[#D83D99] border-b-[2px]"
-                      : `${
-                          window?.innerWidth <= 475
-                            ? "border-b-[1px]"
-                            : "border-b-[2px]"
-                        } border-black`
-                  }`}
-                  placeholder={
-                    changeLang === "ar"
-                      ? placeHolders_arabic[index]
-                      : placeHolders[index]
-                  }
-                  value={
-                    question.answer_type === "age-data"
-                      ? ""
-                      : getAnswerValue(question.id)
-                  }
-                  onChange={(e) => handleChange(question.id, e.target.value)}
-                />
-              </div>
-            ))}
+                    </>
+                  )}
+                  <input
+                    className={`question-input ${
+                      isFilled === question?.id
+                        ? "border-[#D83D99] border-b-[2px]"
+                        : `${
+                            window?.innerWidth <= 475
+                              ? "border-b-[1px]"
+                              : "border-b-[2px]"
+                          } border-black`
+                    }`}
+                    placeholder={
+                      changeLang === "ar"
+                        ? placeHolders_arabic[index]
+                        : placeHolders[index]
+                    }
+                    value={
+                      question.answer_type === "age-data" ? "" : question.answer
+                    }
+                    onChange={(e) => handleChange(question.id, e.target.value)}
+                  />
+                </div>
+              );
+            })}
           </>
         }
         bgTitle={
