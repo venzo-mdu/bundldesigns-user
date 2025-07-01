@@ -119,9 +119,17 @@ export const Login = ({ lang }) => {
     if (name === "password") {
       if (/\s/.test(value)) {
         // Check for spaces
-        setError("password", lang === "ar" ? "لا يمكن أن تحتوي كلمة المرور على مسافات" : "Password cannot contain spaces");
+        setError(
+          "password",
+          lang === "ar"
+            ? "لا يمكن أن تحتوي كلمة المرور على مسافات"
+            : "Password cannot contain spaces"
+        );
       } else if (!value.trim()) {
-        setError("password", lang === "ar" ? "كلمة المرور مطلوبة" : "Password is required");
+        setError(
+          "password",
+          lang === "ar" ? "كلمة المرور مطلوبة" : "Password is required"
+        );
       } else {
         setError("password", ""); // clear error if password is valid
       }
@@ -133,10 +141,14 @@ export const Login = ({ lang }) => {
       errorMessages.email =
         lang === "ar" ? "البريد الإلكتروني مطلوب" : "Email is required";
     } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(loginData.email)) {
-      errorMessages.email = lang === "ar" ? "تنسيق البريد الإلكتروني غير صالح" : "Invalid email format";
+      errorMessages.email =
+        lang === "ar"
+          ? "تنسيق البريد الإلكتروني غير صالح"
+          : "Invalid email format";
     }
     if (!loginData.password.trim()) {
-      errorMessages.password = lang === "ar" ? "كلمة المرور مطلوبة" : "Password is required";
+      errorMessages.password =
+        lang === "ar" ? "كلمة المرور مطلوبة" : "Password is required";
     } else if (/\s/.test(loginData.password)) {
       errorMessages.password = "Password must not contain spaces";
     } else if (loginData.password.length > 16) {
@@ -307,8 +319,10 @@ export const Login = ({ lang }) => {
               {/* General error message */}
               {errors.general && <p className="error">{errors.general}</p>}
 
-              {loginData.password && loginData.password && (
-                <p className="text-[#D83D99] error mb-1">{loginError}</p>
+              {loginData.password && loginError && (
+                <p className="text-[#D83D99] error mb-1">
+                  {lang === "ar" ? "بيانات اعتماد غير صالحة" : loginError}
+                </p>
               )}
 
               <button className="signin !text-[24px] uppercase" type="submit">

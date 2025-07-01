@@ -1951,6 +1951,9 @@ export const MyCart = ({ lang, setLang }) => {
 
                 <p className="text-[#D83D99] !text-[18px] !font-[400] !mt-2">
                   {Object.values(error).map((item) => {
+                    if (lang === "ar" && item === "Invalid Coupon") {
+                      return "رمز الخصم غير صالح";
+                    }
                     return item;
                   })}
                 </p>
