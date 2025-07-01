@@ -394,7 +394,7 @@ export const Signup = ({ lang }) => {
       errors.country = lang === "ar" ? "يجب أن يحتوي اسم الدولة على أحرف فقط" : "Country name must contain only letters";
     }
     if (!registerData.language.trim()) {
-      errors.language = "Language is required";
+      errors.language = lang === "ar" ? "اللغة مطلوبة":"Language is required";
     } else if (/[^a-zA-Z\s-]/.test(registerData.language)) {
       errors.language = lang === "ar" ? "يجب أن تحتوي اللغة على أحرف فقط" : "Language must contain only letters";
     }

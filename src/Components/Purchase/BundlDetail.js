@@ -815,7 +815,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                               </label>
                             </p>
 
-                            <p className="mr-3">
+                            <p className={`${lang === "ar" ? "mr-3" : "mr-[-0.6rem]"}`}>
                               <label className="cursor-pointer flex items-center leading-none mb-0">
                                 
                                 <input
