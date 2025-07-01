@@ -150,9 +150,11 @@ export const Login = ({ lang }) => {
       errorMessages.password =
         lang === "ar" ? "كلمة المرور مطلوبة" : "Password is required";
     } else if (/\s/.test(loginData.password)) {
-      errorMessages.password = "Password must not contain spaces";
+      errorMessages.password = 
+      lang === "ar" ? "لا يمكن أن تحتوي كلمة المرور على مسافات" : "Password must not contain spaces";
     } else if (loginData.password.length > 16) {
-      errorMessages.password = "Password must be at most 16 characters long";
+      errorMessages.password = 
+      lang === "ar" ? "يجب أن تكون كلمة المرور 16 أحرف على الأقل":"Password must be at most 16 characters long";
     }
     setErrors(errorMessages);
     return Object.keys(errorMessages).length === 0;

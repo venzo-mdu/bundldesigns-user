@@ -408,7 +408,9 @@ export const Signup = ({ lang }) => {
     } else if (registerData.password.length < 8) {
       errors.password = lang === "ar" ? "يجب أن تكون كلمة المرور 8 أحرف على الأقل" : "Password must be at least 8 characters";
     } else if (registerData.password.length > 16) {
-      errors.password = "Password must be at most 16 characters long";
+      errors.password = 
+      lang === "ar" ? "يجب أن تكون كلمة المرور 16 أحرف على الأقل":"Password must be at most 16 characters long";
+
     }
 
     setErrors(errors);
