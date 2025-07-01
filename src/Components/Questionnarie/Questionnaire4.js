@@ -560,7 +560,10 @@ export const Questionnaire4 = ({
               ...ele,
               answer: {
                 ...ele.answer,
-                documents: uploadedFiles,
+                documents: [
+                  ...(ele.answer?.documents || []), // existing files
+                  ...uploadedFiles, // new files
+                ],
               },
             }
           : ele

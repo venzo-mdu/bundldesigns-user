@@ -4100,7 +4100,6 @@ export default function Adjustments({ user, lang, setLang }) {
                               {category in bundlAddons &&
                                 bundlAddons[category].design_list.map(
                                   (item, index) => {
-                                    debugger;
                                     return (
                                       <>
                                         <div
