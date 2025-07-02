@@ -1778,7 +1778,7 @@ const calculateTotals = (
                             {row.qty} x{" "}
                             {lang === "ar"
                               ? row?.name_arabic
-                              : row.name_english}1111111111
+                              : row.name_english}
                           </div>
                           <div className="font-[500] ml-8">
                             {" "}
@@ -2733,8 +2733,8 @@ const calculateTotals = (
                                             {item.name_english ===
                                               "Logo & Identity" && (
                                               <div
-                                                className={`flex macm2:ml-[4%] 
-                                                  lg:ml-[4%] md:ml-[14%] 
+                                                className={`flex md:ml-[14%] macm2:ml-[10%] 
+                                                  lg:ml-[4%] 
                                                   lmd2:ml-[15%] macm1-[5%] 
                                                   py-[1.5%] items-center mb-4 justify-center`}
                                               >
@@ -3080,10 +3080,15 @@ const calculateTotals = (
                           : "border-b border-black"
                       } `}
                     >
-                      <td className=" !py-2" scope="row">
+                      {/* <td className=" !py-2" scope="row">
                         {lang === "ar"
                           ? row.arabic_adjustment_name
                           : row.english_adjustment_name}
+                      </td> */}
+                          <td className=" !py-2" scope="row">
+                        {lang === "ar" ? row?.name_arabic : 
+                        row.name_english === 'Logo & Identity'?`${row.name_english} 
+                        (${addOnLang.find((ele)=>ele.isChecked)?.language})`:row.name_english}
                       </td>
                       <td className=" !py-2" align="center">
                         1
@@ -3116,7 +3121,8 @@ const calculateTotals = (
                     >
                       <td className=" !py-2" scope="row">
                         {lang === "ar" ? row?.name_arabic : 
-                        row.name_english === 'Logo & Identity'?`${row.name_english} (${addOnLang.find((ele)=>ele.isChecked)?.language})`:row.name_english}
+                        row.name_english === 'Logo & Identity'?`${row.name_english} 
+                        (${addOnLang.find((ele)=>ele.isChecked)?.language})`:row.name_english}
                       </td>
                       <td className=" !py-2" align="center">
                         {row.qty}
