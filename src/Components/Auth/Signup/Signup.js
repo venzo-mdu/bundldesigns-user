@@ -637,7 +637,7 @@ export const Signup = ({ lang }) => {
                 formErrors={errors}
               />
               {errors.phone && registerData.phone.length === 0 && (
-                <p className="first-letter:capitalize mt-2 text-[#D83D99]">
+                <p className="first-letter:capitalize text-[14px] mt-2 text-[#D83D99]">
                   {errors.phone}
                 </p>
               )}

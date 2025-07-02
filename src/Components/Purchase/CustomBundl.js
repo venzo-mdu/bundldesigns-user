@@ -388,9 +388,11 @@ export const CustomBundl = ({ user, lang, setLang }) => {
               <p
                 className="sm:text-[24px] xs:mb-0 xs:flex xs:justify-between sm:block"
                 style={{
+                  display: "flex",
                   fontWeight: "700",
                   padding: "2% 0%",
-                  textAlign: lang === "ar" ? "right" : "left",
+                  textAlign: lang === "ar" ? "right" : "left"
+
                 }}
               >
                 <span>{lang === "ar" ? "ملخص الطلب​" : "Summary"}</span>
@@ -400,7 +402,13 @@ export const CustomBundl = ({ user, lang, setLang }) => {
                     onClick={() => setDetails(!showDetails)}
                     className="text-[14px] text-[#1BA56F] font-normal underline uppercase"
                   >
-                    {showDetails ? "Hide Details" : "Show Details"}
+                    {lang === "ar"
+  ? showDetails
+    ? "إخفاء التفاصيل"
+    : "عرض التفاصيل"
+  : showDetails
+    ? "Hide Details"
+    : "Show Details"}
                   </button>
                 )}
               </p>

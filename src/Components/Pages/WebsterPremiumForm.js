@@ -536,7 +536,7 @@ export default function WebsterPremiumForm({ lang, setLang }) {
               />
 
               {errors.phone && (
-                <p className="text-[#D83D99] text-sm">{errors.phone}</p>
+                <p className="text-[#D83D99] text-[14px] text-sm">{errors.phone}</p>
               )}
             </div>
 
