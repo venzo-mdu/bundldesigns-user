@@ -401,6 +401,45 @@ export default function Adjustments({ user, lang, setLang }) {
     }
   };
 
+
+
+  // const calculateTotals = (items, adjustments) => {
+  //     return {
+  //         price: Object.values(items).reduce((acc, item) => acc + item.price * item.qty, 0) +
+  //             Object.values(adjustments).reduce((acc, item) => acc + parseFloat(item.price || 0), 0),
+  //         time: Object.values(items).reduce((acc, item) => acc + item.time * item.qty, 0) +
+  //             Object.values(adjustments).reduce((acc, item) => acc + parseFloat(item.time_limit || 0), 0),
+  //     };
+  // };
+
+  // const calculateTotals = (items = {}, adjustments = {}) => {
+  //     return {
+  //         price: Object.values(items || {}).reduce((acc, item) => acc + (item.price || 0) * (item.qty || 0), 0) +
+  //             Object.values(adjustments || {}).reduce((acc, item) => acc + parseFloat(item.price || 0), 0),
+  //         time: Object.values(items || {}).reduce((acc, item) => acc + (item.time || 0) * (item.qty || 0), 0) +
+  //             Object.values(adjustments || {}).reduce((acc, item) => acc + parseFloat(item.time_limit || 0), 0),
+  //     };
+  // };
+  // const calculateTotals = (items = {}, adjustments = {}, selectedItem = null) => {
+  //     const totalPrice = Object.values(items || {}).reduce((acc, item) => {
+  //         console.log(item)
+  //         const quantity = item.qty || 0;
+  //         const currentTotal = quantity === 1
+  //             ? parseFloat(item.price || 0)
+  //             : parseFloat(item.price || 0) + ((parseFloat(item.price || 0) / 100) * (item.price_increment || 0) * (quantity - 1));
+
+  //         return acc + currentTotal;
+  //     }, 0) + Object.values(adjustments || {}).reduce((acc, item) => acc + parseFloat(item.price || 0), 0);
+
+  //     // Directly use the selected item's time if provided
+  //     const totalTime = selectedItem ? selectedItem.time || 0 : 0;
+
+  //     return {
+  //         price: totalPrice,
+  //         time: totalTime,
+  //     };
+  // };
+
   const [width, setWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -435,91 +474,185 @@ export default function Adjustments({ user, lang, setLang }) {
     });
   };
 
-const addData = (id, index) => {
-  const elementValue = document.getElementById(`${id}_content`).value;
-  if (!elementValue) {
-    setAdjustmentError(true);
-    return;
-  }
-  setAdjustmentsData((prev) => {
-    const updatedData = {
-      ...prev,
-      [id]: {
-        ...(adjustments[index]), // always copy all properties from the adjustment
-        ...prev[id],             // keep any previous user data (like attachments)
-        content: elementValue,   // update content
-      },
-    };
-    updateTotals(itemsList, updatedData);
-    return updatedData;
-  });
-  setErrorMsg(null);
-  showToast("Updated Successfully", "#1BA56F");
-};
-
- const overAllAmount = (items = {}, adjustments = {}) => {
-  const selectedLanguage = addOnLang.find((ele) => ele.isChecked)?.language;
-  let total = 0;
-  for (const key in items) {
-    const item = items[key];
-    const quantity = item.qty || 0;
-    const basePrice = parseFloat(item.price || 0);
-    const increment = item.price_increment || 0;
-
-    let currentTotal = 0;
-
-    if (
-      item.name_english === "Logo & Identity" &&
-      selectedLanguage === "both"
-    ) {
-      if (quantity === 1) {
-        currentTotal = basePrice + 2000;
-      } else if (quantity > 1) {
-        const additionalUnits = quantity - 1;
-        const incrementedPricePerUnit =
-          (((basePrice + 2000) * increment) / 100) * additionalUnits;
-        currentTotal = basePrice + 2000 + incrementedPricePerUnit;
-      }
-    } else {
-      currentTotal =
-        quantity === 1
-          ? basePrice
-          : basePrice + ((basePrice * increment) / 100) * (quantity - 1);
+  const addData = (id, index) => {
+    const elementValue = document.getElementById(`${id}_content`).value;
+    if (!elementValue) {
+      // toast.error(lang === "ar" ? "أضف أفكارك" : `Add your thoughts.`, {
+      //   icon: false,
+      //   style: {
+      //     color: "#D83D99",
+      //     fontWeight: "700",
+      //   },
+      // });
+      // let color = "#D83D99";
+      // let fontWeight = "700";
+      // toastErrorMessage(
+      //   lang === "ar" ? "أضف أفكارك" : `Add your thoughts.`,
+      //   color,
+      //   fontWeight
+      // );
+      setAdjustmentError(true);
+      return;
     }
-
-    total += currentTotal;
-  }
-  // Add adjustment prices (submitted edits)
-  for (const key in adjustments) {
-    const adj = adjustments[key];
-    total += parseFloat(adj.price || 0);
-  }
-  return total;
-};
-
-const calculateTotals = (
-  items = {},
-  adjustments = {},
-  selectedItem = null
-) => {
-  const totalPrice = overAllAmount(items, adjustments);
-
-  const maxItemTime = Object.values(items || {}).reduce(
-    (max, item) => Math.max(max, item.time || 0),
-    0
-  );
-  const maxAdjustmentTime = Object.values(adjustments || {}).reduce(
-    (max, adj) => Math.max(max, adj.time_limit || 0),
-    0
-  );
-
-  const totalTime = Math.max(maxItemTime, maxAdjustmentTime);
-
-  return {
-    price: totalPrice,
-    time: totalTime,
+    if (!elementValue) return;
+    if (elementValue) {
+      setAdjustmentsData((prev) => {
+        const updatedData = {
+          ...prev,
+          [id]: {
+            ...prev[id],
+            content: elementValue,
+            ...(prev[id] ? {} : adjustments[index]),
+          },
+        };
+        updateTotals(itemsList, updatedData);
+        return updatedData;
+      });
+      setErrorMsg(null);
+    }
+    // toast.success("Updated Successfully", {
+    //   position: toast?.POSITION?.TOP_RIGHT,
+    //   toastId: "required-value-toast",
+    //   icon: false,
+    //   style: {
+    //     color: "#1BA56F",
+    //     fontWeight: "700", // White text
+    //   },
+    // });
+    showToast("Updated Successfully", "#1BA56F");
   };
-};
+
+  //   const calculateTotals = (
+  //   items = {},
+  //   adjustments = {},
+  //   selectedItem = null
+  // ) => {
+  //   const totalPrice =
+  //     Object.values(items || {}).reduce((acc, item) => {
+  //       const quantity = item.qty || 0;
+  //       const currentTotal =
+  //         quantity === 1
+  //           ? parseFloat(item.price || 0)
+  //           : parseFloat(item.price || 0) +
+  //             (parseFloat(item.price || 0) / 100) *
+  //               (item.price_increment || 0) *
+  //               (quantity - 1);
+
+  //       return acc + currentTotal;
+  //     }, 0) +
+  //     Object.values(adjustments || {}).reduce(
+  //       (acc, item) => acc + parseFloat(item.price || 0),
+  //       0
+  //     );
+  //   // Find the maximum "day" value among all items
+  //   const maxItemTime = Object.values(items || {}).reduce(
+  //     (max, item) => Math.max(max, item.time || 0),
+  //     0
+  //   );
+  //   const maxAdjustmentTime = Object.values(adjustments || {}).reduce(
+  //     (max, adj) => Math.max(max, adj.time_limit || 0),
+  //     0
+  //   );
+
+  //   // Compare with selectedItem's day if provided
+  //   const totalTime = Math.max(maxItemTime, maxAdjustmentTime);
+  //   return {
+  //     price: totalPrice,
+  //     time: totalTime, // Changed from 'time' to 'days' as per your request
+  //   };
+  // };
+
+  const overAllAmount = (items = {}) => {
+    const selectedLanguage = addOnLang.find((ele) => ele.isChecked)?.language;
+    let total = 0;
+    for (const key in items) {
+      const item = items[key];
+      const quantity = item.qty || 0;
+      const basePrice = parseFloat(item.price || 0);
+      const increment = item.price_increment || 0;
+
+      let currentTotal = 0;
+
+      if (
+        items[key].name_english === "Logo & Identity" &&
+        selectedLanguage === "both"
+      ) {
+        if (quantity === 1) {
+          currentTotal = basePrice + 2000;
+        } else if (quantity > 1) {
+          const additionalUnits = quantity - 1;
+          const incrementedPricePerUnit = ((basePrice + 2000) * increment) / 100 * additionalUnits;
+          currentTotal =
+            (basePrice + 2000)  + incrementedPricePerUnit;
+        }
+      } else {
+        currentTotal =
+          quantity === 1
+            ? basePrice
+            : basePrice + ((basePrice * increment) / 100) * (quantity - 1);
+      }
+
+      total += currentTotal;
+    }
+    return total;
+  };
+
+  const calculateTotals = (
+    items = {},
+    adjustments = {},
+    selectedItem = null
+  ) => {
+    debugger
+    const selectedLanguage = addOnLang.find((ele) => ele.isChecked)?.language;
+
+    const totalPrice =
+      Object.values(items || {}).reduce((acc, item) => {
+        const quantity = item.qty || 0;
+        const basePrice = parseFloat(item.price || 0);
+        const increment = item.price_increment || 0;
+
+        let currentTotal = 0;
+        if (
+          item.name_english === "Logo & Identity" &&
+          selectedLanguage === "both"
+        ) {
+          if (quantity === 1) {
+            return (currentTotal = basePrice + 2000);
+          } else if (quantity > 1) {
+            const incrementTotal =
+              (((basePrice + 2000) * increment) / 100) * (quantity - 1);
+            return (currentTotal = basePrice + 2000 + incrementTotal);
+          }
+        } else {
+          if (quantity === 1) {
+            return (currentTotal = basePrice);
+          } else {
+            return (currentTotal = ((basePrice * increment) / 100) * quantity);
+          }
+        }
+
+        return acc + currentTotal;
+      }, 0) +
+      Object.values(adjustments || {}).reduce(
+        (acc, item) => acc + parseFloat(item.price || 0),
+        0
+      );
+    const maxItemTime = Object.values(items || {}).reduce(
+      (max, item) => Math.max(max, item.time || 0),
+      0
+    );
+    const maxAdjustmentTime = Object.values(adjustments || {}).reduce(
+      (max, adj) => Math.max(max, adj.time_limit || 0),
+      0
+    );
+
+    const totalTime = Math.max(maxItemTime, maxAdjustmentTime);
+debugger
+    return {
+      price: overAllAmount(items),
+      time: totalTime,
+    };
+  };
 
   const remove_item = (id) => {
     if (itemsList[id]) {
@@ -616,6 +749,7 @@ const calculateTotals = (
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
+
 
   const removeItem = (id, type) => {
     console.log(id, type);
@@ -910,7 +1044,7 @@ const calculateTotals = (
     });
   };
 
-  const handleAddOnChange = (id, language) => {
+    const handleAddOnChange = (id, language) => {
     setAddOnLang((prev) =>
       prev.map((ele) =>
         ele.id === id && ele.language === language
@@ -919,24 +1053,19 @@ const calculateTotals = (
       )
     );
     // calculateTotals(itemsList)
-
-    const { price: total_price, time: total_time } = calculateTotals(
-      itemsList,
-      adjustmentData
-    );
-    showErrorToast(
-      lang === "ar" ? "تم تحديث السلة بنجاح." : "Cart updated successfully",
-      "#1BA56F"
-    );
-    setTotalPrice(total_price);
-    setTotalTime(total_time);
+          const { price: total_price, time: total_time } = calculateTotals(
+        itemsList,
+        adjustmentData
+      );
+      debugger
+      showErrorToast(
+        lang === "ar" ? "تم تحديث السلة بنجاح." : "Cart updated successfully",
+        "#1BA56F"
+      );
+      setTotalPrice(total_price);
+      setTotalTime(total_time);
+    
   };
-
-  useEffect(() => {
-  // Recalculate totals when language or items change
-  updateTotals(itemsList, adjustmentData);
-  // eslint-disable-next-line
-}, [addOnLang, itemsList, adjustmentData]);
 
   return (
     <>
@@ -1573,8 +1702,7 @@ const calculateTotals = (
                                         ? item.name_arabic
                                         : item.name_english}{" "}
                                       {addOnLang.find((ele) => ele.isChecked)
-                                        ?.language === "both" &&
-                                      item.name_english === "Logo & Identity"
+                                        ?.language === "both"
                                         ? "(English & Arabic)"
                                         : addOnLang.find((ele) => ele.isChecked)
                                             ?.language === "English"
@@ -1778,7 +1906,7 @@ const calculateTotals = (
                             {row.qty} x{" "}
                             {lang === "ar"
                               ? row?.name_arabic
-                              : row.name_english}1111111111
+                              : row.name_english}
                           </div>
                           <div className="font-[500] ml-8">
                             {" "}
@@ -2852,24 +2980,14 @@ const calculateTotals = (
                         <p className="font-bold">
                           {" "}
                           {lang === "ar" ? item.name_arabic : item.name_english}
-                          {/* {item.name_english === "Logo & Identity" &&
-                          addOnLang.find((ele) => ele.isChecked)?.language ===
-                            "both"
-                            ? "(English & Arabic)"
-                            : item.name_english === "Logo & Identity" && addOnLang.find((ele) => ele.isChecked)
-                                ?.language === "English"
-                            ? "(English)"
-                            : item.name_english === "Logo & Identity" && "(Arabic)"} */}
                           {item.name_english === "Logo & Identity" &&
                           addOnLang.find((ele) => ele.isChecked)?.language ===
                             "both"
                             ? "(English & Arabic)"
-                            : item.name_english === "Logo & Identity" &&
-                              addOnLang.find((ele) => ele.isChecked)
+                            : addOnLang.find((ele) => ele.isChecked)
                                 ?.language === "English"
                             ? "(English)"
-                            : item.name_english === "Logo & Identity" &&
-                              "(Arabic)"}
+                            : "(Arabic)"}
                         </p>
                         <div className="flex font-[500] text-[#1BA56F]">
                           <p className="flex items-center">
@@ -2880,8 +2998,7 @@ const calculateTotals = (
                             ></img>
                             <span>
                               {addOnLang.find((ele) => ele.isChecked)
-                                ?.language === "both" &&
-                              item.name_english === "Logo & Identity"
+                                ?.language === "both" && item.name_english === "Logo & Identity"
                                 ? calculateAmount(item.qty, item.price)
                                 : amountDecimal(item.total_price)}{" "}
                               {lang === "ar" ? "ريال" : "SAR"}
@@ -3115,8 +3232,7 @@ const calculateTotals = (
                       } `}
                     >
                       <td className=" !py-2" scope="row">
-                        {lang === "ar" ? row?.name_arabic : 
-                        row.name_english === 'Logo & Identity'?`${row.name_english} (${addOnLang.find((ele)=>ele.isChecked)?.language})`:row.name_english}
+                        {lang === "ar" ? row?.name_arabic : row.name_english}
                       </td>
                       <td className=" !py-2" align="center">
                         {row.qty}
