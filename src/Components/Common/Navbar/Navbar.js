@@ -425,7 +425,7 @@ export const Navbar = ({ isLang, setIsLang }) => {
                   <div className={`navbar navbar-expand-lg float-right`}>
                     <ul
                       className={`${
-                        isLang === "ar" ? "sm:mt-[3vh]" : "sm:mt-[4vh]"
+                        isLang === "ar" ? "sm:mt-[3vh]" : "sm:mt-[5vh]"
                       } xs:mt-0 mr-auto h-list align-items-center `}
                     >
                       <li className="px-[7px]">

@@ -478,7 +478,7 @@ transition: all .3s ease;
 .btn-outline-white{background-color: var(--white-color);}
 .btn-outline-white:hover{background-color: var(--white-color); border: 1px solid #000000;}
 .btn-save-later {font-size: 24px; font-weight: 700; text-decoration: underline;}
-.btn-blank-hover{font-size: 22px; transition: all .2s ease-in-out;}
+.btn-blank-hover{font-size: 18px; transition: all .2s ease-in-out;}
 .btn-blank-hover:hover{background-color: rgba(0, 0, 0, 1); color: #ffffff;}
 .w-300 {min-width: 300px;}
 .btn-outter {padding: 15px;}
@@ -714,10 +714,15 @@ margin-top: 20px;
 }
 
 /* Navbar */
-.navbar-brand img {
+.navbar-brand img  {
+width: 155px;
+/* margin-top: -15px; */
+}
+
+/* .navbar-brand img  {
 width: 155px;
 margin-top: -15px;
-}
+} */
 
 
 .nav-section {
@@ -2697,7 +2702,7 @@ color: var(--pink-color);
 }
 
 .bundl-box-inner {
-min-height: 210px;
+min-height: 195px;
 border-bottom: 1px solid #000000;
 }
 
@@ -4826,6 +4831,11 @@ width: 155px;
 margin-top: -15px;
 }
 
+.navbar-brand img  {
+width: 155px;
+/* margin-top: -15px; */
+}
+
 @media screen and (max-width:1024px) and (min-width:768px) {
 
 /* .header-section{
@@ -4960,6 +4970,12 @@ margin-top: -15px;
 width: 155px;
 margin-top: 0px;
 }
+
+.navbar-brand img  {
+width: 155px;
+/* margin-top: -15px; */
+}
+
 @media screen and (max-width:441px) {
   .checkbox-btn-img li.checkbox {width: 95%;}
   .checkbox-btn-img{
@@ -5150,7 +5166,7 @@ margin-top: 0px;
 }
 .pack-inner-title {
   font-size: 12px;
-  padding-top: 10px;
+  padding-top: 15px;
 }
 .newbie{
   font-size: 16px;
@@ -5161,6 +5177,15 @@ margin-top: 0px;
 }
 .second_section_image img{
   width: 50px !important;
+}
+.navbar-brand img {
+width: 155px;
+margin-top: -15px;
+}
+
+.navbar-brand img  {
+width: 155px;
+/* margin-top: -15px; */
 }
 }
 @media screen and (max-width:441) {
@@ -5213,8 +5238,15 @@ margin-top: 0px;
 
 .navbar-brand1 img {
 width: 155px;
-margin-top:0px;
+
 }
+
+.navbar-brand img {
+width: 155px;
+
+}
+
+
 
 
 }
@@ -5345,7 +5377,7 @@ width:225px;
   }
 
   .button-container {
-width:225px;
+width:185px;
 }
 }
 
@@ -5373,6 +5405,10 @@ width:225px;
 .bundl-box-inner .title{
   font-size: 24px;
 }
+
+/* .navbar-brand2 img  {
+width: 155px;
+} */
 
 /* Medium desktops (≥992px) */
 @media (min-width: 992px) {

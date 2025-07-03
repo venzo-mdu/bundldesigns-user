@@ -99,8 +99,8 @@ export const BundlDetail = ({ user, lang, setLang }) => {
     newToastId = toast(message, {
       duration: 3000,
       style: {
-        color: "#D83D99",
-        border: `1px solid #D83D99`,
+        color: "#f175ad",
+        border: `1px solid #f175ad`,
         fontWeight: "700",
         background: "#fff",
         boxShadow: "none",
