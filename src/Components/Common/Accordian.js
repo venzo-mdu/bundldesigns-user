@@ -36,10 +36,9 @@ export const Accordian = ({
   const isCustomBundl = location.pathname === "/custombundl";
   const [isArabic, setIsArabic] = useState("");
 
-
   useEffect(() => {
-  setIsArabic(localStorage.getItem("lang"));
-}, []);
+    setIsArabic(localStorage.getItem("lang"));
+  }, []);
 
   const [isDropdown, setIsDropdown] = useState([
     false,
@@ -309,10 +308,10 @@ export const Accordian = ({
             (item) => item.id === design.id
           )
         );
-
         return {
           design_id: design.id,
           addon_name: design.name_english,
+          language:design.name_english === "Logo & Identity"?addOnLang.find((ele)=>ele.isChecked).language:null,
           addon_arabic: design.name_arabic,
           unit_price: design.price.toString(),
           unit_time: design.time.toString(),
@@ -594,72 +593,117 @@ export const Accordian = ({
                                       borderStyle: "solid",
                                       borderWidth: "1px",
                                     }}
-                                    onClick={() =>
-                                      handleQuantityChange(
-                                        design.name_english,
-                                        1
-                                      )
-                                    }
+                                    //                                    onClick={() => {
+                                    //   console.log(design, "design");
+                                    //   ;
+
+                                    //   const isLogoAndIdentity = design.name_english === "Logo & Identity";
+                                    //   const isCustomBundle = path === "custombundl";
+
+                                    //   if (isLogoAndIdentity && isCustomBundle) {
+                                    //     if (design.quantity < 1) {
+                                    //       handleQuantityChange(design.name_english, 1);
+                                    //     }
+                                    //     // Else: do nothing, as quantity is already 1 or more
+                                    //   } else {
+                                    //     handleQuantityChange(design.name_english, 1);
+                                    //   }
+                                    // }}
+
+                                    onClick={() => {
+                                      
+                                      const isLogoAndIdentity =
+                                        design.name_english ===
+                                        "Logo & Identity";
+                                      const isCustomBundle =
+                                        path === "custombundl";
+                                      const currentQuantity =
+                                        quantities["Logo & Identity"];
+
+                                      if (isLogoAndIdentity && isCustomBundle) {
+                                        if (currentQuantity === undefined || currentQuantity === 0) {
+                                          handleQuantityChange(
+                                            design.name_english,
+                                            1
+                                          );
+                                        }
+                                        // Do nothing if already set (i.e., prevent adding again)
+                                      } else {
+                                        handleQuantityChange(
+                                          design.name_english,
+                                          1
+                                        );
+                                      }
+                                    }}
                                     className={`flex  items-center px-1  !py-[5px] `}
                                   >
                                     <AddIcon />
                                   </button>
                                 </p>
                               </div>
-                              {design.name_english === "Logo & Identity" && (
-                                <div className={`flex md:ml-[14%]  
-                                                  lg:ml-[11%] macm2:ml-[11%] macm3:ml-[2%] macm1:ml-[10%]
-                                                  lmd2:ml-[15%] ${window.innerWidth >1440 && 'ml-[1%]' }
-                                                  ${window.innerWidth >1440 && 'ml-[10%]' }
-                                                  items-center mb-4 justify-center`}>
-                                  <Typography>
-                                    <div className="flex gap-2">
-                                      {addOnLang?.map((ele) => {
-                                        return (
-                                          <div
-                                            className={`flex gap-1 ${
-                                              window.innerWidth > 379
-                                                ? "text-[16px]"
-                                                : "text-[15px]"
-                                            }   items-center cursor-pointer`}
-                                            key={`${ele.id}-${ele.language}`}
-                                          >
-                                            <input
-                                              type="radio"
-                                              checked={ele.isChecked}
-                                              onChange={() =>
-                                                handleAddOnChange(
-                                                  ele.id,
-                                                  ele.language
-                                                )
-                                              }
-                                              name="languageOption"
-                                              value={ele.language}
-                                              id={`lang_${ele.id}_${ele.language}`}
-                                            />
-                                            <label
-                                              htmlFor={`lang_${ele.id}_${ele.language}`}
-                                              className={`mb-0 ${
-                                                window.innerWidth < 346
-                                                  ? "text-[12px]"
-                                                  : window.innerWidth < 362
-                                                  ? "text-[14px]"
-                                                  : window.innerWidth < 379
-                                                  ? "text-[15px]"
-                                                  : window.innerWidth <= 475
+                              {design.name_english === "Logo & Identity" &&
+                                path === "custombundl" && (
+                                  <div
+                                    className={`flex md:ml-[16%]  
+                                                  lg:ml-[12%] macm2:ml-[11%] macm3:ml-[2%] macm1:ml-[11%]
+                                                  lmd2:ml-[15%] ${
+                                                    window.innerWidth > 1440 &&
+                                                    "ml-[1%]"
+                                                  }
+                                                  ${
+                                                    window.innerWidth > 1440 &&
+                                                    "ml-[10%]"
+                                                  }
+                                                  items-center mb-4 justify-center`}
+                                  >
+                                    <Typography>
+                                      <div className="flex gap-2">
+                                        {addOnLang?.map((ele) => {
+                                          return (
+                                            <div
+                                              className={`flex gap-1 ${
+                                                window.innerWidth > 379
                                                   ? "text-[16px]"
-                                                  : "text-[18px]"
-                                              } cursor-pointer`}
+                                                  : "text-[15px]"
+                                              }   items-center cursor-pointer`}
+                                              key={`${ele.id}-${ele.language}`}
                                             >
-                                              {ele.label}
-                                            </label>
-                                          </div>
-                                        );
-                                      })}
-                                    </div>
-                                  </Typography>
-                                </div>
-                              )}
+                                              <input
+                                                type="radio"
+                                                checked={ele.isChecked}
+                                                onChange={() =>
+                                                  handleAddOnChange(
+                                                    ele.id,
+                                                    ele.language
+                                                  )
+                                                }
+                                                name="languageOption"
+                                                value={ele.language}
+                                                id={`lang_${ele.id}_${ele.language}`}
+                                              />
+                                              <label
+                                                htmlFor={`lang_${ele.id}_${ele.language}`}
+                                                className={`mb-0 ${
+                                                  window.innerWidth < 346
+                                                    ? "text-[12px]"
+                                                    : window.innerWidth < 362
+                                                    ? "text-[14px]"
+                                                    : window.innerWidth < 379
+                                                    ? "text-[15px]"
+                                                    : window.innerWidth <= 475
+                                                    ? "text-[16px]"
+                                                    : "text-[18px]"
+                                                } cursor-pointer`}
+                                              >
+                                                {ele.label}
+                                              </label>
+                                            </div>
+                                          );
+                                        })}
+                                      </div>
+                                    </Typography>
+                                  </div>
+                                )}
                             </div>
                           );
                         }

@@ -1196,7 +1196,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                                     addOnLang.find((ele) => ele.isChecked)
                                       ?.language === "English") &&
                                   window.innerWidth >= 475
-                                    ? "mb-8"
+                                    ? ""
                                     : ""
                                 } ${
                                   addon.category === "Branding" &&
@@ -1252,7 +1252,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                                       }
                                     >
                                       {addon.qty}{" "}
-                                      {lang === "ar" ? (
+                                      {/* {lang === "ar" ? (
                                         addon.addon_arabic
                                       ) : addon.addon_name ===
                                         "Logo & Identity" ? (
@@ -1269,7 +1269,12 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                                         </span>
                                       ) : (
                                         addon.addon_name
-                                      )}
+                                      )} */}
+                                      <span>
+                                        {lang === "ar"
+                                          ? addon.addon_arabic
+                                          : addon.addon_name}
+                                      </span>
                                     </p>
                                     <p
                                       className={`sm:text-[18px] text-[18px] xs:text-[16px] font-[400] lg:w-[40%] md:w-[50%]  md:pr-[44px] xs:w-[25%] ${

@@ -940,6 +940,8 @@ export default function Adjustments({ user, lang, setLang }) {
     // eslint-disable-next-line
   }, [addOnLang, itemsList, adjustmentData]);
 
+  const path = window?.location?.href?.split("/")[3];
+
   return (
     <>
       {/* <ToastContainer /> */}
@@ -1333,9 +1335,42 @@ export default function Adjustments({ user, lang, setLang }) {
                                               : 0}
                                           </span>
                                           <button
-                                            onClick={() =>
-                                              addItem(index, category, item.id)
-                                            }
+                                            // onClick={() =>
+                                            //   addItem(index, category, item.id)
+                                            // }
+                                            onClick={() => {
+                                              const isLogoAndIdentity =
+                                                item.name_english ===
+                                                "Logo & Identity";
+                                              const isAdjustmentPath =
+                                                path === "adjustment";
+                                              const currentQty =
+                                                itemsList?.[item.id]?.["qty"];
+
+                                              const shouldPreventAdd =
+                                                isAdjustmentPath &&
+                                                isLogoAndIdentity &&
+                                                (currentQty === undefined ||
+                                                  currentQty < 1);
+                                              if (
+                                                isLogoAndIdentity &&
+                                                isAdjustmentPath
+                                              ) {
+                                                if (shouldPreventAdd) {
+                                                  addItem(
+                                                    index,
+                                                    category,
+                                                    item.id
+                                                  );
+                                                }
+                                              } else {
+                                                addItem(
+                                                  index,
+                                                  category,
+                                                  item.id
+                                                );
+                                              }
+                                            }}
                                             className={`flex justify-center py-1 ${
                                               lang === "ar"
                                                 ? "border-r"
@@ -2719,13 +2754,61 @@ export default function Adjustments({ user, lang, setLang }) {
                                                 : 0}
                                             </span>
                                             <button
-                                              onClick={() =>
-                                                addItem(
-                                                  index,
-                                                  category,
-                                                  item.id
-                                                )
-                                              }
+                                              // onClick={() => {
+                                              //   console.log(path);
+                                              //   ;
+                                              //   if (
+                                              //     (path === "adjustment" &&
+                                              //       item.name_english ===
+                                              //         "Logo & Identity" &&
+                                              //       itemsList[item.id][
+                                              //         "qty"
+                                              //       ] === undefined) ||
+                                              //     itemsList?.[item.id]?.[
+                                              //       "qty"
+                                              //     ] <= 1
+                                              //   ) {
+                                              //   }
+                                              //   addItem(
+                                              //     index,
+                                              //     category,
+                                              //     item.id
+                                              //   );
+                                              // }}
+
+                                              onClick={() => {
+                                                const isLogoAndIdentity =
+                                                  item.name_english ===
+                                                  "Logo & Identity";
+                                                const isAdjustmentPath =
+                                                  path === "adjustment";
+                                                const currentQty =
+                                                  itemsList?.[item.id]?.["qty"];
+
+                                                const shouldPreventAdd =
+                                                  isAdjustmentPath &&
+                                                  isLogoAndIdentity &&
+                                                  (currentQty === undefined ||
+                                                    currentQty < 1);
+                                                if (
+                                                  isLogoAndIdentity &&
+                                                  isAdjustmentPath
+                                                ) {
+                                                  if (shouldPreventAdd) {
+                                                    addItem(
+                                                      index,
+                                                      category,
+                                                      item.id
+                                                    );
+                                                  }
+                                                } else {
+                                                  addItem(
+                                                    index,
+                                                    category,
+                                                    item.id
+                                                  );
+                                                }
+                                              }}
                                               className={`flex items-center ${
                                                 lang === "ar"
                                                   ? "border-l"
@@ -3145,14 +3228,25 @@ export default function Adjustments({ user, lang, setLang }) {
                           ? row?.name_arabic
                           : row.name_english === "Logo & Identity"
                           ? `${row.name_english} 
-                        (${addOnLang.find((ele) => ele.isChecked)?.language})`
+                        (${
+                          addOnLang.find((ele) => ele.isChecked)?.language ===
+                          "both"
+                            ? "English & Arabic"
+                            : addOnLang.find((ele) => ele.isChecked)
+                                ?.language === "English"
+                            ? "English"
+                            : "Arabic"
+                        })`
                           : row.name_english}
                       </td>
                       <td className=" !py-2" align="center">
                         {row.qty}
                       </td>
                       <td className=" !py-2" align="center" scope="row">
-                        {amountDecimal(Math.round(row.price))}
+                        {addOnLang.find((ele) => ele.isChecked)?.language ===
+                        "both"
+                          ? amountDecimal(Math.round(row.price) + 2000)
+                          : amountDecimal(Math.round(row.price))}
                       </td>
                       {/* <TableCell align="center"><img style={{width:'23px'}} src={row.DeleteIcon}></img></TableCell> */}
                       <td className=" !py-2" align="center" scope="row">

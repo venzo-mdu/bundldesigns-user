@@ -142,18 +142,39 @@ function Addons({
                     layoutTransition={{ duration: 0.6, ease: "easeInOut" }}
                   >
                     <div
+                      // className={`${
+                      //   filterArr.length === 1 ||
+                      //   ((index === filterArr.length - 1 ||
+                      //     order.item_details.bundle_items?.length === 0) &&
+                      //     hasMultipleQty)
+                      //     ? ""
+                      //     : ""
+                      // } pl-[5%] space-x-2 mt-[2%] ${
+                      //   lang === "ar" ? "mr-8" : "text-left"
+                      // }`}
                       className={`${
-                        filterArr.length === 1 ||
-                        ((index === filterArr.length - 1 ||
-                          order.item_details.bundle_items?.length === 0) &&
-                          hasMultipleQty)
-                          ? ""
-                          : ""
-                      } pl-[5%] space-x-2 mt-[2%] ${
-                        lang === "ar" ? "mr-8" : "text-left"
-                      }`}
+                      (filterArr.length === 1 ||
+                        index === filterArr.length - 1 ||
+                        order.item_details.addon_items?.length === 0) &&
+                      !hasMultipleQty
+                        ? ""
+                        : ""
+                    } ${
+                      window.innerWidth > 475 && lang === "ar"
+                        ? "mr-8"
+                        : window.innerWidth < 475 && lang === "ar"
+                        ? "mr-0"
+                        : "text-left"
+                    } ${
+                      window.innerWidth > 475 && "pl-[5%]"
+                    } space-x-2 mt-[2%]`}
                     >
-                      <div className="-ml-[5%] w-[calc(100%+5%)] border-y border-black py-2">
+                      <div 
+                      // className="-ml-[5%] w-[calc(100%+5%)] border-y border-black py-2"
+                      className={`${
+                        window.innerWidth > 475 && "-ml-[5%]"
+                      } w-[calc(100%+5%)] border-y border-black py-2`}
+                      >
                         <div className="pl-[5%]">
                           <p className="mb-0 font-semibold text-[18px]">
                             {lang === "ar"
