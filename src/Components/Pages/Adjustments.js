@@ -1470,9 +1470,12 @@ export default function Adjustments({ user, lang, setLang }) {
                             className="text-[14px] font-[500] underline text-[#1BA56F]"
                           >
                             {!showDetails
-  ? lang === "ar" ? "عرض التفاصيل" : "Show Details"
-  : lang === "ar" ? "إخفاء التفاصيل" : "Hide Details"
-}
+                              ? lang === "ar"
+                                ? "عرض التفاصيل"
+                                : "Show Details"
+                              : lang === "ar"
+                              ? "إخفاء التفاصيل"
+                              : "Hide Details"}
                           </button>
                         )}
                       </p>
@@ -2542,13 +2545,13 @@ export default function Adjustments({ user, lang, setLang }) {
                   </>
                 )}
 
-                <div className="lg:mt-16 md:mt-16 xs:mt-8">
-                  <h2 className="text-[30px]">
+                <div className="lg:mt-4 md:mt-16 xs:mt-8">
+                  <h2 className="text-[38px]">
                     {lang === "ar"
-                      ? "مشروعك يحتاج إضافات؟"
-                      : "Something feels missing ?"}
+                      ? "مشروعك يحتاج إضافات"
+                      : "Add-ons to Bundl"}
                   </h2>
-                  <p className="text-[16px] text-[#00000080]">
+                  <p className="text-[18px] text-[#00000080]">
                     {lang === "ar"
                       ? "اطلب أي عناصر تحتاجها "
                       : "Add anything you want to your bundle to fit your brand!"}
@@ -3073,7 +3076,11 @@ export default function Adjustments({ user, lang, setLang }) {
                     src={BlackTime}
                     alt="Total Duration"
                   />
-                  <p className="basis-3/5 text-[18px] mb-0">
+                  <p
+                    className={`basis-3/5 text-[18px] mb-0 ${
+                      lang === "ar" ? "mr-[6px]" : ""
+                    }`}
+                  >
                     {lang === "ar" ? "المدة الإجمالية :" : "Total Duration :"}
                   </p>
                   <p
@@ -3185,7 +3192,8 @@ export default function Adjustments({ user, lang, setLang }) {
                         1
                       </td>
                       <td className=" !py-2" align="center">
-                        {amountDecimal(Math.round(row.price))}
+                        {amountDecimal(Math.round(row.price))}{" "}
+                        {lang === "ar" ? "ريال" : "SAR"}{" "}
                       </td>
                       {/* <td className=" !py-2" scope="row">
                         {lang === "ar" ? row?.name_arabic : 
