@@ -1142,7 +1142,7 @@ export const MyCart = ({ lang, setLang }) => {
       // toastMessage();
       showSuccessToast(
         lang === "ar" ? "تم تحديث السلة بنجاح." : "Cart updated successfully",
-        "#D83D99"
+        "#D83D99" 
       );
     } catch (error) {
       console.error(
@@ -1225,8 +1225,8 @@ export const MyCart = ({ lang, setLang }) => {
               <p
                 className={`flex items-center text-black mt-[2%] text-[18px] font-[500] ${
                   lang === "ar"
-                    ? "lg:mr-[-68px] sm:mr-[-38px]"
-                    : "lg:ml-[-68px] sm:ml-[-38px]"
+                    ? "lg:mr-[-70px] sm:mr-[-38px]"
+                    : "lg:ml-[-69px] sm:ml-[-38px]"
                 }`}
               >
                 <img
@@ -1954,6 +1954,9 @@ export const MyCart = ({ lang, setLang }) => {
 
                 <p className="text-[#D83D99] !text-[18px] !font-[400] !mt-2">
                   {Object.values(error).map((item) => {
+                    if (lang === "ar" && item === "Invalid Coupon") {
+                      return "رمز الخصم غير صالح";
+                    }
                     return item;
                   })}
                 </p>

@@ -175,6 +175,10 @@ export const Popup = ({
                 borderRadius: "0px",
                 color: "#fff",
                 px: 6,
+                fontSize: {
+                  xs: "11px",
+                  sm: "14px",
+                },
                 "&:hover": {
                   backgroundColor: saveBtnBg || "#1BA56F",
                   color: "#fff",

@@ -2519,7 +2519,7 @@ export const Home = ({ lang, setLang }) => {
                     {processData.map((process, index) => (
                       <div
                         key={index}
-                        className={`process_title xs:text-[28px] sm:text-[28px] font-[700] ${
+                        className={`process_title xs:text-[18px] sm:text-[28px] font-[700] ${
                           activeProcess === index ? "title-active" : ""
                         }`}
                       >

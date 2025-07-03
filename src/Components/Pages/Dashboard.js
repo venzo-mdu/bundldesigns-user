@@ -2116,9 +2116,9 @@ export default function Dashboard({ lang, setLang }) {
                                 )}
                               </div>
 
-                              <div className="flex items-center justify-between w-full">
-                                {/* Left side: Text + Left button */}
-                                <div className="flex items-center gap-4">
+                              <div className="flex items-center justify-between w-full">  {/* Left side: Text + Left button */}
+                                <div className="flex items-center gap-4"> 
+                                  {/* xs:justify-between xs:w-full */}
                                   <p
                                     className={`font-[600] lg:text-[18px] md:text-[18px] xs:text-[16px] m-0 ${
                                       processIndex < 2
@@ -2156,6 +2156,7 @@ export default function Dashboard({ lang, setLang }) {
                                   )}
                                 </div>
                               </div>
+                              
                             </>
                           )}
                           <p

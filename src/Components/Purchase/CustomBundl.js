@@ -471,9 +471,11 @@ export const CustomBundl = ({ user, lang, setLang }) => {
               <p
                 className="sm:text-[24px] xs:mb-0 xs:flex xs:justify-between sm:block"
                 style={{
+                  display: "flex",
                   fontWeight: "700",
                   padding: "2% 0%",
-                  textAlign: lang === "ar" ? "right" : "left",
+                  textAlign: lang === "ar" ? "right" : "left"
+
                 }}
               >
                 <span>{lang === "ar" ? "ملخص الطلب​" : "Summary"}</span>
@@ -483,7 +485,13 @@ export const CustomBundl = ({ user, lang, setLang }) => {
                     onClick={() => setDetails(!showDetails)}
                     className="text-[14px] text-[#1BA56F] font-normal underline uppercase"
                   >
-                    {showDetails ? "Hide Details" : "Show Details"}
+                    {lang === "ar"
+  ? showDetails
+    ? "إخفاء التفاصيل"
+    : "عرض التفاصيل"
+  : showDetails
+    ? "Hide Details"
+    : "Show Details"}
                   </button>
                 )}
               </p>
@@ -588,35 +596,44 @@ export const CustomBundl = ({ user, lang, setLang }) => {
                   <img
                     src={BlackDollor}
                     alt="Total Price"
-                    className="inline-block ml-1"
+                    className={`inline-block ml-1 ${
+                      lang === "ar" ? "mr-[7px]" : ""
+                    }`}
                   />
-                  <span className="ml-3 font-bold">
-                    {lang === "ar" ? "السعر الإجمالي :" : "Total Price :"}
-                  </span>
+                  <span
+  className={`ml-3 font-bold ${lang === "ar" ? "mr-[7px]" : ""}`}
+>
+  {lang === "ar" ? "السعر الإجمالي :" : "Total Price :"}
+</span>
                 </p>
                 <p className="w-[40%] xs:text-right sm:text-left !font-bold sm:mb-2 xs:mb-0">
                   {/* {amountDecimal(addonPayLoads.total_price)}{" "} */}
                   {amountDecimal(overAllAmount(addonPayLoads.item_list))}
-                  {lang === "ar" ? "ريال" : "SAR"}
+                  {lang === "ar" ? "\u00A0\u00A0ريال" : "\u00A0SAR"}
                 </p>
               </div>
               <div className="total  flex items-center">
-                <p className="w-[60%] flex items-center  sm:mb-2 xs:mb-0">
+                <p className="w-[60%] flex items-center sm:mb-2 xs:mb-0">
                   <img
                     src={BlackTime}
                     alt="Total Duration"
                     className="inline-block"
                   />
-                  <span className="ml-1">
+                  <span className={`${lang === "ar" ? "mr-[11px]" : "ml-1"}`}>
                     {lang === "ar" ? "المدة الإجمالية :" : "Total Duration :"}
                   </span>
                 </p>
-                <p className="w-[40%] xs:text-right sm:text-left sm:mb-2 xs:mb-0">
-                  {addonPayLoads.total_time} {lang === "ar" ? "يوم" : "Days"}
+                <p
+                  className={`w-[40%] ${lang !== "ar" ? "xs:text-right" : ""} ${
+                    lang === "ar" ? "sm:text-left pl-1 sm:pl-1" : ""
+                  } sm:mb-2 xs:mb-0`}
+                >
+                  {addonPayLoads.total_time}{" "}
+                  {lang === "ar" ? "\u00A0\u00A0يوم" : "Days"}
                 </p>
               </div>
 
-              <div className="proceed-checkout mt-[3%]">
+              <div className="proceed-checkout mt-[3%] flex flex-col items-center">
                 <button
                   onClick={createPayload}
                   type="button"
