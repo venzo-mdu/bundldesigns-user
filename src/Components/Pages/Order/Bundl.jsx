@@ -140,11 +140,23 @@ function BundlOrder({
                         ? ""
                         : ""
                     } ${
-                      lang === "ar" ? "mr-8" : "text-left"
-                    } pl-[5%] space-x-2 mt-[2%]`}
+                      window.innerWidth > 475 && lang === "ar"
+                        ? "mr-8"
+                        : window.innerWidth < 475 && lang === "ar"
+                        ? "mr-0"
+                        : "text-left"
+                    } ${
+                      window.innerWidth > 475 && "pl-[5%]"
+                    } space-x-2 mt-[2%]`}
                   >
-                    <div className="-ml-[5%] w-[calc(100%+5%)] border-y border-black py-2">
-                      <div className="pl-[5%]">
+                    <div
+                      className={`${
+                        window.innerWidth > 475 && "-ml-[5%]"
+                      } w-[calc(100%+5%)] border-y border-black py-2`}
+                    >
+                      <div
+                        className={`${window.innerWidth > 475 && "pl-[5%]"}`}
+                      >
                         <p className="mb-0 font-semibold text-[18px]">
                           Addons -{" "}
                           {lang === "ar"
@@ -373,7 +385,7 @@ function BundlOrder({
                             uploadContent?.[item?.id]?.[filterIndex]?.filename
                               ? "w-fit"
                               : lang === "ar"
-                              ? "w-[106px]"
+                              ? "w-[126px]"
                               : "w-[160px]"
                           } !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer`}
                           onClick={() =>

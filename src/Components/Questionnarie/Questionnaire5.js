@@ -319,7 +319,7 @@ export const Questionnaire5 = ({
         data,
         ConfigToken()
       );
-      debugger;
+      ;
       if (response.status === 200) {
         dispatch(questionnaireAction5(formData));
         navigate("/dashboard");
