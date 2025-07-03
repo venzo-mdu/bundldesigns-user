@@ -2009,8 +2009,8 @@ export default function Dashboard({ lang, setLang }) {
                         return (
                           <div className="lg:basis-[45%]  md:basis-[20%] xs:basis-1/5 text-center lg:text-[16px] md:text-[14px] mt-[2%]">
                             {" "}
-                            {item === "Add Ons" || item === "إضافات" ? (
-                              <div className={`${index == processIndex && lang === 'En'?"ml-[10%]":processIndex == 5 && lang === 'En'?'ml-[10%]':lang==='ar' && index == processIndex?'mr-[15%]': lang==='ar' && processIndex == 5 ?'mr-[8%]': "ml-[3%]"}`}>
+                            {item === "Add Ons" ? (
+                              <div className={`${index == processIndex && lang === 'En'?"ml-[10%]":processIndex == 5 && lang === 'En'?'ml-[10%]': "ml-[3%]"}`}>
                                 <p
                                   className={`pb-0 lg:max-w-[75%] md:max-w-[75%] macm2:w-[70%] max-w-[95%] lg:mx-auto md:mx-0 xs:mx-auto mb-0 ${
                                     index == processIndex && "font-bold"
