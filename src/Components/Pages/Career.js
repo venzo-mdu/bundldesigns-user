@@ -210,7 +210,7 @@ export default function Career({lang,setLang}) {
         formErrors = {errors}
         idName={'websterSelect'}
       />
-        {errors.phone && <p className="text-[#D83D99] text-sm">{errors.phone}</p>}
+        {errors.phone && <p className="text-[#D83D99] text-[14px] text-sm">{errors.phone}</p>}
       </div>
 
       {/* Email Field */}

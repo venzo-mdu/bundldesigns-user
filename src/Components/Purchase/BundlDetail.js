@@ -99,8 +99,8 @@ export const BundlDetail = ({ user, lang, setLang }) => {
     newToastId = toast(message, {
       duration: 3000,
       style: {
-        color: "#D83D99",
-        border: `1px solid #D83D99`,
+        color: "#f175ad",
+        border: `1px solid #f175ad`,
         fontWeight: "700",
         background: "#fff",
         boxShadow: "none",
@@ -815,7 +815,11 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                               </label>
                             </p>
 
-                            <p className="mr-3">
+                            <p
+                              className={`${
+                                lang === "ar" ? "mr-3" : "mr-[-0.6rem]"
+                              }`}
+                            >
                               <label className="cursor-pointer flex items-center leading-none mb-0">
                                 <input
                                   type="radio"
@@ -987,9 +991,8 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                 {/* <div style={{borderRight: "1px solid #000000"}}></div> */}
                 <div className="bundl-name ">
                   <p
-                    className={`sm:text-[24px] xs:mb-0 xs:justify-between sm:block font-[700] px-0 !mb-2 ${
-                      lang === "ar" ? "text-right" : "text-left"
-                    }`}
+                    className={`sm:text-[24px] xs:mb-0 xs:justify-between sm:block font-[700] px-0 !mb-2 display: flex
+ ${lang === "ar" ? "text-right" : "text-left"}`}
                   >
                     <span className="font-normal">
                       {lang === "ar" ? "ملخص الطلب​" : "Summary"}
@@ -1000,7 +1003,13 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                         style={{ color: `${textColor}` }}
                         className="text-[14px] font-normal underline uppercase"
                       >
-                        {showDetails ? "Hide Details" : "Show Details"}
+                        {lang === "ar"
+                          ? showDetails
+                            ? "إخفاء التفاصيل"
+                            : "عرض التفاصيل"
+                          : showDetails
+                          ? "Hide Details"
+                          : "Show Details"}
                       </button>
                     )}
                   </p>
@@ -1100,7 +1109,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                                   </p>
                                 ) : (
                                   <p
-                                    className={`sm:text-[18px] text-[18px] xs:text-[16px] font-[400] lg:w-[40%] md:w-[50%] xs:w-[25%]  ${
+                                    className={`sm:text-[18px] text-[18px] xs:text-[16px] font-[400] lg:w-[40%] md:w-[50%] xs:w-[27%]  ${
                                       lang === "ar" ? "text-left" : "text-right"
                                     }`}
                                     style={{ color: textColor }}
@@ -1347,7 +1356,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                         //   : "")} */}
                       {/* {lang === "ar" ? "ريال" : "SAR"} */}
                       {lang === "ar"
-                        ? "\u00A0\u00A0ريال"
+                        ? "\u00A0\u00A0\u00A0ريال"
                         : "\u00A0\u00A0\u00A0SAR"}
                     </p>
                   </div>
@@ -1365,11 +1374,13 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                       />
                       <span
                         className={`${
-                          lang === "ar" ? "mr-2" : "xs:ml-4 sm:ml-1 ml-1"
+                          lang === "ar"
+                            ? "mr-2 xs:mr-3.5"
+                            : "xs:ml-4 sm:ml-1 ml-1"
                         }`}
                       >
                         {lang === "ar"
-                          ? "\u00A0المدة الإجمالية :"
+                          ? "المدة الإجمالية :"
                           : "Total Duration :"}
                       </span>
                     </p>
@@ -1381,7 +1392,9 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                     >
                       {packageDetail?.package?.time + addonPayLoads.total_time}
                       {/* {lang === "ar" ? "يوما" : "Days"} */}
-                      {lang === "ar" ? "\u00A0\u00A0يوم" : "\u00A0\u00A0Days"}
+                      {lang === "ar"
+                        ? "\u00A0\u00A0\u00A0\u00A0يوم"
+                        : "\u00A0\u00A0Days"}
                     </p>
                   </div>
 
