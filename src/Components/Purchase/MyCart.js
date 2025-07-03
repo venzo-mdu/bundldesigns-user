@@ -1334,6 +1334,9 @@ export const MyCart = ({ lang, setLang }) => {
                       <div className="w-[70%]">
                         <div className="font-[700] text-[18px] ">
                           {lang === "ar"
+                              ? processArabicText(row.item__name_arabic)
+                              : row.item_name}
+                          {lang === "ar"
                             ? processArabicText(row.item__name_arabic)
                             : row.language
                             ? `${row.item_name} ${

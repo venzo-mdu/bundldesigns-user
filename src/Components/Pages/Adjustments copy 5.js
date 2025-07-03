@@ -401,6 +401,43 @@ export default function Adjustments({ user, lang, setLang }) {
     }
   };
 
+  // const calculateTotals = (items, adjustments) => {
+  //     return {
+  //         price: Object.values(items).reduce((acc, item) => acc + item.price * item.qty, 0) +
+  //             Object.values(adjustments).reduce((acc, item) => acc + parseFloat(item.price || 0), 0),
+  //         time: Object.values(items).reduce((acc, item) => acc + item.time * item.qty, 0) +
+  //             Object.values(adjustments).reduce((acc, item) => acc + parseFloat(item.time_limit || 0), 0),
+  //     };
+  // };
+
+  // const calculateTotals = (items = {}, adjustments = {}) => {
+  //     return {
+  //         price: Object.values(items || {}).reduce((acc, item) => acc + (item.price || 0) * (item.qty || 0), 0) +
+  //             Object.values(adjustments || {}).reduce((acc, item) => acc + parseFloat(item.price || 0), 0),
+  //         time: Object.values(items || {}).reduce((acc, item) => acc + (item.time || 0) * (item.qty || 0), 0) +
+  //             Object.values(adjustments || {}).reduce((acc, item) => acc + parseFloat(item.time_limit || 0), 0),
+  //     };
+  // };
+  // const calculateTotals = (items = {}, adjustments = {}, selectedItem = null) => {
+  //     const totalPrice = Object.values(items || {}).reduce((acc, item) => {
+  //         console.log(item)
+  //         const quantity = item.qty || 0;
+  //         const currentTotal = quantity === 1
+  //             ? parseFloat(item.price || 0)
+  //             : parseFloat(item.price || 0) + ((parseFloat(item.price || 0) / 100) * (item.price_increment || 0) * (quantity - 1));
+
+  //         return acc + currentTotal;
+  //     }, 0) + Object.values(adjustments || {}).reduce((acc, item) => acc + parseFloat(item.price || 0), 0);
+
+  //     // Directly use the selected item's time if provided
+  //     const totalTime = selectedItem ? selectedItem.time || 0 : 0;
+
+  //     return {
+  //         price: totalPrice,
+  //         time: totalTime,
+  //     };
+  // };
+
   const [width, setWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -438,26 +475,92 @@ export default function Adjustments({ user, lang, setLang }) {
   const addData = (id, index) => {
     const elementValue = document.getElementById(`${id}_content`).value;
     if (!elementValue) {
+      // toast.error(lang === "ar" ? "أضف أفكارك" : `Add your thoughts.`, {
+      //   icon: false,
+      //   style: {
+      //     color: "#D83D99",
+      //     fontWeight: "700",
+      //   },
+      // });
+      // let color = "#D83D99";
+      // let fontWeight = "700";
+      // toastErrorMessage(
+      //   lang === "ar" ? "أضف أفكارك" : `Add your thoughts.`,
+      //   color,
+      //   fontWeight
+      // );
       setAdjustmentError(true);
       return;
     }
-    setAdjustmentsData((prev) => {
-      const updatedData = {
-        ...prev,
-        [id]: {
-          ...adjustments[index], // always copy all properties from the adjustment
-          ...prev[id], // keep any previous user data (like attachments)
-          content: elementValue, // update content
-        },
-      };
-      updateTotals(itemsList, updatedData);
-      return updatedData;
-    });
-    setErrorMsg(null);
+    if (!elementValue) return;
+    if (elementValue) {
+      setAdjustmentsData((prev) => {
+        const updatedData = {
+          ...prev,
+          [id]: {
+            ...prev[id],
+            content: elementValue,
+            ...(prev[id] ? {} : adjustments[index]),
+          },
+        };
+        updateTotals(itemsList, updatedData);
+        return updatedData;
+      });
+      setErrorMsg(null);
+    }
+    // toast.success("Updated Successfully", {
+    //   position: toast?.POSITION?.TOP_RIGHT,
+    //   toastId: "required-value-toast",
+    //   icon: false,
+    //   style: {
+    //     color: "#1BA56F",
+    //     fontWeight: "700", // White text
+    //   },
+    // });
     showToast("Updated Successfully", "#1BA56F");
   };
 
-  const overAllAmount = (items = {}, adjustments = {}) => {
+  //   const calculateTotals = (
+  //   items = {},
+  //   adjustments = {},
+  //   selectedItem = null
+  // ) => {
+  //   const totalPrice =
+  //     Object.values(items || {}).reduce((acc, item) => {
+  //       const quantity = item.qty || 0;
+  //       const currentTotal =
+  //         quantity === 1
+  //           ? parseFloat(item.price || 0)
+  //           : parseFloat(item.price || 0) +
+  //             (parseFloat(item.price || 0) / 100) *
+  //               (item.price_increment || 0) *
+  //               (quantity - 1);
+
+  //       return acc + currentTotal;
+  //     }, 0) +
+  //     Object.values(adjustments || {}).reduce(
+  //       (acc, item) => acc + parseFloat(item.price || 0),
+  //       0
+  //     );
+  //   // Find the maximum "day" value among all items
+  //   const maxItemTime = Object.values(items || {}).reduce(
+  //     (max, item) => Math.max(max, item.time || 0),
+  //     0
+  //   );
+  //   const maxAdjustmentTime = Object.values(adjustments || {}).reduce(
+  //     (max, adj) => Math.max(max, adj.time_limit || 0),
+  //     0
+  //   );
+
+  //   // Compare with selectedItem's day if provided
+  //   const totalTime = Math.max(maxItemTime, maxAdjustmentTime);
+  //   return {
+  //     price: totalPrice,
+  //     time: totalTime, // Changed from 'time' to 'days' as per your request
+  //   };
+  // };
+
+  const overAllAmount = (items = {}) => {
     const selectedLanguage = addOnLang.find((ele) => ele.isChecked)?.language;
     let total = 0;
     for (const key in items) {
@@ -469,7 +572,7 @@ export default function Adjustments({ user, lang, setLang }) {
       let currentTotal = 0;
 
       if (
-        item.name_english === "Logo & Identity" &&
+        items[key].name_english === "Logo & Identity" &&
         selectedLanguage === "both"
       ) {
         if (quantity === 1) {
@@ -489,11 +592,6 @@ export default function Adjustments({ user, lang, setLang }) {
 
       total += currentTotal;
     }
-    // Add adjustment prices (submitted edits)
-    for (const key in adjustments) {
-      const adj = adjustments[key];
-      total += parseFloat(adj.price || 0);
-    }
     return total;
   };
 
@@ -502,8 +600,41 @@ export default function Adjustments({ user, lang, setLang }) {
     adjustments = {},
     selectedItem = null
   ) => {
-    const totalPrice = overAllAmount(items, adjustments);
+    ;
+    const selectedLanguage = addOnLang.find((ele) => ele.isChecked)?.language;
 
+    const totalPrice =
+      Object.values(items || {}).reduce((acc, item) => {
+        const quantity = item.qty || 0;
+        const basePrice = parseFloat(item.price || 0);
+        const increment = item.price_increment || 0;
+
+        let currentTotal = 0;
+        if (
+          item.name_english === "Logo & Identity" &&
+          selectedLanguage === "both"
+        ) {
+          if (quantity === 1) {
+            return (currentTotal = basePrice + 2000);
+          } else if (quantity > 1) {
+            const incrementTotal =
+              (((basePrice + 2000) * increment) / 100) * (quantity - 1);
+            return (currentTotal = basePrice + 2000 + incrementTotal);
+          }
+        } else {
+          if (quantity === 1) {
+            return (currentTotal = basePrice);
+          } else {
+            return (currentTotal = ((basePrice * increment) / 100) * quantity);
+          }
+        }
+
+        return acc + currentTotal;
+      }, 0) +
+      Object.values(adjustments || {}).reduce(
+        (acc, item) => acc + parseFloat(item.price || 0),
+        0
+      );
     const maxItemTime = Object.values(items || {}).reduce(
       (max, item) => Math.max(max, item.time || 0),
       0
@@ -514,9 +645,9 @@ export default function Adjustments({ user, lang, setLang }) {
     );
 
     const totalTime = Math.max(maxItemTime, maxAdjustmentTime);
-
+    ;
     return {
-      price: totalPrice,
+      price: overAllAmount(items),
       time: totalTime,
     };
   };
@@ -854,12 +985,10 @@ export default function Adjustments({ user, lang, setLang }) {
     };
     if (validateFields()) {
       try {
-        console.log(itemId, "itemId");
-
         const res = await axios.post(
-          `${base_url}/api/adjustment_create/?orderId=${
-            state.purchaseAddOns === "adj" ? itemId : orderId
-          }&type=${state.purchaseAddOns ? "addon" : "adj"}`,
+          `${base_url}/api/adjustment_create/?orderId=${orderId}&type=${
+            state.purchaseAddOns ? "addon" : "adj"
+          }`,
           formData,
           ConfigToken()
         );
@@ -926,6 +1055,7 @@ export default function Adjustments({ user, lang, setLang }) {
       itemsList,
       adjustmentData
     );
+    ;
     showErrorToast(
       lang === "ar" ? "تم تحديث السلة بنجاح." : "Cart updated successfully",
       "#1BA56F"
@@ -935,10 +1065,10 @@ export default function Adjustments({ user, lang, setLang }) {
   };
 
   useEffect(() => {
-    // Recalculate totals when language or items change
-    updateTotals(itemsList, adjustmentData);
-    // eslint-disable-next-line
-  }, [addOnLang, itemsList, adjustmentData]);
+  // Recalculate totals when language or items change
+  updateTotals(itemsList, adjustmentData);
+  // eslint-disable-next-line
+}, [addOnLang, itemsList, adjustmentData]);
 
   return (
     <>
@@ -1422,7 +1552,7 @@ export default function Adjustments({ user, lang, setLang }) {
                     } w-full left-0 z-[1]`}
                   >
                     <div className="bundl-name ">
-                      <p className="sm:text-[24px] xs:mb-0 xs:flex xs:justify-between sm:block font-[700] px-0 pt-[5%] !mb-2 display:flex">
+                      <p className="sm:text-[24px] xs:mb-0 xs:flex xs:justify-between sm:block font-[700] px-0 pt-[5%] !mb-2">
                         <span className="font-[400] text-[16px] font-Helvetica">
                           {" "}
                           {lang === "ar"
@@ -1434,10 +1564,7 @@ export default function Adjustments({ user, lang, setLang }) {
                             onClick={() => setDetails(!showDetails)}
                             className="text-[14px] font-[500] underline text-[#1BA56F]"
                           >
-                            {!showDetails
-  ? lang === "ar" ? "عرض التفاصيل" : "Show Details"
-  : lang === "ar" ? "إخفاء التفاصيل" : "Hide Details"
-}
+                            {!showDetails ? "Show Details" : "Hide Details"}
                           </button>
                         )}
                       </p>
@@ -2270,7 +2397,7 @@ export default function Adjustments({ user, lang, setLang }) {
                 className={`flex text-[18px] items-center pb-2 text-black cursor-pointer px-[20px]"${
                   lang === "ar"
                     ? "xs:mr-[-4px] sm:mr-[-8px]  lg:mr-[22px] xl:mr-[23px]"
-                    : "xs:ml-[-4px] sm:ml-[-8px]  lg:ml-[20px] xl:ml-[20px]"
+                    : "xs:ml-[-4px] sm:ml-[-8px]  lg:ml-[25px] xl:ml-[23px]"
                 }`}
                 onClick={() => {
                   window.location.href = "/dashboard";
@@ -2738,16 +2865,9 @@ export default function Adjustments({ user, lang, setLang }) {
                                             {item.name_english ===
                                               "Logo & Identity" && (
                                               <div
-                                                className={`flex md:ml-[14%]  
-                                                  lg:ml-[11%] macm2:ml-[9%] macm3:ml-[4%] macm1:ml-[11%]
-                                                  lmd2:ml-[15%]   ${
-                                                    window.innerWidth > 1440 &&
-                                                    "ml-[1%]"
-                                                  }
-                                                  ${
-                                                    window.innerWidth > 1440 &&
-                                                    "ml-[10%]"
-                                                  }
+                                                className={`flex macm2:ml-[4%] 
+                                                  lg:ml-[4%] md:ml-[14%] 
+                                                  lmd2:ml-[15%] macm1-[5%] 
                                                   py-[1.5%] items-center mb-4 justify-center`}
                                               >
                                                 <Typography>
@@ -3097,18 +3217,12 @@ export default function Adjustments({ user, lang, setLang }) {
                           ? row.arabic_adjustment_name
                           : row.english_adjustment_name}
                       </td>
-
                       <td className=" !py-2" align="center">
                         1
                       </td>
                       <td className=" !py-2" align="center">
                         {amountDecimal(Math.round(row.price))}
                       </td>
-                      {/* <td className=" !py-2" scope="row">
-                        {lang === "ar" ? row?.name_arabic : 
-                        row.name_english === 'Logo & Identity'?`${row.name_english} 
-                        (${addOnLang.find((ele)=>ele.isChecked)?.language})`:row.name_english}
-                      </td> */}
                       <td align="center">
                         <p className="flex items-center !mb-0 justify-center">
                           <img
@@ -3133,12 +3247,7 @@ export default function Adjustments({ user, lang, setLang }) {
                       } `}
                     >
                       <td className=" !py-2" scope="row">
-                        {lang === "ar"
-                          ? row?.name_arabic
-                          : row.name_english === "Logo & Identity"
-                          ? `${row.name_english} 
-                        (${addOnLang.find((ele) => ele.isChecked)?.language})`
-                          : row.name_english}
+                        {lang === "ar" ? row?.name_arabic : row.name_english}
                       </td>
                       <td className=" !py-2" align="center">
                         {row.qty}

@@ -301,8 +301,8 @@ export const Questionnaire3 = ({
         questions={questionAnswer3.slice(11, 14).map((question, index) => (
           <div className="questions" key={index} id={`question_${question.id}`}>
             <p
-              className={`questions-title  xs:w-[90%] sm:w-full md:w-full mx-auto ${
-                index === 0 ? "mt-[1%]" : "mt-[0%]"
+              className={`questions-title  xs:w-[90%] sm:w-full md:w-full mx-auto ${index === 1 && 'mt-[3%]'} ${
+                index === 0 ? "mt-[1%]" : "mt-[0%]" 
               }`}
             >
               {changeLang === "ar"

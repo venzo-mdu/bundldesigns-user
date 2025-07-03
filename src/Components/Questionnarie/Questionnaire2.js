@@ -750,6 +750,7 @@ export const Questionnaire2 = ({
                       question.answer_type === "age-data" ? "" : question.answer
                     }
                     onChange={(e) => handleChange(question.id, e.target.value)}
+                     disabled={question.answer_type === "age-data"}
                   />
                 </div>
               );
