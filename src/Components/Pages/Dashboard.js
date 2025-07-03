@@ -1894,7 +1894,7 @@ export default function Dashboard({ lang, setLang }) {
                   </h1>
                 )}
 
-                <p className="flex lg:overflow-auto md:overflow-auto xs:overflow-hidden mb-0">
+                <p className="flex lg:overflow-auto mb-0">
                   {window.innerWidth > 768 ? (
                     projects.map((project) => {
                       return (

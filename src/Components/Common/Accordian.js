@@ -462,6 +462,7 @@ export const Accordian = ({
                   addOnData.designs_details[title].design_list?.length > 0
                     ? addOnData.designs_details[title].design_list?.map(
                         (design, i) => {
+                          debugger
                           return (
                             <div
                               style={{
@@ -606,9 +607,9 @@ export const Accordian = ({
                                   </button>
                                 </p>
                               </div>
-                              {design.name_english === "Logo & Identity" && (
-                                <div className={`flex md:ml-[14%]  
-                                                  lg:ml-[11%] macm2:ml-[11%] macm3:ml-[2%] macm1:ml-[10%]
+                              {design.name_english === "Logo & Identity" && path === "custombundl" && (
+                                <div className={`flex md:ml-[16%]  
+                                                  lg:ml-[12%] macm2:ml-[11%] macm3:ml-[2%] macm1:ml-[11%]
                                                   lmd2:ml-[15%] ${window.innerWidth >1440 && 'ml-[1%]' }
                                                   ${window.innerWidth >1440 && 'ml-[10%]' }
                                                   items-center mb-4 justify-center`}>
