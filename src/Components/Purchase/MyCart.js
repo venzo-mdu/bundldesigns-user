@@ -293,7 +293,6 @@ export const MyCart = ({ lang, setLang }) => {
         const resProjects = response.data.data.filter(
           (item) => item.order_status != "in_cart"
         );
-        ;
         if (resProjects.length) {
           setFirstOrder(false);
         } else {
@@ -1180,6 +1179,8 @@ export const MyCart = ({ lang, setLang }) => {
     setShowModal(false);
   };
 
+  console.log("dddddd", cartDetails);
+
   return (
     <>
       {loading ? (
@@ -1334,15 +1335,15 @@ export const MyCart = ({ lang, setLang }) => {
                       <div className="w-[70%]">
                         <div className="font-[700] text-[18px] ">
                           {lang === "ar"
-                              ? processArabicText(row.item__name_arabic)
-                              : row.item_name}
+                            ? processArabicText(row.item__name_arabic)
+                            : row.item_name}
                           {lang === "ar"
                             ? processArabicText(row.item__name_arabic)
                             : row.language
                             ? `${row.item_name} ${
                                 row.language === "both"
                                   ? "(English & Arabic)"
-                                  : row.language
+                                  : `(${row.language})`
                               }`
                             : ""}
                         </div>
@@ -1437,7 +1438,9 @@ export const MyCart = ({ lang, setLang }) => {
                           >
                             {lang === "ar"
                               ? processArabicText(cartDetails?.bundl_arabic)
-                              : cartDetails?.bundl_english}
+                              : cartDetails?.bundl_english === "Logo & Identity"
+                              ? "12"
+                              : ""}
                           </td>
                           {/* <td className=' !py-2' align="center">{row.qty}</td> */}
                           <td className=" !py-2" align="center">
@@ -1524,6 +1527,7 @@ export const MyCart = ({ lang, setLang }) => {
                             {lang === "ar"
                               ? processArabicText(row.item__name_arabic)
                               : `${row.item_name} ${
+                                  row.item_name === "Logo & Identity" &&
                                   row.language === "both"
                                     ? "(English & Arabic)"
                                     : row.language

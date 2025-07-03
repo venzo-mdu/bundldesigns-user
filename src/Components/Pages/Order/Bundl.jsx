@@ -168,7 +168,7 @@ function BundlOrder({
                     </div>
 
                     {designQuestions[item.item__id]?.language && (
-                      <p className="mt-2 mb-0">
+                      <p className="mt-2 mb-0" style={{marginLeft:"0px"}}>
                         <label
                           className={`${
                             lang === "ar" ? "ml-6" : "mr-6"
@@ -219,7 +219,7 @@ function BundlOrder({
                     )}
 
                     {designQuestions[item.item__id]?.content && (
-                      <p className="flex lg:w-[70%] md:w-[90%] mt-2">
+                      <p className="flex lg:w-[70%] md:w-[90%] mt-2" style={{marginLeft:"0px"}}>
                         <input
                           placeholder={
                             lang === "ar"
@@ -246,10 +246,10 @@ function BundlOrder({
                     )}
                     {designQuestions[item.item__id]?.measurement && (
                       <>
-                        <p className="mb-0 font-bold">
+                        <p className="mb-0 font-bold" style={{marginLeft:"0px"}}>
                           {lang === "ar" ? "القياسات" : "Measurements"}
                         </p>
-                        <p className="ml-2 mt-2">
+                        <p className="ml-2 mt-2" style={{marginLeft:"0px"}}>
                           <label
                             className={`${
                               lang === "ar" ? "ml-6" : "mr-6"
@@ -375,12 +375,13 @@ function BundlOrder({
 
                     {designQuestions[item.item__id]?.attachment && (
                       <>
-                        <p className="mb-2">
+                        <p className="mb-2" style={{marginLeft:"0px"}}>
                           {lang === "ar"
                             ? "تحب ترسل ملفات اضافية؟"
                             : "Have something to show us?"}
                         </p>
                         <p
+                        style={{marginLeft:"0px"}}
                           className={`border-b-2 ${
                             uploadContent?.[item?.id]?.[filterIndex]?.filename
                               ? "w-fit"
