@@ -396,7 +396,7 @@ export const Navbar = ({ isLang, setIsLang }) => {
                 <div className="col-1 col-md-1 col-lg-6" id="nav-menus-ar">
                   <div className="navbar navbar-expand-lg justify-content-end">
                     <div className=" navbar-collapse" id="mainNav">
-                      <ul className="navbar-nav mt-[2%] mx-auto align-items-center ">
+                      <ul className="navbar-nav mt-[3%] mx-auto align-items-center ">
                         <li className="nav-item">
                           <a className="nav-link" href="/aboutus">
                             {isLang === "ar" ? "عن بندل" : "About"}
