@@ -394,7 +394,7 @@ export const Signup = ({ lang }) => {
       errors.country = lang === "ar" ? "يجب أن يحتوي اسم الدولة على أحرف فقط" : "Country name must contain only letters";
     }
     if (!registerData.language.trim()) {
-      errors.language = "Language is required";
+      errors.language = lang === "ar" ? "اللغة مطلوبة":"Language is required";
     } else if (/[^a-zA-Z\s-]/.test(registerData.language)) {
       errors.language = lang === "ar" ? "يجب أن تحتوي اللغة على أحرف فقط" : "Language must contain only letters";
     }
@@ -408,7 +408,9 @@ export const Signup = ({ lang }) => {
     } else if (registerData.password.length < 8) {
       errors.password = lang === "ar" ? "يجب أن تكون كلمة المرور 8 أحرف على الأقل" : "Password must be at least 8 characters";
     } else if (registerData.password.length > 16) {
-      errors.password = "Password must be at most 16 characters long";
+      errors.password = 
+      lang === "ar" ? "يجب أن تكون كلمة المرور 16 أحرف على الأقل":"Password must be at most 16 characters long";
+
     }
 
     setErrors(errors);
@@ -635,7 +637,7 @@ export const Signup = ({ lang }) => {
                 formErrors={errors}
               />
               {errors.phone && registerData.phone.length === 0 && (
-                <p className="first-letter:capitalize mt-2 text-[#D83D99]">
+                <p className="first-letter:capitalize text-[14px] mt-2 text-[#D83D99]">
                   {errors.phone}
                 </p>
               )}

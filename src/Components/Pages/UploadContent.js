@@ -558,7 +558,7 @@ export default function UploadContent({ lang, setLang }) {
             } w-full left-0 z-[1]`}
           >
             <div className="bundl-name ">
-              <p className="sm:text-[24px] xs:mb-0 xs:flex xs:justify-between sm:block font-[700] px-0 !mb-2">
+              <p className="sm:text-[24px] xs:mb-0 xs:flex xs:justify-between sm:block font-[700] px-0 !mb-2   display:flex">
                 <span className="font-[400] text-[16px] font-Helvetica">
                   {lang === "ar" ? "قائمه" : "Checklist"}
                 </span>
@@ -567,7 +567,10 @@ export default function UploadContent({ lang, setLang }) {
                     onClick={() => setDetails(!showDetails)}
                     className="text-[14px] font-[500] underline text-[#1BA56F]"
                   >
-                    {!showDetails ? "Show Details" : "Hide Details"}
+                    {!showDetails
+  ? lang === "ar" ? "عرض التفاصيل" : "Show Details"
+  : lang === "ar" ? "إخفاء التفاصيل" : "Hide Details"
+}
                   </button>
                 )}
               </p>

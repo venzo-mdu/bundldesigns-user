@@ -120,7 +120,7 @@ export const DashboardPopup = ({ title, subTitle, popupType = 'default', onChang
                                     color: "#fff",
                                 },
                             }}
-                            className='!rounded-none !capitalize text-[20px] font-[500]'
+                            className='!rounded-none !capitalize text-[20px] font-[500] whitespace-nowrap'
                         >
                             {save}
                         </Button>

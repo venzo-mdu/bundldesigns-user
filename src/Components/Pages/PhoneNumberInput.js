@@ -38,8 +38,9 @@ const PhoneNumberInput = ({ lang, setLang, name, placeholder, value, status, cla
 
     // Validate phone number length
     if (selectedCountry && value.length !== selectedCountry.phoneLength) {
+      console.log("Language at error state:", localStorage.getItem("lang"));
       setPhoneError(true);
-      setError(lang === "ar" ? "يرجى إدخال رقم جوال صالح" : "Please enter valid mobile number.");
+      setError(localStorage.getItem("lang") === 'ar' ? "يرجى إدخال رقم جوال صالح" : "Please enter valid mobile number.");
     } else {
       setPhoneError(false);
       setError('');
@@ -48,7 +49,8 @@ const PhoneNumberInput = ({ lang, setLang, name, placeholder, value, status, cla
     }
  
   };
-
+  
+   
   return (
     <div className={`w-full ${className}`}>
       <div className="flex items-center overflow-hidden">

@@ -1422,7 +1422,7 @@ export default function Adjustments({ user, lang, setLang }) {
                     } w-full left-0 z-[1]`}
                   >
                     <div className="bundl-name ">
-                      <p className="sm:text-[24px] xs:mb-0 xs:flex xs:justify-between sm:block font-[700] px-0 pt-[5%] !mb-2">
+                      <p className="sm:text-[24px] xs:mb-0 xs:flex xs:justify-between sm:block font-[700] px-0 pt-[5%] !mb-2 display:flex">
                         <span className="font-[400] text-[16px] font-Helvetica">
                           {" "}
                           {lang === "ar"
@@ -1434,7 +1434,10 @@ export default function Adjustments({ user, lang, setLang }) {
                             onClick={() => setDetails(!showDetails)}
                             className="text-[14px] font-[500] underline text-[#1BA56F]"
                           >
-                            {!showDetails ? "Show Details" : "Hide Details"}
+                            {!showDetails
+  ? lang === "ar" ? "عرض التفاصيل" : "Show Details"
+  : lang === "ar" ? "إخفاء التفاصيل" : "Hide Details"
+}
                           </button>
                         )}
                       </p>
@@ -2267,7 +2270,7 @@ export default function Adjustments({ user, lang, setLang }) {
                 className={`flex text-[18px] items-center pb-2 text-black cursor-pointer px-[20px]"${
                   lang === "ar"
                     ? "xs:mr-[-4px] sm:mr-[-8px]  lg:mr-[22px] xl:mr-[23px]"
-                    : "xs:ml-[-4px] sm:ml-[-8px]  lg:ml-[25px] xl:ml-[23px]"
+                    : "xs:ml-[-4px] sm:ml-[-8px]  lg:ml-[20px] xl:ml-[20px]"
                 }`}
                 onClick={() => {
                   window.location.href = "/dashboard";

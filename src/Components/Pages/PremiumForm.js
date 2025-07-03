@@ -139,7 +139,7 @@ export default function PremiumForm({lang,setLang}) {
                 onChange={handlePhone}
                 className="w-full border outline-none p-2 !rounded-none"
               />
-              {errors.phone && <p className="text-[#D83D99] text-sm">{errors.phone}</p>}
+              {errors.phone && <p className="text-[#D83D99] text-[14px] text-sm">{errors.phone}</p>}
             </div>
 
             {/* Email Field */}
