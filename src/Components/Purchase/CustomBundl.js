@@ -476,8 +476,7 @@ export const CustomBundl = ({ user, lang, setLang }) => {
                   display: "flex",
                   fontWeight: "700",
                   padding: "2% 0%",
-                  textAlign: lang === "ar" ? "right" : "left"
-
+                  textAlign: lang === "ar" ? "right" : "left",
                 }}
               >
                 <span>{lang === "ar" ? "ملخص الطلب​" : "Summary"}</span>
@@ -488,12 +487,12 @@ export const CustomBundl = ({ user, lang, setLang }) => {
                     className="text-[14px] text-[#1BA56F] font-normal underline uppercase"
                   >
                     {lang === "ar"
-  ? showDetails
-    ? "إخفاء التفاصيل"
-    : "عرض التفاصيل"
-  : showDetails
-    ? "Hide Details"
-    : "Show Details"}
+                      ? showDetails
+                        ? "إخفاء التفاصيل"
+                        : "عرض التفاصيل"
+                      : showDetails
+                      ? "Hide Details"
+                      : "Show Details"}
                   </button>
                 )}
               </p>
@@ -614,18 +613,14 @@ export const CustomBundl = ({ user, lang, setLang }) => {
                     }`}
                   />
                   <span
-  className={`ml-3 font-bold ${lang === "ar" ? "mr-[7px]" : ""}`}
->
-  {lang === "ar" ? "السعر الإجمالي :" : "Total Price :"}
-</span>
+                    className={`ml-3 font-bold ${
+                      lang === "ar" ? "mr-[7px]" : ""
+                    }`}
+                  >
+                    {lang === "ar" ? "السعر الإجمالي :" : "Total Price :"}
+                  </span>
                 </p>
                 <p className="w-[40%] xs:text-right !font-bold sm:mb-2 xs:mb-0">
-//=======
-  //              <p className={`w-[40%] !font-bold ${lang !== "ar" ? "xs:text-right" : ""} ${
-    //                lang === "ar" ? "sm:text-left pl-1 sm:pl-1" : ""
-      //            } sm:mb-2 xs:mb-0`} >
-//>>>>>>> cartChanges-update
-                  {/* {amountDecimal(addonPayLoads.total_price)}{" "} */}
                   {amountDecimal(overAllAmount(addonPayLoads.item_list))}
                   {lang === "ar" ? "\u00A0\u00A0ريال" : "\u00A0\u00A0SAR"}
                 </p>
@@ -643,15 +638,6 @@ export const CustomBundl = ({ user, lang, setLang }) => {
                 </p>
                 <p className="w-[40%] xs:text-right  sm:mb-2 xs:mb-0">
                   {addonPayLoads.total_time} {lang === "ar" ? "يوم" : "Days"}
-//=======
-             //   <p
-              //    className={`w-[40%] ${lang !== "ar" ? "xs:text-right" : ""} ${
-              //      lang === "ar" ? "sm:text-left pl-1 sm:pl-1" : ""
-              //    } sm:mb-2 xs:mb-0`}
-              //  >
-              //    {addonPayLoads.total_time}{" "}
-              //    {lang === "ar" ? "\u00A0\u00A0يوم" : "Days"}
-// >>>>>>> cartChanges-update
                 </p>
               </div>
 
