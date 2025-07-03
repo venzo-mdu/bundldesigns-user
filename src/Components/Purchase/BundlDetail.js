@@ -1187,7 +1187,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                                     addOnLang.find((ele) => ele.isChecked)
                                       ?.language === "English") &&
                                   window.innerWidth >= 475
-                                    ? "mb-8"
+                                    ? ""
                                     : ""
                                 } ${
                                   addon.category === "Branding" &&

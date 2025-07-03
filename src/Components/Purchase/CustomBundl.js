@@ -196,7 +196,8 @@ export const CustomBundl = ({ user, lang, setLang }) => {
           order_name: brandInput,
           // bundle_id: location.state.bundlDetail?.id,
           total_time: addonPayLoads.total_time,
-          total_price: addonPayLoads.total_price,
+          // total_price: addonPayLoads.total_price,
+          total_price: overAllAmount(addonPayLoads.item_list),
           tax_treatment: addonPayLoads.tax_treatment,
           tax: addonPayLoads.tax,
           item_list: addonPayLoads.item_list,
@@ -342,7 +343,6 @@ export const CustomBundl = ({ user, lang, setLang }) => {
       items[key].total_price = currentTotal;
       total += currentTotal;
     }
-    ;
     return total;
   };
   // const calculateTotalAmount = () => {
@@ -454,6 +454,8 @@ export const CustomBundl = ({ user, lang, setLang }) => {
                 isSameBundl={isSameBundl}
                 addOnLang={addOnLang}
                 handleAddOnChange={handleAddOnChange}
+                addonPayLoads={addonPayLoads.item_list}
+                overAllAmount={overAllAmount}
               />
             </div>
           </div>
@@ -537,9 +539,17 @@ export const CustomBundl = ({ user, lang, setLang }) => {
                           addons.length - 1 === idx &&
                           "border-b-[1px] border-black"
                         }
+                     ${
+                       window.innerWidth < 1400 &&
+                       addon.addon_name === "Logo & Identity" &&
+                       addOnLang.find((ele) => ele.isChecked).language ===
+                         "both"
+                         ? "md:mb-[8%]"
+                         : "mb-0"
+                     }
                         xs:flex sm:block block flex-wrap justify-around`}
                         >
-                          <div className="flex xs:w-[100%] w-full">
+                          <div className={`flex xs:w-[100%] w-full `}>
                             <p
                               className={`text-black sm:text-[18px] text-[18px] xs:text-[16px] font-[400] !mb-1 xs:w-[75%]  lg:w-full md:w-full sm:w-full mt-[3px] ${
                                 lang === "ar" ? "text-right" : "text-left"
@@ -549,12 +559,15 @@ export const CustomBundl = ({ user, lang, setLang }) => {
                               {lang === "ar"
                                 ? addon.addon_arabic
                                 : addon.addon_name}{" "}
-                              {addon.addon_name === "Logo & Identity"?
-                              addOnLang.find((ele) => ele.isChecked)
-                                ?.language === "both"
-                                ? "(English & Arabic)"
-                                : `(${addOnLang.find((ele) => ele.isChecked)
-                                    ?.language})`:null}
+                              {addon.addon_name === "Logo & Identity"
+                                ? addOnLang.find((ele) => ele.isChecked)
+                                    ?.language === "both"
+                                  ? "(English & Arabic)"
+                                  : `(${
+                                      addOnLang.find((ele) => ele.isChecked)
+                                        ?.language
+                                    })`
+                                : null}
                             </p>
                             <p
                               className={`sm:text-[18px] text-[18px] xs:text-[16px] font-[400] lg:w-[40%] md:w-[50%] xs:w-[25%]  ${
@@ -594,14 +607,14 @@ export const CustomBundl = ({ user, lang, setLang }) => {
                     {lang === "ar" ? "السعر الإجمالي :" : "Total Price :"}
                   </span>
                 </p>
-                <p className="w-[40%] xs:text-right sm:text-left !font-bold sm:mb-2 xs:mb-0">
+                <p className="w-[40%] xs:text-right !font-bold sm:mb-2 xs:mb-0">
                   {/* {amountDecimal(addonPayLoads.total_price)}{" "} */}
                   {amountDecimal(overAllAmount(addonPayLoads.item_list))}
                   {lang === "ar" ? "ريال" : "SAR"}
                 </p>
               </div>
               <div className="total  flex items-center">
-                <p className="w-[60%] flex items-center  sm:mb-2 xs:mb-0">
+                <p className="w-[60%] flex items-center sm:mb-2 xs:mb-0">
                   <img
                     src={BlackTime}
                     alt="Total Duration"
@@ -611,7 +624,7 @@ export const CustomBundl = ({ user, lang, setLang }) => {
                     {lang === "ar" ? "المدة الإجمالية :" : "Total Duration :"}
                   </span>
                 </p>
-                <p className="w-[40%] xs:text-right sm:text-left sm:mb-2 xs:mb-0">
+                <p className="w-[40%] xs:text-right  sm:mb-2 xs:mb-0">
                   {addonPayLoads.total_time} {lang === "ar" ? "يوم" : "Days"}
                 </p>
               </div>
