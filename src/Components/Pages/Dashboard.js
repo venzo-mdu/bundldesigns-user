@@ -2005,7 +2005,7 @@ export default function Dashboard({ lang, setLang }) {
                         ? dashboardJson.project_process_arabic
                         : dashboardJson.project_process
                       )?.map((item, index) => {
-                        debugger
+                        
                         return (
                           <div className="lg:basis-[45%]  md:basis-[20%] xs:basis-1/5 text-center lg:text-[16px] md:text-[14px] mt-[2%]">
                             {" "}
