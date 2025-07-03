@@ -2027,14 +2027,14 @@ export default function Adjustments({ user, lang, setLang }) {
         if (quantity === 1) {
           currentTotal = basePrice + 2000;
         } else if (quantity > 1) {
-          debugger;
+          ;
           const additionalUnits = quantity - 1;
           const incrementedPricePerUnit = ((basePrice + 2000) * increment) / 100 * additionalUnits;
           currentTotal =
             (basePrice + 2000)  + incrementedPricePerUnit;
         }
       } else {
-        debugger
+        
         currentTotal =
           quantity === 1
             ? basePrice

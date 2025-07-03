@@ -2014,7 +2014,7 @@ export default function Adjustments({ user, lang, setLang }) {
     adjustments = {},
     selectedItem = null
   ) => {
-    debugger;
+    ;
     const selectedLanguage = addOnLang.find((ele) => ele.isChecked)?.language;
 
     const totalPrice =

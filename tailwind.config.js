@@ -17,6 +17,7 @@ module.exports = {
       }, screens: {
         xl:'1800px', // Set the xl breakpoint to 1440px instead of 1280px
         macm2:'1536px',
+        macm3:'1660px',
         macm1:'1440px',
         lg:'1400px',
         md:'1024px',

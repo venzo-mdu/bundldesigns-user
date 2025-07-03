@@ -435,91 +435,91 @@ export default function Adjustments({ user, lang, setLang }) {
     });
   };
 
-const addData = (id, index) => {
-  const elementValue = document.getElementById(`${id}_content`).value;
-  if (!elementValue) {
-    setAdjustmentError(true);
-    return;
-  }
-  setAdjustmentsData((prev) => {
-    const updatedData = {
-      ...prev,
-      [id]: {
-        ...(adjustments[index]), // always copy all properties from the adjustment
-        ...prev[id],             // keep any previous user data (like attachments)
-        content: elementValue,   // update content
-      },
-    };
-    updateTotals(itemsList, updatedData);
-    return updatedData;
-  });
-  setErrorMsg(null);
-  showToast("Updated Successfully", "#1BA56F");
-};
-
- const overAllAmount = (items = {}, adjustments = {}) => {
-  const selectedLanguage = addOnLang.find((ele) => ele.isChecked)?.language;
-  let total = 0;
-  for (const key in items) {
-    const item = items[key];
-    const quantity = item.qty || 0;
-    const basePrice = parseFloat(item.price || 0);
-    const increment = item.price_increment || 0;
-
-    let currentTotal = 0;
-
-    if (
-      item.name_english === "Logo & Identity" &&
-      selectedLanguage === "both"
-    ) {
-      if (quantity === 1) {
-        currentTotal = basePrice + 2000;
-      } else if (quantity > 1) {
-        const additionalUnits = quantity - 1;
-        const incrementedPricePerUnit =
-          (((basePrice + 2000) * increment) / 100) * additionalUnits;
-        currentTotal = basePrice + 2000 + incrementedPricePerUnit;
-      }
-    } else {
-      currentTotal =
-        quantity === 1
-          ? basePrice
-          : basePrice + ((basePrice * increment) / 100) * (quantity - 1);
+  const addData = (id, index) => {
+    const elementValue = document.getElementById(`${id}_content`).value;
+    if (!elementValue) {
+      setAdjustmentError(true);
+      return;
     }
-
-    total += currentTotal;
-  }
-  // Add adjustment prices (submitted edits)
-  for (const key in adjustments) {
-    const adj = adjustments[key];
-    total += parseFloat(adj.price || 0);
-  }
-  return total;
-};
-
-const calculateTotals = (
-  items = {},
-  adjustments = {},
-  selectedItem = null
-) => {
-  const totalPrice = overAllAmount(items, adjustments);
-
-  const maxItemTime = Object.values(items || {}).reduce(
-    (max, item) => Math.max(max, item.time || 0),
-    0
-  );
-  const maxAdjustmentTime = Object.values(adjustments || {}).reduce(
-    (max, adj) => Math.max(max, adj.time_limit || 0),
-    0
-  );
-
-  const totalTime = Math.max(maxItemTime, maxAdjustmentTime);
-
-  return {
-    price: totalPrice,
-    time: totalTime,
+    setAdjustmentsData((prev) => {
+      const updatedData = {
+        ...prev,
+        [id]: {
+          ...adjustments[index], // always copy all properties from the adjustment
+          ...prev[id], // keep any previous user data (like attachments)
+          content: elementValue, // update content
+        },
+      };
+      updateTotals(itemsList, updatedData);
+      return updatedData;
+    });
+    setErrorMsg(null);
+    showToast("Updated Successfully", "#1BA56F");
   };
-};
+
+  const overAllAmount = (items = {}, adjustments = {}) => {
+    const selectedLanguage = addOnLang.find((ele) => ele.isChecked)?.language;
+    let total = 0;
+    for (const key in items) {
+      const item = items[key];
+      const quantity = item.qty || 0;
+      const basePrice = parseFloat(item.price || 0);
+      const increment = item.price_increment || 0;
+
+      let currentTotal = 0;
+
+      if (
+        item.name_english === "Logo & Identity" &&
+        selectedLanguage === "both"
+      ) {
+        if (quantity === 1) {
+          currentTotal = basePrice + 2000;
+        } else if (quantity > 1) {
+          const additionalUnits = quantity - 1;
+          const incrementedPricePerUnit =
+            (((basePrice + 2000) * increment) / 100) * additionalUnits;
+          currentTotal = basePrice + 2000 + incrementedPricePerUnit;
+        }
+      } else {
+        currentTotal =
+          quantity === 1
+            ? basePrice
+            : basePrice + ((basePrice * increment) / 100) * (quantity - 1);
+      }
+
+      total += currentTotal;
+    }
+    // Add adjustment prices (submitted edits)
+    for (const key in adjustments) {
+      const adj = adjustments[key];
+      total += parseFloat(adj.price || 0);
+    }
+    return total;
+  };
+
+  const calculateTotals = (
+    items = {},
+    adjustments = {},
+    selectedItem = null
+  ) => {
+    const totalPrice = overAllAmount(items, adjustments);
+
+    const maxItemTime = Object.values(items || {}).reduce(
+      (max, item) => Math.max(max, item.time || 0),
+      0
+    );
+    const maxAdjustmentTime = Object.values(adjustments || {}).reduce(
+      (max, adj) => Math.max(max, adj.time_limit || 0),
+      0
+    );
+
+    const totalTime = Math.max(maxItemTime, maxAdjustmentTime);
+
+    return {
+      price: totalPrice,
+      time: totalTime,
+    };
+  };
 
   const remove_item = (id) => {
     if (itemsList[id]) {
@@ -854,10 +854,12 @@ const calculateTotals = (
     };
     if (validateFields()) {
       try {
+        console.log(itemId, "itemId");
+
         const res = await axios.post(
-          `${base_url}/api/adjustment_create/?orderId=${orderId}&type=${
-            state.purchaseAddOns ? "addon" : "adj"
-          }`,
+          `${base_url}/api/adjustment_create/?orderId=${
+            state.purchaseAddOns === "adj" ? itemId : orderId
+          }&type=${state.purchaseAddOns ? "addon" : "adj"}`,
           formData,
           ConfigToken()
         );
@@ -933,10 +935,10 @@ const calculateTotals = (
   };
 
   useEffect(() => {
-  // Recalculate totals when language or items change
-  updateTotals(itemsList, adjustmentData);
-  // eslint-disable-next-line
-}, [addOnLang, itemsList, adjustmentData]);
+    // Recalculate totals when language or items change
+    updateTotals(itemsList, adjustmentData);
+    // eslint-disable-next-line
+  }, [addOnLang, itemsList, adjustmentData]);
 
   return (
     <>
@@ -2733,9 +2735,16 @@ const calculateTotals = (
                                             {item.name_english ===
                                               "Logo & Identity" && (
                                               <div
-                                                className={`flex md:ml-[14%] macm2:ml-[10%] 
-                                                  lg:ml-[4%] 
-                                                  lmd2:ml-[15%] macm1-[5%] 
+                                                className={`flex md:ml-[14%]  
+                                                  lg:ml-[11%] macm2:ml-[9%] macm3:ml-[4%] macm1:ml-[11%]
+                                                  lmd2:ml-[15%]   ${
+                                                    window.innerWidth > 1440 &&
+                                                    "ml-[1%]"
+                                                  }
+                                                  ${
+                                                    window.innerWidth > 1440 &&
+                                                    "ml-[10%]"
+                                                  }
                                                   py-[1.5%] items-center mb-4 justify-center`}
                                               >
                                                 <Typography>
@@ -3080,22 +3089,23 @@ const calculateTotals = (
                           : "border-b border-black"
                       } `}
                     >
-                      {/* <td className=" !py-2" scope="row">
+                      <td className=" !py-2" scope="row">
                         {lang === "ar"
                           ? row.arabic_adjustment_name
                           : row.english_adjustment_name}
-                      </td> */}
-                          <td className=" !py-2" scope="row">
-                        {lang === "ar" ? row?.name_arabic : 
-                        row.name_english === 'Logo & Identity'?`${row.name_english} 
-                        (${addOnLang.find((ele)=>ele.isChecked)?.language})`:row.name_english}
                       </td>
+
                       <td className=" !py-2" align="center">
                         1
                       </td>
                       <td className=" !py-2" align="center">
                         {amountDecimal(Math.round(row.price))}
                       </td>
+                      {/* <td className=" !py-2" scope="row">
+                        {lang === "ar" ? row?.name_arabic : 
+                        row.name_english === 'Logo & Identity'?`${row.name_english} 
+                        (${addOnLang.find((ele)=>ele.isChecked)?.language})`:row.name_english}
+                      </td> */}
                       <td align="center">
                         <p className="flex items-center !mb-0 justify-center">
                           <img
@@ -3120,9 +3130,12 @@ const calculateTotals = (
                       } `}
                     >
                       <td className=" !py-2" scope="row">
-                        {lang === "ar" ? row?.name_arabic : 
-                        row.name_english === 'Logo & Identity'?`${row.name_english} 
-                        (${addOnLang.find((ele)=>ele.isChecked)?.language})`:row.name_english}
+                        {lang === "ar"
+                          ? row?.name_arabic
+                          : row.name_english === "Logo & Identity"
+                          ? `${row.name_english} 
+                        (${addOnLang.find((ele) => ele.isChecked)?.language})`
+                          : row.name_english}
                       </td>
                       <td className=" !py-2" align="center">
                         {row.qty}

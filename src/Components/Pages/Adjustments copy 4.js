@@ -602,7 +602,7 @@ export default function Adjustments({ user, lang, setLang }) {
     adjustments = {},
     selectedItem = null
   ) => {
-    debugger
+    
     const selectedLanguage = addOnLang.find((ele) => ele.isChecked)?.language;
 
     const totalPrice =
@@ -647,7 +647,7 @@ export default function Adjustments({ user, lang, setLang }) {
     );
 
     const totalTime = Math.max(maxItemTime, maxAdjustmentTime);
-debugger
+
     return {
       price: overAllAmount(items),
       time: totalTime,
@@ -1057,7 +1057,7 @@ debugger
         itemsList,
         adjustmentData
       );
-      debugger
+      
       showErrorToast(
         lang === "ar" ? "تم تحديث السلة بنجاح." : "Cart updated successfully",
         "#1BA56F"

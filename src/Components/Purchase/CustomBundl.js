@@ -31,6 +31,12 @@ export const CustomBundl = ({ user, lang, setLang }) => {
   const [isFromLogin, setIsFromLogin] = useState(state?.fromLogin);
   const [openPopup, setOpenPopup] = useState(false);
 
+  const [addOnLang, setAddOnLang] = useState([
+    { id: 1, language: "English", label: "English", isChecked: true },
+    { id: 2, language: "Arabic", label: "Arabic", isChecked: false },
+    { id: 3, language: "both", label: "Both (+2,000 SAR)", isChecked: false },
+  ]);
+
   useEffect(() => {
     document.documentElement.scrollTo({
       top: 0,
@@ -229,7 +235,7 @@ export const CustomBundl = ({ user, lang, setLang }) => {
         );
         if (resProjects.length) {
           setFirstOrder(false);
-        }else{
+        } else {
           setFirstOrder(true);
         }
       }
@@ -282,6 +288,81 @@ export const CustomBundl = ({ user, lang, setLang }) => {
       getcartData();
     }
   }, [user, lang]);
+
+  const calculateAmount = (id, amount, payload) => {
+    if (id === "1") {
+      if (payload === "convertPayload") {
+        return Number(amount) + 2000;
+      } else {
+        return amountDecimal(Number(amount) + 2000);
+      }
+    } else {
+      const totalQty = Number(id) - 1;
+      const cal = totalQty * ((Number(amount) + 2000) / 2); // 2000 / 2 = 1000
+      if (payload === "convertPayload") {
+        return cal + Number(amount) + 2000;
+      } else {
+        return amountDecimal(cal + Number(amount) + 2000);
+      }
+    }
+  };
+
+  const overAllAmount = (items = {}, adjustments = {}) => {
+    const selectedLanguage = addOnLang.find((ele) => ele.isChecked)?.language;
+    let total = 0;
+    for (const key in items) {
+      const item = items[key];
+      const quantity = Number(item.qty) || 0;
+      const basePrice = parseFloat(item.unit_price || 0);
+      const increment = item.price_increment || 0;
+
+      let currentTotal = 0;
+
+      if (
+        item.addon_name === "Logo & Identity" &&
+        selectedLanguage === "both"
+      ) {
+        if (quantity === 1) {
+          console.log(items[key]);
+          currentTotal = basePrice + 2000;
+          items[key].total_price = currentTotal;
+        } else if (quantity > 1) {
+          const additionalUnits = quantity - 1;
+          const incrementedPricePerUnit =
+            (((basePrice + 2000) * increment) / 100) * additionalUnits;
+          currentTotal = basePrice + 2000 + incrementedPricePerUnit;
+          items[key].total_price = currentTotal;
+        }
+      } else {
+        currentTotal =
+          quantity === 1
+            ? basePrice
+            : basePrice + ((basePrice * increment) / 100) * (quantity - 1);
+      }
+      items[key].total_price = currentTotal;
+      total += currentTotal;
+    }
+    ;
+    return total;
+  };
+  // const calculateTotalAmount = () => {
+  //   console.log("addonPayLoads", addonPayLoads.item_list);
+  //   overAllAmount(addonPayLoads.item_list);
+  // };
+
+  // useEffect(() => {
+  //   calculateTotalAmount();
+  // }, [addonPayLoads]);
+
+  const handleAddOnChange = (id, language) => {
+    setAddOnLang((prev) =>
+      prev.map((ele) =>
+        ele.id === id && ele.language === language
+          ? { ...ele, isChecked: true }
+          : { ...ele, isChecked: false }
+      )
+    );
+  };
 
   return (
     <div>
@@ -371,6 +452,8 @@ export const CustomBundl = ({ user, lang, setLang }) => {
                 isLang={lang}
                 bundlePackageId={"custombundl"}
                 isSameBundl={isSameBundl}
+                addOnLang={addOnLang}
+                handleAddOnChange={handleAddOnChange}
               />
             </div>
           </div>
@@ -465,14 +548,29 @@ export const CustomBundl = ({ user, lang, setLang }) => {
                               {addon.qty}{" "}
                               {lang === "ar"
                                 ? addon.addon_arabic
-                                : addon.addon_name}
+                                : addon.addon_name}{" "}
+                              {addon.addon_name === "Logo & Identity"?
+                              addOnLang.find((ele) => ele.isChecked)
+                                ?.language === "both"
+                                ? "(English & Arabic)"
+                                : `(${addOnLang.find((ele) => ele.isChecked)
+                                    ?.language})`:null}
                             </p>
                             <p
                               className={`sm:text-[18px] text-[18px] xs:text-[16px] font-[400] lg:w-[40%] md:w-[50%] xs:w-[25%]  ${
                                 lang === "ar" ? "text-left" : "text-right"
                               }`}
                             >
-                              + {amountDecimal(addon.total_price)}{" "}
+                              {/* + {amountDecimal(addon.total_price)}{" "} */}
+                              {addOnLang.find((ele) => ele.isChecked)
+                                ?.language === "both" &&
+                              addon.addon_name === "Logo & Identity"
+                                ? calculateAmount(
+                                    addon.qty,
+                                    addon.unit_price,
+                                    ""
+                                  )
+                                : amountDecimal(addon.total_price)}{" "}
                               {lang === "ar" ? "ريال" : "SAR"}
                             </p>
                           </div>
@@ -497,7 +595,8 @@ export const CustomBundl = ({ user, lang, setLang }) => {
                   </span>
                 </p>
                 <p className="w-[40%] xs:text-right sm:text-left !font-bold sm:mb-2 xs:mb-0">
-                  {amountDecimal(addonPayLoads.total_price)}{" "}
+                  {/* {amountDecimal(addonPayLoads.total_price)}{" "} */}
+                  {amountDecimal(overAllAmount(addonPayLoads.item_list))}
                   {lang === "ar" ? "ريال" : "SAR"}
                 </p>
               </div>
