@@ -606,10 +606,12 @@ export const CustomBundl = ({ user, lang, setLang }) => {
   {lang === "ar" ? "السعر الإجمالي :" : "Total Price :"}
 </span>
                 </p>
-                <p className="w-[40%] xs:text-right sm:text-left !font-bold sm:mb-2 xs:mb-0">
+                <p className={`w-[40%] !font-bold ${lang !== "ar" ? "xs:text-right" : ""} ${
+                    lang === "ar" ? "sm:text-left pl-1 sm:pl-1" : ""
+                  } sm:mb-2 xs:mb-0`} >
                   {/* {amountDecimal(addonPayLoads.total_price)}{" "} */}
                   {amountDecimal(overAllAmount(addonPayLoads.item_list))}
-                  {lang === "ar" ? "\u00A0\u00A0ريال" : "\u00A0SAR"}
+                  {lang === "ar" ? "\u00A0\u00A0ريال" : "\u00A0\u00A0SAR"}
                 </p>
               </div>
               <div className="total  flex items-center">
