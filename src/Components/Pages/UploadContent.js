@@ -304,6 +304,31 @@ export default function UploadContent({ lang, setLang }) {
         );
         return;
       }
+      {
+        if (
+          uploadContent?.[itemId]?.[idx]?.measurements === "Customize" &&
+          designQuestions[designId]?.measurement
+        ) {
+          const { width, height, length } =
+            uploadContent?.[itemId]?.[idx] || {};
+          if (!width || !height || !length) {
+            toastErrorMessage(
+              lang === "ar"
+                ? "يرجى إضافة تفاصيل التخصيص"
+                : "Please add Customize details",
+              {
+                icon: false,
+                toastId: "custom-measurement-toast",
+                style: {
+                  color: "#D83D99",
+                  fontWeight: "700",
+                },
+              }
+            );
+            return;
+          }
+        }
+      }
 
       // if (uploadContent?.[itemId][idx].file_url.length < 0) {
       //   toastErrorMessage(
@@ -568,9 +593,12 @@ export default function UploadContent({ lang, setLang }) {
                     className="text-[14px] font-[500] underline text-[#1BA56F]"
                   >
                     {!showDetails
-  ? lang === "ar" ? "عرض التفاصيل" : "Show Details"
-  : lang === "ar" ? "إخفاء التفاصيل" : "Hide Details"
-}
+                      ? lang === "ar"
+                        ? "عرض التفاصيل"
+                        : "Show Details"
+                      : lang === "ar"
+                      ? "إخفاء التفاصيل"
+                      : "Hide Details"}
                   </button>
                 )}
               </p>

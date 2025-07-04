@@ -262,7 +262,7 @@ function BundlOrder({
                                 uploadContent[item.id]?.[filterIndex]
                                   ?.measurements === "Standard"
                               }
-                              onChange={(e) =>
+                              onChange={(e) =>{
                                 handleChange(
                                   e,
                                   item.id,
@@ -270,7 +270,19 @@ function BundlOrder({
                                   item.item_name + "-" + filterIndex,
                                   filterIndex
                                 )
-                              }
+
+                                setUploadContent((prev) => {
+    const updated = { ...prev };
+    if (updated[item.id]?.[filterIndex]) {
+      delete updated[item.id][filterIndex].width;
+      delete updated[item.id][filterIndex].height;
+      delete updated[item.id][filterIndex].length;
+    }
+    return updated;
+  });
+
+                                
+                              }}
                               className="form-radio accent-[#1BA56F] mr-2"
                             />{" "}
                             {lang === "ar" ? "قياس عام " : "Standard"}{" "}
