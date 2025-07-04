@@ -3246,7 +3246,8 @@ export default function Adjustments({ user, lang, setLang }) {
                         {addOnLang.find((ele) => ele.isChecked)?.language ===
                         "both"
                           ? amountDecimal(Math.round(row.price) + 2000)
-                          : amountDecimal(Math.round(row.price))}
+                          : amountDecimal(Math.round(row.price))}{" "}
+                        {lang === "ar" ? "ريال" : "SAR"}{" "}
                       </td>
                       {/* <TableCell align="center"><img style={{width:'23px'}} src={row.DeleteIcon}></img></TableCell> */}
                       <td className=" !py-2" align="center" scope="row">
