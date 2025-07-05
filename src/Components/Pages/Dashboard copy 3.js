@@ -903,7 +903,7 @@
 
 // -------------------- Updated Arabic Content ---------------------
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { ConfigToken } from "../Auth/ConfigToken";
 import { base_url } from "../Auth/BackendAPIUrl";
@@ -1044,6 +1044,34 @@ export default function Dashboard({ lang, setLang }) {
     }
     setLoading(false);
   };
+
+  const [selectedText, setSelectedText] = useState(
+    projects?.[0]?.project_name || ""
+  );
+  const spanRef = useRef(null);
+  const selectRef = useRef(null);
+
+  // Helper function to truncate text to max 10 characters + ".."
+  const truncateText = (text) => {
+    if (text.length > 10) return text.slice(0, 10) + "..";
+    return text;
+  };
+
+  useEffect(() => {
+    if (spanRef.current && selectRef.current) {
+      // Measure truncated text width
+      const textWidth = spanRef.current.offsetWidth;
+
+      // Minimum width for 15 characters (assuming 16px font size)
+      const minCharWidth = 15 * 16;
+
+      // Space for the native dropdown arrow
+      const arrowSpace = 40;
+
+      const totalWidth = Math.max(textWidth, minCharWidth) + arrowSpace;
+      selectRef.current.style.width = `${totalWidth}px`;
+    }
+  }, [selectedText]);
 
   const getOrderDetails = async (orderId) => {
     localStorage.removeItem("reduxState");
@@ -1894,7 +1922,7 @@ export default function Dashboard({ lang, setLang }) {
                   </h1>
                 )}
 
-                <p className="flex lg:overflow-auto md:overflow-auto xs:overflow-hidden mb-0">
+                <p className="flex lg:overflow-auto mb-0">
                   {window.innerWidth > 768 ? (
                     projects.map((project) => {
                       return (
@@ -1941,47 +1969,66 @@ export default function Dashboard({ lang, setLang }) {
                       );
                     })
                   ) : (
-                    // <div className="xs:px-[5%] xs:flex xs:w-[100%]">
-                    //   {/* <div className="select-container"> */}
-                    //   <select
-                    //     id="dashboardSelect"
-                    //     className="w-[25%] h-[45px] text-[32px] font-[700] outline-none border-none px-0 rounded-none appearance-none "
-                    //     onChange={(e) => handleSelectChange(e)}
-                    //   >
-                    //     {projects?.map((project, index) => (
-                    //       <option
-                    //         className="text-[16px] font-[500] "
-                    //         key={index}
-                    //         value={project.id}
-                    //       >
-                    //         {project.project_name}
-                    //       </option>
-                    //     ))}
-                    //   </select>
-                    //   {/* </div> */}
-                    // </div>
-<div className="xs:px-[5%] xs:flex xs:w-full">
+                    <div className="xs:px-[5%] xs:flex xs:w-[100%]">
+                      {/* <div className="select-container"> */}
+                      {/* <div className="xs:px-[5%] xs:flex xs:w-[100%]">
   <select
     id="dashboardSelect"
-    className="w-[75%] h-[45px] text-[24px] font-[700]
-               outline-none border border-gray-400
-               pr-8 pl-2 rounded-none shadow-none appearance-none truncate"
+    className="w-[25%] h-[45px] text-[32px] font-[700] outline-none border-none px-0 rounded-none appearance-none [&::-ms-expand]:hidden"
+    style={{ backgroundImage: "none" }} // hides arrow in Safari/Chrome
     onChange={(e) => handleSelectChange(e)}
   >
     {projects?.map((project, index) => (
       <option
-        className="text-[16px] font-[500] truncate"
+        className="text-[16px] font-[500]"
         key={index}
         value={project.id}
       >
-        {project.project_name.length > 14
-          ? `${project.project_name.slice(0, 14)}...`
-          : project.project_name}
+        {project.project_name}
       </option>
     ))}
   </select>
-</div>
+</div> */}
 
+                      <div className="xs:pr-[5%] flex items-center w-full relative">
+                        <span
+                          ref={spanRef}
+                          style={{
+                            position: "absolute",
+                            visibility: "hidden",
+                            whiteSpace: "nowrap",
+                            fontSize: "16px",
+                            fontFamily: "inherit",
+                            fontWeight: "normal",
+                            padding: 0,
+                            margin: 0,
+                          }}
+                        >
+                          {truncateText(selectedText)}
+                        </span>
+
+                        <select
+                          ref={selectRef}
+                          value={selectedText}
+                          onChange={(e) => setSelectedText(e.target.value)}
+                          style={{
+                            fontSize: "24px",
+                            fontFamily: "inherit",
+                            border: "1px solid gray",
+                            borderRadius: "0px", // <- make edges sharp
+                            padding: "4px 8px",
+                          }}
+                        >
+                          {projects.map((proj) => (
+                            <option key={proj.id} value={proj.project_name}>
+                              {proj.project_name}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
+                      {/* </div> */}
+                    </div>
                   )}
 
                   {window?.innerWidth >= 475 && (
@@ -2030,13 +2077,17 @@ export default function Dashboard({ lang, setLang }) {
                         return (
                           <div className="lg:basis-[45%]  md:basis-[20%] xs:basis-1/5 text-center lg:text-[16px] md:text-[14px] mt-[2%]">
                             {" "}
-                            {item === "Add Ons" ? (
+                            {item === "Add Ons" || item === "إضافات" ? (
                               <div
                                 className={`${
                                   index == processIndex && lang === "En"
                                     ? "ml-[10%]"
                                     : processIndex == 5 && lang === "En"
                                     ? "ml-[10%]"
+                                    : lang === "ar" && index == processIndex
+                                    ? "mr-[15%]"
+                                    : lang === "ar" && processIndex == 5
+                                    ? "mr-[8%]"
                                     : "ml-[3%]"
                                 }`}
                               >
@@ -2146,8 +2197,10 @@ export default function Dashboard({ lang, setLang }) {
                               </div>
 
                               <div className="flex items-center justify-between w-full">
+                                {" "}
                                 {/* Left side: Text + Left button */}
                                 <div className="flex items-center gap-4">
+                                  {/* xs:justify-between xs:w-full */}
                                   <p
                                     className={`font-[600] lg:text-[18px] md:text-[18px] xs:text-[16px] m-0 ${
                                       processIndex < 2
