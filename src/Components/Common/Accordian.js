@@ -32,6 +32,7 @@ export const Accordian = ({
   isSameBundl,
   lang,
 }) => {
+  const ln = localStorage.getItem("lang")
   const location = useLocation();
   const isCustomBundl = location.pathname === "/custombundl";
   const [isArabic, setIsArabic] = useState("");
@@ -645,7 +646,7 @@ export const Accordian = ({
                                 path === "custombundl" && (
                                   <div
                                     className={`flex md:ml-[16%]  
-                                                  lg:ml-[12%] macm2:ml-[11%] macm3:ml-[2%] macm1:ml-[11%]
+                                                  lg:ml-[12%] ${ln === 'ar' ? 'macm2:mr-[33%]' : 'macm2:ml-[16%]'} macm3:ml-[-3%] macm1:ml-[18%]
                                                   lmd2:ml-[15%] ${
                                                     window.innerWidth > 1440 &&
                                                     "ml-[1%]"
@@ -657,11 +658,11 @@ export const Accordian = ({
                                                   items-center mb-4 justify-center`}
                                   >
                                     <Typography>
-                                      <div className="flex gap-2">
+                                      <div className="flex gap-4">
                                         {addOnLang?.map((ele) => {
                                           return (
                                             <div
-                                              className={`flex gap-1 ${
+                                              className={`flex gap-2 ${
                                                 window.innerWidth > 379
                                                   ? "text-[16px]"
                                                   : "text-[15px]"

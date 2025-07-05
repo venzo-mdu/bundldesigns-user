@@ -366,14 +366,14 @@ export const MyCart = ({ lang, setLang }) => {
         setPopupMessage(
           lang === "ar"
             ? "سلة التسوق فارغة, الاستمرار لوحة التحكم"
-            : "Your cart is empty, keep continuing to the dashboard"
+            : "Your cart is empty"
         );
       }
       if (response.status === 206) {
         setPopupMessage(
           lang === "ar"
             ? "سلة التسوق فارغة, الاستمرار لوحة التحكم"
-            : "Your cart is empty, keep continuing to the dashboard"
+            : "Your cart is empty"
         );
       }
     } catch (e) {
@@ -1979,7 +1979,7 @@ export const MyCart = ({ lang, setLang }) => {
               save={
                 lang === "ar"
                   ? "الانتقال إلى الصفحة الرئيسية"
-                  : "Continue to Homepage"
+                  : "Continue to Dashboard"
               }
               // cancel={'Cancel'}
               isLang={lang}

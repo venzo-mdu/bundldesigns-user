@@ -621,8 +621,10 @@ export const CustomBundl = ({ user, lang, setLang }) => {
                   </span>
                 </p>
                 <p
-  className={`w-[40%] ${lang !== "ar" ? "xs:text-right" : ""} !font-bold sm:mb-2 xs:mb-0`}
->
+                  className={`w-[40%] ${
+                    lang !== "ar" ? "xs:text-right" : ""
+                  } !font-bold sm:mb-2 xs:mb-0`}
+                >
                   {amountDecimal(overAllAmount(addonPayLoads.item_list))}
                   {lang === "ar" ? "\u00A0\u00A0\u00A0ريال" : "\u00A0\u00A0SAR"}
                 </p>
@@ -639,9 +641,12 @@ export const CustomBundl = ({ user, lang, setLang }) => {
                   </span>
                 </p>
                 <p
-  className={`w-[40%] ${lang !== "ar" ? "xs:text-right" : ""} ${lang === "ar" ? "ml-[3px]" : ""} sm:mb-2 xs:mb-0`}
->
-                  {addonPayLoads.total_time} {lang === "ar" ? "\u00A0\u00A0يوم" : "Days"}
+                  className={`w-[40%] ${lang !== "ar" ? "xs:text-right" : ""} ${
+                    lang === "ar" ? "ml-[3px]" : ""
+                  } sm:mb-2 xs:mb-0`}
+                >
+                  {addonPayLoads.total_time}{" "}
+                  {lang === "ar" ? "\u00A0\u00A0يوم" : "Days"}
                 </p>
               </div>
 

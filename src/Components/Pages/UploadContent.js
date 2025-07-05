@@ -314,8 +314,8 @@ export default function UploadContent({ lang, setLang }) {
           if (!width || !height || !length) {
             toastErrorMessage(
               lang === "ar"
-                ? "يرجى إضافة تفاصيل التخصيص"
-                : "Please add Customize details",
+                ? "يرجى إضافة المقاسات قبل الحفظ"
+                : "Please add measurements before saving.",
               {
                 icon: false,
                 toastId: "custom-measurement-toast",
