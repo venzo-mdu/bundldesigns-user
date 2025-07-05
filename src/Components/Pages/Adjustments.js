@@ -290,9 +290,9 @@ export default function Adjustments({ user, lang, setLang }) {
   ];
 
   const [addOnLang, setAddOnLang] = useState([
-    { id: 1, language: "English", label: "English", isChecked: true },
-    { id: 2, language: "Arabic", label: "Arabic", isChecked: false },
-    { id: 3, language: "both", label: "Both (+2,000 SAR)", isChecked: false },
+    { id: 1, language: "English", label: "English", isChecked: true,label_arabic:"انجليزي" },
+    { id: 2, language: "Arabic", label: "Arabic", isChecked: false,label_arabic:"عربي" },
+    { id: 3, language: "both", label: "Both (+2,000 SAR)", isChecked: false,label_arabic:"كلاهما (+٢٠٠٠  ريال)"},
   ]);
 
   useEffect(() => {
@@ -1432,7 +1432,7 @@ export default function Adjustments({ user, lang, setLang }) {
                                                               : "text-[18px]"
                                                           } cursor-pointer`}
                                                         >
-                                                          {ele.label}
+                                                          {ln === "ar" ? ele.label_arabic : ele.label}
                                                         </label>
                                                       </div>
                                                     );
@@ -2828,7 +2828,7 @@ export default function Adjustments({ user, lang, setLang }) {
                                                 className={`flex md:ml-[14%]  
                                                   lg:ml-[11%] ${
                                                     ln === "ar"
-                                                      ? "macm2:mr-[25%]"
+                                                      ? "macm2:mr-[20%]"
                                                       : "macm2:ml-[15%]"
                                                   } macm3:ml-[4%] macm1:ml-[11%]
                                                   lmd2:ml-[15%]   ${
