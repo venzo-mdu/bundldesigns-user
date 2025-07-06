@@ -2005,12 +2005,23 @@ export default function Dashboard({ lang, setLang }) {
                         ? dashboardJson.project_process_arabic
                         : dashboardJson.project_process
                       )?.map((item, index) => {
-                        
                         return (
                           <div className="lg:basis-[45%]  md:basis-[20%] xs:basis-1/5 text-center lg:text-[16px] md:text-[14px] mt-[2%]">
                             {" "}
                             {item === "Add Ons" || item === "إضافات" ? (
-                              <div className={`${index == processIndex && lang === 'En'?"ml-[10%]":processIndex == 5 && lang === 'En'?'ml-[10%]':lang==='ar' && index == processIndex?'mr-[15%]': lang==='ar' && processIndex == 5 ?'mr-[8%]': "ml-[3%]"}`}>
+                              <div
+                                className={`${
+                                  index == processIndex && lang === "En"
+                                    ? "ml-[10%]"
+                                    : processIndex == 5 && lang === "En"
+                                    ? "ml-[10%]"
+                                    : lang === "ar" && index == processIndex
+                                    ? "mr-[15%]"
+                                    : lang === "ar" && processIndex == 5
+                                    ? "mr-[8%]"
+                                    : "ml-[3%]"
+                                }`}
+                              >
                                 <p
                                   className={`pb-0 lg:max-w-[75%] md:max-w-[75%] macm2:w-[70%] max-w-[95%] lg:mx-auto md:mx-0 xs:mx-auto mb-0 ${
                                     index == processIndex && "font-bold"
@@ -2061,14 +2072,17 @@ export default function Dashboard({ lang, setLang }) {
                               <div className="flex items-center justify-between w-full">
                                 {/* Heading */}
                                 <p
-                                  className={`lg:text-[22px] md:text-[22px] xs:text-[18px] font-bold my-2 ${
-                                    processIndex < 2
-                                      ? processIndex === 1 &&
-                                        order?.order_status !== "in_progress"
-                                        ? "text-[#00000080]"
-                                        : "text-black"
-                                      : "text-black"
-                                  }`}
+                                  className={`flex justify-between w-full
+            md:justify-normal md:w-auto
+            text-[18px] md:text-[22px] font-bold my-2
+            lg:items-center lg:gap-1
+            ${
+              processIndex < 2
+                ? processIndex === 1 && order?.order_status !== "in_progress"
+                  ? "text-[#00000080]"
+                  : "text-black"
+                : "text-black"
+            }`}
                                 >
                                   {lang === "ar"
                                     ? "الهوية البصرية"
@@ -2116,8 +2130,10 @@ export default function Dashboard({ lang, setLang }) {
                                 )}
                               </div>
 
-                              <div className="flex items-center justify-between w-full">  {/* Left side: Text + Left button */}
-                                <div className="flex items-center gap-4 justify-between w-full sm:justify-start sm:w-auto"> 
+                              <div className="flex items-center justify-between w-full">
+                                {" "}
+                                {/* Left side: Text + Left button */}
+                                <div className="flex items-center gap-4 justify-between w-full sm:justify-start sm:w-auto">
                                   {/* xs:justify-between xs:w-full */}
                                   <p
                                     className={`font-[600] lg:text-[18px] md:text-[18px] xs:text-[16px] m-0 ${
@@ -2156,7 +2172,6 @@ export default function Dashboard({ lang, setLang }) {
                                   )}
                                 </div>
                               </div>
-                              
                             </>
                           )}
                           <p
