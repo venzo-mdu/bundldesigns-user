@@ -730,7 +730,7 @@ export default function UploadContent({ lang, setLang }) {
               {lang === "ar" ? "العودة إلى لوحة القيادة" : "Back to dashboard"}{" "}
             </p>
             <div className="">
-              <h3 className="my-4 px-[5%]">
+              <h3 className={`my-4 px-[5%] ${lang === "ar" ? 'pr-[3%]' : ''}`}>
                 {" "}
                 {lang === "ar" ? "تحميل المحتوى" : "Upload Document"}{" "}
               </h3>
