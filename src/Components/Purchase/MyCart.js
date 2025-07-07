@@ -732,10 +732,11 @@ export const MyCart = ({ lang, setLang }) => {
         const resProjects = response.data.data.filter(
           (item) => item.order_status != "in_cart"
         );
+        debugger
         if (resProjects.length === 0) {
           // cartDetails.tax
           if (
-            (cartDetails.total_amount >= 4800 &&
+            (cartDetails.total_amount >= 4880 &&
               cartDetails.bundl_english === "The Newbie") ||
             (cartDetails.total_amount >= 800 &&
               cartDetails.bundl_english === "") ||

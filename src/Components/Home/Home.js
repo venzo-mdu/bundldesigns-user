@@ -1762,7 +1762,7 @@ export const Home = ({ lang, setLang }) => {
       //     setSelectedIndex(index)
       // } else {
       setSelectedIndex(null);
-      navigate(`/bundldetail/${routeNames[bundlData?.packages[index]?.id]}`);
+      navigate(`/bundldetail/${routeNames[bundlData?.packages?.[index]?.id]}`);
       // navigate(`/bundldetail/${bundlData.packages[index].id}`,);
       // }
     } catch (error) {

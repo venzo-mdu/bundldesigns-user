@@ -1895,7 +1895,7 @@ export default function Dashboard({ lang, setLang }) {
                   </h1>
                 )}
 
-                <p className="flex lg:overflow-auto mb-0">
+                <p className="flex lg:overflow-auto md:overflow-auto xs:overflow-hidden mb-0">
                   {window.innerWidth > 768 ? (
                     projects.map((project) => {
                       return (
@@ -1942,25 +1942,47 @@ export default function Dashboard({ lang, setLang }) {
                       );
                     })
                   ) : (
-                    <div className="xs:px-[5%] xs:flex xs:w-[100%]">
-                      {/* <div className="select-container"> */}
-                      <select
-                        id="dashboardSelect"
-                        className="w-[25%] h-[45px] text-[32px] font-[700] outline-none border-none px-0 rounded-none appearance-none "
-                        onChange={(e) => handleSelectChange(e)}
-                      >
-                        {projects?.map((project, index) => (
-                          <option
-                            className="text-[16px] font-[500] "
-                            key={index}
-                            value={project.id}
-                          >
-                            {project.project_name}
-                          </option>
-                        ))}
-                      </select>
-                      {/* </div> */}
-                    </div>
+                    // <div className="xs:px-[5%] xs:flex xs:w-[100%]">
+                    //   {/* <div className="select-container"> */}
+                    //   <select
+                    //     id="dashboardSelect"
+                    //     className="w-[25%] h-[45px] text-[32px] font-[700] outline-none border-none px-0 rounded-none appearance-none "
+                    //     onChange={(e) => handleSelectChange(e)}
+                    //   >
+                    //     {projects?.map((project, index) => (
+                    //       <option
+                    //         className="text-[16px] font-[500] "
+                    //         key={index}
+                    //         value={project.id}
+                    //       >
+                    //         {project.project_name}
+                    //       </option>
+                    //     ))}
+                    //   </select>
+                    //   {/* </div> */}
+                    // </div>
+<div className="xs:px-[5%] xs:flex xs:w-full">
+  <select
+    id="dashboardSelect"
+    className="w-[75%] h-[45px] text-[24px] font-[700]
+               outline-none border border-gray-400
+               pr-8 pl-2 rounded-none shadow-none appearance-none truncate"
+    onChange={(e) => handleSelectChange(e)}
+  >
+    {projects?.map((project, index) => (
+      <option
+        className="text-[16px] font-[500] truncate"
+        key={index}
+        value={project.id}
+      >
+        {project.project_name.length > 14
+          ? `${project.project_name.slice(0, 14)}...`
+          : project.project_name}
+      </option>
+    ))}
+  </select>
+</div>
+
                   )}
 
                   {window?.innerWidth >= 475 && (
@@ -2016,6 +2038,7 @@ export default function Dashboard({ lang, setLang }) {
                                     ? "ml-[10%]"
                                     : processIndex == 5 && lang === "En"
                                     ? "ml-[10%]"
+
                                     : lang === "ar" && index == processIndex
                                     ? "mr-[15%]"
                                     : lang === "ar" && processIndex == 5
