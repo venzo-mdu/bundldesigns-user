@@ -1411,18 +1411,19 @@ export default function Dashboard({ lang, setLang }) {
                 </button>
               </p>
             )}
-            <p>
+            <div className="flex justify-center mb-[14px] md:mb-0">
               <button
                 onClick={() =>
                   (window.location.href = `/upload-content/${order.id}`)
                 }
-                className="bg-[#1BA56F] lg:px-4 md:px-4 xs:px-[10%] py-1 text-[#fff] text-[16px] mt-2 uppercase"
+                // className="bg-[#1BA56F] lg:px-4 md:px-4 xs:px-[10%] py-    text-[#fff] text-[16px] mt-2 uppercase"
+                className=" bg-[#1BA56F] px-4 py-2  text-[16px] text-white font-[400] uppercase justify-center"
               >
                 {lang === "ar"
                   ? dashboardJson.process_content.upload_content_arabic
                   : dashboardJson.process_content.upload_content}
               </button>
-            </p>
+            </div>
 
             {processIndex >= 4 && (
               <button
@@ -2030,13 +2031,18 @@ export default function Dashboard({ lang, setLang }) {
                         return (
                           <div className="lg:basis-[45%]  md:basis-[20%] xs:basis-1/5 text-center lg:text-[16px] md:text-[14px] mt-[2%]">
                             {" "}
-                            {item === "Add Ons" ? (
+                            {item === "Add Ons" || item === "إضافات" ? (
                               <div
                                 className={`${
                                   index == processIndex && lang === "En"
                                     ? "ml-[10%]"
                                     : processIndex == 5 && lang === "En"
                                     ? "ml-[10%]"
+
+                                    : lang === "ar" && index == processIndex
+                                    ? "mr-[15%]"
+                                    : lang === "ar" && processIndex == 5
+                                    ? "mr-[8%]"
                                     : "ml-[3%]"
                                 }`}
                               >
@@ -2090,14 +2096,17 @@ export default function Dashboard({ lang, setLang }) {
                               <div className="flex items-center justify-between w-full">
                                 {/* Heading */}
                                 <p
-                                  className={`lg:text-[22px] md:text-[22px] xs:text-[18px] font-bold my-2 ${
-                                    processIndex < 2
-                                      ? processIndex === 1 &&
-                                        order?.order_status !== "in_progress"
-                                        ? "text-[#00000080]"
-                                        : "text-black"
-                                      : "text-black"
-                                  }`}
+                                  className={`flex justify-between w-full
+            md:justify-normal md:w-auto
+            text-[18px] md:text-[22px] font-bold my-2
+            lg:items-center lg:gap-1
+            ${
+              processIndex < 2
+                ? processIndex === 1 && order?.order_status !== "in_progress"
+                  ? "text-[#00000080]"
+                  : "text-black"
+                : "text-black"
+            }`}
                                 >
                                   {lang === "ar"
                                     ? "الهوية البصرية"
@@ -2144,10 +2153,11 @@ export default function Dashboard({ lang, setLang }) {
                                   </button>
                                 )}
                               </div>
-
                               <div className="flex items-center justify-between w-full">
+                                {" "}
                                 {/* Left side: Text + Left button */}
-                                <div className="flex items-center gap-4">
+                                <div className="flex items-center gap-4 justify-between w-full sm:justify-start sm:w-auto">
+                                  {/* xs:justify-between xs:w-full */}
                                   <p
                                     className={`font-[600] lg:text-[18px] md:text-[18px] xs:text-[16px] m-0 ${
                                       processIndex < 2
@@ -2167,7 +2177,7 @@ export default function Dashboard({ lang, setLang }) {
                                   </p>
                                   {processIndex >= 4 && (
                                     <button
-                                      className="bg-[#1BA56F] px-2 py-1 text-[14px] text-white font-[400] uppercase"
+                                      className="bg-[#1BA56F] px-2 py-1 text-[14px] leading-[24px] text-white font-[400] uppercase"
                                       onClick={() => {
                                         navigate("/adjustment", {
                                           state: {
@@ -2276,12 +2286,13 @@ export default function Dashboard({ lang, setLang }) {
                                           </>
                                         ) : (
                                           <>
+                                          {/* bg-[#1BA56F] px-2 py-1 text-[14px] text-white font-[400] uppercase */}
                                             <button
                                               className={`bg-[#1BA56F] ${
                                                 lang === "ar"
                                                   ? "lg:ml-5 md:ml-5 xs:ml-0"
                                                   : "lg:mr-5 md:mr-5 xs:mr-0"
-                                              } px-2 !py-0 text-[14px] ml-4 text-white font-[400] lg:mt-0 md:mt-0 xs:mt-[5%] uppercase`}
+                                              } px-2 !py-1 text-[14px] ml-4 text-white font-[400] lg:mt-0 md:mt-0 xs:mt-[5%] uppercase`}
                                               onClick={() => {
                                                 navigate("/adjustment", {
                                                   state: {

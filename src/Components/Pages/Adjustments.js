@@ -68,6 +68,7 @@ export default function Adjustments({ user, lang, setLang }) {
     vat_registered: "",
     trn: "",
   });
+  const ln = localStorage.getItem("lang");
   const [error, setError] = useState({});
   const [errors, setErrors] = useState({});
   const [phoneError, setPhoneError] = useState(false);
@@ -289,9 +290,27 @@ export default function Adjustments({ user, lang, setLang }) {
   ];
 
   const [addOnLang, setAddOnLang] = useState([
-    { id: 1, language: "English", label: "English", isChecked: true },
-    { id: 2, language: "Arabic", label: "Arabic", isChecked: false },
-    { id: 3, language: "both", label: "Both (+2,000 SAR)", isChecked: false },
+    {
+      id: 1,
+      language: "English",
+      label: "English",
+      isChecked: true,
+      label_arabic: "انجليزي",
+    },
+    {
+      id: 2,
+      language: "Arabic",
+      label: "Arabic",
+      isChecked: false,
+      label_arabic: "عربي",
+    },
+    {
+      id: 3,
+      language: "both",
+      label: "Both (+2,000 SAR)",
+      isChecked: false,
+      label_arabic: "كلاهما (+٢٠٠٠  ريال)",
+    },
   ]);
 
   useEffect(() => {
@@ -1069,7 +1088,7 @@ export default function Adjustments({ user, lang, setLang }) {
                                 {amountDecimal(Math.round(adjustment.price))}{" "}
                                 {lang === "ar" ? "ريال" : "SAR"}
                               </p>
-                              <p className="flex items-center mb-1 font-[500]">
+                              <p className="flex items-center mb-1 font-medium">
                                 <AccessTimeIcon
                                   className={`${
                                     lang === "ar" ? "ml-2" : "mr-2"
@@ -1431,7 +1450,9 @@ export default function Adjustments({ user, lang, setLang }) {
                                                               : "text-[18px]"
                                                           } cursor-pointer`}
                                                         >
-                                                          {ele.label}
+                                                          {ln === "ar"
+                                                            ? ele.label_arabic
+                                                            : ele.label}
                                                         </label>
                                                       </div>
                                                     );
@@ -2353,7 +2374,11 @@ export default function Adjustments({ user, lang, setLang }) {
                         {adjustments.map((adjustment, index) => {
                           return (
                             <button
-                              className={`uppercase font-[500] h-[40px] lg:px-[20px] md:px-[10px] basis-[20%] min-w-[100px] md:py-[3px] md:text-[14px] lg:py-[5px]  ${
+                              className={`uppercase font-[500] h-[40px] lg:px-[20px] md:px-[10px] basis-[20%] min-w-[100px] md:py-[3px] lg:py-[5px] ${
+                                lang === "ar"
+                                  ? "md:text-[9px]"
+                                  : "md:text-[14px]"
+                              }  ${
                                 adjustmenTab ==
                                 (lang === "ar"
                                   ? adjustment.arabic_adjustment_name
@@ -2548,8 +2573,12 @@ export default function Adjustments({ user, lang, setLang }) {
                 <div className="lg:mt-4 md:mt-16 xs:mt-8">
                   <h2 className="text-[38px]">
                     {lang === "ar"
-                      ? "مشروعك يحتاج إضافات"
-                      : "Add-ons to Bundl"}
+                      ? state?.purchaseAddOns
+                        ? "إضافات إلى بندل"
+                        : "مشروعك يحتاج إضافات؟"
+                      : state?.purchaseAddOns
+                      ? "Add-ons to Bundl"
+                      : "Something feels missing ?"}
                   </h2>
                   <p className="text-[18px] text-[#00000080]">
                     {lang === "ar"
@@ -2692,7 +2721,7 @@ export default function Adjustments({ user, lang, setLang }) {
                                             "Logo & Identity"
                                               ? null
                                               : "py-[1.5%]"
-                                          }   border-b !border-[#1BA56F]`}
+                                          }   border-b !border-[#000]`}
                                         >
                                           <span className="md:basis-[25%] basis-[25%] xs:basis-[100%] text-[16px] md:text-[18px] xs:text-[16px] text-[#000] font-[500]">
                                             {lang === "ar"
@@ -2702,7 +2731,7 @@ export default function Adjustments({ user, lang, setLang }) {
                                               : item.name_english}
                                           </span>
                                           <p className="flex mb-0 text-[18px] md:text-[18px] xs:text-[16px] basis-[40%] font-normal">
-                                            <span className="flex items-center w-[150px]">
+                                            <span className="flex items-center w-[150px] font-medium">
                                               <img
                                                 src={BlackDollor}
                                                 className={`${
@@ -2716,7 +2745,7 @@ export default function Adjustments({ user, lang, setLang }) {
                                               )}{" "}
                                               {lang === "ar" ? "ريال" : "SAR"}{" "}
                                             </span>
-                                            <span className="flex items-center w-[120px]">
+                                            <span className="flex items-center w-[120px] font-medium">
                                               <AccessTimeIcon
                                                 style={
                                                   lang === "ar"
@@ -2729,7 +2758,7 @@ export default function Adjustments({ user, lang, setLang }) {
                                             </span>
                                           </p>
                                           <p
-                                            className={`mb-0 lg:basis-[5%] md:basis-[5%] xs:basis-[10%] h-[30px] text-[20px] md:text-[20px] xs:text-[16px] flex ${
+                                            className={`mb-0 lg:basis-[5%] md:basis-[5%] xs:basis-[10%] h-[30px] text-[20px] md:text-[20px] xs:text-[16px] flex  ${
                                               lang === "ar"
                                                 ? "flex-row-reverse"
                                                 : "flex-row"
@@ -2743,11 +2772,11 @@ export default function Adjustments({ user, lang, setLang }) {
                                                 lang === "ar"
                                                   ? "border-r"
                                                   : "border-r"
-                                              } !border-[#1BA56F] h-full flex items-center md:w-[35px] md:pt-[1%] md:px-[5%]`}
+                                              } !border-[#000] h-full flex items-center md:w-[35px] md:pt-[1%] md:px-[5%]`}
                                             >
                                               <RemoveIcon />
                                             </button>
-                                            <span className="px-2 flex justify-center !border-[#1BA56F] md:w-[35px] md:pt-[1%] md:px-[5%]">
+                                            <span className="px-2 flex justify-center !border-[#000] md:w-[35px] md:pt-[1%] md:px-[5%]">
                                               {" "}
                                               {item.id in itemsList
                                                 ? itemsList[item.id]["qty"]
@@ -2813,7 +2842,7 @@ export default function Adjustments({ user, lang, setLang }) {
                                                 lang === "ar"
                                                   ? "border-l"
                                                   : "border-l"
-                                              } !border-[#1BA56F] h-full md:w-[35px] md:pt-[1%] md:px-[5%]`}
+                                              } !border-[#000] h-full md:w-[35px] md:pt-[1%] md:px-[5%]`}
                                             >
                                               <AddIcon />
                                             </button>
@@ -2825,7 +2854,11 @@ export default function Adjustments({ user, lang, setLang }) {
                                               "Logo & Identity" && (
                                               <div
                                                 className={`flex md:ml-[14%]  
-                                                  lg:ml-[11%] macm2:ml-[9%] macm3:ml-[4%] macm1:ml-[11%]
+                                                  lg:ml-[11%] ${
+                                                    ln === "ar"
+                                                      ? "macm2:mr-[20%]"
+                                                      : "macm2:ml-[15%]"
+                                                  } macm3:ml-[4%] macm1:ml-[11%]
                                                   lmd2:ml-[15%]   ${
                                                     window.innerWidth > 1440 &&
                                                     "ml-[1%]"
@@ -2837,11 +2870,11 @@ export default function Adjustments({ user, lang, setLang }) {
                                                   py-[1.5%] items-center mb-4 justify-center`}
                                               >
                                                 <Typography>
-                                                  <div className="flex gap-2">
+                                                  <div className="flex gap-4">
                                                     {addOnLang?.map((ele) => {
                                                       return (
                                                         <div
-                                                          className={`flex gap-1 ${
+                                                          className={`flex gap-2 ${
                                                             window.innerWidth >
                                                             379
                                                               ? "text-[16px]"
@@ -2882,7 +2915,9 @@ export default function Adjustments({ user, lang, setLang }) {
                                                                 : "text-[18px]"
                                                             } cursor-pointer`}
                                                           >
-                                                            {ele.label}
+                                                            {ln === "ar"
+                                                              ? ele.label_arabic
+                                                              : ele.label}
                                                           </label>
                                                         </div>
                                                       );
@@ -2947,28 +2982,6 @@ export default function Adjustments({ user, lang, setLang }) {
                         />
                       </p>
                       <div className="">
-                        <p className="font-bold">
-                          {" "}
-                          {lang === "ar" ? item.name_arabic : item.name_english}
-                          {/* {item.name_english === "Logo & Identity" &&
-                          addOnLang.find((ele) => ele.isChecked)?.language ===
-                            "both"
-                            ? "(English & Arabic)"
-                            : item.name_english === "Logo & Identity" && addOnLang.find((ele) => ele.isChecked)
-                                ?.language === "English"
-                            ? "(English)"
-                            : item.name_english === "Logo & Identity" && "(Arabic)"} */}
-                          {item.name_english === "Logo & Identity" &&
-                          addOnLang.find((ele) => ele.isChecked)?.language ===
-                            "both"
-                            ? "(English & Arabic)"
-                            : item.name_english === "Logo & Identity" &&
-                              addOnLang.find((ele) => ele.isChecked)
-                                ?.language === "English"
-                            ? "(English)"
-                            : item.name_english === "Logo & Identity" &&
-                              "(Arabic)"}
-                        </p>
                         <div className="flex font-[500] text-[#1BA56F]">
                           <p className="flex items-center">
                             <img
@@ -3246,7 +3259,8 @@ export default function Adjustments({ user, lang, setLang }) {
                         {addOnLang.find((ele) => ele.isChecked)?.language ===
                         "both"
                           ? amountDecimal(Math.round(row.price) + 2000)
-                          : amountDecimal(Math.round(row.price))}
+                          : amountDecimal(Math.round(row.price))}{" "}
+                        {lang === "ar" ? "ريال" : "SAR"}{" "}
                       </td>
                       {/* <TableCell align="center"><img style={{width:'23px'}} src={row.DeleteIcon}></img></TableCell> */}
                       <td className=" !py-2" align="center" scope="row">

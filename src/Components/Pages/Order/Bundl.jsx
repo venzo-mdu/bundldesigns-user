@@ -147,7 +147,7 @@ function BundlOrder({
                         : "text-left"
                     } ${
                       window.innerWidth > 475 && "pl-[5%]"
-                    } space-x-2 mt-[2%]`}
+                    }  mt-[2%]`}
                   >
                     <div
                       className={`${
@@ -155,7 +155,7 @@ function BundlOrder({
                       } w-[calc(100%+5%)] border-y border-black py-2`}
                     >
                       <div
-                        className={`${window.innerWidth > 475 && "pl-[5%]"}`}
+                        className={`${window.innerWidth > 475 ? "pl-[5%] ml-[-1px]" : ""}`}
                       >
                         <p className="mb-0 font-semibold text-[18px]">
                           Addons -{" "}
@@ -168,7 +168,8 @@ function BundlOrder({
                     </div>
 
                     {designQuestions[item.item__id]?.language && (
-                      <p className="mt-2 mb-0" style={{marginLeft:"0px"}}>
+                      <p className="mt-2 mb-0" style={{marginLeft:"0px",...(lang === "ar" && { marginRight: "-8px" })}}>
+                        
                         <label
                           className={`${
                             lang === "ar" ? "ml-6" : "mr-6"
@@ -249,7 +250,7 @@ function BundlOrder({
                         <p className="mb-0 font-bold" style={{marginLeft:"0px"}}>
                           {lang === "ar" ? "القياسات" : "Measurements"}
                         </p>
-                        <p className="ml-2 mt-2" style={{marginLeft:"0px"}}>
+                        <p className="ml-2 mt-2" style={{marginLeft:"0px",...(lang === "ar" && { marginRight: "-8px" })}}>
                           <label
                             className={`${
                               lang === "ar" ? "ml-6" : "mr-6"
@@ -262,7 +263,7 @@ function BundlOrder({
                                 uploadContent[item.id]?.[filterIndex]
                                   ?.measurements === "Standard"
                               }
-                              onChange={(e) =>
+                              onChange={(e) =>{
                                 handleChange(
                                   e,
                                   item.id,
@@ -270,7 +271,19 @@ function BundlOrder({
                                   item.item_name + "-" + filterIndex,
                                   filterIndex
                                 )
-                              }
+
+                                setUploadContent((prev) => {
+    const updated = { ...prev };
+    if (updated[item.id]?.[filterIndex]) {
+      delete updated[item.id][filterIndex].width;
+      delete updated[item.id][filterIndex].height;
+      delete updated[item.id][filterIndex].length;
+    }
+    return updated;
+  });
+
+                                
+                              }}
                               className="form-radio accent-[#1BA56F] mr-2"
                             />{" "}
                             {lang === "ar" ? "قياس عام " : "Standard"}{" "}
