@@ -68,7 +68,7 @@ export default function Adjustments({ user, lang, setLang }) {
     vat_registered: "",
     trn: "",
   });
-  const ln = localStorage.getItem("lang")
+  const ln = localStorage.getItem("lang");
   const [error, setError] = useState({});
   const [errors, setErrors] = useState({});
   const [phoneError, setPhoneError] = useState(false);
@@ -290,9 +290,27 @@ export default function Adjustments({ user, lang, setLang }) {
   ];
 
   const [addOnLang, setAddOnLang] = useState([
-    { id: 1, language: "English", label: "English", isChecked: true,label_arabic:"انجليزي" },
-    { id: 2, language: "Arabic", label: "Arabic", isChecked: false,label_arabic:"عربي" },
-    { id: 3, language: "both", label: "Both (+2,000 SAR)", isChecked: false,label_arabic:"كلاهما (+٢٠٠٠  ريال)"},
+    {
+      id: 1,
+      language: "English",
+      label: "English",
+      isChecked: true,
+      label_arabic: "انجليزي",
+    },
+    {
+      id: 2,
+      language: "Arabic",
+      label: "Arabic",
+      isChecked: false,
+      label_arabic: "عربي",
+    },
+    {
+      id: 3,
+      language: "both",
+      label: "Both (+2,000 SAR)",
+      isChecked: false,
+      label_arabic: "كلاهما (+٢٠٠٠  ريال)",
+    },
   ]);
 
   useEffect(() => {
@@ -1432,7 +1450,9 @@ export default function Adjustments({ user, lang, setLang }) {
                                                               : "text-[18px]"
                                                           } cursor-pointer`}
                                                         >
-                                                          {ln === "ar" ? ele.label_arabic : ele.label}
+                                                          {ln === "ar"
+                                                            ? ele.label_arabic
+                                                            : ele.label}
                                                         </label>
                                                       </div>
                                                     );
@@ -2354,7 +2374,11 @@ export default function Adjustments({ user, lang, setLang }) {
                         {adjustments.map((adjustment, index) => {
                           return (
                             <button
-                              className={`uppercase font-[500] h-[40px] lg:px-[20px] md:px-[10px] basis-[20%] min-w-[100px] md:py-[3px] md:text-[14px] lg:py-[5px]  ${
+                              className={`uppercase font-[500] h-[40px] lg:px-[20px] md:px-[10px] basis-[20%] min-w-[100px] md:py-[3px] lg:py-[5px] ${
+                                lang === "ar"
+                                  ? "md:text-[9px]"
+                                  : "md:text-[14px]"
+                              }  ${
                                 adjustmenTab ==
                                 (lang === "ar"
                                   ? adjustment.arabic_adjustment_name
@@ -2549,7 +2573,11 @@ export default function Adjustments({ user, lang, setLang }) {
                 <div className="lg:mt-4 md:mt-16 xs:mt-8">
                   <h2 className="text-[38px]">
                     {lang === "ar"
-                      ? "مشروعك يحتاج إضافات"
+                      ? state?.purchaseAddOns
+                        ? "إضافات إلى بندل"
+                        : "مشروعك يحتاج إضافات؟"
+                      : state?.purchaseAddOns
+                      ? "Add-ons to Bundl"
                       : "Something feels missing ?"}
                   </h2>
                   <p className="text-[18px] text-[#00000080]">
@@ -2887,7 +2915,9 @@ export default function Adjustments({ user, lang, setLang }) {
                                                                 : "text-[18px]"
                                                             } cursor-pointer`}
                                                           >
-                                                            {ln === "ar" ? ele.label_arabic : ele.label}
+                                                            {ln === "ar"
+                                                              ? ele.label_arabic
+                                                              : ele.label}
                                                           </label>
                                                         </div>
                                                       );
@@ -2952,7 +2982,6 @@ export default function Adjustments({ user, lang, setLang }) {
                         />
                       </p>
                       <div className="">
-                        
                         <div className="flex font-[500] text-[#1BA56F]">
                           <p className="flex items-center">
                             <img

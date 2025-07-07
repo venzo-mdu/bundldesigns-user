@@ -1411,18 +1411,19 @@ export default function Dashboard({ lang, setLang }) {
                 </button>
               </p>
             )}
-            <p>
+            <div className="flex justify-center mb-[14px] md:mb-0">
               <button
                 onClick={() =>
                   (window.location.href = `/upload-content/${order.id}`)
                 }
-                className="bg-[#1BA56F] lg:px-4 md:px-4 xs:px-[10%] py-1 text-[#fff] text-[16px] mt-2 uppercase"
+                // className="bg-[#1BA56F] lg:px-4 md:px-4 xs:px-[10%] py-    text-[#fff] text-[16px] mt-2 uppercase"
+                className=" bg-[#1BA56F] px-4 py-2  text-[16px] text-white font-[400] uppercase justify-center"
               >
                 {lang === "ar"
                   ? dashboardJson.process_content.upload_content_arabic
                   : dashboardJson.process_content.upload_content}
               </button>
-            </p>
+            </div>
 
             {processIndex >= 4 && (
               <button
@@ -2129,7 +2130,6 @@ export default function Dashboard({ lang, setLang }) {
                                   </button>
                                 )}
                               </div>
-
                               <div className="flex items-center justify-between w-full">
                                 {" "}
                                 {/* Left side: Text + Left button */}
@@ -2154,7 +2154,7 @@ export default function Dashboard({ lang, setLang }) {
                                   </p>
                                   {processIndex >= 4 && (
                                     <button
-                                      className="bg-[#1BA56F] px-2 py-1 text-[14px] text-white font-[400] uppercase"
+                                      className="bg-[#1BA56F] px-2 py-1 text-[14px] leading-[24px] text-white font-[400] uppercase"
                                       onClick={() => {
                                         navigate("/adjustment", {
                                           state: {
@@ -2263,12 +2263,13 @@ export default function Dashboard({ lang, setLang }) {
                                           </>
                                         ) : (
                                           <>
+                                          {/* bg-[#1BA56F] px-2 py-1 text-[14px] text-white font-[400] uppercase */}
                                             <button
                                               className={`bg-[#1BA56F] ${
                                                 lang === "ar"
                                                   ? "lg:ml-5 md:ml-5 xs:ml-0"
                                                   : "lg:mr-5 md:mr-5 xs:mr-0"
-                                              } px-2 !py-0 text-[14px] ml-4 text-white font-[400] lg:mt-0 md:mt-0 xs:mt-[5%] uppercase`}
+                                              } px-2 !py-1 text-[14px] ml-4 text-white font-[400] lg:mt-0 md:mt-0 xs:mt-[5%] uppercase`}
                                               onClick={() => {
                                                 navigate("/adjustment", {
                                                   state: {
