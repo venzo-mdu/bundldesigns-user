@@ -140,6 +140,9 @@
     color: #FFFFFF;
     transition: 1s;
 }
+.active{
+    background-color: #000; 
+}
 .product-btn.active,
 .service-btn.active {
     background-color: #000;

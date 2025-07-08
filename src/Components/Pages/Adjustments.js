@@ -2858,7 +2858,9 @@ export default function Adjustments({ user, lang, setLang }) {
                                                     ln === "ar"
                                                       ? "macm2:mr-[20%]"
                                                       : "macm2:ml-[15%]"
-                                                  } macm3:ml-[4%] macm1:ml-[11%]
+                                                  } 
+                                                  ${ln === "ar" ? "macm3:mr-[15%]" : "macm3:ml-[8%]"} 
+                                                  ${ln === "ar" ? "macm1:mr-[22%]" : "macm1:ml-[16%]"}
                                                   lmd2:ml-[15%]   ${
                                                     window.innerWidth > 1440 &&
                                                     "ml-[1%]"

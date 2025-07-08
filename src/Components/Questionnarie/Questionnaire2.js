@@ -571,6 +571,21 @@ export const Questionnaire2 = ({
                                       </div>
                                       <button
                                         key={`female-${index}`}
+                                        style={
+                                          question?.answer?.[0].value?.includes(
+                                            label
+                                          )
+                                            ? {
+                                                backgroundColor: "#000000",
+                                                color: "#ffffff",
+                                                border: "1px solid #000000",
+                                              }
+                                            : {
+                                                backgroundColor: "#ffffff",
+                                                color: "#000000",
+                                                border: "1px solid #cccccc",
+                                              }
+                                        }
                                         className={`female-btn uppercase ${
                                           question?.answer?.[0].value?.includes(
                                             label
@@ -668,6 +683,22 @@ export const Questionnaire2 = ({
                                     </div>
                                     <button
                                       key={`male-${index}`}
+                                      style={
+                                          question?.answer?.[1].value?.includes(
+                                            label
+                                          )
+                                            ? {
+                                                backgroundColor: "#000000",
+                                                color: "#ffffff",
+                                                border: "1px solid #000000",
+                                              }
+                                            : {
+                                                backgroundColor: "#ffffff",
+                                                color: "#000000",
+                                                border: "1px solid #cccccc",
+                                              }
+                                        }
+                                      
                                       className={`male-btn uppercase ${
                                         question?.answer?.[1].value?.includes(
                                           label
@@ -750,7 +781,7 @@ export const Questionnaire2 = ({
                       question.answer_type === "age-data" ? "" : question.answer
                     }
                     onChange={(e) => handleChange(question.id, e.target.value)}
-                     disabled={question.answer_type === "age-data"}
+                    disabled={question.answer_type === "age-data"}
                   />
                 </div>
               );
