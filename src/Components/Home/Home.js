@@ -1525,8 +1525,8 @@ export const Home = ({ lang, setLang }) => {
     translateX = activeProcess * (activeProcess < 3 ? 200 : 195);
     translateX_arabic = activeProcess * (activeProcess < 3 ? -196 : -195) + 80;
   } else {
-    translateX = activeProcess * (activeProcess < 3 ? 200 : 195) + 60;
-    translateX_arabic = activeProcess * (activeProcess < 3 ? -200 : -195) + -60;
+    translateX = activeProcess * (activeProcess < 3 ? 200 : 195) + 20;
+    translateX_arabic = activeProcess * (activeProcess < 3 ? -200 : -195) +70;
   }
   const bundlImages = [QubeIcon, Diamond, Eye, Food, Money];
   const textColor = ["pink-text", "green-text", "blue-text", "pink-text"];

@@ -1549,7 +1549,7 @@ export default function Dashboard({ lang, setLang }) {
         return "";
     }
   };
-   
+
   const renderProcessData = () => {
     return ProcessIndexDict.map((key, index) => {
       const isCurrentProcess = index === processIndex;
@@ -1580,8 +1580,7 @@ export default function Dashboard({ lang, setLang }) {
         lineBorderClass = "!border-[#1BA56F]"; // Green line for previous process
       }
       return (
-       <div className={`${containerClasses} overflow-hidden`} key={index}>
-
+        <div className={containerClasses} key={index}>
           <img
             className={`m-0 absolute ${
               isPreviousProcess || isCurrentProcess
@@ -1864,7 +1863,7 @@ export default function Dashboard({ lang, setLang }) {
                     >
                       <button
                         onClick={() => {
-                          window.location.href = "/#ourBundl";
+                          window.location.href = "/";
                         }}
                         className="bg-black text-white h-[35px] w-[35px] text-[22px]"
                       >
@@ -1988,7 +1987,7 @@ export default function Dashboard({ lang, setLang }) {
                   {window?.innerWidth >= 475 && (
                     <button
                       onClick={() => {
-                        window.location.href = "/#ourBundl";
+                        window.location.href = "/";
                       }}
                       className="lg:py-2 lg:px-2 lg:sticky lg:right-0 md:sticky md:right-0 flex bg-black text-white items-center lg:text-[32px] md:text-[24px] leading-[0px]  xs:text-[24px] xs:py-4 xs:px-4 xs:relative xs:left-[0%]"
                     >
@@ -2523,7 +2522,7 @@ export default function Dashboard({ lang, setLang }) {
                             "border-b border-black"
                           } mt-2 px-2`}
                         >
-                          
+                          <p>Date : {item?.created_at}</p>
                           <p>
                             {lang === "ar" ? "التاريخ:" : "Date:"}{" "}
                             {item?.created_at}

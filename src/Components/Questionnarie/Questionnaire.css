@@ -1300,8 +1300,54 @@ body[dir="rtl"] .male-btn, body[dir="rtl"] .female-btn {
         width: 50%;
     }
 }
-
-@media screen and (max-width:768px) and (min-width:441px) {
+@media screen and (max-width:500px) {
+    .female-buttons,.male-buttons{
+        padding: 0 4%;
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+    }
+    .female-image , .male-image{
+        cursor: pointer;
+        width: 60%;
+        /* margin: 0 0 10% 21%; */
+    }
+    .male-image-disable, .female-image-disable {
+        cursor: not-allowed;
+        opacity: 0.5;
+        width: 60%;
+        /* margin: 0 0 10% 21%; */
+    }
+    .male-btn,.female-btn{
+        font-size: 14px;
+        height: 35px;
+        width: 120px;
+        margin: 5% 0 0 0;
+    }
+    
+    /* Arabic language support */
+    body.ar .female-buttons, body.ar .male-buttons{
+        padding: 0 4%;
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+    }
+    body.ar .female-image, body.ar .male-image{
+        cursor: pointer;
+        width: 60%;
+        /* margin: 0 0 10% 21%; */
+    }
+    body.ar .male-image-disable, body.ar .female-image-disable {
+        cursor: not-allowed;
+        opacity: 0.5;
+        width: 60%;
+        /* margin: 0 0 10% 21%; */
+    }
+    body.ar .male-btn, body.ar .female-btn{
+        font-size: 14px;
+        height: 35px;
+        width: 120px;
+        margin: 5% 0 0 0;
+    }
+}@media screen and (max-width:768px) and (min-width:442px) {
     .questionnaire{
         padding: 10% 5%;
     }
@@ -1356,7 +1402,7 @@ body[dir="rtl"] .male-btn, body[dir="rtl"] .female-btn {
 }
 
 
-@media screen and (max-width:441px) {
+@media screen and (max-width:442px) {
     .questionnaire{
         padding: 15% 5%;
     }
@@ -2025,4 +2071,23 @@ body[dir="rtl"] .male-btn, body[dir="rtl"] .female-btn {
     .female-buttons, .male-buttons {
         padding: 0 3%;
     }
+}
+
+
+.ovrflw {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
+}
+
+
+/* Solution 14: Fix the main wrapper */
+body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+html {
+  overflow-x: hidden;
+  max-width: 100vw;
 }
