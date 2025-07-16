@@ -37,8 +37,7 @@ export const MyCart = ({ lang, setLang }) => {
   const [showModal, setShowModal] = useState(false);
   const [openPopup, setOpenPopup] = useState(false);
   const [removedItems, setRemovedItems] = useState([]);
-  const [isMobile, setIsMobile] = useState(window.innerWidth <440);
-  const [isDesktop, setIsDesktop] = useState(window.innerWidth > 440);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 440);
   const [phoneError, setPhoneError] = useState(false);
   const [totalAmount, setTotalAmount] = useState(0);
   const [coupon, setCoupon] = useState(null);
@@ -332,17 +331,6 @@ export const MyCart = ({ lang, setLang }) => {
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 440);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-   useEffect(() => {
-    const handleResize = () => {
-      setIsDesktop(window.innerWidth >440);
     };
 
     window.addEventListener("resize", handleResize);
@@ -796,9 +784,8 @@ export const MyCart = ({ lang, setLang }) => {
             showErrorToast(
               lang === "ar"
                 ? "الأدنى للطلب يجب أن يكون 4,880"
-                : `Minimum order amount should be ${
-                    cartDetails.bundl_english === "The Newbie" ? 4880 : 800
-                  }`,
+                : `Minimum order amount should be ${cartDetails.bundl_english === "The Newbie" ? 4880 : 800
+                }`,
               cartDetails.bundl_english === "The Newbie" ? "#D83D99" : "#1BA56F"
             );
             window.scrollTo({
@@ -1154,7 +1141,7 @@ export const MyCart = ({ lang, setLang }) => {
       // toastMessage();
       showSuccessToast(
         lang === "ar" ? "تم تحديث السلة بنجاح." : "Cart updated successfully",
-        "#D83D99" 
+        "#D83D99"
       );
     } catch (error) {
       console.error(
@@ -1215,7 +1202,7 @@ export const MyCart = ({ lang, setLang }) => {
             <div className="fixed inset-0 z-50  bg-gray-800 bg-opacity-50 flex items-center justify-center">
               <div className="bg-white rounded-none shadow-lg p-6 max-w-sm border-black border-[1px]">
                 <p className="text-lg font-[400] text-gray-900 text-center">
-                  Your Add-ons will be emptied.
+                  {lang === "ar" ? "سيتم إفراغ الإضافات الخاصة بك." : "Your Add-ons will be emptied."}
                 </p>
                 <div className="mt-4 flex justify-center gap-3">
                   <button
@@ -1228,29 +1215,29 @@ export const MyCart = ({ lang, setLang }) => {
                     onClick={cancelNavigation}
                     className="px-4 py-2 text-black border-[1px] border-black rounded-none uppercase"
                   >
-                    No
-                  </button>
-                </div>
+                    {lang === "ar" ? "لا" : "No"}
+                  </button>              
+                  
+                  
+                    </div>
               </div>
             </div>
           )}
           <div className="mycart" style={{ position: "relative" }}>
             <div className="cart !xs:border-none  sm:!pb-[170px] !pb-[170px] xs:!pb-[20px]">
               <p
-                className={`flex items-center text-black mt-[2%] text-[18px] font-[500] ${
-                  lang === "ar"
-                    ? "lg:mr-[-70px] sm:mr-[-38px]"
-                    : "lg:ml-[-69px] sm:ml-[-38px]"
-                }`}
+                className={`flex items-center text-black mt-[2%] text-[18px] font-[500] ${lang === "ar"
+                  ? "lg:mr-[-70px] sm:mr-[-38px]"
+                  : "lg:ml-[-69px] sm:ml-[-38px]"
+                  }`}
               >
                 <img
                   src={backIcon}
                   alt="Back"
-                  className={`w-[24px] sm:w-[30px] cursor-pointer ${
-                    lang === "ar"
-                      ? "ml-2 scale-x-[-1] sm:mr-[30px]"
-                      : "mr-2 sm:ml-[30px]"
-                  }`}
+                  className={`w-[24px] sm:w-[30px] cursor-pointer ${lang === "ar"
+                    ? "ml-2 scale-x-[-1] sm:mr-[30px]"
+                    : "mr-2 sm:ml-[30px]"
+                    }`}
                   onClick={handleBackClick}
                 />
                 <span className="cursor-pointer" onClick={handleBackClick}>
@@ -1290,11 +1277,10 @@ export const MyCart = ({ lang, setLang }) => {
                     {cartDetails?.item_details?.bundle_items?.map(
                       (row, index) => (
                         <div
-                          className={`flex ${
-                            index ===
-                              cartDetails?.item_details?.bundle_items?.length -
-                                1 && "border-b border-black"
-                          } w-full`}
+                          className={`flex ${index ===
+                            cartDetails?.item_details?.bundle_items?.length -
+                            1 && "border-b border-black"
+                            } w-full`}
                         >
                           <div className="font-[700] "> {row.qty} </div>
                           {/* <div className="font-[700] text-[20px] ml-2">
@@ -1315,11 +1301,11 @@ export const MyCart = ({ lang, setLang }) => {
                                   ? "(English & Arabic)"
                                   : location?.state?.selectedLanguage ===
                                     "English"
-                                  ? "(English)"
-                                  : location?.state?.selectedLanguage ===
-                                    "Arabic"
-                                  ? "(Arabic)"
-                                  : ""}
+                                    ? "(English)"
+                                    : location?.state?.selectedLanguage ===
+                                      "Arabic"
+                                      ? "(Arabic)"
+                                      : ""}
                               </>
                             )}
                           </div>
@@ -1330,20 +1316,18 @@ export const MyCart = ({ lang, setLang }) => {
 
                   {cartDetails?.item_details?.addon_items?.length > 0 && (
                     <div
-                      className={`font-[700] text-[20px] mt-2 ${
-                        lang === "ar" ? "text-right" : "text-left"
-                      }`}
+                      className={`font-[700] text-[20px] mt-2 ${lang === "ar" ? "text-right" : "text-left"
+                        }`}
                     >
                       {lang === "ar" ? "إضافات" : "Add ons"}
                     </div>
                   )}
                   {cartDetails?.item_details?.addon_items?.map((row, index) => (
                     <div
-                      className={`flex ${
-                        index ===
-                          cartDetails?.item_details?.addon_items?.length - 1 &&
+                      className={`flex ${index ===
+                        cartDetails?.item_details?.addon_items?.length - 1 &&
                         "border-b border-black"
-                      } w-full mt-2`}
+                        } w-full mt-2`}
                     >
                       <div className="w-[70%]">
                         <div className="font-[700] text-[18px] ">
@@ -1353,12 +1337,11 @@ export const MyCart = ({ lang, setLang }) => {
                           {lang === "ar"
                             ? processArabicText(row.item__name_arabic)
                             : row.language
-                            ? `${row.item_name} ${
-                                row.language === "both"
-                                  ? "(English & Arabic)"
-                                  : `(${row.language})`
+                              ? `${row.item_name} ${row.language === "both"
+                                ? "(English & Arabic)"
+                                : `(${row.language})`
                               }`
-                            : ""}
+                              : ""}
                         </div>
                         {/* <div className='font-[500] '> {row.subtotal_price} SAR</div> */}
                       </div>
@@ -1372,9 +1355,8 @@ export const MyCart = ({ lang, setLang }) => {
                             borderWidth: "1px",
                           }}
                           onClick={() => handleQuantityChange(row?.id, -1)}
-                          className={` ${
-                            lang === "ar" ? " !border-l-0" : "!border-r-0"
-                          } !py-[17px]  px-1  flex  items-center`}
+                          className={` ${lang === "ar" ? " !border-l-0" : "!border-r-0"
+                            } !py-[17px]  px-1  flex  items-center`}
                         >
                           <RemoveIcon />
                         </button>
@@ -1384,9 +1366,8 @@ export const MyCart = ({ lang, setLang }) => {
                             borderStyle: "solid",
                             borderWidth: "1px",
                           }}
-                          className={`${
-                            lang === "ar" ? " !border-l-0" : "!border-r-0"
-                          } px-2 !text-[20px]`}
+                          className={`${lang === "ar" ? " !border-l-0" : "!border-r-0"
+                            } px-2 !text-[20px]`}
                         >
                           {" "}
                           {row?.qty || 0}
@@ -1407,18 +1388,15 @@ export const MyCart = ({ lang, setLang }) => {
                   ))}
                 </>
               ) : (
-                
                 <table className="w-full border-none" aria-label="simple table">
                   <thead>
                     <tr
-                      className={`${
-                        lang === "ar" ? "!text-right" : "!text-left"
-                      } text-[20px]`}
+                      className={`${lang === "ar" ? "!text-right" : "!text-left"
+                        } text-[20px]`}
                     >
                       <td
-                        className={`${
-                          lang === "ar" ? "text-right" : "text-left"
-                        } w-[20%] text-[#00000080] pb-3`}
+                        className={`${lang === "ar" ? "text-right" : "text-left"
+                          } w-[20%] text-[#00000080] pb-3`}
                       >
                         {lang === "ar" ? "الباقة" : "Item"}
                       </td>
@@ -1441,40 +1419,31 @@ export const MyCart = ({ lang, setLang }) => {
                     {/* <p className='text-[#000] font-[700] text-[20px]'>{cartDetails?.bundl_english}</p> */}
                     <>
                       {cartDetails?.item_details?.bundle_items?.length > 0 && (
-                        
-
                         <tr
                           className={`text-[#000] font-[700] text-[20px] border-b border-black mb-2 `}
                         >
-                          <div className="font-[700] text-[20px]">
-                          {lang === "ar"
-                            ? processArabicText(cartDetails?.bundl_arabic)
-                            : cartDetails?.bundl_english}
-                        </div>
-                        <td className=" !py-2" align="center">
-                            {amountDecimal(
-                              Math.round(
-                                cartDetails?.bundle_price +
-                                  (location?.state?.selectedLanguage ===
-                                    "Both" && 2000)
-                              )
-                            )}{" "}
-                            {lang === "ar" ? "ر.س" : "SAR"}
-                          </td>
                           <td
-                            className={`${
-                              lang === "ar" ? "text-right" : "textleft"
-                            } !py-2`}
+                            className={`${lang === "ar" ? "text-right" : "textleft"
+                              } !py-2`}
                             scope="row"
                           >
                             {lang === "ar"
                               ? processArabicText(cartDetails?.bundl_arabic)
                               : cartDetails?.bundl_english === "Logo & Identity"
-                              ? "12"
-                              : ""}
+                                ? "12"
+                                : ""}
                           </td>
                           {/* <td className=' !py-2' align="center">{row.qty}</td> */}
-                          
+                          <td className=" !py-2" align="center">
+                            {amountDecimal(
+                              Math.round(
+                                cartDetails?.bundle_price +
+                                (location?.state?.selectedLanguage ===
+                                  "Both" && 2000)
+                              )
+                            )}{" "}
+                            {lang === "ar" ? "ر.س" : "SAR"}
+                          </td>
                           {/* <TableCell align="center"><img style={{width:'23px'}} src={row.DeleteIcon}></img></TableCell> */}
                           <td className=" !py-2" align="center">
                             {/* <p className='flex items-center !mb-0 justify-center'><img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(cartDetails.id, 'bundle')}/></p> */}
@@ -1486,29 +1455,27 @@ export const MyCart = ({ lang, setLang }) => {
                     {cartDetails?.item_details?.bundle_items?.map(
                       (row, index) => (
                         <tr
-                          className={` ${
-                            index ===
-                              cartDetails?.item_details?.bundle_items?.length -
-                                1 && "border-b border-black"
-                          } w-full`}
+                          className={` ${index ===
+                            cartDetails?.item_details?.bundle_items?.length -
+                            1 && "border-b border-black"
+                            } w-full`}
                         >
                           <td className="text-[#000] font-[700] !text-[18px] !px-[2%] !py-1">
                             {row.qty}{" "}
                             {lang === "ar"
                               ? processArabicText(row.item__name_arabic)
                               : row?.item_name === "Logo & Identity"
-                              ? `${row?.item_name} ${
-                                  location?.state?.selectedLanguage === "Both"
-                                    ? "(English & Arabic)"
-                                    : location?.state?.selectedLanguage ===
-                                      "English"
+                                ? `${row?.item_name} ${location?.state?.selectedLanguage === "Both"
+                                  ? "(English & Arabic)"
+                                  : location?.state?.selectedLanguage ===
+                                    "English"
                                     ? "(English)"
                                     : location?.state?.selectedLanguage ===
                                       "Arabic"
-                                    ? "(Arabic)"
-                                    : ""
+                                      ? "(Arabic)"
+                                      : ""
                                 }`
-                              : row?.item_name}
+                                : row?.item_name}
                           </td>
                         </tr>
                       )
@@ -1518,9 +1485,8 @@ export const MyCart = ({ lang, setLang }) => {
                       className={`text-[#000] font-[700] text-[20px] mb-2 mt-4`}
                     >
                       <td
-                        className={`${
-                          lang === "ar" ? "text-right" : "text-left"
-                        } !py-2`}
+                        className={`${lang === "ar" ? "text-right" : "text-left"
+                          } !py-2`}
                         scope="row"
                       >
                         {cartDetails?.item_details?.addon_items?.length > 0 &&
@@ -1538,24 +1504,22 @@ export const MyCart = ({ lang, setLang }) => {
                           sx={{
                             "&:last-child td, &:last-child th": { border: 0 },
                           }}
-                          className={`text-[#000] font-[700] text-[18px] h-inherit ${
-                            index ==
+                          className={`text-[#000] font-[700] text-[18px] h-inherit ${index ==
                             cartDetails?.item_details?.addon_items.length - 1
-                              ? ""
-                              : "border-b border-black"
-                          } `}
+                            ? ""
+                            : "border-b border-black"
+                            } `}
                         >
                           <td className=" !py-2 w-[35%] !px-[2%]" scope="row">
                             {lang === "ar"
                               ? processArabicText(row.item__name_arabic)
-                              : `${row.item_name} ${
-                                  row.item_name === "Logo & Identity" &&
-                                  row.language === "both"
-                                    ? "(English & Arabic)"
-                                    : row.language
-                                    ? row.language
-                                    : ""
-                                }`}
+                              : `${row.item_name} ${row.item_name === "Logo & Identity" &&
+                                row.language === "both"
+                                ? "(English & Arabic)"
+                                : row.language
+                                  ? row.language
+                                  : ""
+                              }`}
                           </td>
                           {/* <td className=' !py-2' align="center">{row.qty}</td> */}
                           <td className=" !py-2 " align="center">
@@ -1567,11 +1531,10 @@ export const MyCart = ({ lang, setLang }) => {
                             {/* <img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'addon')}/> */}
                             {/* <p className='flex items-center !mb-0 justify-center'><img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(row.id, 'addon')}/></p> */}
                             <p
-                              className={`xs:order-2 sm:order-3 sm:w-[29%] w-[29%] xs:w-[29%] max-h-[36px] !mb-2 flex ${
-                                lang === "ar"
-                                  ? "flex-row-reverse"
-                                  : "flex-row justify-end"
-                              }   mt-2`}
+                              className={`xs:order-2 sm:order-3 sm:w-[29%] w-[29%] xs:w-[29%] max-h-[36px] !mb-2 flex ${lang === "ar"
+                                ? "flex-row-reverse"
+                                : "flex-row justify-end"
+                                }   mt-2`}
                             >
                               <button
                                 style={{
@@ -1582,9 +1545,8 @@ export const MyCart = ({ lang, setLang }) => {
                                 onClick={() =>
                                   handleQuantityChange(row?.id, -1)
                                 }
-                                className={` ${
-                                  lang === "ar" ? " !border-r-0" : "!border-r-0"
-                                } !py-[17px]  px-1  flex  items-center`}
+                                className={` ${lang === "ar" ? " !border-r-0" : "!border-r-0"
+                                  } !py-[17px]  px-1  flex  items-center`}
                               >
                                 <RemoveIcon />
                               </button>
@@ -1594,9 +1556,8 @@ export const MyCart = ({ lang, setLang }) => {
                                   borderStyle: "solid",
                                   borderWidth: "1px",
                                 }}
-                                className={`${
-                                  lang === "ar" ? " !border-r-0" : "!border-r-0"
-                                } px-2 !text-[20px]`}
+                                className={`${lang === "ar" ? " !border-r-0" : "!border-r-0"
+                                  } px-2 !text-[20px]`}
                               >
                                 {" "}
                                 {row?.qty || 0}
@@ -1620,6 +1581,8 @@ export const MyCart = ({ lang, setLang }) => {
                   </tbody>
                 </table>
               )}
+
+
             </div>
 
             <div className="billing sticky top-0 self-start">
@@ -1628,9 +1591,8 @@ export const MyCart = ({ lang, setLang }) => {
                 <div className="user-name mb-[15px]">
                   <div className={`${lang === "ar" ? "ml-[4%]" : "mr-[4%]"}`}>
                     <label
-                      className={`${
-                        "firstName" in error ? "text-[#D83D99]" : "opacity-50"
-                      }`}
+                      className={`${"firstName" in error ? "text-[#D83D99]" : "opacity-50"
+                        }`}
                     >
                       {lang === "ar" ? "الاسم الأول" : "First Name"}{" "}
                       <span className="text-[#D83D99]">*</span>
@@ -1639,9 +1601,8 @@ export const MyCart = ({ lang, setLang }) => {
                       name="firstName"
                       value={billingInfo.firstName}
                       onChange={handleBillingChange}
-                      className={`rounded-none ${
-                        "firstName" in error ? "!border-[#D83D99]" : ""
-                      }`}
+                      className={`rounded-none ${"firstName" in error ? "!border-[#D83D99]" : ""
+                        }`}
                     />
                   </div>
                   <div
@@ -1653,9 +1614,8 @@ export const MyCart = ({ lang, setLang }) => {
                     }
                   >
                     <label
-                      className={`${
-                        "lastName" in error ? "text-[#D83D99]" : "opacity-50"
-                      }`}
+                      className={`${"lastName" in error ? "text-[#D83D99]" : "opacity-50"
+                        }`}
                     >
                       {lang === "ar" ? "اسم العائلة" : "Last Name"}{" "}
                       <span className="text-[#D83D99]">*</span>
@@ -1664,17 +1624,15 @@ export const MyCart = ({ lang, setLang }) => {
                       name="lastName"
                       value={billingInfo.lastName}
                       onChange={handleBillingChange}
-                      className={`rounded-none ${
-                        "lastName" in error ? "!border-[#D83D99]" : ""
-                      }`}
+                      className={`rounded-none ${"lastName" in error ? "!border-[#D83D99]" : ""
+                        }`}
                     />
                   </div>
                 </div>
                 <div className="email mb-[15px]">
                   <label
-                    className={`${
-                      "email" in error ? "text-[#D83D99]" : "opacity-50"
-                    }`}
+                    className={`${"email" in error ? "text-[#D83D99]" : "opacity-50"
+                      }`}
                   >
                     {lang === "ar" ? "البريد الإلكتروني" : "Email"}{" "}
                     <span className="text-[#D83D99]">*</span>
@@ -1683,16 +1641,14 @@ export const MyCart = ({ lang, setLang }) => {
                     name="email"
                     value={billingInfo.email}
                     onChange={handleBillingChange}
-                    className={`rounded-none ${
-                      "email" in error ? "!border-[#D83D99]" : ""
-                    }`}
+                    className={`rounded-none ${"email" in error ? "!border-[#D83D99]" : ""
+                      }`}
                   />
                 </div>
                 <div className="phonenumber mb-[15px]">
                   <label
-                    className={`${
-                      "phone" in error ? "text-[#D83D99]" : "opacity-50"
-                    }`}
+                    className={`${"phone" in error ? "text-[#D83D99]" : "opacity-50"
+                      }`}
                   >
                     {lang === "ar" ? "رقم الهاتف" : "Phone Number"}{" "}
                     <span className="text-[#D83D99]">*</span>
@@ -1704,11 +1660,10 @@ export const MyCart = ({ lang, setLang }) => {
                     }
                     value={billingInfo.phone}
                     status={setBillingInfo}
-                    extraInputClass={`${
-                      "phone" in error
-                        ? "!border-[#D83D99]"
-                        : "!border-[#000000]"
-                    } text-[18px]`}
+                    extraInputClass={`${"phone" in error
+                      ? "!border-[#D83D99]"
+                      : "!border-[#000000]"
+                      } text-[18px]`}
                     setPhoneError={setPhoneError}
                     setErrors={setError}
                     formErrors={error}
@@ -1719,9 +1674,8 @@ export const MyCart = ({ lang, setLang }) => {
                 <div className="country mb-[15px]">
                   <div className={`${lang === "ar" ? "ml-[4%]" : "mr-[4%]"}`}>
                     <label
-                      className={`${
-                        "country" in error ? "text-[#D83D99]" : "opacity-50"
-                      }`}
+                      className={`${"country" in error ? "text-[#D83D99]" : "opacity-50"
+                        }`}
                     >
                       {lang === "ar" ? "بلد" : "Country"}{" "}
                       <span className="text-[#D83D99]">*</span>
@@ -1731,9 +1685,8 @@ export const MyCart = ({ lang, setLang }) => {
                       // id='vacancySelect'
                       value={billingInfo.country || null}
                       onChange={handleBillingChange}
-                      className={`!rounded-none ${
-                        "country" in error ? "!border-[#D83D99]" : ""
-                      } border !border-black px-2 py-[5px] w-full`}
+                      className={`!rounded-none ${"country" in error ? "!border-[#D83D99]" : ""
+                        } border !border-black px-2 py-[5px] w-full`}
                     >
                       <option value={null} disabled selected>
                         {" "}
@@ -1752,9 +1705,8 @@ export const MyCart = ({ lang, setLang }) => {
                     }
                   >
                     <label
-                      className={`${
-                        "city" in error ? "text-[#D83D99]" : "opacity-50"
-                      }`}
+                      className={`${"city" in error ? "text-[#D83D99]" : "opacity-50"
+                        }`}
                     >
                       {lang === "ar" ? "مدينة" : "City"}
                       <span className="text-[#D83D99]">*</span>
@@ -1763,17 +1715,15 @@ export const MyCart = ({ lang, setLang }) => {
                       name="city"
                       value={billingInfo.city}
                       onChange={handleBillingChange}
-                      className={`rounded-none ${
-                        "city" in error ? "!border-[#D83D99]" : ""
-                      }`}
+                      className={`rounded-none ${"city" in error ? "!border-[#D83D99]" : ""
+                        }`}
                     />
                   </div>
                 </div>
                 <div className="postal-code mb-[15px]">
                   <label
-                    className={`${
-                      "postalCode" in error ? "text-[#D83D99]" : "opacity-50"
-                    }`}
+                    className={`${"postalCode" in error ? "text-[#D83D99]" : "opacity-50"
+                      }`}
                   >
                     {lang === "ar" ? "الرمز البريدي" : "Postal Code"}
                     <span className="text-[#D83D99]">*</span>
@@ -1782,29 +1732,26 @@ export const MyCart = ({ lang, setLang }) => {
                     name="postalCode"
                     value={billingInfo.postalCode}
                     onChange={handleBillingChange}
-                    className={`rounded-none ${
-                      "postalCode" in error ? "!border-[#D83D99]" : ""
-                    }`}
+                    className={`rounded-none ${"postalCode" in error ? "!border-[#D83D99]" : ""
+                      }`}
                   />
                 </div>
                 {billingInfo?.country === "Saudi Arabia" && (
                   <div className="trn-code mb-[15px]">
                     <label
-                      className={`${
-                        "vat_registered" in error
-                          ? "text-[#D83D99]"
-                          : "opacity-50"
-                      }`}
+                      className={`${"vat_registered" in error
+                        ? "text-[#D83D99]"
+                        : "opacity-50"
+                        }`}
                     >
                       {lang === "ar" ? "التسجیل الضریبي" : "Tax Treatment"}
                       <span className="text-[#D83D99]">*</span>
                     </label>
                     <select
-                      className={`w-[100%] py-[5px] px-2 !rounded-none border-[1px] outline-none  ${
-                        "vat_registered" in error
-                          ? "!border-[#D83D99]"
-                          : "border-black border-solid"
-                      } `}
+                      className={`w-[100%] py-[5px] px-2 !rounded-none border-[1px] outline-none  ${"vat_registered" in error
+                        ? "!border-[#D83D99]"
+                        : "border-black border-solid"
+                        } `}
                       name="vat_registered"
                       onChange={handleBillingChange}
                     >
@@ -1826,9 +1773,8 @@ export const MyCart = ({ lang, setLang }) => {
                 {tax && (
                   <div className="trn-code mb-[15px]">
                     <label
-                      className={`${
-                        "trn" in error ? "text-[#D83D99]" : "opacity-50"
-                      }`}
+                      className={`${"trn" in error ? "text-[#D83D99]" : "opacity-50"
+                        }`}
                     >
                       {lang === "ar" ? "الرقم الضریبي" : "TRN Number"}
                       <span className="text-[#D83D99]">*</span>
@@ -1837,17 +1783,15 @@ export const MyCart = ({ lang, setLang }) => {
                       name="trn"
                       value={billingInfo.trn}
                       onChange={handleBillingChange}
-                      className={`rounded-none w-[100%] ${
-                        "trn" in error ? "!border-[#D83D99]" : ""
-                      }`}
+                      className={`rounded-none w-[100%] ${"trn" in error ? "!border-[#D83D99]" : ""
+                        }`}
                     />
                   </div>
                 )}
                 <div className="promo-code mb-[15px]">
                   <label
-                    className={`${
-                      "promoCode" in error ? "text-[#D83D99]" : "opacity-50"
-                    }`}
+                    className={`${"promoCode" in error ? "text-[#D83D99]" : "opacity-50"
+                      }`}
                   >
                     {lang === "ar" ? "الرمز الترويجي" : "Promo Code"}
                   </label>
@@ -1855,9 +1799,8 @@ export const MyCart = ({ lang, setLang }) => {
                     name="promoCode"
                     value={billingInfo.promoCode}
                     onChange={handlePromoChange}
-                    className={`rounded-none ${
-                      "promoCode" in error ? "!border-[#D83D99]" : ""
-                    }`}
+                    className={`rounded-none ${"promoCode" in error ? "!border-[#D83D99]" : ""
+                      }`}
                   />
                 </div>
 
@@ -1868,13 +1811,13 @@ export const MyCart = ({ lang, setLang }) => {
                   >
                     <p
                       className="!text-[20px] xs:mb-0 sm:mb-auto !font-[400]"
-                      // style={{ width: "50%" }}
+                    // style={{ width: "50%" }}
                     >
                       {lang === "ar" ? "السعر :" : "Price:"}
                     </p>
                     <p
                       className="!text-[20px] xs:mb-0 sm:mb-auto text-right !font-[400]"
-                      // style={{ width: "50%" }}
+                    // style={{ width: "50%" }}
                     >
                       {amountDecimal(Math.round(cartDetails.total_amount))}
                       {/* {lang === "ar" ? "ريال" : "SAR"} */}
@@ -1887,13 +1830,13 @@ export const MyCart = ({ lang, setLang }) => {
                   >
                     <p
                       className="!text-[20px] !font-[400]"
-                      // style={{ width: "53%" }}
+                    // style={{ width: "53%" }}
                     >
                       {lang === "ar" ? "ضريبه القيمه المضافه :" : "TAX:"}
                     </p>
                     <p
                       className="!text-[20px] text-right !font-[400]"
-                      // style={{ width: "40%" }}
+                    // style={{ width: "40%" }}
                     >
                       {amountDecimal(Math.round(cartDetails.tax))}
                       {/* {lang === "ar" ? "ريال" : "SAR"} */}
@@ -1907,19 +1850,18 @@ export const MyCart = ({ lang, setLang }) => {
                     >
                       <p
                         className="!text-[20px] xs:mb-0 sm:mb-auto ml-[6px]"
-                        // style={{ width: "50%" }}
+                      // style={{ width: "50%" }}
                       >
                         <img
                           src={BlackDollor}
-                          className={`inline-block  ${
-                            lang === "ar" ? "ml-[18px]" : "mr-[18px]"
-                          }`}
+                          className={`inline-block  ${lang === "ar" ? "ml-[18px]" : "mr-[18px]"
+                            }`}
                         ></img>
                         {lang === "ar" ? "السعر الإجمالي :" : "Total Price :"}
                       </p>
                       <p
                         className="!text-[20px] xs:mb-0 sm:mb-auto text-right"
-                        // style={{ width: "40%" }}
+                      // style={{ width: "40%" }}
                       >
                         {cartDetails.grand_total
                           ? amountDecimal(Math.round(cartDetails.grand_total))
@@ -1935,9 +1877,8 @@ export const MyCart = ({ lang, setLang }) => {
                       <p className="!text-[20px] mb-0">
                         <img
                           src={BlackTime}
-                          className={`inline-block ${
-                            lang === "ar" ? "ml-3 mr-[-5px]" : "mr-3"
-                          }`}
+                          className={`inline-block ${lang === "ar" ? "ml-3 mr-[-5px]" : "mr-3"
+                            }`}
                         ></img>
                         {lang === "ar"
                           ? "المدة الإجمالية :"
@@ -1945,7 +1886,7 @@ export const MyCart = ({ lang, setLang }) => {
                       </p>
                       <p
                         className="!text-[20px]  text-right "
-                        // style={{ width: "43%" }}
+                      // style={{ width: "43%" }}
                       >
                         {isNaN(Math.round(cartDetails.total_time))
                           ? 0

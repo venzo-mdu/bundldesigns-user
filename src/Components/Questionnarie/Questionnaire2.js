@@ -99,7 +99,20 @@ export const Questionnaire2 = ({
       navigate("/questionnaire/1");
     }
   }, [navigate]);
+// Add this useEffect in your Questionnaire2 component
 
+useEffect(() => {
+  if (changeLang === "ar") {
+    document.body.classList.add("ar");
+  } else {
+    document.body.classList.remove("ar");
+  }
+  
+  // Cleanup function to remove class when component unmounts
+  return () => {
+    document.body.classList.remove("ar");
+  };
+}, [changeLang]);
   // const handleGenderChange = (id, selected, isSelected) => {
   //   console.log(questionAnswer2)
   //
@@ -764,3 +777,7 @@ export const Questionnaire2 = ({
     </div>
   );
 };
+
+
+
+
