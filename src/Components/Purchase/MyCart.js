@@ -37,7 +37,8 @@ export const MyCart = ({ lang, setLang }) => {
   const [showModal, setShowModal] = useState(false);
   const [openPopup, setOpenPopup] = useState(false);
   const [removedItems, setRemovedItems] = useState([]);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 440);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <440);
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth > 440);
   const [phoneError, setPhoneError] = useState(false);
   const [totalAmount, setTotalAmount] = useState(0);
   const [coupon, setCoupon] = useState(null);
@@ -331,6 +332,17 @@ export const MyCart = ({ lang, setLang }) => {
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 440);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+   useEffect(() => {
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth >440);
     };
 
     window.addEventListener("resize", handleResize);
@@ -1395,6 +1407,7 @@ export const MyCart = ({ lang, setLang }) => {
                   ))}
                 </>
               ) : (
+                
                 <table className="w-full border-none" aria-label="simple table">
                   <thead>
                     <tr
@@ -1428,9 +1441,26 @@ export const MyCart = ({ lang, setLang }) => {
                     {/* <p className='text-[#000] font-[700] text-[20px]'>{cartDetails?.bundl_english}</p> */}
                     <>
                       {cartDetails?.item_details?.bundle_items?.length > 0 && (
+                        
+
                         <tr
                           className={`text-[#000] font-[700] text-[20px] border-b border-black mb-2 `}
                         >
+                          <div className="font-[700] text-[20px]">
+                          {lang === "ar"
+                            ? processArabicText(cartDetails?.bundl_arabic)
+                            : cartDetails?.bundl_english}
+                        </div>
+                        <td className=" !py-2" align="center">
+                            {amountDecimal(
+                              Math.round(
+                                cartDetails?.bundle_price +
+                                  (location?.state?.selectedLanguage ===
+                                    "Both" && 2000)
+                              )
+                            )}{" "}
+                            {lang === "ar" ? "ر.س" : "SAR"}
+                          </td>
                           <td
                             className={`${
                               lang === "ar" ? "text-right" : "textleft"
@@ -1444,16 +1474,7 @@ export const MyCart = ({ lang, setLang }) => {
                               : ""}
                           </td>
                           {/* <td className=' !py-2' align="center">{row.qty}</td> */}
-                          <td className=" !py-2" align="center">
-                            {amountDecimal(
-                              Math.round(
-                                cartDetails?.bundle_price +
-                                  (location?.state?.selectedLanguage ===
-                                    "Both" && 2000)
-                              )
-                            )}{" "}
-                            {lang === "ar" ? "ر.س" : "SAR"}
-                          </td>
+                          
                           {/* <TableCell align="center"><img style={{width:'23px'}} src={row.DeleteIcon}></img></TableCell> */}
                           <td className=" !py-2" align="center">
                             {/* <p className='flex items-center !mb-0 justify-center'><img style={{ cursor: 'pointer' }} src={DeleteIcon} alt="Delete Icon" onClick={() => removeItem(cartDetails.id, 'bundle')}/></p> */}

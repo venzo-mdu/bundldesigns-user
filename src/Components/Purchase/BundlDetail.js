@@ -650,11 +650,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                   </span>
                 </p>
               </div>
-              <p className="bundl-desc-title text-[20px] sm:text-[20px] xs:text-[16px] w-full sm:w-full xs:w-[350px] mx-auto">
-                {lang === "ar"
-                  ? "نتائج تصميم الهوية والعناصر الإضافية."
-                  : "Outcomes to Brand Identity + Add-ons."}
-              </p>
+              
               <p className="bundl-desc">
                 {lang === "ar"
                   ? processArabicText(
