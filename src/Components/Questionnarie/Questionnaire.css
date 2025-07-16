@@ -1300,6 +1300,7 @@ body[dir="rtl"] .male-btn, body[dir="rtl"] .female-btn {
         width: 50%;
     }
 }
+
 @media screen and (max-width:500px) {
     .female-buttons,.male-buttons{
         padding: 0 4%;
@@ -1323,31 +1324,31 @@ body[dir="rtl"] .male-btn, body[dir="rtl"] .female-btn {
         width: 120px;
         margin: 5% 0 0 0;
     }
-    
     /* Arabic language support */
     body.ar .female-buttons, body.ar .male-buttons{
-        padding: 0 4%;
-        display: grid;
-        grid-template-columns: repeat(3,1fr);
+        padding: 0 4% !important;
+        display: grid !important;
+        grid-template-columns: repeat(3,1fr) !important;
     }
     body.ar .female-image, body.ar .male-image{
-        cursor: pointer;
-        width: 60%;
+        cursor: pointer !important;
+        width: 60% !important;
         /* margin: 0 0 10% 21%; */
     }
     body.ar .male-image-disable, body.ar .female-image-disable {
-        cursor: not-allowed;
-        opacity: 0.5;
-        width: 60%;
+        cursor: not-allowed !important;
+        opacity: 0.5 !important;
+        width: 60% !important;
         /* margin: 0 0 10% 21%; */
     }
     body.ar .male-btn, body.ar .female-btn{
-        font-size: 14px;
-        height: 35px;
-        width: 120px;
-        margin: 5% 0 0 0;
+        font-size: 14px !important;
+        height: 35px !important;
+        width: 120px !important;
+        margin: 5% 0 0 0 !important;
     }
-}@media screen and (max-width:768px) and (min-width:442px) {
+}
+@media screen and (max-width:768px) and (min-width:442px) {
     .questionnaire{
         padding: 10% 5%;
     }
