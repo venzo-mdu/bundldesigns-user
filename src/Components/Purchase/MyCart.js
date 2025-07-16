@@ -1445,11 +1445,13 @@ export const MyCart = ({ lang, setLang }) => {
                         <tr
                           className={`text-[#000] font-[700] text-[20px] border-b border-black mb-2 `}
                         >
-                          <div className="font-[700] text-[20px]">
+                          
+                          <div className="font-[700] text-[20px] mt-2">
                             {lang === "ar"
                               ? processArabicText(cartDetails?.bundl_arabic)
                               : cartDetails?.bundl_english}
                           </div>
+                          
                           <td className=" !py-2" align="center">
                             {amountDecimal(
                               Math.round(

@@ -1549,7 +1549,7 @@ export default function Dashboard({ lang, setLang }) {
         return "";
     }
   };
-   
+
   const renderProcessData = () => {
     return ProcessIndexDict.map((key, index) => {
       const isCurrentProcess = index === processIndex;
@@ -1580,8 +1580,7 @@ export default function Dashboard({ lang, setLang }) {
         lineBorderClass = "!border-[#1BA56F]"; // Green line for previous process
       }
       return (
-       <div className={`${containerClasses} overflow-hidden`} key={index}>
-
+         <div className={`${containerClasses}`} key={index}>
           <img
             className={`m-0 absolute ${
               isPreviousProcess || isCurrentProcess
@@ -1864,7 +1863,7 @@ export default function Dashboard({ lang, setLang }) {
                     >
                       <button
                         onClick={() => {
-                          window.location.href = "/#ourBundl";
+                           window.location.href = "/#ourBundl";
                         }}
                         className="bg-black text-white h-[35px] w-[35px] text-[22px]"
                       >

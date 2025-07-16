@@ -1277,7 +1277,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                                       </span>
                                     </p>
                                     <p
-                                      className={`sm:text-[18px] text-[18px] xs:text-[16px] font-[400] lg:w-[40%] md:w-[50%]  md:pr-[44px] xs:w-[25%] ${
+                                      className={`sm:text-[18px] text-[18px] xs:text-[16px] font-[400] lg:w-[40%] md:w-[50%]   xs:w-[25%] ${
                                         lang === "ar"
                                           ? "text-left"
                                           : "text-right"
