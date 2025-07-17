@@ -75,6 +75,16 @@ export const Questionnaire2 = ({
       setQuestionAnswer2(questionAndAnswers);
     }
   }, [questionAndAnswers]);
+  const formatAgeRange = (label) => {
+    if (changeLang === "ar" && label.includes("-")) {
+      const parts = label.split("-");
+      if (parts.length === 2) {
+        return `${parts[1]}-${parts[0]}`;
+      }
+    }
+    return label;
+  };
+
 
   /* NEW QUESTIONANSWER */
 
@@ -99,20 +109,20 @@ export const Questionnaire2 = ({
       navigate("/questionnaire/1");
     }
   }, [navigate]);
-// Add this useEffect in your Questionnaire2 component
+  // Add this useEffect in your Questionnaire2 component
 
-useEffect(() => {
-  if (changeLang === "ar") {
-    document.body.classList.add("ar");
-  } else {
-    document.body.classList.remove("ar");
-  }
-  
-  // Cleanup function to remove class when component unmounts
-  return () => {
-    document.body.classList.remove("ar");
-  };
-}, [changeLang]);
+  useEffect(() => {
+    if (changeLang === "ar") {
+      document.body.classList.add("ar");
+    } else {
+      document.body.classList.remove("ar");
+    }
+
+    // Cleanup function to remove class when component unmounts
+    return () => {
+      document.body.classList.remove("ar");
+    };
+  }, [changeLang]);
   // const handleGenderChange = (id, selected, isSelected) => {
   //   console.log(questionAnswer2)
   //
@@ -489,9 +499,8 @@ useEffect(() => {
                   id={`question_${question?.id}`}
                 >
                   <p
-                    className={`questions-title  xs:w-[90%] sm:w-full md:w-full mx-auto ${
-                      index === 0 ? "mt-[1%]" : "mt-[2%]"
-                    }`}
+                    className={`questions-title  xs:w-[90%] sm:w-full md:w-full mx-auto ${index === 0 ? "mt-[1%]" : "mt-[2%]"
+                      }`}
                   >
                     {changeLang === "ar"
                       ? question?.question_arabic
@@ -584,13 +593,10 @@ useEffect(() => {
                                       </div>
                                       <button
                                         key={`female-${index}`}
-                                        className={`female-btn uppercase ${
-                                          question?.answer?.[0].value?.includes(
-                                            label
-                                          )
+                                        className={`female-btn uppercase ${question?.answer?.[0].value?.includes(label)
                                             ? "active"
                                             : ""
-                                        }`}
+                                          }`}
                                         onClick={() =>
                                           handleButtonClick(
                                             `female-${index}`,
@@ -600,9 +606,8 @@ useEffect(() => {
                                           )
                                         }
                                       >
-                                        {label}
-                                      </button>
-                                    </div>
+                                        {formatAgeRange(label)}
+                                      </button>                                    </div>
                                   );
                                 })}
                               </div>
@@ -637,9 +642,8 @@ useEffect(() => {
                                       key={`female-${index}`}
                                       className="female-btn uppercase"
                                     >
-                                      {label}
-                                    </button>
-                                  </div>
+                                      {formatAgeRange(label)}
+                                    </button>                                  </div>
                                 ))}
                               </div>
                             </div>
@@ -681,13 +685,10 @@ useEffect(() => {
                                     </div>
                                     <button
                                       key={`male-${index}`}
-                                      className={`male-btn uppercase ${
-                                        question?.answer?.[1].value?.includes(
-                                          label
-                                        )
+                                      className={`male-btn uppercase ${question?.answer?.[1].value?.includes(label)
                                           ? "active"
                                           : ""
-                                      }`}
+                                        }`}
                                       onClick={() =>
                                         handleButtonClick(
                                           `male-${index}`,
@@ -697,7 +698,7 @@ useEffect(() => {
                                         )
                                       }
                                     >
-                                      {label}
+                                      {formatAgeRange(label)}
                                     </button>
                                   </div>
                                 );
@@ -734,9 +735,8 @@ useEffect(() => {
                                     key={`male-${index}`}
                                     className="male-btn uppercase"
                                   >
-                                    {label}
-                                  </button>
-                                </div>
+                                    {formatAgeRange(label)}
+                                  </button>                                </div>
                               ))}
                             </div>
                           </div>
@@ -745,15 +745,13 @@ useEffect(() => {
                     </>
                   )}
                   <input
-                    className={`question-input ${
-                      isFilled === question?.id
+                    className={`question-input ${isFilled === question?.id
                         ? "border-[#D83D99] border-b-[2px]"
-                        : `${
-                            window?.innerWidth <= 475
-                              ? "border-b-[1px]"
-                              : "border-b-[2px]"
-                          } border-black`
-                    }`}
+                        : `${window?.innerWidth <= 475
+                          ? "border-b-[1px]"
+                          : "border-b-[2px]"
+                        } border-black`
+                      }`}
                     placeholder={
                       changeLang === "ar"
                         ? placeHolders_arabic[index]
@@ -763,7 +761,7 @@ useEffect(() => {
                       question.answer_type === "age-data" ? "" : question.answer
                     }
                     onChange={(e) => handleChange(question.id, e.target.value)}
-                     disabled={question.answer_type === "age-data"}
+                    disabled={question.answer_type === "age-data"}
                   />
                 </div>
               );
@@ -777,6 +775,7 @@ useEffect(() => {
     </div>
   );
 };
+
 
 
 

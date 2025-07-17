@@ -578,13 +578,13 @@ body[dir="rtl"] .male-btn, body[dir="rtl"] .female-btn {
 
         .eyespoon{
             position: absolute;
-            top:-8%;
+            top:1%;
             right:0%;
             animation: move 8s ease-in-out infinite forwards;
         }
         body[dir="rtl"] .eyespoon{
             position: absolute;
-            top:-8%;
+            top:1%;
             left:2%;
             right: unset;
             animation: move_arabic 8s ease-in-out infinite forwards;
@@ -990,7 +990,7 @@ body[dir="rtl"] .male-btn, body[dir="rtl"] .female-btn {
             .rocket-content{font-size: 10px;}            
             .rocket1 svg{width: 17px;}
             .eyespoon{top:-79px}
-            .eyespoon img{width: 180px; height: 180px;}
+            .eyespoon img{width: 200px; height: 200px;}
             .form-group label{font-size: 16px;}
             .rotating-image{width: 100px;}
             .eyespoon2 img{width: 150px; height: 150px;}
@@ -1302,6 +1302,13 @@ body[dir="rtl"] .male-btn, body[dir="rtl"] .female-btn {
 }
 
 @media screen and (max-width:500px) {
+            body[dir="rtl"] .eyespoon{
+position: absolute;
+    top: 5%;
+ bottom: 100px;
+    right: unset;
+    animation: move_arabic 8s ease-in-out infinite forwards;        }
+
     .female-buttons,.male-buttons{
         padding: 0 4%;
         display: grid;
@@ -1324,6 +1331,13 @@ body[dir="rtl"] .male-btn, body[dir="rtl"] .female-btn {
         width: 120px;
         margin: 5% 0 0 0;
     }
+
+      body.ar .eyespoon{
+        top: 1% !important;
+        right: 0% !important; 
+        /* -2% */
+    }
+
     /* Arabic language support */
     body.ar .female-buttons, body.ar .male-buttons{
         padding: 0 4% !important;
@@ -1344,10 +1358,11 @@ body[dir="rtl"] .male-btn, body[dir="rtl"] .female-btn {
     body.ar .male-btn, body.ar .female-btn{
         font-size: 14px !important;
         height: 35px !important;
-        width: 120px !important;
+        width: 100px !important;
         margin: 5% 0 0 0 !important;
     }
 }
+
 @media screen and (max-width:768px) and (min-width:442px) {
     .questionnaire{
         padding: 10% 5%;
@@ -1408,10 +1423,11 @@ body[dir="rtl"] .male-btn, body[dir="rtl"] .female-btn {
         padding: 15% 5%;
     }
     .eyespoon{
-        top: 1%;
-        right: 0%; 
-        /* -2% */
-    }
+top: 5%;
+    width: 150px;
+    height: 150px; 
+
+}
     .eyespoon2{
         top: 80%;
         z-index: 1;
@@ -1427,11 +1443,18 @@ body[dir="rtl"] .male-btn, body[dir="rtl"] .female-btn {
         width: 60%;
     }
     .miclady {
-        top: 21%;
-        right: 0px;
-        width: 30%;
-        z-index: -1;
-    }
+
+        top: 18%;
+    right: 0px;
+    width: 110px;
+    z-index: -1;
+    height: 110px;
+  
+
+}
+
+
+
     body[dir="rtl"] .miclady{
         top: 21%;
         left: 0px;
@@ -1440,9 +1463,9 @@ body[dir="rtl"] .male-btn, body[dir="rtl"] .female-btn {
         z-index: -1;
     }
     .lips{
-        top: 21%;
-        right: 4%;
-        width: 15%;
+top: 18%;
+    right: 3%;
+    width: 15%;
     }
     body[dir="rtl"] .lips{
         top: 21%;
@@ -1896,11 +1919,11 @@ body[dir="rtl"] .male-btn, body[dir="rtl"] .female-btn {
         font-size: 52px;
     }
     .miclady{
-        top:21%;
-        right: 0px;
-        width: 32%;
-        z-index: -1;
-    }
+top: 21%;
+    right: 13px;
+    width: 80px;
+    z-index: -1;
+    height: 90px;}
     body[dir="rtl"] .miclady{
         top:21%;
         left: 0px;
@@ -1909,10 +1932,12 @@ body[dir="rtl"] .male-btn, body[dir="rtl"] .female-btn {
         z-index: -1;
     }
     .lips{
-        top: 21%;
-        right: 4%;
-        width: 15%;
-    }
+top: 20%;
+    right: 4%;
+    width: 50px;
+}
+
+
     body[dir="rtl"]  .lips{
         top: 21%;
         left: 4%;
@@ -2083,12 +2108,3 @@ body[dir="rtl"] .male-btn, body[dir="rtl"] .female-btn {
 
 
 /* Solution 14: Fix the main wrapper */
-body {
-  overflow-x: hidden;
-  max-width: 100vw;
-}
-
-html {
-  overflow-x: hidden;
-  max-width: 100vw;
-}

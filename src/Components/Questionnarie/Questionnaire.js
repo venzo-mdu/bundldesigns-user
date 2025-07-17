@@ -65,7 +65,7 @@ export const Questionnaire = ({
                 <img src={Cloud2} alt="Natural" />
               </div>
               <div className="flex justify-center items-center ">
-                <p className="title-questionnaire sm:!text-[74px] lg:!text-[72px] md:!text-[72px] xs:!text-[28px]">
+                <p className="title-questionnaire sm:!text-[74px] lg:!text-[72px] md:!text-[72px] xs:!text-[24px]">
                   {bgTitle}
                 </p>
               </div>
