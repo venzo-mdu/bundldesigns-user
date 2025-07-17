@@ -42,7 +42,7 @@ export const Questionnaire4 = ({
   const [uploadContent, setUploadContent] = useState({});
   const [questions, setQuestions] = useState([]);
   const [selectedColors, setSelectedColors] = useState([]); // To store selected color codes
-  const [inputValue, setInputValue] = useState(""); // For input field
+  const [inputValue, setInputValue] = useState("#"); // For input field
   const [activeButtons, setActiveButtons] = useState([]);
   const [shadeBackgroundColor, setShadeBackgroundColor] =
     useState("rgb(228, 222, 216)");
