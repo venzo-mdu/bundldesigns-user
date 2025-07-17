@@ -1300,6 +1300,7 @@ body[dir="rtl"] .male-btn, body[dir="rtl"] .female-btn {
         width: 50%;
     }
 }
+
 @media screen and (max-width:500px) {
     .female-buttons,.male-buttons{
         padding: 0 4%;
