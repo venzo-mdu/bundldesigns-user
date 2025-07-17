@@ -36,7 +36,8 @@ export default function Adjustments({ user, lang, setLang }) {
   const dynamicMargin = useDynamicMargin();
   const { showToast, showErrorToast } = useToastMessage();
   const { state } = useLocation();
-  const { orderId, orderItemId } = state;
+const { orderId, orderItemId } = state || {};
+
   const [page, setPage] = useState("adjustment");
   const navigate = useNavigate();
   const [itemId, setItemId] = useState();
@@ -1276,41 +1277,44 @@ export default function Adjustments({ user, lang, setLang }) {
                                   (item, index) => {
                                     return (
                                       <div className="border-b !border-[#1BA56F]">
-                                        <div className="flex justify-between my-[3%]">
-                                          <span className="font-[500] text-[16px] text-[#1BA56F] w-[45%]">
-                                            {lang === "ar"
-                                              ? item.name_arabic
-                                              : item.name_english}
-                                          </span>
-                                          <p className="flex items-center !mb-2 w-[55%] ">
-                                            <p className="flex items-center mb-1 sm:min-w-[120px] min-w-[120px] xs:min-w-[100px] font-[500]">
-                                              <img
-                                                src={BlackDollor}
-                                                alt="Price icon"
-                                                className={`inline-block ${
-                                                  lang === "ar"
-                                                    ? "ml-2"
-                                                    : "mr-2"
-                                                }`}
-                                              />
-                                              {amountDecimal(
-                                                Math.round(item.price)
-                                              )}{" "}
-                                              {lang === "ar" ? "ريال" : "SAR"}
-                                            </p>
-                                            <p className="flex items-center mb-1 font-[500] text-right">
-                                              <AccessTimeIcon
-                                                className={`${
-                                                  lang === "ar"
-                                                    ? "ml-2"
-                                                    : "mr-2"
-                                                }`}
-                                              />
-                                              {Math.round(item.time)}{" "}
-                                              {lang === "ar" ? "يوم" : "Days"}
-                                            </p>
-                                          </p>
-                                        </div>
+                                       <div className="flex justify-between my-[3%]">
+  <span className="font-[500] text-[16px] text-[#1BA56F] w-[45%] sm:w-[45%] xs:w-[40%]">
+    {lang === "ar"
+      ? item.name_arabic
+      : item.name_english}
+  </span>
+  <div className="flex items-center justify-end !mb-2 w-[55%] sm:w-[55%] xs:w-[60%]">
+
+    <div className="flex items-center mb-1 sm:min-w-[120px] min-w-[90px] xs:min-w-[80px] font-[500] text-[14px] sm:text-[16px]">
+      <img
+        src={BlackDollor}
+        alt="Price icon"
+        className={`inline-block w-[14px] h-[14px] sm:w-[16px] sm:h-[16px] ${
+          lang === "ar"
+            ? "ml-1 sm:ml-2"
+            : "mr-1 sm:mr-2"
+        }`}
+      />
+      <span className="whitespace-nowrap text-[12px] sm:text-[14px]">
+        {amountDecimal(Math.round(item.price))}{" "}
+        {lang === "ar" ? "ريال" : "SAR"}
+      </span>
+    </div>
+    <div className="flex items-center mb-1 font-[500] text-right text-[14px] sm:text-[16px]">
+      <AccessTimeIcon
+        className={`w-[14px] h-[14px] sm:w-[16px] sm:h-[16px] ${
+          lang === "ar"
+            ? "ml-1 sm:ml-2"
+            : "mr-1 sm:mr-2"
+        }`}
+      />
+      <span className="whitespace-nowrap text-[12px] sm:text-[14px]">
+        {Math.round(item.time)}{" "}
+        {lang === "ar" ? "يوم" : "Days"}
+      </span>
+    </div>
+  </div>
+</div>
                                         <p
                                           className={`mb-3 mt-[-3%] h-[30px] flex ${
                                             lang === "ar"

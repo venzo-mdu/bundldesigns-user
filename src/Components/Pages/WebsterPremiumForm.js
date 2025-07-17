@@ -402,38 +402,7 @@ export default function WebsterPremiumForm({ lang, setLang }) {
 
         <div className="basis-2/4 px-[2px]">
           <div className="text-center xs:border-b border-black relative sm:border-none ">
-            <h2 className="text-[20px] sm:text-[40px]  mt-4 leading-1 relative text-black w-[340px] mx-auto mb-0">
-              <a className="webster-brand">
-                <a href="/">
-                  <img
-                    className={`absolute bottom-[10px]  xs:w-[90px] sm:w-[150px] sm:bottom-[10px] xs:bottom-[5px] xs:left-[65px] ${
-                      lang === "ar"
-                        ? "xs:right-[55px] sm:right-[-10%] right-[-10%] rotate-[45deg]"
-                        : "xs:left-0 sm:left-[-10%] left-[-10%]"
-                    }`}
-                    src={Loginlogo}
-                    alt="login"
-                  />
-                </a>
-                {lang === "ar" ? "أدخل المحتوى هنا" : "Welcome to"}
-              </a>
-            </h2>
-
-            <h2 className="text-[20px] sm:text-[38px] text-[#F3B7CE] font-[700]">
-              {form_type == "premium"
-                ? lang === "ar"
-                  ? "بندل بريميوم"
-                  : "The Premium Bundl"
-                : lang === "ar"
-                ? "متاجر الكترونية"
-                : " The Webster Bundl"}
-            </h2>
-
-            <p className="sm:text-[18px] xs:pb-8 sm:pb-1 text-[18px] xs:text-[16px] md:w-[100%] lg:w-[92%] xl:w-[62%] xs:w-[350px] mx-auto">
-              {lang === "ar"
-                ? "تميز بهويتك البصرية بمتجرك الفعلي او اونلاين. تشمل هذه الباقة هوية بصرية متكاملة (شعار، دليل استخدام، ألوان، خطوط، وأنماط)، بالإضافة إلى تصاميم مخصصة للمتاجر تعزز تجربة العميل. ولا ننسى تصاميم السوشال ميديا لدعم مبيعاتك وزيادة التفاعل!"
-                : "Elevate your brand, whether online or in-store. This bundle includes comprehensive brand identity (logo, guidelines, colors, typography, patterns) and commerce collateral to enhance customer experience. Plus, get social media designs to boost sales."}
-            </p>
+           
 
             {form_type == "premium" ? (
               <img

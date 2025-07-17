@@ -1920,7 +1920,7 @@ export const Home = ({ lang, setLang }) => {
                                           className="text-black"
                                           previewlistener="true"
                                         >
-                                          {lang === "ar" ? "تاريخ" : "History"}
+                                          {lang === "ar" ? "تاريخ الطلبات" : "History"}
                                         </a>
                                       </li>
                                       <li
@@ -2102,7 +2102,7 @@ export const Home = ({ lang, setLang }) => {
               <div className="scroller bg-grey">
                 <ul className="tag-list h-[46px] scroller__inner">
                   <img src={CarMarquee} className="slidee  w-[54px]"></img>
-                  <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">
+                  <span className="slidee md:text-[22px]  xs:text-[16px] font-[700] mx-3 uppercase">
                     {lang === "ar" ? "تصميم الهوية" : "BRAND identity"}
                   </span>
                   <img
@@ -2110,7 +2110,7 @@ export const Home = ({ lang, setLang }) => {
                     alt=""
                     className="img-fluid w-[41px] slidee"
                   ></img>
-                  <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">
+                  <span className="slidee md:text-[22px]  xs:text-[16px] font-[700] mx-3 uppercase">
                     {lang === "ar" ? "متاجر الكترونية" : "web design"}
                   </span>
                   <img
@@ -2118,7 +2118,7 @@ export const Home = ({ lang, setLang }) => {
                     alt=""
                     className="img-fluid w-[30px] slidee"
                   ></img>
-                  <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">
+                  <span className="slidee md:text-[22px]  xs:text-[16px] font-[700] mx-3 uppercase">
                     {lang === "ar" ? "تصميم جرافيكي" : "graphic design"}
                   </span>
                   <img
@@ -2126,7 +2126,7 @@ export const Home = ({ lang, setLang }) => {
                     alt=""
                     className="img-fluid w-[70px] slidee"
                   ></img>
-                  <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">
+                  <span className="slidee md:text-[22px]  xs:text-[16px] font-[700] mx-3 uppercase">
                     {lang === "ar" ? "تصميم الهوية" : "BRAND identity"}
                   </span>
                   <img
@@ -2134,7 +2134,7 @@ export const Home = ({ lang, setLang }) => {
                     alt=""
                     className="img-fluid w-[47px] slidee"
                   ></img>
-                  <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">
+                  <span className="slidee md:text-[22px]  xs:text-[16px] font-[700] mx-3 uppercase">
                     {lang === "ar" ? "متاجر الكترونية" : "web design"}
                   </span>
                   <img
@@ -2142,14 +2142,14 @@ export const Home = ({ lang, setLang }) => {
                     alt=""
                     className="img-fluid w-[56px] slidee"
                   ></img>
-                  <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">
+                  <span className="slidee md:text-[22px]  xs:text-[16px] font-[700] mx-3 uppercase">
                     {lang === "ar" ? "تصميم جرافيكي" : "graphic design"}
                   </span>
                   <img
                     src={CarMarquee}
                     className="img-fluid w-[54px] slidee"
                   ></img>
-                  <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">
+                  <span className="slidee md:text-[22px]  xs:text-[16px] font-[700] mx-3 uppercase">
                     {lang === "ar" ? "تصميم الهوية" : "BRAND identity"}
                   </span>
                   <img
@@ -2157,7 +2157,7 @@ export const Home = ({ lang, setLang }) => {
                     alt=""
                     className="img-fluid w-[41px] slidee"
                   ></img>
-                  <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">
+                  <span className="slidee md:text-[22px]  xs:text-[16px] font-[700] mx-3 uppercase">
                     {lang === "ar" ? "متاجر الكترونية" : "web design"}
                   </span>
                   <img
@@ -2165,7 +2165,7 @@ export const Home = ({ lang, setLang }) => {
                     alt=""
                     className="img-fluid w-[30px] slidee"
                   ></img>
-                  <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">
+                  <span className="slidee md:text-[22px]  xs:text-[16px] font-[700] mx-3 uppercase">
                     {lang === "ar" ? "تصميم جرافيكي" : "graphic design"}
                   </span>
                   <img
@@ -2173,7 +2173,7 @@ export const Home = ({ lang, setLang }) => {
                     alt=""
                     className="img-fluid w-[70px] slidee"
                   ></img>
-                  <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">
+                  <span className="slidee md:text-[22px]  xs:text-[16px] font-[700] mx-3 uppercase">
                     {lang === "ar" ? "تصميم الهوية" : "BRAND identity"}
                   </span>
                   <img
@@ -2181,7 +2181,7 @@ export const Home = ({ lang, setLang }) => {
                     alt=""
                     className="img-fluid w-[47px] slidee"
                   ></img>
-                  <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">
+                  <span className="slidee md:text-[22px]  xs:text-[16px] font-[700] mx-3 uppercase">
                     {lang === "ar" ? "متاجر الكترونية" : "web design"}
                   </span>
                   <img
@@ -2189,7 +2189,7 @@ export const Home = ({ lang, setLang }) => {
                     alt=""
                     className="img-fluid w-[56px] slidee"
                   ></img>
-                  <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">
+                  <span className="slidee md:text-[22px]  xs:text-[16px] font-[700] mx-3 uppercase">
                     {lang === "ar" ? "تصميم جرافيكي" : "graphic design"}
                   </span>
                   <img
@@ -2197,7 +2197,7 @@ export const Home = ({ lang, setLang }) => {
                     alt=""
                     className="img-fluid w-[70px] slidee"
                   ></img>
-                  <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">
+                  <span className="slidee md:text-[22px]  xs:text-[16px] font-[700] mx-3 uppercase">
                     {lang === "ar" ? "تصميم الهوية" : "BRAND identity"}
                   </span>
                   <img
@@ -2205,7 +2205,7 @@ export const Home = ({ lang, setLang }) => {
                     alt=""
                     className="img-fluid w-[41px] slidee"
                   ></img>
-                  <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">
+                  <span className="slidee md:text-[22px]  xs:text-[16px] font-[700] mx-3 uppercase">
                     {lang === "ar" ? "متاجر الكترونية" : "web design"}
                   </span>
                   <img
@@ -2213,7 +2213,7 @@ export const Home = ({ lang, setLang }) => {
                     alt=""
                     className="img-fluid w-[30px] slidee"
                   ></img>
-                  <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">
+                  <span className="slidee md:text-[22px]  xs:text-[16px] font-[700] mx-3 uppercase">
                     {lang === "ar" ? "تصميم جرافيكي" : "graphic design"}
                   </span>
                   <img
@@ -2221,7 +2221,7 @@ export const Home = ({ lang, setLang }) => {
                     alt=""
                     className="img-fluid w-[70px] slidee"
                   ></img>
-                  <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">
+                  <span className="slidee md:text-[22px]  xs:text-[16px] font-[700] mx-3 uppercase">
                     {lang === "ar" ? "تصميم الهوية" : "BRAND identity"}
                   </span>
                   <img
@@ -2229,7 +2229,7 @@ export const Home = ({ lang, setLang }) => {
                     alt=""
                     className="img-fluid w-[47px] slidee"
                   ></img>
-                  <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">
+                  <span className="slidee md:text-[22px]  xs:text-[16px] font-[700] mx-3 uppercase">
                     {lang === "ar" ? "متاجر الكترونية" : "web design"}
                   </span>
                   <img
@@ -2237,11 +2237,11 @@ export const Home = ({ lang, setLang }) => {
                     alt=""
                     className="img-fluid w-[56px] slidee"
                   ></img>
-                  <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">
+                  <span className="slidee md:text-[22px]  xs:text-[16px] font-[700] mx-3 uppercase">
                     {lang === "ar" ? "تصميم جرافيكي" : "graphic design"}
                   </span>
                   <img src={CarMarquee} className="slidee  w-[54px]"></img>
-                  <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">
+                  <span className="slidee md:text-[22px]  xs:text-[16px] font-[700] mx-3 uppercase">
                     {lang === "ar" ? "تصميم الهوية" : "BRAND identity"}
                   </span>
                   <img
@@ -2249,7 +2249,7 @@ export const Home = ({ lang, setLang }) => {
                     alt=""
                     className="img-fluid w-[41px] slidee"
                   ></img>
-                  <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">
+                  <span className="slidee md:text-[22px]  xs:text-[16px] font-[700] mx-3 uppercase">
                     {lang === "ar" ? "متاجر الكترونية" : "web design"}
                   </span>
                   <img
@@ -2257,7 +2257,7 @@ export const Home = ({ lang, setLang }) => {
                     alt=""
                     className="img-fluid w-[30px] slidee"
                   ></img>
-                  <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">
+                  <span className="slidee md:text-[22px]  xs:text-[16px] font-[700] mx-3 uppercase">
                     {lang === "ar" ? "تصميم جرافيكي" : "graphic design"}
                   </span>
                   <img
@@ -2265,7 +2265,7 @@ export const Home = ({ lang, setLang }) => {
                     alt=""
                     className="img-fluid w-[70px] slidee"
                   ></img>
-                  <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">
+                  <span className="slidee md:text-[22px]  xs:text-[16px] font-[700] mx-3 uppercase">
                     {lang === "ar" ? "تصميم الهوية" : "BRAND identity"}
                   </span>
                   <img
@@ -2273,7 +2273,7 @@ export const Home = ({ lang, setLang }) => {
                     alt=""
                     className="img-fluid w-[47px] slidee"
                   ></img>
-                  <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">
+                  <span className="slidee md:text-[22px]  xs:text-[16px] font-[700] mx-3 uppercase">
                     {lang === "ar" ? "متاجر الكترونية" : "web design"}
                   </span>
                   <img
@@ -2281,7 +2281,7 @@ export const Home = ({ lang, setLang }) => {
                     alt=""
                     className="img-fluid w-[56px] slidee"
                   ></img>
-                  <span className="slidee md:text-[22px] text-[22px] xs:text-[16px] font-[700] mx-3 uppercase">
+                  <span className="slidee md:text-[22px]  xs:text-[16px] font-[700] mx-3 uppercase">
                     {lang === "ar" ? "تصميم جرافيكي" : "graphic design"}
                   </span>
                 </ul>
