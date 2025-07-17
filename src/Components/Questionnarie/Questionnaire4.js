@@ -218,6 +218,12 @@ export const Questionnaire4 = ({
       "#D83D99"
     );
   };
+  const showLinkSuccessToast = () => {
+  showErrorToast(
+    changeLang === "ar" ? "تم تحديث الرابط بنجاح" : "Link updated successfully!",
+    "#28a745" // Green color for success
+  );
+};
   const validateFields = () => {
     // Filter required questions that are either unanswered or contain invalid data
     const unansweredRequiredQuestions = questionAnswer4
@@ -1034,6 +1040,7 @@ export const Questionnaire4 = ({
                             width: window.innerWidth <= 441 ? "250px" : "400px",
                             height: "44.5px",
                             borderRadius: "0px",
+                            
                           }}
                         />
                         <button

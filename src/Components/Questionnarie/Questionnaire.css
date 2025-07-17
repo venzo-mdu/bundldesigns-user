@@ -1300,6 +1300,7 @@ body[dir="rtl"] .male-btn, body[dir="rtl"] .female-btn {
         width: 50%;
     }
 }
+
 @media screen and (max-width:500px) {
             body[dir="rtl"] .eyespoon{
 position: absolute;
@@ -1330,11 +1331,13 @@ position: absolute;
         width: 120px;
         margin: 5% 0 0 0;
     }
+
       body.ar .eyespoon{
         top: 1% !important;
         right: 0% !important; 
         /* -2% */
     }
+
     /* Arabic language support */
     body.ar .female-buttons, body.ar .male-buttons{
         padding: 0 4% !important;
@@ -1359,9 +1362,6 @@ position: absolute;
         margin: 5% 0 0 0 !important;
     }
 }
-
-
-
 
 @media screen and (max-width:768px) and (min-width:442px) {
     .questionnaire{
