@@ -638,20 +638,23 @@ const { orderId, orderItemId } = state || {};
       setPage("adjustment"); // Redirect to the home page
     }
   };
-  const uploadFile = async (e, id, index) => {
-    if (e.target.files.length) {
-      const formData = new FormData();
-      setAdjustmentForm((prev) => ({
-        ...prev,
-        file_name: e.target.files[0]?.name,
-      }));
-      formData.append("file", e.target.files[0]);
-      formData.append("file_name", e.target.files[0]?.name);
+ const uploadFile = async (e, id, index) => {
+  if (e.target.files.length) {
+    const formData = new FormData();
+    setAdjustmentForm((prev) => ({
+      ...prev,
+      file_name: e.target.files[0]?.name,
+    }));
+    formData.append("file", e.target.files[0]);
+    formData.append("file_name", e.target.files[0]?.name);
+
+    try {
       const response = await axios.post(
         `${base_url}/api/upload_file/`,
         formData,
         ConfigToken()
       );
+
       setAdjustmentsData((prev) => {
         const updatedData = {
           ...prev,
@@ -671,8 +674,25 @@ const { orderId, orderItemId } = state || {};
         updateTotals(itemsList, updatedData); // Update totals with the latest data
         return updatedData; // Return the updated data to update the state
       });
+
+      showToast(
+        lang === "ar" ? "تم التحديث بنجاح" : "Updated Successfully",
+        "#1BA56F"
+      );
+    } catch (error) {
+      showErrorToast(
+        lang === "ar"
+          ? "فشل التحميل. يرجى التحقق من الملف والمحاولة مرة أخرى."
+          : "Upload failed. Please check the file and try again.","#D83D99"
+      );
+   
     }
-  };
+  } else {
+    showErrorToast(lang === "ar" ? "لم يتم اختيار أي ملف." : "No file selected.","#D83D99");
+  }
+};
+
+
   const validateFields = () => {
     let newErrors = {};
 

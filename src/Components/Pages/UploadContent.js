@@ -220,45 +220,47 @@ export default function UploadContent({ lang, setLang }) {
     setThemeColor("#1BA56F");
   }, [order]);
 
-  const toastMessage = () => {
-    const message = "Content saved successfully!";
+ const toastMessage = () => {
+  const message = lang === "ar" ? "تم حفظ المحتوى بنجاح" : "Content saved successfully!";
 
-    if (newToastId) {
-      toast.dismiss(newToastId);
-    }
+  if (newToastId) {
+    toast.dismiss(newToastId);
+  }
 
-    newToastId = toast(message, {
-      duration: 3000,
-      style: {
-        color: themeColor,
-        border: `1px solid ${themeColor}`,
-        fontWeight: "700",
-        background: "#fff",
-        boxShadow: "none",
-        borderRadius: "0px",
-      },
-    });
-  };
+  newToastId = toast(message, {
+    duration: 3000,
+    style: {
+      color: themeColor,
+      border: `1px solid ${themeColor}`,
+      fontWeight: "700",
+      background: "#fff",
+      boxShadow: "none",
+      borderRadius: "0px",
+    },
+  });
+};
 
-  const toastErrorMessage = (msg) => {
-    const message = msg;
+const toastErrorMessage = (msg) => {
+  const message = lang === "ar"
+    ? msg || "حدث خطأ. يرجى المحاولة مرة أخرى."
+    : msg || "Something went wrong. Please try again.";
 
-    if (newToastId) {
-      toast.dismiss(newToastId);
-    }
+  if (newToastId) {
+    toast.dismiss(newToastId);
+  }
 
-    newToastId = toast(message, {
-      duration: 3000,
-      style: {
-        color: themeColor,
-        border: `1px solid ${themeColor}`,
-        fontWeight: "700",
-        background: "#fff",
-        boxShadow: "none",
-        borderRadius: "0px",
-      },
-    });
-  };
+  newToastId = toast(message, {
+    duration: 3000,
+    style: {
+      color: "#D83D99",
+      border: `1px solid #D83D99`,
+      fontWeight: "700",
+      background: "#fff",
+      boxShadow: "none",
+      borderRadius: "0px",
+    },
+  });
+};
 
   const saveContent = async (itemId, idx, designId, filterIndex) => {
     try {

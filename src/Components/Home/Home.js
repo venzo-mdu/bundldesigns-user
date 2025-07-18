@@ -1744,6 +1744,18 @@ export const Home = ({ lang, setLang }) => {
       document.removeEventListener("mousedown", handleClickOutsideMenu);
     };
   }, []);
+  useEffect(() => {
+  const hash = window.location.hash;
+  if (hash === "#ourBundl") {
+    setTimeout(() => {
+      const el = document.getElementById("ourBundl");
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 300); // Delay to ensure DOM is ready
+  }
+}, []);
+
 
   const getBundl = async () => {
     const response = await axios.get(`${base_url}/api/homepage/`);
@@ -2680,7 +2692,7 @@ export const Home = ({ lang, setLang }) => {
                 </div>
               </div>
             </div>
-
+          <div id="ourBundl">
             <div className="bundle_design">
               <div className="pick_design">
                 {/* <!-- <div className="pick_design_content"> Pick a design bundle suited to you </div> --> */}
@@ -3732,6 +3744,7 @@ export const Home = ({ lang, setLang }) => {
                     </div>--> */}
                 </div>
               </div>
+            </div>
             </div>
           </section>
 
