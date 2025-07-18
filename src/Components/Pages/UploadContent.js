@@ -397,27 +397,41 @@ const toastErrorMessage = (msg) => {
     window.location.href = "/dashboard";
   };
 
-  const handleChange = (e, id, field, name, idx) => {
-    let newValue = field === "file" ? e.target.files[0] : e.target.value;
+const handleChange = (e, id, field, name, idx) => {
+  let newValue = field === "file" ? e.target.files[0] : e.target.value;
 
-    if (field === "height" || field === "length" || field === "width") {
-      newValue = newValue.replace(/[^0-9]/g, ""); // Allow only digits
-    }
+  // Handle numeric fields (measurements)
+  if (field === "height" || field === "length" || field === "width") {
+    newValue = newValue.replace(/[^0-9]/g, ""); // Allow only digits
+  }
 
-    setUploadContent((prev) => ({
-      ...prev,
-      [id]: {
-        ...prev[id], // Preserve other fields for this ID
-        [idx]: {
-          ...prev[id]?.[idx],
-          [field]: newValue, // Update the file or other field
-          ...(field === "file" && { filename: e.target.files[0]?.name || "" }),
-          item_sub_name: name,
-        },
+  // Handle text content for Arabic language
+  if (field === "content" && lang === "ar" && typeof newValue === "string") {
+    // Apply Arabic text processing if available
+    newValue = processArabicText ? processArabicText(newValue) : newValue;
+  }
+
+  // Handle Arabic name processing
+  let processedName = name;
+  if (lang === "ar" && typeof name === "string") {
+    processedName = processArabicText ? processArabicText(name) : name;
+  }
+
+  setUploadContent((prev) => ({
+    ...prev,
+    [id]: {
+      ...prev[id], // Preserve other fields for this ID
+      [idx]: {
+        ...prev[id]?.[idx],
+        [field]: newValue, // Update the file or other field
+        ...(field === "file" && { filename: e.target.files[0]?.name || "" }),
+        item_sub_name: processedName,
+        // Add language context for Arabic content
+        ...(lang === "ar" && field === "content" && { language: "ar" }),
       },
-    }));
-  };
-
+    },
+  }));
+};
   const count = order?.item_details?.bundle_items
     ?.filter(
       (item) => item.item__id !== 76 && item.status === "questionnaire required"

@@ -132,27 +132,23 @@ function BundlOrder({
                   layoutTransition={{ duration: 0.6, ease: "easeInOut" }}
                 >
                   <div
-                    className={`${
-                      (filteredArr.length === 1 ||
+                    className={`${(filteredArr.length === 1 ||
                         index === filteredArr.length - 1 ||
                         order.item_details.addon_items?.length === 0) &&
-                      !hasMultipleQty
+                        !hasMultipleQty
                         ? ""
                         : ""
-                    } ${
-                      window.innerWidth > 475 && lang === "ar"
+                      } ${window.innerWidth > 475 && lang === "ar"
                         ? "mr-8"
                         : window.innerWidth < 475 && lang === "ar"
-                        ? "mr-0"
-                        : "text-left"
-                    } ${
-                      window.innerWidth > 475 && "pl-[5%]"
-                    } space-x-2 mt-[2%]`}
+                          ? "mr-0"
+                          : "text-left"
+                      } ${window.innerWidth > 475 && "pl-[5%]"
+                      } space-x-2 mt-[2%]`}
                   >
                     <div
-                      className={`${
-                        window.innerWidth > 475 && "-ml-[5%]"
-                      } w-[calc(100%+5%)] border-y border-black py-2`}
+                      className={`${window.innerWidth > 475 && "-ml-[5%]"
+                        } w-[calc(100%+5%)] border-y border-black py-2`}
                     >
                       <div
                         className={`${window.innerWidth > 475 && "pl-[5%]"}`}
@@ -168,11 +164,10 @@ function BundlOrder({
                     </div>
 
                     {designQuestions[item.item__id]?.language && (
-                      <p className="mt-2 mb-0" style={{marginLeft:"0px"}}>
+                      <p className="mt-2 mb-0" style={{ marginLeft: "0px" }}>
                         <label
-                          className={`${
-                            lang === "ar" ? "ml-6" : "mr-6"
-                          } font-[500]`}
+                          className={`${lang === "ar" ? "ml-6" : "mr-6"
+                            } font-[500]`}
                         >
                           <input
                             type="radio"
@@ -219,7 +214,7 @@ function BundlOrder({
                     )}
 
                     {designQuestions[item.item__id]?.content && (
-                      <p className="flex lg:w-[70%] md:w-[90%] mt-2" style={{marginLeft:"0px"}}>
+                      <p className="flex lg:w-[70%] md:w-[90%] mt-2" style={{ marginLeft: "0px" }}>
                         <input
                           placeholder={
                             lang === "ar"
@@ -246,14 +241,13 @@ function BundlOrder({
                     )}
                     {designQuestions[item.item__id]?.measurement && (
                       <>
-                        <p className="mb-0 font-bold" style={{marginLeft:"0px"}}>
+                        <p className="mb-0 font-bold" style={{ marginLeft: "0px" }}>
                           {lang === "ar" ? "القياسات" : "Measurements"}
                         </p>
-                        <p className="ml-2 mt-2" style={{marginLeft:"0px"}}>
+                        <p className="ml-2 mt-2" style={{ marginLeft: "0px" }}>
                           <label
-                            className={`${
-                              lang === "ar" ? "ml-6" : "mr-6"
-                            } font-[500]`}
+                            className={`${lang === "ar" ? "ml-6" : "mr-6"
+                              } font-[500]`}
                           >
                             <input
                               type="radio"
@@ -299,96 +293,96 @@ function BundlOrder({
 
                           {uploadContent[item.id]?.[filterIndex]
                             ?.measurements === "Customize" && (
-                            <>
-                              <label className="text-[#1BA56F] mr-2">
-                                {" "}
-                                Width :{" "}
-                                <input
-                                  type="text"
-                                  min="0"
-                                  onChange={(e) =>
-                                    handleChange(
-                                      e,
-                                      item.id,
-                                      "width",
-                                      item.item_name + "-" + filterIndex,
-                                      filterIndex
-                                    )
-                                  }
-                                  value={
-                                    uploadContent?.[item?.id]?.[filterIndex]
-                                      ?.width || ""
-                                  }
-                                  className="w-[55px] h-[25px] border !border-[#1BA56F] rounded-none"
-                                ></input>
-                              </label>
-                              <label className="text-[#1BA56F] mr-2">
-                                {" "}
-                                Height :{" "}
-                                <input
-                                  type="text"
-                                  min="0"
-                                  onChange={(e) =>
-                                    handleChange(
-                                      e,
-                                      item.id,
-                                      "height",
-                                      item.item_name + "-" + filterIndex,
-                                      filterIndex
-                                    )
-                                  }
-                                  value={
-                                    uploadContent?.[item?.id]?.[filterIndex]
-                                      ?.height || ""
-                                  }
-                                  className="w-[55px] h-[25px] border !border-[#1BA56F] rounded-none"
-                                ></input>
-                              </label>
-                              <label className="text-[#1BA56F] mr-2">
-                                {" "}
-                                Length :{" "}
-                                <input
-                                  type="text"
-                                  min="0"
-                                  onChange={(e) =>
-                                    handleChange(
-                                      e,
-                                      item.id,
-                                      "length",
-                                      item.item_name + "-" + filterIndex,
-                                      filterIndex
-                                    )
-                                  }
-                                  value={
-                                    uploadContent?.[item?.id]?.[filterIndex]
-                                      ?.length || ""
-                                  }
-                                  className="w-[55px] h-[25px] border !border-[#1BA56F] rounded-none"
-                                ></input>
-                              </label>
-                              <span className="text-[#1BA56F] mr-2"> CM </span>{" "}
-                            </>
-                          )}
+                              <>
+                                <div className="upload-div ">
+                                  <label className="text-[#1BA56F] mr-2">
+                                    {" "}
+                                    {lang === "ar" ? "العرض" : "Width"} :{" "}
+                                    <input
+                                      type="text"
+                                      min="0"
+                                      onChange={(e) =>
+                                        handleChange(
+                                          e,
+                                          item.id,
+                                          "width",
+                                          item.item_name + "-" + filterIndex,
+                                          filterIndex
+                                        )
+                                      }
+                                      value={
+                                        uploadContent?.[item?.id]?.[filterIndex]
+                                          ?.width || ""
+                                      }
+                                      className="w-[55px] h-[25px] border !border-[#1BA56F] ip-wid rounded-none"
+                                    ></input>
+                                  </label>
+                                  <label className="text-[#1BA56F] mr-2">
+                                    {" "}
+                                    {lang === "ar" ? "الارتفاع" : "Height"} :{" "}
+                                    <input
+                                      type="text"
+                                      min="0"
+                                      onChange={(e) =>
+                                        handleChange(
+                                          e,
+                                          item.id,
+                                          "height",
+                                          item.item_name + "-" + filterIndex,
+                                          filterIndex
+                                        )
+                                      }
+                                      value={
+                                        uploadContent?.[item?.id]?.[filterIndex]
+                                          ?.height || ""
+                                      }
+                                      className="w-[55px] h-[25px] border !border-[#1BA56F] ip-wid rounded-none"
+                                    ></input>
+                                  </label>
+                                  <label className="text-[#1BA56F] mr-2">
+                                    {" "}
+                                    {lang === "ar" ? "الطول" : "Length"} :{" "}
+                                    <input
+                                      type="text"
+                                      min="0"
+                                      onChange={(e) =>
+                                        handleChange(
+                                          e,
+                                          item.id,
+                                          "length",
+                                          item.item_name + "-" + filterIndex,
+                                          filterIndex
+                                        )
+                                      }
+                                      value={
+                                        uploadContent?.[item?.id]?.[filterIndex]
+                                          ?.length || ""
+                                      }
+                                      className="w-[55px] h-[25px] border !border-[#1BA56F] ip-wid rounded-none"
+                                    ></input>
+                                  </label>
+                                  <span className="text-[#1BA56F] mr-2"> {lang === "ar" ? "سم" : "CM"} </span>{" "}
+                                </div>                            </>
+                            )}
                         </p>
                       </>
                     )}
 
                     {designQuestions[item.item__id]?.attachment && (
                       <>
-                        <p className="mb-2" style={{marginLeft:"0px"}}>
+                        <p className="mb-2" style={{ marginLeft: "0px" }}>
                           {lang === "ar"
                             ? "تحب ترسل ملفات اضافية؟"
                             : "Have something to show us?"}
                         </p>
                         <p
-                        style={{marginLeft:"0px"}}
-                          className={`border-b-2 ${
-                            uploadContent?.[item?.id]?.[filterIndex]?.filename
+                          style={{ marginLeft: "0px" }}
+                          className={`border-b-2 ${uploadContent?.[item?.id]?.[filterIndex]?.filename
                               ? "w-fit"
                               : lang === "ar"
-                              ? "w-[126px]"
-                              : "w-[160px]"
-                          } !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer`}
+                                ? "w-[126px]"
+                                : "w-[160px]"
+                            } !border-[#1BA56F] flex items-start text-[#1BA56F] cursor-pointer`}
                           onClick={() =>
                             document
                               .getElementById(`file-${item.id}_${filterIndex}`)
@@ -463,9 +457,8 @@ function BundlOrder({
                         onClick={() => {
                           setSkipId([...skipId, `${item.id}_${filterIndex}`]);
                         }}
-                        className={`text-[#1BA56F] cursor-pointer py-1 px-2 border !border-[#1BA56F] ${
-                          lang === "ar" ? "ml-2" : "mr-2"
-                        } text-[14px] font-[500] uppercase`}
+                        className={`text-[#1BA56F] cursor-pointer py-1 px-2 border !border-[#1BA56F] ${lang === "ar" ? "ml-2" : "mr-2"
+                          } text-[14px] font-[500] uppercase`}
                       >
                         {lang === "ar" ? "اكمل في وقت لاحق" : "Skip For Now"}
                       </button>
