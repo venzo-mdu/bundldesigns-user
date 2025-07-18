@@ -1861,14 +1861,40 @@ export default function Dashboard({ lang, setLang }) {
                         lang === "ar" ? "text-left" : "text-right"
                       } mt-[0%]`}
                     >
-                      <button
-                        onClick={() => {
-                           window.location.href = "/#ourBundl";
-                        }}
-                        className="bg-black text-white h-[35px] w-[35px] text-[22px]"
-                      >
-                        +
-                      </button>
+<button
+  onClick={() => {
+    if (window.innerWidth <= 475) {
+      const elementId = "ourBundl";
+
+      // If you're not on homepage, redirect to /#ourBundl
+      if (window.location.pathname !== "/") {
+        window.location.href = `/#${elementId}`;
+        return;
+      }
+
+      // Already on homepage, just update the hash and scroll
+      window.history.pushState(null, null, `#${elementId}`);
+
+      const targetElement = document.getElementById(elementId);
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: "smooth" });
+      } else {
+        // Try again after delay (in case it's not yet rendered)
+        setTimeout(() => {
+          const el = document.getElementById(elementId);
+          if (el) {
+            el.scrollIntoView({ behavior: "smooth" });
+          }
+        }, 300);
+      }
+    }
+  }}
+  className="bg-black text-white h-[35px] w-[35px] text-[22px]"
+>
+  +
+</button>
+
+
                     </div>
                   </div>
                 ) : (

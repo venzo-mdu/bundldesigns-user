@@ -69,6 +69,7 @@ export const Questionnaire2 = ({
   const orderId = useSelector((state) => state?.questionAnswer?.orderId);
 
   const [questionAnswer2, setQuestionAnswer2] = useState([]);
+  
 
   useEffect(() => {
     if (questionAndAnswers.length > 0) {
@@ -379,12 +380,14 @@ export const Questionnaire2 = ({
   // };
 
   const handleButtonClick = (buttonId, gender, label, questionId) => {
+    console.log("BUTTON CLICKED:", label); // 👈 check what value you are passing
     setQuestionAnswer2((prev) => {
       return prev.map((ele) => {
         if (ele.id !== questionId) return ele;
 
         const updatedAnswer = ele.answer.map((entry) => {
           if (entry?.[gender] !== undefined) {
+              console.log("BEFORE:", entry.value); // 👈 see what's stored
             const valueExists = entry.value.includes(label);
 
             return {
@@ -496,8 +499,8 @@ export const Questionnaire2 = ({
                 <div
                   className="questions"
                   key={index}
-                  id={`question_${question?.id}`}
-                >
+                  id={`question_${question?.id}`}>
+                
                   <p
                     className={`questions-title  xs:w-[90%] sm:w-full md:w-full mx-auto ${index === 0 ? "mt-[1%]" : "mt-[2%]"
                       }`}
@@ -593,7 +596,9 @@ export const Questionnaire2 = ({
                                       </div>
                                       <button
                                         key={`female-${index}`}
-                                        className={`female-btn uppercase ${question?.answer?.[0].value?.includes(label)
+                                        className={`female-btn uppercase ${questionAnswer2.find((q) => q.id === question.id)
+  ?.answer?.[0]?.value?.includes(label)
+
                                             ? "active"
                                             : ""
                                           }`}
@@ -685,7 +690,8 @@ export const Questionnaire2 = ({
                                     </div>
                                     <button
                                       key={`male-${index}`}
-                                      className={`male-btn uppercase ${question?.answer?.[1].value?.includes(label)
+                                      className={`male-btn uppercase ${questionAnswer2.find((q) => q.id === question.id)
+  ?.answer?.[1]?.value?.includes(label)
                                           ? "active"
                                           : ""
                                         }`}
