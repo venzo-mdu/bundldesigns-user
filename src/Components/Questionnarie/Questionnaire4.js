@@ -470,7 +470,29 @@ export const Questionnaire4 = ({
       );
     }
   };
+const isValidUrl = (url) => {
+  const urlPattern = /^(https?:\/\/)?([\w-]+\.)+[\w-]+(\/[\w-./?%&=]*)?$/i;
+  return urlPattern.test(url);
+};
 
+const handleLinkBlur = (questionId) => {
+  const question = questionAnswer4.find(q => q.id === questionId);
+  const link = question?.answer?.link?.trim();
+
+  if (link) {
+    if (isValidUrl(link)) {
+      showSuccessToast(
+        changeLang === "ar" ? "تم إضافة الرابط بنجاح!" : "Link added successfully!",
+        "#1BA56F"
+      );
+    } else {
+      showErrorToast(
+        changeLang === "ar" ? "الرجاء إدخال رابط صالح!" : "Please enter a valid link!",
+        "#D83D99"
+      );
+    }
+  }
+};
   const handleTextureChange = (e, questionId, isSurprise = false) => {
     if (isSurprise) {
       setQuestionAnswer4((prev) =>
@@ -1376,6 +1398,7 @@ export const Questionnaire4 = ({
                           onChange={(e) =>
                             handleChange(question.id, e.target.value)
                           }
+                           onBlur={() => handleLinkBlur(question.id)}
                           style={{
                             padding: "8px",
                             border: "1px solid #000",
