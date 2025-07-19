@@ -1815,7 +1815,7 @@ export const Home = ({ lang, setLang }) => {
                 <div className="row align-items-center">
                   <div className="col-4 col-md-3 col-lg-3 justify-content-between">
                     <div className="navbar navbar-expand-lg justify-content-between">
-                      <a className="navbar-brand1" href="#ourBundl">
+                      <a className="navbar-brand1" href=" #ourBundl">
                         <img src={HomeLogo} alt="" className="img-fluid"></img>
                       </a>
                     </div>

@@ -77,14 +77,38 @@ export const Questionnaire2 = ({
     }
   }, [questionAndAnswers]);
   const formatAgeRange = (label) => {
-    if (changeLang === "ar" && label.includes("-")) {
-      const parts = label.split("-");
-      if (parts.length === 2) {
-        return `${parts[1]}-${parts[0]}`;
-      }
+  if (changeLang !== "ar") return label;
+
+  const text = label.trim();
+
+  // Handle "10 or Less" → "10 أو أقل"
+  if (text.toLowerCase().includes("or less")) {
+    const number = text.replace(/\s*or\s*less/i, '');
+    return `${number} أو أقل`;
+  }
+
+  // Handle "41-60+" → "60+-41" with explicit LTR control
+  if (text.includes("-") && text.includes("+")) {
+    const parts = text.split("-");
+    if (parts.length === 2) {
+      const firstPart = parts[0];   // "41"
+      const secondPart = parts[1];  // "60+"
+      // Use Unicode LTR override characters
+      return `\u202D${secondPart}-${firstPart}\u202C`;  // Force LTR rendering
     }
-    return label;
-  };
+  }
+
+  // Handle regular ranges
+  if (text.includes("-")) {
+    const parts = text.split("-");
+    if (parts.length === 2) {
+      return `${parts[1]}-${parts[0]}`;
+    }
+  }
+
+  return text;
+};
+
 
 
   /* NEW QUESTIONANSWER */
@@ -380,12 +404,12 @@ export const Questionnaire2 = ({
   // };
 
   const handleButtonClick = (buttonId, gender, label, questionId) => {
-    console.log("BUTTON CLICKED:", label); // 👈 check what value you are passing
+    console.log("BUTTON CLICKED:", label,gender); // 👈 check what value you are passing
     setQuestionAnswer2((prev) => {
       return prev.map((ele) => {
         if (ele.id !== questionId) return ele;
 
-        const updatedAnswer = ele.answer.map((entry) => {
+        const updatedAnswer = ele.answer.map((entry) => { 
           if (entry?.[gender] !== undefined) {
               console.log("BEFORE:", entry.value); // 👈 see what's stored
             const valueExists = entry.value.includes(label);
@@ -466,8 +490,12 @@ export const Questionnaire2 = ({
     } catch (e) {
       console.log(e);
     }
+
   };
+
+  console.log("questionAnswer2", questionAnswer2);
   return (
+
     <div>
       <Toaster
         position="top-right"
@@ -499,8 +527,8 @@ export const Questionnaire2 = ({
                 <div
                   className="questions"
                   key={index}
-                  id={`question_${question?.id}`}>
-                
+                  id={`question_${question?.id}`}
+                >
                   <p
                     className={`questions-title  xs:w-[90%] sm:w-full md:w-full mx-auto ${index === 0 ? "mt-[1%]" : "mt-[2%]"
                       }`}
@@ -594,11 +622,10 @@ export const Questionnaire2 = ({
                                           }}
                                         />
                                       </div>
+                                      
                                       <button
                                         key={`female-${index}`}
-                                        className={`female-btn uppercase ${questionAnswer2.find((q) => q.id === question.id)
-  ?.answer?.[0]?.value?.includes(label)
-
+                                        className={`female-btn uppercase ${question?.answer?.[0].value?.includes(label)
                                             ? "active"
                                             : ""
                                           }`}
@@ -612,7 +639,8 @@ export const Questionnaire2 = ({
                                         }
                                       >
                                         {formatAgeRange(label)}
-                                      </button>                                    </div>
+                                      </button>                                    
+                                      </div>
                                   );
                                 })}
                               </div>
@@ -648,7 +676,8 @@ export const Questionnaire2 = ({
                                       className="female-btn uppercase"
                                     >
                                       {formatAgeRange(label)}
-                                    </button>                                  </div>
+                                    </button>                                  
+                                    </div>
                                 ))}
                               </div>
                             </div>
@@ -690,8 +719,7 @@ export const Questionnaire2 = ({
                                     </div>
                                     <button
                                       key={`male-${index}`}
-                                      className={`male-btn uppercase ${questionAnswer2.find((q) => q.id === question.id)
-  ?.answer?.[1]?.value?.includes(label)
+                                      className={`male-btn uppercase ${question?.answer?.[1].value?.includes(label)
                                           ? "active"
                                           : ""
                                         }`}

@@ -968,6 +968,10 @@ const style = {
 export default function Dashboard({ lang, setLang }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const scrollToBundl = (e) => {
+    e.preventDefault();
+    navigate("/#ourBundl");
+  };
   const [currentUser, setCurrentUser] = useState([]);
   const [projectName, setProjectName] = useState("");
   const [projectToEdit, setProjectEdit] = useState(null);
@@ -1275,6 +1279,7 @@ export default function Dashboard({ lang, setLang }) {
             </div>
           );
         }
+
         return (
           <div className="text-center flex items-center flex-col">
             <h2 className="lg:text-[22px] md:text-[22px] xs:text-[18px] xs:px-[10%] text-[#000000] lg:w-[100%] md:w-[100%] xs:w-[90%]">
@@ -1580,7 +1585,7 @@ export default function Dashboard({ lang, setLang }) {
         lineBorderClass = "!border-[#1BA56F]"; // Green line for previous process
       }
       return (
-         <div className={`${containerClasses}`} key={index}>
+        <div className={`${containerClasses}`} key={index}>
           <img
             className={`m-0 absolute ${
               isPreviousProcess || isCurrentProcess
@@ -1861,40 +1866,12 @@ export default function Dashboard({ lang, setLang }) {
                         lang === "ar" ? "text-left" : "text-right"
                       } mt-[0%]`}
                     >
-<button
-  onClick={() => {
-    if (window.innerWidth <= 475) {
-      const elementId = "ourBundl";
-
-      // If you're not on homepage, redirect to /#ourBundl
-      if (window.location.pathname !== "/") {
-        window.location.href = `/#${elementId}`;
-        return;
-      }
-
-      // Already on homepage, just update the hash and scroll
-      window.history.pushState(null, null, `#${elementId}`);
-
-      const targetElement = document.getElementById(elementId);
-      if (targetElement) {
-        targetElement.scrollIntoView({ behavior: "smooth" });
-      } else {
-        // Try again after delay (in case it's not yet rendered)
-        setTimeout(() => {
-          const el = document.getElementById(elementId);
-          if (el) {
-            el.scrollIntoView({ behavior: "smooth" });
-          }
-        }, 300);
-      }
-    }
-  }}
-  className="bg-black text-white h-[35px] w-[35px] text-[22px]"
->
-  +
-</button>
-
-
+                      <button
+                        onClick={scrollToBundl}
+                        className="bg-black text-white h-[35px] w-[35px] text-[22px]"
+                      >
+                        +
+                      </button>
                     </div>
                   </div>
                 ) : (
@@ -1986,35 +1963,32 @@ export default function Dashboard({ lang, setLang }) {
                     //   </select>
                     //   {/* </div> */}
                     // </div>
-<div className="xs:px-[5%] xs:flex xs:w-full">
-  <select
-    id="dashboardSelect"
-    className="w-[75%] h-[45px] text-[24px] font-[700]
+                    <div className="xs:px-[5%] xs:flex xs:w-full">
+                      <select
+                        id="dashboardSelect"
+                        className="w-[75%] h-[45px] text-[24px] font-[700]
                outline-none border border-gray-400
                pr-8 pl-2 rounded-none shadow-none appearance-none truncate"
-    onChange={(e) => handleSelectChange(e)}
-  >
-    {projects?.map((project, index) => (
-      <option
-        className="text-[16px] font-[500] truncate"
-        key={index}
-        value={project.id}
-      >
-        {project.project_name.length > 14
-          ? `${project.project_name.slice(0, 14)}...`
-          : project.project_name}
-      </option>
-    ))}
-  </select>
-</div>
-
+                        onChange={(e) => handleSelectChange(e)}
+                      >
+                        {projects?.map((project, index) => (
+                          <option
+                            className="text-[16px] font-[500] truncate"
+                            key={index}
+                            value={project.id}
+                          >
+                            {project.project_name.length > 14
+                              ? `${project.project_name.slice(0, 14)}...`
+                              : project.project_name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
                   )}
 
                   {window?.innerWidth >= 475 && (
                     <button
-                      onClick={() => {
-                        window.location.href = "/#ourBundl";
-                      }}
+                      onClick={scrollToBundl}
                       className="lg:py-2 lg:px-2 lg:sticky lg:right-0 md:sticky md:right-0 flex bg-black text-white items-center lg:text-[32px] md:text-[24px] leading-[0px]  xs:text-[24px] xs:py-4 xs:px-4 xs:relative xs:left-[0%]"
                     >
                       +
@@ -2548,7 +2522,6 @@ export default function Dashboard({ lang, setLang }) {
                             "border-b border-black"
                           } mt-2 px-2`}
                         >
-                          
                           <p>
                             {lang === "ar" ? "التاريخ:" : "Date:"}{" "}
                             {item?.created_at}

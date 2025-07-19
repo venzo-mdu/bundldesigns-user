@@ -7,13 +7,14 @@ import { BrowserRouter } from 'react-router-dom';
 import store from './Redux/Store';
 import { Provider } from 'react-redux';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-
+import ScrollToAnchor from './Components/Common/ScrollToAchor';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode >
     <Provider store={store} stabilityCheck="never">
       <BrowserRouter>
+      <ScrollToAnchor />
       <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENTID}>
         <App />
       </GoogleOAuthProvider>

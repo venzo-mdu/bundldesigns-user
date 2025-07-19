@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useRef } from "react";
 import axios from "axios";
 import { ConfigToken } from "../Auth/ConfigToken";
 import { base_url } from "../Auth/BackendAPIUrl";
@@ -24,6 +24,7 @@ import Loader from "../../Images/Home/load sticker.png";
 import ourWorkBranding from "../../Images/ourWorkBranding.gif";
 
 let newToastId = null;
+
 export default function UploadContent({ lang, setLang }) {
   const navigate = useNavigate();
   const { orderId } = useParams();
@@ -262,121 +263,144 @@ const toastErrorMessage = (msg) => {
   });
 };
 
-  const saveContent = async (itemId, idx, designId, filterIndex) => {
-    try {
-      if (
-        !uploadContent?.[itemId]?.[idx]?.language &&
-        designQuestions[designId]?.language
-      ) {
-        toastErrorMessage(
-          lang === "ar"
-            ? "يرجى اختيار اللغة قبل الحفظ"
-            : "Please choose language before saving."
-        );
-
-        return;
-      }
-      if (
-        !uploadContent?.[itemId]?.[idx]?.content &&
-        designQuestions[designId]?.textbox
-      ) {
-        toastErrorMessage(
-          lang === "ar"
-            ? "يرجى إضافة المحتوى قبل الحفظ"
-            : "Please add content before saving."
-        );
-        return;
-      }
-      if (
-        !uploadContent?.[itemId]?.[idx]?.measurements &&
-        designQuestions[designId]?.measurement
-      ) {
-        toastErrorMessage(
-          lang === "ar"
-            ? "يرجى إضافة المقاسات قبل الحفظ"
-            : "Please add measurements before saving.",
-          {
-            icon: false,
-            toastId: "required-value-toast3",
-            style: {
-              color: "#D83D99",
-              fontWeight: "700",
-            },
-          }
-        );
-        return;
-      }
-
-      // if (uploadContent?.[itemId][idx].file_url.length < 0) {
-      //   toastErrorMessage(
-      //     lang === "ar" ? "يرجى رفع المحتوى" : "Please upload the content."
-      //   );
-      // }
-      const formData = {
-        answers: {
-          [itemId]: {
-            [idx]: uploadContent?.[itemId]?.[idx] || {},
-          },
-        },
-
-        orderId: order.id,
-        status: "save_later",
-      };
-      setIsSaveAndNext(true);
-      formData.answers[itemId][idx].file_links =
-        formData.answers[itemId][idx].file_url;
-      delete formData.answers[itemId][idx].file_url;
-      const response = await axios.post(
-        `${base_url}/api/upload_content/`,
-        formData,
-        ConfigToken()
+ const saveContent = async (itemId, idx, designId, filterIndex) => {
+   console.log('DEBUG: saveContent called with args:', { itemId, idx, designId, filterIndex });
+  try {
+    if (
+      !uploadContent?.[itemId]?.[idx]?.language &&
+      designQuestions[designId]?.language
+    ) {
+      toastErrorMessage(
+        lang === "ar"
+          ? "يرجى اختيار اللغة قبل الحفظ"
+          : "Please choose language before saving."
       );
 
-      if (response.status === 201) {
-        setIsSaveAndNext(false);
-        console.log("Content saved successfully!");
-        toastMessage();
-        getOrderDetails();
-      } else {
-        setIsSaveAndNext(false);
-        console.error("Unexpected response:", response);
-        toast.error(
-          lang === "ar"
-            ? "مرة أخرى حدث خطأ ما! يرجى المحاولة "
-            : "Something went wrong! Please try again.",
-          {
-            icon: false,
-            toastId: "required-value-toast6",
-            style: {
-              color: "#D83D99",
-              fontWeight: "700",
-            },
-          }
-        );
-      }
-    } catch (error) {
-      setIsSaveAndNext(false);
-      console.error("Save failed:", error.response?.data || error.message);
-      // toast.error(
-      //   error.response?.data?.message || lang === "ar"
-      //     ? "المحاولة مرة أخرى يرجى فشل في حفظ المحتوى "
-      //     : "Failed to save content. Please try again.",
-      //   {
-      //     icon: false,
-      //     toastId: "required-value-toast7",
-      //     style: {
-      //       color: "#D83D99",
-      //       fontWeight: "700",
-      //     },
-      //   }
-      // );
+      return;
+    }
+    if (
+      !uploadContent?.[itemId]?.[idx]?.content &&
+      designQuestions[designId]?.textbox
+    ) {
       toastErrorMessage(
-        error.response?.data?.message || lang === "ar"
-          ? "المحاولة مرة أخرى يرجى فشل في حفظ المحتوى "
-          : "Failed to save content. Please try again."
+        lang === "ar"
+          ? "يرجى إضافة المحتوى قبل الحفظ"
+          : "Please add content before saving."
+      );
+      return;
+    }
+    if (
+      !uploadContent?.[itemId]?.[idx]?.measurements &&
+      designQuestions[designId]?.measurement
+    ) {
+      toastErrorMessage(
+        lang === "ar"
+          ? "يرجى إضافة المقاسات قبل الحفظ"
+          : "Please add measurements before saving.",
+        {
+          icon: false,
+          toastId: "required-value-toast3",
+          style: {
+            color: "#D83D99",
+            fontWeight: "700",
+          },
+        }
+      );
+      return;
+    }
+
+    // if (uploadContent?.[itemId][idx].file_url.length < 0) {
+    //   toastErrorMessage(
+    //     lang === "ar" ? "يرجى رفع المحتوى" : "Please upload the content."
+    //   );
+    // }
+    const formData = {
+      answers: {
+        [itemId]: {
+          [idx]: uploadContent?.[itemId]?.[idx] || {},
+        },
+      },
+
+      orderId: order.id,
+      status: "save_later",
+    };
+    setIsSaveAndNext(true);
+    formData.answers[itemId][idx].file_links =
+      formData.answers[itemId][idx].file_url;
+    delete formData.answers[itemId][idx].file_url;
+    const response = await axios.post(
+      `${base_url}/api/upload_content/`,
+      formData,
+      ConfigToken()
+    );
+
+    // Broadened check: Now handles 200 (OK) or 201 (Created) as success
+    if (response.status === 200 || response.status === 201) {
+      setIsSaveAndNext(false);
+      console.log("Content saved successfully!");
+
+      // Inlined toastMessage logic here
+      const message = lang === "ar" ? "تم حفظ المحتوى بنجاح" : "Content saved successfully!";
+
+      if (newToastId) {
+        toast.dismiss(newToastId);
+      }
+
+      newToastId = toast(message, {
+        duration: 3000,
+        style: {
+          color: themeColor,
+          border: `1px solid ${themeColor}`,
+          fontWeight: "700",
+          background: "#fff",
+          boxShadow: "none",
+          borderRadius: "0px",
+        },
+      });
+
+      getOrderDetails();
+    } else {
+      setIsSaveAndNext(false);
+      console.error("Unexpected response:", response);
+      toast.error(
+        lang === "ar"
+          ? "مرة أخرى حدث خطأ ما! يرجى المحاولة "
+          : "Something went wrong! Please try again.",
+        {
+          icon: false,
+          toastId: "required-value-toast6",
+          style: {
+            color: "#D83D99",
+            fontWeight: "700",
+          },
+        }
       );
     }
-  };
+  } catch (error) {
+    setIsSaveAndNext(false);
+    console.error("Save failed:", error.response?.data || error.message);
+    // toast.error(
+    //   error.response?.data?.message || lang === "ar"
+    //     ? "المحاولة مرة أخرى يرجى فشل في حفظ المحتوى "
+    //     : "Failed to save content. Please try again.",
+    //   {
+    //     icon: false,
+    //     toastId: "required-value-toast7",
+    //     style: {
+    //       color: "#D83D99",
+    //       fontWeight: "700",
+    //     },
+    //   }
+    // );
+    toastErrorMessage(
+      error.response?.data?.message || lang === "ar"
+        ? "المحاولة مرة أخرى يرجى فشل في حفظ المحتوى "
+        : "Failed to save content. Please try again."
+    );
+  }
+   console.log('DEBUG: saveContent completed');
+};
+
   const saveAllContent = async (status) => {
     const formData = {
       answers: uploadContent,

@@ -290,9 +290,9 @@ body[dir="rtl"] .female-btn {
 
 .male-btn.active,
 .female-btn.active {
-    background-color: #000000;
-    color: #ffffff;
-    border: 1px solid #000000;
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    border: 1px solid #000000 !important;
 }
 
 .specific-color {
