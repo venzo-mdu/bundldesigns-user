@@ -17,6 +17,7 @@ function Addons({
   saveContent,
   setUploadContent,
 }) {
+  console.log('🔍 Addons - saveContent function:', typeof saveContent);
   const navigate = useNavigate();
   let orderItemRemain = order?.item_details?.bundle_items.filter(
     (item) =>
@@ -487,18 +488,29 @@ function Addons({
                           {lang === "ar" ? "اكمل في وقت لاحق" : "Skip For Now"}
                         </button>
                         <button
-                          onClick={() =>
-                            saveContent(
-                              item.id,
-                              filterIndex,
-                              item.item__id,
-                              `${item.id}_${filterIndex}`
-                            )
-                          }
-                          className="text-white cursor-pointer bg-[#1BA56F] py-1 px-2 text-[14px] font-[500] uppercase"
-                        >
-                          {lang === "ar" ? "حفظ والتالي" : "Save & Next"}
-                        </button>
+  onClick={() => {
+    console.log('🔘 Button clicked!');
+    
+    if (typeof saveContent !== 'function') {
+      console.error('❌ saveContent is not a function. Type:', typeof saveContent);
+      alert('saveContent function not available!');
+      return;
+    }
+    
+    console.log('✅ Calling saveContent with params:', {
+      itemId: item.id,
+      idx: filterIndex, 
+      designId: item.item__id,
+      filterIndex: filterIndex // or your 4th param
+    });
+    
+    saveContent(item.id, filterIndex, item.item__id, filterIndex);
+  }}
+  className="text-white cursor-pointer bg-[#1BA56F] py-1 px-2 text-[14px] font-[500] uppercase"
+>
+  {lang === "ar" ? "حفظ والتالي" : "Save & Next"}
+</button>
+
                       </p>
                     </div>
                   </motion.div>

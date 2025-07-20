@@ -131,82 +131,97 @@ export default function UploadContent({ lang, setLang }) {
   // };
 
   const uploadFile = async (e, id, field, name, idx) => {
-    const files = Array.from(e.target.files);
-    if (!files.length) return;
+  const files = Array.from(e.target.files);
+  if (!files.length) return;
 
-    const uploadedUrls = [];
-    const uploadedNames = [];
+  const uploadedUrls = [];
+  const uploadedNames = [];
 
-    for (const file of files) {
-      const formData = new FormData();
-      formData.append("file", file);
-      formData.append("file_name", file.name);
+  for (const file of files) {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("file_name", file.name);
 
-      try {
-        const response = await axios.post(
-          `${base_url}/api/upload_file/`,
-          formData,
-          ConfigToken()
-        );
+    try {
+      const response = await axios.post(
+        `${base_url}/api/upload_file/`,
+        formData,
+        ConfigToken()
+      );
 
-        uploadedUrls.push(response.data.file_url);
-        uploadedNames.push(file.name);
+      uploadedUrls.push(response.data.file_url);
+      uploadedNames.push(file.name);
 
-        const docId = id.split("_")[0];
-        setUploadContent((prev) => {
-          const existing = prev[docId]?.[idx] || {};
-          return {
-            ...prev,
-            [docId]: {
-              ...prev[docId],
-              [idx]: {
-                ...existing,
-                ...(field === "file" && {
-                  file_url: [
-                    ...(existing.file_url || []),
-                    response.data.file_url,
-                  ],
-                  filename: file.name,
-                }),
-                item_sub_name: name,
-              },
-            },
-          };
-        });
-      } catch (error) {
-        console.error("Upload failed", error);
-      }
-    }
-
-    setUploadFiles((prev) => {
-      const existing = prev.find((file) => file.id === id);
-      if (existing) {
-        return prev.map((file) =>
-          file.id === id
-            ? {
-                ...file,
-                url: [...existing.url, ...uploadedUrls],
-                name: [
-                  ...(Array.isArray(file.name) ? file.name : [file.name]),
-                  ...uploadedNames,
-                ],
-              }
-            : file
-        );
-      } else {
-        return [
+      const docId = id.split("_")[0];
+      
+      // 🔥 FIXED: Update uploadContent with proper structure for validation
+      setUploadContent((prev) => {
+        const existing = prev[docId]?.[idx] || {};
+        return {
           ...prev,
-          {
-            id,
-            url: uploadedUrls,
-            name: uploadedNames,
+          [docId]: {
+            ...prev[docId],
+            [idx]: {
+              ...existing,
+              // 🔥 ADD content field for validation
+              content: uploadedNames.join(', '), // This is what validation checks!
+              
+              // Keep your existing file fields
+              ...(field === "file" && {
+                file_url: [
+                  ...(existing.file_url || []),
+                  response.data.file_url,
+                ],
+                filename: file.name,
+              }),
+              item_sub_name: name,
+              
+              // 🔥 ADD these for better tracking
+              hasFiles: true,
+              fileCount: (existing.file_url?.length || 0) + 1,
+            },
           },
-        ];
-      }
-    });
+        };
+      });
 
-    e.target.value = "";
-  };
+   
+
+    } catch (error) {
+      console.error("Upload failed", error);
+    }
+  }
+
+  // Keep your existing uploadFiles update
+  setUploadFiles((prev) => {
+    const existing = prev.find((file) => file.id === id);
+    if (existing) {
+      return prev.map((file) =>
+        file.id === id
+          ? {
+              ...file,
+              url: [...existing.url, ...uploadedUrls],
+              name: [
+                ...(Array.isArray(file.name) ? file.name : [file.name]),
+                ...uploadedNames,
+              ],
+            }
+          : file
+      );
+    } else {
+      return [
+        ...prev,
+        {
+          id,
+          url: uploadedUrls,
+          name: uploadedNames,
+        },
+      ];
+    }
+  });
+
+  e.target.value = "";
+};
+
 
   const colors = {
     12: "#f175ad",
@@ -264,7 +279,10 @@ const toastErrorMessage = (msg) => {
 };
 
  const saveContent = async (itemId, idx, designId, filterIndex) => {
-   console.log('DEBUG: saveContent called with args:', { itemId, idx, designId, filterIndex });
+  console.log('🚀 FUNCTION ENTRY: saveContent called');
+  console.log('📊 Arguments received:', { itemId, idx, designId, filterIndex });
+ 
+   
   try {
     if (
       !uploadContent?.[itemId]?.[idx]?.language &&
@@ -278,6 +296,7 @@ const toastErrorMessage = (msg) => {
 
       return;
     }
+    
     if (
       !uploadContent?.[itemId]?.[idx]?.content &&
       designQuestions[designId]?.textbox
