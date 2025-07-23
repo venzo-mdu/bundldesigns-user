@@ -335,7 +335,8 @@ const ForgotPassword = () => {
   )
       ) {
         // Redirect to login page after successful password reset
-        navigate("/login", {
+         const loginPath = lang === "ar" ? "/ar/login" : "/login";
+        navigate(loginPath, {
           state: {
             fromPasswordReset: true,
           },

@@ -1305,26 +1305,23 @@ export const MyCart = ({ lang, setLang }) => {
                               : row.item_name}
                               
                           </div> */}
-                          <div className="font-[700] text-[18px] ml-2">
-                            {lang === "ar"
-                              ? processArabicText(row.item__name_arabic)
-                              : row.item_name}
+                        <div className="font-[700] text-[18px] ml-2">
+  {lang === "ar"
+    ? processArabicText(row.item__name_arabic)
+    : row.item_name}
 
-                            {row?.item_name === "Logo & Identity" && (
-                              <>
-                                {" "}
-                                {location?.state?.selectedLanguage === "Both"
-                                  ? "(English & Arabic)"
-                                  : location?.state?.selectedLanguage ===
-                                    "English"
-                                  ? "(English)"
-                                  : location?.state?.selectedLanguage ===
-                                    "Arabic"
-                                  ? "(Arabic)"
-                                  : ""}
-                              </>
-                            )}
-                          </div>
+  {row?.item_name === "Logo & Identity" && (
+    <>
+      {" "}
+      {location?.state?.selectedLanguage === "Both"
+        ? "(English & Arabic)"
+        : location?.state?.selectedLanguage === "Arabic"
+        ? "(Arabic)"
+        : ""}
+    </>
+  )}
+</div>
+
                         </div>
                       )
                     )}

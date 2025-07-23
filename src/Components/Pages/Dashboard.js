@@ -968,10 +968,23 @@ const style = {
 export default function Dashboard({ lang, setLang }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const scrollToBundl = (e) => {
-    e.preventDefault();
-    navigate("/#ourBundl");
-  };
+const scrollToBundl = (e) => {
+  e.preventDefault();
+  
+  // Update URL
+  navigate("/#ourBundl");
+  
+  // Then scroll to element
+  setTimeout(() => {
+    const element = document.getElementById('ourBundl');
+    if (element) {
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  }, 100); // Small delay to ensure navigation completes
+};
   const [currentUser, setCurrentUser] = useState([]);
   const [projectName, setProjectName] = useState("");
   const [projectToEdit, setProjectEdit] = useState(null);
@@ -1345,7 +1358,10 @@ export default function Dashboard({ lang, setLang }) {
         return (
           <div className="text-center">
             <h2 className="lg:text-[22px] md:text-[22px] xs:text-[18px] xs:px-[10%] text-[#000000]">
-              {dashboardJson.process_content.approve_brand_content}
+             
+              {lang === "ar"
+                ? dashboardJson.process_content.approve_brand_content_arabic
+                : dashboardJson.process_content.approve_brand_content}{" "}
             </h2>
             <p className="flex justify-center w-full">
               <button
