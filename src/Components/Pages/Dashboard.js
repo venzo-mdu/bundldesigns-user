@@ -983,7 +983,7 @@ const scrollToBundl = (e) => {
         block: 'start'
       });
     }
-  }, 100); // Small delay to ensure navigation completes
+  }, 200); // Small delay to ensure navigation completes
 };
   const [currentUser, setCurrentUser] = useState([]);
   const [projectName, setProjectName] = useState("");
