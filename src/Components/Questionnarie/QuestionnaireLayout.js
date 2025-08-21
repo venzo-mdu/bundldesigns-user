@@ -32,7 +32,7 @@ export const QuestionnaireLayout = ({lang,setLang}) => {
   }
     
   return (
-    <div>
+    <div style={{overflowX: "hidden"}}>
         {questionnairePages[pageno]}
     </div>
   )

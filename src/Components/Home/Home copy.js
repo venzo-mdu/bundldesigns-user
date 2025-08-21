@@ -779,7 +779,7 @@ export const Home = () => {
                   style={{ margin: "10% 0 0 0" }}
                   className="sub-headeing  text-center"
                 >
-                  Our Bundls
+               bundle
                 </h4>
                 {/* <div className="our-bundles text-center">
                                         <div className="text-animation">

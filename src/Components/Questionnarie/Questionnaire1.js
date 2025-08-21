@@ -258,7 +258,7 @@ export const Questionnaire1 = ({
   };
 
   return (
-    <div className="ovrflw">
+<div style={{ overflowX: "hidden" }}>
       <Toaster
         position="top-right"
         toastOptions={{

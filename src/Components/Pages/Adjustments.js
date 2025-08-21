@@ -828,15 +828,26 @@ const { orderId, orderItemId } = state || {};
             : "Your postal code field is empty.",
       });
       return false;
-    } else if (!/^[0-9]{2,5}$/.test(billingInfo.postalCode)) {
-      setError({
-        postalCode:
-          lang === "ar"
-            ? "خمسة أرقام يجب أن يكون الرمز البريدي من رقمين إلى "
-            : "Your postal code must be 2 or 5 digits.",
-      });
-      return false;
     }
+    
+    // else if (!/^[0-9]{2,5}$/.test(billingInfo.postalCode)) {
+    //   setError({
+    //     postalCode:
+    //       lang === "ar"
+    //         ? "خمسة أرقام يجب أن يكون الرمز البريدي من رقمين إلى "
+    //         : "Your postal code must be 2 or 5 digits.",
+    //   });
+    //   return false;
+    // }
+else if (!/^[0-9]{5}$/.test(billingInfo.postalCode)) {
+  setError({
+    postalCode:
+      lang === "ar"
+        ? "يجب أن يكون الرمز البريدي 5 أرقام بالضبط"
+        : "Your postal code must be exactly 5 digits.",
+  });
+  return false;
+}
 
     // if (!billingInfo.promoCode.trim()) newErrors.promoCode = 'Promo code is required';
     setError(newErrors);
