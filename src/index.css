@@ -240,3 +240,25 @@ html {
   overflow-x: hidden;
   max-width: 100vw;
 }
+/* Prevent scroll anchoring completely */
+* {
+  overflow-anchor: none !important;
+  scroll-behavior: auto !important;
+}
+
+/* Disable MUI accordion scroll behavior */
+.MuiAccordion-root {
+  overflow-anchor: none !important;
+  scroll-margin: 0 !important;
+  scroll-padding: 0 !important;
+}
+
+.MuiCollapse-root {
+  overflow-anchor: none !important;
+  transition: none !important;
+}
+
+/* Remove all margins that cause scroll adjustments */
+.MuiAccordion-gutters {
+  margin: 0 !important;
+}
