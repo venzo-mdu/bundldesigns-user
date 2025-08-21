@@ -385,21 +385,19 @@ export const Accordian = ({
               className={`!font-[500] uppercase !text-[${textColor}] ${
                 isDropdown[index] ? "active-button" : "accordian-button"
               } accordion-btn-${index + 1}`}
-              onClick={() => {
-                toggleDropdown(index);
-                // const element = document.getElementById(`${index}_list`);
-                // element.scrollIntoView({ behavior: 'smooth', block: 'start' })
-                setTimeout(() => {
-                  const element = document.getElementById(`${index}_list`);
-                  if (element) {
-                    element.scrollIntoView({
-                      behavior: "smooth",
-                      block: "start",
-                    });
-                  }
-                }, 400);
-              }}
-            >
+onClick={() => {
+  toggleDropdown(index);
+  // Remove this entire setTimeout block - THIS IS CAUSING THE SCROLLING!
+  setTimeout(() => {
+    const element = document.getElementById(`${index}_list`);
+    if (element) {
+      element.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  }, 400);
+}}            >
               {isLang === "ar"
                 ? addOnData?.designs_details?.[title]?.name_arabic
                 : title}
@@ -427,26 +425,18 @@ export const Accordian = ({
               key={index}
               expanded={isDropdown[index]}
             >
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon className="text-[#000]" />}
-                aria-controls={`panel${index + 1}-content`}
-                id={`panel${index + 1}-header`}
-                onClick={() => {
-                  toggleDropdown(index);
-                  setTimeout(() => {
-                    const element = document.getElementById(`${index}_list`);
-                    if (element) {
-                      element.scrollIntoView({
-                        behavior: "smooth",
-                        block: "start",
-                      });
-                    }
-                  }, 400);
-                }}
-                sx={{
-                  border: "none",
-                }}
-              >
+<AccordionSummary
+  expandIcon={<ExpandMoreIcon className="text-[#000]" />}
+  aria-controls={`panel${index + 1}-content`}
+  id={`panel${index + 1}-header`}
+  onClick={() => {
+    toggleDropdown(index);
+    // REMOVED: setTimeout scrollIntoView
+  }}
+  sx={{
+    border: "none",
+  }}
+>
                 <Typography className="!font-[700] !text-[22px]">
                   {isLang === "ar"
                     ? addOnData?.designs_details?.[title]?.name_arabic

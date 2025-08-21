@@ -46,15 +46,18 @@ export const Questionnaire = ({
 
   
   return (
-    <div>
+    <div style={{
+      overflowX:"hidden"
+    }}>
       <Navbar isLang={Qlang} setIsLang={setQLang} />
       <div
         style={
+          
           window.innerWidth <= 441 ? { padding: "1% 2%" } : { padding: "1% 5%" }
         }
       >
-        <div style={{ padding: "2% 0%", borderBottom: "9px solid #000000" }}>
-          <div>
+        <div style={{ padding: "2% 0%", borderBottom: "9px solid #000000",overflowX: "hidden" }}>
+<div style={{ overflowX: "hidden" }}>
             {/* <p className='title-questionnaire'>{bgTitle}</p> */}
             <div
               className=" pic-container position-relative"

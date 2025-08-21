@@ -247,7 +247,7 @@ export let data = [
     answer: "",
     answer_type: "input",
     category: "final",
-    question_arabic: "هل هناك أي شيء ترغب أو توضحه للمصمم؟",
+    question_arabic: "هل هناك أي شيء تريد أن تعرب عنه أو توضحه للمصمم؟",
     required: false,
     type: "final",
   },

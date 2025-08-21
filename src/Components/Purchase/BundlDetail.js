@@ -110,9 +110,8 @@ export const BundlDetail = ({ user, lang, setLang }) => {
   };
 
   useEffect(() => {
-    document.documentElement.scrollTo({ top: 0, left: 0 });
     getBundlData();
-    // getprojects()
+    getprojects()
   }, []);
 
   useEffect(() => {
@@ -164,10 +163,6 @@ export const BundlDetail = ({ user, lang, setLang }) => {
         activeToasts.current["required-value-toast"] = true;
 
         // Do your validation logic here — no popup, no toast
-        const element = document.getElementById("brandInput");
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth", block: "center" });
-        }
 
         setBrandError(true);
 
@@ -177,10 +172,6 @@ export const BundlDetail = ({ user, lang, setLang }) => {
         }, 3000);
       }
 
-      const element = document.getElementById("brandInput");
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth", block: "center" });
-      }
       setBrandError(true);
       return false;
     }
@@ -416,10 +407,6 @@ export const BundlDetail = ({ user, lang, setLang }) => {
   // =======
   const createPayload = async () => {
     if (brandInput?.trim() === "") {
-      const element = document?.getElementById("brandInput");
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth", block: "center" });
-      }
       setBrandError(true);
       return;
     }
@@ -955,6 +942,11 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                   isSameBundl={isSameBundl}
                   addOnLang={addOnLang}
                   handleQuantityChange={handleQuantityChange}
+                  TransitionProps={{ 
+    onEntered: () => {},  // override default behavior
+    timeout: 0            // disables animation if you want instant expand
+  }}
+  disableGutters
                 />
               </div>
               {/* // border-black */}
@@ -973,20 +965,14 @@ export const BundlDetail = ({ user, lang, setLang }) => {
 
                 style={{
                   // maxHeight: showDetails ? "80%" : "200px",
-                  ...(isMobile ? { border: "1px solid" } : {}),
-                  transition: "all 0.5s ease-in-out",
-                }}
-                className={`
-                   
-                ${!isMobile ? "sticky top-0 self-start" : null}
-              
-
-                  border-r border-r-[rgba(0,0,0,0.1)]
-                 ${!isMobile ? "mb-[10%]" : null}
-                  transition-all duration-500 ease-in-out
-                bundl-summary  max-h-[80%] w-full
-                  xs:overflow-y-auto lg:overflow-visible md:overflow-visible
-                `}
+...(isMobile ? { border: "1px solid" } : {}),                }}
+className={`
+  ${!isMobile ? "sticky top-0 self-start" : null}
+  border-r border-r-[rgba(0,0,0,0.1)]
+  ${!isMobile ? "mb-[10%]" : null}
+  bundl-summary w-full
+  lg:overflow-visible md:overflow-visible
+`}
               >
                 {/* <div style={{borderRight: "1px solid #000000"}}></div> */}
                 <div className="bundl-name ">
