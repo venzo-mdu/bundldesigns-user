@@ -36,7 +36,7 @@ export default function Adjustments({ user, lang, setLang }) {
   const dynamicMargin = useDynamicMargin();
   const { showToast, showErrorToast } = useToastMessage();
   const { state } = useLocation();
-const { orderId, orderItemId } = state || {};
+  const { orderId, orderItemId } = state || {};
 
   const [page, setPage] = useState("adjustment");
   const navigate = useNavigate();
@@ -638,60 +638,62 @@ const { orderId, orderItemId } = state || {};
       setPage("adjustment"); // Redirect to the home page
     }
   };
- const uploadFile = async (e, id, index) => {
-  if (e.target.files.length) {
-    const formData = new FormData();
-    setAdjustmentForm((prev) => ({
-      ...prev,
-      file_name: e.target.files[0]?.name,
-    }));
-    formData.append("file", e.target.files[0]);
-    formData.append("file_name", e.target.files[0]?.name);
+  const uploadFile = async (e, id, index) => {
+    if (e.target.files.length) {
+      const formData = new FormData();
+      setAdjustmentForm((prev) => ({
+        ...prev,
+        file_name: e.target.files[0]?.name,
+      }));
+      formData.append("file", e.target.files[0]);
+      formData.append("file_name", e.target.files[0]?.name);
 
-    try {
-      const response = await axios.post(
-        `${base_url}/api/upload_file/`,
-        formData,
-        ConfigToken()
-      );
+      try {
+        const response = await axios.post(
+          `${base_url}/api/upload_file/`,
+          formData,
+          ConfigToken()
+        );
 
-      setAdjustmentsData((prev) => {
-        const updatedData = {
-          ...prev,
-          [id]: {
-            ...prev[id],
-            attachments: [
-              response.data.file_url,
-              ...(prev[id]?.attachments || []),
-            ],
-            file_name: [
-              e.target.files[0]?.name || "",
-              ...(prev[id]?.file_name || []),
-            ],
-            ...(prev[id] ? {} : adjustments[index]), // Add adjustments[index] only if prev[id] does not exist
-          },
-        };
-        updateTotals(itemsList, updatedData); // Update totals with the latest data
-        return updatedData; // Return the updated data to update the state
-      });
+        setAdjustmentsData((prev) => {
+          const updatedData = {
+            ...prev,
+            [id]: {
+              ...prev[id],
+              attachments: [
+                response.data.file_url,
+                ...(prev[id]?.attachments || []),
+              ],
+              file_name: [
+                e.target.files[0]?.name || "",
+                ...(prev[id]?.file_name || []),
+              ],
+              ...(prev[id] ? {} : adjustments[index]), // Add adjustments[index] only if prev[id] does not exist
+            },
+          };
+          updateTotals(itemsList, updatedData); // Update totals with the latest data
+          return updatedData; // Return the updated data to update the state
+        });
 
-      showToast(
-        lang === "ar" ? "تم التحديث بنجاح" : "Updated Successfully",
-        "#1BA56F"
-      );
-    } catch (error) {
+        showToast(
+          lang === "ar" ? "تم التحديث بنجاح" : "Updated Successfully",
+          "#1BA56F"
+        );
+      } catch (error) {
+        showErrorToast(
+          lang === "ar"
+            ? "فشل التحميل. يرجى التحقق من الملف والمحاولة مرة أخرى."
+            : "Upload failed. Please check the file and try again.",
+          "#D83D99"
+        );
+      }
+    } else {
       showErrorToast(
-        lang === "ar"
-          ? "فشل التحميل. يرجى التحقق من الملف والمحاولة مرة أخرى."
-          : "Upload failed. Please check the file and try again.","#D83D99"
+        lang === "ar" ? "لم يتم اختيار أي ملف." : "No file selected.",
+        "#D83D99"
       );
-   
     }
-  } else {
-    showErrorToast(lang === "ar" ? "لم يتم اختيار أي ملف." : "No file selected.","#D83D99");
-  }
-};
-
+  };
 
   const validateFields = () => {
     let newErrors = {};
@@ -829,7 +831,7 @@ const { orderId, orderItemId } = state || {};
       });
       return false;
     }
-    
+
     // else if (!/^[0-9]{2,5}$/.test(billingInfo.postalCode)) {
     //   setError({
     //     postalCode:
@@ -839,15 +841,15 @@ const { orderId, orderItemId } = state || {};
     //   });
     //   return false;
     // }
-else if (!/^[0-9]{5}$/.test(billingInfo.postalCode)) {
-  setError({
-    postalCode:
-      lang === "ar"
-        ? "يجب أن يكون الرمز البريدي 5 أرقام بالضبط"
-        : "Your postal code must be exactly 5 digits.",
-  });
-  return false;
-}
+    else if (!/^[0-9]{5}$/.test(billingInfo.postalCode)) {
+      setError({
+        postalCode:
+          lang === "ar"
+            ? "يجب أن يكون الرمز البريدي 5 أرقام بالضبط"
+            : "Your postal code must be exactly 5 digits.",
+      });
+      return false;
+    }
 
     // if (!billingInfo.promoCode.trim()) newErrors.promoCode = 'Promo code is required';
     setError(newErrors);
@@ -1308,44 +1310,45 @@ else if (!/^[0-9]{5}$/.test(billingInfo.postalCode)) {
                                   (item, index) => {
                                     return (
                                       <div className="border-b !border-[#1BA56F]">
-                                       <div className="flex justify-between my-[3%]">
-  <span className="font-[500] text-[16px] text-[#1BA56F] w-[45%] sm:w-[45%] xs:w-[40%]">
-    {lang === "ar"
-      ? item.name_arabic
-      : item.name_english}
-  </span>
-  <div className="flex items-center justify-end !mb-2 w-[55%] sm:w-[55%] xs:w-[60%]">
-
-    <div className="flex items-center mb-1 sm:min-w-[120px] min-w-[90px] xs:min-w-[80px] font-[500] text-[14px] sm:text-[16px]">
-      <img
-        src={BlackDollor}
-        alt="Price icon"
-        className={`inline-block w-[14px] h-[14px] sm:w-[16px] sm:h-[16px] ${
-          lang === "ar"
-            ? "ml-1 sm:ml-2"
-            : "mr-1 sm:mr-2"
-        }`}
-      />
-      <span className="whitespace-nowrap text-[12px] sm:text-[14px]">
-        {amountDecimal(Math.round(item.price))}{" "}
-        {lang === "ar" ? "ريال" : "SAR"}
-      </span>
-    </div>
-    <div className="flex items-center mb-1 font-[500] text-right text-[14px] sm:text-[16px]">
-      <AccessTimeIcon
-        className={`w-[14px] h-[14px] sm:w-[16px] sm:h-[16px] ${
-          lang === "ar"
-            ? "ml-1 sm:ml-2"
-            : "mr-1 sm:mr-2"
-        }`}
-      />
-      <span className="whitespace-nowrap text-[12px] sm:text-[14px]">
-        {Math.round(item.time)}{" "}
-        {lang === "ar" ? "يوم" : "Days"}
-      </span>
-    </div>
-  </div>
-</div>
+                                        <div className="flex justify-between my-[3%]">
+                                          <span className="font-[500] text-[16px] text-[#1BA56F] w-[45%] sm:w-[45%] xs:w-[40%]">
+                                            {lang === "ar"
+                                              ? item.name_arabic
+                                              : item.name_english}
+                                          </span>
+                                          <div className="flex items-center justify-end !mb-2 w-[55%] sm:w-[55%] xs:w-[60%]">
+                                            <div className="flex items-center mb-1 sm:min-w-[120px] min-w-[90px] xs:min-w-[80px] font-[500] text-[14px] sm:text-[16px]">
+                                              <img
+                                                src={BlackDollor}
+                                                alt="Price icon"
+                                                className={`inline-block w-[14px] h-[14px] sm:w-[16px] sm:h-[16px] ${
+                                                  lang === "ar"
+                                                    ? "ml-1 sm:ml-2"
+                                                    : "mr-1 sm:mr-2"
+                                                }`}
+                                              />
+                                              <span className="whitespace-nowrap text-[12px] sm:text-[14px]">
+                                                {amountDecimal(
+                                                  Math.round(item.price)
+                                                )}{" "}
+                                                {lang === "ar" ? "ريال" : "SAR"}
+                                              </span>
+                                            </div>
+                                            <div className="flex items-center mb-1 font-[500] text-right text-[14px] sm:text-[16px]">
+                                              <AccessTimeIcon
+                                                className={`w-[14px] h-[14px] sm:w-[16px] sm:h-[16px] ${
+                                                  lang === "ar"
+                                                    ? "ml-1 sm:ml-2"
+                                                    : "mr-1 sm:mr-2"
+                                                }`}
+                                              />
+                                              <span className="whitespace-nowrap text-[12px] sm:text-[14px]">
+                                                {Math.round(item.time)}{" "}
+                                                {lang === "ar" ? "يوم" : "Days"}
+                                              </span>
+                                            </div>
+                                          </div>
+                                        </div>
                                         <p
                                           className={`mb-3 mt-[-3%] h-[30px] flex ${
                                             lang === "ar"
@@ -2582,9 +2585,7 @@ else if (!/^[0-9]{5}$/.test(billingInfo.postalCode)) {
 
                 <div className="lg:mt-4 md:mt-16 xs:mt-8">
                   <h2 className="text-[38px]">
-                    {lang === "ar"
-                      ? "مشروعك يحتاج إضافات"
-                      : "Add-ons to Bundl"}
+                    {lang === "ar" ? "مشروعك يحتاج إضافات" : "Add-ons to Bundl"}
                   </h2>
                   <p className="text-[18px] text-[#00000080]">
                     {lang === "ar"

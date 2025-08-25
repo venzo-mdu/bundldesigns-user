@@ -113,19 +113,6 @@ export const Popup = ({
         <Box sx={style}>
           <div className="container">
             <div className="row justify-content-center">
-              {/* <div className="home-img-rotation">
-                                <p className="flex items-center justify-center m-auto">
-                                    <img src={Create} style={{ maxWidth:isSmallScreen ? '45%' : '35%' }} alt="" className="img-fluid" />
-                                </p>
-                                <div className="mySlides">
-                                    <img
-                                        className="slideImages"
-                                        style={{ width:'20%', margin:isSmallScreen ? '-60% 0 0 0' : '-30% 0 0 0' }}
-                                        src={Mouth}
-                                        alt="Image 1"
-                                    />
-                                </div>
-                            </div> */}
 
               <section
                 style={{ margin: "5% 0%" }}

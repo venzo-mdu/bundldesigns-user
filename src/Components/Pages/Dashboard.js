@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { ConfigToken } from "../Auth/ConfigToken";
@@ -64,74 +63,74 @@ const style = {
 export default function Dashboard({ lang, setLang }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-const scrollToBundl = (e) => {
-  e.preventDefault();
-  e.stopPropagation();
-  
-  const performScroll = () => {
-    const element = document.getElementById('ourBundl');
-    if (!element) {
-      console.log('Element not found');
-      return;
-    }
+  const scrollToBundl = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
 
-    // Force scroll to top first to ensure clean navigation
-    if (window.location.pathname !== '/') {
-      window.scrollTo(0, 0);
-    }
-
-    // Calculate exact position
-    const rect = element.getBoundingClientRect();
-    const absoluteTop = rect.top + window.pageYOffset;
-    const finalPosition = Math.max(0, absoluteTop - 50); // 50px offset
-
-    // Multiple scroll methods for maximum compatibility
-    try {
-      // Method 1: Modern browsers
-      window.scrollTo({
-        top: finalPosition,
-        behavior: 'smooth'
-      });
-    } catch (error) {
-      // Method 2: Fallback for older browsers
-      window.scrollTo(0, finalPosition);
-    }
-
-    // Method 3: Additional fallback
-    setTimeout(() => {
-      element.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-        inline: 'nearest'
-      });
-    }, 100);
-  };
-
-  // Check current location
-  const currentPath = window.location.pathname;
-  
-  if (currentPath === '/' || currentPath === '') {
-    // Already on home page
-    setTimeout(performScroll, 100);
-  } else {
-    // Navigate to home first
-    window.history.pushState(null, null, '/#ourBundl');
-    navigate('/');
-    
-    // Wait for navigation and DOM update
-    setTimeout(() => {
-      performScroll();
-    }, 800);
-    
-    // Additional safety net
-    setTimeout(() => {
-      const element = document.getElementById('ourBundl');
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const performScroll = () => {
+      const element = document.getElementById("ourBundl");
+      if (!element) {
+        console.log("Element not found");
+        return;
       }
-    }, 1200);
-  }
-};
+
+      // Force scroll to top first to ensure clean navigation
+      if (window.location.pathname !== "/") {
+        window.scrollTo(0, 0);
+      }
+
+      // Calculate exact position
+      const rect = element.getBoundingClientRect();
+      const absoluteTop = rect.top + window.pageYOffset;
+      const finalPosition = Math.max(0, absoluteTop - 50); // 50px offset
+
+      // Multiple scroll methods for maximum compatibility
+      try {
+        // Method 1: Modern browsers
+        window.scrollTo({
+          top: finalPosition,
+          behavior: "smooth",
+        });
+      } catch (error) {
+        // Method 2: Fallback for older browsers
+        window.scrollTo(0, finalPosition);
+      }
+
+      // Method 3: Additional fallback
+      setTimeout(() => {
+        element.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+          inline: "nearest",
+        });
+      }, 100);
+    };
+
+    // Check current location
+    const currentPath = window.location.pathname;
+
+    if (currentPath === "/" || currentPath === "") {
+      // Already on home page
+      setTimeout(performScroll, 100);
+    } else {
+      // Navigate to home first
+      window.history.pushState(null, null, "/#ourBundl");
+      navigate("/");
+
+      // Wait for navigation and DOM update
+      setTimeout(() => {
+        performScroll();
+      }, 800);
+
+      // Additional safety net
+      setTimeout(() => {
+        const element = document.getElementById("ourBundl");
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 1200);
+    }
+  };
   const [currentUser, setCurrentUser] = useState([]);
   const [projectName, setProjectName] = useState("");
   const [projectToEdit, setProjectEdit] = useState(null);
@@ -505,7 +504,6 @@ const scrollToBundl = (e) => {
         return (
           <div className="text-center">
             <h2 className="lg:text-[22px] md:text-[22px] xs:text-[18px] xs:px-[10%] text-[#000000]">
-             
               {lang === "ar"
                 ? dashboardJson.process_content.approve_brand_content_arabic
                 : dashboardJson.process_content.approve_brand_content}{" "}
@@ -1550,72 +1548,6 @@ const scrollToBundl = (e) => {
                 ></img>
               </div>
             )}
-
-            {/* {
-                                window.innerWidth > 768 ?
-                                
-                                    purchases.length ? <div className='px-14 mt-4 mb-4'>
-                                        <h2 className='lg:text-[32px] text-[#000] md:text-[24px]'>{dashboardJson.third_title}</h2>
-    
-                                        <table className='w-full !border-[#00000080] border-separate border-spacing-y-2 border-spacing-x-0'>
-                                            <thead>
-                                                <tr className='!mb-4'>
-                                                    {Object.keys(dashboardJson.table_heads).map((purchase_key) => {
-                                                        return <th className='text-[#00000080] pb-2 lg:text-[20px] md:text-[16px] font-Helvetica font-medium'>{dashboardJson.table_heads[purchase_key]}</th>
-                                                    })}
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {purchases.map((project, index) => {
-                                                    return <tr className=' '>
-                                                        <td className={`lg:text-[20px] font-medium md:text-[16px] pb-2 ${index != purchases.length - 1 ? 'border-b !border-[#00000080]' : ''}`}>{project.id}</td>
-                                                        <td className={`lg:text-[20px] font-medium md:text-[16px] pb-2 ${index != purchases.length - 1 ? 'border-b !border-[#00000080]' : ''}`}>{project.project_name}</td>
-                                                        <td className={`lg:text-[20px] font-medium md:text-[16px] pb-2 ${index != purchases.length - 1 ? 'border-b !border-[#00000080]' : ''}`}>{Math.round(project.grand_total)}</td>
-                                                        <td className={`lg:text-[20px] font-medium md:text-[16px] pb-2 ${index != purchases.length - 1 ? 'border-b !border-[#00000080]' : ''} text-[#1BA56F]`}>Completed</td>
-                                                        <td onClick={() => CheckCart(project.id)} className={`lg:text-[20px] cursor-pointer font-medium md:text-[16px] pb-2 ${index != purchases.length - 1 ? 'border-b !border-[#00000080]' : ''}`}><img className='lg:w-[30px] md:w-[20px]' src={reload}></img></td>
-                                                        <td className={`lg:text-[20px] font-medium md:text-[16px] pb-2 ${index != purchases.length - 1 ? 'border-b !border-[#00000080]' : ''}`}>{format(new Date(project.purchase_date), "dd/MM/yy")}</td>
-                                                    </tr>
-                                                })}
-                                            </tbody>
-                                        </table>
-                                    </div> : ''
-                                    :
-                                    <div className="w-full px-[8%]">
-                                        <div className="flex justify-between items-center">
-                                            <p className="text-[20px] font-[500] font-Helvetica opacity-50">Purchase History</p>
-                                            <p
-                                                className="underline text-[20px] font-[500] font-Helvetica text-[#1BA56F] cursor-pointer"
-                                                onClick={() => setShowFull(!showFull)}
-                                            >
-                                                {showFull ? "Show Less" : "See More"}
-                                            </p>
-                                        </div>
-
-                                        <div className={`transition-all duration-500 ease-out ${showFull ? "h-auto" : "h-[165px] overflow-hidden relative"}`}>
-                                            {purchases.map((order, index) => (
-                                                <div
-                                                    key={index}
-                                                    className="border-b border-gray-300 py-2 flex flex-col md:flex-row md:items-center justify-between"
-                                                >
-                                                    <div className="flex justify-between w-full md:w-[50%]">
-                                                        <p className="text-[22px] font-[700] font-Helvetica">{order.project_name.length > 9 ? order.project_name.substring(0, 5) + " (...)" : order.project_name}</p>
-                                                        <p className="text-[22px] font-[700] font-Helvetica">{Math.round(order.grand_total)} SAR</p>
-                                                    </div>
-
-                                                    <div className="flex justify-between w-full md:w-[50%] mt-1 md:mt-0">
-                                                        <p className="text-[20px] font-[500] text-gray-500 font-Helvetica">{order.id}</p>
-                                                        <p className="text-[20px] font-[500] text-gray-500 font-Helvetica">{format(new Date(order.purchase_date), "dd/MM/yy")}</p>
-                                                        <p className="text-[20px] font-[500] font-Helvetica text-[#1BA56F]">Completed</p>
-                                                    </div>
-                                                </div>
-                                            ))}
-
-                                            {!showFull && (
-                                                <div className="absolute bottom-[-40px] left-0 w-full h-[80px] bg-gradient-to-t from-white via-white/90 to-transparent shadow-[1px] pointer-events-none transition-all duration-500 ease-out "></div>
-                                            )}
-                                        </div>
-                                    </div> 
-                            } */}
 
             <div className="font-Helvetica">
               <div className="text-center lg:pt-0 lg:pb-16 md:pt-0 md:pb-16  xs:pb-16">

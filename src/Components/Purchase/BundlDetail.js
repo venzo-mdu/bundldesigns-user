@@ -111,7 +111,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
 
   useEffect(() => {
     getBundlData();
-    getprojects()
+    getprojects();
   }, []);
 
   useEffect(() => {
@@ -143,30 +143,9 @@ export const BundlDetail = ({ user, lang, setLang }) => {
     }
 
     if (brandInput === undefined || brandInput?.trim() == "") {
-      // if (!toast.isActive("required-value-toast")) {
-      //   toast.error(
-      //     lang === "ar" ? "الحد اختر اسمًا لمشروعك" : `Name your brand`,
-      //     {
-      //       position: toast?.POSITION?.TOP_RIGHT,
-      //       toastId: "required-value-toast",
-      //       autoClose: 3000,
-      //       icon: false,
-      //       style: {
-      //         color: "#D83D99",
-      //         fontWeight: "700",
-      //       },
-      //     }
-      //   );
-      // }
-
       if (!activeToasts.current["required-value-toast"]) {
         activeToasts.current["required-value-toast"] = true;
-
-        // Do your validation logic here — no popup, no toast
-
         setBrandError(true);
-
-        // Reset the flag after 3 seconds
         setTimeout(() => {
           activeToasts.current["required-value-toast"] = false;
         }, 3000);
@@ -355,18 +334,6 @@ export const BundlDetail = ({ user, lang, setLang }) => {
     }
 
     toastMessage();
-    // toast.success(`Cart updated successfully`, {
-    //   position: toast?.POSITION?.TOP_RIGHT,
-    //   toastId: "required-value-toast1",
-    //   autoClose: 3000,
-    //   icon: false,
-    //   style: {
-    //     color: colors[packageID],
-    //     fontWeight: "700",
-    //     border: `1px solid ${colors[packageID]}`,
-    //     borderRadius: "0px",
-    //   },
-    // });
     setExtraQty((prevQuantities) => {
       let newQuantity = (prevQuantities[designName] || 0) + change;
       return {
@@ -379,14 +346,6 @@ export const BundlDetail = ({ user, lang, setLang }) => {
   const emptyCart = async () => {
     setOpenPopup(false);
     await axios.delete(`${base_url}/api/order/cart/`, ConfigToken());
-    // addToCart(selectedIndex)
-    // toast.success("Cart emptied,Now Checkout", {
-    //   icon: false,
-    //   style: {
-    //     color: "#1BA56F",
-    //     fontWeight: "700", // White text
-    //   },
-    // });
     NewToastSuccMessage(
       lang === "ar"
         ? "التسوق يرجى إضافة عنصر إلى سلة"
@@ -394,18 +353,8 @@ export const BundlDetail = ({ user, lang, setLang }) => {
     );
     createPayload();
   };
-
-  // <<<<<<< cartChanges-V.4
-  //   const createPayload = async () => {
-  //     if (brandInput?.trim() === "") {
-  //       const element = document?.getElementById("brandInput");
-  //       if (element) {
-  //         element.scrollIntoView({ behavior: "smooth", block: "center" });
-  //       }
-  //       setBrandError(true);
-  //       return;
-  // =======
   const createPayload = async () => {
+    debugger;
     if (brandInput?.trim() === "") {
       setBrandError(true);
       return;
@@ -435,22 +384,23 @@ export const BundlDetail = ({ user, lang, setLang }) => {
     );
 
     const savedPayload = JSON.parse(localStorage.getItem("payloads") || "{}");
-    const payload = isFromLogin
-      ? savedPayload
-      : {
-          order_name: brandInput,
-          bundle_id: routeId[packageID],
-          total_time: packageDetail?.package?.time + addonPayLoads.total_time,
-          total_price:
-            parseFloat(packageDetail?.package?.price) +
-            addonPayLoads.total_price +
-            (selectedLanguage === "Both" ? 2000 : 0),
-          item_list: item_list,
-          addons: addonPayLoads,
-          order_status: "in_cart",
-          language: selectedLanguage,
-          isBackToBundl: state?.isBackToBundl,
-        };
+    const payload =
+      isFromLogin && Object.keys(savedPayload).length
+        ? savedPayload
+        : {
+            order_name: brandInput,
+            bundle_id: routeId[packageID],
+            total_time: packageDetail?.package?.time + addonPayLoads.total_time,
+            total_price:
+              parseFloat(packageDetail?.package?.price) +
+              addonPayLoads.total_price +
+              (selectedLanguage === "Both" ? 2000 : 0),
+            item_list: item_list,
+            addons: addonPayLoads,
+            order_status: "in_cart",
+            language: selectedLanguage,
+            isBackToBundl: state?.isBackToBundl,
+          };
 
     try {
       const response = await axios.get(
@@ -501,6 +451,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
         });
       }
     } catch (error) {
+      debugger;
       console.error("Error creating order:", error);
       localStorage?.setItem("payloads", JSON.stringify(payload));
       navigate(`/login?next_url=bundldetail/${packageID}`, {
@@ -544,10 +495,6 @@ export const BundlDetail = ({ user, lang, setLang }) => {
           `${base_url}/api/order/cart/`,
           ConfigToken()
         );
-        // const clickedItem = window.location.pathname.split("/")[2];
-        // const cartItem = response?.data?.bundle_name
-        //   ?.split(" ")[1]
-        //   .toLowerCase();
         if (
           response.data.order_status === "in_cart" &&
           routeId[packageID] !== response?.data.bundle_id
@@ -576,7 +523,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
       {loading ? (
         <Bgloader />
       ) : (
-        <div style={{overflowX:"hidden"}}>
+        <div style={{ overflowX: "hidden" }}>
           <Toaster
             position="top-right"
             toastOptions={{
@@ -637,11 +584,6 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                   </span>
                 </p>
               </div>
-              {/* <p className="bundl-desc-title text-[20px] sm:text-[20px] xs:text-[16px] w-full sm:w-full xs:w-[350px] mx-auto">
-                {lang === "ar"
-                  ? "نتائج تصميم الهوية والعناصر الإضافية."
-                  : "Outcomes to Brand Identity + Add-ons."}
-              </p> */}
               <p className="bundl-desc">
                 {lang === "ar"
                   ? processArabicText(
@@ -942,11 +884,11 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                   isSameBundl={isSameBundl}
                   addOnLang={addOnLang}
                   handleQuantityChange={handleQuantityChange}
-                  TransitionProps={{ 
-    onEntered: () => {},  // override default behavior
-    timeout: 0            // disables animation if you want instant expand
-  }}
-  disableGutters
+                  TransitionProps={{
+                    onEntered: () => {}, // override default behavior
+                    timeout: 0, // disables animation if you want instant expand
+                  }}
+                  disableGutters
                 />
               </div>
               {/* // border-black */}
@@ -965,8 +907,9 @@ export const BundlDetail = ({ user, lang, setLang }) => {
 
                 style={{
                   // maxHeight: showDetails ? "80%" : "200px",
-...(isMobile ? { border: "1px solid" } : {}),                }}
-className={`
+                  ...(isMobile ? { border: "1px solid" } : {}),
+                }}
+                className={`
   ${!isMobile ? "sticky top-0 self-start" : null}
   border-r border-r-[rgba(0,0,0,0.1)]
   ${!isMobile ? "mb-[10%]" : null}
