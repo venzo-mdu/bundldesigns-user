@@ -85,27 +85,6 @@ const ForgotPassword = () => {
     };
   }, []);
 
-  // const login = useGoogleLogin({
-  //   onSuccess: (tokenResponse) => {
-  //     const token = tokenResponse.credential;
-  //     const userDetails = jwt_decode(token);
-  //     console.log('User Details:', userDetails);
-  //     console.log('Name:', userDetails.name);
-  //     console.log('Email:', userDetails.email);
-  //     console.log('Profile Picture:', userDetails.picture);
-
-  //     loginWithGoogle({
-  //       email: userDetails.email,
-  //       full_name: userDetails.name,
-  //       password: null,
-  //       google: true
-  //     });
-  //   },
-  //   onError: () => {
-  //     console.log('Login Failed');
-  //   },
-  // });
-
   const login = useGoogleLogin({
     onSuccess: (tokenResponse) => {
       console.log("Token Response:", tokenResponse);
@@ -232,51 +211,6 @@ const ForgotPassword = () => {
       setLoginError(response.response.data.data);
     }
   };
-
-  // const handleAppleLoginSuccess = async (response) => {
-  //   console.log("Apple Login Success:", response);
-
-  //   const { authorization, user } = response;
-
-  //   console.log(authorization,user,"res")
-
-  //   if (!authorization?.id_token || !authorization?.code) {
-  //     console.error("Invalid Apple response:", response);
-  //     return;
-  //   }
-
-  //   const decodedToken = jwt_decode(authorization.id_token);
-  //   console.log("Decoded Apple ID Token:", decodedToken);
-  //   const data = {
-  //     email: user?.email,
-  //     full_name: user?.email?.split("@")[0],
-  //     password: null,
-  //     google: true
-  //   }
-
-  //   try {
-  //     const response = await axios.post(`${base_url}/api/login/`, data);
-  //     if (response.status === 200) {
-  //       document.cookie = `token=${response?.data?.data.token || ""}; path=/; SameSite=None; Secure`;
-  //       dispatch(loginAction(response.data.user));
-  //       if (next_url) {
-  //         navigate(`${process.env.REACT_APP_URL}/${next_url}`, {
-  //           state: {
-  //             project_name: project_name,
-  //             fromLogin: true,
-  //           }
-  //         })
-  //         // window.location.href =`${process.env.REACT_APP_URL}/${next_url}`
-  //       } else { navigate('/'); }
-
-  //     }
-
-  //   } catch (response) {
-
-  //     setLoginError(response.response.data.data)
-  //   }
-
-  // };
 
   const handleAppleLogin = async () => {
     const provider = new OAuthProvider("apple.com");
