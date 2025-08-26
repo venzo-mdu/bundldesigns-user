@@ -383,9 +383,11 @@ const ForgotPassword = () => {
               />
               <span
                 onClick={() => setShowPassword(!showPassword)}
-                className={`eye-icon absolute top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-400 ${
-                  lang === "ar" ? "left-2" : "right-2"
-                }`}
+                style={{
+    position: "absolute",
+    left: lang === "ar" ? "-500px" : "500px",
+  }}
+                className={`eye-icon absolute top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-400 `}
               >
                 {showPassword ? (
                   <VisibilityOff fontSize="small" />
@@ -415,10 +417,11 @@ const ForgotPassword = () => {
                 } w-full rounded-none`}
               />
               <span
+              style={{
+                left: lang === "ar" ? "-500px" : "500px",
+              }}
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                className={`eye-icon absolute top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-400 ${
-                  lang === "ar" ? "left-2" : "right-2"
-                }`}
+                className={`eye-icon absolute top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-400 `}
               >
                 {showConfirmPassword ? (
                   <VisibilityOff fontSize="small" />
