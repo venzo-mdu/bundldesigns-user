@@ -32,6 +32,9 @@ export const Login = ({ lang }) => {
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
   const [loginError, setLoginError] = useState(false);
+  
+  // Add password visibility state
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     document.documentElement.scrollTo({
@@ -66,7 +69,7 @@ export const Login = ({ lang }) => {
     onSuccess: (tokenResponse) => {
       console.log("Token Response:", tokenResponse);
 
-      const accessToken = tokenResponse.access_token; // Correct way to extract token
+      const accessToken = tokenResponse.access_token;
       fetch(
         `https://www.googleapis.com/oauth2/v3/userinfo?access_token=${accessToken}`
       )
@@ -87,16 +90,15 @@ export const Login = ({ lang }) => {
       console.log("Login Failed");
     },
   });
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    // Update the login data state
     setLoginData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
 
-    // Helper function to set errors
     const setError = (field, errorMessage) => {
       setErrors((prevErrors) => ({
         ...prevErrors,
@@ -104,7 +106,6 @@ export const Login = ({ lang }) => {
       }));
     };
 
-    // Email validation
     if (name === "email") {
       if (!value.trim()) {
         setError(
@@ -116,10 +117,8 @@ export const Login = ({ lang }) => {
       }
     }
 
-    // Password validation
     if (name === "password") {
       if (/\s/.test(value)) {
-        // Check for spaces
         setError(
           "password",
           lang === "ar"
@@ -132,10 +131,11 @@ export const Login = ({ lang }) => {
           lang === "ar" ? "كلمة المرور مطلوبة" : "Password is required"
         );
       } else {
-        setError("password", ""); // clear error if password is valid
+        setError("password", "");
       }
     }
   };
+
   const validateForm = () => {
     const errorMessages = {};
     if (!loginData.email.trim()) {
@@ -161,57 +161,54 @@ export const Login = ({ lang }) => {
     return Object.keys(errorMessages).length === 0;
   };
 
-const loginWithGoogle = async (data) => {
-  try {
-    const response = await axios.post(`${base_url}/api/login/`, data);
-    if (response.status === 200) {
-      document.cookie = `token=${
-        response?.data?.data.token || ""
-      }; path=/; SameSite=None; Secure`;
-      dispatch(loginAction(response.data.user));
-      
-      console.log(next_url);
-      if (next_url) {
-        // Check if there's a saved payload that should be processed
-        const savedPayload = localStorage.getItem("payloads");
-        if (savedPayload && next_url.includes('bundldetail')) {
-          // Instead of going back to bundle detail, process the saved payload directly
-          try {
-            const payload = JSON.parse(savedPayload);
-            const createResponse = await axios.post(
-              `${base_url}/api/order/create/`,
-              payload,
-              ConfigToken()
-            );
-            navigate("/mycart", {
-              state: { 
-                orderData: createResponse.data.data.data, 
-                selectedLanguage: payload.language 
-              },
-            });
-            // Clear the saved payload after successful processing
-            localStorage.removeItem("payloads");
-            return;
-          } catch (error) {
-            console.error("Error processing saved payload:", error);
-            // If processing fails, fall back to normal navigation
-          }
-        }
+  const loginWithGoogle = async (data) => {
+    try {
+      const response = await axios.post(`${base_url}/api/login/`, data);
+      if (response.status === 200) {
+        document.cookie = `token=${
+          response?.data?.data.token || ""
+        }; path=/; SameSite=None; Secure`;
+        dispatch(loginAction(response.data.user));
         
-        navigate(`/${next_url}`, {
-          state: {
-            project_name: project_name,
-            fromLogin: true,
-          },
-        });
-      } else {
-        navigate("/");
+        console.log(next_url);
+        if (next_url) {
+          const savedPayload = localStorage.getItem("payloads");
+          if (savedPayload && next_url.includes('bundldetail')) {
+            try {
+              const payload = JSON.parse(savedPayload);
+              const createResponse = await axios.post(
+                `${base_url}/api/order/create/`,
+                payload,
+                ConfigToken()
+              );
+              navigate("/mycart", {
+                state: { 
+                  orderData: createResponse.data.data.data, 
+                  selectedLanguage: payload.language 
+                },
+              });
+              localStorage.removeItem("payloads");
+              return;
+            } catch (error) {
+              console.error("Error processing saved payload:", error);
+            }
+          }
+          
+          navigate(`/${next_url}`, {
+            state: {
+              project_name: project_name,
+              fromLogin: true,
+            },
+          });
+        } else {
+          navigate("/");
+        }
       }
+    } catch (response) {
+      setLoginError(response.response.data.data);
     }
-  } catch (response) {
-    setLoginError(response.response.data.data);
-  }
-};
+  };
+
   const [widthClass, setWidthClass] = useState("w-full");
 
   useEffect(() => {
@@ -230,7 +227,7 @@ const loginWithGoogle = async (data) => {
         setWidthClass("w-full");
       }
     };
-    handleResize(); // Initial check
+    handleResize();
     window.addEventListener("resize", handleResize);
 
     return () => window.removeEventListener("resize", handleResize);
@@ -274,63 +271,62 @@ const loginWithGoogle = async (data) => {
     }
   };
 
-const onSubmit = async (e) => {
-  e.preventDefault();
-  if (!validateForm()) return;
-  setLoading(true);
-  try {
-    const response = await axios.post(`${base_url}/api/login/`, loginData);
-    console.log(response);
-    if (response.status === 200) {
-      document.cookie = `token=${
-        response?.data?.data.token || ""
-      }; path=/; SameSite=None; Secure`;
-      dispatch(loginAction(response.data.user));
-      
-      if (next_url) {
-        // Check if there's a saved payload that should be processed
-        const savedPayload = localStorage.getItem("payloads");
-        if (savedPayload && next_url.includes('bundldetail')) {
-          try {
-            const payload = JSON.parse(savedPayload);
-            const createResponse = await axios.post(
-              `${base_url}/api/order/create/`,
-              payload,
-              ConfigToken()
-            );
-            navigate("/mycart", {
-              state: { 
-                orderData: createResponse.data.data.data, 
-                selectedLanguage: payload.language 
-              },
-            });
-            localStorage.removeItem("payloads");
-            return;
-          } catch (error) {
-            console.error("Error processing saved payload:", error);
-          }
-        }
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    if (!validateForm()) return;
+    setLoading(true);
+    try {
+      const response = await axios.post(`${base_url}/api/login/`, loginData);
+      console.log(response);
+      if (response.status === 200) {
+        document.cookie = `token=${
+          response?.data?.data.token || ""
+        }; path=/; SameSite=None; Secure`;
+        dispatch(loginAction(response.data.user));
         
-        navigate(`/${next_url}`, {
-          state: {
-            project_name: project_name,
-            fromLogin: true,
-          },
-        });
-      } else {
-        navigate("/");
+        if (next_url) {
+          const savedPayload = localStorage.getItem("payloads");
+          if (savedPayload && next_url.includes('bundldetail')) {
+            try {
+              const payload = JSON.parse(savedPayload);
+              const createResponse = await axios.post(
+                `${base_url}/api/order/create/`,
+                payload,
+                ConfigToken()
+              );
+              navigate("/mycart", {
+                state: { 
+                  orderData: createResponse.data.data.data, 
+                  selectedLanguage: payload.language 
+                },
+              });
+              localStorage.removeItem("payloads");
+              return;
+            } catch (error) {
+              console.error("Error processing saved payload:", error);
+            }
+          }
+          
+          navigate(`/${next_url}`, {
+            state: {
+              project_name: project_name,
+              fromLogin: true,
+            },
+          });
+        } else {
+          navigate("/");
+        }
       }
+    } catch (response) {
+      setLoginError(response.response.data.data);
+    } finally {
+      setLoading(false);
     }
-  } catch (response) {
-    setLoginError(response.response.data.data);
-  } finally {
-    setLoading(false);
-  }
-};
+  };
+
   return (
     <div>
       <div className="login !mb-[8rem] ">
-        {/* <img className='anchor w-[100px]' src={loginGIF} alt='login-anchor' /> */}
         <div className="login-content ">
           <p className="welcometext">
             {lang === "ar" ? "مرحبا بكم مجددا" : "Welcome Back!"}
@@ -338,7 +334,7 @@ const onSubmit = async (e) => {
           <a className="login-brand" href="/">
             <img className="loginlogo" src={Loginlogo} alt="login" />
           </a>
-          {/* < div> */}
+          
           <form onSubmit={onSubmit} className="lg:mt-0 md:mt-0 xs:mt-[8%]">
             <div>
               <label className="xs:mb-2">
@@ -355,20 +351,59 @@ const onSubmit = async (e) => {
                 className="rounded-none"
               />
               {errors.email && <p className="error">{errors.email}</p>}
-              <label className="xs:mb-2" style={{ marginTop: "3%" }}>
-                {lang === "ar" ? "كلمة المرور" : "Password"}
-              </label>
-              <input
-                type="password"
-                name="password"
-                placeholder={lang === "ar" ? " كلمة المرور" : "Password"}
-                value={loginData.password}
-                onChange={handleChange}
-                className="rounded-none"
-              />
-              {errors.password && <p className="error">{errors.password}</p>}
+              
+              {/* Updated Password Field with Toggle (Shows on ALL devices) */}
+{/* Updated Password Field with Corrected Icon Logic */}
+<div className="relative">
+  <label className="xs:mb-2" style={{ marginTop: "3%" }}>
+    {lang === "ar" ? "كلمة المرور" : "Password"}
+  </label>
+  <div className="relative">
+    <input
+      type={showPassword ? "text" : "password"}
+      name="password"
+      placeholder={lang === "ar" ? " كلمة المرور" : "Password"}
+      value={loginData.password}
+      onChange={handleChange}
+      className="rounded-none w-full password-input"
+      style={{
+        paddingRight: lang === "ar" ? '16px' : '50px',
+        paddingLeft: lang === "ar" ? '50px' : '16px'
+      }}
+    />
+    {/* Corrected Password Toggle Button */}
+    <button
+      type="button"
+      onClick={() => setShowPassword(!showPassword)}
+      className="password-toggle absolute top-1/2 transform -translate-y-1/2 z-10"
+      style={{
+        background: 'transparent',
+        border: 'none',
+        minWidth: '44px',
+        minHeight: '44px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        right: lang === "ar" ? 'auto' : '12px',
+        left: lang === "ar" ? '12px' : 'auto',
+        cursor: 'pointer',
+        padding: '8px'
+      }}
+    >
+      <i 
+        className={`fas ${showPassword ? 'fa-eye' : 'fa-eye-slash'} text-gray-600`}
+        style={{ 
+          fontSize: '18px',
+          cursor: 'pointer',
+          pointerEvents: 'none',
+          color: '#666'
+        }}
+      />
+    </button>
+  </div>
+  {errors.password && <p className="error">{errors.password}</p>}
+</div>
 
-              {/* General error message */}
               {errors.general && <p className="error">{errors.general}</p>}
 
               {loginData.password && loginError && (
@@ -386,6 +421,7 @@ const onSubmit = async (e) => {
                   "Sign In"
                 )}
               </button>
+              
               <div className={` flex forgotpass justify-end ${widthClass}`}>
                 <NavLink
                   to="/forgotpassword-mail"
@@ -413,8 +449,8 @@ const onSubmit = async (e) => {
                 } border-[1.5px]`}
               ></span>
             </p>
+            
             <p className="signinwithgoogle !text-[17px] !font-bold">
-              {/* <img src={Googleicon} alt='google-icon' /> Sign in with Google */}
               <div className="lg:w-[50%] md:w-[45%] xs:w-[100%]">
                 <button
                   onClick={login}
@@ -432,13 +468,13 @@ const onSubmit = async (e) => {
                     width: "100%",
                   }}
                 >
-                  {/* <img src={GoogleIcon} className='w-[25px] mr-2'></img> */}
                   <i
                     class={`fab fa-google ${lang === "ar" ? "ml-2" : "mr-2"}`}
                   ></i>
                   {lang === "ar" ? "تسجيل دخول جوجل" : "Sign in with Google"}
                 </button>
               </div>
+              
               <div
                 className={`lg:w-[50%] md:w-[45%] xs:w-[100%] ${
                   lang == "ar" ? "mr-[5%]" : "ml-[5%]"
@@ -481,8 +517,9 @@ const onSubmit = async (e) => {
                 />
               </div>
             </p>
+            
             <p className="dont !mt-4 w-[100%] sm:w-[100%] xs:w-full">
-              {lang === "ar" ? "ليس لديك حساب؟" : "Don’t Have an account ?"}{" "}
+              {lang === "ar" ? "ليس لديك حساب؟" : "Don't Have an account ?"}{" "}
               <span>
                 <NavLink className="signup !font-[500]" to={"/signup"}>
                   &nbsp;{lang === "ar" ? "تسجيل حساب" : "Sign Up"}
@@ -496,6 +533,4 @@ const onSubmit = async (e) => {
     </div>
   );
 };
-
-
 

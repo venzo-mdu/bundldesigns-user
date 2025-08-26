@@ -1833,7 +1833,7 @@ body[dir="rtl"] .checkbox input[type="checkbox"]:checked+label span {
     }
 
     .questions-title {
-        font-size: 15px;
+        font-size: 13px;
         margin: 3% 0 5% 0;
         line-height: 1.5;
     }
@@ -2258,7 +2258,7 @@ body[dir="rtl"] .checkbox input[type="checkbox"]:checked+label span {
     }
 
     .questions-title {
-        font-size: 18px;
+        font-size: 13px;
     }
 
     .customer-text {

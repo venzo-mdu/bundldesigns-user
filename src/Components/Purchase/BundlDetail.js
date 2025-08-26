@@ -999,7 +999,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                             >
                               <div className="flex xs:w-[100%]  w-full">
                                 <p
-                                  className={`text-black sm:text-[18px] text-[18px] xs:text-[16px] font-[400] !mb-1 xs:w-[75%] lg:w-full md:w-full sm:w-full mt-[3px] ${
+                                  className={`text-black sm:text-[18px] text-[18px] xs:text-[16px] font-[400] !mb-1 xs:w-[75%] lg:w-full md:w-full mt-[3px] ${
                                     lang === "ar" ? "text-right" : "text-left"
                                   }`}
                                 >
@@ -1147,7 +1147,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                                   }
                                 >
                                   <div
-                                    className={`flex xs w-full mx-4 ${
+className={`flex mx-4 w-full sm:w-auto ${
                                       addon.category === "Branding" &&
                                       addon.addon_name === "Logo & Identity"
                                         ? ""
@@ -1207,7 +1207,7 @@ export const BundlDetail = ({ user, lang, setLang }) => {
                                     </p>
                                     <p
                                       // className={`sm:text-[18px] text-[18px] xs:text-[16px] font-[400] lg:w-[40%] md:w-[50%]  md:pr-[44px] xs:w-[25%] ${
-                                      className={`sm:text-[18px] text-[18px] xs:text-[16px] font-[400] lg:w-[40%] md:w-[50%]   xs:w-[100%] ${
+                                      className={`sm:text-[18px] text-[18px] xs:text-[16px] font-[400] lg:w-[40%] ${
                                         lang === "ar"
                                           ? "text-left"
                                           : "text-right"
