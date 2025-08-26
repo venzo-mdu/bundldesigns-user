@@ -435,6 +435,26 @@ export const Signup = ({ lang }) => {
       );
       if (response.status === 201) {
         console.log("Signup successfully");
+            setLoading(false);
+
+          toast.success(
+        lang === "ar" 
+          ? "تم التسجيل بنجاح! يرجى التحقق من بريدك الإلكتروني للتفعيل." 
+          : "Signup successful! Please check your email to verify your account.",
+        {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 5000, // Auto close after 5 seconds
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          onClose: () => navigate("/login"), // Navigate to login after toast closes
+          style: {
+            color: "#28a745",
+            fontWeight: "600",
+          },
+        }
+      );
 
         navigate("/login");
       }
