@@ -29,12 +29,6 @@ body {
   overscroll-behavior: none; /* prevent bounce */
 }
 
-input,
-textarea,
-select {
-  font-size: 16px; /* Prevent Safari zoom on focus */
-}
-
 /* Safari-only hack */
 @supports (-webkit-touch-callout: none) {
   html,
@@ -42,17 +36,6 @@ select {
     position: fixed; /* stop rubber-band scroll */
   }
 }
-
-@supports (-webkit-touch-callout: none) {
-  input,
-  textarea,
-  select {
-    font-size: 16px;
-    transform: scale(0.875); /* 14px look while avoiding zoom */
-    transform-origin: left center;
-  }
-}
-
 
 /*  safari browser */
 
