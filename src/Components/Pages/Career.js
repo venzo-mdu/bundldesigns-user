@@ -211,7 +211,9 @@ export default function Career({ lang, setLang }) {
                       id="description"
                       className="mt-2 text-gray-700"
                       dangerouslySetInnerHTML={{
-                        __html: vacancy.description_english,
+                        __html: lang === "ar"
+                          ? vacancy.description_arabic
+                          : vacancy.description_english,
                       }}
                     />
                     <p className="font-bold text-[20px] mt-4">
@@ -221,7 +223,9 @@ export default function Career({ lang, setLang }) {
                       id="description"
                       className=" text-gray-700"
                       dangerouslySetInnerHTML={{
-                        __html: vacancy.qualification_english,
+                        __html: lang === "ar"
+                          ? vacancy.qualification_arabic
+                          : vacancy.qualification_english,
                       }}
                     />
                   </div>
@@ -329,7 +333,9 @@ export default function Career({ lang, setLang }) {
                 </option>
                 {vacancies.map((vacancy) => (
                   <option className="text-[#000000]" value={vacancy.id}>
-                    {vacancy.vacancy_english}
+                    {lang === "ar"
+                      ? vacancy.vacancy_arabic
+                      : vacancy.vacancy_english}
                   </option>
                 ))}
               </select>
