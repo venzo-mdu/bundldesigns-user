@@ -744,7 +744,6 @@ export const MyCart = ({ lang, setLang }) => {
         const resProjects = response.data.data.filter(
           (item) => item.order_status != "in_cart"
         );
-        debugger
         if (resProjects.length === 0) {
           // cartDetails.tax
           if (

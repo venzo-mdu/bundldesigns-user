@@ -44,20 +44,26 @@ export const Questionnaire = ({
   const dispatch = useDispatch();
   const bgColors = ["#F3B7CE", "#1BA56F", "#00A8C8", "#F3B7CE"];
 
-  
   return (
-    <div style={{
-      overflowX:"hidden"
-    }}>
+    <div
+      style={{
+        overflowX: "hidden",
+      }}
+    >
       <Navbar isLang={Qlang} setIsLang={setQLang} />
       <div
         style={
-          
           window.innerWidth <= 441 ? { padding: "1% 2%" } : { padding: "1% 5%" }
         }
       >
-        <div style={{ padding: "2% 0%", borderBottom: "9px solid #000000",overflowX: "hidden" }}>
-<div style={{ overflowX: "hidden" }}>
+        <div
+          style={{
+            padding: "2% 0%",
+            borderBottom: "9px solid #000000",
+            overflowX: "hidden",
+          }}
+        >
+          <div style={{ overflowX: "hidden" }}>
             {/* <p className='title-questionnaire'>{bgTitle}</p> */}
             <div
               className=" pic-container position-relative"

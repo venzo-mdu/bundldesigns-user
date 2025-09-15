@@ -354,7 +354,6 @@ export const BundlDetail = ({ user, lang, setLang }) => {
     createPayload();
   };
   const createPayload = async () => {
-    debugger;
     if (brandInput?.trim() === "") {
       setBrandError(true);
       return;
@@ -451,7 +450,6 @@ export const BundlDetail = ({ user, lang, setLang }) => {
         });
       }
     } catch (error) {
-      debugger;
       console.error("Error creating order:", error);
       localStorage?.setItem("payloads", JSON.stringify(payload));
       navigate(`/login?next_url=bundldetail/${packageID}`, {

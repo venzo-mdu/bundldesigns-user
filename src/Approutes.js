@@ -40,7 +40,7 @@ import VerifyMail from "./Components/Auth/Verifymailpage/verifyMail";
 import { fetchQuestionAnswer } from "./Components/Questionnarie/questionnaire.slice";
 
 import { data } from "./Components/Questionnarie/1";
-
+import sampleQuestions from "./Questions/sample.json";
 const getCookie = (name) => {
   const value = `; ${document.cookie}`;
   const parts = value.split(`; ${name}=`);
@@ -71,6 +71,8 @@ export default function AppRouter() {
         ConfigToken()
       );
       dispatch(fetchQuestionAnswer(response.data.data));
+    }else{
+      dispatch(fetchQuestionAnswer(sampleQuestions.data));
     }
   }
 

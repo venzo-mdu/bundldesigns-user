@@ -274,7 +274,7 @@ export const Questionnaire5 = ({
       answers: newUpdatedAns,
       language: localStorage.getItem("lang") === "ar" ? "arabic" : "english",
       status: "submit",
-      orderId: orderId,
+      ...(orderId && { orderId }),
     };
     if (!validateFields()) {
       return;
@@ -319,7 +319,6 @@ export const Questionnaire5 = ({
         data,
         ConfigToken()
       );
-      ;
       if (response.status === 200) {
         dispatch(questionnaireAction5(formData));
         navigate("/dashboard");
